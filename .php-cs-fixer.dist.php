@@ -9,22 +9,10 @@ $rules = [
     'align_multiline_comment' => true,
     'array_indentation' => true,
     'array_syntax' => ['syntax' => 'short'],
-
-    'binary_operator_spaces' => [
-        'default' => 'single_space',
-        'operators' => ['=>' => null],
-    ],
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
-    'blank_line_before_statement' => [
-        'statements' => ['return'],
-    ],
     'braces' => true,
     'cast_spaces' => true,
-    'class_attributes_separation' => [
-        'elements' => ['method'],
-    ],
-    'class_definition' => true,
     'concat_space' => [
         'spacing' => 'one',
     ],
