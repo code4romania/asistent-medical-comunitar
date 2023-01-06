@@ -6,6 +6,7 @@
     "license": "MPL-2.0",
     "require": {
         "php": "^8.1",
+        "filament/filament": "^2.16",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.46",
         "laravel/sanctum": "^3.0",
@@ -42,6 +43,7 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan filament:upgrade",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models --nowrite"
