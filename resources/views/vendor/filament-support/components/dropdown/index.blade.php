@@ -10,21 +10,19 @@
 <div
     {{ $attributes->class(['filament-dropdown']) }}
     x-data="{
-        toggle: function (event) {
+        toggle: function(event) {
             $refs.panel.toggle(event)
         },
-        open: function (event) {
+        open: function(event) {
             $refs.panel.open(event)
         },
-        close: function (event) {
+        close: function(event) {
             $refs.panel.close(event)
         },
-    }"
->
+    }">
     <div
         x-on:click="toggle"
-        {{ $trigger->attributes->class(['filament-dropdown-trigger cursor-pointer']) }}
-    >
+        {{ $trigger->attributes->class(['filament-dropdown-trigger cursor-pointer']) }}>
         {{ $trigger }}
     </div>
 
@@ -34,12 +32,10 @@
         x-cloak
         x-transition:enter-start="opacity-0 scale-95"
         x-transition:leave-end="opacity-0 scale-95"
-        @if ($attributes->has('wire:key'))
-            wire:ignore.self
-            wire:key="{{ $attributes->get('wire:key') }}.panel"
-        @endif
+        @if ($attributes->has('wire:key')) wire:ignore.self
+            wire:key="{{ $attributes->get('wire:key') }}.panel" @endif
         @class([
-            'filament-dropdown-panel absolute z-10 w-full divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 transition',
+            'filament-dropdown-panel absolute z-10 w-full divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 transition text-gray-900',
             'dark:divide-gray-700 dark:bg-gray-800 dark:ring-white/10' => $darkMode,
             match ($width) {
                 'xs' => 'max-w-xs',
@@ -55,8 +51,7 @@
                 '7xl' => 'max-w-7xl',
                 default => 'max-w-[14rem]',
             },
-        ])
-    >
+        ])>
         {{ $slot }}
     </div>
 </div>

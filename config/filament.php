@@ -142,7 +142,6 @@ return [
         'path' => app_path('Filament/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
-            Widgets\FilamentInfoWidget::class,
         ],
     ],
 
@@ -248,10 +247,10 @@ return [
         'sidebar' => [
             'is_collapsible_on_desktop' => false,
             'groups' => [
-                'are_collapsible' => true,
+                'are_collapsible' => false,
             ],
-            'width' => null,
-            'collapsed_width' => null,
+            'width' => 0,
+            'collapsed_width' => 0,
         ],
     ],
 
