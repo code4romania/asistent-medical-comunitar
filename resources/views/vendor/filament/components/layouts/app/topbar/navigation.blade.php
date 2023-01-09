@@ -15,7 +15,8 @@
                     :url="$item->getUrl()"
                     :badge="$item->getBadge()"
                     :badgeColor="$item->getBadgeColor()"
-                    :shouldOpenUrlInNewTab="$item->shouldOpenUrlInNewTab()">
+                    :shouldOpenUrlInNewTab="$item->shouldOpenUrlInNewTab()"
+                >
                     {{ $item->getLabel() }}
                 </x-filament::layouts.app.topbar.item>
             @endforeach

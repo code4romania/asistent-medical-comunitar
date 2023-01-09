@@ -1,11 +1,7 @@
 @php
     $datalistOptions = $getDatalistOptions();
 
-    $affixLabelClasses = [
-        'whitespace-nowrap group-focus-within:text-primary-500',
-        'text-gray-400' => ! $errors->has($getStatePath()),
-        'text-danger-400' => $errors->has($getStatePath()),
-    ];
+    $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', 'text-gray-400' => !$errors->has($getStatePath()), 'text-danger-400' => $errors->has($getStatePath())];
 @endphp
 
 <x-dynamic-component
@@ -21,13 +17,17 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-text-input-component flex items-center space-x-2 rtl:space-x-reverse group']) }}>
-        @if (($prefixAction = $getPrefixAction()) && (! $prefixAction->isHidden()))
+    <div
+        {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-text-input-component flex items-center space-x-2 rtl:space-x-reverse group']) }}>
+        @if (($prefixAction = $getPrefixAction()) && !$prefixAction->isHidden())
             {{ $prefixAction }}
         @endif
 
         @if ($icon = $getPrefixIcon())
-            <x-dynamic-component :component="$icon" class="w-5 h-5" />
+            <x-dynamic-component
+                :component="$icon"
+                class="h-5 w-5"
+            />
         @endif
 
         @if ($label = $getPrefixLabel())
@@ -38,7 +38,7 @@
 
         <div class="flex-1">
             <input
-                @unless ($hasMask())
+                @unless($hasMask())
                     x-data="{}"
                     {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
                     type="{{ $getType() }}"
@@ -63,22 +63,22 @@
                 {!! $datalistOptions ? "list=\"{$getId()}-list\"" : null !!}
                 {!! ($placeholder = $getPlaceholder()) ? "placeholder=\"{$placeholder}\"" : null !!}
                 {!! ($interval = $getStep()) ? "step=\"{$interval}\"" : null !!}
-                @if (! $isConcealed())
-                    {!! filled($length = $getMaxLength()) ? "maxlength=\"{$length}\"" : null !!}
+                @if (!$isConcealed()) {!! filled($length = $getMaxLength()) ? "maxlength=\"{$length}\"" : null !!}
                     {!! filled($value = $getMaxValue()) ? "max=\"{$value}\"" : null !!}
                     {!! filled($length = $getMinLength()) ? "minlength=\"{$length}\"" : null !!}
                     {!! filled($value = $getMinValue()) ? "min=\"{$value}\"" : null !!}
-                    {!! $isRequired() ? 'required' : null !!}
-                @endif
+                    {!! $isRequired() ? 'required' : null !!} @endif
                 {{ $getExtraInputAttributeBag()->class([
-                    'block w-full transition duration-75 rounded-lg shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 disabled:opacity-70',
+                    'block w-full transition duration-75 rounded-lg shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 disabled:bg-transparent disabled:border-transparent disabled:shadow-none disabled:p-0',
                     'dark:bg-gray-700 dark:text-white dark:focus:border-primary-500' => config('forms.dark_mode'),
                 ]) }}
                 x-bind:class="{
-                    'border-gray-300': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                    'dark:border-gray-600': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors) && @js(config('forms.dark_mode')),
+                    'border-gray-300': !(@js($getStatePath()) in $wire.__instance.serverMemo.errors),
+                    'dark:border-gray-600': !(@js($getStatePath()) in $wire.__instance.serverMemo.errors) &&
+                        @js(config('forms.dark_mode')),
                     'border-danger-600 ring-danger-600': (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                    'dark:border-danger-400 dark:ring-danger-400': (@js($getStatePath()) in $wire.__instance.serverMemo.errors) && @js(config('forms.dark_mode')),
+                    'dark:border-danger-400 dark:ring-danger-400': (@js($getStatePath()) in $wire.__instance.serverMemo
+                        .errors) && @js(config('forms.dark_mode')),
                 }"
             />
         </div>
@@ -90,10 +90,13 @@
         @endif
 
         @if ($icon = $getSuffixIcon())
-            <x-dynamic-component :component="$icon" class="w-5 h-5" />
+            <x-dynamic-component
+                :component="$icon"
+                class="h-5 w-5"
+            />
         @endif
 
-        @if (($suffixAction = $getSuffixAction()) && (! $suffixAction->isHidden()))
+        @if (($suffixAction = $getSuffixAction()) && !$suffixAction->isHidden())
             {{ $suffixAction }}
         @endif
     </div>

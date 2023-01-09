@@ -8,7 +8,7 @@
 
 <li @class([
     'filament-sidebar-item overflow-hidden',
-    'block w-full md:inline-flex md:w-auto',
+    'block w-full lg:inline-flex lg:w-auto',
     'filament-sidebar-item-active' => $active,
 ])>
     <a
