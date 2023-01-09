@@ -3,7 +3,7 @@
         $navigation = \Filament\Facades\Filament::getNavigation();
     @endphp
 
-    <ul class="flex flex-wrap gap-x-4 gap-y-1">
+    <ul class="flex flex-wrap gap-x-2 gap-y-1">
         @foreach ($navigation as $group)
             @foreach ($group->getItems() as $item)
                 @if (!$item instanceof \Filament\Navigation\NavigationItem)
