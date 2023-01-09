@@ -3,7 +3,10 @@
     id="{{ $getId() }}"
     role="tabpanel"
     tabindex="0"
-    x-bind:class="{ 'invisible h-0 p-0 overflow-y-hidden': tab !== '{{ $getId() }}', 'p-6': tab === '{{ $getId() }}' }"
+    x-bind:class="{
+        'invisible h-0 p-0 overflow-y-hidden': tab !== '{{ $getId() }}',
+        'p-6 bg-white shadow rounded-tl-none rounded-lg': tab === '{{ $getId() }}',
+    }"
     x-on:expand-concealing-component.window="
         error = $el.querySelector('[data-validation-error]')
 
