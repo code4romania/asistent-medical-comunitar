@@ -25,14 +25,4 @@ return new class extends Migration
             $table->timestamp('failed_at')->useCurrent();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('failed_jobs');
-    }
 };
