@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProfileResource\Pages;
+use App\Filament\Resources\ProfileResourcesResource\RelationManagers\CoursesRelationManager;
 use App\Models\User;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
 
 class ProfileResource extends Resource
 {
@@ -19,7 +21,6 @@ class ProfileResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static bool $shouldRegisterNavigation = false;
-
     public static function table(Table $table): Table
     {
         return $table
@@ -40,7 +41,7 @@ class ProfileResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CoursesRelationManager::class,
         ];
     }
 
