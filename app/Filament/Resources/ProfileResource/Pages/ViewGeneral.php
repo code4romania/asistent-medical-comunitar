@@ -95,9 +95,4 @@ class ViewGeneral extends ViewRecord
 //            CoursesRelationManager::class
         ];
     }
-
-    private function getTranslationLabel(string $key): string
-    {
-
-    }
 }

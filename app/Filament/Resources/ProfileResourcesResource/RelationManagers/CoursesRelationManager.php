@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProfileResourcesResource\RelationManagers;
 
 use App\Enums\CourseType;
+use App\Services\Helper;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -22,7 +23,7 @@ class CoursesRelationManager extends RelationManager
             ->schema([
                 Forms\Components\Select::make('year')
                     ->label(__('user.profile.studies_page.year'))
-                    ->options(self::generateYears())
+                    ->options(Helper::generateYearsOptions())
                     ->required(),
                 Forms\Components\TextInput::make('provider')
                     ->label(__('user.profile.studies_page.provider'))
@@ -71,15 +72,6 @@ class CoursesRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    private static function generateYears(): array
-    {
-        $years = [];
-        for ($i = 1950; $i < now()->year; $i++) {
-            $years[$i] = $i;
-        }
-        return $years;
     }
 
     private static function getTypes(): array

@@ -10,7 +10,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProfileStudy extends Model
 {
     use HasFactory, ProfileModel;
-    //TODO move this in trait
-    protected $with=['city','county'];
 
+    protected $fillable =
+        [
+            'name',
+            'type',
+            'emitted_institution',
+            'duration',
+            'county_id',
+            'city_id',
+            'start_year',
+            'end_year'
+        ];
+    //TODO move this in trait
+    protected $with = ['city', 'county'];
 }

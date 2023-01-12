@@ -11,10 +11,10 @@ trait ResolveTranslateForProfiles
         $class = get_class($this);
         $view = last(explode("\\", $class));
         $keyPath = match ($view) {
-            'ViewStudies' => 'user.profile.studies_page.',
-            'ViewGeneral' => 'user.profile.general_page.',
-            'ViewEmployers' => 'user.profile.employers_page.',
-            'ViewArea' => 'user.profile.area_page.',
+            'ViewStudies', 'EditStudies' => 'user.profile.studies_page.',
+            'ViewGeneral', 'EditGeneral' => 'user.profile.general_page.',
+            'ViewEmployers', 'EditEmployers' => 'user.profile.employers_page.',
+            'ViewArea', 'EditArea' => 'user.profile.area_page.',
         };
         return __($keyPath . $key);
     }
