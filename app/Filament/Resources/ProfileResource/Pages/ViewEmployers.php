@@ -109,4 +109,10 @@ class ViewEmployers extends ViewRecord
             ])
             ->columns(1);
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [
+        ];
+    }
 }
