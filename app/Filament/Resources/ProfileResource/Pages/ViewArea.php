@@ -75,4 +75,8 @@ class ViewArea extends ViewRecord
         return [
         ];
     }
+    private function getTranslationLabel(string $key): string
+    {
+        return __('user.profile.employers_page.' . $key);
+    }
 }

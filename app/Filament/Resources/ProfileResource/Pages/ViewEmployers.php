@@ -44,7 +44,7 @@ class ViewEmployers extends ViewRecord
                                 ])
                                     ->schema([
                                         Components\Placeholder::make('name')
-                                            ->label(__('user.profile.employers_page.name'))
+                                            ->label($this->getTranslationLabel('name'))
                                             ->content(fn (ProfileEmployer $record) => $record->name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -52,15 +52,15 @@ class ViewEmployers extends ViewRecord
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('type')
-                                            ->label(__('user.profile.employers_page.type'))
-                                            ->content(fn (ProfileEmployer $record) => __('user.profile.employers_page.' . $record->type))
+                                            ->label($this->getTranslationLabel('type'))
+                                            ->content(fn (ProfileEmployer $record) => $this->getTranslationLabel('' . $record->type))
                                             ->columnSpan([
                                                 'sm' => 2,
                                                 'xl' => 3,
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('project_name')
-                                            ->label(__('user.profile.employers_page.duration'))
+                                            ->label($this->getTranslationLabel('duration'))
                                             ->content(fn (ProfileEmployer $record) => $record->project_name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -68,7 +68,7 @@ class ViewEmployers extends ViewRecord
                                                 '2xl' => 4,
                                             ])->hidden(fn (ProfileEmployer $record) => empty($record->project_name)),
                                         Components\Placeholder::make('country_id')
-                                            ->label(__('user.profile.employers_page.county'))
+                                            ->label($this->getTranslationLabel('county'))
                                             ->content(fn (ProfileEmployer $record) => $record->county->name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -76,7 +76,7 @@ class ViewEmployers extends ViewRecord
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('city_id')
-                                            ->label(__('user.profile.employers_page.city'))
+                                            ->label($this->getTranslationLabel('city'))
                                             ->content(fn (ProfileEmployer $record) => $record->city->name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -84,7 +84,7 @@ class ViewEmployers extends ViewRecord
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('start_date')
-                                            ->label(__('user.profile.employers_page.start_year'))
+                                            ->label($this->getTranslationLabel('start_date'))
                                             ->content(fn (ProfileEmployer $record) => $record->start_date)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -92,7 +92,7 @@ class ViewEmployers extends ViewRecord
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('end_date')
-                                            ->label(__('user.profile.employers_page.end_year'))
+                                            ->label($this->getTranslationLabel('end_date'))
                                             ->content(fn (ProfileEmployer $record) => $record->end_date)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -104,7 +104,7 @@ class ViewEmployers extends ViewRecord
                     ])
                     ->label(__('user.profile.employers'))
                     ->defaultItems(1)
-                    ->createItemButtonLabel(__('user.profile.employers_page.add_btn'))
+                    ->createItemButtonLabel($this->getTranslationLabel('add_btn'))
                     ->disableItemMovement(),
             ])
             ->columns(1);
@@ -114,5 +114,10 @@ class ViewEmployers extends ViewRecord
     {
         return [
         ];
+    }
+
+    private function getTranslationLabel(string $key): string
+    {
+        return __('user.profile.employers_page.' . $key);
     }
 }

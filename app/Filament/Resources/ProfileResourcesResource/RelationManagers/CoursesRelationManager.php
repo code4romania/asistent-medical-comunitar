@@ -21,19 +21,27 @@ class CoursesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\Select::make('year')
+                    ->label(__('user.profile.studies_page.year'))
                     ->options(self::generateYears())
                     ->required(),
                 Forms\Components\TextInput::make('provider')
+                    ->label(__('user.profile.studies_page.provider'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('name')
+                    ->label(__('user.profile.studies_page.name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
+                    ->label(__('user.profile.studies_page.type_courses'))
                     ->required()
                 ->options(self::getTypes()),
-                Forms\Components\DatePicker::make('start_date')->nullable(),
-                Forms\Components\DatePicker::make('end_date')->nullable(),
+                Forms\Components\DatePicker::make('start_date')
+                    ->label(__('user.profile.studies_page.start_date'))
+                    ->nullable(),
+                Forms\Components\DatePicker::make('end_date')
+                    ->label(__('user.profile.studies_page.end_date'))
+                    ->nullable(),
             ]);
     }
 
@@ -41,11 +49,14 @@ class CoursesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-
-                Tables\Columns\TextColumn::make('year'),
-                Tables\Columns\TextColumn::make('provider'),
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('year')
+                    ->label(__('user.profile.studies_page.year')),
+                Tables\Columns\TextColumn::make('provider')
+                    ->label(__('user.profile.studies_page.provider')),
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('user.profile.studies_page.name')),
                 Tables\Columns\TextColumn::make('type')
+                    ->label(__('user.profile.studies_page.type_courses'))
             ])
             ->filters([
                 //
