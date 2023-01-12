@@ -6,6 +6,7 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
 use App\Filament\Resources\ProfileResource;
+use App\Filament\Resources\ProfileResourcesResource\RelationManagers\CoursesRelationManager;
 use App\Forms\Components\Subsection;
 use App\Models\User;
 use Filament\Forms\Components\Placeholder;
@@ -74,5 +75,11 @@ class ViewGeneral extends ViewRecord
                     ->columns(2),
             ])
             ->columns(1);
+    }
+    protected function getRelationManagers(): array
+    {
+        return [
+//            CoursesRelationManager::class
+        ];
     }
 }

@@ -8,13 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 trait ProfileModel
 {
-    public function __construct()
-    {
-        $this->relationResolver(City::class, 'city_id');
-        $this->relationResolver(County::class, 'county_id');
-//        dd($this->getRelations());
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
