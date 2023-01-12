@@ -8,6 +8,7 @@ use App\Concerns\ResolvesCurrentUserProfile;
 use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
 use App\Models\ProfileStudy;
+use App\Models\User;
 use Filament\Forms\Components;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
