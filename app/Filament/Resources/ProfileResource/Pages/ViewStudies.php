@@ -91,7 +91,7 @@ class ViewStudies extends ViewRecord
                                                 'xl' => 3,
                                                 '2xl' => 4,
                                             ]),
-                                        Components\Placeholder::make('city_id')
+                                        Components\Placeholder::make('start_year')
                                             ->label(__('user.profile.studies_page.start_year'))
                                             ->content(fn (ProfileStudy $record) => $record->start_year)
                                             ->columnSpan([
@@ -99,7 +99,7 @@ class ViewStudies extends ViewRecord
                                                 'xl' => 3,
                                                 '2xl' => 4,
                                             ]),
-                                        Components\Placeholder::make('city_id')
+                                        Components\Placeholder::make('end_year')
                                             ->label(__('user.profile.studies_page.end_year'))
                                             ->content(fn (ProfileStudy $record) => $record->end_year)
                                             ->columnSpan([
