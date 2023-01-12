@@ -8,9 +8,11 @@ namespace Database\Seeders;
 use App\Models\City;
 use App\Models\County;
 use App\Models\ProfileCourse;
+use App\Models\ProfileEmployer;
 use App\Models\ProfileStudy;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,5 +40,10 @@ class DatabaseSeeder extends Seeder
         ProfileCourse::factory(['user_id' => 1])
             ->count(10)
             ->create();
+
+        ProfileEmployer::factory(['user_id' => 1, 'county_id' => 1, 'city_id' => 1, 'end_date'=>now()])->count(3)->create();
+
+        ProfileEmployer::factory(['user_id' => 1, 'county_id' => 1, 'city_id' => 1])->count(3)->create();
+        ProfileEmployer::factory(['user_id' => 1, 'county_id' => 1, 'city_id' => 1, 'project_name'=>'Proiect '. Str::createRandomStringsNormally()])->count(3)->create();
     }
 }
