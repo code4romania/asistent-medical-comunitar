@@ -6,6 +6,8 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
 use App\Concerns\ResolveTranslateForProfiles;
+use App\Enums\CourseType;
+use App\Enums\StudyType;
 use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
 use App\Models\ProfileStudy;
@@ -55,7 +57,7 @@ class ViewStudies extends ViewRecord
                                             ]),
                                         Components\Placeholder::make('type')
                                             ->label($this->getTranslationLabel('type'))
-                                            ->content(fn (ProfileStudy $record) => __('user.profile.studies_page.'.$record->type))
+                                            ->content(fn (ProfileStudy $record) => $this->getTranslationLabel($record->type))
                                             ->columnSpan([
                                                 'sm' => 2,
                                                 'xl' => 3,
@@ -118,5 +120,11 @@ class ViewStudies extends ViewRecord
                     ->disableItemMovement(),
             ])
             ->columns(1);
+    }
+    private static function getTypes(): array
+    {
+        return  collect(StudyType::values())
+            ->mapWithKeys(fn ($type) => [$type => __('user.profile.studies_page.' . $type)
+            ])->toArray();
     }
 }

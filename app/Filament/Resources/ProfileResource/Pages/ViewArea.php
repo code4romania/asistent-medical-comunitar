@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
+use App\Concerns\ResolveTranslateForProfiles;
 use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
 use App\Models\Area;
@@ -15,7 +16,7 @@ use Filament\Resources\Pages\ViewRecord;
 
 class ViewArea extends ViewRecord
 {
-    use ResolvesCurrentUserProfile;
+    use ResolvesCurrentUserProfile, ResolveTranslateForProfiles;
 
     protected static string $resource = ProfileResource::class;
 
@@ -45,7 +46,7 @@ class ViewArea extends ViewRecord
                                     ->schema([
 
                                         Components\Placeholder::make('country_id')
-                                            ->label(__('user.profile.area_page.county'))
+                                            ->label($this->getTranslationLabel('county'))
                                             ->content(fn (Area $record) => $record->county->name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -53,7 +54,7 @@ class ViewArea extends ViewRecord
                                                 '2xl' => 4,
                                             ]),
                                         Components\Placeholder::make('city_id')
-                                            ->label(__('user.profile.area_page.city'))
+                                            ->label($this->getTranslationLabel('city'))
                                             ->content(fn (Area $record) => $record->city->name)
                                             ->columnSpan([
                                                 'sm' => 2,
@@ -65,18 +66,15 @@ class ViewArea extends ViewRecord
                     ])
                     ->label(__('user.profile.employers'))
                     ->defaultItems(1)
-                    ->createItemButtonLabel(__('user.profile.area_page.add_btn'))
+                    ->createItemButtonLabel($this->getTranslationLabel('add_btn'))
                     ->disableItemMovement(),
             ])
             ->columns(1);
     }
+
     protected function getRelationManagers(): array
     {
         return [
         ];
-    }
-    private function getTranslationLabel(string $key): string
-    {
-        return __('user.profile.employers_page.' . $key);
     }
 }

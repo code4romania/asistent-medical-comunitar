@@ -10,7 +10,7 @@ class Helper
         for ($i = 1950; $i < now()->year; $i++) {
             $years[$i] = $i;
         }
-        return $years;
-    }
 
+        return array_reverse($years);
+    }
 }

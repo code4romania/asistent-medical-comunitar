@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
+use App\Concerns\ResolveTranslateForProfiles;
 use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
 use App\Models\ProfileEmployer;
@@ -15,7 +16,7 @@ use Filament\Resources\Pages\ViewRecord;
 
 class ViewEmployers extends ViewRecord
 {
-    use ResolvesCurrentUserProfile;
+    use ResolvesCurrentUserProfile, ResolveTranslateForProfiles;
 
     protected static string $resource = ProfileResource::class;
 
@@ -114,10 +115,5 @@ class ViewEmployers extends ViewRecord
     {
         return [
         ];
-    }
-
-    private function getTranslationLabel(string $key): string
-    {
-        return __('user.profile.employers_page.' . $key);
     }
 }
