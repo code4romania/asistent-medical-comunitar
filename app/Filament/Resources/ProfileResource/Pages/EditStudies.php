@@ -56,7 +56,7 @@ class EditStudies extends EditRecord
                                             ]),
                                         Components\Select::make('type')
                                             ->label($this->getTranslationLabel('type'))
-                                            ->options(StudyType::values())
+                                            ->options($this->getTypes())
                                             ->columnSpan([
                                                 'sm' => 2,
                                                 'xl' => 3,
@@ -125,5 +125,11 @@ class EditStudies extends EditRecord
                     ->disableItemMovement(),
             ])
             ->columns(1);
+    }
+    private static function getTypes(): array
+    {
+        return  collect(StudyType::values())
+            ->mapWithKeys(fn ($type) => [$type => __('user.profile.studies_page.' . $type)
+            ])->toArray();
     }
 }
