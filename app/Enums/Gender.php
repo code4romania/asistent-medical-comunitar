@@ -13,4 +13,9 @@ enum Gender: string
     case female = 'female';
     case male = 'male';
     case other = 'other';
+
+    protected function translationKeyPrefix(): ?string
+    {
+        return 'user.profile.gender';
+    }
 }

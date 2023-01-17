@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\EmployerType;
 use App\Models\City;
 use App\Models\County;
@@ -8,7 +10,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -18,15 +21,15 @@ return new class extends Migration {
     {
         Schema::create('profile_employers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->timestamps();
             $table->string('name');
             $table->enum('type', EmployerType::values());
-            $table->string('project_name')->nullable();
-            $table->foreignIdFor(County::class);
-            $table->foreignIdFor(City::class);
-            $table->date('start_date');
+            $table->string('project')->nullable();
+            $table->foreignIdFor(County::class)->nullable()->constrained();
+            $table->foreignIdFor(City::class)->nullable()->constrained();
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->timestamps();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
         });
     }
 };

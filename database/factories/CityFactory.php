@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\City;
+use App\Models\County;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +21,8 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> fake()->city(),
+            'name'      => fake()->city(),
+            'county_id' => County::factory(),
         ];
     }
 }

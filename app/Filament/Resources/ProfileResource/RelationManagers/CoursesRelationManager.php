@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ProfileResourcesResource\RelationManagers;
+declare(strict_types=1);
+
+namespace App\Filament\Resources\ProfileResource\RelationManagers;
 
 use App\Enums\CourseType;
 use App\Services\Helper;
@@ -15,6 +17,7 @@ class CoursesRelationManager extends RelationManager
     protected static string $relationship = 'courses';
 
     protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $title = 'user.profile.studies_page.courses';
 
     public static function form(Form $form): Form
@@ -36,7 +39,7 @@ class CoursesRelationManager extends RelationManager
                 Forms\Components\Select::make('type')
                     ->label(__('user.profile.studies_page.type_courses'))
                     ->required()
-                ->options(self::getTypes()),
+                    ->options(CourseType::options()),
                 Forms\Components\DatePicker::make('start_date')
                     ->label(__('user.profile.studies_page.start_date'))
                     ->nullable(),
@@ -57,7 +60,7 @@ class CoursesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('user.profile.studies_page.name')),
                 Tables\Columns\TextColumn::make('type')
-                    ->label(__('user.profile.studies_page.type_courses'))
+                    ->label(__('user.profile.studies_page.type_courses')),
             ])
             ->filters([
                 //
@@ -72,12 +75,5 @@ class CoursesRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    private static function getTypes(): array
-    {
-        return  collect(CourseType::values())
-            ->mapWithKeys(fn ($type) => [$type => __('user.profile.studies_page.' . $type)
-            ])->toArray();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\County;
@@ -18,7 +20,7 @@ class CountyFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>fake()->city()
+            'name' => fake()->city(),
         ];
     }
 }

@@ -4,127 +4,64 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Concerns\ResolveTranslateForProfiles;
-use App\Enums\CourseType;
-use App\Enums\StudyType;
-use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
-use App\Models\ProfileStudy;
-use App\Models\User;
-use Filament\Forms\Components;
-use Filament\Pages\Actions;
+use App\Models\Profile\Study;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ViewStudies extends ViewRecord
 {
-    use ResolvesCurrentUserProfile, ResolveTranslateForProfiles;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
-
     protected function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Components\Repeater::make('studies_repeater')
-                    ->relationship('studies')
+                Repeater::make('studies')
+                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
+                    ->label('user.profile.section.studies')
+                    ->translateLabel()
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-academic-cap')
+                            ->columns(2)
                             ->schema([
-                                Components\Grid::make([
-                                    'default' => 1,
-                                    'sm' => 4,
-                                    'xl' => 6,
-                                    '2xl' => 8,
-                                ])
-                                    ->schema([
-                                        Components\Placeholder::make('name')
-                                            ->label($this->getTranslationLabel('name'))
-                                            ->content(fn (ProfileStudy $record) => $record->name)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('type')
-                                            ->label($this->getTranslationLabel('type'))
-                                            ->content(fn (ProfileStudy $record) => $this->getTranslationLabel($record->type))
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('emitted_institution')
-                                            ->label($this->getTranslationLabel('emitted_institution'))
-                                            ->content(fn (ProfileStudy $record) => $record->emitted_institution)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('duration')
-                                            ->label($this->getTranslationLabel('duration'))
-                                            ->content(fn (ProfileStudy $record) => $record->duration)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('county_id')
-                                            ->label($this->getTranslationLabel('county'))
-                                            ->content(fn (ProfileStudy $record) => $record->county->name)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('city_id')
-                                            ->label($this->getTranslationLabel('city'))
-                                            ->content(fn (ProfileStudy $record) => $record->city->name)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('start_year')
-                                            ->label($this->getTranslationLabel('start_year'))
-                                            ->content(fn (ProfileStudy $record) => $record->start_year)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('end_year')
-                                            ->label($this->getTranslationLabel('end_year'))
-                                            ->content(fn (ProfileStudy $record) => $record->end_year)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                    ]),
+                                Placeholder::make('name')
+                                    ->label('user.profile.field.study.name')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->name),
+                                Placeholder::make('type')
+                                    ->label('user.profile.field.study.type')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->type->label()),
+                                Placeholder::make('institution')
+                                    ->label('user.profile.field.study.institution')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->institution),
+                                Placeholder::make('duration')
+                                    ->label('user.profile.field.study.duration')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->duration),
+                                Placeholder::make('county')
+                                    ->label('user.profile.field.county')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->county_name),
+                                Placeholder::make('city')
+                                    ->label('user.profile.field.city')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->city_name),
+                                Placeholder::make('start_year')
+                                    ->label('user.profile.field.start_date')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->start_year),
+                                Placeholder::make('end_year')
+                                    ->label('user.profile.field.end_date')
+                                    ->translateLabel()
+                                    ->content(fn (Study $record) => $record->end_year),
                             ]),
-                    ])
-                    ->label($this->getTranslationLabel('title'))
-                    ->defaultItems(1)
-                    ->createItemButtonLabel($this->getTranslationLabel('add_btn'))
-                    ->disableItemMovement(),
-            ])
-            ->columns(1);
-    }
-    private static function getTypes(): array
-    {
-        return  collect(StudyType::values())
-            ->mapWithKeys(fn ($type) => [$type => __('user.profile.studies_page.' . $type)
-            ])->toArray();
+                    ]),
+                // ->createItemButtonLabel(__('user.profile.field.add_studies_btn'))
+            ]);
     }
 }

@@ -8,11 +8,38 @@ trait ArrayableEnum
 {
     public static function names(): array
     {
-        return array_column(self::cases(), 'name');
+        return collect(self::cases())
+            ->pluck('name')
+            ->all();
     }
 
     public static function values(): array
     {
-        return array_column(self::cases(), 'value');
+        return collect(self::cases())
+            ->pluck('value')
+            ->all();
+    }
+
+    public static function options(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn (self $case) => [
+                $case->value => $case->label(),
+            ])
+            ->all();
+    }
+
+    public function label(): string
+    {
+        $label = collect([$this->translationKeyPrefix(), $this->value])
+            ->filter()
+            ->implode('.');
+
+        return __($label);
+    }
+
+    protected function translationKeyPrefix(): ?string
+    {
+        return null;
     }
 }

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Enums\Gender;
+use App\Models\City;
+use App\Models\County;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -30,8 +32,8 @@ return new class extends Migration
             $table->enum('gender', Gender::values())->nullable();
             $table->string('cnp', 13)->nullable();
 
-            // TODO: județ domiciliu
-            // TODO: localitate domiciliu
+            $table->foreignIdFor(County::class)->nullable()->constrained();
+            $table->foreignIdFor(City::class)->nullable()->constrained();
 
             $table->string('accreditation_number', 50)->nullable();
             $table->date('accreditation_date')->nullable();

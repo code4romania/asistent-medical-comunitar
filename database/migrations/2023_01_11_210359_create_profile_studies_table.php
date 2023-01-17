@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\StudyType;
 use App\Models\City;
 use App\Models\County;
@@ -8,7 +10,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -18,18 +21,16 @@ return new class extends Migration {
     {
         Schema::create('profile_studies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->timestamps();
             $table->string('name');
             $table->enum('type', StudyType::values());
-            $table->string('emitted_institution');
-            $table->integer('duration');
-            $table->foreignIdFor(County::class);
-            $table->foreignIdFor(City::class);
+            $table->string('institution')->nullable();
+            $table->foreignIdFor(County::class)->nullable()->constrained();
+            $table->foreignIdFor(City::class)->nullable()->constrained();
+            $table->unsignedTinyInteger('duration')->nullable();
             $table->year('start_year')->nullable();
             $table->year('end_year')->nullable();
-
-            $table->timestamps();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
         });
     }
-
 };

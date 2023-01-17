@@ -226,13 +226,13 @@ return [
         'actions' => [
             'modal' => [
                 'actions' => [
-                    'alignment' => 'left',
+                    'alignment' => 'right',
                 ],
             ],
         ],
         'forms' => [
             'actions' => [
-                'alignment' => 'left',
+                'alignment' => 'right',
             ],
             'have_inline_labels' => false,
         ],

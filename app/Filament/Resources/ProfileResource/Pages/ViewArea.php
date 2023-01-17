@@ -4,77 +4,48 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Concerns\ResolveTranslateForProfiles;
-use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
-use App\Models\Area;
-use Filament\Forms\Components;
-use Filament\Pages\Actions;
+use App\Models\Profile\Area;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Database\Eloquent\Builder;
 
 class ViewArea extends ViewRecord
 {
-    use ResolvesCurrentUserProfile, ResolveTranslateForProfiles;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
-
     protected function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Components\Repeater::make('studies_repeater')
-                    ->relationship('areas')
+                Repeater::make('areas')
+                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
                     ->schema([
                         Subsection::make()
-                            ->icon('heroicon-o-map')
+                            ->icon('heroicon-o-location-marker')
+                            ->columns(2)
                             ->schema([
-                                Components\Grid::make([
-                                    'default' => 1,
-                                    'sm' => 4,
-                                    'xl' => 6,
-                                    '2xl' => 8,
-                                ])
-                                    ->schema([
+                                Placeholder::make('county')
+                                    ->label('user.profile.field.county')
+                                    ->translateLabel()
+                                    ->content(fn (Area $record) => $record->county_name),
+                                Placeholder::make('city')
+                                    ->label('user.profile.field.city')
+                                    ->translateLabel()
+                                    ->content(fn (Area $record) => $record->city_name),
 
-                                        Components\Placeholder::make('country_id')
-                                            ->label($this->getTranslationLabel('county'))
-                                            ->content(fn (Area $record) => $record->county->name)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                        Components\Placeholder::make('city_id')
-                                            ->label($this->getTranslationLabel('city'))
-                                            ->content(fn (Area $record) => $record->city->name)
-                                            ->columnSpan([
-                                                'sm' => 2,
-                                                'xl' => 3,
-                                                '2xl' => 4,
-                                            ]),
-                                    ]),
                             ]),
                     ])
-                    ->label(__('user.profile.employers'))
+                    ->label('user.profile.section.area')
+                    ->translateLabel()
                     ->defaultItems(1)
-                    ->createItemButtonLabel($this->getTranslationLabel('add_btn'))
+                    // ->createItemButtonLabel()
                     ->disableItemMovement(),
-            ])
-            ->columns(1);
+            ]);
     }
 
     protected function getRelationManagers(): array
     {
-        return [
-        ];
+        return [];
     }
 }
