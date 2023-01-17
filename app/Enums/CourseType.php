@@ -6,16 +6,16 @@ namespace App\Enums;
 
 use App\Concerns\ArrayableEnum;
 
-enum Gender: string
+enum CourseType: string
 {
     use ArrayableEnum;
 
-    case female = 'female';
-    case male = 'male';
+    case online = 'online';
+    case offline = 'offline';
     case other = 'other';
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.gender';
+        return 'user.profile.studies_page';
     }
 }

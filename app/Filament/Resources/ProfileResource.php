@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProfileResource\Pages;
+use App\Filament\Resources\ProfileResource\RelationManagers\CoursesRelationManager;
 use App\Models\User;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Str;
 
 class ProfileResource extends Resource
 {
@@ -40,7 +42,7 @@ class ProfileResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CoursesRelationManager::class,
         ];
     }
 
@@ -61,5 +63,16 @@ class ProfileResource extends Resource
             'area.view' => Pages\ViewArea::route('/area'),
             'area.edit' => Pages\EditArea::route('/area/edit'),
         ];
+    }
+
+    public static function getProfileSections(): array
+    {
+        return collect(self::getPages())
+            ->filter(fn ($value, string $key) => Str::endsWith($key, '.view'))
+            ->keys()
+            ->mapWithKeys(fn (string $key) => [
+                Str::beforeLast($key, '.view') => self::getUrl($key),
+            ])
+            ->all();
     }
 }

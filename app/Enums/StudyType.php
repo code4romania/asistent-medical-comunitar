@@ -6,16 +6,18 @@ namespace App\Enums;
 
 use App\Concerns\ArrayableEnum;
 
-enum Gender: string
+enum StudyType: string
 {
     use ArrayableEnum;
 
-    case female = 'female';
-    case male = 'male';
+    case secondary = 'secondary';
+    case postSecondary = 'post_secondary';
+    case university = 'university';
+    case postGrad = 'post_grad';
     case other = 'other';
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.gender';
+        return 'user.profile.study';
     }
 }

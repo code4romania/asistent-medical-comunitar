@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\Gender;
+use App\Models\Profile\Area;
+use App\Models\Profile\Course;
+use App\Models\Profile\Employer;
+use App\Models\Profile\Study;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -36,13 +40,20 @@ class UserFactory extends Factory
      */
     public function withProfile(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'phone'                => fake()->phoneNumber(),
-            'date_of_birth'        => fake()->date(),
-            'gender'               => fake()->randomElement(Gender::values()),
-            'cnp'                  => null,
-            'accreditation_number' => null,
-            'accreditation_date'   => fake()->date(),
-        ]);
+        return $this
+            ->state(fn (array $attributes) => [
+                'phone'                => fake()->phoneNumber(),
+                'date_of_birth'        => fake()->date(),
+                'gender'               => fake()->randomElement(Gender::values()),
+                'cnp'                  => null,
+                'accreditation_number' => null,
+                'accreditation_date'   => fake()->date(),
+            ])
+            ->has(Area::factory()->count(3))
+            ->has(Study::factory()->count(5))
+            ->has(Course::factory()->count(10))
+            ->has(Employer::factory()->past())
+            ->has(Employer::factory()->past()->withProject())
+            ->has(Employer::factory()->current());
     }
 }

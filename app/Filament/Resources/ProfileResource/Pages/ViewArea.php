@@ -4,32 +4,48 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Filament\Resources\ProfileResource;
+use App\Forms\Components\Subsection;
+use App\Models\Profile\Area;
 use Filament\Forms\Components\Placeholder;
-use Filament\Pages\Actions;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Database\Eloquent\Builder;
 
 class ViewArea extends ViewRecord
 {
-    use ResolvesCurrentUserProfile;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
-
     protected function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Placeholder::make('data.text')->content('aaaaaa'),
-                Placeholder::make('data.text')->content('aaaaaa'),
+                Repeater::make('areas')
+                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
+                    ->schema([
+                        Subsection::make()
+                            ->icon('heroicon-o-location-marker')
+                            ->columns(2)
+                            ->schema([
+                                Placeholder::make('county')
+                                    ->label('user.profile.field.county')
+                                    ->translateLabel()
+                                    ->content(fn (Area $record) => $record->county_name),
+                                Placeholder::make('city')
+                                    ->label('user.profile.field.city')
+                                    ->translateLabel()
+                                    ->content(fn (Area $record) => $record->city_name),
+
+                            ]),
+                    ])
+                    ->label('user.profile.section.area')
+                    ->translateLabel()
+                    ->defaultItems(1)
+                    // ->createItemButtonLabel()
+                    ->disableItemMovement(),
             ]);
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

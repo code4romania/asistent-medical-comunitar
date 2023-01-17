@@ -4,32 +4,30 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Filament\Resources\ProfileResource;
-use Filament\Forms\Components\TextInput;
-use Filament\Pages\Actions;
+use App\Forms\Components\Location;
+use App\Forms\Components\Subsection;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\EditRecord;
 
 class EditArea extends EditRecord
 {
-    use ResolvesCurrentUserProfile;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
-
     protected function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                TextInput::make('data.text'),
-                TextInput::make('data.text'),
+                Repeater::make('areas')
+                    ->relationship()
+                    ->label(__('user.profile.section.area'))
+                    ->createItemButtonLabel(__('user.profile.field.area.create'))
+                    ->minItems(1)
+                    ->schema([
+                        Subsection::make()
+                            ->icon('heroicon-o-location-marker')
+                            ->schema([
+                                Location::make(),
+                            ]),
+                    ]),
             ]);
     }
 }

@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Concerns\HasLocation;
+use App\Enums\Gender;
+use App\Models\Profile\Area;
+use App\Models\Profile\Course;
+use App\Models\Profile\Employer;
+use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -16,6 +22,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasApiTokens;
     use HasFactory;
+    use HasLocation;
     use Notifiable;
 
     /**
@@ -46,13 +53,8 @@ class User extends Authenticatable implements FilamentUser, HasName
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'gender' => Gender::class,
     ];
 
     public function canAccessFilament(): bool
@@ -63,5 +65,25 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getFilamentName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function studies(): HasMany
+    {
+        return $this->hasMany(Study::class);
+    }
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function employers(): HasMany
+    {
+        return $this->hasMany(Employer::class);
+    }
+
+    public function areas(): HasMany
+    {
+        return $this->hasMany(Area::class);
     }
 }

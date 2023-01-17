@@ -4,32 +4,64 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Filament\Resources\ProfileResource;
+use App\Forms\Components\Subsection;
+use App\Models\Profile\Employer;
 use Filament\Forms\Components\Placeholder;
-use Filament\Pages\Actions;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ViewEmployers extends ViewRecord
 {
-    use ResolvesCurrentUserProfile;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
-
     protected function form(Form $form): Form
     {
         return $form
             ->schema([
-                Placeholder::make('data.text')->content('aaaaaa'),
-                Placeholder::make('data.text')->content('aaaaaa'),
-            ]);
+                Repeater::make('employers')
+                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
+                    ->schema([
+                        Subsection::make()
+                            ->icon('heroicon-o-office-building')
+                            ->columns(2)
+                            ->schema([
+                                Placeholder::make('name')
+                                    ->label(__('user.profile.field.employer.name'))
+                                    ->content(fn (Employer $record) => $record->name),
+                                Placeholder::make('type')
+                                    ->label('user.profile.field.employer.type')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->type->label()),
+                                Placeholder::make('project_name')
+                                    ->label('user.profile.field.employer.project')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->project_name)
+                                    ->hidden(fn (Employer $record) => empty($record->project_name)),
+                                Placeholder::make('county')
+                                    ->label('user.profile.field.county')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->county_name),
+                                Placeholder::make('city')
+                                    ->label('user.profile.field.city')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->city_name),
+                                Placeholder::make('start_date')
+                                    ->label('user.profile.field.start_date')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->start_date),
+                                Placeholder::make('end_date')
+                                    ->label('user.profile.field.end_date')
+                                    ->translateLabel()
+                                    ->content(fn (Employer $record) => $record->end_date),
+                            ]),
+                    ])
+                    ->label('user.profile.section.employers')
+                    ->translateLabel(),
+            ])
+            ->columns(1);
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

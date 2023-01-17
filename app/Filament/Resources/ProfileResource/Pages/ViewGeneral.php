@@ -4,75 +4,94 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Concerns\ResolvesCurrentUserProfile;
-use App\Filament\Resources\ProfileResource;
 use App\Forms\Components\Subsection;
 use App\Models\User;
 use Filament\Forms\Components\Placeholder;
-use Filament\Pages\Actions;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\View\View;
 
 class ViewGeneral extends ViewRecord
 {
-    use ResolvesCurrentUserProfile;
-
-    protected static string $resource = ProfileResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
+    // protected function getHeader(): View
+    // {
+    //     return view('filament.settings.custom-header');
+    // }
 
     protected function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
                 Subsection::make()
                     ->icon('heroicon-o-user')
+                    ->columns(2)
                     ->schema([
                         Placeholder::make('first_name')
+                            ->label('user.profile.field.first_name')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->first_name),
                         Placeholder::make('last_name')
+                            ->label('user.profile.field.last_name')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->last_name),
                         Placeholder::make('date_of_birth')
+                            ->label('user.profile.field.date_of_birth')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->date_of_birth),
                         Placeholder::make('gender')
-                            ->content(fn (User $record) => $record->gender),
+                            ->label('user.profile.field.gender')
+                            ->translateLabel()
+                            ->content(fn (User $record) => $record->gender->label()),
                         Placeholder::make('cnp')
+                            ->label('user.profile.field.cnp')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->cnp),
-                    ])
-                    ->columns(2),
+                    ]),
 
                 Subsection::make()
                     ->icon('heroicon-o-location-marker')
+                    ->columns(2)
                     ->schema([
                         Placeholder::make('county')
-                            ->content(fn (User $record) => 'Județ'),
+                            ->label('user.profile.field.county')
+                            ->translateLabel()
+                            ->content(fn (User $record) => $record->county_name),
                         Placeholder::make('city')
-                            ->content(fn (User $record) => 'City'),
+                            ->label('user.profile.field.city')
+                            ->translateLabel()
+                            ->content(fn (User $record) => $record->city_name),
                         Placeholder::make('email')
+                            ->label('user.profile.field.email')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->email),
                         Placeholder::make('phone')
+                            ->label('user.profile.field.phone')
+                            ->translateLabel()
                             ->content(fn (User $record) => $record->phone),
-
-                    ])
-                    ->columns(2),
+                    ]),
 
                 Subsection::make()
                     ->icon('heroicon-o-document')
+                    ->columns(2)
                     ->schema([
                         Placeholder::make('accreditation_number')
-                            ->content(fn (User $record) => $record->accreditation_number),
+                            ->content(fn (User $record) => $record->accreditation_number)
+                            ->label('user.profile.field.accreditation_number')
+                            ->translateLabel(),
                         Placeholder::make('accreditation_date')
-                            ->content(fn (User $record) => $record->accreditation_date),
+                            ->content(fn (User $record) => $record->accreditation_date)
+                            ->label('user.profile.field.accreditation_date')
+                            ->translateLabel(),
                         Placeholder::make('accreditation_document')
+                            ->label('user.profile.field.accreditation_document')
+                            ->translateLabel()
                             ->content(fn (User $record) => null),
-                    ])
-                    ->columns(2),
-            ])
-            ->columns(1);
+                    ]),
+            ]);
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

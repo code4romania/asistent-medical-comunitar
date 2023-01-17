@@ -6,16 +6,18 @@ namespace App\Enums;
 
 use App\Concerns\ArrayableEnum;
 
-enum Gender: string
+enum EmployerType: string
 {
     use ArrayableEnum;
 
-    case female = 'female';
-    case male = 'male';
+    case ong = 'ong';
+    case dsp = 'dsp';
+    case gp = 'gp';
+    case cityHall = 'city_hall';
     case other = 'other';
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.gender';
+        return 'user.profile.employer';
     }
 }
