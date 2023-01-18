@@ -15,6 +15,11 @@ class County extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'id',
+        'name',
+    ];
+
     protected static function booted(): void
     {
         static::addGlobalScope(new AlphabeticalOrder);
