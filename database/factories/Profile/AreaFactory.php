@@ -6,7 +6,6 @@ namespace Database\Factories\Profile;
 
 use App\Models\Area;
 use App\Models\City;
-use App\Models\County;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,8 +20,8 @@ class AreaFactory extends Factory
      */
     public function definition()
     {
-        /** @var City $city */
         $city = City::query()->inRandomOrder()->first();
+
         return [
             'county_id' => $city->county_id,
             'city_id'   => $city->id,
