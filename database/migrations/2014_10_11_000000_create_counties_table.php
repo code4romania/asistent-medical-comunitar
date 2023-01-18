@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Database\Seeders\SirutaSeeder;
+use Database\Seeders\SirutaCountiesSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +21,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('alias');
         });
-        (new SirutaSeeder())->run();
+        (new SirutaCountiesSeeder())->run();
     }
 };

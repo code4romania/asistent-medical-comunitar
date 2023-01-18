@@ -7,7 +7,7 @@ use Clockwork\Request\Log;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SirutaSeeder extends Seeder
+class SirutaCountiesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,8 +21,7 @@ class SirutaSeeder extends Seeder
 
     public function run()
     {
-        $row = 0;
-        echo "Start counties insert\n";
+//        echo "Start counties insert\n";
         $tmpArray = [];
         $file = fopen('database/seeders/data/siruta-judete.csv', 'r');
         while (($data = fgetcsv($file, 1000, ";")) !== false) {
@@ -35,6 +34,6 @@ class SirutaSeeder extends Seeder
         unset($tmpArray[0]);
         fclose($file);
         County::insert($tmpArray);
-        echo " End counties insert, total insert: " . count($tmpArray) . "\n";
+//        echo " End counties insert, total insert: " . count($tmpArray) . "\n";
     }
 }
