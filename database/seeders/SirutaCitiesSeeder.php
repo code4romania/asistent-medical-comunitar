@@ -20,9 +20,9 @@ class SirutaCitiesSeeder extends Seeder
 
     public function run()
     {
-        $file = fopen('database/seeders/data/siruta.csv', 'r');
+        $file = fopen('database/seeders/data/siruta2.csv', 'r');
         while (($data = fgetcsv($file, 1000, ";")) !== false) {
-            if ($data[self::TYPE] != self::COUNTY_TYPE) {
+            if (!in_array($data[self::TYPE], [1, 2])) {
                 $tmpArray[] = [
                     'name' => $data[self::NAME],
                     'county_id' => $data[self::COUNTY_ID],
