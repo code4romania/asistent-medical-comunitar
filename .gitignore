@@ -26,5 +26,4 @@ Homestead.yaml
 npm-debug.log
 phpunit.xml
 yarn-error.log
-database/.DS_Store
 .DS_Store
