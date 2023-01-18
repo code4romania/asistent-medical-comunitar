@@ -29,8 +29,13 @@ class SirutaCitiesSeeder extends Seeder
                 ];
             }
         }
-        fclose($file);
         unset($tmpArray[0]);
+        fclose($file);
         City::insert($tmpArray);
+
+//        $batches = array_chunk($tmpArray, 1000);
+//        foreach ($batches as $batch) {
+//            City::insert($batch);
+//        }
     }
 }
