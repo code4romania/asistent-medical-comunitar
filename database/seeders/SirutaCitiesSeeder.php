@@ -13,7 +13,7 @@ class SirutaCitiesSeeder extends Seeder
      *
      * @return void
      */
-    const COUNTY_TYPE = 1;
+    const TYPE_FOR_IMPORT = 3;
     const NAME = 1;
     const COUNTY_ID = 9;
     const   TYPE = 6;
@@ -22,7 +22,7 @@ class SirutaCitiesSeeder extends Seeder
     {
         $file = fopen('database/seeders/data/siruta2.csv', 'r');
         while (($data = fgetcsv($file, 1000, ";")) !== false) {
-            if (!in_array($data[self::TYPE], [1, 2])) {
+            if ($data[self::TYPE]==self::TYPE_FOR_IMPORT) {
                 $tmpArray[] = [
                     'name' => $data[self::NAME],
                     'county_id' => $data[self::COUNTY_ID],
