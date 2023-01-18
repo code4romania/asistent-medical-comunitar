@@ -6,7 +6,6 @@ namespace Database\Factories\Profile;
 
 use App\Enums\EmployerType;
 use App\Models\City;
-use App\Models\County;
 use App\Models\ProfileEmployer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,12 +22,14 @@ class EmployerFactory extends Factory
      */
     public function definition()
     {
+        $city = City::query()->inRandomOrder()->first();
+
         return [
             'name'       => fake()->company(),
             'type'       => fake()->randomElement(EmployerType::values()),
             'start_date' => fake()->date(),
-            'county_id'  => County::factory(),
-            'city_id'    => City::factory(),
+            'county_id'  => $city->county_id,
+            'city_id'    => $city->id,
         ];
     }
 

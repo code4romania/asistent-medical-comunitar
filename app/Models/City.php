@@ -15,6 +15,12 @@ class City extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'county_id',
+    ];
+
     protected static function booted(): void
     {
         static::addGlobalScope(new AlphabeticalOrder);

@@ -25,12 +25,14 @@ class Location extends Group
             Select::make('county_id')
                 ->options(County::pluck('name', 'id'))
                 ->label(__('user.profile.field.county'))
+                ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
 
             Select::make('city_id')
-                ->relationship('city', 'name')
                 ->label(__('user.profile.field.city'))
+                ->searchable()
+                ->optionsLimit(0)
                 ->options(
                     function (callable $get) {
                         $countyId = $get('county_id');

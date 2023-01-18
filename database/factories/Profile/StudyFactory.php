@@ -6,7 +6,6 @@ namespace Database\Factories\Profile;
 
 use App\Enums\StudyType;
 use App\Models\City;
-use App\Models\County;
 use App\Models\Profile\Study;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,6 +24,8 @@ class StudyFactory extends Factory
         $endYear = fake()->year();
         $startYear = $endYear - fake()->randomDigitNotZero();
 
+        $city = City::query()->inRandomOrder()->first();
+
         return [
             'name'        => fake()->sentence(),
             'type'        => fake()->randomElement(StudyType::values()),
@@ -32,8 +33,8 @@ class StudyFactory extends Factory
             'duration'    => fake()->boolean() ? fake()->randomDigitNotNull() : null,
             'start_year'  => $startYear,
             'end_year'    => $endYear,
-            'county_id'   => County::factory(),
-            'city_id'     => City::factory(),
+            'county_id'   => $city->county_id,
+            'city_id'     => $city->id,
         ];
     }
 }
