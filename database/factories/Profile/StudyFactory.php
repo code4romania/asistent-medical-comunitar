@@ -24,6 +24,8 @@ class StudyFactory extends Factory
     {
         $endYear = fake()->year();
         $startYear = $endYear - fake()->randomDigitNotZero();
+        /** @var City $city */
+        $city = City::query()->inRandomOrder()->first();
 
         return [
             'name'        => fake()->sentence(),
@@ -32,8 +34,8 @@ class StudyFactory extends Factory
             'duration'    => fake()->boolean() ? fake()->randomDigitNotNull() : null,
             'start_year'  => $startYear,
             'end_year'    => $endYear,
-            'county_id'   => County::factory(),
-            'city_id'     => City::factory(),
+            'county_id'   => $city->county_id,
+            'city_id'     => $city->id,
         ];
     }
 }

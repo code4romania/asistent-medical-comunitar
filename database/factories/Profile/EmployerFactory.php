@@ -23,12 +23,14 @@ class EmployerFactory extends Factory
      */
     public function definition()
     {
+        /** @var City $city */
+        $city = City::query()->inRandomOrder()->first();
         return [
             'name'       => fake()->company(),
             'type'       => fake()->randomElement(EmployerType::values()),
             'start_date' => fake()->date(),
-            'county_id'  => County::factory(),
-            'city_id'    => City::factory(),
+            'county_id'  => $city->county_id,
+            'city_id'    => $city->id,
         ];
     }
 
