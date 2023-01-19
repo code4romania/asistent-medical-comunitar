@@ -42,6 +42,13 @@ abstract class EditRecord extends BaseEditRecord
         return view('profile.header');
     }
 
+    protected function getBreadcrumbs(): array
+    {
+        return [
+            auth()->user()->getFilamentName(),
+        ];
+    }
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl("{$this->getActiveSection()}.view");

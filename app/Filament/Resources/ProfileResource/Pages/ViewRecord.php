@@ -46,4 +46,11 @@ abstract class ViewRecord extends BaseViewRecord
     {
         return view('profile.header');
     }
+
+    protected function getBreadcrumbs(): array
+    {
+        return [
+            auth()->user()->getFilamentName(),
+        ];
+    }
 }
