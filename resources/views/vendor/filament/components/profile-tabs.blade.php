@@ -21,6 +21,12 @@
     </nav>
 
     <div class="p-6 bg-white rounded-lg rounded-tl-none shadow filament-forms-tabs-component-tab focus:outline-none">
+        <x-filament::pages.actions
+            :actions="$this->getCachedActions()"
+            alignment="right"
+            class="mb-6"
+        />
+
         {{ $slot }}
     </div>
 </div>
