@@ -8,6 +8,7 @@ use App\Concerns\ResolvesCurrentUserProfile;
 use App\Filament\Resources\ProfileResource;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 abstract class EditRecord extends BaseEditRecord
 {
@@ -34,6 +35,18 @@ abstract class EditRecord extends BaseEditRecord
             ->kebab()
             ->explode('-')
             ->last();
+    }
+
+    protected function getHeader(): View
+    {
+        return view('profile.header');
+    }
+
+    protected function getBreadcrumbs(): array
+    {
+        return [
+            auth()->user()->getFilamentName(),
+        ];
     }
 
     protected function getRedirectUrl(): string

@@ -8,15 +8,9 @@ use App\Forms\Components\Subsection;
 use App\Models\User;
 use Filament\Forms\Components\Placeholder;
 use Filament\Resources\Form;
-use Illuminate\Contracts\View\View;
 
 class ViewGeneral extends ViewRecord
 {
-    // protected function getHeader(): View
-    // {
-    //     return view('filament.settings.custom-header');
-    // }
-
     protected function form(Form $form): Form
     {
         return $form
@@ -27,24 +21,19 @@ class ViewGeneral extends ViewRecord
                     ->columns(2)
                     ->schema([
                         Placeholder::make('first_name')
-                            ->label('user.profile.field.first_name')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.first_name'))
                             ->content(fn (User $record) => $record->first_name),
                         Placeholder::make('last_name')
-                            ->label('user.profile.field.last_name')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.last_name'))
                             ->content(fn (User $record) => $record->last_name),
                         Placeholder::make('date_of_birth')
-                            ->label('user.profile.field.date_of_birth')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.date_of_birth'))
                             ->content(fn (User $record) => $record->date_of_birth),
                         Placeholder::make('gender')
-                            ->label('user.profile.field.gender')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.gender'))
                             ->content(fn (User $record) => $record->gender->label()),
                         Placeholder::make('cnp')
-                            ->label('user.profile.field.cnp')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.cnp'))
                             ->content(fn (User $record) => $record->cnp),
                     ]),
 
@@ -53,20 +42,16 @@ class ViewGeneral extends ViewRecord
                     ->columns(2)
                     ->schema([
                         Placeholder::make('county')
-                            ->label('user.profile.field.county')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.county'))
                             ->content(fn (User $record) => $record->county_name),
                         Placeholder::make('city')
-                            ->label('user.profile.field.city')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.city'))
                             ->content(fn (User $record) => $record->city_name),
                         Placeholder::make('email')
-                            ->label('user.profile.field.email')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.email'))
                             ->content(fn (User $record) => $record->email),
                         Placeholder::make('phone')
-                            ->label('user.profile.field.phone')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.phone'))
                             ->content(fn (User $record) => $record->phone),
                     ]),
 
@@ -76,15 +61,12 @@ class ViewGeneral extends ViewRecord
                     ->schema([
                         Placeholder::make('accreditation_number')
                             ->content(fn (User $record) => $record->accreditation_number)
-                            ->label('user.profile.field.accreditation_number')
-                            ->translateLabel(),
+                            ->label(__('user.profile.field.accreditation_number')),
                         Placeholder::make('accreditation_date')
                             ->content(fn (User $record) => $record->accreditation_date)
-                            ->label('user.profile.field.accreditation_date')
-                            ->translateLabel(),
+                            ->label(__('user.profile.field.accreditation_date')),
                         Placeholder::make('accreditation_document')
-                            ->label('user.profile.field.accreditation_document')
-                            ->translateLabel()
+                            ->label(__('user.profile.field.accreditation_document'))
                             ->content(fn (User $record) => null),
                     ]),
             ]);

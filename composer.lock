@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fde591ebd2d259d5fdb636ff2d403f5d",
+    "content-hash": "c1fec0827e443e38503901bbde1369d8",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -73,6 +73,61 @@
                 "source": "https://github.com/akaunting/laravel-money/tree/3.1.2"
             },
             "time": "2022-07-27T08:16:36+00:00"
+        },
+        {
+            "name": "alcea/cnp",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alceanicu/cnp.git",
+                "reference": "beefc3ac267f12d1d9babacd0ced461da57900db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alceanicu/cnp/zipball/beefc3ac267f12d1d9babacd0ced461da57900db",
+                "reference": "beefc3ac267f12d1d9babacd0ced461da57900db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.2",
+                "phpmd/phpmd": "^2.10",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^9",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "alcea\\cnp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niku Alcea",
+                    "email": "nicu.alcea@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Validation for Personal Identification Number (Validare PHP pentru Cod Numeric Personal CNP)",
+            "homepage": "https://github.com/alceanicu/cnp",
+            "keywords": [
+                "CNP",
+                "Validare",
+                "php",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/alceanicu/cnp/issues",
+                "source": "https://github.com/alceanicu/cnp/tree/3.0.0"
+            },
+            "time": "2022-01-18T12:31:34+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",

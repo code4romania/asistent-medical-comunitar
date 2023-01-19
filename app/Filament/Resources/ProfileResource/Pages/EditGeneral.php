@@ -7,6 +7,7 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Enums\Gender;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
+use App\Rules\ValidCNP;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -25,15 +26,26 @@ class EditGeneral extends EditRecord
                     ->columns(2)
                     ->schema([
                         TextInput::make('first_name')
+                            ->label(__('user.profile.field.first_name'))
+                            ->maxLength(50)
                             ->required(),
                         TextInput::make('last_name')
+                            ->label(__('user.profile.field.last_name'))
+                            ->maxLength(50)
                             ->required(),
                         DatePicker::make('date_of_birth')
-                            ->required(),
+                            ->label(__('user.profile.field.date_of_birth'))
+                            ->nullable(),
                         Select::make('gender')
-                            ->options(Gender::options()),
+                            ->label(__('user.profile.field.gender'))
+                            ->options(Gender::options())
+                            ->disablePlaceholderSelection()
+                            ->enum(Gender::class),
                         TextInput::make('cnp')
-                            ->length(13),
+                            ->label(__('user.profile.field.cnp'))
+                            ->unique()
+                            ->nullable()
+                            ->rule(new ValidCNP),
                     ]),
 
                 Subsection::make()
@@ -43,10 +55,12 @@ class EditGeneral extends EditRecord
                         Location::make(),
                         TextInput::make('email')
                             ->email()
+                            ->maxLength(50)
                             ->required(),
                         TextInput::make('phone')
                             ->tel()
-                            ->required(),
+                            ->required()
+                            ->maxLength(15),
 
                     ]),
 
@@ -54,10 +68,12 @@ class EditGeneral extends EditRecord
                     ->icon('heroicon-o-document')
                     ->columns(2)
                     ->schema([
-                        TextInput::make('accreditation_number'),
+                        TextInput::make('accreditation_number')
+                            ->nullable()
+                            ->maxLength(50),
                         DatePicker::make('accreditation_date'),
-                        // FileUpload::make('accreditation_document')
-                        //     ->columnSpanFull(),
+                        FileUpload::make('accreditation_document')
+                            ->columnSpanFull(),
                     ]),
             ]);
     }
