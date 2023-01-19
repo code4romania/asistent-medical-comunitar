@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->enum('gender', Gender::values())->nullable();
-            $table->string('cnp', 13)->nullable();
+            $table->string('cnp', 13)->nullable()->unique();
 
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();
