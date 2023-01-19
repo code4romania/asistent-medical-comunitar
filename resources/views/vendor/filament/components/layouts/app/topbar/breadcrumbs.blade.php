@@ -2,7 +2,7 @@
     'breadcrumbs' => [],
 ])
 
-<div {{ $attributes->class(['filament-breadcrumbs flex-1']) }}>
+<nav {{ $attributes->class(['filament-breadcrumbs flex-1']) }}>
     <ul @class([
         'flex gap-4 items-center font-medium text-sm',
         'dark:text-white' => config('filament.dark_mode'),
@@ -17,7 +17,8 @@
                             (!$loop->last || $loop->first) && config('filament.dark_mode'),
                         'dark:text-gray-400' =>
                             $loop->last && !$loop->first && config('filament.dark_mode'),
-                    ])>
+                    ])
+                >
                     {{ $label }}
                 </a>
             </li>
@@ -30,4 +31,4 @@
             @endif
         @endforeach
     </ul>
-</div>
+</nav>

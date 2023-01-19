@@ -14,14 +14,13 @@
             @class([
                 'filament-main flex-col gap-y-6 w-screen flex-1 rtl:lg:pl-0',
                 'hidden h-full transition-all' => config(
-                    'filament.layout.sidebar.is_collapsible_on_desktop'
-                ),
+                    'filament.layout.sidebar.is_collapsible_on_desktop'),
                 'flex lg:pl-[var(--sidebar-width)] rtl:lg:pr-[var(--sidebar-width)]' => !config(
-                    'filament.layout.sidebar.is_collapsible_on_desktop'
-                ),
-            ])>
+                    'filament.layout.sidebar.is_collapsible_on_desktop'),
+            ])
+        >
 
-            <x-filament::topbar :breadcrumbs="$breadcrumbs" />
+            <x-filament::topbar />
 
             <div @class([
                 'filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8',
@@ -37,6 +36,9 @@
                     default => $maxContentWidth,
                 },
             ])>
+
+                <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
+
                 {{ \Filament\Facades\Filament::renderHook('content.start') }}
 
                 {{ $slot }}
