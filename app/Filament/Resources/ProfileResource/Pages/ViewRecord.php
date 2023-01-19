@@ -9,6 +9,7 @@ use App\Filament\Resources\ProfileResource;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 abstract class ViewRecord extends BaseViewRecord
 {
@@ -39,5 +40,10 @@ abstract class ViewRecord extends BaseViewRecord
             ->kebab()
             ->explode('-')
             ->last();
+    }
+
+    protected function getHeader(): View
+    {
+        return view('profile.header');
     }
 }

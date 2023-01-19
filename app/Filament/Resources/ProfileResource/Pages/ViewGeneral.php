@@ -8,15 +8,9 @@ use App\Forms\Components\Subsection;
 use App\Models\User;
 use Filament\Forms\Components\Placeholder;
 use Filament\Resources\Form;
-use Illuminate\Contracts\View\View;
 
 class ViewGeneral extends ViewRecord
 {
-    // protected function getHeader(): View
-    // {
-    //     return view('filament.settings.custom-header');
-    // }
-
     protected function form(Form $form): Form
     {
         return $form
