@@ -22,8 +22,7 @@ class EditStudies extends EditRecord
             ->schema([
                 Repeater::make('studies')
                     ->relationship()
-                    ->label('user.profile.section.studies')
-                    ->translateLabel()
+                    ->label(__('user.profile.section.studies'))
                     ->defaultItems(1)
                     ->schema([
                         Subsection::make()
