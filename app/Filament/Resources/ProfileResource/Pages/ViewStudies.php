@@ -34,7 +34,7 @@ class ViewStudies extends ViewRecord
                                 Placeholder::make('type')
                                     ->label('user.profile.field.study.type')
                                     ->translateLabel()
-                                    ->content(fn (Study $record) => $record->type->label()),
+                                    ->content(fn (Study $record) => $record->type?->label()),
                                 Placeholder::make('institution')
                                     ->label('user.profile.field.study.institution')
                                     ->translateLabel()

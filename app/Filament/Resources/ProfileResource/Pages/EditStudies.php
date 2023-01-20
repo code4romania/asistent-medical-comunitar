@@ -36,8 +36,7 @@ class EditStudies extends EditRecord
                                 Select::make('type')
                                     ->label('user.profile.field.study.type')
                                     ->translateLabel()
-                                    ->options(StudyType::options())
-                                    ->required(),
+                                    ->options(StudyType::options()),
                                 TextInput::make('institution')
                                     ->label('user.profile.field.study.institution')
                                     ->translateLabel(),
@@ -53,8 +52,7 @@ class EditStudies extends EditRecord
                                     ->options(
                                         Helper::generateYearsOptions()
                                     )
-                                    ->searchable()
-                                    ->required(),
+                                    ->searchable(),
                                 Select::make('end_year')
                                     ->label('user.profile.field.end_date')
                                     ->translateLabel()
