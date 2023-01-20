@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
 use App\Models\Profile\Employer;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -39,11 +39,11 @@ class ViewEmployers extends ViewRecord
                                 Placeholder::make('county')
                                     ->label('user.profile.field.county')
                                     ->translateLabel()
-                                    ->content(fn (Employer $record) => $record->county_name),
+                                    ->content(fn (Employer $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label('user.profile.field.city')
                                     ->translateLabel()
-                                    ->content(fn (Employer $record) => $record->city_name),
+                                    ->content(fn (Employer $record) => $record->city?->name),
                                 Placeholder::make('start_date')
                                     ->label('user.profile.field.start_date')
                                     ->translateLabel()

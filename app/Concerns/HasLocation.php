@@ -26,16 +26,6 @@ trait HasLocation
         return $this->belongsTo(City::class);
     }
 
-    public function getCountyNameAttribute(): string
-    {
-        return $this->county?->name ?? '—';
-    }
-
-    public function getCityNameAttribute(): string
-    {
-        return $this->city?->name ?? '—';
-    }
-
     public function scopeWithLocation(Builder $query): Builder
     {
         return $query->with('county', 'city');

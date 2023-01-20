@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
 use App\Models\Profile\Study;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -34,7 +34,7 @@ class ViewStudies extends ViewRecord
                                 Placeholder::make('type')
                                     ->label('user.profile.field.study.type')
                                     ->translateLabel()
-                                    ->content(fn (Study $record) => $record->type->label()),
+                                    ->content(fn (Study $record) => $record->type?->label()),
                                 Placeholder::make('institution')
                                     ->label('user.profile.field.study.institution')
                                     ->translateLabel()
@@ -46,11 +46,11 @@ class ViewStudies extends ViewRecord
                                 Placeholder::make('county')
                                     ->label('user.profile.field.county')
                                     ->translateLabel()
-                                    ->content(fn (Study $record) => $record->county_name),
+                                    ->content(fn (Study $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label('user.profile.field.city')
                                     ->translateLabel()
-                                    ->content(fn (Study $record) => $record->city_name),
+                                    ->content(fn (Study $record) => $record->city?->name),
                                 Placeholder::make('start_year')
                                     ->label('user.profile.field.start_date')
                                     ->translateLabel()

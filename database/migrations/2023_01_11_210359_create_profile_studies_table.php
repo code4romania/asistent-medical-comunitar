@@ -22,8 +22,8 @@ return new class extends Migration
         Schema::create('profile_studies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->enum('type', StudyType::values());
+            $table->string('name')->nullable();
+            $table->enum('type', StudyType::values())->nullable();
             $table->string('institution')->nullable();
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();
