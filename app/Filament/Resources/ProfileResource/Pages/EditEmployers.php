@@ -7,6 +7,8 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Enums\EmployerType;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
+use App\Models\Profile\Employer;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -20,7 +22,7 @@ class EditEmployers extends EditRecord
         return $form
             ->columns(1)
             ->schema([
-                Repeater::make('studies')
+                Repeater::make('employers')
                     ->relationship()
                     ->label(__('user.profile.section.employers'))
                     ->schema([
@@ -34,12 +36,15 @@ class EditEmployers extends EditRecord
                                     ->label(__('user.profile.field.employer.type'))
                                     ->options(EmployerType::options())
                                     ->required(),
-                                TextInput::make('project_name')
+                                Checkbox::make('project_base'),
+//                                    ->hidden(fn(Employer $record) => empty($record->project_name)),
+                                TextInput::make('project')
                                     ->label(__('user.profile.field.employer.project')),
                                 Location::make(),
                                 DatePicker::make('start_date')
                                     ->label(__('user.profile.field.start_date')),
                                 DatePicker::make('end_date')
+                                    ->afterOrEqual('start_date')
                                     ->label(__('user.profile.field.end_date')),
                             ]),
                     ]),

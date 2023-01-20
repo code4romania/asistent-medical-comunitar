@@ -21,7 +21,11 @@ return [
         ],
 
         'employer' => [
-            //
+            'ong' => "ONG",
+            'dsp' => 'DSP',
+            'gp' => 'Medic de Familie',
+            'city_hall' => 'Primărie',
+            'other' => 'Alt tip de angajator'
         ],
 
         'study' => [
@@ -72,6 +76,7 @@ return [
                 'name' => 'Denumire angajator',
                 'type' => 'Tip angajator',
                 'project' => 'Nume proiect',
+                'work_in_present' => 'Lucrez aici în prezent',
             ],
 
             'area' => [
