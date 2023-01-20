@@ -28,11 +28,11 @@ class ViewArea extends ViewRecord
                                 Placeholder::make('county')
                                     ->label('user.profile.field.county')
                                     ->translateLabel()
-                                    ->content(fn (Area $record) => $record->county_name),
+                                    ->content(fn (Area $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label('user.profile.field.city')
                                     ->translateLabel()
-                                    ->content(fn (Area $record) => $record->city_name),
+                                    ->content(fn (Area $record) => $record->city?->name),
 
                             ]),
                     ])

@@ -43,10 +43,10 @@ class ViewGeneral extends ViewRecord
                     ->schema([
                         Placeholder::make('county')
                             ->label(__('user.profile.field.county'))
-                            ->content(fn (User $record) => $record->county_name),
+                            ->content(fn (User $record) => $record->county?->name),
                         Placeholder::make('city')
                             ->label(__('user.profile.field.city'))
-                            ->content(fn (User $record) => $record->city_name),
+                            ->content(fn (User $record) => $record->city?->name),
                         Placeholder::make('email')
                             ->label(__('user.profile.field.email'))
                             ->content(fn (User $record) => $record->email),
