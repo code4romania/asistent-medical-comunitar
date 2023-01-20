@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
 use App\Models\User;
-use Filament\Forms\Components\Placeholder;
 use Filament\Resources\Form;
 
 class ViewGeneral extends ViewRecord
