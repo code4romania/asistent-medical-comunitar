@@ -16,6 +16,6 @@ enum CourseType: string
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.studies_page';
+        return 'user.profile.field.courses';
     }
 }
