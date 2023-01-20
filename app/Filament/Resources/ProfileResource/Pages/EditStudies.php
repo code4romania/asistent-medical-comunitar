@@ -31,30 +31,27 @@ class EditStudies extends EditRecord
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('user.profile.field.study.name')
-                                    ->translateLabel(),
+                                    ->label(__('user.profile.field.study.name'))
+                                    ->maxLength(50)
+                                    ->required(),
                                 Select::make('type')
-                                    ->label('user.profile.field.study.type')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.study.type'))
                                     ->options(StudyType::options())
                                     ->required(),
                                 TextInput::make('institution')
-                                    ->label('user.profile.field.study.institution')
-                                    ->translateLabel(),
+                                    ->label(__('user.profile.field.study.institution')),
                                 TextInput::make('duration')
-                                    ->label('user.profile.field.study.duration')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.study.duration'))
                                     ->integer()
                                     ->nullable(),
                                 Location::make(),
                                 Select::make('start_year')
-                                    ->label('user.profile.field.start_date')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.start_date'))
                                     ->options(
                                         Helper::generateYearsOptions()
                                     )
                                     ->searchable()
-                                    ->required(),
+                                    ->nullable(),
                                 Select::make('end_year')
                                     ->label('user.profile.field.end_date')
                                     ->translateLabel()
@@ -62,7 +59,8 @@ class EditStudies extends EditRecord
                                         Helper::generateYearsOptions()
                                     )
                                     ->searchable()
-                                    ->after('start_year'),
+                                    ->after('start_year')
+                                    ->nullable(),
                             ]),
                     ]),
             ]);
