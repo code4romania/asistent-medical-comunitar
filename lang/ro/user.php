@@ -21,11 +21,11 @@ return [
         ],
 
         'employer' => [
-            'ong' => "ONG",
+            'ong' => 'ONG',
             'dsp' => 'DSP',
             'gp' => 'Medic de Familie',
             'city_hall' => 'Primărie',
-            'other' => 'Alt tip de angajator'
+            'other' => 'Alt tip de angajator',
         ],
 
         'study' => [
@@ -68,15 +68,16 @@ return [
                 'type' => 'Tip curs',
                 'online' => 'Online',
                 'offline' => 'Față în față',
-                'other' => "Altul"
+                'other' => 'Altul',
 
             ],
 
             'employer' => [
                 'name' => 'Denumire angajator',
                 'type' => 'Tip angajator',
+                'project_base' => 'Angajat pe proiect',
                 'project' => 'Nume proiect',
-                'work_in_present' => 'Lucrez aici în prezent',
+                'on_going' => 'Lucrez aici în prezent',
             ],
 
             'area' => [
@@ -94,7 +95,6 @@ return [
             'add_btn' => '+ Adaugă alte studii',
             'type_courses' => 'Format curs',
             'provider' => 'Furnizor',
-
 
         ],
         'employers_page' => [

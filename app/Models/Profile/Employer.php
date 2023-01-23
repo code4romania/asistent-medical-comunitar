@@ -6,7 +6,6 @@ namespace App\Models\Profile;
 
 use App\Concerns\HasLocation;
 use App\Enums\EmployerType;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,8 +30,13 @@ class Employer extends Model
         'end_date' => 'date',
     ];
 
-    protected function getProjectBaseAttribute(): bool
+    protected function getIsProjectBaseAttribute(): bool
     {
-        return empty($this->project);
+        return ! empty($this->project);
+    }
+
+    protected function getIsOnGoingAttribute(): bool
+    {
+        return ! empty($this->end_date);
     }
 }
