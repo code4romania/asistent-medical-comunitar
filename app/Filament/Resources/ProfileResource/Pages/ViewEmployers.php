@@ -36,10 +36,10 @@ class ViewEmployers extends ViewRecord
                                     ->hidden(fn (Employer $record) => empty($record->project_name)),
                                 Placeholder::make('county')
                                     ->label(__('user.profile.field.county'))
-                                    ->content(fn (Employer $record) => $record->county_name),
+                                    ->content(fn (Employer $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label(__('user.profile.field.city'))
-                                    ->content(fn (Employer $record) => $record->city_name),
+                                    ->content(fn (Employer $record) => $record->city?->name),
                                 Placeholder::make('start_date')
                                     ->label(__('user.profile.field.start_date'))
                                     ->content(fn (Employer $record) => $record->start_date),

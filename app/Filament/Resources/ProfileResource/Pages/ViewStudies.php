@@ -40,10 +40,10 @@ class ViewStudies extends ViewRecord
                                     ->content(fn (Study $record) => $record->duration),
                                 Placeholder::make('county')
                                     ->label(__('user.profile.field.county'))
-                                    ->content(fn (Study $record) => $record->county_name),
+                                    ->content(fn (Study $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label(__('user.profile.field.city'))
-                                    ->content(fn (Study $record) => $record->city_name),
+                                    ->content(fn (Study $record) => $record->city?->name),
                                 Placeholder::make('start_year')
                                     ->label(__('user.profile.field.start_date'))
                                     ->content(fn (Study $record) => $record->start_year),

@@ -27,10 +27,10 @@ class ViewArea extends ViewRecord
                             ->schema([
                                 Placeholder::make('county')
                                     ->label(__('user.profile.field.county'))
-                                    ->content(fn (Area $record) => $record->county_name),
+                                    ->content(fn (Area $record) => $record->county?->name),
                                 Placeholder::make('city')
                                     ->label(__('user.profile.field.city'))
-                                    ->content(fn (Area $record) => $record->city_name),
+                                    ->content(fn (Area $record) => $record->city?->name),
 
                             ]),
                     ])
