@@ -6,7 +6,6 @@ namespace App\Filament\Resources\ProfileResource\RelationManagers;
 
 use App\Enums\CourseType;
 use App\Models\Profile\Course;
-use App\Services\Helper;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -61,7 +60,7 @@ class CoursesRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('end_date')
                     ->label(__('user.profile.field.year'))
-                    ->formatStateUsing((fn(Course $record) => $record->end_date->format('Y')))
+                    ->formatStateUsing((fn (Course $record) => $record->end_date->format('Y')))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('provider')
                     ->label(__('user.profile.field.courses.provider'))
@@ -75,7 +74,7 @@ class CoursesRelationManager extends RelationManager
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label(__('user.profile.field.courses.type'))
-                    ->formatStateUsing(fn(Course $record) => __($record->type->label())),
+                    ->formatStateUsing(fn (Course $record) => __($record->type->label())),
             ])
             ->filters([
                 //
@@ -95,9 +94,9 @@ class CoursesRelationManager extends RelationManager
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+
     public static function getTitle(): string
     {
         return __('user.profile.section.courses');
     }
-
 }

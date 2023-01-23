@@ -19,7 +19,7 @@ class ViewStudies extends ViewRecord
             ->columns(1)
             ->schema([
                 Repeater::make('studies')
-                    ->relationship(callback: fn(Builder $query) => $query->withLocation())
+                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
                     ->label(__('user.profile.section.studies'))
                     ->schema([
                         Subsection::make()
@@ -28,28 +28,28 @@ class ViewStudies extends ViewRecord
                             ->schema([
                                 Placeholder::make('name')
                                     ->label(__('user.profile.field.study.name'))
-                                    ->content(fn(Study $record) => $record->name),
+                                    ->content(fn (Study $record) => $record->name),
                                 Placeholder::make('type')
                                     ->label(__('user.profile.field.study.type'))
-                                    ->content(fn(Study $record) => $record->type->label()),
+                                    ->content(fn (Study $record) => $record->type->label()),
                                 Placeholder::make('institution')
                                     ->label(__('user.profile.field.study.institution'))
-                                    ->content(fn(Study $record) => $record->institution),
+                                    ->content(fn (Study $record) => $record->institution),
                                 Placeholder::make('duration')
                                     ->label(__('user.profile.field.study.duration'))
-                                    ->content(fn(Study $record) => $record->duration),
+                                    ->content(fn (Study $record) => $record->duration),
                                 Placeholder::make('county')
                                     ->label(__('user.profile.field.county'))
-                                    ->content(fn(Study $record) => $record->county_name),
+                                    ->content(fn (Study $record) => $record->county_name),
                                 Placeholder::make('city')
                                     ->label(__('user.profile.field.city'))
-                                    ->content(fn(Study $record) => $record->city_name),
+                                    ->content(fn (Study $record) => $record->city_name),
                                 Placeholder::make('start_year')
                                     ->label(__('user.profile.field.start_date'))
-                                    ->content(fn(Study $record) => $record->start_year),
+                                    ->content(fn (Study $record) => $record->start_year),
                                 Placeholder::make('end_year')
                                     ->label(__('user.profile.field.end_date'))
-                                    ->content(fn(Study $record) => $record->end_year),
+                                    ->content(fn (Study $record) => $record->end_year),
                             ]),
                     ]),
             ]);
