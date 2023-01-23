@@ -41,10 +41,10 @@ class ViewStudies extends ViewRecord
                                     ->content(fn (Study $record) => $record->duration),
                                 Location::make(),
                                 Placeholder::make('start_year')
-                                    ->label(__('user.profile.field.start_date'))
+                                    ->label(__('user.profile.field.start_year'))
                                     ->content(fn (Study $record) => $record->start_year),
                                 Placeholder::make('end_year')
-                                    ->label(__('user.profile.field.end_date'))
+                                    ->label(__('user.profile.field.end_year'))
                                     ->content(fn (Study $record) => $record->end_year),
                             ]),
                     ]),

@@ -31,7 +31,7 @@ class ViewEmployers extends ViewRecord
                                 Placeholder::make('type')
                                     ->label(__('user.profile.field.employer.type'))
                                     ->content(fn (Employer $record) => $record->type->label()),
-                                 Placeholder::make('project')
+                                Placeholder::make('project')
                                     ->label(__('user.profile.field.employer.project'))
                                     ->content(fn (Employer $record) => $record->project)
                                     ->hidden(fn (Employer $record) => empty($record->project))
