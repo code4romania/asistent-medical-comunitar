@@ -6,20 +6,34 @@ namespace App\Forms\Components;
 
 use App\Models\City;
 use App\Models\County;
-use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
-class Location extends Group
+class Location extends Grid
 {
-    public static function make(array $schema = []): static
+    public function getChildComponents(): array
     {
-        return parent::make(static::getSchema())
-            ->columnSpanFull()
-            ->columns(2);
+        return match ($this->getContainer()->getContext()) {
+            'view' => $this->getViewComponents(),
+            'edit' => $this->getEditComponents(),
+        };
     }
 
-    protected static function getSchema(): array
+    protected function getViewComponents(): array
+    {
+        return [
+            Placeholder::make('county')
+                ->label(__('user.profile.field.county'))
+                ->content(fn ($record) => $record->county?->name),
+            Placeholder::make('city')
+                ->label(__('user.profile.field.city'))
+                ->content(fn ($record) => new HtmlString(static::getRenderedOptionLabel($record->city))),
+        ];
+    }
+
+    protected function getEditComponents(): array
     {
         return [
             Select::make('county_id')
@@ -57,7 +71,7 @@ class Location extends Group
         ];
     }
 
-    public static function getRenderedOptionLabel(Model $model): string
+    private static function getRenderedOptionLabel(Model $model): string
     {
         return view('forms.components.select-city-item', [
             'name'        => $model?->name,

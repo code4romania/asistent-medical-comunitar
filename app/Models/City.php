@@ -25,6 +25,10 @@ class City extends Model
         'parent_id',
     ];
 
+    protected $with = [
+        'parent',
+    ];
+
     protected static function booted(): void
     {
         static::addGlobalScope(new AlphabeticalOrder);
