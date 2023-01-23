@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\RelationManagers;
 
 use App\Enums\CourseType;
-use App\Services\Helper;
-use Filament\Forms;
+use App\Models\Profile\Course;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
 
 class CoursesRelationManager extends RelationManager
 {
@@ -18,33 +24,38 @@ class CoursesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $title = 'user.profile.studies_page.courses';
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('year')
-                    ->label(__('user.profile.studies_page.year'))
-                    ->options(Helper::generateYearsOptions())
-                    ->required(),
-                Forms\Components\TextInput::make('provider')
-                    ->label(__('user.profile.studies_page.provider'))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->label(__('user.profile.studies_page.name'))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('type')
-                    ->label(__('user.profile.studies_page.type_courses'))
-                    ->required()
-                    ->options(CourseType::options()),
-                Forms\Components\DatePicker::make('start_date')
-                    ->label(__('user.profile.studies_page.start_date'))
+                TextInput::make('name')
+                    ->label(__('user.profile.field.courses.name'))
+                    ->nullable()
+                    ->maxLength(50),
+                TextInput::make('theme')
+                    ->label(__('user.profile.field.courses.theme'))
+                    ->nullable()
+                    ->maxLength(50),
+                Select::make('type')
+                    ->label(__('user.profile.field.courses.type'))
+                    ->options(CourseType::options())
                     ->nullable(),
-                Forms\Components\DatePicker::make('end_date')
-                    ->label(__('user.profile.studies_page.end_date'))
+                TextInput::make('credits')
+                    ->label(__('user.profile.field.courses.credits'))
+                    ->nullable()
+                    ->numeric()
+                    ->maxValue(9999),
+                TextInput::make('provider')
+                    ->label(__('user.profile.field.courses.provider'))
+                    ->columnSpanFull()
+                    ->nullable()
+                    ->maxLength(50),
+                DatePicker::make('start_date')
+                    ->label(__('user.profile.field.start_date'))
+                    ->nullable(),
+                DatePicker::make('end_date')
+                    ->label(__('user.profile.field.end_date'))
+                    ->afterOrEqual('start_date')
                     ->nullable(),
             ]);
     }
@@ -53,27 +64,42 @@ class CoursesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('year')
-                    ->label(__('user.profile.studies_page.year')),
-                Tables\Columns\TextColumn::make('provider')
-                    ->label(__('user.profile.studies_page.provider')),
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__('user.profile.studies_page.name')),
-                Tables\Columns\TextColumn::make('type')
-                    ->label(__('user.profile.studies_page.type_courses')),
+                TextColumn::make('end_date')
+                    ->label(__('user.profile.field.year'))
+                    ->formatStateUsing((fn (Course $record) => $record->end_date->format('Y')))
+                    ->sortable(),
+                TextColumn::make('provider')
+                    ->label(__('user.profile.field.courses.provider'))
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->label(__('user.profile.field.courses.name'))
+                    ->limit(30)
+                    ->sortable(),
+                TextColumn::make('type')
+                    ->label(__('user.profile.field.courses.type'))
+                    ->formatStateUsing(fn (Course $record) => __($record->type?->label())),
+                TextColumn::make('credits')
+                    ->label(__('user.profile.field.courses.credits'))
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                ViewAction::make()
+                    ->iconButton(),
+                EditAction::make()
+                    ->iconButton(),
+                DeleteAction::make()
+                    ->iconButton(),
             ]);
+    }
+
+    public static function getTitle(): string
+    {
+        return __('user.profile.section.courses');
     }
 }

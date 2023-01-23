@@ -27,10 +27,8 @@ class ViewArea extends ViewRecord
                                 Location::make(),
                             ]),
                     ])
-                    ->label('user.profile.section.area')
-                    ->translateLabel()
+                    ->label(__('user.profile.section.area'))
                     ->defaultItems(1)
-                    // ->createItemButtonLabel()
                     ->disableItemMovement(),
             ]);
     }

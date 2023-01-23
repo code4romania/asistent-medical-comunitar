@@ -61,7 +61,6 @@ class EditGeneral extends EditRecord
                             ->tel()
                             ->required()
                             ->maxLength(15),
-
                     ]),
 
                 Subsection::make()
