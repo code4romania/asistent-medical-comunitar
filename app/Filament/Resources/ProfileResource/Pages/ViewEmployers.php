@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Forms\Components\Location;
 use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
 use App\Models\Profile\Employer;
@@ -35,12 +36,7 @@ class ViewEmployers extends ViewRecord
                                     ->content(fn (Employer $record) => $record->project)
                                     ->hidden(fn (Employer $record) => empty($record->project))
                                     ->columnSpanFull(),
-                                Placeholder::make('county')
-                                    ->label(__('user.profile.field.county'))
-                                    ->content(fn (Employer $record) => $record->county?->name),
-                                Placeholder::make('city')
-                                    ->label(__('user.profile.field.city'))
-                                    ->content(fn (Employer $record) => $record->city?->name),
+                                Location::make(),
                                 Placeholder::make('start_date')
                                     ->label(__('user.profile.field.start_date'))
                                     ->content(fn (Employer $record) => $record->start_date),

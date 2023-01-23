@@ -6,20 +6,34 @@ namespace App\Forms\Components;
 
 use App\Models\City;
 use App\Models\County;
-use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
-class Location extends Group
+class Location extends Grid
 {
-    public static function make(array $schema = []): static
+    public function getChildComponents(): array
     {
-        return parent::make(static::getSchema())
-            ->columnSpanFull()
-            ->columns(2);
+        return match ($this->getContainer()->getContext()) {
+            'view' => $this->getViewComponents(),
+            'edit' => $this->getEditComponents(),
+        };
     }
 
-    protected static function getSchema(): array
+    protected function getViewComponents(): array
+    {
+        return [
+            Placeholder::make('county')
+                ->label(__('user.profile.field.county'))
+                ->content(fn ($record) => $record->county?->name),
+            Placeholder::make('city')
+                ->label(__('user.profile.field.city'))
+                ->content(fn ($record) => static::getRenderedOptionLabel($record->city)),
+        ];
+    }
+
+    protected function getEditComponents(): array
     {
         return [
             Select::make('county_id')
@@ -31,24 +45,43 @@ class Location extends Group
 
             Select::make('city_id')
                 ->label(__('user.profile.field.city'))
+                ->allowHtml()
                 ->searchable()
-                ->optionsLimit(0)
-                ->options(
-                    function (callable $get) {
-                        $countyId = $get('county_id');
+                ->requiredWith('county_id')
+                ->getSearchResultsUsing(function (string $search, callable $get) {
+                    $countyId = (int) $get('county_id');
 
-                        if (! $countyId) {
-                            return null;
-                        }
-
-                        return Cache::driver('array')->rememberForever(
-                            "cities-for-county-$countyId",
-                            fn () => City::query()
-                                ->where('county_id', $countyId)
-                                ->pluck('name', 'id')
-                        );
+                    if (! $countyId) {
+                        return null;
                     }
+
+                    return City::query()
+                        ->where('county_id', $countyId)
+                        ->search($search)
+                        ->limit(100)
+                        ->get()
+                        ->mapWithKeys(fn (City $city) => [
+                            $city->getKey() => static::getRenderedOptionLabel($city)->toHtml(),
+                        ]);
+                })
+                ->getOptionLabelUsing(
+                    fn ($value) => static::getRenderedOptionLabel(City::find($value))->toHtml()
                 ),
+
         ];
+    }
+
+    private static function getRenderedOptionLabel(?Model $model): ?HtmlString
+    {
+        if (\is_null($model)) {
+            return null;
+        }
+
+        $html = view('forms.components.select-city-item', [
+            'name' => $model->name,
+            'suffix' => $model->parent_name,
+        ])->render();
+
+        return new HtmlString($html);
     }
 }

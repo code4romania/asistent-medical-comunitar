@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Forms\Components\Location;
 use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
 use App\Models\Profile\Study;
@@ -38,17 +39,12 @@ class ViewStudies extends ViewRecord
                                 Placeholder::make('duration')
                                     ->label(__('user.profile.field.study.duration'))
                                     ->content(fn (Study $record) => $record->duration),
-                                Placeholder::make('county')
-                                    ->label(__('user.profile.field.county'))
-                                    ->content(fn (Study $record) => $record->county?->name),
-                                Placeholder::make('city')
-                                    ->label(__('user.profile.field.city'))
-                                    ->content(fn (Study $record) => $record->city?->name),
+                                Location::make(),
                                 Placeholder::make('start_year')
-                                    ->label(__('user.profile.field.start_date'))
+                                    ->label(__('user.profile.field.start_year'))
                                     ->content(fn (Study $record) => $record->start_year),
                                 Placeholder::make('end_year')
-                                    ->label(__('user.profile.field.end_date'))
+                                    ->label(__('user.profile.field.end_year'))
                                     ->content(fn (Study $record) => $record->end_year),
                             ]),
                     ]),
