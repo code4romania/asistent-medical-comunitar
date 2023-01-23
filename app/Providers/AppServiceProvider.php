@@ -28,7 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Model::shouldBeStrict($this->app->isLocal());
+        tap($this->app->isLocal(), function (bool $shouldBeEnabled) {
+            Model::preventLazyLoading($shouldBeEnabled);
+            Model::preventAccessingMissingAttributes($shouldBeEnabled);
+        });
 
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/app.css');
