@@ -7,7 +7,6 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Enums\StudyType;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
-use App\Services\Helper;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -45,22 +44,21 @@ class EditStudies extends EditRecord
                                     ->nullable(),
                                 Location::make(),
                                 Select::make('start_year')
-                                    ->label(__('user.profile.field.start_date'))
-                                    ->options(
-                                        Helper::generateYearsOptions()
-                                    )
-                                    ->searchable()
+                                    ->label(__('user.profile.field.start_year'))
+                                    ->options($this->generateYearsOptions())
                                     ->nullable(),
                                 Select::make('end_year')
-                                    ->label(__('user.profile.field.end_date'))
-                                    ->options(
-                                        Helper::generateYearsOptions()
-                                    )
-                                    ->searchable()
+                                    ->label(__('user.profile.field.end_year'))
+                                    ->options($this->generateYearsOptions())
                                     ->after('start_year')
                                     ->nullable(),
                             ]),
                     ]),
             ]);
+    }
+
+    private function generateYearsOptions(): array
+    {
+        return range(today()->year, 1950);
     }
 }

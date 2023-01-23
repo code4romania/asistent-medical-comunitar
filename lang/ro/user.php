@@ -51,6 +51,8 @@ return [
             'phone' => 'Telefon',
             'start_date' => 'Data de început',
             'end_date' => 'Data de finalizare',
+            'start_year' => 'Anul de început',
+            'end_year' => 'Anul de finalizare',
             'year' => 'An',
 
             'study' => [

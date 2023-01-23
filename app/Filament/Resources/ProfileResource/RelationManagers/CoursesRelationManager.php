@@ -6,11 +6,17 @@ namespace App\Filament\Resources\ProfileResource\RelationManagers;
 
 use App\Enums\CourseType;
 use App\Models\Profile\Course;
-use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
 
 class CoursesRelationManager extends RelationManager
 {
@@ -22,32 +28,32 @@ class CoursesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label(__('user.profile.field.courses.name'))
                     ->nullable()
                     ->maxLength(50),
-                Forms\Components\TextInput::make('theme')
+                TextInput::make('theme')
                     ->label(__('user.profile.field.courses.theme'))
                     ->nullable()
                     ->maxLength(50),
-                Forms\Components\Select::make('type')
+                Select::make('type')
                     ->label(__('user.profile.field.courses.type'))
-                    ->nullable()
-                    ->options(CourseType::options()),
-                Forms\Components\TextInput::make('credits')
+                    ->options(CourseType::options())
+                    ->nullable(),
+                TextInput::make('credits')
                     ->label(__('user.profile.field.courses.credits'))
                     ->nullable()
                     ->numeric()
                     ->maxValue(9999),
-                Forms\Components\TextInput::make('provider')
+                TextInput::make('provider')
                     ->label(__('user.profile.field.courses.provider'))
-                    ->nullable()
                     ->columnSpanFull()
+                    ->nullable()
                     ->maxLength(50),
-                Forms\Components\DatePicker::make('start_date')
+                DatePicker::make('start_date')
                     ->label(__('user.profile.field.start_date'))
                     ->nullable(),
-                Forms\Components\DatePicker::make('end_date')
+                DatePicker::make('end_date')
                     ->label(__('user.profile.field.end_date'))
                     ->afterOrEqual('start_date')
                     ->nullable(),
@@ -58,40 +64,37 @@ class CoursesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('end_date')
+                TextColumn::make('end_date')
                     ->label(__('user.profile.field.year'))
                     ->formatStateUsing((fn (Course $record) => $record->end_date->format('Y')))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('provider')
+                TextColumn::make('provider')
                     ->label(__('user.profile.field.courses.provider'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->label(__('user.profile.field.courses.name'))
                     ->limit(30)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('credits')
+                TextColumn::make('type')
+                    ->label(__('user.profile.field.courses.type'))
+                    ->formatStateUsing(fn (Course $record) => __($record->type?->label())),
+                TextColumn::make('credits')
                     ->label(__('user.profile.field.courses.credits'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->label(__('user.profile.field.courses.type'))
-                    ->formatStateUsing(fn (Course $record) => __($record->type->label())),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
+                ViewAction::make()
                     ->iconButton(),
-                Tables\Actions\EditAction::make()
+                EditAction::make()
                     ->iconButton(),
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->iconButton(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
