@@ -11,6 +11,6 @@ class Placeholder extends BasePlaceholder
 {
     public function getContent()
     {
-        return parent::getContent() ?? new HtmlString('&mdash;');
+        return parent::getContent() ?? new HtmlString('<span class="text-gray-500">&mdash;</span>');
     }
 }

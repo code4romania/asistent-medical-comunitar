@@ -17,6 +17,7 @@ class County extends Model
 
     protected $fillable = [
         'id',
+        'siruta',
         'name',
     ];
 
