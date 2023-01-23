@@ -26,20 +26,16 @@ class ViewArea extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 Placeholder::make('county')
-                                    ->label('user.profile.field.county')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.county'))
                                     ->content(fn (Area $record) => $record->county_name),
                                 Placeholder::make('city')
-                                    ->label('user.profile.field.city')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.city'))
                                     ->content(fn (Area $record) => $record->city_name),
 
                             ]),
                     ])
-                    ->label('user.profile.section.area')
-                    ->translateLabel()
+                    ->label(__('user.profile.section.area'))
                     ->defaultItems(1)
-                    // ->createItemButtonLabel()
                     ->disableItemMovement(),
             ]);
     }
