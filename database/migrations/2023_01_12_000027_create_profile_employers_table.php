@@ -22,8 +22,8 @@ return new class extends Migration
         Schema::create('profile_employers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->enum('type', EmployerType::values());
+            $table->string('name')->nullable();
+            $table->enum('type', EmployerType::values())->nullable();
             $table->string('project')->nullable();
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();

@@ -25,8 +25,18 @@ class Employer extends Model
     ];
 
     protected $casts = [
-        'type'       => EmployerType::class,
+        'type' => EmployerType::class,
         'start_date' => 'date',
-        'end_date'   => 'date',
+        'end_date' => 'date',
     ];
+
+    protected function getIsProjectBasedAttribute(): bool
+    {
+        return ! empty($this->project);
+    }
+
+    protected function getIsOngoingAttribute(): bool
+    {
+        return ! empty($this->end_date);
+    }
 }

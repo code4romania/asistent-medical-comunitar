@@ -7,7 +7,6 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Enums\StudyType;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
-use App\Services\Helper;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -22,8 +21,7 @@ class EditStudies extends EditRecord
             ->schema([
                 Repeater::make('studies')
                     ->relationship()
-                    ->label('user.profile.section.studies')
-                    ->translateLabel()
+                    ->label(__('user.profile.section.studies'))
                     ->defaultItems(1)
                     ->schema([
                         Subsection::make()
@@ -31,38 +29,36 @@ class EditStudies extends EditRecord
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('user.profile.field.study.name')
-                                    ->translateLabel(),
+                                    ->label(__('user.profile.field.study.name'))
+                                    ->maxLength(50)
+                                    ->required(),
                                 Select::make('type')
-                                    ->label('user.profile.field.study.type')
-                                    ->translateLabel()
-                                    ->options(StudyType::options()),
+                                    ->label(__('user.profile.field.study.type'))
+                                    ->options(StudyType::options())
+                                    ->required(),
                                 TextInput::make('institution')
-                                    ->label('user.profile.field.study.institution')
-                                    ->translateLabel(),
+                                    ->label(__('user.profile.field.study.institution')),
                                 TextInput::make('duration')
-                                    ->label('user.profile.field.study.duration')
-                                    ->translateLabel()
+                                    ->label(__('user.profile.field.study.duration'))
                                     ->integer()
                                     ->nullable(),
                                 Location::make(),
                                 Select::make('start_year')
-                                    ->label('user.profile.field.start_date')
-                                    ->translateLabel()
-                                    ->options(
-                                        Helper::generateYearsOptions()
-                                    )
-                                    ->searchable(),
+                                    ->label(__('user.profile.field.start_year'))
+                                    ->options($this->generateYearsOptions())
+                                    ->nullable(),
                                 Select::make('end_year')
-                                    ->label('user.profile.field.end_date')
-                                    ->translateLabel()
-                                    ->options(
-                                        Helper::generateYearsOptions()
-                                    )
-                                    ->searchable()
-                                    ->after('start_year'),
+                                    ->label(__('user.profile.field.end_year'))
+                                    ->options($this->generateYearsOptions())
+                                    ->after('start_year')
+                                    ->nullable(),
                             ]),
                     ]),
             ]);
+    }
+
+    private function generateYearsOptions(): array
+    {
+        return range(today()->year, 1950);
     }
 }
