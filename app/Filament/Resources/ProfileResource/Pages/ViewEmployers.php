@@ -30,10 +30,11 @@ class ViewEmployers extends ViewRecord
                                 Placeholder::make('type')
                                     ->label(__('user.profile.field.employer.type'))
                                     ->content(fn (Employer $record) => $record->type->label()),
-                                Placeholder::make('project_name')
+                                Placeholder::make('project')
                                     ->label(__('user.profile.field.employer.project'))
-                                    ->content(fn (Employer $record) => $record->project_name)
-                                    ->hidden(fn (Employer $record) => empty($record->project_name)),
+                                    ->content(fn (Employer $record) => $record->project)
+                                    ->hidden(fn (Employer $record) => empty($record->project))
+                                    ->columnSpanFull(),
                                 Placeholder::make('county')
                                     ->label(__('user.profile.field.county'))
                                     ->content(fn (Employer $record) => $record->county?->name),
@@ -45,7 +46,7 @@ class ViewEmployers extends ViewRecord
                                     ->content(fn (Employer $record) => $record->start_date),
                                 Placeholder::make('end_date')
                                     ->label(__('user.profile.field.end_date'))
-                                    ->content(fn (Employer $record) => $record->end_date ?? __('user.profile.field.employer.work_in_present')),
+                                    ->content(fn (Employer $record) => $record->end_date ?? __('user.profile.field.employer.ongoing')),
                             ]),
                     ])
                     ->label(__('user.profile.section.employers')),

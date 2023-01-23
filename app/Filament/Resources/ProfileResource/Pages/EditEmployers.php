@@ -7,7 +7,6 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Enums\EmployerType;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
-use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
@@ -42,7 +41,10 @@ class EditEmployers extends EditRecord
                                     ->schema([
                                         Checkbox::make('is_project_based')
                                             ->label(__('user.profile.field.employer.project_based'))
-                                            ->reactive(),
+                                            ->reactive()
+                                            ->afterStateUpdated(function (callable $set) {
+                                                $set('project', null);
+                                            }),
                                     ]),
                                 TextInput::make('project')
                                     ->label(__('user.profile.field.employer.project'))
@@ -50,7 +52,7 @@ class EditEmployers extends EditRecord
                                         return $get('is_project_based') === false;
                                     })
                                     ->reactive()
-                                    ->afterStateHydrated(function (Closure $set, $state) {
+                                    ->afterStateHydrated(function (callable $set, $state) {
                                         $set('is_project_based', $state !== null);
                                     })
                                     ->columnSpanFull(),
@@ -63,7 +65,7 @@ class EditEmployers extends EditRecord
                                     ->disabled(function (callable $get) {
                                         return $get('is_ongoing') === true;
                                     })
-                                    ->afterStateHydrated(function (Closure $set, $state) {
+                                    ->afterStateHydrated(function (callable $set, $state) {
                                         $set('is_ongoing', $state === null);
                                     }),
                                 Group::make()
@@ -72,7 +74,10 @@ class EditEmployers extends EditRecord
                                     ->schema([
                                         Checkbox::make('is_ongoing')
                                             ->label(__('user.profile.field.employer.ongoing'))
-                                            ->reactive(),
+                                            ->reactive()
+                                            ->afterStateUpdated(function (callable $set) {
+                                                $set('end_date', null);
+                                            }),
                                     ]),
                             ]),
                     ]),
