@@ -10,6 +10,7 @@ use App\Forms\Components\Subsection;
 use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,20 +35,25 @@ class EditEmployers extends EditRecord
                                     ->label(__('user.profile.field.employer.name')),
                                 Select::make('type')
                                     ->label(__('user.profile.field.employer.type'))
-                                    ->options(EmployerType::options())
-                                    ->required(),
-                                Checkbox::make('is_project_base')
-                                    ->label(__('user.profile.field.employer.project_base'))
-                                    ->reactive(),
+                                    ->options(EmployerType::options()),
+                                Group::make()
+                                    ->extraAttributes(['class' => 'flex justify-end'])
+                                    ->columnSpanFull()
+                                    ->schema([
+                                        Checkbox::make('is_project_based')
+                                            ->label(__('user.profile.field.employer.project_based'))
+                                            ->reactive(),
+                                    ]),
                                 TextInput::make('project')
                                     ->label(__('user.profile.field.employer.project'))
                                     ->hidden(function (callable $get) {
-                                        return $get('is_project_base') === false;
+                                        return $get('is_project_based') === false;
                                     })
                                     ->reactive()
                                     ->afterStateHydrated(function (Closure $set, $state) {
-                                        $set('is_project_base', $state !== null);
-                                    }),
+                                        $set('is_project_based', $state !== null);
+                                    })
+                                    ->columnSpanFull(),
                                 Location::make(),
                                 DatePicker::make('start_date')
                                     ->label(__('user.profile.field.start_date')),
@@ -55,14 +61,19 @@ class EditEmployers extends EditRecord
                                     ->label(__('user.profile.field.end_date'))
                                     ->afterOrEqual('start_date')
                                     ->disabled(function (callable $get) {
-                                        return $get('is_on_going') === true;
+                                        return $get('is_ongoing') === true;
                                     })
                                     ->afterStateHydrated(function (Closure $set, $state) {
-                                        $set('is_on_going', $state === null);
+                                        $set('is_ongoing', $state === null);
                                     }),
-                                Checkbox::make('is_on_going')
-                                    ->label(__('user.profile.field.employer.on_going'))
-                                    ->reactive(),
+                                Group::make()
+                                    ->extraAttributes(['class' => 'flex justify-end'])
+                                    ->columnSpanFull()
+                                    ->schema([
+                                        Checkbox::make('is_ongoing')
+                                            ->label(__('user.profile.field.employer.ongoing'))
+                                            ->reactive(),
+                                    ]),
                             ]),
                     ]),
             ]);

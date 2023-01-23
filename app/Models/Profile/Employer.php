@@ -30,12 +30,12 @@ class Employer extends Model
         'end_date' => 'date',
     ];
 
-    protected function getIsProjectBaseAttribute(): bool
+    protected function getIsProjectBasedAttribute(): bool
     {
         return ! empty($this->project);
     }
 
-    protected function getIsOnGoingAttribute(): bool
+    protected function getIsOngoingAttribute(): bool
     {
         return ! empty($this->end_date);
     }

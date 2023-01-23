@@ -75,9 +75,9 @@ return [
             'employer' => [
                 'name' => 'Denumire angajator',
                 'type' => 'Tip angajator',
-                'project_base' => 'Angajat pe proiect',
+                'project_based' => 'Angajat pe proiect',
                 'project' => 'Nume proiect',
-                'on_going' => 'Lucrez aici în prezent',
+                'ongoing' => 'Lucrez aici în prezent',
             ],
 
             'area' => [
@@ -105,7 +105,7 @@ return [
             'city' => 'Localitate',
             'start_date' => 'Data de început',
             'end_date' => 'Data de finalizare',
-            'project_base' => 'Angajat pe proiect',
+            'project_based' => 'Angajat pe proiect',
             'still_working' => 'Lucrez aici în prezent',
             'add_btn' => '+ Adaugă angajator',
         ],
