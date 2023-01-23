@@ -29,7 +29,7 @@ class Location extends Grid
                 ->content(fn ($record) => $record->county?->name),
             Placeholder::make('city')
                 ->label(__('user.profile.field.city'))
-                ->content(fn ($record) => new HtmlString(static::getRenderedOptionLabel($record->city))),
+                ->content(fn ($record) => static::getRenderedOptionLabel($record->city)),
         ];
     }
 
@@ -61,21 +61,27 @@ class Location extends Grid
                         ->limit(100)
                         ->get()
                         ->mapWithKeys(fn (City $city) => [
-                            $city->getKey() => static::getRenderedOptionLabel($city),
+                            $city->getKey() => static::getRenderedOptionLabel($city)->toHtml(),
                         ]);
                 })
                 ->getOptionLabelUsing(
-                    fn ($value) => static::getRenderedOptionLabel(City::find($value))
+                    fn ($value) => static::getRenderedOptionLabel(City::find($value))->toHtml()
                 ),
 
         ];
     }
 
-    private static function getRenderedOptionLabel(Model $model): string
+    private static function getRenderedOptionLabel(?Model $model): ?HtmlString
     {
-        return view('forms.components.select-city-item', [
-            'name'        => $model?->name,
-            'parent_name' => $model?->parent_name,
+        if (\is_null($model)) {
+            return null;
+        }
+
+        $html = view('forms.components.select-city-item', [
+            'name' => $model->name,
+            'suffix' => $model->parent_name,
         ])->render();
+
+        return new HtmlString($html);
     }
 }
