@@ -2,19 +2,6 @@
 
 declare(strict_types=1);
 
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Http\Middleware\MirrorConfigToSubpackages;
-use Filament\Pages;
-use Filament\Widgets;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-
 return [
 
     /*
@@ -89,7 +76,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \Filament\Http\Livewire\Auth\Login::class,
+            'login' => Filament\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -107,7 +94,7 @@ return [
         'namespace' => 'App\\Filament\\Pages',
         'path' => app_path('Filament/Pages'),
         'register' => [
-            Pages\Dashboard::class,
+            App\Filament\Pages\Dashboard::class,
         ],
     ],
 
@@ -140,9 +127,7 @@ return [
     'widgets' => [
         'namespace' => 'App\\Filament\\Widgets',
         'path' => app_path('Filament/Widgets'),
-        'register' => [
-            Widgets\AccountWidget::class,
-        ],
+        'register' => [],
     ],
 
     /*
@@ -316,18 +301,18 @@ return [
 
     'middleware' => [
         'auth' => [
-            Authenticate::class,
+            Filament\Http\Middleware\Authenticate::class,
         ],
         'base' => [
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            AuthenticateSession::class,
-            ShareErrorsFromSession::class,
-            VerifyCsrfToken::class,
-            SubstituteBindings::class,
-            DispatchServingFilamentEvent::class,
-            MirrorConfigToSubpackages::class,
+            Illuminate\Cookie\Middleware\EncryptCookies::class,
+            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            Illuminate\Session\Middleware\StartSession::class,
+            Illuminate\Session\Middleware\AuthenticateSession::class,
+            Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            Filament\Http\Middleware\DispatchServingFilamentEvent::class,
+            Filament\Http\Middleware\MirrorConfigToSubpackages::class,
         ],
     ],
 
