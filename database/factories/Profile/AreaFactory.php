@@ -24,7 +24,7 @@ class AreaFactory extends Factory
 
         return [
             'county_id' => $city->county_id,
-            'city_id'   => $city->id,
+            'city_id' => $city->id,
         ];
     }
 }

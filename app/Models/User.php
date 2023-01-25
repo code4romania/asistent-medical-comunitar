@@ -54,7 +54,7 @@ class User extends Authenticatable implements FilamentUser, HasName
     ];
 
     protected $casts = [
-        'gender'        => Gender::class,
+        'gender' => Gender::class,
         'date_of_birth' => 'date',
     ];
 

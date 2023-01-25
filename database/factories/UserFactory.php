@@ -25,10 +25,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'first_name'     => fake()->firstName(),
-            'last_name'      => fake()->lastName(),
-            'email'          => fake()->unique()->safeEmail(),
-            'password'       => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',   // password
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',   // password
             'remember_token' => Str::random(10),
         ];
     }
@@ -37,12 +37,12 @@ class UserFactory extends Factory
     {
         return $this
             ->state(fn (array $attributes) => [
-                'phone'                => fake()->phoneNumber(),
-                'date_of_birth'        => fake()->date(),
-                'gender'               => fake()->randomElement(Gender::values()),
-                'cnp'                  => null,
+                'phone' => fake()->phoneNumber(),
+                'date_of_birth' => fake()->date(),
+                'gender' => fake()->randomElement(Gender::values()),
+                'cnp' => null,
                 'accreditation_number' => null,
-                'accreditation_date'   => fake()->date(),
+                'accreditation_date' => fake()->date(),
             ])
             ->has(Area::factory()->count(3))
             ->has(Study::factory()->count(5))

@@ -26,9 +26,9 @@ class Study extends Model
     ];
 
     protected $casts = [
-        'type'       => StudyType::class,
-        'duration'   => 'int',
+        'type' => StudyType::class,
+        'duration' => 'int',
         'start_year' => 'int',
-        'end_year'   => 'int',
+        'end_year' => 'int',
     ];
 }

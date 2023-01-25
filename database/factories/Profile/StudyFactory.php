@@ -27,14 +27,14 @@ class StudyFactory extends Factory
         $city = City::query()->inRandomOrder()->first();
 
         return [
-            'name'        => fake()->sentence(),
-            'type'        => fake()->randomElement(StudyType::values()),
+            'name' => fake()->sentence(),
+            'type' => fake()->randomElement(StudyType::values()),
             'institution' => fake()->company(),
-            'duration'    => fake()->boolean() ? fake()->randomDigitNotNull() : null,
-            'start_year'  => $startYear,
-            'end_year'    => $endYear,
-            'county_id'   => $city->county_id,
-            'city_id'     => $city->id,
+            'duration' => fake()->boolean() ? fake()->randomDigitNotNull() : null,
+            'start_year' => $startYear,
+            'end_year' => $endYear,
+            'county_id' => $city->county_id,
+            'city_id' => $city->id,
         ];
     }
 }

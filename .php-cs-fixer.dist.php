@@ -142,7 +142,7 @@ $rules = [
     // php-cs-fixer 3: Changed options
     'binary_operator_spaces' => [
         'default' => 'single_space',
-        'operators' => ['=>' => null],
+        'operators' => [],
     ],
     'blank_line_before_statement' => [
         'statements' => ['return'],
