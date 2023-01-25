@@ -39,12 +39,14 @@ class Location extends Grid
             Select::make('county_id')
                 ->options(County::pluck('name', 'id'))
                 ->label(__('field.county'))
+                ->placeholder(__('placeholder.county'))
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
 
             Select::make('city_id')
                 ->label(__('field.city'))
+                ->placeholder(__('placeholder.city'))
                 ->allowHtml()
                 ->searchable()
                 ->requiredWith('county_id')

@@ -32,9 +32,11 @@ class EditEmployers extends EditRecord
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label(__('field.employer_name')),
+                                    ->label(__('field.employer_name'))
+                                    ->placeholder(__('placeholder.employer_name')),
                                 Select::make('type')
                                     ->label(__('field.employer_type'))
+                                    ->placeholder(__('placeholder.choose'))
                                     ->options(EmployerType::options()),
                                 Group::make()
                                     ->extraAttributes(['class' => 'flex justify-end'])
@@ -49,6 +51,7 @@ class EditEmployers extends EditRecord
                                     ]),
                                 TextInput::make('project')
                                     ->label(__('field.employer_project'))
+                                    ->placeholder(__('placeholder.employer_project'))
                                     ->hidden(function (callable $get) {
                                         return $get('is_project_based') === false;
                                     })
@@ -59,9 +62,11 @@ class EditEmployers extends EditRecord
                                     ->columnSpanFull(),
                                 Location::make(),
                                 DatePicker::make('start_date')
-                                    ->label(__('field.start_date')),
+                                    ->label(__('field.start_date'))
+                                    ->placeholder(__('placeholder.date')),
                                 DatePicker::make('end_date')
                                     ->label(__('field.end_date'))
+                                    ->placeholder(__('placeholder.date'))
                                     ->afterOrEqual('start_date')
                                     ->disabled(function (callable $get) {
                                         return $get('is_ongoing') === true;

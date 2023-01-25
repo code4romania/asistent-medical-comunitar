@@ -30,25 +30,31 @@ class EditStudies extends EditRecord
                             ->schema([
                                 TextInput::make('name')
                                     ->label(__('field.study_name'))
+                                    ->placeholder(__('placeholder.study_name'))
                                     ->maxLength(50)
                                     ->required(),
                                 Select::make('type')
                                     ->label(__('field.study_type'))
+                                    ->placeholder(__('placeholder.choose'))
                                     ->options(StudyType::options())
                                     ->required(),
                                 TextInput::make('institution')
-                                    ->label(__('field.study_institution')),
+                                    ->label(__('field.study_institution'))
+                                    ->placeholder(__('placeholder.study_institution')),
                                 TextInput::make('duration')
                                     ->label(__('field.study_duration'))
+                                    ->placeholder(__('placeholder.study_duration'))
                                     ->integer()
                                     ->nullable(),
                                 Location::make(),
                                 Select::make('start_year')
                                     ->label(__('field.start_year'))
+                                    ->placeholder(__('placeholder.choose'))
                                     ->options($this->generateYearsOptions())
                                     ->nullable(),
                                 Select::make('end_year')
                                     ->label(__('field.end_year'))
+                                    ->placeholder(__('placeholder.choose'))
                                     ->options($this->generateYearsOptions())
                                     ->after('start_year')
                                     ->nullable(),

@@ -30,31 +30,38 @@ class CoursesRelationManager extends RelationManager
             ->schema([
                 TextInput::make('name')
                     ->label(__('field.course_name'))
+                    ->placeholder(__('placeholder.course_name'))
                     ->nullable()
                     ->maxLength(50),
                 TextInput::make('theme')
                     ->label(__('field.course_theme'))
+                    ->placeholder(__('placeholder.course_theme'))
                     ->nullable()
                     ->maxLength(50),
                 Select::make('type')
                     ->label(__('field.course_type'))
+                    ->placeholder(__('placeholder.choose'))
                     ->options(CourseType::options())
                     ->nullable(),
                 TextInput::make('credits')
                     ->label(__('field.course_credits'))
+                    ->placeholder(__('placeholder.course_credits'))
                     ->nullable()
                     ->numeric()
                     ->maxValue(9999),
                 TextInput::make('provider')
                     ->label(__('field.course_provider'))
+                    ->placeholder(__('placeholder.course_provider'))
                     ->columnSpanFull()
                     ->nullable()
                     ->maxLength(50),
                 DatePicker::make('start_date')
                     ->label(__('field.start_date'))
+                    ->placeholder(__('placeholder.choose'))
                     ->nullable(),
                 DatePicker::make('end_date')
                     ->label(__('field.end_date'))
+                    ->placeholder(__('placeholder.choose'))
                     ->afterOrEqual('start_date')
                     ->nullable(),
             ]);
