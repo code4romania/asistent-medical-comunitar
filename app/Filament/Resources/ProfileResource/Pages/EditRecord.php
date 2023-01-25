@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
+use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-abstract class EditRecord extends BaseEditRecord
+class EditRecord extends BaseEditRecord implements WithTabs
 {
     use ResolvesCurrentUserProfile;
 
-    protected static string $view = 'filament::resources.profile.edit';
+    protected static string $view = 'filament.pages.profile.edit';
 
     protected static string $resource = ProfileResource::class;
 
@@ -23,12 +24,12 @@ abstract class EditRecord extends BaseEditRecord
         return [];
     }
 
-    protected function getSections(): array
+    public function getTabs(): array
     {
         return $this->getResource()::getProfileSections();
     }
 
-    protected function getActiveSection(): string
+    public function getActiveTab(): string
     {
         return Str::of(static::class)
             ->classBasename()
@@ -51,7 +52,7 @@ abstract class EditRecord extends BaseEditRecord
 
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl("{$this->getActiveSection()}.view");
+        return $this->getResource()::getUrl("{$this->getActiveTab()}.view");
     }
 
     protected function getFormActions(): array

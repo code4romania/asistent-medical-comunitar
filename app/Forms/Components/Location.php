@@ -9,6 +9,7 @@ use App\Models\County;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 
 class Location extends Grid
@@ -17,7 +18,7 @@ class Location extends Grid
     {
         return match ($this->getContainer()->getContext()) {
             'view' => $this->getViewComponents(),
-            'edit' => $this->getEditComponents(),
+            default => $this->getEditComponents(),
         };
     }
 
@@ -37,9 +38,15 @@ class Location extends Grid
     {
         return [
             Select::make('county_id')
-                ->options(County::pluck('name', 'id'))
                 ->label(__('field.county'))
                 ->placeholder(__('placeholder.county'))
+                ->options(function () {
+                    return Cache::driver('array')
+                        ->rememberForever(
+                            'counties',
+                            fn () => County::pluck('name', 'id')
+                        );
+                })
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
@@ -79,7 +86,7 @@ class Location extends Grid
             return null;
         }
 
-        $html = view('forms.components.select-city-item', [
+        $html = view('forms.components.location.city', [
             'name' => $model->name,
             'suffix' => $model->parent_name,
         ])->render();

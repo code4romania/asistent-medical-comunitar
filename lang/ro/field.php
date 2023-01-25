@@ -7,6 +7,7 @@ return [
     'accreditation_date' => 'Data emiterii',
     'accreditation_document' => 'Document acreditare',
     'accreditation_number' => 'Serie și Număr Certificat de Acreditare',
+    'address' => 'Adresă',
     'age' => 'Vârstă',
     'beneficiary_type' => 'Tip beneficiar',
     'city' => 'Localitate',

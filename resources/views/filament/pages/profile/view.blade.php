@@ -10,12 +10,19 @@
         $relationManagers = $this->getRelationManagers();
     @endphp
 
-    <x-filament::profile-tabs
-        :sections="$this->getSections()"
-        :active-section="$this->getActiveSection()"
+    <x-tabs
+        :tabs="$this->getTabs()"
+        :active-tab="$this->getActiveTab()"
+        label-prefix="user.profile.section"
     >
+        <x-filament::pages.actions
+            :actions="$this->getCachedActions()"
+            alignment="right"
+            class="mb-6"
+        />
+
         {{ $this->form }}
-    </x-filament::profile-tabs>
+    </x-tabs>
 
     @if (count($relationManagers))
         <x-filament::hr />

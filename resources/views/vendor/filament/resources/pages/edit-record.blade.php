@@ -10,10 +10,12 @@
         <x-filament::form wire:submit.prevent="save">
             {{ $this->form }}
 
-            <x-filament::form.actions
-                :actions="$this->getCachedFormActions()"
-                :full-width="$this->hasFullWidthFormActions()"
-            />
+            <div class="fixed inset-x-0 bottom-0 p-6 bg-white border-t border-gray-300">
+                <x-filament::form.actions
+                    :actions="$this->getCachedFormActions()"
+                    :full-width="$this->hasFullWidthFormActions()"
+                />
+            </div>
         </x-filament::form>
     @endcapture
 
@@ -21,12 +23,12 @@
         $relationManagers = $this->getRelationManagers();
     @endphp
 
-    @if ((! $this->hasCombinedRelationManagerTabsWithForm()) || (! count($relationManagers)))
+    @if (!$this->hasCombinedRelationManagerTabsWithForm() || !count($relationManagers))
         {{ $form() }}
     @endif
 
     @if (count($relationManagers))
-        @if (! $this->hasCombinedRelationManagerTabsWithForm())
+        @if (!$this->hasCombinedRelationManagerTabsWithForm())
             <x-filament::hr />
         @endif
 

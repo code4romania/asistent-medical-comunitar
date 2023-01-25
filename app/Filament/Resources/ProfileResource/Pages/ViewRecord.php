@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Concerns\ResolvesCurrentUserProfile;
+use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-abstract class ViewRecord extends BaseViewRecord
+class ViewRecord extends BaseViewRecord implements WithTabs
 {
     use ResolvesCurrentUserProfile;
 
-    protected static string $view = 'filament::resources.profile.view';
+    protected static string $view = 'filament.pages.profile.view';
 
     protected static string $resource = ProfileResource::class;
 
@@ -24,16 +25,16 @@ abstract class ViewRecord extends BaseViewRecord
         return [
             EditAction::make()
                 ->icon('heroicon-s-pencil')
-                ->url($this->getResource()::getUrl("{$this->getActiveSection()}.edit")),
+                ->url($this->getResource()::getUrl("{$this->getActiveTab()}.edit")),
         ];
     }
 
-    protected function getSections(): array
+    public function getTabs(): array
     {
         return $this->getResource()::getProfileSections();
     }
 
-    protected function getActiveSection(): string
+    public function getActiveTab(): string
     {
         return Str::of(static::class)
             ->classBasename()
