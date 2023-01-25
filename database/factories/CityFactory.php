@@ -21,7 +21,7 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => fake()->city(),
+            'name' => fake()->city(),
             'county_id' => County::factory(),
         ];
     }

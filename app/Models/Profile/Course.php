@@ -27,9 +27,9 @@ class Course extends Model
     ];
 
     protected $casts = [
-        'type'       => CourseType::class,
-        'credits'    => 'int',
+        'type' => CourseType::class,
+        'credits' => 'int',
         'start_date' => 'date',
-        'end_date'   => 'date',
+        'end_date' => 'date',
     ];
 }

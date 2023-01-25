@@ -25,11 +25,11 @@ class EmployerFactory extends Factory
         $city = City::query()->inRandomOrder()->first();
 
         return [
-            'name'       => fake()->company(),
-            'type'       => fake()->randomElement(EmployerType::values()),
+            'name' => fake()->company(),
+            'type' => fake()->randomElement(EmployerType::values()),
             'start_date' => fake()->date(),
-            'county_id'  => $city->county_id,
-            'city_id'    => $city->id,
+            'county_id' => $city->county_id,
+            'city_id' => $city->id,
         ];
     }
 
@@ -45,7 +45,7 @@ class EmployerFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'start_date' => fake()->date(),
-            'end_date'   => null,
+            'end_date' => null,
         ]);
     }
 

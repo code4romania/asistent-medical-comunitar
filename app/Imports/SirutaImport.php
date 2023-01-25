@@ -23,7 +23,7 @@ class SirutaImport implements ToModel, WithBatchInserts, WithHeadingRow
     public function model(array $row): ?Model
     {
         return match ($row['niv']) {
-            1       => $this->importCounty($row),
+            1 => $this->importCounty($row),
             default => $this->importCity($row),
         };
     }
@@ -36,9 +36,9 @@ class SirutaImport implements ToModel, WithBatchInserts, WithHeadingRow
     private function importCounty(array $row): Model
     {
         return new County([
-            'id'     => $row['jud'],
+            'id' => $row['jud'],
             'siruta' => $row['siruta'],
-            'name'   => $this->normalizeName($row['denloc'])
+            'name' => $this->normalizeName($row['denloc'])
                 ->remove(['Județul', 'Municipiul'])
                 ->trim(),
         ]);
@@ -47,11 +47,11 @@ class SirutaImport implements ToModel, WithBatchInserts, WithHeadingRow
     private function importCity(array $row): Model
     {
         return new City([
-            'id'        => $row['siruta'],
-            'level'     => $row['niv'],
-            'type'      => $row['tip'],
+            'id' => $row['siruta'],
+            'level' => $row['niv'],
+            'type' => $row['tip'],
             'county_id' => $row['jud'],
-            'name'      => $this->normalizeName($row['denloc'])
+            'name' => $this->normalizeName($row['denloc'])
                 ->remove('București')
                 ->trim(),
             'parent_id' => $row['niv'] === 3

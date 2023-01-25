@@ -25,13 +25,13 @@ class CourseFactory extends Factory
         $startDate = $endDate->subMonths(fake()->randomDigitNotZero());
 
         return [
-            'name'       => fake()->sentence(),
-            'theme'      => fake()->sentence(),
-            'provider'   => fake()->company(),
-            'type'       => fake()->randomElement(CourseType::values()),
-            'credits'    => fake()->randomNumber(3),
+            'name' => fake()->sentence(),
+            'theme' => fake()->sentence(),
+            'provider' => fake()->company(),
+            'type' => fake()->randomElement(CourseType::values()),
+            'credits' => fake()->randomNumber(3),
             'start_date' => $startDate,
-            'end_date'   => $endDate,
+            'end_date' => $endDate,
         ];
     }
 }
