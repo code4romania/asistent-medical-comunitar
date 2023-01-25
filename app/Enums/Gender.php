@@ -16,6 +16,6 @@ enum Gender: string
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.gender';
+        return 'gender';
     }
 }

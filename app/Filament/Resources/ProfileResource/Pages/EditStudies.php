@@ -21,34 +21,34 @@ class EditStudies extends EditRecord
             ->schema([
                 Repeater::make('studies')
                     ->relationship()
-                    ->label(__('user.profile.section.studies'))
-                    ->defaultItems(1)
+                    ->label(__('study.label.plural'))
+                    ->createItemButtonLabel(__('study.action.create'))
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-academic-cap')
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label(__('user.profile.field.study.name'))
+                                    ->label(__('field.study_name'))
                                     ->maxLength(50)
                                     ->required(),
                                 Select::make('type')
-                                    ->label(__('user.profile.field.study.type'))
+                                    ->label(__('field.study_type'))
                                     ->options(StudyType::options())
                                     ->required(),
                                 TextInput::make('institution')
-                                    ->label(__('user.profile.field.study.institution')),
+                                    ->label(__('field.study_institution')),
                                 TextInput::make('duration')
-                                    ->label(__('user.profile.field.study.duration'))
+                                    ->label(__('field.study_duration'))
                                     ->integer()
                                     ->nullable(),
                                 Location::make(),
                                 Select::make('start_year')
-                                    ->label(__('user.profile.field.start_year'))
+                                    ->label(__('field.start_year'))
                                     ->options($this->generateYearsOptions())
                                     ->nullable(),
                                 Select::make('end_year')
-                                    ->label(__('user.profile.field.end_year'))
+                                    ->label(__('field.end_year'))
                                     ->options($this->generateYearsOptions())
                                     ->after('start_year')
                                     ->nullable(),

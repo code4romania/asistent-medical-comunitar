@@ -20,32 +20,32 @@ class ViewEmployers extends ViewRecord
             ->schema([
                 Repeater::make('employers')
                     ->relationship(callback: fn (Builder $query) => $query->withLocation())
+                    ->label(__('employer.label.plural'))
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-office-building')
                             ->columns(2)
                             ->schema([
                                 Placeholder::make('name')
-                                    ->label(__('user.profile.field.employer.name'))
+                                    ->label(__('field.employer_name'))
                                     ->content(fn (Employer $record) => $record->name),
                                 Placeholder::make('type')
-                                    ->label(__('user.profile.field.employer.type'))
+                                    ->label(__('field.employer_type'))
                                     ->content(fn (Employer $record) => $record->type->label()),
                                 Placeholder::make('project')
-                                    ->label(__('user.profile.field.employer.project'))
+                                    ->label(__('field.employer_project'))
                                     ->content(fn (Employer $record) => $record->project)
                                     ->hidden(fn (Employer $record) => empty($record->project))
                                     ->columnSpanFull(),
                                 Location::make(),
                                 Placeholder::make('start_date')
-                                    ->label(__('user.profile.field.start_date'))
+                                    ->label(__('field.start_date'))
                                     ->content(fn (Employer $record) => $record->start_date),
                                 Placeholder::make('end_date')
-                                    ->label(__('user.profile.field.end_date'))
-                                    ->content(fn (Employer $record) => $record->end_date ?? __('user.profile.field.employer.ongoing')),
+                                    ->label(__('field.end_date'))
+                                    ->content(fn (Employer $record) => $record->end_date ?? __('field.employer_ongoing')),
                             ]),
-                    ])
-                    ->label(__('user.profile.section.employers')),
+                    ]),
             ])
             ->columns(1);
     }

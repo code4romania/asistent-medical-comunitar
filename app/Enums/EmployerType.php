@@ -18,6 +18,6 @@ enum EmployerType: string
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.employer';
+        return 'employer.type';
     }
 }

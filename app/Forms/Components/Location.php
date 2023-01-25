@@ -25,10 +25,10 @@ class Location extends Grid
     {
         return [
             Placeholder::make('county')
-                ->label(__('user.profile.field.county'))
+                ->label(__('field.county'))
                 ->content(fn ($record) => $record->county?->name),
             Placeholder::make('city')
-                ->label(__('user.profile.field.city'))
+                ->label(__('field.city'))
                 ->content(fn ($record) => static::getRenderedOptionLabel($record->city)),
         ];
     }
@@ -38,13 +38,13 @@ class Location extends Grid
         return [
             Select::make('county_id')
                 ->options(County::pluck('name', 'id'))
-                ->label(__('user.profile.field.county'))
+                ->label(__('field.county'))
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
 
             Select::make('city_id')
-                ->label(__('user.profile.field.city'))
+                ->label(__('field.city'))
                 ->allowHtml()
                 ->searchable()
                 ->requiredWith('county_id')

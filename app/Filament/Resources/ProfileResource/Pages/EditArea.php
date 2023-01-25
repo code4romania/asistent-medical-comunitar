@@ -18,8 +18,8 @@ class EditArea extends EditRecord
             ->schema([
                 Repeater::make('areas')
                     ->relationship()
-                    ->label(__('user.profile.section.area'))
-                    ->createItemButtonLabel(__('user.profile.field.area.create'))
+                    ->label(__('area.label.plural'))
+                    ->createItemButtonLabel(__('area.action.create'))
                     ->minItems(1)
                     ->schema([
                         Subsection::make()
