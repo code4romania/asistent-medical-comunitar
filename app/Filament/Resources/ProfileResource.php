@@ -47,8 +47,8 @@ class ProfileResource extends Resource
     public static function getProfileSections(): array
     {
         return collect(self::getPages())
-            ->filter(fn ($value, string $key) => Str::endsWith($key, '.view'))
             ->keys()
+            ->filter(fn (string $key) => Str::endsWith($key, '.view'))
             ->mapWithKeys(fn (string $key) => [
                 Str::beforeLast($key, '.view') => self::getUrl($key),
             ])
