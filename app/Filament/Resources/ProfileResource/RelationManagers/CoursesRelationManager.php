@@ -22,7 +22,15 @@ class CoursesRelationManager extends RelationManager
 {
     protected static string $relationship = 'courses';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static function getModelLabel(): string
+    {
+        return __('course.label.singular');
+    }
+
+    protected static function getPluralModelLabel(): string
+    {
+        return __('course.label.plural');
+    }
 
     public static function form(Form $form): Form
     {
@@ -106,10 +114,5 @@ class CoursesRelationManager extends RelationManager
                     ->label(__('course.action.delete'))
                     ->iconButton(),
             ]);
-    }
-
-    public static function getTitle(): string
-    {
-        return __('user.profile.section.courses');
     }
 }
