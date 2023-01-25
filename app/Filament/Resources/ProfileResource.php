@@ -8,8 +8,6 @@ use App\Filament\Resources\ProfileResource\Pages;
 use App\Filament\Resources\ProfileResource\RelationManagers\CoursesRelationManager;
 use App\Models\User;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
 use Illuminate\Support\Str;
 
 class ProfileResource extends Resource
@@ -22,23 +20,6 @@ class ProfileResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
-    }
-
     public static function getRelations(): array
     {
         return [
@@ -49,8 +30,6 @@ class ProfileResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProfile::route('/'),
-
             'general.view' => Pages\ViewGeneral::route('/general'),
             'general.edit' => Pages\EditGeneral::route('/general/edit'),
 
