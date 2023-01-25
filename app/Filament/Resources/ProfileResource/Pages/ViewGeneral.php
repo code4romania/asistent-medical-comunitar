@@ -22,19 +22,19 @@ class ViewGeneral extends ViewRecord
                     ->columns(2)
                     ->schema([
                         Placeholder::make('first_name')
-                            ->label(__('user.profile.field.first_name'))
+                            ->label(__('field.first_name'))
                             ->content(fn (User $record) => $record->first_name),
                         Placeholder::make('last_name')
-                            ->label(__('user.profile.field.last_name'))
+                            ->label(__('field.last_name'))
                             ->content(fn (User $record) => $record->last_name),
                         Placeholder::make('date_of_birth')
-                            ->label(__('user.profile.field.date_of_birth'))
+                            ->label(__('field.date_of_birth'))
                             ->content(fn (User $record) => $record->date_of_birth),
                         Placeholder::make('gender')
-                            ->label(__('user.profile.field.gender'))
+                            ->label(__('field.gender'))
                             ->content(fn (User $record) => $record->gender->label()),
                         Placeholder::make('cnp')
-                            ->label(__('user.profile.field.cnp'))
+                            ->label(__('field.cnp'))
                             ->content(fn (User $record) => $record->cnp),
                     ]),
 
@@ -44,10 +44,10 @@ class ViewGeneral extends ViewRecord
                     ->schema([
                         Location::make(),
                         Placeholder::make('email')
-                            ->label(__('user.profile.field.email'))
+                            ->label(__('field.email'))
                             ->content(fn (User $record) => $record->email),
                         Placeholder::make('phone')
-                            ->label(__('user.profile.field.phone'))
+                            ->label(__('field.phone'))
                             ->content(fn (User $record) => $record->phone),
                     ]),
 
@@ -57,12 +57,12 @@ class ViewGeneral extends ViewRecord
                     ->schema([
                         Placeholder::make('accreditation_number')
                             ->content(fn (User $record) => $record->accreditation_number)
-                            ->label(__('user.profile.field.accreditation_number')),
+                            ->label(__('field.accreditation_number')),
                         Placeholder::make('accreditation_date')
                             ->content(fn (User $record) => $record->accreditation_date)
-                            ->label(__('user.profile.field.accreditation_date')),
+                            ->label(__('field.accreditation_date')),
                         Placeholder::make('accreditation_document')
-                            ->label(__('user.profile.field.accreditation_document'))
+                            ->label(__('field.accreditation_document'))
                             ->content(fn (User $record) => null),
                     ]),
             ]);

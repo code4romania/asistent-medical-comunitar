@@ -18,6 +18,6 @@ enum StudyType: string
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'user.profile.study';
+        return 'study.type';
     }
 }

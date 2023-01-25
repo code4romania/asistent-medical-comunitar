@@ -24,30 +24,34 @@ class EditEmployers extends EditRecord
             ->schema([
                 Repeater::make('employers')
                     ->relationship()
-                    ->label(__('user.profile.section.employers'))
+                    ->label(__('employer.label.plural'))
+                    ->createItemButtonLabel(__('employer.action.create'))
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-office-building')
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label(__('user.profile.field.employer.name')),
+                                    ->label(__('field.employer_name'))
+                                    ->placeholder(__('placeholder.employer_name')),
                                 Select::make('type')
-                                    ->label(__('user.profile.field.employer.type'))
+                                    ->label(__('field.employer_type'))
+                                    ->placeholder(__('placeholder.choose'))
                                     ->options(EmployerType::options()),
                                 Group::make()
                                     ->extraAttributes(['class' => 'flex justify-end'])
                                     ->columnSpanFull()
                                     ->schema([
                                         Checkbox::make('is_project_based')
-                                            ->label(__('user.profile.field.employer.project_based'))
+                                            ->label(__('field.employer_project_based'))
                                             ->reactive()
                                             ->afterStateUpdated(function (callable $set) {
                                                 $set('project', null);
                                             }),
                                     ]),
                                 TextInput::make('project')
-                                    ->label(__('user.profile.field.employer.project'))
+                                    ->label(__('field.employer_project'))
+                                    ->placeholder(__('placeholder.employer_project'))
                                     ->hidden(function (callable $get) {
                                         return $get('is_project_based') === false;
                                     })
@@ -58,9 +62,11 @@ class EditEmployers extends EditRecord
                                     ->columnSpanFull(),
                                 Location::make(),
                                 DatePicker::make('start_date')
-                                    ->label(__('user.profile.field.start_date')),
+                                    ->label(__('field.start_date'))
+                                    ->placeholder(__('placeholder.date')),
                                 DatePicker::make('end_date')
-                                    ->label(__('user.profile.field.end_date'))
+                                    ->label(__('field.end_date'))
+                                    ->placeholder(__('placeholder.date'))
                                     ->afterOrEqual('start_date')
                                     ->disabled(function (callable $get) {
                                         return $get('is_ongoing') === true;
@@ -73,7 +79,7 @@ class EditEmployers extends EditRecord
                                     ->columnSpanFull()
                                     ->schema([
                                         Checkbox::make('is_ongoing')
-                                            ->label(__('user.profile.field.employer.ongoing'))
+                                            ->label(__('field.employer_ongoing'))
                                             ->reactive()
                                             ->afterStateUpdated(function (callable $set) {
                                                 $set('end_date', null);

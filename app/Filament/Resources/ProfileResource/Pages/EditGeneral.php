@@ -26,23 +26,27 @@ class EditGeneral extends EditRecord
                     ->columns(2)
                     ->schema([
                         TextInput::make('first_name')
-                            ->label(__('user.profile.field.first_name'))
+                            ->label(__('field.first_name'))
+                            ->placeholder(__('placeholder.first_name'))
                             ->maxLength(50)
                             ->required(),
                         TextInput::make('last_name')
-                            ->label(__('user.profile.field.last_name'))
+                            ->label(__('field.last_name'))
+                            ->placeholder(__('placeholder.last_name'))
                             ->maxLength(50)
                             ->required(),
                         DatePicker::make('date_of_birth')
-                            ->label(__('user.profile.field.date_of_birth'))
+                            ->label(__('field.date_of_birth'))
+                            ->placeholder(__('placeholder.date'))
                             ->nullable(),
                         Select::make('gender')
-                            ->label(__('user.profile.field.gender'))
+                            ->label(__('field.gender'))
+                            ->placeholder(__('placeholder.choose'))
                             ->options(Gender::options())
-                            ->disablePlaceholderSelection()
                             ->enum(Gender::class),
                         TextInput::make('cnp')
-                            ->label(__('user.profile.field.cnp'))
+                            ->label(__('field.cnp'))
+                            ->placeholder(__('placeholder.cnp'))
                             ->unique()
                             ->nullable()
                             ->rule(new ValidCNP),
@@ -54,10 +58,14 @@ class EditGeneral extends EditRecord
                     ->schema([
                         Location::make(),
                         TextInput::make('email')
+                            ->label(__('field.email'))
+                            ->placeholder(__('placeholder.email'))
                             ->email()
                             ->maxLength(50)
                             ->required(),
                         TextInput::make('phone')
+                            ->label(__('field.phone'))
+                            ->placeholder(__('placeholder.phone'))
                             ->tel()
                             ->required()
                             ->maxLength(15),
@@ -68,10 +76,15 @@ class EditGeneral extends EditRecord
                     ->columns(2)
                     ->schema([
                         TextInput::make('accreditation_number')
+                            ->label(__('field.accreditation_number'))
+                            ->placeholder(__('placeholder.accreditation_number'))
                             ->nullable()
                             ->maxLength(50),
-                        DatePicker::make('accreditation_date'),
+                        DatePicker::make('accreditation_date')
+                            ->label(__('field.accreditation_date'))
+                            ->placeholder(__('placeholder.date')),
                         FileUpload::make('accreditation_document')
+                            ->label(__('field.accreditation_document'))
                             ->columnSpanFull(),
                     ]),
             ]);
