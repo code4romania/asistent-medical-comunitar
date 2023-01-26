@@ -2,6 +2,8 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
     content: [
+        'app/Filament/**/*.php',
+        'app/Forms/**/*.php',
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
