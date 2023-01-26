@@ -40,7 +40,7 @@ class ListBeneficiaries extends ListRecords implements WithTabs
 
     public function getHeading(): string
     {
-        return __('beneficiary.label.list');
+        return __('beneficiary.header.list');
     }
 
     protected function getBreadcrumbs(): array

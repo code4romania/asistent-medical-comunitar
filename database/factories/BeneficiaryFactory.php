@@ -62,7 +62,7 @@ class BeneficiaryFactory extends Factory
     public function withNotes(): static
     {
         return $this->state(fn (array $attributes) => [
-            'notes' => fake()->text(65000),
+            'notes' => fake()->paragraphs(asText: true),
         ]);
     }
 }

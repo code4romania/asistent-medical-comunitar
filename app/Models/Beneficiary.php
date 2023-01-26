@@ -72,4 +72,9 @@ class Beneficiary extends Model
     {
         return $this->date_of_birth?->age;
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }

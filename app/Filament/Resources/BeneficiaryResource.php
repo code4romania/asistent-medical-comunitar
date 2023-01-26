@@ -14,8 +14,8 @@ use App\Models\Beneficiary;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -71,12 +71,12 @@ class BeneficiaryResource extends Resource
                                     ->label(__('field.first_name'))
                                     ->placeholder(__('placeholder.first_name'))
                                     ->maxLength(50)
-                                    ->required(),
+                                    ->nullable(),
                                 TextInput::make('last_name')
                                     ->label(__('field.last_name'))
                                     ->placeholder(__('placeholder.last_name'))
                                     ->maxLength(50)
-                                    ->required(),
+                                    ->nullable(),
                                 Select::make('gender')
                                     ->label(__('field.gender'))
                                     ->placeholder(__('placeholder.choose'))
@@ -99,7 +99,7 @@ class BeneficiaryResource extends Resource
                                 TextInput::make('address')
                                     ->label(__('field.address'))
                                     ->maxLength(50)
-                                    ->required(),
+                                    ->nullable(),
                                 TextInput::make('phone')
                                     ->label(__('field.phone'))
                                     ->tel()
@@ -109,10 +109,10 @@ class BeneficiaryResource extends Resource
 
                         Subsection::make()
                             ->icon('heroicon-o-annotation')
-
                             ->schema([
-                                Textarea::make('notes')
+                                RichEditor::make('notes')
                                     ->label(__('field.beneficiary_notes'))
+                                    ->toolbarButtons(['bold', 'italic', 'strike', 'bulletList', 'orderedList', 'redo', 'undo'])
                                     ->nullable()
                                     ->maxLength(65535),
                             ]),

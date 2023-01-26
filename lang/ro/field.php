@@ -9,6 +9,7 @@ return [
     'accreditation_number' => 'Serie și Număr Certificat de Acreditare',
     'address' => 'Adresă',
     'age' => 'Vârstă',
+    'beneficiary_notes' => 'Notițe despre beneficiar',
     'beneficiary_type' => 'Tip beneficiar',
     'city' => 'Localitate',
     'cnp' => 'CNP',

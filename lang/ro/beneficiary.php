@@ -7,6 +7,10 @@ return [
     'label' => [
         'singular' => 'beneficiar',
         'plural' => 'beneficiari',
+    ],
+
+    'header' => [
+        'id' => 'Date identificare',
         'list' => 'Listă beneficiari',
     ],
 
