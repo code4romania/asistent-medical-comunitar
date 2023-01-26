@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'home' => 'Acasă',
     'welcome' => 'Bine ai venit, :name',
 
     'stats' => [
