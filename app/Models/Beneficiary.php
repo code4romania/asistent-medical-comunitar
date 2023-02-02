@@ -60,12 +60,12 @@ class Beneficiary extends Model
 
     public function scopeOnlyRegular(Builder $query): Builder
     {
-        return $query->where('type', Type::regular);
+        return $query->where('type', Type::REGULAR);
     }
 
     public function scopeOnlyOcasional(Builder $query): Builder
     {
-        return $query->where('type', Type::ocasional);
+        return $query->where('type', Type::OCASIONAL);
     }
 
     public function getAgeAttribute(): ?int
