@@ -10,11 +10,11 @@ enum StudyType: string
 {
     use ArrayableEnum;
 
-    case secondary = 'secondary';
-    case postSecondary = 'post_secondary';
-    case university = 'university';
-    case postGrad = 'post_grad';
-    case other = 'other';
+    case SECONDARY = 'secondary';
+    case POSTSECONDARY = 'postsecondary';
+    case UNIVERSITY = 'university';
+    case POSTGRADUATE = 'postgraduate';
+    case OTHER = 'other';
 
     protected function translationKeyPrefix(): ?string
     {

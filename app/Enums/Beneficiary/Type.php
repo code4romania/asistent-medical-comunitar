@@ -10,8 +10,8 @@ enum Type: string
 {
     use ArrayableEnum;
 
-    case regular = 'regular';
-    case ocasional = 'ocasional';
+    case REGULAR = 'regular';
+    case OCASIONAL = 'ocasional';
 
     protected function translationKeyPrefix(): ?string
     {

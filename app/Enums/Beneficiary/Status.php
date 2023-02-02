@@ -10,11 +10,11 @@ enum Status: string
 {
     use ArrayableEnum;
 
-    case registered = 'registered';
-    case catagraphed = 'catagraphed';
-    case active = 'active';
-    case inactive = 'inactive';
-    case removed = 'removed';
+    case REGISTERED = 'registered';
+    case CATAGRAPHED = 'catagraphed';
+    case ACTIVE = 'active';
+    case INACTIVE = 'inactive';
+    case REMOVED = 'removed';
 
     protected function translationKeyPrefix(): ?string
     {

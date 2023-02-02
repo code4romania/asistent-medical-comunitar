@@ -30,7 +30,7 @@ return [
     'id_type' => [
         'birth_certificate' => 'Certificat de naștere',
         'id_card' => 'Carte de identitate',
-        'local_passport' => 'Pașaport Românesc',
+        'national_passport' => 'Pașaport Românesc',
         'foreign_passport' => 'Pașaport Străin',
         'other' => 'Alt act de identitate',
         'none' => 'Nu deține act de identitate',

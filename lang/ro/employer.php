@@ -10,10 +10,10 @@ return [
     ],
 
     'type' => [
-        'ong' => 'ONG',
-        'dsp' => 'DSP',
+        'ngo' => 'ONG',
+        'dph' => 'DSP',
         'gp' => 'Medic de familie',
-        'city_hall' => 'Primărie',
+        'municipality' => 'Primărie',
         'other' => 'Alt tip de angajator',
     ],
 

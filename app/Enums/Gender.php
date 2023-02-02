@@ -10,9 +10,9 @@ enum Gender: string
 {
     use ArrayableEnum;
 
-    case female = 'female';
-    case male = 'male';
-    case other = 'other';
+    case FEMALE = 'female';
+    case MALE = 'male';
+    case OTHER = 'other';
 
     protected function translationKeyPrefix(): ?string
     {

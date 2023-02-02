@@ -10,11 +10,11 @@ enum EmployerType: string
 {
     use ArrayableEnum;
 
-    case ong = 'ong';
-    case dsp = 'dsp';
-    case gp = 'gp';
-    case cityHall = 'city_hall';
-    case other = 'other';
+    case NGO = 'ngo';
+    case DPH = 'dph';
+    case GP = 'gp';
+    case MUNICIPALITY = 'municipality';
+    case OTHER = 'other';
 
     protected function translationKeyPrefix(): ?string
     {

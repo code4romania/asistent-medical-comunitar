@@ -10,12 +10,12 @@ enum IDType: string
 {
     use ArrayableEnum;
 
-    case birth_certificate = 'birth_certificate';
-    case id_card = 'id_card';
-    case local_passport = 'local_passport';
-    case foreign_passport = 'foreign_passport';
-    case other = 'other';
-    case none = 'none';
+    case BIRTH_CERTIFICATE = 'birth_certificate';
+    case ID_CARD = 'id_card';
+    case NATIONAL_PASSPORT = 'national_passport';
+    case FOREIGN_PASSPORT = 'foreign_passport';
+    case OTHER = 'other';
+    case NONE = 'none';
 
     protected function translationKeyPrefix(): ?string
     {
