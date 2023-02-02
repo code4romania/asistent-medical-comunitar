@@ -20,4 +20,4 @@ updates:
     schedule:
       interval: "monthly"
     versioning-strategy: increase
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
