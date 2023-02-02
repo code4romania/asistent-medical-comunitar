@@ -20,4 +20,26 @@ enum Status: string
     {
         return 'beneficiary.status';
     }
+
+    public static function colors(): array
+    {
+        $colors = [
+            'primary' => self::REGISTERED,
+            'secondary' => self::CATAGRAPHED,
+            'success' => self::ACTIVE,
+            'warning' => self::INACTIVE,
+            'danger' => self::REMOVED,
+        ];
+
+        return collect($colors)
+            ->map->value
+            ->all();
+    }
+
+    public function color(): ?string
+    {
+        return collect(static::colors())
+            ->flip()
+            ->get($this->value);
+    }
 }

@@ -225,6 +225,7 @@ return [
             'should_show_logo' => false,
         ],
         'max_content_width' => null,
+        'sidebar_max_content_width' => 'full',
         'notifications' => [
             'vertical_alignment' => 'top',
             'alignment' => 'right',
@@ -234,8 +235,8 @@ return [
             'groups' => [
                 'are_collapsible' => false,
             ],
-            'width' => 0,
-            'collapsed_width' => 0,
+            'width' => null,
+            'collapsed_width' => null,
         ],
     ],
 

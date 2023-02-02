@@ -4,21 +4,7 @@
 
 <x-filament::layouts.base :title="$title">
     <div class="flex w-full min-h-screen filament-app-layout overflow-x-clip">
-        <div
-            @if (config('filament.layout.sidebar.is_collapsible_on_desktop')) x-data="{}"
-                x-bind:class="{
-                    'lg:pl-[var(--collapsed-sidebar-width)] rtl:lg:pr-[var(--collapsed-sidebar-width)]': ! $store.sidebar.isOpen,
-                    'filament-main-sidebar-open lg:pl-[var(--sidebar-width)] rtl:lg:pr-[var(--sidebar-width)]': $store.sidebar.isOpen,
-                }"
-                x-bind:style="'display: flex'" {{-- Mimics `x-cloak`, as using `x-cloak` causes visual issues with chart widgets --}} @endif
-            @class([
-                'filament-main flex-col gap-y-6 w-screen flex-1 rtl:lg:pl-0',
-                'hidden h-full transition-all' => config(
-                    'filament.layout.sidebar.is_collapsible_on_desktop'),
-                'flex lg:pl-[var(--sidebar-width)] rtl:lg:pr-[var(--sidebar-width)]' => !config(
-                    'filament.layout.sidebar.is_collapsible_on_desktop'),
-            ])
-        >
+        <div class="flex flex-col flex-1 w-screen h-full filament-main gap-y-6 rtl:lg:pl-0">
 
             <x-filament::topbar />
 

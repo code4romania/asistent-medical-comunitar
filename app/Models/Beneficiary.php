@@ -77,4 +77,15 @@ class Beneficiary extends Model
     {
         return "{$this->first_name} {$this->last_name}";
     }
+
+    public function getFullAddressAttribute(): string
+    {
+        return collect([
+            $this->address,
+            $this->city?->name,
+            $this->county?->name,
+        ])
+            ->filter()
+            ->implode(', ');
+    }
 }

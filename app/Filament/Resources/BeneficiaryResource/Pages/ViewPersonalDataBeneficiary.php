@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
+use App\Concerns\BeneficiarySidebar;
+use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Location;
@@ -16,14 +18,17 @@ use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewBeneficiary extends ViewRecord
+class ViewPersonalDataBeneficiary extends ViewRecord implements WithSidebar
 {
+    use BeneficiarySidebar;
+
     protected static string $resource = BeneficiaryResource::class;
 
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\EditAction::make()
+                ->url($this->getResource()::getUrl('personal_data.edit', $this->getRecord())),
         ];
     }
 

@@ -27,7 +27,8 @@
             <x-filament::widgets
                 :widgets="$headerWidgets"
                 :columns="$this->getHeaderWidgetsColumns()"
-                :data="$widgetData" />
+                :data="$widgetData"
+            />
         @endif
 
         {{ \Filament\Facades\Filament::renderHook('page.header-widgets.end') }}
@@ -40,7 +41,8 @@
             <x-filament::widgets
                 :widgets="$footerWidgets"
                 :columns="$this->getFooterWidgetsColumns()"
-                :data="$widgetData" />
+                :data="$widgetData"
+            />
         @endif
 
         {{ \Filament\Facades\Filament::renderHook('page.footer-widgets.end') }}
@@ -63,7 +65,8 @@
             :slide-over="$action?->isModalSlideOver()"
             display-classes="block"
             x-init="this.livewire = $wire.__instance"
-            x-on:modal-closed.stop="if ('mountedAction' in this.livewire?.serverMemo.data) this.livewire.set('mountedAction', null)">
+            x-on:modal-closed.stop="if ('mountedAction' in this.livewire?.serverMemo.data) this.livewire.set('mountedAction', null)"
+        >
             @if ($action)
                 @if ($action->isModalCentered())
                     @if ($heading = $action->getModalHeading())

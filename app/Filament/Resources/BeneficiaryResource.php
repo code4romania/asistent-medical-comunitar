@@ -60,7 +60,8 @@ class BeneficiaryResource extends Resource
                             ->schema([
                                 Select::make('type')
                                     ->label(__('field.beneficiary_type'))
-                                    ->options(Type::options()),
+                                    ->options(Type::options())
+                                    ->default(Type::REGULAR),
                             ]),
 
                         Subsection::make()
@@ -147,7 +148,6 @@ class BeneficiaryResource extends Resource
                     ->default($default),
                 TextColumn::make('cnp')
                     ->label(__('field.cnp'))
-
                     ->searchable()
                     ->toggleable()
                     ->default($default),
@@ -164,13 +164,7 @@ class BeneficiaryResource extends Resource
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
-                    ->colors([
-                        // 'primary' => 'registered',
-                        'secondary' => 'catagraphed',
-                        'success' => 'active',
-                        'warning' => 'inactive',
-                        'danger' => 'removed',
-                    ])
+                    ->colors(Status::colors())
                     ->default($default),
             ])
             ->filters([
@@ -189,8 +183,10 @@ class BeneficiaryResource extends Resource
             'regular' => Pages\ListRegularBeneficiaries::route('/regular'),
             'ocasional' => Pages\ListOcasionalBeneficiaries::route('/ocasional'),
             'create' => Pages\CreateBeneficiary::route('/create'),
-            'view' => Pages\ViewBeneficiary::route('/{record}'),
-            'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
+            'view' => Pages\OverviewBeneficiary::route('/{record}'),
+
+            'personal_data.view' => Pages\ViewPersonalDataBeneficiary::route('/{record}/personal-data'),
+            'personal_data.edit' => Pages\EditPersonalDataBeneficiary::route('/{record}/edit'),
         ];
     }
 
