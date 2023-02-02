@@ -20,7 +20,7 @@
         "barryvdh/laravel-ide-helper": "^2.12",
         "doctrine/dbal": "^3.5",
         "fakerphp/faker": "^1.21",
-        "friendsofphp/php-cs-fixer": "^3.13",
+        "friendsofphp/php-cs-fixer": "^3.14",
         "itsgoingd/clockwork": "^5.1",
         "laravel/sail": "^1.17",
         "mockery/mockery": "^1.5",
