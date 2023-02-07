@@ -78,6 +78,15 @@ class Beneficiary extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function getLastNameWithPriorAttribute(): ?string
+    {
+        if (! $this->prior_name) {
+            return $this->last_name;
+        }
+
+        return "{$this->last_name} ({$this->prior_name})";
+    }
+
     public function getFullAddressAttribute(): string
     {
         return collect([
@@ -87,5 +96,17 @@ class Beneficiary extends Model
         ])
             ->filter()
             ->implode(', ');
+    }
+
+    public function getHasUnknownIdentityAttribute(): bool
+    {
+        return collect([
+            $this->first_name,
+            $this->last_name,
+            $this->gender,
+            $this->cnp,
+        ])
+            ->filter()
+            ->isEmpty();
     }
 }

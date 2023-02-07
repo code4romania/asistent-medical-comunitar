@@ -25,13 +25,13 @@ return new class extends Migration
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('prior_name')->nullable();
             $table->boolean('integrated')->default(false);
 
             $table->enum('type', Type::values())->nullable();
-            $table->enum('status', Status::values())->nullable();
+            $table->enum('status', Status::values())->default(Status::REGISTERED->value);
 
             $table->string('cnp', 13)->nullable()->unique();
             $table->enum('id_type', IDType::values());

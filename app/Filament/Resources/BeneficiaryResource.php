@@ -73,17 +73,20 @@ class BeneficiaryResource extends Resource
                                     ->placeholder(__('placeholder.first_name'))
                                     ->maxLength(50)
                                     ->nullable(),
+
                                 TextInput::make('last_name')
                                     ->label(__('field.last_name'))
                                     ->placeholder(__('placeholder.last_name'))
                                     ->maxLength(50)
                                     ->nullable(),
+
                                 Select::make('gender')
                                     ->label(__('field.gender'))
                                     ->placeholder(__('placeholder.choose'))
                                     ->options(Gender::options())
                                     ->disablePlaceholderSelection()
                                     ->enum(Gender::class),
+
                                 TextInput::make('cnp')
                                     ->label(__('field.cnp'))
                                     ->placeholder(__('placeholder.cnp'))
@@ -97,10 +100,12 @@ class BeneficiaryResource extends Resource
                             ->columns(2)
                             ->schema([
                                 Location::make(),
+
                                 TextInput::make('address')
                                     ->label(__('field.address'))
                                     ->maxLength(50)
                                     ->nullable(),
+
                                 TextInput::make('phone')
                                     ->label(__('field.phone'))
                                     ->tel()
@@ -133,28 +138,36 @@ class BeneficiaryResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
+
                 TextColumn::make('first_name')
                     ->label(__('field.first_name'))
                     ->sortable()
                     ->searchable()
                     ->toggleable()
                     ->default($default),
-                TextColumn::make('last_name')
+
+                TextColumn::make('last_name_with_prior')
                     ->label(__('field.last_name'))
-                    ->suffix(fn (Beneficiary $record) => $record->prior_name ? " ($record->prior_name)" : null)
                     ->sortable()
-                    ->searchable()
+                    ->searchable(
+                        query: fn (Builder $query, string $search) => $query
+                            ->where('last_name', 'like', "%{$search}%")
+                            ->orWhere('prior_name', 'like', "%{$search}%")
+                    )
                     ->toggleable()
                     ->default($default),
+
                 TextColumn::make('cnp')
                     ->label(__('field.cnp'))
                     ->searchable()
                     ->toggleable()
                     ->default($default),
+
                 TextColumn::make('age')
                     ->label(__('field.age'))
                     ->toggleable()
                     ->default($default),
+
                 TextColumn::make('city.name')
                     ->label(__('field.city'))
                     ->description(fn (Beneficiary $record) => $record->county?->name)
