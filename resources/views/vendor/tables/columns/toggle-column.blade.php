@@ -4,12 +4,8 @@
         state: @js((bool) $getState()),
         isLoading: false
     }"
-    x-init="
-        $watch('state', () => $refs.button.dispatchEvent(new Event('change')))
-    "
-    {{ $attributes->merge($getExtraAttributes())->class([
-        'filament-tables-toggle-column',
-    ]) }}
+    x-init="$watch('state', () => $refs.button.dispatchEvent(new Event('change')))"
+    {{ $attributes->merge($getExtraAttributes())->class(['filament-tables-toggle-column']) }}
 >
     <button
         role="switch"
@@ -39,25 +35,26 @@
                 'success' => 'bg-success-500',
                 'warning' => 'bg-warning-500',
                 default => 'bg-gray-200',
-            } }} @if (config('forms.dark_mode')) dark:bg-white/10 @endif': ! state,
+            } }} @if (config('forms.dark_mode')) dark:bg-white/10 @endif':
+                !state,
         }"
         {!! $isDisabled() ? 'disabled' : null !!}
         type="button"
-        class="relative inline-flex shrink-0 ml-4 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary-500 disabled:opacity-70 disabled:cursor-not-allowed disabled:pointer-events-none"
+        class="relative inline-flex h-6 ml-4 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer shrink-0 w-11 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
     >
         <span
-            class="pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 ease-in-out transition duration-200"
+            class="relative inline-block w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full shadow pointer-events-none ring-0"
             x-bind:class="{
                 'translate-x-5 rtl:-translate-x-5': state,
-                'translate-x-0': ! state,
+                'translate-x-0': !state,
             }"
         >
             <span
-                class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
+                class="absolute inset-0 flex items-center justify-center w-full h-full transition-opacity"
                 aria-hidden="true"
                 x-bind:class="{
                     'opacity-0 ease-out duration-100': state,
-                    'opacity-100 ease-in duration-200': ! state,
+                    'opacity-100 ease-in duration-200': !state,
                 }"
             >
                 @if ($hasOffIcon())
@@ -78,11 +75,11 @@
             </span>
 
             <span
-                class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
+                class="absolute inset-0 flex items-center justify-center w-full h-full transition-opacity"
                 aria-hidden="true"
                 x-bind:class="{
                     'opacity-100 ease-in duration-200': state,
-                    'opacity-0 ease-out duration-100': ! state,
+                    'opacity-0 ease-out duration-100': !state,
                 }"
             >
                 @if ($hasOnIcon())

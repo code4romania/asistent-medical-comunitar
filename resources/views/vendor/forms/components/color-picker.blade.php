@@ -1,10 +1,5 @@
 @php
-    $affixLabelClasses = [
-        'whitespace-nowrap group-focus-within:text-primary-500',
-        'text-gray-400' => ! $errors->has($getStatePath()),
-        'text-danger-400' => $errors->has($getStatePath()),
-        'dark:text-danger-400' => $errors->has($getStatePath()) && config('forms.dark_mode'),
-    ];
+    $affixLabelClasses = ['whitespace-nowrap group-focus-within:text-primary-500', 'text-gray-400' => !$errors->has($getStatePath()), 'text-danger-400' => $errors->has($getStatePath()), 'dark:text-danger-400' => $errors->has($getStatePath()) && config('forms.dark_mode')];
 @endphp
 
 <x-dynamic-component
@@ -20,13 +15,17 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-color-picker-component flex items-center space-x-1 rtl:space-x-reverse group']) }}>
-        @if (($prefixAction = $getPrefixAction()) && (! $prefixAction->isHidden()))
+    <div
+        {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-color-picker-component flex items-center space-x-1 rtl:space-x-reverse group']) }}>
+        @if (($prefixAction = $getPrefixAction()) && !$prefixAction->isHidden())
             {{ $prefixAction }}
         @endif
 
         @if ($icon = $getPrefixIcon())
-            <x-dynamic-component :component="$icon" class="w-5 h-5" />
+            <x-dynamic-component
+                :component="$icon"
+                class="w-5 h-5"
+            />
         @endif
 
         @if ($label = $getPrefixLabel())
@@ -55,14 +54,12 @@
                 autocomplete="off"
                 {!! $isDisabled() ? 'disabled' : null !!}
                 {!! ($placeholder = $getPlaceholder()) ? "placeholder=\"{$placeholder}\"" : null !!}
-                @if (! $isConcealed())
-                    {!! $isRequired() ? 'required' : null !!}
-                @endif
+                @if (!$isConcealed()) {!! $isRequired() ? 'required' : null !!} @endif
                 {{ $getExtraInputAttributeBag()->class([
-                    'text-gray-900 block w-full transition duration-75 rounded-lg shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 disabled:opacity-70',
+                    'text-gray-900 block w-full transition duration-75 rounded-lg shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 disabled:opacity-50',
                     'dark:bg-gray-700 dark:text-white dark:focus:border-primary-500' => config('forms.dark_mode'),
-                    'border-gray-300' => ! $errors->has($getStatePath()),
-                    'dark:border-gray-600' => (! $errors->has($getStatePath())) && config('forms.dark_mode'),
+                    'border-gray-300' => !$errors->has($getStatePath()),
+                    'dark:border-gray-600' => !$errors->has($getStatePath()) && config('forms.dark_mode'),
                     'border-danger-600 ring-danger-600' => $errors->has($getStatePath()),
                     'dark:border-danger-400 dark:ring-danger-400' => $errors->has($getStatePath()) && config('forms.dark_mode'),
                 ]) }}
@@ -74,7 +71,7 @@
             >
                 <span
                     x-bind:style="{ 'background-color': state }"
-                    class="filament-forms-color-picker-component-preview relative overflow-hidden rounded-md w-7 h-7"
+                    class="relative overflow-hidden rounded-md filament-forms-color-picker-component-preview w-7 h-7"
                 ></span>
             </span>
 
@@ -90,12 +87,13 @@
                 ])
             >
                 @php
-                    $tag = match ($getFormat()) {
-                        'hsl' => 'hsl-string',
-                        'rgb' => 'rgb-string',
-                        'rgba' => 'rgba-string',
-                        default => 'hex',
-                    } . '-color-picker';
+                    $tag =
+                        match ($getFormat()) {
+                            'hsl' => 'hsl-string',
+                            'rgb' => 'rgb-string',
+                            'rgba' => 'rgba-string',
+                            default => 'hex',
+                        } . '-color-picker';
                 @endphp
 
                 <{{ $tag }} color="{{ $getState() }}" />
@@ -109,10 +107,13 @@
         @endif
 
         @if ($icon = $getSuffixIcon())
-            <x-dynamic-component :component="$icon" class="w-5 h-5" />
+            <x-dynamic-component
+                :component="$icon"
+                class="w-5 h-5"
+            />
         @endif
 
-        @if (($suffixAction = $getSuffixAction()) && (! $suffixAction->isHidden()))
+        @if (($suffixAction = $getSuffixAction()) && !$suffixAction->isHidden())
             {{ $suffixAction }}
         @endif
     </div>
