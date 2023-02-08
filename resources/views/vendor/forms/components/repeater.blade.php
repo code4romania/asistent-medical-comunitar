@@ -92,8 +92,8 @@
                                 <header
                                     @if ($isCollapsible) x-on:click.stop="isCollapsed = ! isCollapsed" @endif
                                     @class([
-                                        'flex items-center h-10 overflow-hidden border-b',
-                                        'dark:bg-gray-800 dark:border-gray-700' => config('forms.dark_mode'),
+                                        'flex items-center h-10 overflow-hidden',
+                                        'dark:bg-gray-800' => config('forms.dark_mode'),
                                         'cursor-pointer' => $isCollapsible,
                                     ])
                                 >
