@@ -10,9 +10,14 @@ use Filament\Navigation\NavigationItem;
 
 trait BeneficiarySidebar
 {
-    public function initializeBeneficiarySidebar(): void
+    public function bootedBeneficiarySidebar(): void
     {
         if (! $this instanceof WithSidebar) {
+            return;
+        }
+
+        // Sidebar layout doesn't apply to ocasional beneficiaries
+        if ($this->getRecord()->isOcasional()) {
             return;
         }
 

@@ -8,6 +8,7 @@ use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
 use App\Filament\Resources\BeneficiaryResource\Pages;
+use App\Filament\Resources\BeneficiaryResource\Pages\ListBeneficiaries;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
 use App\Models\Beneficiary;
@@ -179,6 +180,15 @@ class BeneficiaryResource extends Resource
                     ->enum(Status::options())
                     ->colors(Status::colors())
                     ->default($default),
+
+                BadgeColumn::make('type')
+                    ->label(__('field.beneficiary_type'))
+                    ->enum(Type::options())
+                    ->colors(Type::colors())
+                    ->default($default)
+                    ->hidden(
+                        fn ($livewire) => is_subclass_of($livewire, ListBeneficiaries::class)
+                    ),
             ])
             ->filters([
                 //

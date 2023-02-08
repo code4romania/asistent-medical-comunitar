@@ -17,6 +17,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -71,6 +72,7 @@ class CreateBeneficiary extends CreateRecord
                         ->maxLength(50)
                         ->nullable()
                         ->required(fn (callable $get) => ! $get('has_unknown_identity')),
+
                     TextInput::make('last_name')
                         ->label(__('field.last_name'))
                         ->placeholder(__('placeholder.last_name'))
@@ -88,7 +90,9 @@ class CreateBeneficiary extends CreateRecord
                                 ->rule(new ValidCNP)
                                 ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
                                 ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
+
                             Checkbox::make('does_not_have_cnp')
+                                ->label(__('field.does_not_have_cnp'))
                                 ->default(false)
                                 ->extraAttributes(['class' => ' justify-end'])
                                 ->reactive()
@@ -171,6 +175,7 @@ class CreateBeneficiary extends CreateRecord
                 ->columns(2)
                 ->schema([
                     Checkbox::make('has_unknown_identity')
+                        ->label(__('field.has_unknown_identity'))
                         ->default(false)
                         ->columnSpanFull()
                         ->reactive()
@@ -189,12 +194,14 @@ class CreateBeneficiary extends CreateRecord
                                 ->maxLength(50)
                                 ->nullable()
                                 ->required(fn (callable $get) => ! $get('has_unknown_identity')),
+
                             TextInput::make('last_name')
                                 ->label(__('field.last_name'))
                                 ->placeholder(__('placeholder.last_name'))
                                 ->maxLength(50)
                                 ->nullable()
                                 ->required(fn (callable $get) => ! $get('has_unknown_identity')),
+
                             Select::make('gender')
                                 ->label(__('field.gender'))
                                 ->placeholder(__('placeholder.choose'))
@@ -202,6 +209,7 @@ class CreateBeneficiary extends CreateRecord
                                 ->disablePlaceholderSelection()
                                 ->enum(Gender::class)
                                 ->required(fn (callable $get) => ! $get('has_unknown_identity')),
+
                             Group::make()
                                 ->schema([
                                     TextInput::make('cnp')
@@ -212,7 +220,9 @@ class CreateBeneficiary extends CreateRecord
                                         ->rule(new ValidCNP)
                                         ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
                                         ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
+
                                     Checkbox::make('does_not_have_cnp')
+                                        ->label(__('field.does_not_have_cnp'))
                                         ->default(false)
                                         ->extraAttributes(['class' => ' justify-end'])
                                         ->reactive()
@@ -229,8 +239,41 @@ class CreateBeneficiary extends CreateRecord
 
             Subsection::make()
                 ->icon('heroicon-o-lightning-bolt')
-                ->columns(2)
                 ->schema([
+                    Repeater::make('interventions')
+                        ->relationship()
+                        ->label(__('intervention.label.plural'))
+                        ->createItemButtonLabel(__('intervention.action.create'))
+                        ->minItems(1)
+                        ->columns(2)
+                        ->schema([
+                            TextInput::make('reason')
+                                ->label(__('field.intervention_reason'))
+                                ->placeholder(__('placeholder.intervention_reason'))
+                                ->nullable(),
+
+                            DatePicker::make('date')
+                                ->label(__('field.date'))
+                                ->placeholder(__('placeholder.date'))
+                                ->default(today()),
+
+                            Select::make('services')
+                                ->label(__('field.services'))
+                                ->placeholder(__('placeholder.choose_services'))
+                                ->columnSpanFull()
+                                ->multiple()
+                                ->options([
+                                    'Educație - poluare',
+                                    'Educație - alimentație',
+                                    'Educație - sport',
+                                    'Educație - fumat',
+                                    'Educație - consumul de alcool',
+                                    'Educație - droguri',
+                                    'Educație - activitate sexuală',
+                                    'Educație - planificare familială',
+                                    'Educație parentală',
+                                ]),
+                        ]),
                 ]),
 
             Subsection::make()
@@ -252,8 +295,11 @@ class CreateBeneficiary extends CreateRecord
             ->icon('heroicon-o-user-group')
             ->columns(2)
             ->schema([
-                Placeholder::make('household'),
-                Placeholder::make('family'),
+                Placeholder::make('household')
+                    ->label(__('field.household')),
+
+                Placeholder::make('family')
+                    ->label(__('field.family')),
             ]);
     }
 
@@ -264,10 +310,12 @@ class CreateBeneficiary extends CreateRecord
             ->columns(2)
             ->schema([
                 Location::make(),
+
                 TextInput::make('address')
                     ->label(__('field.address'))
                     ->maxLength(50)
                     ->nullable(),
+
                 TextInput::make('phone')
                     ->label(__('field.phone'))
                     ->tel()
