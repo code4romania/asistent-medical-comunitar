@@ -16,23 +16,13 @@
         },
     ]) }}
 >
-    <svg
-        @class([
-            'mr-1.5 h-2 w-2 text-current/50',
-            match ($getSize()) {
-                'sm' => '-ml-0.5',
-                default => '-ml-1',
-            },
-        ])
-        fill="currentColor"
-        viewBox="0 0 8 8"
-    >
-        <circle
-            cx="4"
-            cy="4"
-            r="3"
-        />
-    </svg>
+    <x-icon-badge-dot @class([
+        'mr-0.5 h-4 w-4 shrink-0',
+        match ($getSize()) {
+            'sm' => '-ml-1.5',
+            default => '-ml-2',
+        },
+    ]) />
 
     {{ $getContent() }}
 </span>
