@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns\ArrayableEnum;
+use App\Concerns\Enums\Arrayable;
 
 enum IDType: string
 {
-    use ArrayableEnum;
+    use Arrayable;
 
     case BIRTH_CERTIFICATE = 'birth_certificate';
     case ID_CARD = 'id_card';

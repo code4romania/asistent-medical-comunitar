@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns;
+namespace App\Concerns\Enums;
 
-trait ArrayableEnum
+trait Arrayable
 {
     public static function names(): array
     {

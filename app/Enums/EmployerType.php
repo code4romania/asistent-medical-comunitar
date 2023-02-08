@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns\ArrayableEnum;
+use App\Concerns\Enums\Arrayable;
 
 enum EmployerType: string
 {
-    use ArrayableEnum;
+    use Arrayable;
 
     case NGO = 'ngo';
     case DPH = 'dph';

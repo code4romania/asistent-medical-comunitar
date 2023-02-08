@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns\ArrayableEnum;
+use App\Concerns;
+use App\Contracts;
 
-enum Status: string
+enum Status: string implements Contracts\Enums\HasColors
 {
-    use ArrayableEnum;
+    use Concerns\Enums\Arrayable;
+    use Concerns\Enums\HasColors;
 
     case REGISTERED = 'registered';
     case CATAGRAPHED = 'catagraphed';
@@ -21,25 +23,14 @@ enum Status: string
         return 'beneficiary.status';
     }
 
-    public static function colors(): array
+    public static function colorMap(): array
     {
-        $colors = [
-            'primary' => self::REGISTERED,
-            'secondary' => self::CATAGRAPHED,
-            'success' => self::ACTIVE,
-            'warning' => self::INACTIVE,
-            'danger' => self::REMOVED,
+        return [
+            'bg-amber-100 text-amber-800' => self::REGISTERED,
+            'bg-blue-100 text-blue-800' => self::CATAGRAPHED,
+            'bg-emerald-100 text-emerald-800' => self::ACTIVE,
+            'bg-gray-100 text-gray-800' => self::INACTIVE,
+            'bg-pink-100 text-pink-800' => self::REMOVED,
         ];
-
-        return collect($colors)
-            ->map->value
-            ->all();
-    }
-
-    public function color(): ?string
-    {
-        return collect(static::colors())
-            ->flip()
-            ->get($this->value);
     }
 }
