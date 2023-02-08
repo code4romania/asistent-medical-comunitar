@@ -13,6 +13,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Beneficiary extends Model
 {
@@ -56,6 +57,11 @@ class Beneficiary extends Model
     public function amc(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(Intervention::class);
     }
 
     public function scopeOnlyRegular(Builder $query): Builder
@@ -108,5 +114,15 @@ class Beneficiary extends Model
         ])
             ->filter()
             ->isEmpty();
+    }
+
+    public function isRegular(): bool
+    {
+        return $this->type === Type::REGULAR;
+    }
+
+    public function isOcasional(): bool
+    {
+        return $this->type === Type::OCASIONAL;
     }
 }

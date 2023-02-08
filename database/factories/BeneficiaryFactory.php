@@ -8,7 +8,9 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
+use App\Models\Beneficiary;
 use App\Models\City;
+use App\Models\Intervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -35,6 +37,20 @@ class BeneficiaryFactory extends Factory
             'gender' => fake()->randomElement(Gender::values()),
             'date_of_birth' => fake()->date(),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Beneficiary $beneficiary) {
+            if (! $beneficiary->isOcasional()) {
+                return;
+            }
+
+            Intervention::factory()
+                ->for($beneficiary)
+                ->count(fake()->randomDigitNotNull())
+                ->create();
+        });
     }
 
     public function withID(): static
