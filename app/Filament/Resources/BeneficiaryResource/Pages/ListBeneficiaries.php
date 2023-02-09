@@ -6,8 +6,9 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
-use Filament\Pages\Actions;
+use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables;
 
 class ListBeneficiaries extends ListRecords implements WithTabs
 {
@@ -18,7 +19,7 @@ class ListBeneficiaries extends ListRecords implements WithTabs
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Pages\Actions\CreateAction::make(),
         ];
     }
 
@@ -46,5 +47,31 @@ class ListBeneficiaries extends ListRecords implements WithTabs
     protected function getBreadcrumbs(): array
     {
         return [];
+    }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return __('beneficiary.empty.title');
+    }
+
+    protected function getTableEmptyStateDescription(): ?string
+    {
+        return __('beneficiary.empty.description');
+    }
+
+    protected function getTableEmptyStateActions(): array
+    {
+        return [
+            Tables\Actions\Action::make('create')
+                ->label(__('beneficiary.empty.create'))
+                ->url(static::getResource()::getUrl('create'))
+                ->button()
+                ->color('secondary'),
+        ];
     }
 }

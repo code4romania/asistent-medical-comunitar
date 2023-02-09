@@ -44,4 +44,10 @@ return [
         'active_interventions' => 'Intervenții active',
     ],
 
+    'empty' => [
+        'title' => 'Niciun beneficiar înregistrat',
+        'description' => 'Odată înregistrați beneficiari în baza de date, aceștia vor fi afișați în acest tabel',
+        'create' => 'Adaugă primul beneficiar',
+    ],
+
 ];
