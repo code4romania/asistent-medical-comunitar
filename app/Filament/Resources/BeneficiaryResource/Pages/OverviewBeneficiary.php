@@ -118,11 +118,19 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                 Subsection::make()
                     ->icon('heroicon-o-user')
                     ->columns(2)
+                    ->visible(fn (Beneficiary $record) => $record->has_unknown_identity)
                     ->schema([
                         Placeholder::make('has_unknown_identity')
                             ->label(__('field.has_unknown_identity'))
+                            ->withoutContent()
                             ->columnSpanFull(),
+                    ]),
 
+                Subsection::make()
+                    ->icon('heroicon-o-user')
+                    ->columns(2)
+                    ->hidden(fn (Beneficiary $record) => $record->has_unknown_identity)
+                    ->schema([
                         Placeholder::make('first_name')
                             ->label(__('field.first_name'))
                             ->content(fn (Beneficiary $record) => $record->first_name),
@@ -137,7 +145,8 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
                         Placeholder::make('cnp')
                             ->label(__('field.cnp'))
-                            ->content(fn (Beneficiary $record) => $record->cnp),
+                            ->content(fn (Beneficiary $record) => $record->cnp)
+                            ->fallback(__('field.does_not_have_cnp')),
                     ]),
 
                 static::getHouseholdSubsection(),
