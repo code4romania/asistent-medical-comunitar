@@ -60,7 +60,7 @@
                     :two-xl="$getGridColumns('2xl')"
                     wire:sortable
                     wire:end.stop="dispatchFormEvent('repeater::moveItems', '{{ $getStatePath() }}', $event.target.sortable.toArray())"
-                    class="gap-6"
+                    class="gap-3 divide-y"
                 >
                     @foreach ($containers as $uuid => $item)
                         <li
@@ -86,13 +86,13 @@
 
                                 setTimeout(() => $el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' }), 200)
                             "
-                            @class(['relative'])
+                            @class(['relative pt-3'])
                         >
                             @if (!$isItemMovementDisabled || !$isItemDeletionDisabled || $isCloneable || $isCollapsible || $hasItemLabels)
                                 <header
                                     @if ($isCollapsible) x-on:click.stop="isCollapsed = ! isCollapsed" @endif
                                     @class([
-                                        'flex items-center h-10 overflow-hidden',
+                                        'flex items-center h-10 overflow-hidden -mt-3',
                                         'dark:bg-gray-800' => config('forms.dark_mode'),
                                         'cursor-pointer' => $isCollapsible,
                                     ])

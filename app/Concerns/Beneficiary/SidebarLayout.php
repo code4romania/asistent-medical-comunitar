@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns;
+namespace App\Concerns\Beneficiary;
 
 use App\Contracts\Pages\WithSidebar;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 
-trait BeneficiarySidebar
+trait SidebarLayout
 {
-    public function bootedBeneficiarySidebar(): void
+    public function bootedSidebarLayout(): void
     {
         if (! $this instanceof WithSidebar) {
             return;

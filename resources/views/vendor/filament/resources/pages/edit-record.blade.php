@@ -4,6 +4,7 @@
         'filament-resources-edit-record-page',
         'filament-resources-' . str_replace('/', '-', $this->getResource()::getSlug()),
         'filament-resources-record-' . $record->getKey(),
+        'pb-20',
     ])"
 >
     @capture($form)

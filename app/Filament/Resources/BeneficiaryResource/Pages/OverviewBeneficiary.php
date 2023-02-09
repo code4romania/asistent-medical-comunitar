@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\BeneficiarySidebar;
+use App\Concerns\Beneficiary\SidebarLayout;
 use App\Contracts\Pages\WithSidebar;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource;
@@ -23,7 +23,7 @@ use Filament\Resources\Pages\ViewRecord;
 
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
 {
-    use BeneficiarySidebar;
+    use SidebarLayout;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -115,75 +115,83 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
         return $form
             ->columns(1)
             ->schema([
-                Subsection::make()
-                    ->icon('heroicon-o-user')
-                    ->columns(2)
-                    ->visible(fn (Beneficiary $record) => $record->has_unknown_identity)
+                Card::make()
+                    ->columnSpan(1)
                     ->schema([
-                        Placeholder::make('has_unknown_identity')
-                            ->label(__('field.has_unknown_identity'))
-                            ->withoutContent()
-                            ->columnSpanFull(),
-                    ]),
+                        Badge::make('type')
+                            ->content(fn (Beneficiary $record) => $record->type?->label())
+                            ->color(fn (Beneficiary $record) => $record->type?->color()),
 
-                Subsection::make()
-                    ->icon('heroicon-o-user')
-                    ->columns(2)
-                    ->hidden(fn (Beneficiary $record) => $record->has_unknown_identity)
-                    ->schema([
-                        Placeholder::make('first_name')
-                            ->label(__('field.first_name'))
-                            ->content(fn (Beneficiary $record) => $record->first_name),
-
-                        Placeholder::make('last_name')
-                            ->label(__('field.last_name'))
-                            ->content(fn (Beneficiary $record) => $record->last_name),
-
-                        Placeholder::make('gender')
-                            ->label(__('field.gender'))
-                            ->content(fn (Beneficiary $record) => $record->gender?->label()),
-
-                        Placeholder::make('cnp')
-                            ->label(__('field.cnp'))
-                            ->content(fn (Beneficiary $record) => $record->cnp)
-                            ->fallback(__('field.does_not_have_cnp')),
-                    ]),
-
-                static::getHouseholdSubsection(),
-
-                static::getLocationSubsection(),
-
-                Subsection::make()
-                    ->icon('heroicon-o-lightning-bolt')
-                    ->schema([
-                        Repeater::make('interventions')
-                            ->relationship()
-                            ->label(__('intervention.label.plural'))
+                        Subsection::make()
+                            ->icon('heroicon-o-user')
                             ->columns(2)
+                            ->visible(fn (Beneficiary $record) => $record->has_unknown_identity)
                             ->schema([
-                                Placeholder::make('reason')
-                                    ->label(__('field.intervention_reason'))
-                                    ->content(fn (Intervention $record) => $record->reason),
+                                Placeholder::make('has_unknown_identity')
+                                    ->label(__('field.has_unknown_identity'))
+                                    ->withoutContent()
+                                    ->columnSpanFull(),
+                            ]),
 
-                                Placeholder::make('date')
-                                    ->label(__('field.date'))
-                                    ->content(fn (Intervention $record) => $record->date),
+                        Subsection::make()
+                            ->icon('heroicon-o-user')
+                            ->columns(2)
+                            ->hidden(fn (Beneficiary $record) => $record->has_unknown_identity)
+                            ->schema([
+                                Placeholder::make('first_name')
+                                    ->label(__('field.first_name'))
+                                    ->content(fn (Beneficiary $record) => $record->first_name),
 
-                                Placeholder::make('services')
-                                    ->label(__('field.services'))
-                                    ->content(fn (Intervention $record) => $record->services->join(', ')),
+                                Placeholder::make('last_name')
+                                    ->label(__('field.last_name'))
+                                    ->content(fn (Beneficiary $record) => $record->last_name),
+
+                                Placeholder::make('gender')
+                                    ->label(__('field.gender'))
+                                    ->content(fn (Beneficiary $record) => $record->gender?->label()),
+
+                                Placeholder::make('cnp')
+                                    ->label(__('field.cnp'))
+                                    ->content(fn (Beneficiary $record) => $record->cnp)
+                                    ->fallback(__('field.does_not_have_cnp')),
+                            ]),
+
+                        static::getHouseholdSubsection(),
+
+                        static::getLocationSubsection(),
+
+                        Subsection::make()
+                            ->icon('heroicon-o-lightning-bolt')
+                            ->schema([
+                                Repeater::make('interventions')
+                                    ->relationship()
+                                    ->label(__('intervention.label.plural'))
+                                    ->columns(2)
+                                    ->extraAttributes(['class' => '[ul]:divide-y'])
+                                    ->schema([
+                                        Placeholder::make('reason')
+                                            ->label(__('field.intervention_reason'))
+                                            ->content(fn (Intervention $record) => $record->reason),
+
+                                        Placeholder::make('date')
+                                            ->label(__('field.date'))
+                                            ->content(fn (Intervention $record) => $record->date),
+
+                                        Placeholder::make('services')
+                                            ->label(__('field.services'))
+                                            ->content(fn (Intervention $record) => $record->services->join(', ')),
+                                    ]),
+                            ]),
+
+                        Subsection::make()
+                            ->icon('heroicon-o-annotation')
+                            ->schema([
+                                Placeholder::make('notes')
+                                    ->label(__('field.beneficiary_notes'))
+                                    ->extraAttributes(['class' => 'prose max-w-none'])
+                                    ->content(fn (Beneficiary $record) => $record->notes),
                             ]),
                     ]),
-
-                Subsection::make()
-                    ->icon('heroicon-o-annotation')
-                    ->schema([
-                        Placeholder::make('notes')
-                            ->label(__('field.beneficiary_notes'))
-                            ->extraAttributes(['class' => 'prose max-w-none'])
-                            ->content(fn (Beneficiary $record) => $record->notes),
-                    ]),
-
             ]);
     }
 

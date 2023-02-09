@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\BeneficiarySidebar;
+use App\Concerns\Beneficiary\SidebarLayout;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Forms\Components\Badge;
@@ -20,7 +20,7 @@ use Filament\Resources\Pages\ViewRecord;
 
 class ViewPersonalDataBeneficiary extends ViewRecord implements WithSidebar
 {
-    use BeneficiarySidebar;
+    use SidebarLayout;
 
     protected static string $resource = BeneficiaryResource::class;
 
