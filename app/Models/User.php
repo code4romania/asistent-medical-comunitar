@@ -17,12 +17,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements FilamentUser, HasName
 {
+    use CausesActivity;
     use HasApiTokens;
     use HasFactory;
     use HasLocation;
+    use LogsActivity;
     use Notifiable;
 
     /**
@@ -91,5 +96,12 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function areas(): HasMany
     {
         return $this->hasMany(Area::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['email'])
+            ->logOnlyDirty();
     }
 }
