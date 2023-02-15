@@ -6,20 +6,10 @@ namespace App\Filament\Resources;
 
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
-use App\Enums\Gender;
 use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\BeneficiaryResource\Pages\ListBeneficiaries;
-use App\Forms\Components\Card;
-use App\Forms\Components\Location;
-use App\Forms\Components\Subsection;
 use App\Models\Beneficiary;
-use App\Rules\ValidCNP;
 use App\Tables\Columns\BadgeColumn;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -47,84 +37,6 @@ class BeneficiaryResource extends Resource
     {
         return parent::getEloquentQuery()
             ->withLocation();
-    }
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->columns(1)
-            ->schema([
-                Card::make()
-                    ->schema([
-                        Group::make()
-                            ->extraAttributes(['class' => 'flex'])
-                            ->schema([
-                                Select::make('type')
-                                    ->label(__('field.beneficiary_type'))
-                                    ->options(Type::options())
-                                    ->default(Type::REGULAR),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-user')
-                            ->columns(2)
-                            ->schema([
-                                TextInput::make('first_name')
-                                    ->label(__('field.first_name'))
-                                    ->placeholder(__('placeholder.first_name'))
-                                    ->maxLength(50)
-                                    ->nullable(),
-
-                                TextInput::make('last_name')
-                                    ->label(__('field.last_name'))
-                                    ->placeholder(__('placeholder.last_name'))
-                                    ->maxLength(50)
-                                    ->nullable(),
-
-                                Select::make('gender')
-                                    ->label(__('field.gender'))
-                                    ->placeholder(__('placeholder.choose'))
-                                    ->options(Gender::options())
-                                    ->disablePlaceholderSelection()
-                                    ->enum(Gender::class),
-
-                                TextInput::make('cnp')
-                                    ->label(__('field.cnp'))
-                                    ->placeholder(__('placeholder.cnp'))
-                                    ->unique()
-                                    ->nullable()
-                                    ->rule(new ValidCNP),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-location-marker')
-                            ->columns(2)
-                            ->schema([
-                                Location::make(),
-
-                                TextInput::make('address')
-                                    ->label(__('field.address'))
-                                    ->maxLength(50)
-                                    ->nullable(),
-
-                                TextInput::make('phone')
-                                    ->label(__('field.phone'))
-                                    ->tel()
-                                    ->nullable()
-                                    ->maxLength(15),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-annotation')
-                            ->schema([
-                                RichEditor::make('notes')
-                                    ->label(__('field.beneficiary_notes'))
-                                    ->toolbarButtons(['bold', 'italic', 'strike', 'bulletList', 'orderedList', 'redo', 'undo'])
-                                    ->nullable()
-                                    ->maxLength(65535),
-                            ]),
-                    ]),
-            ]);
     }
 
     public static function table(Table $table): Table

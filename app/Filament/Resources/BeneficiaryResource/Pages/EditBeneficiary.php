@@ -53,6 +53,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                         ]),
 
                     Card::make()
+                        ->heading(__('beneficiary.section.personal_data'))
                         ->schema(static::getRegularBeneficiaryFormSchema()),
                 ]);
         }
@@ -61,6 +62,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar
             ->columns(1)
             ->schema([
                 Card::make()
+                    ->heading(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }

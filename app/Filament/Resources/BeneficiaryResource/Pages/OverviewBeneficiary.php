@@ -16,7 +16,6 @@ use App\Forms\Components\Subsection;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -53,59 +52,56 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->columns(3)
             ->schema([
                 Card::make()
+                    ->heading(__('beneficiary.section.personal_data'))
                     ->columnSpan(1)
+                    ->columns(2)
                     ->schema([
-                        Section::make(__('beneficiary.section.personal_data'))
-                            ->columns(2)
-                            ->schema([
-                                Badge::make('status')
-                                    ->content(fn (Beneficiary $record) => $record->status?->label())
-                                    ->color(fn (Beneficiary $record) => $record->status?->color())
-                                    ->columnSpanFull(),
+                        Badge::make('status')
+                            ->content(fn (Beneficiary $record) => $record->status?->label())
+                            ->color(fn (Beneficiary $record) => $record->status?->color())
+                            ->columnSpanFull(),
 
-                                Placeholder::make('id')
-                                    ->label(__('field.beneficiary_id'))
-                                    ->content(fn (Beneficiary $record) => $record->id),
+                        Placeholder::make('id')
+                            ->label(__('field.beneficiary_id'))
+                            ->content(fn (Beneficiary $record) => $record->id),
 
-                                Placeholder::make('integrated')
-                                    ->label(__('field.integrated'))
-                                    ->content('Placeholder content'),
+                        Placeholder::make('integrated')
+                            ->label(__('field.integrated'))
+                            ->content('Placeholder content'),
 
-                                Placeholder::make('household')
-                                    ->label(__('field.household'))
-                                    ->content('Placeholder content'),
+                        Placeholder::make('household')
+                            ->label(__('field.household'))
+                            ->content('Placeholder content'),
 
-                                Placeholder::make('family')
-                                    ->label(__('field.family'))
-                                    ->content('Placeholder content'),
+                        Placeholder::make('family')
+                            ->label(__('field.family'))
+                            ->content('Placeholder content'),
 
-                                Placeholder::make('age')
-                                    ->label(__('field.age'))
-                                    ->content(fn (Beneficiary $record) => $record->age),
+                        Placeholder::make('age')
+                            ->label(__('field.age'))
+                            ->content(fn (Beneficiary $record) => $record->age),
 
-                                Placeholder::make('gender')
-                                    ->label(__('field.gender'))
-                                    ->content(fn (Beneficiary $record) => $record->gender?->label()),
+                        Placeholder::make('gender')
+                            ->label(__('field.gender'))
+                            ->content(fn (Beneficiary $record) => $record->gender?->label()),
 
-                                Placeholder::make('address')
-                                    ->label(__('field.address'))
-                                    ->content(fn (Beneficiary $record) => $record->full_address)
-                                    ->columnSpanFull(),
+                        Placeholder::make('address')
+                            ->label(__('field.address'))
+                            ->content(fn (Beneficiary $record) => $record->full_address)
+                            ->columnSpanFull(),
 
-                                Placeholder::make('phone')
-                                    ->label(__('field.phone'))
-                                    ->content(fn (Beneficiary $record) => $record->phone)
-                                    ->columnSpanFull(),
-                            ]),
+                        Placeholder::make('phone')
+                            ->label(__('field.phone'))
+                            ->content(fn (Beneficiary $record) => $record->phone)
+                            ->columnSpanFull(),
+
                     ]),
 
                 Card::make()
+                    ->heading(__('beneficiary.section.active_interventions'))
                     ->columnSpan(2)
                     ->schema([
-                        Section::make(__('beneficiary.section.active_interventions'))
-                            ->schema([
 
-                            ]),
                     ]),
             ]);
     }
@@ -116,6 +112,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->columns(1)
             ->schema([
                 Card::make()
+                    ->heading(__('beneficiary.section.personal_data'))
                     ->columnSpan(1)
                     ->schema([
                         Badge::make('type')
