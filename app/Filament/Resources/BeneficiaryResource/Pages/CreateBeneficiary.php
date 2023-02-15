@@ -7,7 +7,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Concerns\Beneficiary\CommonFormSchema;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource;
-use Filament\Forms\Components\Card;
+use App\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
