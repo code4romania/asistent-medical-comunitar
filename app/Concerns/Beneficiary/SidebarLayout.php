@@ -33,15 +33,18 @@ trait SidebarLayout
                 ->items([
                     NavigationItem::make()
                         ->label('Overview')
-                        ->icon('heroicon-o-home')
+                        ->icon('icon-none')
                         ->url(static::getResource()::getUrl('view', $record))
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.view')),
 
                     NavigationItem::make()
-                        ->label('Date personale')
-                        ->icon('heroicon-o-home')
+                        ->label(__('beneficiary.section.personal_data'))
+                        ->icon('icon-none')
                         ->url(static::getResource()::getUrl('personal_data.view', $record))
-                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.personal_data.*')),
+                        ->isActiveWhen(fn (): bool => request()->routeIs(
+                            'filament.resources.beneficiaries.personal_data.view',
+                            'filament.resources.beneficiaries.edit'
+                        )),
                 ]),
         ];
     }

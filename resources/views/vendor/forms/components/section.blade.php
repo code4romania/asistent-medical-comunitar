@@ -54,7 +54,7 @@
         ])>
             <h3 @class([
                 'font-bold tracking-tight pointer-events-none',
-                'text-xl font-bold' => !$isCompact,
+                'text-lg font-semibold' => !$isCompact,
             ])>
                 {{ $getHeading() }}
             </h3>

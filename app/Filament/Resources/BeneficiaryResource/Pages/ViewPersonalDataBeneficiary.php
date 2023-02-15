@@ -27,8 +27,7 @@ class ViewPersonalDataBeneficiary extends ViewRecord implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make()
-                ->url($this->getResource()::getUrl('personal_data.edit', $this->getRecord())),
+            Actions\EditAction::make(),
         ];
     }
 
