@@ -1,10 +1,12 @@
 @props([
     'actions' => null,
     'heading',
-    'subheading' => null
+    'subheading' => null,
 ])
 
-<header {{ $attributes->class(['filament-header space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4  sm:rtl:space-x-reverse sm:py-4']) }}>
+<header
+    {{ $attributes->class(['filament-header space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:rtl:space-x-reverse']) }}
+>
     <div>
         <x-filament::header.heading>
             {{ $heading }}
@@ -17,6 +19,8 @@
         @endif
     </div>
 
-
-    <x-filament::pages.actions :actions="$actions" class="shrink-0" />
+    <x-filament::pages.actions
+        :actions="$actions"
+        class="shrink-0"
+    />
 </header>

@@ -2,13 +2,18 @@
     'navigation' => [],
 ])
 
+<div
+    x-data="{}"
+    x-cloak
+    x-show="$store.sidebar.isOpen"
+    x-transition.opacity.500ms
+    x-on:click="$store.sidebar.close()"
+    class="fixed inset-0 z-20 w-full h-full filament-sidebar-close-overlay bg-gray-900/50 lg:hidden"
+></div>
+
 <aside
     x-data="{}"
-    @if (config('filament.layout.sidebar.is_collapsible_on_desktop')) x-cloak
-        x-bind:class="$store.sidebar.isOpen ? 'filament-sidebar-open translate-x-0 max-w-[20em] lg:max-w-[var(--sidebar-width)]' : '-translate-x-full lg:translate-x-0 lg:max-w-[var(--collapsed-sidebar-width)] rtl:lg:-translate-x-0 rtl:translate-x-full'"
-    @else
-        x-cloak="-lg"
-        x-bind:class="$store.sidebar.isOpen ? 'filament-sidebar-open translate-x-0' : '-translate-x-full lg:translate-x-0 rtl:lg:-translate-x-0 rtl:translate-x-full'" @endif
+    x-cloak="-lg"
     @class([
         'filament-sidebar relative inset-y-0 left-0 rtl:left-auto rtl:right-0 z-20 flex flex-col h-full overflow-hidden shadow-2xl transition-all bg-white lg:border-r rtl:lg:border-r-0 rtl:lg:border-l w-[var(--sidebar-width)] lg:z-0',
         'lg:translate-x-0' => !config(

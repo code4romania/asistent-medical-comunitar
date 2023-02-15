@@ -5,21 +5,23 @@
 
 <div {{ $attributes->class(['filament-page']) }}>
     <div class="space-y-6">
-        @if ($header = $this->getHeader())
-            {{ $header }}
-        @elseif ($heading = $this->getHeading())
-            <x-filament::header :actions="$this->getCachedActions()">
-                <x-slot name="heading">
-                    {{ $heading }}
-                </x-slot>
-
-                @if ($subheading = $this->getSubheading())
-                    <x-slot name="subheading">
-                        {{ $subheading }}
+        <x-slot:heading>
+            @if ($header = $this->getHeader())
+                {{ $header }}
+            @elseif ($heading = $this->getHeading())
+                <x-filament::header :actions="$this->getCachedActions()">
+                    <x-slot name="heading">
+                        {{ $heading }}
                     </x-slot>
-                @endif
-            </x-filament::header>
-        @endif
+
+                    @if ($subheading = $this->getSubheading())
+                        <x-slot name="subheading">
+                            {{ $subheading }}
+                        </x-slot>
+                    @endif
+                </x-filament::header>
+            @endif
+        </x-slot:heading>
 
         {{ \Filament\Facades\Filament::renderHook('page.header-widgets.start') }}
 

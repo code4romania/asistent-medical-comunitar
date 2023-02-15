@@ -3,39 +3,26 @@
 ])
 
 <nav {{ $attributes->class(['filament-breadcrumbs flex-1']) }}>
-    <ul @class([
-        'flex gap-4 items-center font-medium text-sm',
-        'dark:text-white' => config('filament.dark_mode'),
-    ])>
+    <ul class="flex items-center gap-2 text-sm font-medium">
         @foreach ($breadcrumbs as $url => $label)
             <li>
                 @if (is_int($url))
-                    <span @class([
-                        'text-gray-500',
-                        'dark:text-gray-400' => config('filament.dark_mode'),
-                    ])>{{ $label }}</span>
+                    <span class="text-gray-500">{{ $label }}</span>
                 @else
                     <a
                         href="{{ $url }}"
                         @class([
                             $loop->last && !$loop->first ? 'text-gray-500' : 'text-primary-700',
-                            'dark:text-gray-300' =>
-                                (!$loop->last || $loop->first) && config('filament.dark_mode'),
-                            'dark:text-gray-400' =>
-                                $loop->last && !$loop->first && config('filament.dark_mode'),
                         ])
-                    >
-                        {{ $label }}
-                    </a>
+                    >{{ $label }}</a>
                 @endif
 
             </li>
 
             @if (!$loop->last)
-                <li @class([
-                    'h-6 border-r border-gray-300 -skew-x-12',
-                    'dark:border-gray-500' => config('filament.dark_mode'),
-                ])></li>
+                <li aria-hidden="true">
+                    <x-icon-breadcrumbs-divider class="w-5 h-5 text-gray-300" />
+                </li>
             @endif
         @endforeach
     </ul>
