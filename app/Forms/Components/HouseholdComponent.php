@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use App\Models\City;
-use App\Models\County;
+
 use App\Models\Family;
 use App\Models\Household;
 use Filament\Forms\Components\Grid;
@@ -46,7 +45,7 @@ class HouseholdComponent extends Grid
                 ->options(function () {
                     return Cache::driver('array')
                         ->rememberForever(
-                            'counties',
+                            'household',
                             fn() => Household::pluck('name', 'id')
                         );
                 })
