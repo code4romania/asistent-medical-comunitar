@@ -10,12 +10,14 @@ use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
 use App\Models\Beneficiary;
 use App\Models\City;
+use App\Models\Family;
+use App\Models\Household;
 use App\Models\Intervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Beneficiary>
+ * @extends Factory<Beneficiary>
  */
 class BeneficiaryFactory extends Factory
 {
@@ -26,8 +28,11 @@ class BeneficiaryFactory extends Factory
      */
     public function definition()
     {
+        $family = Family::factory()->forHousehold()->create();
         return [
             'amc_id' => User::factory()->withProfile(),
+            'household_id' => $family->household_id,
+            'family_id' => $family->id,
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'prior_name' => fake()->boolean(25) ? fake()->lastName() : null,
