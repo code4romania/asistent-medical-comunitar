@@ -34,14 +34,14 @@ trait CommonFormSchema
                         ->placeholder(__('placeholder.first_name'))
                         ->maxLength(50)
                         ->nullable()
-                        ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                        ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                     TextInput::make('last_name')
                         ->label(__('field.last_name'))
                         ->placeholder(__('placeholder.last_name'))
                         ->maxLength(50)
                         ->nullable()
-                        ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                        ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                     Group::make()
                         ->schema([
@@ -51,8 +51,8 @@ trait CommonFormSchema
                                 ->unique()
                                 ->nullable()
                                 ->rule(new ValidCNP)
-                                ->disabled(fn(callable $get) => (bool)$get('does_not_have_cnp'))
-                                ->required(fn(callable $get) => !$get('has_unknown_identity') && !$get('does_not_have_cnp')),
+                                ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
+                                ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
 
                             Checkbox::make('does_not_have_cnp')
                                 ->label(__('field.does_not_have_cnp'))
@@ -71,7 +71,7 @@ trait CommonFormSchema
                         ->enum(IDType::class)
                         ->reactive()
                         ->afterStateUpdated(function (callable $set, $state) {
-                            if (!$state || IDType::from($state) === IDType::NONE) {
+                            if (! $state || IDType::from($state) === IDType::NONE) {
                                 $set('id_serial', null);
                                 $set('id_number', null);
                             }
@@ -82,7 +82,7 @@ trait CommonFormSchema
                         ->columns()
                         ->columnSpanFull()
                         ->disabled(
-                            fn(callable $get) => !$get('id_type') || IDType::tryFrom($get('id_type')) === IDType::NONE
+                            fn (callable $get) => ! $get('id_type') || IDType::tryFrom($get('id_type')) === IDType::NONE
                         )
                         ->schema([
                             TextInput::make('id_serial')
@@ -99,7 +99,7 @@ trait CommonFormSchema
                         ->options(Gender::options())
                         ->disablePlaceholderSelection()
                         ->enum(Gender::class)
-                        ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                        ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                     DatePicker::make('date_of_birth')
                         ->label(__('field.date_of_birth'))
@@ -149,21 +149,21 @@ trait CommonFormSchema
                             $set('cnp', null);
                         }),
                     Grid::make()
-                        ->disabled(fn(callable $get) => (bool)$get('has_unknown_identity'))
+                        ->disabled(fn (callable $get) => (bool) $get('has_unknown_identity'))
                         ->schema([
                             TextInput::make('first_name')
                                 ->label(__('field.first_name'))
                                 ->placeholder(__('placeholder.first_name'))
                                 ->maxLength(50)
                                 ->nullable()
-                                ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                                ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                             TextInput::make('last_name')
                                 ->label(__('field.last_name'))
                                 ->placeholder(__('placeholder.last_name'))
                                 ->maxLength(50)
                                 ->nullable()
-                                ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                                ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                             Select::make('gender')
                                 ->label(__('field.gender'))
@@ -171,7 +171,7 @@ trait CommonFormSchema
                                 ->options(Gender::options())
                                 ->disablePlaceholderSelection()
                                 ->enum(Gender::class)
-                                ->required(fn(callable $get) => !$get('has_unknown_identity')),
+                                ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
                             Group::make()
                                 ->schema([
@@ -181,8 +181,8 @@ trait CommonFormSchema
                                         ->unique()
                                         ->nullable()
                                         ->rule(new ValidCNP)
-                                        ->disabled(fn(callable $get) => (bool)$get('does_not_have_cnp'))
-                                        ->required(fn(callable $get) => !$get('has_unknown_identity') && !$get('does_not_have_cnp')),
+                                        ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
+                                        ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
 
                                     Checkbox::make('does_not_have_cnp')
                                         ->label(__('field.does_not_have_cnp'))
@@ -254,12 +254,11 @@ trait CommonFormSchema
 
     private static function getHouseholdSubsection(): Subsection
     {
-
         return Subsection::make()
             ->icon('heroicon-o-user-group')
             ->columns(2)
             ->schema([
-               HouseholdComponent::make(),
+                HouseholdComponent::make(),
             ]);
     }
 

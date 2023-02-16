@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-
 use App\Models\Family;
 use App\Models\Household;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
-use function is_null;
 
 class HouseholdComponent extends Grid
 {
@@ -29,10 +28,10 @@ class HouseholdComponent extends Grid
         return [
             Placeholder::make('household')
                 ->label(__('field.household'))
-                ->content(fn($record) => $record->household?->name),
+                ->content(fn ($record) => $record->household?->name),
             Placeholder::make('family')
                 ->label(__('field.family'))
-                ->content(fn($record) => static::getRenderedOptionLabel($record->family)),
+                ->content(fn ($record) => static::getRenderedOptionLabel($record->family)),
         ];
     }
 
@@ -46,12 +45,16 @@ class HouseholdComponent extends Grid
                     return Cache::driver('array')
                         ->rememberForever(
                             'household',
-                            fn() => Household::pluck('name', 'id')
+                            fn () => Household::pluck('name', 'id')
                         );
                 })
                 ->searchable()
                 ->reactive()
-                ->afterStateUpdated(fn(callable $set) => $set('family_id', null)),
+                ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
+                ->createOptionForm([
+                    TextInput::make('name'),
+
+                ]),
 
             Select::make('family_id')
                 ->label(__('field.family'))
@@ -60,9 +63,9 @@ class HouseholdComponent extends Grid
                 ->searchable()
                 ->requiredWith('household_id')
                 ->getSearchResultsUsing(function (string $search, callable $get) {
-                    $householderId = (int)$get('household_id');
+                    $householderId = (int) $get('household_id');
 
-                    if (!$householderId) {
+                    if (! $householderId) {
                         return null;
                     }
 
@@ -71,11 +74,10 @@ class HouseholdComponent extends Grid
                         ->search($search)
                         ->limit(100)
                         ->get()
-                        ->mapWithKeys(fn(Family $family) => [
+                        ->mapWithKeys(fn (Family $family) => [
                             $family->getKey() => $family->name,
                         ]);
-                })
-
+                }),
 
         ];
     }

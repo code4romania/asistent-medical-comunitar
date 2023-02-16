@@ -45,7 +45,7 @@ class Beneficiary extends Model
 
         'amc_id',
         'householder_id',
-        'family_id'
+        'family_id',
     ];
 
     protected $casts = [
@@ -127,6 +127,7 @@ class Beneficiary extends Model
     {
         return $this->type === Type::OCASIONAL;
     }
+
     public function householder(): BelongsTo
     {
         return $this->belongsTo(Household::class);

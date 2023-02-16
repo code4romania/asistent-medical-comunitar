@@ -11,7 +11,6 @@ use App\Enums\Gender;
 use App\Models\Beneficiary;
 use App\Models\City;
 use App\Models\Family;
-use App\Models\Household;
 use App\Models\Intervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,6 +28,7 @@ class BeneficiaryFactory extends Factory
     public function definition()
     {
         $family = Family::factory()->forHousehold()->create();
+
         return [
             'amc_id' => User::factory()->withProfile(),
             'household_id' => $family->household_id,
