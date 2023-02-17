@@ -44,7 +44,7 @@ class Beneficiary extends Model
         'notes',
 
         'amc_id',
-        'householder_id',
+        'household_id',
         'family_id',
     ];
 
@@ -128,7 +128,7 @@ class Beneficiary extends Model
         return $this->type === Type::OCASIONAL;
     }
 
-    public function householder(): BelongsTo
+    public function household(): BelongsTo
     {
         return $this->belongsTo(Household::class);
     }

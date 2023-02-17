@@ -63,14 +63,14 @@ class HouseholdComponent extends Grid
                 ->searchable()
                 ->requiredWith('household_id')
                 ->getSearchResultsUsing(function (string $search, callable $get) {
-                    $householderId = (int) $get('household_id');
+                    $householdId = (int) $get('household_id');
 
-                    if (! $householderId) {
+                    if (! $householdId) {
                         return null;
                     }
 
                     return Family::query()
-                        ->where('household_id', $householderId)
+                        ->where('household_id', $householdId)
                         ->search($search)
                         ->limit(100)
                         ->get()
