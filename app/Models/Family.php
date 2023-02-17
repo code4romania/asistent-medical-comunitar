@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Family extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
     ];
-    use HasFactory;
 
     public function beneficiaries(): BelongsToMany
     {

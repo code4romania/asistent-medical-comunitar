@@ -20,7 +20,7 @@ class FamilyFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> fake()->lastName,
+            'name' => fake()->lastName(),
 
         ];
     }
