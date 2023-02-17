@@ -121,7 +121,9 @@ class BeneficiaryResource extends Resource
             'view' => Pages\OverviewBeneficiary::route('/{record}'),
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
 
-            'personal_data.view' => Pages\ViewPersonalDataBeneficiary::route('/{record}/personal-data'),
+            'personal_data.view' => Pages\ViewPersonalData::route('/{record}/personal-data'),
+
+            'catagraphy' => Pages\CatagraphySummary::route('/{record}/catagraphy'),
         ];
     }
 

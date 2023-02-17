@@ -9,6 +9,7 @@ use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
 use App\Models\Beneficiary;
+use App\Models\Catagraphy;
 use App\Models\City;
 use App\Models\Intervention;
 use App\Models\User;
@@ -42,14 +43,18 @@ class BeneficiaryFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Beneficiary $beneficiary) {
-            if (! $beneficiary->isOcasional()) {
-                return;
+            if ($beneficiary->isOcasional()) {
+                Intervention::factory()
+                    ->for($beneficiary)
+                    ->count(fake()->randomDigitNotNull())
+                    ->create();
             }
 
-            Intervention::factory()
-                ->for($beneficiary)
-                ->count(fake()->randomDigitNotNull())
-                ->create();
+            if ($beneficiary->isRegular()) {
+                Catagraphy::factory()
+                    ->for($beneficiary)
+                    ->create();
+            }
         });
     }
 

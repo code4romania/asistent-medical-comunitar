@@ -45,6 +45,12 @@ trait SidebarLayout
                             'filament.resources.beneficiaries.personal_data.view',
                             'filament.resources.beneficiaries.edit'
                         )),
+
+                    NavigationItem::make()
+                        ->label(__('catagraphy.label.singular'))
+                        ->icon('icon-none')
+                        ->url(static::getResource()::getUrl('catagraphy', $record))
+                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy.*')),
                 ]),
         ];
     }

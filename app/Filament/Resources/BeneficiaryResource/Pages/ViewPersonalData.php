@@ -17,7 +17,7 @@ use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewPersonalDataBeneficiary extends ViewRecord implements WithSidebar
+class ViewPersonalData extends ViewRecord implements WithSidebar
 {
     use SidebarLayout;
 
