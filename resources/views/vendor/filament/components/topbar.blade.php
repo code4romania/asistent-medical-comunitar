@@ -1,6 +1,6 @@
 <div
     {{ $attributes->class([
-        'filament-main-topbar sticky top-0 z-10 flex py-3 w-full shrink-0 items-center border-b bg-primary-900',
+        'filament-main-topbar sticky top-0 z-40 flex py-3 w-full shrink-0 items-center border-b bg-primary-900',
         'text-white' => !config('filament.dark_mode'),
         'dark:bg-gray-800 dark:border-gray-700' => config('filament.dark_mode'),
     ]) }}>

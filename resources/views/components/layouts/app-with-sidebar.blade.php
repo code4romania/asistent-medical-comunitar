@@ -22,22 +22,22 @@
             x-data="{}"
             class="flex flex-col flex-1 w-screen h-screen filament-main rtl:lg:pl-0"
         >
-            <div>
-                <x-filament::topbar />
 
-                <div class="flex bg-white border-b shadow">
-                    <div class="flex w-[var(--sidebar-width)] shrink-0"></div>
-                    <div class="flex-1">
-                        <div @class([
-                            'w-full p-4 mx-auto  gap-y-2 md:px-6 lg:px-8',
-                            $maxContentWidth,
-                        ])>
-                            <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
+            <x-filament::topbar />
 
-                            {{ $heading ?? null }}
-                        </div>
+            <div class="flex bg-white border-b shadow">
+                <div class="flex w-[var(--sidebar-width)] shrink-0"></div>
+                <div class="flex-1">
+                    <div @class([
+                        'w-full p-4 mx-auto  gap-y-2 md:px-6 lg:px-8',
+                        $maxContentWidth,
+                    ])>
+                        <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
+
+                        {{ $heading ?? null }}
                     </div>
                 </div>
+
             </div>
 
             <div class="relative flex flex-1 w-full">

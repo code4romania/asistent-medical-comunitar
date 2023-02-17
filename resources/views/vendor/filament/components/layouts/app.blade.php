@@ -18,19 +18,17 @@
 
 <x-filament::layouts.base :title="$title">
     <div class="flex w-full min-h-screen filament-app-layout overflow-x-clip">
-        <div class="flex flex-col flex-1 w-screen h-full filament-main gap-y-8 rtl:lg:pl-0">
-            <div>
-                <x-filament::topbar />
+        <div class="flex flex-col flex-1 w-screen h-screen filament-main gap-y-8 rtl:lg:pl-0">
+            <x-filament::topbar />
 
-                <div class="bg-white shadow">
-                    <div @class([
-                        'w-full p-4 mx-auto gap-y-2 md:px-6 lg:px-8',
-                        $maxContentWidth,
-                    ])>
-                        <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
+            <div class="-mt-8 bg-white shadow">
+                <div @class([
+                    'w-full p-4 mx-auto gap-y-2 md:px-6 lg:px-8',
+                    $maxContentWidth,
+                ])>
+                    <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
 
-                        {{ $heading ?? null }}
-                    </div>
+                    {{ $heading ?? null }}
                 </div>
             </div>
 
