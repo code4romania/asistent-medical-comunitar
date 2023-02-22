@@ -40,6 +40,7 @@ return [
         'index' => 'Toți beneficiarii',
         'regular' => 'Beneficiari proprii',
         'ocasional' => 'Beneficiari ocazionali',
+        'households' => 'Gospodării',
         'personal_data' => 'Date personale',
         'active_interventions' => 'Intervenții active',
     ],

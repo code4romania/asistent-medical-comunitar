@@ -45,6 +45,8 @@ class Beneficiary extends Model
         'notes',
 
         'amc_id',
+        'household_id',
+        'family_id',
     ];
 
     protected $casts = [
@@ -130,5 +132,15 @@ class Beneficiary extends Model
     public function isOcasional(): bool
     {
         return $this->type === Type::OCASIONAL;
+    }
+
+    public function household(): BelongsTo
+    {
+        return $this->belongsTo(Household::class);
+    }
+
+    public function family(): BelongsTo
+    {
+        return $this->belongsTo(Family::class);
     }
 }

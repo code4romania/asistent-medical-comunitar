@@ -54,5 +54,8 @@ return [
     'study_type' => 'Tip studii',
     'work_status' => 'Încadrat în muncă',
     'year' => 'An',
+    'household_name' => 'Nume gospodărie',
+    'family_name' => 'Nume familie',
+    'household_add' =>'Denumire gospodărie',
 
 ];

@@ -30,5 +30,7 @@ return [
     'study_duration' => 'Total durată în ani',
     'study_institution' => 'Introdu numele instituției',
     'study_name' => 'Numele programului educațional',
+    'household' => 'Alege o gospodărie',
+    'family' => 'Alege o familie',
 
 ];

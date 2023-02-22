@@ -117,6 +117,7 @@ class BeneficiaryResource extends Resource
             'index' => Pages\ListBeneficiaries::route('/'),
             'regular' => Pages\ListRegularBeneficiaries::route('/regular'),
             'ocasional' => Pages\ListOcasionalBeneficiaries::route('/ocasional'),
+
             'create' => Pages\CreateBeneficiary::route('/create'),
             'view' => Pages\OverviewBeneficiary::route('/{record}'),
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
@@ -125,14 +126,5 @@ class BeneficiaryResource extends Resource
 
             'catagraphy' => Pages\CatagraphySummary::route('/{record}/catagraphy'),
         ];
-    }
-
-    public static function getListRecordsTabs(): array
-    {
-        return collect(['index', 'regular', 'ocasional'])
-            ->mapWithKeys(fn (string $key) => [
-                $key => self::getUrl($key),
-            ])
-            ->all();
     }
 }
