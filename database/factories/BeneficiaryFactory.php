@@ -11,6 +11,7 @@ use App\Enums\Gender;
 use App\Models\Beneficiary;
 use App\Models\City;
 use App\Models\Family;
+use App\Models\Household;
 use App\Models\Intervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,8 +32,8 @@ class BeneficiaryFactory extends Factory
 
         return [
             'amc_id' => User::factory()->withProfile(),
-            'household_id' => $family->household_id,
-            'family_id' => $family->id,
+            'household_id' => Household::factory(),
+            'family_id' => Family::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'prior_name' => fake()->boolean(25) ? fake()->lastName() : null,

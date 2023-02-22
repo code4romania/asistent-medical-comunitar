@@ -205,6 +205,7 @@ class BeneficiaryResource extends Resource
             'index' => Pages\ListBeneficiaries::route('/'),
             'regular' => Pages\ListRegularBeneficiaries::route('/regular'),
             'ocasional' => Pages\ListOcasionalBeneficiaries::route('/ocasional'),
+
             'create' => Pages\CreateBeneficiary::route('/create'),
             'view' => Pages\OverviewBeneficiary::route('/{record}'),
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
