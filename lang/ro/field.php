@@ -56,5 +56,6 @@ return [
     'year' => 'An',
     'household_name' => 'Nume gospodărie',
     'family_name' => 'Nume familie',
+    'household_add' =>'Denumire gospodărie',
 
 ];

@@ -31,7 +31,7 @@ class HouseholdComponent extends Grid
                 ->content(fn ($record) => $record->household?->name),
             Placeholder::make('family')
                 ->label(__('field.family'))
-                ->content(fn ($record) => static::getRenderedOptionLabel($record->family)),
+                ->content(fn ($record) => static::getRenderedOptionLabel($record->family?->name)),
         ];
     }
 
@@ -52,7 +52,7 @@ class HouseholdComponent extends Grid
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
                 ->createOptionForm([
-                    TextInput::make('name'),
+                    TextInput::make('name')->label(__('field.household_add')),
 
                 ]),
 
