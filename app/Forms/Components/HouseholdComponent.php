@@ -9,8 +9,8 @@ use App\Models\Household;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 
 class HouseholdComponent extends Grid
@@ -41,19 +41,16 @@ class HouseholdComponent extends Grid
             Select::make('household_id')
                 ->label(__('field.household'))
                 ->placeholder(__('placeholder.household'))
-                ->options(function () {
-                    return Cache::driver('array')
-                        ->rememberForever(
-                            'household',
-                            fn () => Household::pluck('name', 'id')
-                        );
-                })
+                ->options(fn () => Household::pluck('name', 'id'))
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
                 ->createOptionForm([
-                    TextInput::make('name')->label(__('field.household_add')),
-
+                    Grid::make()
+                        ->schema([
+                            TextInput::make('name')
+                                ->label(__('field.household_add')),
+                        ]),
                 ]),
 
             Select::make('family_id')
@@ -62,22 +59,14 @@ class HouseholdComponent extends Grid
                 ->allowHtml()
                 ->searchable()
                 ->requiredWith('household_id')
-                ->getSearchResultsUsing(function (string $search, callable $get) {
-                    $householdId = (int) $get('household_id');
-
-                    if (! $householdId) {
-                        return null;
-                    }
-
-                    return Family::query()
-                        ->where('household_id', $householdId)
-                        ->search($search)
+                ->relationship(
+                    'family',
+                    'name',
+                    fn (Builder $query, callable $get) => Family::query()
+                        ->where('household_id', $get('household_id'))
                         ->limit(100)
-                        ->get()
-                        ->mapWithKeys(fn (Family $family) => [
-                            $family->getKey() => $family->name,
-                        ]);
-                }),
+                )
+                ->preload(),
 
         ];
     }
