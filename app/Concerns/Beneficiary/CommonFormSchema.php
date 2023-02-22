@@ -6,7 +6,7 @@ namespace App\Concerns\Beneficiary;
 
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Gender;
-use App\Forms\Components\HouseholdComponent;
+use App\Forms\Components\Household;
 use App\Forms\Components\Location;
 use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
@@ -114,7 +114,7 @@ trait CommonFormSchema
                         ->label(__('field.work_status')),
                 ]),
 
-            static::getHouseholdSubsection(),
+            Household::make(),
 
             static::getLocationSubsection(),
 
@@ -196,7 +196,7 @@ trait CommonFormSchema
                         ]),
                 ]),
 
-            static::getHouseholdSubsection(),
+            Household::make(),
 
             static::getLocationSubsection(),
 
@@ -250,16 +250,6 @@ trait CommonFormSchema
                 ]),
 
         ];
-    }
-
-    private static function getHouseholdSubsection(): Subsection
-    {
-        return Subsection::make()
-            ->icon('heroicon-o-user-group')
-            ->columns(2)
-            ->schema([
-                HouseholdComponent::make(),
-            ]);
     }
 
     private static function getLocationSubsection(): Subsection

@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace App\Forms\Components;
 
 use App\Models\Family;
-use App\Models\Household;
+use App\Models\Household as HouseholdModel;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Contracts\Database\Query\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Builder;
 
-class HouseholdComponent extends Grid
+class Household extends Group
 {
     public function getChildComponents(): array
     {
-        return match ($this->getContainer()->getContext()) {
-            'view' => $this->getViewComponents(),
-            default => $this->getEditComponents(),
-        };
+        return [
+            Subsection::make()
+                ->icon('heroicon-o-user-group')
+                ->columns(2)
+                ->schema(match ($this->getContainer()->getContext()) {
+                    'view' => $this->getViewComponents(),
+                    default => $this->getEditComponents(),
+                }),
+        ];
     }
 
     protected function getViewComponents(): array
@@ -31,7 +35,7 @@ class HouseholdComponent extends Grid
                 ->content(fn ($record) => $record->household?->name),
             Placeholder::make('family')
                 ->label(__('field.family'))
-                ->content(fn ($record) => static::getRenderedOptionLabel($record->family?->name)),
+                ->content(fn ($record) => $record->family?->name),
         ];
     }
 
@@ -41,7 +45,8 @@ class HouseholdComponent extends Grid
             Select::make('household_id')
                 ->label(__('field.household'))
                 ->placeholder(__('placeholder.household'))
-                ->options(fn () => Household::pluck('name', 'id'))
+                ->relationship('household', 'name')
+                ->preload()
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
@@ -51,7 +56,8 @@ class HouseholdComponent extends Grid
                             TextInput::make('name')
                                 ->label(__('field.household_add')),
                         ]),
-                ]),
+                ])
+                ->createOptionUsing(fn (array $data) => data_get(HouseholdModel::create($data), 'id')),
 
             Select::make('family_id')
                 ->label(__('field.family'))
@@ -62,17 +68,20 @@ class HouseholdComponent extends Grid
                 ->relationship(
                     'family',
                     'name',
-                    fn (Builder $query, callable $get) => Family::query()
+                    fn (Builder $query, callable $get) => $query
                         ->where('household_id', $get('household_id'))
                         ->limit(100)
                 )
-                ->preload(),
+                ->preload()
+                ->createOptionForm([
+                    Grid::make()
+                        ->schema([
+                            TextInput::make('name')
+                                ->label(__('field.household_add')),
+                        ]),
+                ])
+                ->createOptionUsing(fn (array $data) => data_get(Family::create($data), 'id')),
 
         ];
-    }
-
-    private static function getRenderedOptionLabel(?Model $model): ?HtmlString
-    {
-        return new HtmlString($model->name);
     }
 }

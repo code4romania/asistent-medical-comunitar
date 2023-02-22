@@ -20,4 +20,9 @@ class Household extends Model
     {
         return $this->hasMany(Family::class);
     }
+
+    public function beneficiaries(): HasMany
+    {
+        return $this->hasMany(Beneficiary::class);
+    }
 }
