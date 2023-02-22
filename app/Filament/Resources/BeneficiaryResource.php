@@ -212,13 +212,4 @@ class BeneficiaryResource extends Resource
             'personal_data.view' => Pages\ViewPersonalDataBeneficiary::route('/{record}/personal-data'),
         ];
     }
-
-    public static function getListRecordsTabs(): array
-    {
-        return collect(['index', 'regular', 'ocasional'])
-            ->mapWithKeys(fn (string $key) => [
-                $key => self::getUrl($key),
-            ])
-            ->all();
-    }
 }

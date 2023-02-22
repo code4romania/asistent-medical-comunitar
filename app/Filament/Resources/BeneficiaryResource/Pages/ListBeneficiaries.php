@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
+use App\Concerns\Beneficiary\Tabs;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
 use Filament\Pages;
@@ -12,7 +13,7 @@ use Filament\Tables;
 
 class ListBeneficiaries extends ListRecords implements WithTabs
 {
-    protected static string $view = 'filament.pages.beneficiaries.list-records';
+    use Tabs;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -26,17 +27,6 @@ class ListBeneficiaries extends ListRecords implements WithTabs
     public function isTableSelectionEnabled(): bool
     {
         return false;
-    }
-
-    public function getTabs(): array
-    {
-        return $this->getResource()::getListRecordsTabs();
-    }
-
-    public function getActiveTab(): string
-    {
-        return collect($this->getResource()::getPages())
-            ->search(fn (array $item) => $item['class'] === static::class);
     }
 
     public function getHeading(): string

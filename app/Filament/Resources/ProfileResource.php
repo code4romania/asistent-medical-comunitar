@@ -8,7 +8,6 @@ use App\Filament\Resources\ProfileResource\Pages;
 use App\Filament\Resources\ProfileResource\RelationManagers\CoursesRelationManager;
 use App\Models\User;
 use Filament\Resources\Resource;
-use Illuminate\Support\Str;
 
 class ProfileResource extends Resource
 {
@@ -42,16 +41,5 @@ class ProfileResource extends Resource
             'area.view' => Pages\ViewArea::route('/area'),
             'area.edit' => Pages\EditArea::route('/area/edit'),
         ];
-    }
-
-    public static function getProfileSections(): array
-    {
-        return collect(self::getPages())
-            ->keys()
-            ->filter(fn (string $key) => Str::endsWith($key, '.view'))
-            ->mapWithKeys(fn (string $key) => [
-                Str::beforeLast($key, '.view') => self::getUrl($key),
-            ])
-            ->all();
     }
 }
