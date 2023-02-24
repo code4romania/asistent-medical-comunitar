@@ -1,5 +1,6 @@
 /.fleet
 /.idea
+/.phpunit.cache
 /.vscode
 /coverage
 /node_modules
