@@ -8,7 +8,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Family extends Model
 {
@@ -18,9 +18,9 @@ class Family extends Model
         'name',
     ];
 
-    public function beneficiaries(): BelongsToMany
+    public function beneficiaries(): HasMany
     {
-        return $this->belongsToMany(Beneficiary::class);
+        return $this->hasMany(Beneficiary::class);
     }
 
     public function household(): BelongsTo
