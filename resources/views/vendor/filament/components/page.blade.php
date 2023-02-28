@@ -5,23 +5,21 @@
 
 <div {{ $attributes->class(['filament-page']) }}>
     <div class="space-y-6">
-        <x-slot:heading>
-            @if ($header = $this->getHeader())
-                {{ $header }}
-            @elseif ($heading = $this->getHeading())
-                <x-filament::header :actions="$this->getCachedActions()">
-                    <x-slot name="heading">
-                        {{ $heading }}
-                    </x-slot>
+        @if ($header = $this->getHeader())
+            {{ $header }}
+        @elseif ($heading = $this->getHeading())
+            <x-filament::header :actions="$this->getCachedActions()">
+                <x-slot name="heading">
+                    {{ $heading }}
+                </x-slot>
 
-                    @if ($subheading = $this->getSubheading())
-                        <x-slot name="subheading">
-                            {{ $subheading }}
-                        </x-slot>
-                    @endif
-                </x-filament::header>
-            @endif
-        </x-slot:heading>
+                @if ($subheading = $this->getSubheading())
+                    <x-slot name="subheading">
+                        {{ $subheading }}
+                    </x-slot>
+                @endif
+            </x-filament::header>
+        @endif
 
         {{ \Filament\Facades\Filament::renderHook('page.header-widgets.start') }}
 
@@ -65,9 +63,10 @@
             :visible="filled($action)"
             :width="$action?->getModalWidth()"
             :slide-over="$action?->isModalSlideOver()"
+            :close-by-clicking-away="$action?->isModalClosedByClickingAway()"
             display-classes="block"
-            x-init="this.livewire = $wire.__instance"
-            x-on:modal-closed.stop="if ('mountedAction' in this.livewire?.serverMemo.data) this.livewire.set('mountedAction', null)"
+            x-init="livewire = $wire.__instance"
+            x-on:modal-closed.stop="if ('mountedAction' in livewire?.serverMemo.data) livewire.set('mountedAction', null)"
         >
             @if ($action)
                 @if ($action->isModalCentered())
