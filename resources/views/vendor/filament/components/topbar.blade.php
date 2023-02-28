@@ -37,6 +37,7 @@
             <x-filament::layouts.app.topbar.navigation
                 class="order-3 w-full lg:hidden"
                 x-show="menuOpen"
+                x-cloak
             />
 
             <x-filament::layouts.app.topbar.navigation class="order-2 hidden lg:block" />

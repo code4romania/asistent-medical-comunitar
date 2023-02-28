@@ -54,7 +54,7 @@ class Household extends Group
                     Grid::make()
                         ->schema([
                             TextInput::make('name')
-                                ->label(__('field.household_add')),
+                                ->label(__('field.household_name')),
                         ]),
                 ])
                 ->createOptionUsing(fn (array $data) => data_get(HouseholdModel::create($data), 'id')),
@@ -77,7 +77,7 @@ class Household extends Group
                     Grid::make()
                         ->schema([
                             TextInput::make('name')
-                                ->label(__('field.household_add')),
+                                ->label(__('field.household_name')),
                         ]),
                 ])
                 ->createOptionUsing(fn (array $data) => data_get(Family::create($data), 'id')),

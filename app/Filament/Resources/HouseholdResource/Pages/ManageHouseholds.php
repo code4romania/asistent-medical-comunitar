@@ -8,10 +8,10 @@ use App\Concerns\Beneficiary\Tabs;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\HouseholdResource;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Tables;
+use Filament\Resources\Pages\ManageRecords;
+use Filament\Tables\Actions\Modal\Actions\Action;
 
-class ListHouseholds extends ListRecords implements WithTabs
+class ManageHouseholds extends ManageRecords implements WithTabs
 {
     use Tabs;
 
@@ -20,7 +20,8 @@ class ListHouseholds extends ListRecords implements WithTabs
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->disableCreateAnother(),
         ];
     }
 
@@ -42,11 +43,10 @@ class ListHouseholds extends ListRecords implements WithTabs
     protected function getTableEmptyStateActions(): array
     {
         return [
-            Tables\Actions\Action::make('create')
-                ->label(__('household.empty.create'))
-                ->url(static::getResource()::getUrl('create'))
-                ->button()
-                ->color('secondary'),
+            // Action::make('create')
+            //     ->label(__('household.empty.create'))
+            //     ->button()
+            //     ->color('secondary'),
         ];
     }
 }

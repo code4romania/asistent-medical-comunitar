@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\HouseholdResource\Pages\CreateHousehold;
-use App\Filament\Resources\HouseholdResource\Pages\EditHousehold;
-use App\Filament\Resources\HouseholdResource\Pages\ListHouseholds;
+use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
 use App\Models\Household;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\Layout\View;
 use Filament\Tables\Columns\TextColumn;
 
 class HouseholdResource extends Resource
@@ -27,7 +26,18 @@ class HouseholdResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->label(__('field.household_name')),
+
+                Repeater::make('families')
+                    ->relationship()
+                    ->minItems(1)
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('name')
+                            ->label(__('field.family_name')),
+                    ]),
             ]);
     }
 
@@ -37,25 +47,30 @@ class HouseholdResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('field.household'))
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable()
+                    ->alignment('left'),
                 TextColumn::make('families_count')
-                    ->label(__('field.families'))
+                    ->label(__('field.families_count'))
                     ->counts('families')
                     ->sortable(),
                 TextColumn::make('beneficiaries_count')
-                    ->label(__('field.beneficiaries'))
+                    ->label(__('field.beneficiaries_count'))
                     ->counts('beneficiaries')
                     ->sortable(),
 
-                // View::make("users.table.collapsible-row-content"),
-                // ->collapsible(),
 
             ])
             ->filters([
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -72,9 +87,7 @@ class HouseholdResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListHouseholds::route('/'),
-            'create' => CreateHousehold::route('/create'),
-            'edit' => EditHousehold::route('/{record}/edit'),
+            'index' => ManageHouseholds::route('/'),
         ];
     }
 }

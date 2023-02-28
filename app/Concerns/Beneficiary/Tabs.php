@@ -10,7 +10,7 @@ use App\Filament\Resources\BeneficiaryResource\Pages\ListBeneficiaries;
 use App\Filament\Resources\BeneficiaryResource\Pages\ListOcasionalBeneficiaries;
 use App\Filament\Resources\BeneficiaryResource\Pages\ListRegularBeneficiaries;
 use App\Filament\Resources\HouseholdResource;
-use App\Filament\Resources\HouseholdResource\Pages\ListHouseholds;
+use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
 use Filament\Navigation\NavigationItem;
 
 trait Tabs
@@ -43,7 +43,7 @@ trait Tabs
                 ->label(__('beneficiary.section.households'))
                 ->icon('heroicon-o-home')
                 ->url(HouseholdResource::getUrl('index'))
-                ->isActiveWhen(fn (): bool => static::class === ListHouseholds::class),
+                ->isActiveWhen(fn (): bool => static::class === ManageHouseholds::class),
 
         ];
     }

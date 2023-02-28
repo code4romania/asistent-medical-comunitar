@@ -32,10 +32,12 @@ return [
     'end_date' => 'Data de finalizare',
     'end_year' => 'Anul de finalizare',
     'ethnicity' => 'Etnie',
+    'family_name' => 'Nume familie',
     'family' => 'Familie',
     'first_name' => 'Prenume',
     'gender' => 'Gen',
     'has_unknown_identity' => 'Identitate necunoscută beneficiar',
+    'household_name' => 'Denumire gospodărie',
     'household' => 'Gospodărie',
     'id_number' => 'Număr act identitate',
     'id_serial' => 'Serie act identitate',
@@ -54,8 +56,7 @@ return [
     'study_type' => 'Tip studii',
     'work_status' => 'Încadrat în muncă',
     'year' => 'An',
-    'household_name' => 'Nume gospodărie',
-    'family_name' => 'Nume familie',
-    'household_add' =>'Denumire gospodărie',
+    'families_count' => 'Familii',
+    'beneficiaries_count' => 'Beneficiari',
 
 ];
