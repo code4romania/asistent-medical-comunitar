@@ -30,6 +30,10 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('prior_name')->nullable();
+            $table->string('full_name')->virtualAs(<<<'SQL'
+                NULLIF(CONCAT_WS(" ", first_name, last_name), " ")
+            SQL);
+
             $table->boolean('integrated')->default(false);
 
             $table->enum('type', Type::values())->nullable();
