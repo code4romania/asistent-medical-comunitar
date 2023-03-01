@@ -8,6 +8,7 @@ use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
 use App\Models\Beneficiary;
 use App\Models\Family;
 use App\Models\Household;
+use App\Tables\Columns\HouseholdFamiliesColumn;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +16,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\Layout\Grid;
+use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -79,21 +82,28 @@ class HouseholdResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label(__('field.household'))
-                    ->sortable()
-                    ->searchable()
-                    ->alignment('left'),
-                TextColumn::make('families_count')
-                    ->label(__('field.families_count'))
-                    ->counts('families')
-                    ->sortable(),
-                TextColumn::make('beneficiaries_count')
-                    ->label(__('field.beneficiaries_count'))
-                    ->counts('beneficiaries')
-                    ->sortable(),
+                Grid::make(3)
+                    ->schema([
+                        TextColumn::make('name')
+                            ->label(__('field.household'))
+                            ->searchable()
+                            ->sortable()
+                            ->alignment('left'),
+                        TextColumn::make('families_count')
+                            ->label(__('field.families_count'))
+                            ->prefix(__('field.families_count') . ' ')
+                            ->counts('families')
+                            ->sortable(),
+                        TextColumn::make('beneficiaries_count')
+                            ->label(__('field.beneficiaries_count'))
+                            ->prefix(__('field.beneficiaries_count') . ' ')
+                            ->counts('beneficiaries')
+                            ->sortable(),
+                    ]),
 
-
+                Split::make([
+                    HouseholdFamiliesColumn::make('families'),
+                ])->collapsible(),
             ])
             ->filters([
                 //

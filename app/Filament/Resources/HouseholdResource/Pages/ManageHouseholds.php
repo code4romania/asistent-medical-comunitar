@@ -10,6 +10,7 @@ use App\Filament\Resources\HouseholdResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\Modal\Actions\Action;
+use Illuminate\Database\Eloquent\Builder;
 
 class ManageHouseholds extends ManageRecords implements WithTabs
 {
@@ -48,5 +49,11 @@ class ManageHouseholds extends ManageRecords implements WithTabs
             //     ->button()
             //     ->color('secondary'),
         ];
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()
+            ->with('families.beneficiaries');
     }
 }
