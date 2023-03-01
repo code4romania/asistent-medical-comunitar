@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
+use App\Models\Beneficiary;
+use App\Models\Family;
 use App\Models\Household;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 
 class HouseholdResource extends Resource
 {
@@ -24,19 +28,49 @@ class HouseholdResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $beneficiaries = Beneficiary::pluck('full_name', 'id');
+
         return $form
             ->schema([
                 TextInput::make('name')
                     ->label(__('field.household_name')),
 
                 Repeater::make('families')
-                    ->relationship()
+                    ->relationship(callback: function (Builder $query) {
+                        $query->with('beneficiaries');
+                    })
                     ->minItems(1)
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('name')
                             ->label(__('field.family_name')),
+
+                        Select::make('beneficiaries')
+                            ->options($beneficiaries)
+                            ->searchable()
+                            ->multiple()
+                            ->loadStateFromRelationshipsUsing(static function ($component, $state) {
+                                $component->state(
+                                    $component->getModelInstance()
+                                        ->beneficiaries
+                                        ->pluck('id')
+                                        ->all()
+                                );
+                            })
+                            ->saveRelationshipsUsing(function (Family $record, $state) {
+                                $record->beneficiaries()
+                                    ->whereNotIn('id', $state)
+                                    ->update([
+                                        'family_id' => null,
+                                    ]);
+
+                                Beneficiary::query()
+                                    ->whereIn('id', $state)
+                                    ->update([
+                                        'family_id' => $record->id,
+                                    ]);
+                            }),
                     ]),
             ]);
     }

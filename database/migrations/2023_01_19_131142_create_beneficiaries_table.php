@@ -9,7 +9,6 @@ use App\Enums\Gender;
 use App\Models\City;
 use App\Models\County;
 use App\Models\Family;
-use App\Models\Household;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -54,8 +53,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
 
             $table->foreignIdFor(User::class, 'amc_id')->constrained('users');
-            $table->foreignIdFor(Household::class)->constrained();
-            $table->foreignIdFor(Family::class)->constrained();
+            $table->foreignIdFor(Family::class)->nullable()->constrained()->nullOnDelete();
 
             $table->text('notes')->nullable();
         });

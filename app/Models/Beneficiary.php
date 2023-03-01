@@ -15,9 +15,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Znck\Eloquent\Relations\BelongsToThrough;
+use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 class Beneficiary extends Model
 {
+    use BelongsToThroughTrait;
     use HasFactory;
     use HasLocation;
 
@@ -45,7 +48,6 @@ class Beneficiary extends Model
         'notes',
 
         'amc_id',
-        'household_id',
         'family_id',
     ];
 
@@ -129,9 +131,9 @@ class Beneficiary extends Model
         return $this->type === Type::OCASIONAL;
     }
 
-    public function household(): BelongsTo
+    public function household(): BelongsToThrough
     {
-        return $this->belongsTo(Household::class);
+        return $this->belongsToThrough(Household::class, Family::class);
     }
 
     public function family(): BelongsTo

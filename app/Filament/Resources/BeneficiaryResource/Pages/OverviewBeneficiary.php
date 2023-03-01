@@ -10,6 +10,7 @@ use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Card;
+use App\Forms\Components\Household;
 use App\Forms\Components\Location;
 use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
@@ -35,7 +36,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
     public function getTitle(): string
     {
-        return $this->getRecord()->full_name;
+        return $this->getRecord()->full_name ?? __('field.has_unknown_identity');
     }
 
     protected function form(Form $form): Form
@@ -69,13 +70,8 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->label(__('field.integrated'))
                             ->content('Placeholder content'),
 
-                        Placeholder::make('household')
-                            ->label(__('field.household'))
-                            ->content('Placeholder content'),
-
-                        Placeholder::make('family')
-                            ->label(__('field.family'))
-                            ->content('Placeholder content'),
+                        Household::make()
+                            ->withoutSubsection(),
 
                         Placeholder::make('age')
                             ->label(__('field.age'))
@@ -153,7 +149,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                                     ->fallback(__('field.does_not_have_cnp')),
                             ]),
 
-                        static::getHouseholdSubsection(),
+                        Household::make(),
 
                         static::getLocationSubsection(),
 
@@ -189,20 +185,6 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                                     ->content(fn (Beneficiary $record) => $record->notes),
                             ]),
                     ]),
-            ]);
-    }
-
-    private static function getHouseholdSubsection(): Subsection
-    {
-        return Subsection::make()
-            ->icon('heroicon-o-user-group')
-            ->columns(2)
-            ->schema([
-                Placeholder::make('household')
-                    ->label(__('field.household')),
-
-                Placeholder::make('family')
-                    ->label(__('field.family')),
             ]);
     }
 

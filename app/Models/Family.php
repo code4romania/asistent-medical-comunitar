@@ -16,6 +16,7 @@ class Family extends Model
 
     protected $fillable = [
         'name',
+        'household_id',
     ];
 
     public function beneficiaries(): HasMany

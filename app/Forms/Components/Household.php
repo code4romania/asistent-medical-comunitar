@@ -14,17 +14,35 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Household extends Group
 {
+    protected bool $withoutSubsection = false;
+
+    public function withoutSubsection()
+    {
+        $this->withoutSubsection = true;
+
+        return $this;
+    }
+
     public function getChildComponents(): array
     {
+        if ($this->withoutSubsection) {
+            return $this->getSchema();
+        }
+
         return [
             Subsection::make()
                 ->icon('heroicon-o-user-group')
                 ->columns(2)
-                ->schema(match ($this->getContainer()->getContext()) {
-                    'view' => $this->getViewComponents(),
-                    default => $this->getEditComponents(),
-                }),
+                ->schema($this->getSchema()),
         ];
+    }
+
+    protected function getSchema(): array
+    {
+        return match ($this->getContainer()->getContext()) {
+            'view' => $this->getViewComponents(),
+            default => $this->getEditComponents(),
+        };
     }
 
     protected function getViewComponents(): array
@@ -45,8 +63,13 @@ class Household extends Group
             Select::make('household_id')
                 ->label(__('field.household'))
                 ->placeholder(__('placeholder.household'))
-                ->relationship('household', 'name')
-                ->preload()
+                ->options(HouseholdModel::pluck('name', 'id'))
+                ->loadStateFromRelationshipsUsing(function ($component) {
+                    $component->state(
+                        $component->getModelInstance()->family?->household?->id
+                    );
+                })
+
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
@@ -80,7 +103,11 @@ class Household extends Group
                                 ->label(__('field.household_name')),
                         ]),
                 ])
-                ->createOptionUsing(fn (array $data) => data_get(Family::create($data), 'id')),
+                ->createOptionUsing(function (array $data, callable $get) {
+                    $data['household_id'] = $get('household_id');
+
+                    return data_get(Family::create($data), 'id');
+                }),
 
         ];
     }
