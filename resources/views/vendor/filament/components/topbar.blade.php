@@ -43,7 +43,7 @@
             <x-filament::layouts.app.topbar.navigation class="order-2 hidden lg:block" />
 
             <div class="order-2 lg:order-3">
-                @livewire('filament.core.global-search')
+                {{-- @livewire('filament.core.global-search') --}}
 
                 @livewire('filament.core.notifications')
 
