@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\Beneficiary\Tabs;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\BeneficiaryResource\Concerns;
 use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 
 class ListBeneficiaries extends ListRecords implements WithTabs
 {
-    use Tabs;
+    use Concerns\HasRecordBreadcrumb;
+    use Concerns\HasTabs;
 
     protected static string $resource = BeneficiaryResource::class;
 

@@ -14,6 +14,11 @@ return [
         'recommendations' => 'Recomandări',
     ],
 
+    'footer' => [
+        'updated_at' => 'Catagrafie realizată în :created_at, modificată ultima dată in :updated_at, de :name',
+        'action' => 'Vezi istoric modificări',
+    ],
+
     'id_type' => [
         'VAI_01' => 'Copil sub 14 ani fără certificat de naștere',
         'VAI_02' => 'Adult sau copil peste 14 ani fără CI',
@@ -95,6 +100,21 @@ return [
         'VDH_01' => 'Dizabilitate cu certificat',
         'VDH_02' => 'Dizabilitate fără certificat',
         'VDH_99' => 'Fără dizabilitate raportată',
+    ],
+
+    'vulnerability' => [
+        'empty' => [
+            'title' => 'Vulnerabilități indisponibile',
+            'description' => 'Realizează catagrafia beneficiarului, pentru a putea identifica vulnerabilitățile acestuia.',
+            'create' => 'Catagrafiază beneficiar',
+        ],
+    ],
+
+    'recommendation' => [
+        'empty' => [
+            'title' => 'Recomandări indisponibile',
+            'description' => 'Sistemul îți va  face unele recomandări de intervenții, în funcție de vulnerabilitățile beneficiarului. Momentan nu avem niciuna identificată.',
+        ],
     ],
 
 ];

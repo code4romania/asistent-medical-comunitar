@@ -39,9 +39,11 @@ class Catagraphy extends Model
         'income',
         'poverty',
         'social_health_insurance',
+        'evaluation_date',
     ];
 
     protected $casts = [
+        'evaluation_date' => 'date',
         'age_category' => AgeCategory::class,
         'disability' => Disability::class,
         'domestic_violence' => AsEnumCollection::class . ':' . DomesticViolence::class,
@@ -58,6 +60,11 @@ class Catagraphy extends Model
     public function beneficiary(): BelongsTo
     {
         return $this->belongsTo(Beneficiary::class);
+    }
+
+    public function amc(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function getActivitylogOptions(): LogOptions

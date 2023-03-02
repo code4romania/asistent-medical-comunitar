@@ -71,7 +71,8 @@ class Beneficiary extends Model
 
     public function catagraphy(): HasOne
     {
-        return $this->hasOne(Catagraphy::class);
+        return $this->hasOne(Catagraphy::class)
+            ->withDefault();
     }
 
     public function scopeOnlyRegular(Builder $query): Builder

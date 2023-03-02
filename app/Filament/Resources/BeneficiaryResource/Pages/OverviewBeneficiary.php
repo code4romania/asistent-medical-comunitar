@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\Beneficiary\SidebarLayout;
 use App\Contracts\Pages\WithSidebar;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Card;
 use App\Forms\Components\Household;
@@ -23,7 +23,8 @@ use Filament\Resources\Pages\ViewRecord;
 
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
 {
-    use SidebarLayout;
+    use Concerns\HasRecordBreadcrumb;
+    use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -37,6 +38,11 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
     public function getTitle(): string
     {
         return $this->getRecord()->full_name ?? __('field.has_unknown_identity');
+    }
+
+    public function getBreadcrumb(): string
+    {
+        return $this->getRecord()->full_name;
     }
 
     protected function form(Form $form): Form
@@ -53,7 +59,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->columns(3)
             ->schema([
                 Card::make()
-                    ->heading(__('beneficiary.section.personal_data'))
+                    ->header(__('beneficiary.section.personal_data'))
                     ->columnSpan(1)
                     ->columns(2)
                     ->schema([
@@ -94,7 +100,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                     ]),
 
                 Card::make()
-                    ->heading(__('beneficiary.section.active_interventions'))
+                    ->header(__('beneficiary.section.active_interventions'))
                     ->columnSpan(2)
                     ->schema([
 
@@ -108,7 +114,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->columns(1)
             ->schema([
                 Card::make()
-                    ->heading(__('beneficiary.section.personal_data'))
+                    ->header(__('beneficiary.section.personal_data'))
                     ->columnSpan(1)
                     ->schema([
                         Badge::make('type')

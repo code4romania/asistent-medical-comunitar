@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns;
+namespace App\Filament\Resources\ProfileResource\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
-trait ResolvesCurrentUserProfile
+trait ResolvesRecord
 {
     public function mount($record = null): void
     {
         parent::mount($record);
     }
 
-    protected function resolveRecord($key): Model
+    protected function resolveRecord($key): User
     {
         return auth()->user();
     }

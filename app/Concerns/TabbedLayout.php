@@ -25,9 +25,4 @@ trait TabbedLayout
             $this instanceof EditRecord => 'filament.tabs.edit-record',
         };
     }
-
-    public function getTabs(): array
-    {
-        return [];
-    }
 }

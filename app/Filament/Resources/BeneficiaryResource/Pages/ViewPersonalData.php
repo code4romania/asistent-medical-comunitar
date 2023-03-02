@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\Beneficiary\SidebarLayout;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Card;
 use App\Forms\Components\Location;
@@ -19,7 +19,8 @@ use Filament\Resources\Pages\ViewRecord;
 
 class ViewPersonalData extends ViewRecord implements WithSidebar
 {
-    use SidebarLayout;
+    use Concerns\HasRecordBreadcrumb;
+    use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -35,13 +36,18 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
         return $this->getRecord()->full_name;
     }
 
+    public function getBreadcrumb(): string
+    {
+        return __('beneficiary.section.personal_data');
+    }
+
     protected function form(Form $form): Form
     {
         return $form
             ->columns(1)
             ->schema([
                 Card::make()
-                    ->heading(__('beneficiary.header.id'))
+                    ->header(__('beneficiary.header.id'))
                     ->schema([
                         Badge::make('type')
                             ->color('text-indigo-800 bg-indigo-100')

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\Beneficiary\CommonFormSchema;
-use App\Concerns\Beneficiary\SidebarLayout;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Placeholder;
 use App\Models\Beneficiary;
@@ -17,8 +16,9 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditBeneficiary extends EditRecord implements WithSidebar
 {
-    use CommonFormSchema;
-    use SidebarLayout;
+    use Concerns\CommonFormSchema;
+    use Concerns\HasRecordBreadcrumb;
+    use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -53,7 +53,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                         ]),
 
                     Card::make()
-                        ->heading(__('beneficiary.section.personal_data'))
+                        ->header(__('beneficiary.section.personal_data'))
                         ->schema(static::getRegularBeneficiaryFormSchema()),
                 ]);
         }
@@ -62,7 +62,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar
             ->columns(1)
             ->schema([
                 Card::make()
-                    ->heading(__('beneficiary.section.personal_data'))
+                    ->header(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }

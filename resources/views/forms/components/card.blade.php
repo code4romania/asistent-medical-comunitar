@@ -6,16 +6,19 @@
         ]) }}
 >
 
-    @if (null !== ($heading = $getHeading()))
-        <div @class([
-            'border-b px-4 py-5 sm:px-6 border-gray-200',
-            'dark:border-gray-600' => config('forms.dark_mode'),
-        ])>
-            <h3 class="text-lg font-bold text-gray-900">{{ $heading }}</h3>
+    @if (null !== ($header = $getHeader()))
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg font-bold text-gray-900">{{ $header }}</h3>
         </div>
     @endif
 
     <div class="px-4 py-5 sm:px-6">
         {{ $getChildComponentContainer() }}
     </div>
+
+    @if (null !== ($footer = $getFooter()))
+        <div class="px-4 py-5 sm:px-6">
+            {{ $footer }}
+        </div>
+    @endif
 </div>

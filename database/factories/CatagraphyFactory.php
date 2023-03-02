@@ -32,6 +32,7 @@ class CatagraphyFactory extends Factory
     public function definition()
     {
         return [
+            'evaluation_date' => fake()->date(),
             'age_category' => fake()->randomElement(AgeCategory::values()),
             'disability' => fake()->randomElement(Disability::values()),
             'domestic_violence' => fake()->randomElements(DomesticViolence::values(), 2),

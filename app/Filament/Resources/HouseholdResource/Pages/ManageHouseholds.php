@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\HouseholdResource\Pages;
 
-use App\Concerns\Beneficiary\Tabs;
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\HouseholdResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ManageRecords;
@@ -14,7 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ManageHouseholds extends ManageRecords implements WithTabs
 {
-    use Tabs;
+    use BeneficiaryResource\Concerns\HasRecordBreadcrumb;
+    use BeneficiaryResource\Concerns\HasTabs;
 
     protected static string $resource = HouseholdResource::class;
 

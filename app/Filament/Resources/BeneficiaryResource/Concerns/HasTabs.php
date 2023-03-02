@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns\Beneficiary;
+namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Concerns\TabbedLayout;
 use App\Filament\Resources\BeneficiaryResource;
@@ -13,7 +13,7 @@ use App\Filament\Resources\HouseholdResource;
 use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
 use Filament\Navigation\NavigationItem;
 
-trait Tabs
+trait HasTabs
 {
     use TabbedLayout;
 
@@ -46,11 +46,6 @@ trait Tabs
                 ->isActiveWhen(fn (): bool => static::class === ManageHouseholds::class),
 
         ];
-    }
-
-    protected function getBreadcrumbs(): array
-    {
-        return [];
     }
 
     public function isTableSelectionEnabled(): bool

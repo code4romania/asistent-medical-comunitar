@@ -20,6 +20,7 @@ return new class extends Migration
         Schema::create('catagraphies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('evaluation_date');
             $table->string('id_type')->nullable();
             $table->string('age_category')->nullable();
             $table->string('income')->nullable();

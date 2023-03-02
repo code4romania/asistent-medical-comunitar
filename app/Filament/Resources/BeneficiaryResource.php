@@ -7,7 +7,7 @@ namespace App\Filament\Resources;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
-use App\Filament\Resources\BeneficiaryResource\Pages\ListBeneficiaries;
+use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Models\Beneficiary;
 use App\Tables\Columns\BadgeColumn;
 use Filament\Resources\Resource;
@@ -22,6 +22,8 @@ class BeneficiaryResource extends Resource
     protected static ?string $model = Beneficiary::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $recordTitleAttribute = 'full_name';
 
     public static function getModelLabel(): string
     {
@@ -99,7 +101,7 @@ class BeneficiaryResource extends Resource
                     ->colors(Type::colors())
                     ->default($default)
                     ->hidden(
-                        fn ($livewire) => is_subclass_of($livewire, ListBeneficiaries::class)
+                        fn ($livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)
                     ),
             ])
             ->filters([
@@ -125,6 +127,8 @@ class BeneficiaryResource extends Resource
             'personal_data.view' => Pages\ViewPersonalData::route('/{record}/personal-data'),
 
             'catagraphy' => Pages\CatagraphySummary::route('/{record}/catagraphy'),
+            'catagraphy.view' => CatagraphyPages\ViewCatagraphy::route('/{record}/catagraphy/view'),
+            'catagraphy.edit' => CatagraphyPages\EditCatagraphy::route('/{record}/catagraphy/edit'),
         ];
     }
 }

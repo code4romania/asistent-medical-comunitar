@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns\Profile;
+namespace App\Filament\Resources\ProfileResource\Concerns;
 
 use App\Concerns\TabbedLayout;
 use App\Filament\Resources\ProfileResource;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Support\Str;
 
-trait Tabs
+trait HasTabs
 {
     use TabbedLayout;
 

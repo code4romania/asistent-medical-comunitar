@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns\Beneficiary;
+namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Gender;

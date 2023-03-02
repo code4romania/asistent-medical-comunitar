@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Concerns\Beneficiary\CommonFormSchema;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -16,7 +16,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateBeneficiary extends CreateRecord
 {
-    use CommonFormSchema;
+    use Concerns\CommonFormSchema;
 
     protected static string $resource = BeneficiaryResource::class;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Concerns\Beneficiary;
+namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Contracts\Pages\WithSidebar;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 
-trait SidebarLayout
+trait HasSidebar
 {
-    public function bootedSidebarLayout(): void
+    public function bootedHasSidebar(): void
     {
         if (! $this instanceof WithSidebar) {
             return;
@@ -50,7 +50,7 @@ trait SidebarLayout
                         ->label(__('catagraphy.label.singular'))
                         ->icon('icon-none')
                         ->url(static::getResource()::getUrl('catagraphy', $record))
-                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy.*')),
+                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy')),
                 ]),
         ];
     }

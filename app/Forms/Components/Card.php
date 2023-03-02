@@ -12,17 +12,31 @@ class Card extends BaseCard
 {
     protected string $view = 'forms.components.card';
 
-    protected string | Htmlable | Closure | null $heading = null;
+    protected string | Htmlable | Closure | null $header = null;
 
-    public function heading(string | Htmlable | Closure | null $heading): static
+    protected string | Htmlable | Closure | null $footer = null;
+
+    public function header(string | Htmlable | Closure | null $header): static
     {
-        $this->heading = $heading;
+        $this->header = $header;
 
         return $this;
     }
 
-    public function getHeading(): string | Htmlable | null
+    public function getHeader(): string | Htmlable | null
     {
-        return $this->evaluate($this->heading);
+        return $this->evaluate($this->header);
+    }
+
+    public function footer(string | Htmlable | Closure | null $footer): static
+    {
+        $this->footer = $footer;
+
+        return $this;
+    }
+
+    public function getFooter(): string | Htmlable | null
+    {
+        return $this->evaluate($this->footer);
     }
 }
