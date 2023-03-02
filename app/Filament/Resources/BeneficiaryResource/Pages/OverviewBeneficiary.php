@@ -77,7 +77,9 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->content('Placeholder content'),
 
                         Household::make()
-                            ->withoutSubsection(),
+                            ->withoutSubsection()
+                            ->columns(2)
+                            ->columnSpanFull(),
 
                         Placeholder::make('age')
                             ->label(__('field.age'))

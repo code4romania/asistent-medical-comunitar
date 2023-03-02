@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Catagraphy\AgeCategory;
-use App\Enums\Catagraphy\DomesticViolence;
-use App\Enums\Catagraphy\Education;
-use App\Enums\Catagraphy\Family;
-use App\Enums\Catagraphy\Habitation;
-use App\Enums\Catagraphy\IDType;
-use App\Enums\Catagraphy\Income;
-use App\Enums\Catagraphy\Poverty;
+use App\Enums\Vulnerability\AgeCategory;
+use App\Enums\Vulnerability\DomesticViolence;
+use App\Enums\Vulnerability\Education;
+use App\Enums\Vulnerability\Family;
+use App\Enums\Vulnerability\Habitation;
+use App\Enums\Vulnerability\IDType;
+use App\Enums\Vulnerability\Income;
+use App\Enums\Vulnerability\Poverty;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
