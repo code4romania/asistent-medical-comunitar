@@ -8,7 +8,7 @@ use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Card;
-use App\Forms\Components\Placeholder;
+use App\Forms\Components\Value;
 use App\Models\Beneficiary;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
@@ -31,16 +31,16 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                     Card::make()
                         ->columns(2)
                         ->schema([
-                            Placeholder::make('amc')
+                            Value::make('amc')
                                 ->content(fn (Beneficiary $record) => "#{$record->amc->id} – {$record->amc->full_name}"),
 
-                            Placeholder::make('id')
+                            Value::make('id')
                                 ->content(fn (Beneficiary $record) => $record->id),
 
-                            Placeholder::make('type')
+                            Value::make('type')
                                 ->content(fn (Beneficiary $record) => $record->type?->label()),
 
-                            Placeholder::make('status')
+                            Value::make('status')
                                 ->content(fn (Beneficiary $record) => $record->status?->label()),
                         ]),
 

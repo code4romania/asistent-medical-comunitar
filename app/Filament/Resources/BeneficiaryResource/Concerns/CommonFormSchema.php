@@ -8,8 +8,8 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Gender;
 use App\Forms\Components\Household;
 use App\Forms\Components\Location;
-use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -107,10 +107,10 @@ trait CommonFormSchema
                         ->maxDate(today()->addDay())
                         ->nullable(),
 
-                    Placeholder::make('ethnicity')
+                    Value::make('ethnicity')
                         ->label(__('field.ethnicity')),
 
-                    Placeholder::make('work_status')
+                    Value::make('work_status')
                         ->label(__('field.work_status')),
                 ]),
 

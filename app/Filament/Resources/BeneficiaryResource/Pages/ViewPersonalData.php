@@ -10,8 +10,8 @@ use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Card;
 use App\Forms\Components\Location;
-use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Models\Beneficiary;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -50,16 +50,16 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->icon('heroicon-o-user')
                             ->columns(2)
                             ->schema([
-                                Placeholder::make('first_name')
+                                Value::make('first_name')
                                     ->label(__('field.first_name'))
                                     ->content(fn (Beneficiary $record) => $record->first_name),
-                                Placeholder::make('last_name')
+                                Value::make('last_name')
                                     ->label(__('field.last_name'))
                                     ->content(fn (Beneficiary $record) => $record->last_name),
-                                Placeholder::make('gender')
+                                Value::make('gender')
                                     ->label(__('field.gender'))
                                     ->content(fn (Beneficiary $record) => $record->gender?->label()),
-                                Placeholder::make('cnp')
+                                Value::make('cnp')
                                     ->label(__('field.cnp'))
                                     ->content(fn (Beneficiary $record) => $record->cnp),
                             ]),
@@ -68,9 +68,9 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->icon('heroicon-o-user-group')
                             ->columns(2)
                             ->schema([
-                                Placeholder::make('household')
+                                Value::make('household')
                                     ->label(__('field.household')),
-                                Placeholder::make('family')
+                                Value::make('family')
                                     ->label(__('field.family')),
                             ]),
 
@@ -79,10 +79,10 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->columns(2)
                             ->schema([
                                 Location::make(),
-                                Placeholder::make('address')
+                                Value::make('address')
                                     ->label(__('field.address'))
                                     ->content(fn (Beneficiary $record) => $record->address),
-                                Placeholder::make('phone')
+                                Value::make('phone')
                                     ->label(__('field.phone'))
                                     ->content(fn (Beneficiary $record) => $record->phone),
                             ]),
@@ -90,7 +90,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                         Subsection::make()
                             ->icon('heroicon-o-annotation')
                             ->schema([
-                                Placeholder::make('notes')
+                                Value::make('notes')
                                     ->label(__('field.beneficiary_notes'))
                                     ->extraAttributes(['class' => 'prose max-w-none'])
                                     ->content(fn (Beneficiary $record) => $record->notes),

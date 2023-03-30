@@ -25,10 +25,10 @@ class Location extends Grid
     protected function getViewComponents(): array
     {
         return [
-            Placeholder::make('county')
+            Value::make('county')
                 ->label(__('field.county'))
                 ->content(fn ($record) => $record->county?->name),
-            Placeholder::make('city')
+            Value::make('city')
                 ->label(__('field.city'))
                 ->content(fn ($record) => static::getRenderedOptionLabel($record->city)),
         ];

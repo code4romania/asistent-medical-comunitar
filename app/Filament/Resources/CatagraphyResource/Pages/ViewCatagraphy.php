@@ -7,8 +7,8 @@ namespace App\Filament\Resources\CatagraphyResource\Pages;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns\ResolvesRecord;
 use App\Forms\Components\Card;
-use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Forms\Components\VulnerabilityChips;
 use App\Models\Catagraphy;
 use Filament\Pages\Actions;
@@ -44,10 +44,10 @@ class ViewCatagraphy extends ViewRecord
                             ->icon('heroicon-o-information-circle')
                             ->columns(2)
                             ->schema([
-                                Placeholder::make('evaluation_date')
+                                Value::make('evaluation_date')
                                     ->content(fn (Catagraphy $record) => $record->updated_at),
 
-                                Placeholder::make('amc')
+                                Value::make('amc')
                                     ->content(fn (Catagraphy $record) => $record->amc->full_name),
                             ]),
 

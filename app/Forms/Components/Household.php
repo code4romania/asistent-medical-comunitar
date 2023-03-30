@@ -48,10 +48,10 @@ class Household extends Group
     protected function getViewComponents(): array
     {
         return [
-            Placeholder::make('household')
+            Value::make('household')
                 ->label(__('field.household'))
                 ->content(fn ($record) => $record->household?->name),
-            Placeholder::make('family')
+            Value::make('family')
                 ->label(__('field.family'))
                 ->content(fn ($record) => $record->family?->name),
         ];
