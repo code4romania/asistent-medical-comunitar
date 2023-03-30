@@ -12,7 +12,6 @@ use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\View;
-use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Tables\Actions\Action;
@@ -20,26 +19,20 @@ use Illuminate\Contracts\View\View as ViewContract;
 
 class CatagraphySummary extends ViewRecord implements WithSidebar
 {
+    use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
-
     public function getTitle(): string
     {
-        return $this->getRecord()->full_name;
+        return __('beneficiary.section.catagraphy');
     }
 
     public function getBreadcrumb(): string
     {
-        return __('catagraphy.label.singular');
+        return $this->getTitle();
     }
 
     protected function form(Form $form): Form

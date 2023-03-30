@@ -17,23 +17,16 @@ use App\Forms\Components\Subsection;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
 use Filament\Forms\Components\Repeater;
-use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
 {
+    use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            Actions\EditAction::make(),
-        ];
-    }
 
     public function getTitle(): string
     {

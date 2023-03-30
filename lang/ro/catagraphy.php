@@ -19,6 +19,13 @@ return [
         'action' => 'Vezi istoric modificări',
     ],
 
+    'action' => [
+        'create' => 'Adaugă catagrafie',
+        'edit' => 'Editează catagrafie',
+        'update' => 'Actualizează catagrafie',
+        'delete' => 'Șterge catagrafie',
+    ],
+
     'vulnerability' => [
         'empty' => [
             'title' => 'Vulnerabilități indisponibile',

@@ -44,6 +44,7 @@ return [
     'id_type' => 'Act de identitate',
     'id' => 'ID',
     'intervention_reason' => 'Motivul intervenției',
+    'integrated' => 'Abordare integrată',
     'last_name' => 'Nume',
     'phone' => 'Telefon',
     'services' => 'Servicii oferite',

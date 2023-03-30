@@ -10,25 +10,17 @@ use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Placeholder;
 use App\Models\Beneficiary;
-use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
 
 class EditBeneficiary extends EditRecord implements WithSidebar
 {
     use Concerns\CommonFormSchema;
+    use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            // Actions\ViewAction::make(),
-            // Actions\DeleteAction::make(),
-        ];
-    }
 
     protected function form(Form $form): Form
     {

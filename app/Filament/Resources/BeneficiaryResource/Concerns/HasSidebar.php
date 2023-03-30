@@ -47,7 +47,7 @@ trait HasSidebar
                         )),
 
                     NavigationItem::make()
-                        ->label(__('catagraphy.label.singular'))
+                        ->label(__('beneficiary.section.catagraphy'))
                         ->icon('icon-none')
                         ->url(static::getResource()::getUrl('catagraphy', $record))
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy')),

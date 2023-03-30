@@ -43,12 +43,21 @@ return [
         'households' => 'Gospodării',
         'personal_data' => 'Date personale',
         'active_interventions' => 'Intervenții active',
+        'catagraphy' => 'Catagrafie',
     ],
 
     'empty' => [
         'title' => 'Niciun beneficiar înregistrat',
         'description' => 'Odată înregistrați beneficiari în baza de date, aceștia vor fi afișați în acest tabel',
         'create' => 'Adaugă primul beneficiar',
+    ],
+
+    'action' => [
+        'create' => 'Adaugă beneficiar',
+        'edit' => 'Editează beneficiar',
+        'update' => 'Actualizează beneficiar',
+        'delete' => 'Șterge beneficiar',
+        'view_details' => 'Vezi detalii',
     ],
 
 ];
