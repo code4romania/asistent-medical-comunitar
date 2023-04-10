@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\HasLocation;
+use App\Concerns\HasRole;
 use App\Enums\Gender;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;
@@ -25,6 +26,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use CausesActivity;
     use HasApiTokens;
+    use HasRole;
     use HasFactory;
     use HasLocation;
     use LogsActivity;

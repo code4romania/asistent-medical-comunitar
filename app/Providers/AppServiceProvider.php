@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Filament\Resources\ProfileResource;
 use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Model;
@@ -36,10 +37,27 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/app.css');
 
-            Filament::registerUserMenuItems([
-                'account' => UserMenuItem::make()
-                    ->url(route('filament.resources.profile.general.view')),
-            ]);
+            $this->registerUserMenuItems();
         });
+    }
+
+    protected function registerUserMenuItems(): void
+    {
+        if (auth()->guest()) {
+            return;
+        }
+
+        if (auth()->user()->isNurse()) {
+            $items = [
+                'account' => UserMenuItem::make()
+                    ->url(ProfileResource::getUrl('general.view')),
+            ];
+        } else {
+            $items = [
+                //
+            ];
+        }
+
+        Filament::registerUserMenuItems($items);
     }
 }

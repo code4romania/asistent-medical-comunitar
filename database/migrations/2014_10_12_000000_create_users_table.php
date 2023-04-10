@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\Gender;
+use App\Enums\UserRole;
 use App\Models\City;
 use App\Models\County;
 use Illuminate\Database\Migrations\Migration;
@@ -30,6 +31,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->enum('role', UserRole::values());
 
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
