@@ -52,7 +52,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
 
-            $table->foreignIdFor(User::class, 'amc_id')->constrained('users');
+            $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
             $table->foreignIdFor(Family::class)->nullable()->constrained()->nullOnDelete();
 
             $table->text('notes')->nullable();

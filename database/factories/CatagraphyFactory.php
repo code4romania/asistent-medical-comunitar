@@ -45,7 +45,7 @@ class CatagraphyFactory extends Factory
             'poverty' => fake()->randomElements(Poverty::values(), 2),
             'social_health_insurance' => fake()->randomElement(SocialHealthInsurance::values()),
 
-            'amc_id' => User::factory()->withProfile(),
+            'nurse_id' => User::factory()->withProfile(),
             'beneficiary_id' => Beneficiary::factory(),
         ];
     }

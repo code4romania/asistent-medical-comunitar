@@ -95,6 +95,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         return $this->hasMany(Area::class);
     }
 
+    public function beneficiaries(): HasMany
+    {
+        return $this->hasMany(Beneficiary::class, 'nurse_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

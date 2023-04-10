@@ -7,7 +7,7 @@
         @lang('catagraphy.footer.updated_at', [
             'created_at' => $catagraphy->created_at,
             'updated_at' => $catagraphy->updated_at,
-            'name' => $catagraphy->amc->full_name,
+            'name' => $catagraphy->nurse->full_name,
         ])
     </span>
 

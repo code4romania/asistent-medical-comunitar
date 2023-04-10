@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('family_doctor')->nullable();
             $table->string('disability')->nullable();
 
-            $table->foreignIdFor(User::class, 'amc_id')->constrained('users');
+            $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
             $table->foreignIdFor(Beneficiary::class)->constrained();
         });
     }

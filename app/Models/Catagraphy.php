@@ -62,7 +62,7 @@ class Catagraphy extends Model
         return $this->belongsTo(Beneficiary::class);
     }
 
-    public function amc(): BelongsTo
+    public function nurse(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

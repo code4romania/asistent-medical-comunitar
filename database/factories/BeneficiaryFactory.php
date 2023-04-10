@@ -31,7 +31,7 @@ class BeneficiaryFactory extends Factory
         $family = Family::factory()->forHousehold()->create();
 
         return [
-            'amc_id' => User::factory()->withProfile(),
+            'nurse_id' => User::factory()->withProfile(),
             'family_id' => Family::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),

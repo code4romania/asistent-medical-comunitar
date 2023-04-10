@@ -42,8 +42,8 @@ class CatagraphyResource extends Resource
                                 DatePicker::make('evaluation_date')
                                     ->default(today()),
 
-                                Select::make('amc_id')
-                                    ->relationship('amc', 'first_name')
+                                Select::make('nurse_id')
+                                    ->relationship('nurse', 'first_name')
                                     ->searchable()
                                     ->default(auth()->id()),
                             ]),

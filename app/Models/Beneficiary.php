@@ -47,7 +47,7 @@ class Beneficiary extends Model
         'phone',
         'notes',
 
-        'amc_id',
+        'nurse_id',
         'family_id',
     ];
 
@@ -59,7 +59,7 @@ class Beneficiary extends Model
         'date_of_birth' => 'date',
     ];
 
-    public function amc(): BelongsTo
+    public function nurse(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

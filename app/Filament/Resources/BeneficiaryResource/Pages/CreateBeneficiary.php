@@ -53,7 +53,7 @@ class CreateBeneficiary extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['amc_id'] = auth()->id();
+        $data['nurse_id'] = auth()->id();
 
         return $data;
     }

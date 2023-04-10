@@ -47,8 +47,8 @@ class ViewCatagraphy extends ViewRecord
                                 Value::make('evaluation_date')
                                     ->content(fn (Catagraphy $record) => $record->updated_at),
 
-                                Value::make('amc')
-                                    ->content(fn (Catagraphy $record) => $record->amc->full_name),
+                                Value::make('nurse')
+                                    ->content(fn (Catagraphy $record) => $record->nurse->full_name),
                             ]),
 
                         Subsection::make()

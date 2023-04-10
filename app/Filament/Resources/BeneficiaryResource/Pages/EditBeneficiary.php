@@ -31,8 +31,8 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                     Card::make()
                         ->columns(2)
                         ->schema([
-                            Value::make('amc')
-                                ->content(fn (Beneficiary $record) => "#{$record->amc->id} – {$record->amc->full_name}"),
+                            Value::make('nurse')
+                                ->content(fn (Beneficiary $record) => "#{$record->nurse->id} – {$record->nurse->full_name}"),
 
                             Value::make('id')
                                 ->content(fn (Beneficiary $record) => $record->id),

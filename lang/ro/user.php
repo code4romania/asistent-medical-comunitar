@@ -13,6 +13,6 @@ return [
             'employers' => 'Angajatori',
             'area' => 'Arie acoperită',
         ],
-
     ],
+
 ];
