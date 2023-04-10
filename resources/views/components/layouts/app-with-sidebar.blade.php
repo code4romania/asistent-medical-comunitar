@@ -28,7 +28,7 @@
                 <div class="flex w-[var(--sidebar-width)] shrink-0"></div>
             </div>
 
-            <div class="relative flex flex-1 w-full">
+            <div class="relative flex flex-col flex-1 w-full lg:flex-row">
                 <x-layouts.app.sidebar :navigation="$navigation" />
 
                 <div class="flex flex-col flex-1">

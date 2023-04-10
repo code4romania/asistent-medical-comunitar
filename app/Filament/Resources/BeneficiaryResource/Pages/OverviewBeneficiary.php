@@ -53,8 +53,10 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('beneficiary.section.personal_data'))
-                    ->columnSpan(1)
                     ->columns(2)
+                    ->columnSpan([
+                        'xl' => 1,
+                    ])
                     ->schema([
                         Badge::make('status')
                             ->content(fn (Beneficiary $record) => $record->status?->label())
@@ -96,7 +98,9 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
                 Card::make()
                     ->header(__('beneficiary.section.active_interventions'))
-                    ->columnSpan(2)
+                    ->columnSpan([
+                        'xl' => 2,
+                    ])
                     ->schema([
 
                     ]),
