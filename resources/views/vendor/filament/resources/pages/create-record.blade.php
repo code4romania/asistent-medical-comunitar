@@ -6,7 +6,10 @@
     <x-filament::form wire:submit.prevent="create">
         {{ $this->form }}
 
-        <div class="fixed inset-x-0 bottom-0 p-6 bg-white border-t border-gray-300">
+        <div @class([
+            'fixed inset-x-0 bottom-0 p-6 bg-white border-t border-gray-300' =>
+                $this instanceof \App\Contracts\Forms\FixedActionBar,
+        ])>
             <x-filament::form.actions
                 :actions="$this->getCachedFormActions()"
                 :full-width="$this->hasFullWidthFormActions()"

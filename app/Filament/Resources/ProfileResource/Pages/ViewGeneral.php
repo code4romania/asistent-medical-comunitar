@@ -32,7 +32,7 @@ class ViewGeneral extends ViewRecord
                             ->content(fn (User $record) => $record->date_of_birth),
                         Value::make('gender')
                             ->label(__('field.gender'))
-                            ->content(fn (User $record) => $record->gender->label()),
+                            ->content(fn (User $record) => $record->gender?->label()),
                         Value::make('cnp')
                             ->label(__('field.cnp'))
                             ->content(fn (User $record) => $record->cnp),

@@ -7,6 +7,7 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource;
 use App\Filament\Resources\ProfileResource\Concerns;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 use Illuminate\View\View;
 
@@ -42,10 +43,14 @@ class EditRecord extends BaseEditRecord implements WithTabs
     protected function getFormActions(): array
     {
         return [
+
             $this->getSaveFormAction()
                 ->icon('heroicon-o-check'),
-            $this->getCancelFormAction()
-                ->url($this->getRedirectUrl()),
+
+            Action::make('cancel')
+                ->label(__('filament::resources/pages/edit-record.form.actions.cancel.label'))
+                ->url($this->previousUrl ?? $this->getRedirectUrl())
+                ->color('secondary'),
         ];
     }
 
