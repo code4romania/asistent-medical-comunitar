@@ -34,14 +34,11 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                             Value::make('nurse')
                                 ->content(fn (Beneficiary $record) => "#{$record->nurse->id} – {$record->nurse->full_name}"),
 
-                            Value::make('id')
-                                ->content(fn (Beneficiary $record) => $record->id),
+                            Value::make('id'),
 
-                            Value::make('type')
-                                ->content(fn (Beneficiary $record) => $record->type?->label()),
+                            Value::make('type'),
 
-                            Value::make('status')
-                                ->content(fn (Beneficiary $record) => $record->status?->label()),
+                            Value::make('status'),
                         ]),
 
                     Card::make()

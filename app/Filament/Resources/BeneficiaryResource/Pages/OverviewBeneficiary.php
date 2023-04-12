@@ -64,8 +64,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->columnSpanFull(),
 
                         Value::make('id')
-                            ->label(__('field.beneficiary_id'))
-                            ->content(fn (Beneficiary $record) => $record->id),
+                            ->label(__('field.beneficiary_id')),
 
                         Value::make('integrated')
                             ->label(__('field.integrated'))
@@ -77,21 +76,17 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->columnSpanFull(),
 
                         Value::make('age')
-                            ->label(__('field.age'))
-                            ->content(fn (Beneficiary $record) => $record->age),
+                            ->label(__('field.age')),
 
                         Value::make('gender')
-                            ->label(__('field.gender'))
-                            ->content(fn (Beneficiary $record) => $record->gender?->label()),
+                            ->label(__('field.gender')),
 
-                        Value::make('address')
+                        Value::make('full_address')
                             ->label(__('field.address'))
-                            ->content(fn (Beneficiary $record) => $record->full_address)
                             ->columnSpanFull(),
 
                         Value::make('phone')
                             ->label(__('field.phone'))
-                            ->content(fn (Beneficiary $record) => $record->phone)
                             ->columnSpanFull(),
 
                     ]),
@@ -137,20 +132,16 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->hidden(fn (Beneficiary $record) => $record->has_unknown_identity)
                             ->schema([
                                 Value::make('first_name')
-                                    ->label(__('field.first_name'))
-                                    ->content(fn (Beneficiary $record) => $record->first_name),
+                                    ->label(__('field.first_name')),
 
                                 Value::make('last_name')
-                                    ->label(__('field.last_name'))
-                                    ->content(fn (Beneficiary $record) => $record->last_name),
+                                    ->label(__('field.last_name')),
 
                                 Value::make('gender')
-                                    ->label(__('field.gender'))
-                                    ->content(fn (Beneficiary $record) => $record->gender?->label()),
+                                    ->label(__('field.gender')),
 
                                 Value::make('cnp')
                                     ->label(__('field.cnp'))
-                                    ->content(fn (Beneficiary $record) => $record->cnp)
                                     ->fallback(__('field.does_not_have_cnp')),
                             ]),
 
@@ -168,16 +159,13 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                                     ->extraAttributes(['class' => '[ul]:divide-y'])
                                     ->schema([
                                         Value::make('reason')
-                                            ->label(__('field.intervention_reason'))
-                                            ->content(fn (Intervention $record) => $record->reason),
+                                            ->label(__('field.intervention_reason')),
 
                                         Value::make('date')
-                                            ->label(__('field.date'))
-                                            ->content(fn (Intervention $record) => $record->date),
+                                            ->label(__('field.date')),
 
                                         Value::make('services')
-                                            ->label(__('field.services'))
-                                            ->content(fn (Intervention $record) => $record->services->join(', ')),
+                                            ->label(__('field.services')),
                                     ]),
                             ]),
 
@@ -186,8 +174,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                             ->schema([
                                 Value::make('notes')
                                     ->label(__('field.beneficiary_notes'))
-                                    ->extraAttributes(['class' => 'prose max-w-none'])
-                                    ->content(fn (Beneficiary $record) => $record->notes),
+                                    ->extraAttributes(['class' => 'prose max-w-none']),
                             ]),
                     ]),
             ]);
@@ -202,12 +189,10 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                 Location::make(),
 
                 Value::make('address')
-                    ->label(__('field.address'))
-                    ->content(fn (Beneficiary $record) => $record->address),
+                    ->label(__('field.address')),
 
                 Value::make('phone')
-                    ->label(__('field.phone'))
-                    ->content(fn (Beneficiary $record) => $record->phone),
+                    ->label(__('field.phone')),
             ]);
     }
 }

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use BackedEnum;
+use Carbon\Carbon;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
@@ -22,6 +25,8 @@ class Value extends Component
     protected $content = null;
 
     protected $fallback = null;
+
+    protected $withTime = false;
 
     final public function __construct(string $name)
     {
@@ -69,7 +74,14 @@ class Value extends Component
             return null;
         }
 
-        $content = $this->evaluate($this->content);
+        $content = $this->evaluate($this->content) ?? $this->getRecord()?->{$this->getName()} ?? null;
+
+        $content = match (true) {
+            $content instanceof BackedEnum => $this->getEnumLabel($content),
+            $content instanceof Carbon => $this->getFormattedDate($content),
+            $content instanceof Collection => $content->join(', '),
+            default => $content,
+        };
 
         if (! $content instanceof HtmlString) {
             $content = Str::of($content)
@@ -82,5 +94,30 @@ class Value extends Component
         }
 
         return $content;
+    }
+
+    public function withTime(bool $condition = true): static
+    {
+        $this->withTime = $condition;
+
+        return $this;
+    }
+
+    protected function getFormattedDate(Carbon $date): string
+    {
+        $format = $this->withTime
+            ? config('forms.components.date_time_picker.display_formats.date_time')
+            : config('forms.components.date_time_picker.display_formats.date');
+
+        return $date->translatedFormat($format);
+    }
+
+    protected function getEnumLabel(BackedEnum $content): ?string
+    {
+        if (! \in_array(\App\Concerns\Enums\Arrayable::class, class_uses_recursive($content))) {
+            return null;
+        }
+
+        return $content?->label();
     }
 }

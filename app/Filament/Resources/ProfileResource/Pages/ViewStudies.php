@@ -7,7 +7,6 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
-use App\Models\Profile\Study;
 use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -28,24 +27,24 @@ class ViewStudies extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 Value::make('name')
-                                    ->label(__('field.study_name'))
-                                    ->content(fn (Study $record) => $record->name),
+                                    ->label(__('field.study_name')),
+
                                 Value::make('type')
-                                    ->label(__('field.study_type'))
-                                    ->content(fn (Study $record) => $record->type->label()),
+                                    ->label(__('field.study_type')),
+
                                 Value::make('institution')
-                                    ->label(__('field.study_institution'))
-                                    ->content(fn (Study $record) => $record->institution),
+                                    ->label(__('field.study_institution')),
+
                                 Value::make('duration')
-                                    ->label(__('field.study_duration'))
-                                    ->content(fn (Study $record) => $record->duration),
+                                    ->label(__('field.study_duration')),
+
                                 Location::make(),
+
                                 Value::make('start_year')
-                                    ->label(__('field.start_year'))
-                                    ->content(fn (Study $record) => $record->start_year),
+                                    ->label(__('field.start_year')),
+
                                 Value::make('end_year')
-                                    ->label(__('field.end_year'))
-                                    ->content(fn (Study $record) => $record->end_year),
+                                    ->label(__('field.end_year')),
                             ]),
                     ]),
             ]);

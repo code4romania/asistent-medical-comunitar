@@ -51,17 +51,13 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->columns(2)
                             ->schema([
                                 Value::make('first_name')
-                                    ->label(__('field.first_name'))
-                                    ->content(fn (Beneficiary $record) => $record->first_name),
+                                    ->label(__('field.first_name')),
                                 Value::make('last_name')
-                                    ->label(__('field.last_name'))
-                                    ->content(fn (Beneficiary $record) => $record->last_name),
+                                    ->label(__('field.last_name')),
                                 Value::make('gender')
-                                    ->label(__('field.gender'))
-                                    ->content(fn (Beneficiary $record) => $record->gender?->label()),
+                                    ->label(__('field.gender')),
                                 Value::make('cnp')
-                                    ->label(__('field.cnp'))
-                                    ->content(fn (Beneficiary $record) => $record->cnp),
+                                    ->label(__('field.cnp')),
                             ]),
 
                         Subsection::make()
@@ -80,11 +76,9 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->schema([
                                 Location::make(),
                                 Value::make('address')
-                                    ->label(__('field.address'))
-                                    ->content(fn (Beneficiary $record) => $record->address),
+                                    ->label(__('field.address')),
                                 Value::make('phone')
-                                    ->label(__('field.phone'))
-                                    ->content(fn (Beneficiary $record) => $record->phone),
+                                    ->label(__('field.phone')),
                             ]),
 
                         Subsection::make()
@@ -92,8 +86,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->schema([
                                 Value::make('notes')
                                     ->label(__('field.beneficiary_notes'))
-                                    ->extraAttributes(['class' => 'prose max-w-none'])
-                                    ->content(fn (Beneficiary $record) => $record->notes),
+                                    ->extraAttributes(['class' => 'prose max-w-none']),
                             ]),
                     ]),
             ]);

@@ -51,6 +51,7 @@ class Household extends Group
             Value::make('household')
                 ->label(__('field.household'))
                 ->content(fn ($record) => $record->household?->name),
+
             Value::make('family')
                 ->label(__('field.family'))
                 ->content(fn ($record) => $record->family?->name),

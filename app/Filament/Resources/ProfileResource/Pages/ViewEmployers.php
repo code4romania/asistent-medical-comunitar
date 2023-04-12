@@ -27,23 +27,19 @@ class ViewEmployers extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 Value::make('name')
-                                    ->label(__('field.employer_name'))
-                                    ->content(fn (Employer $record) => $record->name),
+                                    ->label(__('field.employer_name')),
                                 Value::make('type')
-                                    ->label(__('field.employer_type'))
-                                    ->content(fn (Employer $record) => $record->type->label()),
+                                    ->label(__('field.employer_type')),
                                 Value::make('project')
                                     ->label(__('field.employer_project'))
-                                    ->content(fn (Employer $record) => $record->project)
                                     ->hidden(fn (Employer $record) => empty($record->project))
                                     ->columnSpanFull(),
                                 Location::make(),
                                 Value::make('start_date')
-                                    ->label(__('field.start_date'))
-                                    ->content(fn (Employer $record) => $record->start_date),
+                                    ->label(__('field.start_date')),
                                 Value::make('end_date')
                                     ->label(__('field.end_date'))
-                                    ->content(fn (Employer $record) => $record->end_date ?? __('field.employer_ongoing')),
+                                    ->fallback(__('field.employer_ongoing')),
                             ]),
                     ]),
             ])
