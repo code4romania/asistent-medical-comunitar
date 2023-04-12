@@ -10,6 +10,7 @@ use App\Contracts;
 enum Status: string implements Contracts\Enums\HasColors
 {
     use Concerns\Enums\Arrayable;
+    use Concerns\Enums\Comparable;
     use Concerns\Enums\HasColors;
 
     case REGISTERED = 'registered';

@@ -41,11 +41,11 @@ class CreateBeneficiary extends CreateRecord
                             ]),
 
                         Group::make()
-                            ->visible(fn ($state) => $state['type'] === Type::REGULAR->value)
+                            ->visible(fn (callable $get) => Type::REGULAR->is($get('type')))
                             ->schema(static::getRegularBeneficiaryFormSchema()),
 
                         Group::make()
-                            ->visible(fn ($state) => $state['type'] === Type::OCASIONAL->value)
+                            ->visible(fn (callable $get) => Type::OCASIONAL->is($get('type')))
                             ->schema(static::getOcasionalBeneficiaryFormSchema()),
                     ]),
             ]);

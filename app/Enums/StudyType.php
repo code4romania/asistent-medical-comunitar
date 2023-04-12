@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns\Enums\Arrayable;
+use App\Concerns;
 
 enum StudyType: string
 {
-    use Arrayable;
+    use Concerns\Enums\Arrayable;
+    use Concerns\Enums\Comparable;
 
     case SECONDARY = 'secondary';
     case POSTSECONDARY = 'postsecondary';

@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Beneficiary;
 
 use App\Concerns;
 
-enum CourseType: string
+enum Integrated: int
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
 
-    case ONLINE = 'online';
-    case OFFLINE = 'offline';
-    case OTHER = 'other';
+    case YES = 1;
+    case NO = 0;
 
     protected function translationKeyPrefix(): ?string
     {
-        return 'course.type';
+        return 'beneficiary.integrated';
     }
 }

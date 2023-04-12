@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns\Enums\Arrayable;
+use App\Concerns;
 
 enum UserRole: string
 {
-    use Arrayable;
+    use Concerns\Enums\Arrayable;
+    use Concerns\Enums\Comparable;
 
     case ADMIN = 'admin';
     case NURSE = 'nurse';
