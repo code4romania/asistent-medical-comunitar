@@ -46,6 +46,19 @@ return [
         'catagraphy' => 'Catagrafie',
     ],
 
+    'action_convert' => [
+        'title' => 'Tip beneficiar',
+        'text_line_1' => 'Beneficiarul este de tip **beneficiar ocazional**.',
+        'text_line_2' => 'Doriți să modificați tipul beneficiarului în beneficiar propriu?',
+        'action' => 'Modifică tipul beneficiarului',
+    ],
+
+    'action_convert_confirm' => [
+        'title' => 'Modifică tipul beneficiarului din ocazional în propriu',
+        'text' => 'Dacă beneficiarul ocazional este luat în evidență ca beneficiar propriu, tipul acestuia poate fi modificat pentru a accesa fișa extinsă. Informațiile salvate până acum vor fi păstrate dar acțiunea nu este reversibilă.',
+        'action' => 'Modifică',
+    ],
+
     'empty' => [
         'title' => 'Niciun beneficiar înregistrat',
         'description' => 'Odată înregistrați beneficiari în baza de date, aceștia vor fi afișați în acest tabel',

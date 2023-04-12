@@ -31,7 +31,7 @@ class BeneficiaryFactory extends Factory
         $family = Family::factory()->forHousehold()->create();
 
         return [
-            'nurse_id' => User::factory()->withProfile(),
+            'nurse_id' => User::factory(),
             'family_id' => Family::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
@@ -56,6 +56,7 @@ class BeneficiaryFactory extends Factory
 
             if ($beneficiary->isRegular()) {
                 Catagraphy::factory()
+                    ->recycle($beneficiary->nurse)
                     ->for($beneficiary)
                     ->create();
             }
@@ -76,7 +77,7 @@ class BeneficiaryFactory extends Factory
         return $this->state(function (array $attributes) {
             $city = City::query()->inRandomOrder()->first();
 
-            return[
+            return [
                 'address' => fake()->address(),
                 'county_id' => $city->county_id,
                 'city_id' => $city->id,

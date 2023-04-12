@@ -141,4 +141,14 @@ class Beneficiary extends Model
     {
         return $this->belongsTo(Family::class);
     }
+
+    /**
+     * @todo migrate other data
+     */
+    public function convertToRegular(): void
+    {
+        $this->update([
+            'type' => Type::REGULAR,
+        ]);
+    }
 }

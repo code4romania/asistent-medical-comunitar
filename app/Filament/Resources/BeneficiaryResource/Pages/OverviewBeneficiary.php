@@ -15,8 +15,8 @@ use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
 use App\Models\Beneficiary;
-use App\Models\Intervention;
 use Filament\Forms\Components\Repeater;
+use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -27,6 +27,25 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
     use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
+
+    protected function getActions(): array
+    {
+        return [
+            Actions\Action::make('convert')
+                ->visible(fn () => $this->record->isOcasional())
+                ->action(fn () => $this->record->convertToRegular())
+                ->label(__('beneficiary.action_convert.action'))
+                ->modalHeading(__('beneficiary.action_convert_confirm.title'))
+                ->modalSubheading(__('beneficiary.action_convert_confirm.text'))
+                ->modalButton(__('beneficiary.action_convert_confirm.action'))
+                ->modalWidth('md')
+                ->centerModal(false)
+                ->color('secondary'),
+
+            Actions\EditAction::make()
+                ->icon('heroicon-s-pencil'),
+        ];
+    }
 
     public function getTitle(): string
     {
@@ -109,7 +128,6 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('beneficiary.section.personal_data'))
-                    ->columnSpan(1)
                     ->schema([
                         Badge::make('type')
                             ->content(fn (Beneficiary $record) => $record->type?->label())
