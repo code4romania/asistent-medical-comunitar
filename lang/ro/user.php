@@ -15,4 +15,10 @@ return [
         ],
     ],
 
+    'section' => [
+        'index' => 'Toți asistenții',
+        'active' => 'Asistenți activi',
+        'inactive' => 'Asistenți inactivi',
+    ],
+
 ];

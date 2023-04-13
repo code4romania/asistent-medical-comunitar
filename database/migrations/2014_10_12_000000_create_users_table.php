@@ -29,6 +29,7 @@ return new class extends Migration
 
             $table->string('email')->unique();
             $table->string('password');
+            $table->timestamp('password_set_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

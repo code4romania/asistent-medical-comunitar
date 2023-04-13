@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Concerns\HasLocation;
 use App\Concerns\HasRole;
+use App\Concerns\MustSetInitialPassword;
 use App\Enums\Gender;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;
@@ -13,6 +14,7 @@ use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,10 +28,11 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use CausesActivity;
     use HasApiTokens;
-    use HasRole;
     use HasFactory;
     use HasLocation;
+    use HasRole;
     use LogsActivity;
+    use MustSetInitialPassword;
     use Notifiable;
 
     /**
@@ -105,5 +108,21 @@ class User extends Authenticatable implements FilamentUser, HasName
         return LogOptions::defaults()
             ->logOnly(['email'])
             ->logOnlyDirty();
+    }
+
+    /**
+     * @todo implment active condition
+     */
+    public function scopeOnlyActive(Builder $query): Builder
+    {
+        return $query;
+    }
+
+    /**
+     * @todo implment inactive condition
+     */
+    public function scopeOnlyInactive(Builder $query): Builder
+    {
+        return $query;
     }
 }
