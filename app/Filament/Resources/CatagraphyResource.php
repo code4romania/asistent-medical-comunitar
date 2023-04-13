@@ -19,6 +19,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CatagraphyResource extends Resource
 {
@@ -39,13 +40,13 @@ class CatagraphyResource extends Resource
                             ->icon('heroicon-o-information-circle')
                             ->columns(2)
                             ->schema([
-                                DatePicker::make('evaluation_date')
-                                    ->default(today()),
+                                DatePicker::make('evaluation_date'),
 
                                 Select::make('nurse_id')
-                                    ->relationship('nurse', 'first_name')
+                                    ->label(__('field.nurse'))
+                                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
                                     ->searchable()
-                                    ->default(auth()->id()),
+                                    ->preload(),
                             ]),
 
                         Subsection::make()
@@ -53,39 +54,63 @@ class CatagraphyResource extends Resource
                             ->columns(2)
                             ->schema([
                                 Select::make('id_type')
+                                    ->label(__('field.id_type'))
+                                    ->placeholder(__('placeholder.select_one'))
                                     ->options(IDType::options())
-                                    ->enum(IDType::class),
+                                    ->enum(IDType::class)
+                                    ->searchable(),
 
                                 Select::make('age_category')
+                                    ->label(__('field.age_category'))
+                                    ->placeholder(__('placeholder.select_one'))
                                     ->options(AgeCategory::options())
-                                    ->enum(AgeCategory::class),
+                                    ->enum(AgeCategory::class)
+                                    ->searchable(),
 
                                 Select::make('income')
+                                    ->label(__('field.income'))
+                                    ->placeholder(__('placeholder.select_one'))
                                     ->options(Income::options())
-                                    ->enum(Income::class),
+                                    ->enum(Income::class)
+                                    ->searchable(),
 
                                 Select::make('poverty')
+                                    ->label(__('field.poverty'))
+                                    ->placeholder(__('placeholder.select_one'))
                                     ->options(Poverty::options())
-                                    ->enum(Poverty::class),
+                                    ->enum(Poverty::class)
+                                    ->searchable(),
 
                                 Select::make('habitation')
-                                    ->multiple()
+                                    ->label(__('field.habitation'))
+                                    ->placeholder(__('placeholder.select_many'))
                                     ->options(Habitation::options())
-                                    ->enum(Habitation::class),
+                                    // ->enum(Habitation::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->multiple()
+                                    ->searchable(),
 
                                 Select::make('family')
-                                    ->multiple()
+                                    ->label(__('field.family'))
+                                    ->placeholder(__('placeholder.select_many'))
                                     ->options(Family::options())
-                                    ->enum(Family::class),
+                                    // ->enum(Family::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->multiple()
+                                    ->searchable(),
 
                                 Select::make('education')
+                                    ->label(__('field.education'))
+                                    ->placeholder(__('placeholder.select_one'))
                                     ->options(Education::options())
-                                    ->enum(Education::class),
+                                    ->enum(Education::class)
+                                    ->searchable(),
 
                                 Select::make('domestic_violence')
-                                    ->multiple()
+                                    ->label(__('field.domestic_violence'))
+                                    ->placeholder(__('placeholder.select_many'))
                                     ->options(DomesticViolence::options())
-                                    ->enum(DomesticViolence::class),
+                                    // ->enum(DomesticViolence::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->multiple()
+                                    ->searchable(),
                             ]),
                     ]),
             ]);

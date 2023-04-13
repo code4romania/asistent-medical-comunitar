@@ -75,7 +75,13 @@ class Beneficiary extends Model
     public function catagraphy(): HasOne
     {
         return $this->hasOne(Catagraphy::class)
-            ->withDefault();
+            ->withDefault(function (Catagraphy $catagraphy, self $beneficiary) {
+                $catagraphy->fill([
+                    'evaluation_date' => today(),
+                ]);
+
+                $catagraphy->nurse()->associate(auth()->user());
+            });
     }
 
     public function scopeOnlyRegular(Builder $query): Builder

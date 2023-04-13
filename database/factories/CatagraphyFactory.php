@@ -39,7 +39,7 @@ class CatagraphyFactory extends Factory
             'education' => fake()->randomElement(Education::values()),
             'family_doctor' => fake()->randomElement(FamilyDoctor::values()),
             'family' => fake()->randomElements(Family::values(), 2),
-            'habitation' => fake()->randomElement(Habitation::values()),
+            'habitation' => fake()->randomElements(Habitation::values(), 1),
             'id_type' => fake()->randomElement(IDType::values()),
             'income' => fake()->randomElement(Income::values()),
             'poverty' => fake()->randomElements(Poverty::values(), 2),

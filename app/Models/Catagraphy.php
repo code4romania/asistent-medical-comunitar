@@ -40,6 +40,7 @@ class Catagraphy extends Model
         'poverty',
         'social_health_insurance',
         'evaluation_date',
+        'nurse_id',
     ];
 
     protected $casts = [
@@ -50,7 +51,7 @@ class Catagraphy extends Model
         'education' => Education::class,
         'family_doctor' => FamilyDoctor::class,
         'family' => AsEnumCollection::class . ':' . Family::class,
-        'habitation' => Habitation::class,
+        'habitation' => AsEnumCollection::class . ':' . Habitation::class,
         'id_type' => IDType::class,
         'income' => Income::class,
         'poverty' => AsEnumCollection::class . ':' . Poverty::class,
