@@ -20,7 +20,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
-trait CommonFormSchema
+trait CommonEditFormSchema
 {
     protected static function getRegularBeneficiaryFormSchema(): array
     {
@@ -48,7 +48,7 @@ trait CommonFormSchema
                             TextInput::make('cnp')
                                 ->label(__('field.cnp'))
                                 ->placeholder(__('placeholder.cnp'))
-                                ->unique()
+                                ->unique(ignoreRecord: true)
                                 ->nullable()
                                 ->rule(new ValidCNP)
                                 ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
@@ -178,7 +178,7 @@ trait CommonFormSchema
                                     TextInput::make('cnp')
                                         ->label(__('field.cnp'))
                                         ->placeholder(__('placeholder.cnp'))
-                                        ->unique()
+                                        ->unique(ignoreRecord: true)
                                         ->nullable()
                                         ->rule(new ValidCNP)
                                         ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))

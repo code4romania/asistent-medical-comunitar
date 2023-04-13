@@ -6,8 +6,10 @@ namespace App\Forms\Components;
 
 use BackedEnum;
 use Carbon\Carbon;
+use Closure;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -22,9 +24,9 @@ class Value extends Component
 
     protected bool $empty = false;
 
-    protected $content = null;
+    protected string | Htmlable | Closure | null $content = null;
 
-    protected $fallback = null;
+    protected string | Htmlable | Closure | null $fallback = null;
 
     protected $withTime = false;
 
@@ -49,26 +51,26 @@ class Value extends Component
         return $this;
     }
 
-    public function fallback($fallback): static
+    public function fallback(string | Htmlable | Closure | null $fallback): static
     {
         $this->fallback = $fallback;
 
         return $this;
     }
 
-    public function getFallback()
+    public function getFallback(): string | Htmlable | null
     {
         return $this->evaluate($this->fallback);
     }
 
-    public function content($content): static
+    public function content(string | Htmlable | Closure | null $content): static
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getContent()
+    public function getContent(): string | Htmlable | null
     {
         if ($this->empty) {
             return null;
@@ -89,11 +91,15 @@ class Value extends Component
                 ->toHtmlString();
         }
 
-        if ($content->isEmpty()) {
-            return $this->getFallback() ?? new HtmlString('<span class="text-gray-500">&mdash;</span>');
+        if (! $content->isEmpty()) {
+            return $content;
         }
 
-        return $content;
+        if (null !== $fallback = $this->getFallback()) {
+            return new HtmlString('<div class="italic">' . $fallback . '</div>');
+        }
+
+        return new HtmlString('<span class="text-gray-500">&mdash;</span>');
     }
 
     public function withTime(bool $condition = true): static

@@ -28,7 +28,7 @@ class BeneficiaryFactory extends Factory
      */
     public function definition()
     {
-        $family = Family::factory()->forHousehold()->create();
+        $status = fake()->randomElement(Status::values());
 
         return [
             'nurse_id' => User::factory(),
@@ -37,10 +37,12 @@ class BeneficiaryFactory extends Factory
             'last_name' => fake()->lastName(),
             'prior_name' => fake()->boolean(25) ? fake()->lastName() : null,
             'type' => fake()->randomElement(Type::values()),
-            'status' => fake()->randomElement(Status::values()),
             'integrated' => fake()->boolean(),
             'gender' => fake()->randomElement(Gender::values()),
             'date_of_birth' => fake()->date(),
+
+            'status' => $status,
+            'reason_removed' => Status::REMOVED->is($status) ? fake()->sentence() : null,
         ];
     }
 
@@ -61,6 +63,15 @@ class BeneficiaryFactory extends Factory
                     ->create();
             }
         });
+    }
+
+    public function withCNP(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'cnp' => fake()->cnp(
+                dateOfBirth: $attributes['date_of_birth'],
+            ),
+        ]);
     }
 
     public function withID(): static

@@ -36,18 +36,20 @@ class DatabaseSeeder extends Seeder
         Beneficiary::factory()
             ->count(10)
             ->withAddress()
+            ->withCNP()
             ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
+            ->count(10)
             ->withID()
-            ->count(10)
+            ->withCNP()
             ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
-            ->withNotes()
             ->count(10)
+            ->withNotes()
             ->recycle($nurse)
             ->create();
     }

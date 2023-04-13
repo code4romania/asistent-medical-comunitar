@@ -16,7 +16,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateBeneficiary extends CreateRecord
 {
-    use Concerns\CommonFormSchema;
+    use Concerns\CommonEditFormSchema;
 
     protected static string $resource = BeneficiaryResource::class;
 

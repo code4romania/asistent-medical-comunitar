@@ -7,17 +7,15 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
-use App\Forms\Components\Badge;
+use App\Forms\Components\BeneficiaryProgram;
 use App\Forms\Components\Card;
-use App\Forms\Components\Location;
-use App\Forms\Components\Subsection;
-use App\Forms\Components\Value;
-use App\Models\Beneficiary;
+use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewPersonalData extends ViewRecord implements WithSidebar
 {
+    use Concerns\CommonViewFormSchema;
     use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
@@ -39,56 +37,12 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
         return $form
             ->columns(1)
             ->schema([
+                BeneficiaryProgram::make(),
+
                 Card::make()
                     ->header(__('beneficiary.header.id'))
-                    ->schema([
-                        Badge::make('type')
-                            ->color('text-indigo-800 bg-indigo-100')
-                            ->content(fn (Beneficiary $record) => $record->type->label()),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-user')
-                            ->columns(2)
-                            ->schema([
-                                Value::make('first_name')
-                                    ->label(__('field.first_name')),
-                                Value::make('last_name')
-                                    ->label(__('field.last_name')),
-                                Value::make('gender')
-                                    ->label(__('field.gender')),
-                                Value::make('cnp')
-                                    ->label(__('field.cnp')),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-user-group')
-                            ->columns(2)
-                            ->schema([
-                                Value::make('household')
-                                    ->label(__('field.household')),
-                                Value::make('family')
-                                    ->label(__('field.family')),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-location-marker')
-                            ->columns(2)
-                            ->schema([
-                                Location::make(),
-                                Value::make('address')
-                                    ->label(__('field.address')),
-                                Value::make('phone')
-                                    ->label(__('field.phone')),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-annotation')
-                            ->schema([
-                                Value::make('notes')
-                                    ->label(__('field.beneficiary_notes'))
-                                    ->extraAttributes(['class' => 'prose max-w-none']),
-                            ]),
-                    ]),
+                    ->footer(fn () => EditAction::make())
+                    ->schema(static::getRegularBeneficiaryFormSchema()),
             ]);
     }
 }

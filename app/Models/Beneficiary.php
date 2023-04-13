@@ -46,6 +46,7 @@ class Beneficiary extends Model
         'address',
         'phone',
         'notes',
+        'reason_removed',
 
         'nurse_id',
         'family_id',
@@ -56,6 +57,7 @@ class Beneficiary extends Model
         'status' => Status::class,
         'id_type' => IDType::class,
         'gender' => Gender::class,
+        'integrated' => 'boolean',
         'date_of_birth' => 'date',
     ];
 
@@ -66,7 +68,8 @@ class Beneficiary extends Model
 
     public function interventions(): HasMany
     {
-        return $this->hasMany(Intervention::class);
+        return $this->hasMany(Intervention::class)
+            ->orderByDesc('date');
     }
 
     public function catagraphy(): HasOne
@@ -83,6 +86,27 @@ class Beneficiary extends Model
     public function scopeOnlyOcasional(Builder $query): Builder
     {
         return $query->where('type', Type::OCASIONAL);
+    }
+
+    /**
+     * @todo implment active condition
+     */
+    public function scopeOnlyActive(Builder $query): Builder
+    {
+        return $query;
+    }
+
+    /**
+     * @todo implment inactive condition
+     */
+    public function scopeOnlyInactive(Builder $query): Builder
+    {
+        return $query;
+    }
+
+    public function scopeWhereNurse(Builder $query, User $user): Builder
+    {
+        return $query->whereBelongsTo($user, 'nurse');
     }
 
     public function getAgeAttribute(): ?int

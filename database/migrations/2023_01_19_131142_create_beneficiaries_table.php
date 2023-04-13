@@ -55,6 +55,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
             $table->foreignIdFor(Family::class)->nullable()->constrained()->nullOnDelete();
 
+            $table->text('reason_removed')->nullable();
             $table->text('notes')->nullable();
         });
     }

@@ -22,6 +22,11 @@ return [
         'removed' => 'Scos din evidență',
     ],
 
+    'integrated' => [
+        'yes' => 'Da (echipă comunitară)',
+        'no' => 'Nu (doar AMC)',
+    ],
+
     'type' => [
         'regular' => 'Beneficiar propriu',
         'ocasional' => 'Beneficiar ocazional',
@@ -44,6 +49,7 @@ return [
         'personal_data' => 'Date personale',
         'active_interventions' => 'Intervenții active',
         'catagraphy' => 'Catagrafie',
+        'program' => 'Program AMC',
     ],
 
     'action_convert' => [
