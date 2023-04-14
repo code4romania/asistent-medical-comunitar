@@ -57,6 +57,7 @@ class Beneficiary extends Model
         'id_type' => IDType::class,
         'gender' => Gender::class,
         'date_of_birth' => 'date',
+        'interventions' => 'array'
     ];
 
     public function amc(): BelongsTo
@@ -64,10 +65,10 @@ class Beneficiary extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function interventions(): HasMany
-    {
-        return $this->hasMany(Intervention::class);
-    }
+//    public function interventions(): HasMany
+//    {
+//        return $this->hasMany(Intervention::class);
+//    }
 
     public function catagraphy(): HasOne
     {
@@ -77,7 +78,7 @@ class Beneficiary extends Model
 
     public function scopeOnlyRegular(Builder $query): Builder
     {
-        return $query->where('type', Type::REGULAR);
+        return $query->where('type',Type::REGULAR);
     }
 
     public function scopeOnlyOcasional(Builder $query): Builder
