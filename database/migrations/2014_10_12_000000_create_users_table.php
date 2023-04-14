@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\Gender;
-use App\Enums\UserRole;
 use App\Models\City;
 use App\Models\County;
 use Illuminate\Database\Migrations\Migration;
@@ -33,11 +31,11 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->enum('role', UserRole::values());
+            $table->string('role');
 
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->enum('gender', Gender::values())->nullable();
+            $table->string('gender')->nullable();
             $table->string('cnp', 13)->nullable()->unique();
 
             $table->foreignIdFor(County::class)->nullable()->constrained();

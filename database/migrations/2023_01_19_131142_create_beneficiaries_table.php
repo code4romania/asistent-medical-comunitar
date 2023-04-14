@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
-use App\Enums\Beneficiary\Type;
-use App\Enums\Gender;
 use App\Models\City;
 use App\Models\County;
 use App\Models\Family;
@@ -35,15 +32,15 @@ return new class extends Migration
 
             $table->boolean('integrated')->default(false);
 
-            $table->enum('type', Type::values())->nullable();
-            $table->enum('status', Status::values())->default(Status::REGISTERED->value);
+            $table->string('type')->nullable();
+            $table->string('status')->default(Status::REGISTERED->value);
 
             $table->string('cnp', 13)->nullable()->unique();
-            $table->enum('id_type', IDType::values());
+            $table->string('id_type')->nullable();
             $table->string('id_serial')->nullable();
             $table->string('id_number')->nullable();
 
-            $table->enum('gender', Gender::values())->nullable();
+            $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('ethnicity')->nullable();
 
