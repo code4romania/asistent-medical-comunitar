@@ -11,9 +11,9 @@ return [
 
     'type' => [
         'secondary' => 'Liceale',
-        'post_secondary' => 'Postliceale',
+        'postsecondary' => 'Postliceale',
         'university' => 'Universitare',
-        'post_grad' => 'Postuniversitare',
+        'postgraduate' => 'Postuniversitare',
         'other' => 'Altă situație',
     ],
 

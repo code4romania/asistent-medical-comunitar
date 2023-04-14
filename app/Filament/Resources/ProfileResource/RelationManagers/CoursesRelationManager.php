@@ -36,42 +36,51 @@ class CoursesRelationManager extends RelationManager
     {
         return $form
             ->schema([
+
                 TextInput::make('name')
                     ->label(__('field.course_name'))
                     ->placeholder(__('placeholder.course_name'))
-                    ->nullable()
+                    ->required()
                     ->maxLength(50),
+
                 TextInput::make('theme')
                     ->label(__('field.course_theme'))
                     ->placeholder(__('placeholder.course_theme'))
                     ->nullable()
                     ->maxLength(50),
+
                 Select::make('type')
                     ->label(__('field.course_type'))
                     ->placeholder(__('placeholder.choose'))
                     ->options(CourseType::options())
-                    ->nullable(),
+                    ->required(),
+
                 TextInput::make('credits')
                     ->label(__('field.course_credits'))
                     ->placeholder(__('placeholder.course_credits'))
                     ->nullable()
                     ->numeric()
+                    ->minValue(0)
                     ->maxValue(9999),
+
                 TextInput::make('provider')
                     ->label(__('field.course_provider'))
                     ->placeholder(__('placeholder.course_provider'))
                     ->columnSpanFull()
                     ->nullable()
-                    ->maxLength(50),
+                    ->maxLength(250),
+
                 DatePicker::make('start_date')
                     ->label(__('field.start_date'))
                     ->placeholder(__('placeholder.choose'))
                     ->nullable(),
+
                 DatePicker::make('end_date')
                     ->label(__('field.end_date'))
                     ->placeholder(__('placeholder.choose'))
                     ->afterOrEqual('start_date')
                     ->nullable(),
+
             ]);
     }
 
@@ -79,23 +88,29 @@ class CoursesRelationManager extends RelationManager
     {
         return $table
             ->columns([
+
                 TextColumn::make('end_date')
                     ->label(__('field.year'))
                     ->formatStateUsing((fn (Course $record) => $record->end_date->format('Y')))
                     ->sortable(),
+
                 TextColumn::make('provider')
                     ->label(__('field.course_provider'))
                     ->sortable(),
+
                 TextColumn::make('name')
                     ->label(__('field.course_name'))
                     ->limit(30)
                     ->sortable(),
+
                 TextColumn::make('type')
                     ->label(__('field.course_type'))
                     ->formatStateUsing(fn (Course $record) => __($record->type?->label())),
+
                 TextColumn::make('credits')
                     ->label(__('field.course_credits'))
                     ->sortable(),
+
             ])
             ->filters([
                 //
@@ -107,9 +122,11 @@ class CoursesRelationManager extends RelationManager
             ->actions([
                 ViewAction::make()
                     ->iconButton(),
+
                 EditAction::make()
                     ->label(__('course.action.edit'))
                     ->iconButton(),
+
                 DeleteAction::make()
                     ->label(__('course.action.delete'))
                     ->iconButton(),
