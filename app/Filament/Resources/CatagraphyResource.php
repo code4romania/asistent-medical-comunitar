@@ -16,6 +16,7 @@ use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -37,6 +38,7 @@ class CatagraphyResource extends Resource
                 Card::make()
                     ->schema([
                         Subsection::make()
+                            ->title(__('catagraphy.section.general'))
                             ->icon('heroicon-o-information-circle')
                             ->columns(2)
                             ->schema([
@@ -50,6 +52,7 @@ class CatagraphyResource extends Resource
                             ]),
 
                         Subsection::make()
+                            ->title(__('catagraphy.section.socioeconomic_vulnerabilities'))
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
@@ -111,6 +114,29 @@ class CatagraphyResource extends Resource
                                     // ->enum(DomesticViolence::class) // TODO: enable after creating EnumCollection validation rule
                                     ->multiple()
                                     ->searchable(),
+                            ]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.health_vulnerabilities'))
+                            ->icon('heroicon-o-heart')
+                            ->columns(2)
+                            ->schema([]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.reproductive_health'))
+                            ->icon('heroicon-o-heart')
+                            ->columns(2)
+                            ->schema([]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.notes'))
+                            ->icon('heroicon-o-annotation')
+                            ->schema([
+                                RichEditor::make('notes')
+                                    ->disableLabel()
+                                    ->toolbarButtons(['bold', 'italic', 'strike', 'bulletList', 'orderedList', 'redo', 'undo'])
+                                    ->nullable()
+                                    ->maxLength(65535),
                             ]),
                     ]),
             ]);

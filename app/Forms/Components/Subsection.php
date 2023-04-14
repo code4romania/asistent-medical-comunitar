@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Closure;
 use Filament\Forms\Components\Component;
 use Illuminate\Contracts\Support\Htmlable;
 
 class Subsection extends Component
 {
     protected string $view = 'forms.components.subsection';
+
+    protected string | Htmlable | Closure | null $title = null;
 
     protected ?string $icon = null;
 
@@ -19,6 +22,18 @@ class Subsection extends Component
         $static->configure();
 
         return $static;
+    }
+
+    public function title(string | Htmlable | Closure | null $title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitle(): string | Htmlable | null
+    {
+        return $this->evaluate($this->title);
     }
 
     public function icon(?string $icon = null): static

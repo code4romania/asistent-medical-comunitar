@@ -41,6 +41,7 @@ class ViewCatagraphy extends ViewRecord
                 Card::make()
                     ->schema([
                         Subsection::make()
+                            ->title(__('catagraphy.section.general'))
                             ->icon('heroicon-o-information-circle')
                             ->columns(2)
                             ->schema([
@@ -52,6 +53,7 @@ class ViewCatagraphy extends ViewRecord
                             ]),
 
                         Subsection::make()
+                            ->title(__('catagraphy.section.socioeconomic_vulnerabilities'))
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
@@ -78,6 +80,27 @@ class ViewCatagraphy extends ViewRecord
 
                                 VulnerabilityChips::make('domestic_violence')
                                     ->label(__('field.domestic_violence')),
+                            ]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.health_vulnerabilities'))
+                            ->icon('heroicon-o-heart')
+                            ->columns(2)
+                            ->schema([]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.reproductive_health'))
+                            ->icon('heroicon-o-heart')
+                            ->columns(2)
+                            ->schema([]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.notes'))
+                            ->icon('heroicon-o-annotation')
+                            ->schema([
+                                Value::make('notes')
+                                    ->disableLabel()
+                                    ->extraAttributes(['class' => 'prose max-w-none']),
                             ]),
                     ]),
 

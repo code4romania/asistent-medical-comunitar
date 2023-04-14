@@ -42,11 +42,18 @@ class CatagraphyFactory extends Factory
             'habitation' => fake()->randomElements(Habitation::values(), 1),
             'id_type' => fake()->randomElement(IDType::values()),
             'income' => fake()->randomElement(Income::values()),
-            'poverty' => fake()->randomElements(Poverty::values(), 2),
+            'poverty' => fake()->randomElement(Poverty::values()),
             'social_health_insurance' => fake()->randomElement(SocialHealthInsurance::values()),
 
             'nurse_id' => User::factory()->withProfile(),
             'beneficiary_id' => Beneficiary::factory(),
         ];
+    }
+
+    public function withNotes(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'notes' => fake()->paragraphs(asText: true),
+        ]);
     }
 }

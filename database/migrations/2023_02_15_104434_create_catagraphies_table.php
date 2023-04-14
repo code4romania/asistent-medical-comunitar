@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('id_type')->nullable();
             $table->string('age_category')->nullable();
             $table->string('income')->nullable();
-            $table->json('poverty')->nullable();
+            $table->string('poverty')->nullable();
             $table->string('habitation')->nullable();
             $table->json('family')->nullable();
             $table->string('education')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('social_health_insurance')->nullable();
             $table->string('family_doctor')->nullable();
             $table->string('disability')->nullable();
+            $table->text('notes')->nullable();
 
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
             $table->foreignIdFor(Beneficiary::class)->constrained();

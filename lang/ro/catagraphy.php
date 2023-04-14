@@ -41,4 +41,12 @@ return [
         ],
     ],
 
+    'section' => [
+        'general' => 'Informații generale',
+        'socioeconomic_vulnerabilities' => 'Vulnerabilități socio-economice',
+        'health_vulnerabilities' => 'Vulnerabilități de sănătate',
+        'reproductive_health' => 'Sănătate reproductivă',
+        'notes' => 'Observații finale',
+    ],
+
 ];
