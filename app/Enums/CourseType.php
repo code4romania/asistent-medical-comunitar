@@ -10,12 +10,13 @@ enum CourseType: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
+    use Concerns\Enums\HasLabel;
 
     case ONLINE = 'online';
     case OFFLINE = 'offline';
     case OTHER = 'other';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'course.type';
     }

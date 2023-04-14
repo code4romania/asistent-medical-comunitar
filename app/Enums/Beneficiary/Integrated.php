@@ -10,11 +10,12 @@ enum Integrated: int
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
+    use Concerns\Enums\HasLabel;
 
     case YES = 1;
     case NO = 0;
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'beneficiary.integrated';
     }

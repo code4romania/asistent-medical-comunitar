@@ -10,12 +10,13 @@ enum Gender: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
+    use Concerns\Enums\HasLabel;
 
     case FEMALE = 'female';
     case MALE = 'male';
     case OTHER = 'other';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'gender';
     }

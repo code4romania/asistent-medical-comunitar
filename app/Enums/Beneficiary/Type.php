@@ -12,11 +12,12 @@ enum Type: string implements Contracts\Enums\HasColors
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasColors;
+    use Concerns\Enums\HasLabel;
 
     case REGULAR = 'regular';
     case OCASIONAL = 'ocasional';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'beneficiary.type';
     }

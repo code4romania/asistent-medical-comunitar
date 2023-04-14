@@ -55,21 +55,29 @@ class ViewCatagraphy extends ViewRecord
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
-                                VulnerabilityChips::make('id_type'),
+                                VulnerabilityChips::make('id_type')
+                                    ->label(__('field.id_type')),
 
-                                VulnerabilityChips::make('age_category'),
+                                VulnerabilityChips::make('age_category')
+                                    ->label(__('field.age_category')),
 
-                                VulnerabilityChips::make('income'),
+                                VulnerabilityChips::make('income')
+                                    ->label(__('field.income')),
 
-                                VulnerabilityChips::make('poverty'),
+                                VulnerabilityChips::make('poverty')
+                                    ->label(__('field.poverty')),
 
-                                VulnerabilityChips::make('habitation'),
+                                VulnerabilityChips::make('habitation')
+                                    ->label(__('field.habitation')),
 
-                                VulnerabilityChips::make('family'),
+                                VulnerabilityChips::make('family')
+                                    ->label(__('field.family')),
 
-                                VulnerabilityChips::make('education'),
+                                VulnerabilityChips::make('education')
+                                    ->label(__('field.education')),
 
-                                VulnerabilityChips::make('domestic_violence'),
+                                VulnerabilityChips::make('domestic_violence')
+                                    ->label(__('field.domestic_violence')),
                             ]),
                     ]),
 

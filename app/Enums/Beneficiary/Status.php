@@ -12,6 +12,7 @@ enum Status: string implements Contracts\Enums\HasColors
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasColors;
+    use Concerns\Enums\HasLabel;
 
     case REGISTERED = 'registered';
     case CATAGRAPHED = 'catagraphed';
@@ -19,7 +20,7 @@ enum Status: string implements Contracts\Enums\HasColors
     case INACTIVE = 'inactive';
     case REMOVED = 'removed';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'beneficiary.status';
     }
