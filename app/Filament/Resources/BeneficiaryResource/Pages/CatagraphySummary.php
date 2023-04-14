@@ -8,9 +8,9 @@ use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Card;
+use App\Forms\Components\VulnerabilityChips;
 use App\Models\Beneficiary;
 use App\Models\Catagraphy;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\View;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -82,7 +82,17 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         }
 
         return [
-            Group::make(),
+            VulnerabilityChips::make('socioeconomic_vulnerabilities')
+                ->label(__('catagraphy.vulnerability.socioeconomic'))
+                ->model($beneficiary->catagraphy),
+
+            VulnerabilityChips::make('health_vulnerabilities')
+                ->label(__('catagraphy.vulnerability.health'))
+                ->model($beneficiary->catagraphy),
+
+            VulnerabilityChips::make('reproductive_health')
+                ->label(__('catagraphy.vulnerability.reproductive_health'))
+                ->model($beneficiary->catagraphy),
         ];
     }
 

@@ -53,7 +53,7 @@ class ViewCatagraphy extends ViewRecord
                             ]),
 
                         Subsection::make()
-                            ->title(__('catagraphy.section.socioeconomic_vulnerabilities'))
+                            ->title(__('catagraphy.vulnerability.socioeconomic'))
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
@@ -83,13 +83,13 @@ class ViewCatagraphy extends ViewRecord
                             ]),
 
                         Subsection::make()
-                            ->title(__('catagraphy.section.health_vulnerabilities'))
+                            ->title(__('catagraphy.vulnerability.health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
                             ->schema([]),
 
                         Subsection::make()
-                            ->title(__('catagraphy.section.reproductive_health'))
+                            ->title(__('catagraphy.vulnerability.reproductive_health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
                             ->schema([]),

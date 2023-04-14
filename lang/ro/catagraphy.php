@@ -27,11 +27,16 @@ return [
     ],
 
     'vulnerability' => [
+        'none' => 'Fără :vulnerability',
         'empty' => [
             'title' => 'Vulnerabilități indisponibile',
             'description' => 'Realizează catagrafia beneficiarului, pentru a putea identifica vulnerabilitățile acestuia.',
             'create' => 'Catagrafiază beneficiar',
         ],
+
+        'socioeconomic' => 'Vulnerabilități socio-economice',
+        'health' => 'Vulnerabilități de sănătate',
+        'reproductive_health' => 'Sănătate reproductivă',
     ],
 
     'recommendation' => [
@@ -43,10 +48,6 @@ return [
 
     'section' => [
         'general' => 'Informații generale',
-        'socioeconomic_vulnerabilities' => 'Vulnerabilități socio-economice',
-        'health_vulnerabilities' => 'Vulnerabilități de sănătate',
-        'reproductive_health' => 'Sănătate reproductivă',
         'notes' => 'Observații finale',
     ],
-
 ];

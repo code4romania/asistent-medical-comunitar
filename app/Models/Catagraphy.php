@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -73,5 +74,33 @@ class Catagraphy extends Model
     {
         return LogOptions::defaults()
             ->logAll();
+    }
+
+    public function getSocioeconomicVulnerabilitiesAttribute(): Collection
+    {
+        return collect([
+            $this->id_type,
+            $this->age_category,
+            $this->income,
+            $this->poverty,
+            $this->habitation,
+            $this->family,
+            $this->education,
+            $this->domestic_violence,
+        ])->flatten();
+    }
+
+    public function getHealthVulnerabilitiesAttribute(): Collection
+    {
+        return collect([
+            // TODO
+        ])->flatten();
+    }
+
+    public function getReproductiveHealthAttribute(): Collection
+    {
+        return collect([
+            // TODO
+        ])->flatten();
     }
 }
