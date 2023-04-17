@@ -45,6 +45,7 @@ class ViewCatagraphy extends ViewRecord
     {
         parent::mount($record);
 
+        abort_unless($this->getBeneficiary()->isRegular(), 404);
         abort_unless($this->getRecord()->created_at, 404);
     }
 

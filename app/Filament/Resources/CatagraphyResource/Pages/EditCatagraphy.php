@@ -34,6 +34,13 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
         return $this->getTitle();
     }
 
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        abort_unless($this->getBeneficiary()->isRegular(), 404);
+    }
+
     protected function getRedirectUrl(): string
     {
         return BeneficiaryResource::getUrl('catagraphy.view', $this->getBeneficiary());

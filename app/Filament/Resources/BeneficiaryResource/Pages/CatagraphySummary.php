@@ -36,6 +36,13 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         return $this->getTitle();
     }
 
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        abort_unless($this->getRecord()->isRegular(), 404);
+    }
+
     protected function form(Form $form): Form
     {
         return $form
