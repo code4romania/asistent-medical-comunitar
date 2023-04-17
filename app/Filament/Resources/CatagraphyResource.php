@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Enums\Vulnerability\AgeCategory;
+use App\Enums\Vulnerability\Disability;
 use App\Enums\Vulnerability\DomesticViolence;
 use App\Enums\Vulnerability\Education;
 use App\Enums\Vulnerability\Family;
+use App\Enums\Vulnerability\FamilyDoctor;
 use App\Enums\Vulnerability\Habitation;
 use App\Enums\Vulnerability\IDType;
 use App\Enums\Vulnerability\Income;
 use App\Enums\Vulnerability\Poverty;
+use App\Enums\Vulnerability\SocialHealthInsurance;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
@@ -121,7 +124,30 @@ class CatagraphyResource extends Resource
                             ->title(__('catagraphy.vulnerability.health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
-                            ->schema([]),
+                            ->schema([
+
+                                Select::make('social_health_insurance')
+                                    ->label(__('field.social_health_insurance'))
+                                    ->placeholder(__('placeholder.select_one'))
+                                    ->options(SocialHealthInsurance::options())
+                                    ->enum(SocialHealthInsurance::class)
+                                    ->searchable(),
+
+                                Select::make('family_doctor')
+                                    ->label(__('field.family_doctor'))
+                                    ->placeholder(__('placeholder.select_one'))
+                                    ->options(FamilyDoctor::options())
+                                    ->enum(FamilyDoctor::class)
+                                    ->searchable(),
+
+                                Select::make('disability')
+                                    ->label(__('field.disability'))
+                                    ->placeholder(__('placeholder.select_one'))
+                                    ->options(Disability::options())
+                                    ->enum(Disability::class)
+                                    ->searchable(),
+
+                            ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.vulnerability.reproductive_health'))

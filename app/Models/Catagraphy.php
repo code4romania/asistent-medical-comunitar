@@ -14,6 +14,7 @@ use App\Enums\Vulnerability\Habitation;
 use App\Enums\Vulnerability\IDType;
 use App\Enums\Vulnerability\Income;
 use App\Enums\Vulnerability\Poverty;
+use App\Enums\Vulnerability\RiskBehavior;
 use App\Enums\Vulnerability\SocialHealthInsurance;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,30 +34,32 @@ class Catagraphy extends Model
         'disability',
         'domestic_violence',
         'education',
+        'evaluation_date',
         'family_doctor',
         'family',
         'habitation',
         'id_type',
         'income',
-        'poverty',
-        'social_health_insurance',
-        'evaluation_date',
-        'nurse_id',
         'notes',
+        'nurse_id',
+        'poverty',
+        'risk_behavior',
+        'social_health_insurance',
     ];
 
     protected $casts = [
-        'evaluation_date' => 'date',
         'age_category' => AgeCategory::class,
         'disability' => Disability::class,
         'domestic_violence' => AsEnumCollection::class . ':' . DomesticViolence::class,
         'education' => Education::class,
+        'evaluation_date' => 'date',
         'family_doctor' => FamilyDoctor::class,
         'family' => AsEnumCollection::class . ':' . Family::class,
         'habitation' => AsEnumCollection::class . ':' . Habitation::class,
         'id_type' => IDType::class,
         'income' => Income::class,
         'poverty' => Poverty::class,
+        'risk_behavior' => AsEnumCollection::class . ':' . RiskBehavior::class,
         'social_health_insurance' => SocialHealthInsurance::class,
     ];
 
@@ -101,7 +104,10 @@ class Catagraphy extends Model
     public function getHealthVulnerabilitiesAttribute(): Collection
     {
         return collect([
-            // TODO
+            $this->social_health_insurance,
+            $this->family_doctor,
+            $this->disability,
+            $this->risk_behavior,
         ])->flatten();
     }
 

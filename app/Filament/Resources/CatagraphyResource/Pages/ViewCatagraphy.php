@@ -102,7 +102,16 @@ class ViewCatagraphy extends ViewRecord
                             ->title(__('catagraphy.vulnerability.health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
-                            ->schema([]),
+                            ->schema([
+                                VulnerabilityChips::make('social_health_insurance')
+                                    ->label(__('field.social_health_insurance')),
+
+                                VulnerabilityChips::make('family_doctor')
+                                    ->label(__('field.family_doctor')),
+
+                                VulnerabilityChips::make('disability')
+                                    ->label(__('field.disability')),
+                            ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.vulnerability.reproductive_health'))
