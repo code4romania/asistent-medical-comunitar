@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use App\Concerns\Forms\HasColor;
+use App\Concerns\Forms\HasSize;
 use Filament\Forms\Components\Placeholder;
-use Filament\Support\Actions\Concerns\HasColor;
-use Filament\Support\Actions\Concerns\HasSize;
 
 class Badge extends Placeholder
 {
