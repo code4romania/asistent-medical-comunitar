@@ -67,6 +67,7 @@ class Beneficiary extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
     }

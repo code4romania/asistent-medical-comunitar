@@ -12,9 +12,10 @@ use App\Forms\Components\VulnerabilityChips;
 use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use Filament\Forms\Components\View;
+use Filament\Pages\Actions\Action as PageAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\Action as TableAction;
 use Illuminate\Contracts\View\View as ViewContract;
 
 class CatagraphySummary extends ViewRecord implements WithSidebar
@@ -42,13 +43,25 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('catagraphy.header.vulnerabilities'))
+                    ->componentActions(function ($record) {
+                        if (! $record->catagraphy->created_at) {
+                            return false;
+                        }
+
+                        return [
+                            PageAction::make('view')
+                                ->label(__('catagraphy.action.view'))
+                                ->url(static::getResource()::getUrl('catagraphy.view', $this->getRecord()))
+                                ->color('secondary'),
+                        ];
+                    })
                     ->footer($this->getVulnerabilitiesFooter())
                     ->schema($this->getVulnerabilitiesFormSchema()),
 
                 Card::make()
                     ->header(__('catagraphy.header.recommendations'))
                     ->schema([
-                        View::make('vendor.tables.components.empty-state.index')
+                        View::make('tables::components.empty-state.index')
                             ->viewData([
                                 'icon' => 'icon-clipboard',
                                 'heading' => __('catagraphy.recommendation.empty.title'),
@@ -65,13 +78,13 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
 
         if (! $beneficiary->catagraphy->created_at) {
             return [
-                View::make('vendor.tables.components.empty-state.index')
+                View::make('tables::components.empty-state.index')
                     ->viewData([
                         'icon' => 'icon-empty-state',
                         'heading' => __('catagraphy.vulnerability.empty.title'),
                         'description' => __('catagraphy.vulnerability.empty.description'),
                         'actions' => [
-                            Action::make('create')
+                            TableAction::make('create')
                                 ->label(__('catagraphy.vulnerability.empty.create'))
                                 ->url(static::getResource()::getUrl('catagraphy.edit', ['record' => $this->getRecord()]))
                                 ->button()

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\ProfileResource\RelationManagers;
+namespace App\Filament\Resources\BeneficiaryResource\RelationManagers;
 
 use App\Models\Activity;
 use Carbon\Carbon;

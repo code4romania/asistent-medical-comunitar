@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Editare',
+        'label' => 'Editează',
 
         'modal' => [
 
-            'heading' => 'Editare :label',
+            'heading' => 'Editează :label',
 
             'actions' => [
 
                 'save' => [
-                    'label' => 'Salvare',
+                    'label' => 'Salvează',
                 ],
 
             ],

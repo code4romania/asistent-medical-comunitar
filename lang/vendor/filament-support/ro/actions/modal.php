@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
-    'confirmation' => 'Sunteţi sigur că doriţi să efectuaţi operaţia ?',
+    'confirmation' => 'Ești sigur că dorești să efectuezi operaţia?',
 
     'actions' => [
 
         'cancel' => [
-            'label' => 'Anulare',
+            'label' => 'Anulează',
         ],
 
         'confirm' => [
-            'label' => 'Confirmare',
+            'label' => 'Confirmă',
         ],
 
         'submit' => [
-            'label' => 'Executați',
+            'label' => 'Trimite',
         ],
 
     ],

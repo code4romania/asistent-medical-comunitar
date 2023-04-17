@@ -65,7 +65,8 @@ class Catagraphy extends Model
         return LogOptions::defaults()
             ->useLogName('catagraphy')
             ->dontSubmitEmptyLogs()
-            ->logAll();
+            ->logFillable()
+            ->logOnlyDirty();
     }
 
     public function tapActivity(Activity $activity, string $eventName)

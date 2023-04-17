@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
+use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
-use App\Filament\Resources\CatagraphyResource\Concerns\ResolvesRecord;
+use App\Filament\Resources\CatagraphyResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
@@ -17,20 +18,34 @@ use Filament\Resources\Pages\ViewRecord;
 
 class ViewCatagraphy extends ViewRecord
 {
-    use ResolvesRecord;
+    use Concerns\ResolvesRecord;
+    use Concerns\HasRecordBreadcrumb;
 
     protected static string $resource = CatagraphyResource::class;
 
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\EditAction::make()
+                ->url(BeneficiaryResource::getUrl('catagraphy.edit', $this->getBeneficiary())),
         ];
     }
 
-    protected function getBreadcrumbs(): array
+    public function getTitle(): string
     {
-        return [];
+        return __('catagraphy.form.view');
+    }
+
+    public function getBreadcrumb(): string
+    {
+        return $this->getTitle();
+    }
+
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        abort_unless($this->getRecord()->created_at, 404);
     }
 
     protected function form(Form $form): Form

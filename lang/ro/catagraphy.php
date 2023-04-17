@@ -9,6 +9,11 @@ return [
         'plural' => 'catagrafii',
     ],
 
+    'form' => [
+        'view' => 'Formular catagrafie',
+        'edit' => 'Formular catagrafie: modifică',
+    ],
+
     'header' => [
         'vulnerabilities' => 'Sumar vulnerabilități',
         'recommendations' => 'Recomandări',
@@ -24,6 +29,7 @@ return [
         'edit' => 'Editează catagrafie',
         'update' => 'Actualizează catagrafie',
         'delete' => 'Șterge catagrafie',
+        'view' => 'Vezi formular',
     ],
 
     'vulnerability' => [

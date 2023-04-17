@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Restaurare',
+        'label' => 'Restaurează',
 
         'modal' => [
 
-            'heading' => 'Restaurare :label',
+            'heading' => 'Restaurează :label',
 
             'actions' => [
 
                 'restore' => [
-                    'label' => 'Restaurare',
+                    'label' => 'Restaurează',
                 ],
 
             ],
@@ -28,16 +30,16 @@ return [
 
     'multiple' => [
 
-        'label' => 'Restaurare înregistrările selectate',
+        'label' => 'Restaurează înregistrările selectate',
 
         'modal' => [
 
-            'heading' => 'Restaurare :label selectate',
+            'heading' => 'Restaurează :label selectate',
 
             'actions' => [
 
                 'restore' => [
-                    'label' => 'Restaurare',
+                    'label' => 'Restaurează',
                 ],
 
             ],

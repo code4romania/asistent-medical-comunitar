@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Asociere',
+        'label' => 'Asociază',
 
         'modal' => [
 
-            'heading' => 'Asociere :label',
+            'heading' => 'Asociază :label',
 
             'fields' => [
 
@@ -21,7 +23,7 @@ return [
             'actions' => [
 
                 'associate' => [
-                    'label' => 'Asociere',
+                    'label' => 'Asociază',
                 ],
 
                 'associate_another' => [

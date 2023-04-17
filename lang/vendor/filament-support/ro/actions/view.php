@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Vizualizare',
+        'label' => 'Vezi',
 
         'modal' => [
 
-            'heading' => 'Vizualizare :label',
+            'heading' => 'Vezi :label',
 
             'actions' => [
 
                 'close' => [
-                    'label' => 'Închidere',
+                    'label' => 'Închide',
                 ],
 
             ],

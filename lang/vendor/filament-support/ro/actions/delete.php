@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Ștergere',
+        'label' => 'Șterge',
 
         'modal' => [
 
-            'heading' => 'Ștergere :label',
+            'heading' => 'Șterge :label',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Ștergere',
+                    'label' => 'Șterge',
                 ],
 
             ],
@@ -28,16 +30,16 @@ return [
 
     'multiple' => [
 
-        'label' => 'Ștergeți înregistrările selectate',
+        'label' => 'Șterge înregistrările selectate',
 
         'modal' => [
 
-            'heading' => 'Ștergeți :label selectate',
+            'heading' => 'Șterge :label selectate',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Ștergere',
+                    'label' => 'Șterge',
                 ],
 
             ],
