@@ -15,6 +15,7 @@ use App\Enums\Vulnerability\Poverty;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
+use App\Rules\EnumCollection;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -88,7 +89,7 @@ class CatagraphyResource extends Resource
                                     ->label(__('field.habitation'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options(Habitation::options())
-                                    // ->enum(Habitation::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->rule(new EnumCollection(Habitation::class))
                                     ->multiple()
                                     ->searchable(),
 
@@ -96,7 +97,7 @@ class CatagraphyResource extends Resource
                                     ->label(__('field.family'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options(Family::options())
-                                    // ->enum(Family::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->rule(new EnumCollection(Family::class))
                                     ->multiple()
                                     ->searchable(),
 
@@ -111,7 +112,7 @@ class CatagraphyResource extends Resource
                                     ->label(__('field.domestic_violence'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options(DomesticViolence::options())
-                                    // ->enum(DomesticViolence::class) // TODO: enable after creating EnumCollection validation rule
+                                    ->rule(new EnumCollection(DomesticViolence::class))
                                     ->multiple()
                                     ->searchable(),
                             ]),
