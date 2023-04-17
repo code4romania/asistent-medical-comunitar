@@ -57,4 +57,9 @@ class CreateBeneficiary extends CreateRecord
 
         return $data;
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
+    }
 }

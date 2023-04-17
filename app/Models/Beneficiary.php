@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
 use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
@@ -23,6 +25,7 @@ class Beneficiary extends Model
     use BelongsToThroughTrait;
     use HasFactory;
     use HasLocation;
+    use LogsActivity;
 
     protected $fillable = [
         'type',
@@ -60,6 +63,18 @@ class Beneficiary extends Model
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
+    }
+
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
 
     public function nurse(): BelongsTo
     {

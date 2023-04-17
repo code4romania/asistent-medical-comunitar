@@ -44,4 +44,9 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
+    }
 }

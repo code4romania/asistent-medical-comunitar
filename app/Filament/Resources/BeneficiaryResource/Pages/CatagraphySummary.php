@@ -106,7 +106,15 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         }
 
         return view('catagraphy.last_updated', [
-            'catagraphy' => $catagraphy,
+            'created_at' => $catagraphy->created_at->toFormattedDateTime(),
+            'updated_at' => $catagraphy->updated_at->toFormattedDateTime(),
+            'name' => $catagraphy->nurse->full_name,
+            'history_url' => static::getResource()::getUrl('history', $this->getRecord()),
         ]);
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

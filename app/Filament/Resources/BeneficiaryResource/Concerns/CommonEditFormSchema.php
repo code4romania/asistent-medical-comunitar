@@ -52,7 +52,12 @@ trait CommonEditFormSchema
                                 ->nullable()
                                 ->rule(new ValidCNP)
                                 ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
-                                ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
+                                ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp'))
+                                ->afterStateHydrated(function ($state, callable $set) {
+                                    if (\is_null($state)) {
+                                        $set('does_not_have_cnp', true);
+                                    }
+                                }),
 
                             Checkbox::make('does_not_have_cnp')
                                 ->label(__('field.does_not_have_cnp'))
@@ -71,7 +76,7 @@ trait CommonEditFormSchema
                         ->enum(IDType::class)
                         ->reactive()
                         ->afterStateUpdated(function (callable $set, $state) {
-                            if (! $state || IDType::from($state) === IDType::NONE) {
+                            if (! $state || IDType::tryFrom($state)?->is(IDType::NONE)) {
                                 $set('id_serial', null);
                                 $set('id_number', null);
                             }
@@ -82,12 +87,13 @@ trait CommonEditFormSchema
                         ->columns()
                         ->columnSpanFull()
                         ->disabled(
-                            fn (callable $get) => ! $get('id_type') || IDType::tryFrom($get('id_type')) === IDType::NONE
+                            fn (callable $get) => ! $get('id_type') || IDType::tryFrom($get('id_type'))?->is(IDType::NONE)
                         )
                         ->schema([
                             TextInput::make('id_serial')
                                 ->label(__('field.id_serial'))
                                 ->placeholder(__('placeholder.id_serial')),
+
                             TextInput::make('id_number')
                                 ->label(__('field.id_number'))
                                 ->placeholder(__('placeholder.id_number')),
@@ -104,7 +110,7 @@ trait CommonEditFormSchema
                     DatePicker::make('date_of_birth')
                         ->label(__('field.date_of_birth'))
                         ->placeholder(__('placeholder.date'))
-                        ->maxDate(today()->addDay())
+                        ->maxDate(today()->endOfDay())
                         ->nullable(),
 
                     Value::make('ethnicity')
@@ -148,6 +154,7 @@ trait CommonEditFormSchema
                             $set('gender', null);
                             $set('cnp', null);
                         }),
+
                     Grid::make()
                         ->disabled(fn (callable $get) => (bool) $get('has_unknown_identity'))
                         ->schema([

@@ -50,4 +50,9 @@ class ListBeneficiaries extends ListRecords implements WithTabs
                 ->color('secondary'),
         ];
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
+    }
 }

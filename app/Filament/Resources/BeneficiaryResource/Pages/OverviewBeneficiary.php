@@ -132,4 +132,9 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
+    }
 }

@@ -8,6 +8,7 @@ use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
+use App\Filament\Resources\ProfileResource\RelationManagers\HistoryRelationManager;
 use App\Models\Beneficiary;
 use App\Tables\Columns\BadgeColumn;
 use Filament\Resources\Resource;
@@ -117,6 +118,13 @@ class BeneficiaryResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            HistoryRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
@@ -133,6 +141,8 @@ class BeneficiaryResource extends Resource
             'catagraphy' => Pages\CatagraphySummary::route('/{record}/catagraphy'),
             'catagraphy.view' => CatagraphyPages\ViewCatagraphy::route('/{record}/catagraphy/view'),
             'catagraphy.edit' => CatagraphyPages\EditCatagraphy::route('/{record}/catagraphy/edit'),
+
+            'history' => Pages\ListHistory::route('/{record}/history'),
         ];
     }
 }

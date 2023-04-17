@@ -60,6 +60,19 @@ class Catagraphy extends Model
         'social_health_insurance' => SocialHealthInsurance::class,
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('catagraphy')
+            ->dontSubmitEmptyLogs()
+            ->logAll();
+    }
+
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        $activity->subject()->associate($activity->subject->beneficiary);
+    }
+
     public function beneficiary(): BelongsTo
     {
         return $this->belongsTo(Beneficiary::class);
@@ -68,12 +81,6 @@ class Catagraphy extends Model
     public function nurse(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
     }
 
     public function getSocioeconomicVulnerabilitiesAttribute(): Collection

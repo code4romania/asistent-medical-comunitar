@@ -39,7 +39,7 @@ trait CommonViewFormSchema
                     Group::make()
                         ->columns()
                         ->columnSpanFull()
-                        ->hidden(fn (Beneficiary $record) => $record->id_type->is(IDType::NONE))
+                        ->hidden(fn (Beneficiary $record) => $record->id_type?->is(IDType::NONE))
                         ->schema([
                             Value::make('id_serial')
                                 ->label(__('field.id_serial')),

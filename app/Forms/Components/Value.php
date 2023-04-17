@@ -111,11 +111,9 @@ class Value extends Component
 
     protected function getFormattedDate(Carbon $date): string
     {
-        $format = $this->withTime
-            ? config('forms.components.date_time_picker.display_formats.date_time')
-            : config('forms.components.date_time_picker.display_formats.date');
-
-        return $date->translatedFormat($format);
+        return $this->withTime
+            ? $date->toFormattedDateTime()
+            : $date->toFormattedDate();
     }
 
     protected function getEnumLabel(BackedEnum $content): ?string

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->nullableMorphs('subject', 'subject');
             $table->nullableMorphs('causer', 'causer');
             $table->json('properties')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 };

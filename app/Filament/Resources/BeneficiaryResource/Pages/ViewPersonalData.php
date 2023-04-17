@@ -45,4 +45,9 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                     ->schema(static::getRegularBeneficiaryFormSchema()),
             ]);
     }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
+    }
 }
