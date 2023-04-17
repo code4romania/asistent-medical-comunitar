@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Vulnerability\AgeCategory;
+use App\Enums\Vulnerability\ChildrenHealthRisk;
 use App\Enums\Vulnerability\Disability;
 use App\Enums\Vulnerability\DomesticViolence;
 use App\Enums\Vulnerability\Education;
 use App\Enums\Vulnerability\Family;
 use App\Enums\Vulnerability\FamilyDoctor;
 use App\Enums\Vulnerability\Habitation;
+use App\Enums\Vulnerability\HealthNeed;
 use App\Enums\Vulnerability\IDType;
 use App\Enums\Vulnerability\Income;
 use App\Enums\Vulnerability\Poverty;
@@ -38,6 +40,7 @@ class Catagraphy extends Model
         'family_doctor',
         'family',
         'habitation',
+        'health_need',
         'id_type',
         'income',
         'notes',
@@ -45,6 +48,7 @@ class Catagraphy extends Model
         'poverty',
         'risk_behavior',
         'social_health_insurance',
+        'children_health_risk',
     ];
 
     protected $casts = [
@@ -56,6 +60,8 @@ class Catagraphy extends Model
         'family_doctor' => FamilyDoctor::class,
         'family' => AsEnumCollection::class . ':' . Family::class,
         'habitation' => AsEnumCollection::class . ':' . Habitation::class,
+        'health_need' => AsEnumCollection::class . ':' . HealthNeed::class,
+        'children_health_risk' => AsEnumCollection::class . ':' . ChildrenHealthRisk::class,
         'id_type' => IDType::class,
         'income' => Income::class,
         'poverty' => Poverty::class,
@@ -108,6 +114,8 @@ class Catagraphy extends Model
             $this->family_doctor,
             $this->disability,
             $this->risk_behavior,
+            $this->health_need,
+            $this->children_health_risk,
         ])->flatten();
     }
 

@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Enums\Vulnerability\AgeCategory;
+use App\Enums\Vulnerability\ChildrenHealthRisk;
 use App\Enums\Vulnerability\Disability;
 use App\Enums\Vulnerability\DomesticViolence;
 use App\Enums\Vulnerability\Education;
 use App\Enums\Vulnerability\Family;
 use App\Enums\Vulnerability\FamilyDoctor;
 use App\Enums\Vulnerability\Habitation;
+use App\Enums\Vulnerability\HealthNeed;
 use App\Enums\Vulnerability\IDType;
 use App\Enums\Vulnerability\Income;
 use App\Enums\Vulnerability\Poverty;
+use App\Enums\Vulnerability\RiskBehavior;
 use App\Enums\Vulnerability\SocialHealthInsurance;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
@@ -145,6 +148,30 @@ class CatagraphyResource extends Resource
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options(Disability::options())
                                     ->enum(Disability::class)
+                                    ->searchable(),
+
+                                Select::make('risk_behavior')
+                                    ->label(__('field.risk_behavior'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options(RiskBehavior::options())
+                                    ->rule(new EnumCollection(RiskBehavior::class))
+                                    ->multiple()
+                                    ->searchable(),
+
+                                Select::make('health_need')
+                                    ->label(__('field.health_need'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options(HealthNeed::options())
+                                    ->rule(new EnumCollection(HealthNeed::class))
+                                    ->multiple()
+                                    ->searchable(),
+
+                                Select::make('children_health_risk')
+                                    ->label(__('field.children_health_risk'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options(ChildrenHealthRisk::options())
+                                    ->rule(new EnumCollection(ChildrenHealthRisk::class))
+                                    ->multiple()
                                     ->searchable(),
 
                             ]),

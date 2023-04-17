@@ -72,6 +72,8 @@ return [
     'study_name' => 'Denumire studii',
     'study_type' => 'Tip studii',
     'work_status' => 'Încadrat în muncă',
+    'risk_behavior' => 'Comportamente la risc',
+    'health_need' => 'Nevoi de sănătate',
     'year' => 'An',
 
 ];

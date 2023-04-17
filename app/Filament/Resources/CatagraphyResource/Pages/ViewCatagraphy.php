@@ -111,6 +111,15 @@ class ViewCatagraphy extends ViewRecord
 
                                 VulnerabilityChips::make('disability')
                                     ->label(__('field.disability')),
+
+                                VulnerabilityChips::make('risk_behavior')
+                                    ->label(__('field.risk_behavior')),
+
+                                VulnerabilityChips::make('health_need')
+                                    ->label(__('field.health_need')),
+
+                                VulnerabilityChips::make('children_health_risk')
+                                    ->label(__('field.children_health_risk')),
                             ]),
 
                         Subsection::make()

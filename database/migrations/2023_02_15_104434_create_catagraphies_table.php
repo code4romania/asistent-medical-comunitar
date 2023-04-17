@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('family_doctor')->nullable();
             $table->string('disability')->nullable();
             $table->json('risk_behavior')->nullable();
+            $table->json('health_need')->nullable();
+            $table->json('children_health_risk')->nullable();
             $table->text('notes')->nullable();
 
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');

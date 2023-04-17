@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\Vulnerability\AgeCategory;
+use App\Enums\Vulnerability\ChildrenHealthRisk;
 use App\Enums\Vulnerability\Disability;
 use App\Enums\Vulnerability\DomesticViolence;
 use App\Enums\Vulnerability\Education;
 use App\Enums\Vulnerability\Family;
 use App\Enums\Vulnerability\FamilyDoctor;
 use App\Enums\Vulnerability\Habitation;
+use App\Enums\Vulnerability\HealthNeed;
 use App\Enums\Vulnerability\IDType;
 use App\Enums\Vulnerability\Income;
 use App\Enums\Vulnerability\Poverty;
@@ -41,11 +43,13 @@ class CatagraphyFactory extends Factory
             'family_doctor' => fake()->randomElement(FamilyDoctor::values()),
             'family' => fake()->randomElements(Family::values(), 2),
             'habitation' => fake()->randomElements(Habitation::values(), 1),
+            'health_need' => fake()->randomElements(HealthNeed::values(), 1),
             'id_type' => fake()->randomElement(IDType::values()),
             'income' => fake()->randomElement(Income::values()),
             'poverty' => fake()->randomElement(Poverty::values()),
             'risk_behavior' => fake()->randomElement(RiskBehavior::values()),
             'social_health_insurance' => fake()->randomElement(SocialHealthInsurance::values()),
+            'children_health_risk' => fake()->randomElements(ChildrenHealthRisk::values(), 2),
 
             'nurse_id' => User::factory()->withProfile(),
             'beneficiary_id' => Beneficiary::factory(),
