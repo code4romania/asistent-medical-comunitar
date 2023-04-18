@@ -40,7 +40,6 @@
                 {{ $content }}
             </div>
         </div>
-
     </div>
 @else
     <div class="relative">

@@ -7,11 +7,11 @@ namespace App\Enums\Beneficiary;
 use App\Concerns;
 use App\Contracts;
 
-enum Type: string implements Contracts\Enums\HasColors
+enum Type: string implements Contracts\Enums\HasColor
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasColors;
+    use Concerns\Enums\HasColor;
     use Concerns\Enums\HasLabel;
 
     case REGULAR = 'regular';
@@ -22,11 +22,11 @@ enum Type: string implements Contracts\Enums\HasColors
         return 'beneficiary.type';
     }
 
-    public static function colorMap(): array
+    public static function colors(): array
     {
         return [
-            'primary' => self::REGULAR,
-            'bg-violet-100 text-violet-800' => self::OCASIONAL,
+            'regular' => 'primary',
+            'ocasional' => 'bg-violet-100 text-violet-800',
         ];
     }
 }

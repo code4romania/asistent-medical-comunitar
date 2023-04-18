@@ -4,20 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Vulnerability\AgeCategory;
-use App\Enums\Vulnerability\ChildrenHealthRisk;
-use App\Enums\Vulnerability\Disability;
-use App\Enums\Vulnerability\DomesticViolence;
-use App\Enums\Vulnerability\Education;
-use App\Enums\Vulnerability\Family;
-use App\Enums\Vulnerability\FamilyDoctor;
-use App\Enums\Vulnerability\Habitation;
-use App\Enums\Vulnerability\HealthNeed;
-use App\Enums\Vulnerability\IDType;
-use App\Enums\Vulnerability\Income;
-use App\Enums\Vulnerability\Poverty;
-use App\Enums\Vulnerability\RiskBehavior;
-use App\Enums\Vulnerability\SocialHealthInsurance;
+use App\Enums\Vulnerability;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,41 +19,48 @@ class Catagraphy extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'age_category',
-        'disability',
-        'domestic_violence',
-        'education',
         'evaluation_date',
-        'family_doctor',
-        'family',
-        'habitation',
-        'health_need',
-        'id_type',
-        'income',
         'notes',
         'nurse_id',
-        'poverty',
-        'risk_behavior',
-        'social_health_insurance',
-        'children_health_risk',
+
+        'cat_age',
+        'cat_as',
+        'cat_cr',
+        'cat_diz',
+        'cat_edu',
+        'cat_fam',
+        'cat_id',
+        'cat_inc',
+        'cat_liv',
+        'cat_mf',
+        'cat_ns',
+        'cat_pov',
+        'cat_preg',
+        'cat_rep',
+        'cat_ss',
+        'cat_ssa',
+        'cat_vif',
     ];
 
     protected $casts = [
-        'age_category' => AgeCategory::class,
-        'disability' => Disability::class,
-        'domestic_violence' => AsEnumCollection::class . ':' . DomesticViolence::class,
-        'education' => Education::class,
         'evaluation_date' => 'date',
-        'family_doctor' => FamilyDoctor::class,
-        'family' => AsEnumCollection::class . ':' . Family::class,
-        'habitation' => AsEnumCollection::class . ':' . Habitation::class,
-        'health_need' => AsEnumCollection::class . ':' . HealthNeed::class,
-        'children_health_risk' => AsEnumCollection::class . ':' . ChildrenHealthRisk::class,
-        'id_type' => IDType::class,
-        'income' => Income::class,
-        'poverty' => Poverty::class,
-        'risk_behavior' => AsEnumCollection::class . ':' . RiskBehavior::class,
-        'social_health_insurance' => SocialHealthInsurance::class,
+        'cat_age' => Vulnerability\CatAge::class,
+        'cat_as' => Vulnerability\CatAs::class,
+        'cat_cr' => AsEnumCollection::class . ':' . Vulnerability\CatCr::class,
+        'cat_diz' => Vulnerability\CatDiz::class,
+        'cat_edu' => Vulnerability\CatEdu::class,
+        'cat_fam' => AsEnumCollection::class . ':' . Vulnerability\CatFam::class,
+        'cat_id' => Vulnerability\CatId::class,
+        'cat_inc' => Vulnerability\CatInc::class,
+        'cat_liv' => AsEnumCollection::class . ':' . Vulnerability\CatLiv::class,
+        'cat_mf' => Vulnerability\CatMf::class,
+        'cat_ns' => AsEnumCollection::class . ':' . Vulnerability\CatNs::class,
+        'cat_pov' => Vulnerability\CatPov::class,
+        'cat_preg' => Vulnerability\CatPreg::class,
+        'cat_rep' => Vulnerability\CatRep::class,
+        'cat_ss' => AsEnumCollection::class . ':' . Vulnerability\CatSs::class,
+        'cat_ssa' => AsEnumCollection::class . ':' . Vulnerability\CatSsa::class,
+        'cat_vif' => AsEnumCollection::class . ':' . Vulnerability\CatVif::class,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -96,33 +90,34 @@ class Catagraphy extends Model
     public function getSocioeconomicVulnerabilitiesAttribute(): Collection
     {
         return collect([
-            $this->id_type,
-            $this->age_category,
-            $this->income,
-            $this->poverty,
-            $this->habitation,
-            $this->family,
-            $this->education,
-            $this->domestic_violence,
+            $this->cat_age,
+            $this->cat_inc,
+            $this->cat_id,
+            $this->cat_pov,
+            $this->cat_liv,
+            $this->cat_fam,
+            $this->cat_edu,
+            $this->cat_vif,
         ])->flatten();
     }
 
     public function getHealthVulnerabilitiesAttribute(): Collection
     {
         return collect([
-            $this->social_health_insurance,
-            $this->family_doctor,
-            $this->disability,
-            $this->risk_behavior,
-            $this->health_need,
-            $this->children_health_risk,
+            $this->cat_as,
+            $this->cat_mf,
+            $this->cat_diz,
+            $this->cat_cr,
+            $this->cat_ns,
+            $this->cat_ssa,
         ])->flatten();
     }
 
     public function getReproductiveHealthAttribute(): Collection
     {
         return collect([
-            // TODO
+            $this->cat_rep,
+            $this->cat_preg,
         ])->flatten();
     }
 }

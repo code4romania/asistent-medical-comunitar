@@ -8,7 +8,7 @@ trait HasDescription
 {
     protected function descriptionKeyPrefix(): ?string
     {
-        return null;
+        return 'vulnerability.description';
     }
 
     public function description(): string

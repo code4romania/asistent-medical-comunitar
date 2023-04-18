@@ -73,29 +73,29 @@ class ViewCatagraphy extends ViewRecord
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
-                                VulnerabilityChips::make('id_type')
-                                    ->label(__('field.id_type')),
+                                VulnerabilityChips::make('cat_id')
+                                    ->label(__('vulnerability.field.cat_id')),
 
-                                VulnerabilityChips::make('age_category')
-                                    ->label(__('field.age_category')),
+                                VulnerabilityChips::make('cat_age')
+                                    ->label(__('vulnerability.field.cat_age')),
 
-                                VulnerabilityChips::make('income')
-                                    ->label(__('field.income')),
+                                VulnerabilityChips::make('cat_inc')
+                                    ->label(__('vulnerability.field.cat_inc')),
 
-                                VulnerabilityChips::make('poverty')
-                                    ->label(__('field.poverty')),
+                                VulnerabilityChips::make('cat_pov')
+                                    ->label(__('vulnerability.field.cat_pov')),
 
-                                VulnerabilityChips::make('habitation')
-                                    ->label(__('field.habitation')),
+                                VulnerabilityChips::make('cat_liv')
+                                    ->label(__('vulnerability.field.cat_liv')),
 
-                                VulnerabilityChips::make('family')
-                                    ->label(__('field.family')),
+                                VulnerabilityChips::make('cat_fam')
+                                    ->label(__('vulnerability.field.cat_fam')),
 
-                                VulnerabilityChips::make('education')
-                                    ->label(__('field.education')),
+                                VulnerabilityChips::make('cat_edu')
+                                    ->label(__('vulnerability.field.cat_edu')),
 
-                                VulnerabilityChips::make('domestic_violence')
-                                    ->label(__('field.domestic_violence')),
+                                VulnerabilityChips::make('cat_vif')
+                                    ->label(__('vulnerability.field.cat_vif')),
                             ]),
 
                         Subsection::make()
@@ -103,30 +103,39 @@ class ViewCatagraphy extends ViewRecord
                             ->icon('heroicon-o-heart')
                             ->columns(2)
                             ->schema([
-                                VulnerabilityChips::make('social_health_insurance')
-                                    ->label(__('field.social_health_insurance')),
+                                VulnerabilityChips::make('cat_as')
+                                    ->label(__('vulnerability.field.cat_as')),
 
-                                VulnerabilityChips::make('family_doctor')
-                                    ->label(__('field.family_doctor')),
+                                VulnerabilityChips::make('cat_mf')
+                                    ->label(__('vulnerability.field.cat_mf')),
 
-                                VulnerabilityChips::make('disability')
-                                    ->label(__('field.disability')),
+                                VulnerabilityChips::make('cat_diz')
+                                    ->label(__('vulnerability.field.cat_diz')),
 
-                                VulnerabilityChips::make('risk_behavior')
-                                    ->label(__('field.risk_behavior')),
+                                VulnerabilityChips::make('cat_cr')
+                                    ->label(__('vulnerability.field.cat_cr')),
 
-                                VulnerabilityChips::make('health_need')
-                                    ->label(__('field.health_need')),
+                                VulnerabilityChips::make('cat_ns')
+                                    ->label(__('vulnerability.field.cat_ns')),
 
-                                VulnerabilityChips::make('children_health_risk')
-                                    ->label(__('field.children_health_risk')),
+                                VulnerabilityChips::make('cat_ssa')
+                                    ->label(__('vulnerability.field.cat_ssa')),
+
+                                VulnerabilityChips::make('cat_ss')
+                                    ->label(__('vulnerability.field.cat_ss')),
                             ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.vulnerability.reproductive_health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
-                            ->schema([]),
+                            ->schema([
+                                VulnerabilityChips::make('cat_rep')
+                                    ->label(__('vulnerability.field.cat_rep')),
+
+                                VulnerabilityChips::make('cat_preg')
+                                    ->label(__('vulnerability.field.cat_preg')),
+                            ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.section.notes'))

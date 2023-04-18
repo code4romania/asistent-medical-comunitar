@@ -97,13 +97,13 @@ class BeneficiaryResource extends Resource
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
-                    ->colors(Status::colors())
+                    ->colors(Status::flipColors())
                     ->default($default),
 
                 BadgeColumn::make('type')
                     ->label(__('field.beneficiary_type'))
                     ->enum(Type::options())
-                    ->colors(Type::colors())
+                    ->colors(Type::flipColors())
                     ->default($default)
                     ->hidden(
                         fn ($livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)

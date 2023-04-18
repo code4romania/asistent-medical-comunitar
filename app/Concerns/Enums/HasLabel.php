@@ -8,7 +8,7 @@ trait HasLabel
 {
     protected function labelKeyPrefix(): ?string
     {
-        return null;
+        return 'vulnerability.label';
     }
 
     public function label(): string

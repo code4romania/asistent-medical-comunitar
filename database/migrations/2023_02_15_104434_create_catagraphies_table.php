@@ -21,20 +21,25 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->date('evaluation_date');
-            $table->string('id_type')->nullable();
-            $table->string('age_category')->nullable();
-            $table->string('income')->nullable();
-            $table->string('poverty')->nullable();
-            $table->string('habitation')->nullable();
-            $table->json('family')->nullable();
-            $table->string('education')->nullable();
-            $table->json('domestic_violence')->nullable();
-            $table->string('social_health_insurance')->nullable();
-            $table->string('family_doctor')->nullable();
-            $table->string('disability')->nullable();
-            $table->json('risk_behavior')->nullable();
-            $table->json('health_need')->nullable();
-            $table->json('children_health_risk')->nullable();
+
+            $table->string('cat_age')->nullable();
+            $table->string('cat_as')->nullable();
+            $table->json('cat_cr')->nullable();
+            $table->string('cat_diz')->nullable();
+            $table->string('cat_edu')->nullable();
+            $table->json('cat_fam')->nullable();
+            $table->string('cat_id')->nullable();
+            $table->string('cat_inc')->nullable();
+            $table->json('cat_liv')->nullable();
+            $table->string('cat_mf')->nullable();
+            $table->json('cat_ns')->nullable();
+            $table->string('cat_pov')->nullable();
+            $table->string('cat_preg')->nullable();
+            $table->string('cat_rep')->nullable();
+            $table->json('cat_ss')->nullable();
+            $table->json('cat_ssa')->nullable();
+            $table->json('cat_vif')->nullable();
+
             $table->text('notes')->nullable();
 
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');

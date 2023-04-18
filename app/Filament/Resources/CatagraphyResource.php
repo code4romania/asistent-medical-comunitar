@@ -4,20 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Vulnerability\AgeCategory;
-use App\Enums\Vulnerability\ChildrenHealthRisk;
-use App\Enums\Vulnerability\Disability;
-use App\Enums\Vulnerability\DomesticViolence;
-use App\Enums\Vulnerability\Education;
-use App\Enums\Vulnerability\Family;
-use App\Enums\Vulnerability\FamilyDoctor;
-use App\Enums\Vulnerability\Habitation;
-use App\Enums\Vulnerability\HealthNeed;
-use App\Enums\Vulnerability\IDType;
-use App\Enums\Vulnerability\Income;
-use App\Enums\Vulnerability\Poverty;
-use App\Enums\Vulnerability\RiskBehavior;
-use App\Enums\Vulnerability\SocialHealthInsurance;
+use App\Enums\Vulnerability;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
@@ -63,62 +50,62 @@ class CatagraphyResource extends Resource
                             ->icon('heroicon-o-presentation-chart-bar')
                             ->columns(2)
                             ->schema([
-                                Select::make('id_type')
-                                    ->label(__('field.id_type'))
+                                Select::make('cat_id')
+                                    ->label(__('vulnerability.field.cat_id'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(IDType::options())
-                                    ->enum(IDType::class)
+                                    ->options(Vulnerability\CatId::options())
+                                    ->enum(Vulnerability\CatId::class)
                                     ->searchable(),
 
-                                Select::make('age_category')
-                                    ->label(__('field.age_category'))
+                                Select::make('cat_age')
+                                    ->label(__('vulnerability.field.cat_age'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(AgeCategory::options())
-                                    ->enum(AgeCategory::class)
+                                    ->options(Vulnerability\CatAge::options())
+                                    ->enum(Vulnerability\CatAge::class)
                                     ->searchable(),
 
-                                Select::make('income')
-                                    ->label(__('field.income'))
+                                Select::make('cat_inc')
+                                    ->label(__('vulnerability.field.cat_inc'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Income::options())
-                                    ->enum(Income::class)
+                                    ->options(Vulnerability\CatInc::options())
+                                    ->enum(Vulnerability\CatInc::class)
                                     ->searchable(),
 
-                                Select::make('poverty')
-                                    ->label(__('field.poverty'))
+                                Select::make('cat_pov')
+                                    ->label(__('vulnerability.field.cat_pov'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Poverty::options())
-                                    ->enum(Poverty::class)
+                                    ->options(Vulnerability\CatPov::options())
+                                    ->enum(Vulnerability\CatPov::class)
                                     ->searchable(),
 
-                                Select::make('habitation')
-                                    ->label(__('field.habitation'))
+                                Select::make('cat_liv')
+                                    ->label(__('vulnerability.field.cat_liv'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Habitation::options())
-                                    ->rule(new EnumCollection(Habitation::class))
+                                    ->options(Vulnerability\CatLiv::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatLiv::class))
                                     ->multiple()
                                     ->searchable(),
 
-                                Select::make('family')
-                                    ->label(__('field.family'))
+                                Select::make('cat_fam')
+                                    ->label(__('vulnerability.field.cat_fam'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Family::options())
-                                    ->rule(new EnumCollection(Family::class))
+                                    ->options(Vulnerability\CatFam::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatFam::class))
                                     ->multiple()
                                     ->searchable(),
 
-                                Select::make('education')
-                                    ->label(__('field.education'))
+                                Select::make('cat_edu')
+                                    ->label(__('vulnerability.field.cat_edu'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Education::options())
-                                    ->enum(Education::class)
+                                    ->options(Vulnerability\CatEdu::options())
+                                    ->enum(Vulnerability\CatEdu::class)
                                     ->searchable(),
 
-                                Select::make('domestic_violence')
-                                    ->label(__('field.domestic_violence'))
+                                Select::make('cat_vif')
+                                    ->label(__('vulnerability.field.cat_vif'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(DomesticViolence::options())
-                                    ->rule(new EnumCollection(DomesticViolence::class))
+                                    ->options(Vulnerability\CatVif::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatVif::class))
                                     ->multiple()
                                     ->searchable(),
                             ]),
@@ -129,58 +116,72 @@ class CatagraphyResource extends Resource
                             ->columns(2)
                             ->schema([
 
-                                Select::make('social_health_insurance')
-                                    ->label(__('field.social_health_insurance'))
+                                Select::make('cat_as')
+                                    ->label(__('vulnerability.field.cat_as'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(SocialHealthInsurance::options())
-                                    ->enum(SocialHealthInsurance::class)
+                                    ->options(Vulnerability\CatAs::options())
+                                    ->enum(Vulnerability\CatAs::class)
                                     ->searchable(),
 
-                                Select::make('family_doctor')
-                                    ->label(__('field.family_doctor'))
+                                Select::make('cat_mf')
+                                    ->label(__('vulnerability.field.cat_mf'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(FamilyDoctor::options())
-                                    ->enum(FamilyDoctor::class)
+                                    ->options(Vulnerability\CatMf::options())
+                                    ->enum(Vulnerability\CatMf::class)
                                     ->searchable(),
 
-                                Select::make('disability')
-                                    ->label(__('field.disability'))
+                                Select::make('cat_diz')
+                                    ->label(__('vulnerability.field.cat_diz'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Disability::options())
-                                    ->enum(Disability::class)
+                                    ->options(Vulnerability\CatDiz::options())
+                                    ->enum(Vulnerability\CatDiz::class)
                                     ->searchable(),
 
-                                Select::make('risk_behavior')
-                                    ->label(__('field.risk_behavior'))
+                                Select::make('cat_cr')
+                                    ->label(__('vulnerability.field.cat_cr'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(RiskBehavior::options())
-                                    ->rule(new EnumCollection(RiskBehavior::class))
+                                    ->options(Vulnerability\CatCr::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatCr::class))
                                     ->multiple()
                                     ->searchable(),
 
-                                Select::make('health_need')
-                                    ->label(__('field.health_need'))
+                                Select::make('cat_ns')
+                                    ->label(__('vulnerability.field.cat_ns'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(HealthNeed::options())
-                                    ->rule(new EnumCollection(HealthNeed::class))
+                                    ->options(Vulnerability\CatNs::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatNs::class))
                                     ->multiple()
                                     ->searchable(),
 
-                                Select::make('children_health_risk')
-                                    ->label(__('field.children_health_risk'))
+                                Select::make('cat_ssa')
+                                    ->label(__('vulnerability.field.cat_ssa'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(ChildrenHealthRisk::options())
-                                    ->rule(new EnumCollection(ChildrenHealthRisk::class))
+                                    ->options(Vulnerability\CatSsa::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatSsa::class))
                                     ->multiple()
                                     ->searchable(),
-
                             ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.vulnerability.reproductive_health'))
                             ->icon('heroicon-o-heart')
                             ->columns(2)
-                            ->schema([]),
+                            ->schema([
+                                Select::make('cat_rep')
+                                    ->label(__('vulnerability.field.cat_rep'))
+                                    ->placeholder(__('placeholder.select_one'))
+                                    ->options(Vulnerability\CatRep::options())
+                                    ->enum(Vulnerability\CatRep::class)
+                                    ->searchable(),
+
+                                Select::make('cat_preg')
+                                    ->label(__('vulnerability.field.cat_preg'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options(Vulnerability\CatPreg::options())
+                                    ->rule(new EnumCollection(Vulnerability\CatPreg::class))
+                                    ->multiple()
+                                    ->searchable(),
+                            ]),
 
                         Subsection::make()
                             ->title(__('catagraphy.section.notes'))
