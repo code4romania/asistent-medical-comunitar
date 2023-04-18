@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('cat_mf')->nullable();
             $table->json('cat_ns')->nullable();
             $table->string('cat_pov')->nullable();
-            $table->string('cat_preg')->nullable();
+            $table->json('cat_preg')->nullable();
             $table->string('cat_rep')->nullable();
             $table->json('cat_ss')->nullable();
             $table->json('cat_ssa')->nullable();

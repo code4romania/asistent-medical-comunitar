@@ -67,6 +67,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
 
                 Card::make()
                     ->header(__('catagraphy.header.recommendations'))
+                    ->hidden()
                     ->schema([
                         View::make('tables::components.empty-state.index')
                             ->viewData([

@@ -56,7 +56,7 @@ class Catagraphy extends Model
         'cat_mf' => Vulnerability\CatMf::class,
         'cat_ns' => AsEnumCollection::class . ':' . Vulnerability\CatNs::class,
         'cat_pov' => Vulnerability\CatPov::class,
-        'cat_preg' => Vulnerability\CatPreg::class,
+        'cat_preg' => AsEnumCollection::class . ':' . Vulnerability\CatPreg::class,
         'cat_rep' => Vulnerability\CatRep::class,
         'cat_ss' => AsEnumCollection::class . ':' . Vulnerability\CatSs::class,
         'cat_ssa' => AsEnumCollection::class . ':' . Vulnerability\CatSsa::class,
