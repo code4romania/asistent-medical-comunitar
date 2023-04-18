@@ -58,7 +58,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                         return [
                             PageAction::make('view')
                                 ->label(__('catagraphy.action.view'))
-                                ->url(static::getResource()::getUrl('catagraphy.view', $this->getRecord()))
+                                ->url(static::getResource()::getUrl('catagraphy.view', $record))
                                 ->color('secondary'),
                         ];
                     })

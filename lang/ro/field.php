@@ -45,6 +45,7 @@ return [
     'household' => 'Gospodărie',
     'id_number' => 'Număr act identitate',
     'id_serial' => 'Serie act identitate',
+    'id_type' => 'Act de identitate',
     'id' => 'ID',
     'integrated' => 'Abordare integrată',
     'intervention_reason' => 'Motivul intervenției',

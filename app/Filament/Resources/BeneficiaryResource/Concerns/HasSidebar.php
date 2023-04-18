@@ -40,9 +40,9 @@ trait HasSidebar
                     NavigationItem::make()
                         ->label(__('beneficiary.section.personal_data'))
                         ->icon('icon-none')
-                        ->url(static::getResource()::getUrl('personal_data.view', $record))
+                        ->url(static::getResource()::getUrl('personal_data', $record))
                         ->isActiveWhen(fn (): bool => request()->routeIs(
-                            'filament.resources.beneficiaries.personal_data.view',
+                            'filament.resources.beneficiaries.personal_data',
                             'filament.resources.beneficiaries.edit'
                         )),
 

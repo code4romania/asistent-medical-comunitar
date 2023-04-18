@@ -70,6 +70,12 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('beneficiary.section.personal_data'))
+                    ->componentActions(fn ($record) => [
+                        Actions\Action::make('view')
+                            ->label(__('beneficiary.action.view_details'))
+                            ->url(static::getResource()::getUrl('personal_data', $record))
+                            ->color('secondary'),
+                    ])
                     ->columns(2)
                     ->columnSpan([
                         'xl' => 1,

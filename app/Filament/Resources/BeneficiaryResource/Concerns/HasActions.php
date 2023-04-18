@@ -19,17 +19,17 @@ trait HasActions
                     ->label(__('catagraphy.action.update'))
                     ->url(static::getResource()::getUrl('catagraphy.edit', $record)),
 
-                Action::make('case_management')
-                    ->label(__('case_management.action.create'))
-                    ->url('#'),
+                // Action::make('case_management')
+                //     ->label(__('case_management.action.create'))
+                //     ->url('#'),
 
-                Action::make('service')
-                    ->label(__('service.action.create'))
-                    ->url('#'),
+                // Action::make('service')
+                //     ->label(__('service.action.create'))
+                //     ->url('#'),
 
-                Action::make('appointment')
-                    ->label(__('appointment.action.create'))
-                    ->url('#'),
+                // Action::make('appointment')
+                //     ->label(__('appointment.action.create'))
+                //     ->url('#'),
             ]),
         ];
     }

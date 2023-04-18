@@ -9,7 +9,7 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\BeneficiaryProgram;
 use App\Forms\Components\Card;
-use Filament\Pages\Actions\EditAction;
+use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -41,7 +41,13 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
 
                 Card::make()
                     ->header(__('beneficiary.header.id'))
-                    ->footer(fn () => EditAction::make())
+                    ->componentActions(fn ($record) => [
+                        Actions\Action::make('view')
+                            ->label(__('filament-support::actions/edit.single.label'))
+                            ->icon('heroicon-s-pencil')
+                            ->url(static::getResource()::getUrl('edit', $record)),
+                    ])
+                    ->footer(fn () => Actions\EditAction::make())
                     ->schema(static::getRegularBeneficiaryFormSchema()),
             ]);
     }
