@@ -60,7 +60,7 @@ class HistoryRelationManager extends RelationManager
                     ->sortable(),
 
                 TextColumn::make('properties')
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable()
                     ->label(__('activity.column.change'))
                     ->wrap(),
