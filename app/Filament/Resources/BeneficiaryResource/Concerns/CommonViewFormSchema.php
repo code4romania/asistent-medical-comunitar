@@ -13,6 +13,7 @@ use App\Models\Beneficiary;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 trait CommonViewFormSchema
 {
@@ -114,7 +115,9 @@ trait CommonViewFormSchema
                 ->icon('heroicon-o-lightning-bolt')
                 ->schema([
                     Repeater::make('interventions')
-                        ->relationship()
+                        ->relationship(
+                            callback: fn (Builder $query) => $query->with('services')
+                        )
                         ->label(__('intervention.label.plural'))
                         ->columns(2)
                         ->schema([

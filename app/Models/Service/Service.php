@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Models\Service;
 
+use App\Contracts\Stringable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Service extends Model
+class Service extends Model implements Stringable
 {
     public $timestamps = false;
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(ServiceCategory::class);
+    }
+
+    public function toString(): string
+    {
+        return $this->name;
     }
 }

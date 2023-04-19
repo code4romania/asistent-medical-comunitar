@@ -228,21 +228,12 @@ trait CommonEditFormSchema
                                 ->default(today()),
 
                             Select::make('services')
+                                ->relationship('services', 'name')
                                 ->label(__('field.services'))
                                 ->placeholder(__('placeholder.choose_services'))
                                 ->columnSpanFull()
                                 ->multiple()
-                                ->options([
-                                    'Educație - poluare',
-                                    'Educație - alimentație',
-                                    'Educație - sport',
-                                    'Educație - fumat',
-                                    'Educație - consumul de alcool',
-                                    'Educație - droguri',
-                                    'Educație - activitate sexuală',
-                                    'Educație - planificare familială',
-                                    'Educație parentală',
-                                ]),
+                                ->preload(),
                         ]),
                 ]),
 

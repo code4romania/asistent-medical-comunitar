@@ -62,7 +62,6 @@ class Beneficiary extends Model
         'gender' => Gender::class,
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
-        'interventions' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -83,10 +82,14 @@ class Beneficiary extends Model
         return $this->belongsTo(User::class);
     }
 
-//    public function interventions(): HasMany
-//    {
-//        return $this->hasMany(Intervention::class);
-//    }
+   public function interventions(): HasMany
+   {
+       return $this->hasMany(
+           $this->isOcasional()
+               ? Intervention\OcasionalBeneficiaryIntervention::class
+               : Intervention\RegularBeneficiaryIntervention::class
+       );
+   }
 
     public function catagraphy(): HasOne
     {

@@ -11,5 +11,8 @@ return [
 
     'action' => [
         'create' => 'Adaugă altă intervenție',
+        'add_service' => 'Adaugă serviciu',
+        'open_case' => 'Deschide caz',
     ],
+
 ];

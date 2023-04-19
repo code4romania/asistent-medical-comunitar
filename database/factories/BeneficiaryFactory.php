@@ -12,7 +12,7 @@ use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\City;
 use App\Models\Family;
-use App\Models\Intervention;
+use App\Models\Intervention\OcasionalBeneficiaryIntervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -50,7 +50,7 @@ class BeneficiaryFactory extends Factory
     {
         return $this->afterCreating(function (Beneficiary $beneficiary) {
             if ($beneficiary->isOcasional()) {
-                Intervention::factory()
+                OcasionalBeneficiaryIntervention::factory()
                     ->for($beneficiary)
                     ->count(fake()->randomDigitNotNull())
                     ->create();

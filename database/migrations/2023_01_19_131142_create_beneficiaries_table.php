@@ -48,7 +48,6 @@ return new class extends Migration
             $table->foreignIdFor(City::class)->nullable()->constrained();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->json('interventions')->nullable();
 
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
             $table->foreignIdFor(Family::class)->nullable()->constrained()->nullOnDelete();

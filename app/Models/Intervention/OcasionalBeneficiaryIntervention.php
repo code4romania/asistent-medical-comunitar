@@ -2,29 +2,37 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Intervention;
 
+use App\Models\Beneficiary;
+use App\Models\Service\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Intervention extends Model
+class OcasionalBeneficiaryIntervention extends Model
 {
     use HasFactory;
 
+    protected $table = 'interventions_ocasional';
+
     protected $fillable = [
         'reason',
-        'services',
         'date',
     ];
 
     protected $casts = [
-        'services' => 'collection',
         'date' => 'date',
     ];
 
     public function beneficiary(): BelongsTo
     {
         return $this->belongsTo(Beneficiary::class);
+    }
+
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'intervention_service');
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use App\Contracts\Stringable;
 use BackedEnum;
 use Carbon\Carbon;
 use Closure;
@@ -81,7 +82,7 @@ class Value extends Component
         $content = match (true) {
             $content instanceof BackedEnum => $this->getEnumLabel($content),
             $content instanceof Carbon => $this->getFormattedDate($content),
-            $content instanceof Collection => $content->join(', '),
+            $content instanceof Collection => $this->getFormattedCollection($content),
             default => $content,
         };
 
@@ -107,6 +108,17 @@ class Value extends Component
         $this->withTime = $condition;
 
         return $this;
+    }
+
+    protected function getFormattedCollection(Collection $collection, string $glue = ', '): string
+    {
+        return $collection
+            ->map(fn ($item) => match (true) {
+                $item instanceof Htmlable => $item->toHtml(),
+                $item instanceof Stringable => $item->toString(),
+                default => $item
+            })
+            ->join($glue);
     }
 
     protected function getFormattedDate(Carbon $date): string

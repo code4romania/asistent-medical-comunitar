@@ -53,6 +53,12 @@ trait HasSidebar
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy')),
 
                     NavigationItem::make()
+                        ->label(__('intervention.label.plural'))
+                        ->icon('icon-none')
+                        ->url(static::getResource()::getUrl('interventions', $record))
+                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.interventions')),
+
+                    NavigationItem::make()
                         ->label(__('activity.label'))
                         ->icon('icon-none')
                         ->url(static::getResource()::getUrl('history', $record))
