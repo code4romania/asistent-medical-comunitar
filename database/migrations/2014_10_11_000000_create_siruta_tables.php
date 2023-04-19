@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Imports\SirutaImport;
 use App\Models\City;
 use App\Models\County;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
-use Maatwebsite\Excel\Facades\Excel;
 
 return new class extends Migration
 {
@@ -35,7 +35,9 @@ return new class extends Migration
         });
 
         Schema::withoutForeignKeyConstraints(function () {
-            Excel::import(new SirutaImport, database_path('siruta/SIR_DIACRITIC.xlsx'));
+            DB::unprepared(
+                File::get(database_path('data/siruta.sql'))
+            );
         });
     }
 };
