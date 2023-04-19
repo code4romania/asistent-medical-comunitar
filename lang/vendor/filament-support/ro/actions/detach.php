@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Detașare',
+        'label' => 'Detașează',
 
         'modal' => [
 
-            'heading' => 'Detașare :label',
+            'heading' => 'Detașează :label',
 
             'actions' => [
 
                 'detach' => [
-                    'label' => 'Detașare',
+                    'label' => 'Detașează',
                 ],
 
             ],
@@ -28,16 +30,16 @@ return [
 
     'multiple' => [
 
-        'label' => 'Detașați înregistrările selectate',
+        'label' => 'Detașează înregistrările selectate',
 
         'modal' => [
 
-            'heading' => 'Detașați :label selectate',
+            'heading' => 'Detașează :label selectate',
 
             'actions' => [
 
                 'detach' => [
-                    'label' => 'Detașați înregistrările selectate',
+                    'label' => 'Detașează înregistrările selectate',
                 ],
 
             ],

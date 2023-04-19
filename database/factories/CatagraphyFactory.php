@@ -4,17 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\Catagraphy\AgeCategory;
-use App\Enums\Catagraphy\Disability;
-use App\Enums\Catagraphy\DomesticViolence;
-use App\Enums\Catagraphy\Education;
-use App\Enums\Catagraphy\Family;
-use App\Enums\Catagraphy\FamilyDoctor;
-use App\Enums\Catagraphy\Habitation;
-use App\Enums\Catagraphy\IDType;
-use App\Enums\Catagraphy\Income;
-use App\Enums\Catagraphy\Poverty;
-use App\Enums\Catagraphy\SocialHealthInsurance;
+use App\Enums\Vulnerability;
 use App\Models\Beneficiary;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -33,20 +23,33 @@ class CatagraphyFactory extends Factory
     {
         return [
             'evaluation_date' => fake()->date(),
-            'age_category' => fake()->randomElement(AgeCategory::values()),
-            'disability' => fake()->randomElement(Disability::values()),
-            'domestic_violence' => fake()->randomElements(DomesticViolence::values(), 2),
-            'education' => fake()->randomElement(Education::values()),
-            'family_doctor' => fake()->randomElement(FamilyDoctor::values()),
-            'family' => fake()->randomElements(Family::values(), 2),
-            'habitation' => fake()->randomElement(Habitation::values()),
-            'id_type' => fake()->randomElement(IDType::values()),
-            'income' => fake()->randomElement(Income::values()),
-            'poverty' => fake()->randomElements(Poverty::values(), 2),
-            'social_health_insurance' => fake()->randomElement(SocialHealthInsurance::values()),
-
-            'amc_id' => User::factory()->withProfile(),
+            'nurse_id' => User::factory()->withProfile(),
             'beneficiary_id' => Beneficiary::factory(),
+
+            'cat_age' => fake()->randomElement(Vulnerability\CatAge::values()),
+            'cat_as' => fake()->randomElement(Vulnerability\CatAs::values()),
+            'cat_cr' => fake()->randomElements(Vulnerability\CatCr::values(), rand(1, 3)),
+            'cat_diz' => fake()->randomElement(Vulnerability\CatDiz::values()),
+            'cat_edu' => fake()->randomElement(Vulnerability\CatEdu::values()),
+            'cat_fam' => fake()->randomElements(Vulnerability\CatFam::values(), rand(1, 3)),
+            'cat_id' => fake()->randomElement(Vulnerability\CatId::values()),
+            'cat_inc' => fake()->randomElement(Vulnerability\CatInc::values()),
+            'cat_liv' => fake()->randomElements(Vulnerability\CatLiv::values(), rand(1, 3)),
+            'cat_mf' => fake()->randomElement(Vulnerability\CatMf::values()),
+            'cat_ns' => fake()->randomElements(Vulnerability\CatNs::values(), rand(1, 3)),
+            'cat_pov' => fake()->randomElement(Vulnerability\CatPov::values()),
+            'cat_preg' => fake()->randomElement(Vulnerability\CatPreg::values()),
+            'cat_rep' => fake()->randomElement(Vulnerability\CatRep::values()),
+            'cat_ss' => fake()->randomElements(Vulnerability\CatSs::values(), rand(1, 3)),
+            'cat_ssa' => fake()->randomElements(Vulnerability\CatSsa::values(), rand(1, 3)),
+            'cat_vif' => fake()->randomElements(Vulnerability\CatVif::values(), rand(1, 3)),
         ];
+    }
+
+    public function withNotes(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'notes' => fake()->paragraphs(asText: true),
+        ]);
     }
 }

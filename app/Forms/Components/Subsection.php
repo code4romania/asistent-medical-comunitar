@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use App\Concerns\Forms\HasIcon;
+use App\Concerns\Forms\HasTitle;
 use Filament\Forms\Components\Component;
-use Illuminate\Contracts\Support\Htmlable;
 
 class Subsection extends Component
 {
-    protected string $view = 'forms.components.subsection';
+    use HasIcon;
+    use HasTitle;
 
-    protected ?string $icon = null;
+    protected string $view = 'forms.components.subsection';
 
     public static function make(): static
     {
@@ -19,17 +21,5 @@ class Subsection extends Component
         $static->configure();
 
         return $static;
-    }
-
-    public function icon(?string $icon = null): static
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
-
-    public function getIcon(): string | Htmlable | null
-    {
-        return $this->evaluate($this->icon);
     }
 }

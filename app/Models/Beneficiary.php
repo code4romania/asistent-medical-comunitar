@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
 use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
@@ -23,6 +25,7 @@ class Beneficiary extends Model
     use BelongsToThroughTrait;
     use HasFactory;
     use HasLocation;
+    use LogsActivity;
 
     protected $fillable = [
         'type',
@@ -46,8 +49,9 @@ class Beneficiary extends Model
         'address',
         'phone',
         'notes',
+        'reason_removed',
 
-        'amc_id',
+        'nurse_id',
         'family_id',
     ];
 
@@ -56,11 +60,25 @@ class Beneficiary extends Model
         'status' => Status::class,
         'id_type' => IDType::class,
         'gender' => Gender::class,
+        'integrated' => 'boolean',
         'date_of_birth' => 'date',
-        'interventions' => 'array'
+        'interventions' => 'array',
     ];
 
-    public function amc(): BelongsTo
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
+    }
+
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function nurse(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -73,17 +91,44 @@ class Beneficiary extends Model
     public function catagraphy(): HasOne
     {
         return $this->hasOne(Catagraphy::class)
-            ->withDefault();
+            ->withDefault(function (Catagraphy $catagraphy, self $beneficiary) {
+                $catagraphy->fill([
+                    'evaluation_date' => today(),
+                ]);
+
+                $catagraphy->nurse()->associate(auth()->user());
+            });
     }
 
     public function scopeOnlyRegular(Builder $query): Builder
     {
-        return $query->where('type',Type::REGULAR);
+        return $query->where('type', Type::REGULAR);
     }
 
     public function scopeOnlyOcasional(Builder $query): Builder
     {
         return $query->where('type', Type::OCASIONAL);
+    }
+
+    /**
+     * @todo implment active condition
+     */
+    public function scopeOnlyActive(Builder $query): Builder
+    {
+        return $query;
+    }
+
+    /**
+     * @todo implment inactive condition
+     */
+    public function scopeOnlyInactive(Builder $query): Builder
+    {
+        return $query;
+    }
+
+    public function scopeWhereNurse(Builder $query, User $user): Builder
+    {
+        return $query->whereBelongsTo($user, 'nurse');
     }
 
     public function getAgeAttribute(): ?int
@@ -141,5 +186,15 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    /**
+     * @todo migrate other data
+     */
+    public function convertToRegular(): void
+    {
+        $this->update([
+            'type' => Type::REGULAR,
+        ]);
     }
 }

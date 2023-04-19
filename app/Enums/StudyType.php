@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns\Enums\Arrayable;
+use App\Concerns;
 
 enum StudyType: string
 {
-    use Arrayable;
+    use Concerns\Enums\Arrayable;
+    use Concerns\Enums\Comparable;
+    use Concerns\Enums\HasLabel;
 
     case SECONDARY = 'secondary';
     case POSTSECONDARY = 'postsecondary';
@@ -16,7 +18,7 @@ enum StudyType: string
     case POSTGRADUATE = 'postgraduate';
     case OTHER = 'other';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'study.type';
     }

@@ -4,17 +4,28 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Concerns;
 
-use App\Models\User;
+use App\Filament\Resources\ProfileResource;
+use App\Filament\Resources\UserResource;
 
 trait ResolvesRecord
 {
     public function mount($record = null): void
     {
-        parent::mount($record);
+        if (\is_null($record)) {
+            $this->record = auth()->user();
+
+            $this->fillForm();
+        } else {
+            parent::mount($record);
+        }
     }
 
-    protected function resolveRecord($key): User
+    public function getPageUrl(string $name): string
     {
-        return auth()->user();
+        if (request()->routeIs('filament.resources.profile.*')) {
+            return ProfileResource::getUrl($name);
+        }
+
+        return UserResource::getUrl($name, $this->getRecord());
     }
 }

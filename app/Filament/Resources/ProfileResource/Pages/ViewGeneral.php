@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Forms\Components\Location;
-use App\Forms\Components\Placeholder;
 use App\Forms\Components\Subsection;
-use App\Models\User;
+use App\Forms\Components\Value;
 use Filament\Resources\Form;
 
 class ViewGeneral extends ViewRecord
@@ -21,21 +20,20 @@ class ViewGeneral extends ViewRecord
                     ->icon('heroicon-o-user')
                     ->columns(2)
                     ->schema([
-                        Placeholder::make('first_name')
-                            ->label(__('field.first_name'))
-                            ->content(fn (User $record) => $record->first_name),
-                        Placeholder::make('last_name')
-                            ->label(__('field.last_name'))
-                            ->content(fn (User $record) => $record->last_name),
-                        Placeholder::make('date_of_birth')
-                            ->label(__('field.date_of_birth'))
-                            ->content(fn (User $record) => $record->date_of_birth),
-                        Placeholder::make('gender')
-                            ->label(__('field.gender'))
-                            ->content(fn (User $record) => $record->gender->label()),
-                        Placeholder::make('cnp')
-                            ->label(__('field.cnp'))
-                            ->content(fn (User $record) => $record->cnp),
+                        Value::make('first_name')
+                            ->label(__('field.first_name')),
+
+                        Value::make('last_name')
+                            ->label(__('field.last_name')),
+
+                        Value::make('date_of_birth')
+                            ->label(__('field.date_of_birth')),
+
+                        Value::make('gender')
+                            ->label(__('field.gender')),
+
+                        Value::make('cnp')
+                            ->label(__('field.cnp')),
                     ]),
 
                 Subsection::make()
@@ -43,27 +41,25 @@ class ViewGeneral extends ViewRecord
                     ->columns(2)
                     ->schema([
                         Location::make(),
-                        Placeholder::make('email')
-                            ->label(__('field.email'))
-                            ->content(fn (User $record) => $record->email),
-                        Placeholder::make('phone')
-                            ->label(__('field.phone'))
-                            ->content(fn (User $record) => $record->phone),
+                        Value::make('email')
+                            ->label(__('field.email')),
+
+                        Value::make('phone')
+                            ->label(__('field.phone')),
                     ]),
 
                 Subsection::make()
                     ->icon('heroicon-o-document')
                     ->columns(2)
                     ->schema([
-                        Placeholder::make('accreditation_number')
-                            ->content(fn (User $record) => $record->accreditation_number)
+                        Value::make('accreditation_number')
                             ->label(__('field.accreditation_number')),
-                        Placeholder::make('accreditation_date')
-                            ->content(fn (User $record) => $record->accreditation_date)
+
+                        Value::make('accreditation_date')
                             ->label(__('field.accreditation_date')),
-                        Placeholder::make('accreditation_document')
-                            ->label(__('field.accreditation_document'))
-                            ->content(fn (User $record) => null),
+
+                        Value::make('accreditation_document')
+                            ->label(__('field.accreditation_document')),
                     ]),
             ]);
     }

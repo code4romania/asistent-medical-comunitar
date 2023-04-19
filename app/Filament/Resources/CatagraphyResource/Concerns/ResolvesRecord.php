@@ -6,19 +6,16 @@ namespace App\Filament\Resources\CatagraphyResource\Concerns;
 
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
+use App\Models\Catagraphy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+/**
+ * Catagraphies are always edited from the beneficiary context, so we need
+ * to fetch them through their beneficiary.
+ */
 trait ResolvesRecord
 {
-    /**
-     * Catagraphies are always edited from the beneficiary context, so we need
-     * to fetch them through their beneficiary.
-     *
-     * @param  mixed                                                $key
-     * @return \App\Models\Catagraphy
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     */
     protected function resolveRecord(mixed $key): Model
     {
         /** @var Beneficiary|null */
@@ -31,8 +28,13 @@ trait ResolvesRecord
         return $record;
     }
 
-    public function getRecord(): Model
+    public function getRecord(): Catagraphy
     {
         return $this->record->catagraphy;
+    }
+
+    public function getBeneficiary(): Beneficiary
+    {
+        return $this->record;
     }
 }

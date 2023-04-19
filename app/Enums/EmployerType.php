@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns\Enums\Arrayable;
+use App\Concerns;
 
 enum EmployerType: string
 {
-    use Arrayable;
+    use Concerns\Enums\Arrayable;
+    use Concerns\Enums\Comparable;
+    use Concerns\Enums\HasLabel;
 
     case NGO = 'ngo';
     case DPH = 'dph';
@@ -16,7 +18,7 @@ enum EmployerType: string
     case MUNICIPALITY = 'municipality';
     case OTHER = 'other';
 
-    protected function translationKeyPrefix(): ?string
+    protected function labelKeyPrefix(): ?string
     {
         return 'employer.type';
     }

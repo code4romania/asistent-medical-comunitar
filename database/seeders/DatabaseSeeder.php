@@ -18,31 +18,39 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Create an admin
-        $user = User::factory(['email' => 'admin@example.com'])
+        $admin = User::factory(['email' => 'admin@example.com'])
+            ->admin()
+            ->create();
+
+        // Create a community nurse
+        $nurse = User::factory(['email' => 'nurse@example.com'])
+            ->nurse()
             ->withProfile()
             ->create();
 
         Beneficiary::factory()
             ->count(10)
-            ->recycle($user)
+            ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
             ->count(10)
             ->withAddress()
-            ->recycle($user)
+            ->withCNP()
+            ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
+            ->count(10)
             ->withID()
-            ->count(10)
-            ->recycle($user)
+            ->withCNP()
+            ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
-            ->withNotes()
             ->count(10)
-            ->recycle($user)
+            ->withNotes()
+            ->recycle($nurse)
             ->create();
     }
 }

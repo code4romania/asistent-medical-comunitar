@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\CourseType;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,7 +22,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('theme');
             $table->string('provider');
-            $table->enum('type', CourseType::values());
+            $table->string('type');
             $table->integer('credits');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

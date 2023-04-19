@@ -7,6 +7,7 @@ namespace App\Filament\Resources;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
+use App\Filament\Resources\BeneficiaryResource\RelationManagers\HistoryRelationManager;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Models\Beneficiary;
 use App\Tables\Columns\BadgeColumn;
@@ -38,7 +39,11 @@ class BeneficiaryResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->withLocation();
+            ->withLocation()
+            ->when(
+                auth()->user()->isNurse(),
+                fn (Builder $query): Builder => $query->whereNurse(auth()->user())
+            );
     }
 
     public static function table(Table $table): Table
@@ -92,13 +97,13 @@ class BeneficiaryResource extends Resource
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
-                    ->colors(Status::colors())
+                    ->colors(Status::flipColors())
                     ->default($default),
 
                 BadgeColumn::make('type')
                     ->label(__('field.beneficiary_type'))
                     ->enum(Type::options())
-                    ->colors(Type::colors())
+                    ->colors(Type::flipColors())
                     ->default($default)
                     ->hidden(
                         fn ($livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)
@@ -113,6 +118,13 @@ class BeneficiaryResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            HistoryRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
@@ -124,11 +136,13 @@ class BeneficiaryResource extends Resource
             'view' => Pages\OverviewBeneficiary::route('/{record}'),
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
 
-            'personal_data.view' => Pages\ViewPersonalData::route('/{record}/personal-data'),
+            'personal_data' => Pages\ViewPersonalData::route('/{record}/data'),
 
             'catagraphy' => Pages\CatagraphySummary::route('/{record}/catagraphy'),
             'catagraphy.view' => CatagraphyPages\ViewCatagraphy::route('/{record}/catagraphy/view'),
             'catagraphy.edit' => CatagraphyPages\EditCatagraphy::route('/{record}/catagraphy/edit'),
+
+            'history' => Pages\ListHistory::route('/{record}/history'),
         ];
     }
 }

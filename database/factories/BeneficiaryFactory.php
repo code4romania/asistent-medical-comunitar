@@ -28,19 +28,21 @@ class BeneficiaryFactory extends Factory
      */
     public function definition()
     {
-        $family = Family::factory()->forHousehold()->create();
+        $status = fake()->randomElement(Status::values());
 
         return [
-            'amc_id' => User::factory()->withProfile(),
+            'nurse_id' => User::factory(),
             'family_id' => Family::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'prior_name' => fake()->boolean(25) ? fake()->lastName() : null,
             'type' => fake()->randomElement(Type::values()),
-            'status' => fake()->randomElement(Status::values()),
             'integrated' => fake()->boolean(),
             'gender' => fake()->randomElement(Gender::values()),
             'date_of_birth' => fake()->date(),
+
+            'status' => $status,
+            'reason_removed' => Status::REMOVED->is($status) ? fake()->sentence() : null,
         ];
     }
 
@@ -56,10 +58,21 @@ class BeneficiaryFactory extends Factory
 
             if ($beneficiary->isRegular()) {
                 Catagraphy::factory()
+                    ->recycle($beneficiary->nurse)
                     ->for($beneficiary)
+                    ->withNotes()
                     ->create();
             }
         });
+    }
+
+    public function withCNP(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'cnp' => fake()->cnp(
+                dateOfBirth: $attributes['date_of_birth'],
+            ),
+        ]);
     }
 
     public function withID(): static
@@ -76,7 +89,7 @@ class BeneficiaryFactory extends Factory
         return $this->state(function (array $attributes) {
             $city = City::query()->inRandomOrder()->first();
 
-            return[
+            return [
                 'address' => fake()->address(),
                 'county_id' => $city->county_id,
                 'city_id' => $city->id,

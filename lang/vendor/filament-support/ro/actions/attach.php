@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Atașare',
+        'label' => 'Atașează',
 
         'modal' => [
 
-            'heading' => 'Atașare :label',
+            'heading' => 'Atașează :label',
 
             'fields' => [
 
@@ -21,7 +23,7 @@ return [
             'actions' => [
 
                 'attach' => [
-                    'label' => 'Atașare',
+                    'label' => 'Atașează',
                 ],
 
                 'attach_another' => [

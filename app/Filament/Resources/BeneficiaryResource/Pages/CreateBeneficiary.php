@@ -16,7 +16,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateBeneficiary extends CreateRecord
 {
-    use Concerns\CommonFormSchema;
+    use Concerns\CommonEditFormSchema;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -41,11 +41,11 @@ class CreateBeneficiary extends CreateRecord
                             ]),
 
                         Group::make()
-                            ->visible(fn ($state) => $state['type'] === Type::REGULAR->value)
+                            ->visible(fn (callable $get) => Type::REGULAR->is($get('type')))
                             ->schema(static::getRegularBeneficiaryFormSchema()),
 
                         Group::make()
-                            ->visible(fn ($state) => $state['type'] === Type::OCASIONAL->value)
+                            ->visible(fn (callable $get) => Type::OCASIONAL->is($get('type')))
                             ->schema(static::getOcasionalBeneficiaryFormSchema()),
                     ]),
             ]);
@@ -53,8 +53,13 @@ class CreateBeneficiary extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['amc_id'] = auth()->id();
+        $data['nurse_id'] = auth()->id();
 
         return $data;
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

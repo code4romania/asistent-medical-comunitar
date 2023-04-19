@@ -40,17 +40,23 @@ trait HasSidebar
                     NavigationItem::make()
                         ->label(__('beneficiary.section.personal_data'))
                         ->icon('icon-none')
-                        ->url(static::getResource()::getUrl('personal_data.view', $record))
+                        ->url(static::getResource()::getUrl('personal_data', $record))
                         ->isActiveWhen(fn (): bool => request()->routeIs(
-                            'filament.resources.beneficiaries.personal_data.view',
+                            'filament.resources.beneficiaries.personal_data',
                             'filament.resources.beneficiaries.edit'
                         )),
 
                     NavigationItem::make()
-                        ->label(__('catagraphy.label.singular'))
+                        ->label(__('beneficiary.section.catagraphy'))
                         ->icon('icon-none')
                         ->url(static::getResource()::getUrl('catagraphy', $record))
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.catagraphy')),
+
+                    NavigationItem::make()
+                        ->label(__('activity.label'))
+                        ->icon('icon-none')
+                        ->url(static::getResource()::getUrl('history', $record))
+                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.beneficiaries.history')),
                 ]),
         ];
     }

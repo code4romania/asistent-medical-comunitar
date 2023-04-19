@@ -28,18 +28,4 @@ trait Arrayable
             ])
             ->all();
     }
-
-    public function label(): string
-    {
-        $label = collect([$this->translationKeyPrefix(), $this->value])
-            ->filter()
-            ->implode('.');
-
-        return __($label);
-    }
-
-    protected function translationKeyPrefix(): ?string
-    {
-        return null;
-    }
 }

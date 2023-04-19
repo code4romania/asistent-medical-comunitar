@@ -13,6 +13,12 @@ return [
             'employers' => 'Angajatori',
             'area' => 'Arie acoperită',
         ],
-
     ],
+
+    'section' => [
+        'index' => 'Toți asistenții',
+        'active' => 'Asistenți activi',
+        'inactive' => 'Asistenți inactivi',
+    ],
+
 ];

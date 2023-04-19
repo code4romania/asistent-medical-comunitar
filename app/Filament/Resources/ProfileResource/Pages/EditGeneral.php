@@ -47,7 +47,7 @@ class EditGeneral extends EditRecord
                         TextInput::make('cnp')
                             ->label(__('field.cnp'))
                             ->placeholder(__('placeholder.cnp'))
-                            ->unique()
+                            ->unique(ignoreRecord: true)
                             ->nullable()
                             ->rule(new ValidCNP),
                     ]),

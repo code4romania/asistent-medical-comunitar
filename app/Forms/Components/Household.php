@@ -11,6 +11,8 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class Household extends Group
 {
@@ -48,10 +50,11 @@ class Household extends Group
     protected function getViewComponents(): array
     {
         return [
-            Placeholder::make('household')
+            Value::make('household')
                 ->label(__('field.household'))
                 ->content(fn ($record) => $record->household?->name),
-            Placeholder::make('family')
+
+            Value::make('family')
                 ->label(__('field.family'))
                 ->content(fn ($record) => $record->family?->name),
         ];
@@ -63,7 +66,7 @@ class Household extends Group
             Select::make('household_id')
                 ->label(__('field.household'))
                 ->placeholder(__('placeholder.household'))
-                ->options(HouseholdModel::pluck('name', 'id'))
+                ->options($this->getHouseholds())
                 ->loadStateFromRelationshipsUsing(function ($component) {
                     $component->state(
                         $component->getModelInstance()->family?->household?->id
@@ -110,5 +113,11 @@ class Household extends Group
                 }),
 
         ];
+    }
+
+    protected function getHouseholds(): Collection
+    {
+        return Cache::driver('array')
+            ->remember('households', MINUTE_IN_SECONDS, fn () => HouseholdModel::pluck('name', 'id'));
     }
 }

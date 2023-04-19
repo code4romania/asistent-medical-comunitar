@@ -4,31 +4,23 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
+use App\Contracts\Forms\FixedActionBar;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use App\Forms\Components\BeneficiaryProgram;
 use App\Forms\Components\Card;
-use App\Forms\Components\Placeholder;
-use App\Models\Beneficiary;
-use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBeneficiary extends EditRecord implements WithSidebar
+class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
 {
-    use Concerns\CommonFormSchema;
+    use Concerns\CommonEditFormSchema;
+    use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
-
-    protected function getActions(): array
-    {
-        return [
-            // Actions\ViewAction::make(),
-            // Actions\DeleteAction::make(),
-        ];
-    }
 
     protected function form(Form $form): Form
     {
@@ -36,21 +28,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar
             return $form
                 ->columns(1)
                 ->schema([
-                    Card::make()
-                        ->columns(2)
-                        ->schema([
-                            Placeholder::make('amc')
-                                ->content(fn (Beneficiary $record) => "#{$record->amc->id} – {$record->amc->full_name}"),
-
-                            Placeholder::make('id')
-                                ->content(fn (Beneficiary $record) => $record->id),
-
-                            Placeholder::make('type')
-                                ->content(fn (Beneficiary $record) => $record->type?->label()),
-
-                            Placeholder::make('status')
-                                ->content(fn (Beneficiary $record) => $record->status?->label()),
-                        ]),
+                    BeneficiaryProgram::make(),
 
                     Card::make()
                         ->header(__('beneficiary.section.personal_data'))
@@ -65,5 +43,10 @@ class EditBeneficiary extends EditRecord implements WithSidebar
                     ->header(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
+    }
+
+    protected function getRelationManagers(): array
+    {
+        return [];
     }
 }

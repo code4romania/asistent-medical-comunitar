@@ -11,18 +11,16 @@ use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Badge;
 use App\Forms\Components\Card;
 use App\Forms\Components\Household;
-use App\Forms\Components\Location;
-use App\Forms\Components\Placeholder;
-use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Models\Beneficiary;
-use App\Models\Intervention;
-use Filament\Forms\Components\Repeater;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
 {
+    use Concerns\CommonViewFormSchema;
+    use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
@@ -31,7 +29,19 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\Action::make('convert')
+                ->visible(fn () => $this->record->isOcasional())
+                ->action(fn () => $this->record->convertToRegular())
+                ->label(__('beneficiary.action_convert.action'))
+                ->modalHeading(__('beneficiary.action_convert_confirm.title'))
+                ->modalSubheading(__('beneficiary.action_convert_confirm.text'))
+                ->modalButton(__('beneficiary.action_convert_confirm.action'))
+                ->modalWidth('md')
+                ->centerModal(false)
+                ->color('secondary'),
+
+            Actions\EditAction::make()
+                ->icon('heroicon-s-pencil'),
         ];
     }
 
@@ -42,7 +52,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
     public function getBreadcrumb(): string
     {
-        return $this->getRecord()->full_name;
+        return $this->getTitle();
     }
 
     protected function form(Form $form): Form
@@ -60,50 +70,60 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('beneficiary.section.personal_data'))
-                    ->columnSpan(1)
+                    ->componentActions(fn ($record) => [
+                        Actions\Action::make('view')
+                            ->label(__('beneficiary.action.view_details'))
+                            ->url(static::getResource()::getUrl('personal_data', $record))
+                            ->color('secondary'),
+                    ])
                     ->columns(2)
+                    ->columnSpan([
+                        'xl' => 1,
+                    ])
                     ->schema([
                         Badge::make('status')
                             ->content(fn (Beneficiary $record) => $record->status?->label())
                             ->color(fn (Beneficiary $record) => $record->status?->color())
                             ->columnSpanFull(),
 
-                        Placeholder::make('id')
-                            ->label(__('field.beneficiary_id'))
-                            ->content(fn (Beneficiary $record) => $record->id),
-
-                        Placeholder::make('integrated')
-                            ->label(__('field.integrated'))
-                            ->content('Placeholder content'),
-
-                        Household::make()
-                            ->withoutSubsection(),
-
-                        Placeholder::make('age')
-                            ->label(__('field.age'))
-                            ->content(fn (Beneficiary $record) => $record->age),
-
-                        Placeholder::make('gender')
-                            ->label(__('field.gender'))
-                            ->content(fn (Beneficiary $record) => $record->gender?->label()),
-
-                        Placeholder::make('address')
-                            ->label(__('field.address'))
-                            ->content(fn (Beneficiary $record) => $record->full_address)
+                        Value::make('reason_removed')
+                            ->label(__('field.reason_removed'))
                             ->columnSpanFull(),
 
-                        Placeholder::make('phone')
+                        Value::make('id')
+                            ->label(__('field.beneficiary_id')),
+
+                        Value::make('integrated')
+                            ->label(__('field.integrated')),
+
+                        Household::make()
+                            ->withoutSubsection()
+                            ->columns(2)
+                            ->columnSpanFull(),
+
+                        Value::make('age')
+                            ->label(__('field.age')),
+
+                        Value::make('gender')
+                            ->label(__('field.gender')),
+
+                        Value::make('full_address')
+                            ->label(__('field.address'))
+                            ->columnSpanFull(),
+
+                        Value::make('phone')
                             ->label(__('field.phone'))
-                            ->content(fn (Beneficiary $record) => $record->phone)
                             ->columnSpanFull(),
 
                     ]),
 
                 Card::make()
                     ->header(__('beneficiary.section.active_interventions'))
-                    ->columnSpan(2)
+                    ->columnSpan([
+                        'xl' => 2,
+                    ])
                     ->schema([
-
+                        // TODO: figure out interventions list
                     ]),
             ]);
     }
@@ -115,100 +135,12 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('beneficiary.section.personal_data'))
-                    ->columnSpan(1)
-                    ->schema([
-                        Badge::make('type')
-                            ->content(fn (Beneficiary $record) => $record->type?->label())
-                            ->color(fn (Beneficiary $record) => $record->type?->color()),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-user')
-                            ->columns(2)
-                            ->visible(fn (Beneficiary $record) => $record->has_unknown_identity)
-                            ->schema([
-                                Placeholder::make('has_unknown_identity')
-                                    ->label(__('field.has_unknown_identity'))
-                                    ->withoutContent()
-                                    ->columnSpanFull(),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-user')
-                            ->columns(2)
-                            ->hidden(fn (Beneficiary $record) => $record->has_unknown_identity)
-                            ->schema([
-                                Placeholder::make('first_name')
-                                    ->label(__('field.first_name'))
-                                    ->content(fn (Beneficiary $record) => $record->first_name),
-
-                                Placeholder::make('last_name')
-                                    ->label(__('field.last_name'))
-                                    ->content(fn (Beneficiary $record) => $record->last_name),
-
-                                Placeholder::make('gender')
-                                    ->label(__('field.gender'))
-                                    ->content(fn (Beneficiary $record) => $record->gender?->label()),
-
-                                Placeholder::make('cnp')
-                                    ->label(__('field.cnp'))
-                                    ->content(fn (Beneficiary $record) => $record->cnp)
-                                    ->fallback(__('field.does_not_have_cnp')),
-                            ]),
-
-                        Household::make(),
-
-                        static::getLocationSubsection(),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-lightning-bolt')
-                            ->schema([
-                                Repeater::make('interventions')
-                                    ->relationship()
-                                    ->label(__('intervention.label.plural'))
-                                    ->columns(2)
-                                    ->extraAttributes(['class' => '[ul]:divide-y'])
-                                    ->schema([
-                                        Placeholder::make('reason')
-                                            ->label(__('field.intervention_reason'))
-                                            ->content(fn (Intervention $record) => $record->reason),
-
-                                        Placeholder::make('date')
-                                            ->label(__('field.date'))
-                                            ->content(fn (Intervention $record) => $record->date),
-
-                                        Placeholder::make('services')
-                                            ->label(__('field.services'))
-                                            ->content(fn (Intervention $record) => $record->services->join(', ')),
-                                    ]),
-                            ]),
-
-                        Subsection::make()
-                            ->icon('heroicon-o-annotation')
-                            ->schema([
-                                Placeholder::make('notes')
-                                    ->label(__('field.beneficiary_notes'))
-                                    ->extraAttributes(['class' => 'prose max-w-none'])
-                                    ->content(fn (Beneficiary $record) => $record->notes),
-                            ]),
-                    ]),
+                    ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }
 
-    private static function getLocationSubsection(): Subsection
+    protected function getRelationManagers(): array
     {
-        return Subsection::make()
-            ->icon('heroicon-o-location-marker')
-            ->columns(2)
-            ->schema([
-                Location::make(),
-
-                Placeholder::make('address')
-                    ->label(__('field.address'))
-                    ->content(fn (Beneficiary $record) => $record->address),
-
-                Placeholder::make('phone')
-                    ->label(__('field.phone'))
-                    ->content(fn (Beneficiary $record) => $record->phone),
-            ]);
+        return [];
     }
 }

@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Adăugare :label',
+        'label' => 'Adaugă :label',
 
         'modal' => [
 
-            'heading' => 'Creare :label',
+            'heading' => 'Adaugă :label',
 
             'actions' => [
 
                 'create' => [
-                    'label' => 'Creare',
+                    'label' => 'Adaugă',
                 ],
 
                 'create_another' => [
-                    'label' => 'Creați și creați altul',
+                    'label' => 'Adaugă și adaugă altul',
                 ],
 
             ],
@@ -25,7 +27,7 @@ return [
         ],
 
         'messages' => [
-            'created' => 'Creat cu succes',
+            'created' => 'Adăugat cu succes',
         ],
 
     ],

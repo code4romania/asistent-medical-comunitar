@@ -53,7 +53,7 @@ RUN npm run build
 
 FROM vendor
 
-ARG S6_OVERLAY_VERSION=3.1.2.1
+ARG S6_OVERLAY_VERSION=3.1.4.1
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
@@ -76,4 +76,3 @@ ENV LOG_CHANNEL stderr
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
 
 EXPOSE 80
-

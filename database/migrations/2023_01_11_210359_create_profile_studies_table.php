@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\StudyType;
 use App\Models\City;
 use App\Models\County;
 use App\Models\User;
@@ -23,7 +22,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->nullable();
-            $table->enum('type', StudyType::values())->nullable();
+            $table->string('type')->nullable();
             $table->string('institution')->nullable();
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();

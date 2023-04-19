@@ -21,4 +21,5 @@ return [
         'update' => 'Actualizează curs',
         'delete' => 'Șterge curs',
     ],
+
 ];
