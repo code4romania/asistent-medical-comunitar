@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Vulnerability;
-use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,23 +42,23 @@ class Catagraphy extends Model
 
     protected $casts = [
         'evaluation_date' => 'date',
-        'cat_age' => Vulnerability\CatAge::class,
-        'cat_as' => Vulnerability\CatAs::class,
-        'cat_cr' => AsEnumCollection::class . ':' . Vulnerability\CatCr::class,
-        'cat_diz' => Vulnerability\CatDiz::class,
-        'cat_edu' => Vulnerability\CatEdu::class,
-        'cat_fam' => AsEnumCollection::class . ':' . Vulnerability\CatFam::class,
-        'cat_id' => Vulnerability\CatId::class,
-        'cat_inc' => Vulnerability\CatInc::class,
-        'cat_liv' => AsEnumCollection::class . ':' . Vulnerability\CatLiv::class,
-        'cat_mf' => Vulnerability\CatMf::class,
-        'cat_ns' => AsEnumCollection::class . ':' . Vulnerability\CatNs::class,
-        'cat_pov' => Vulnerability\CatPov::class,
-        'cat_preg' => AsEnumCollection::class . ':' . Vulnerability\CatPreg::class,
-        'cat_rep' => Vulnerability\CatRep::class,
-        'cat_ss' => AsEnumCollection::class . ':' . Vulnerability\CatSs::class,
-        'cat_ssa' => AsEnumCollection::class . ':' . Vulnerability\CatSsa::class,
-        'cat_vif' => AsEnumCollection::class . ':' . Vulnerability\CatVif::class,
+        'cat_age' => 'string',
+        'cat_as' => 'string',
+        'cat_cr' => 'array',
+        'cat_diz' => 'string',
+        'cat_edu' => 'string',
+        'cat_fam' => 'array',
+        'cat_id' => 'string',
+        'cat_inc' => 'string',
+        'cat_liv' => 'array',
+        'cat_mf' => 'string',
+        'cat_ns' => 'array',
+        'cat_pov' => 'string',
+        'cat_preg' => 'array',
+        'cat_rep' => 'string',
+        'cat_ss' => 'array',
+        'cat_ssa' => 'array',
+        'cat_vif' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
