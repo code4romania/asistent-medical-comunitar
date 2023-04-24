@@ -8,7 +8,9 @@ use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
+use App\Models\Vulnerability\VulnerabilityCategory;
 use App\Rules\MultipleIn;
+use Closure;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -27,6 +29,7 @@ class CatagraphyResource extends Resource
     public static function form(Form $form): Form
     {
         $vulnerabilities = Vulnerability::allAsOptions();
+        $categories = VulnerabilityCategory::cachedList();
 
         return $form
             ->columns(1)
@@ -53,35 +56,35 @@ class CatagraphyResource extends Resource
                             ->columns(2)
                             ->schema([
                                 Select::make('cat_id')
-                                    ->label(__('vulnerability.field.cat_id'))
+                                    ->label($categories->get('ID'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('ID'))
                                     ->in($vulnerabilities->get('ID')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_age')
-                                    ->label(__('vulnerability.field.cat_age'))
+                                    ->label($categories->get('AGE'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('AGE'))
                                     ->in($vulnerabilities->get('AGE')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_inc')
-                                    ->label(__('vulnerability.field.cat_inc'))
+                                    ->label($categories->get('INC'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('INC'))
                                     ->in($vulnerabilities->get('INC')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_pov')
-                                    ->label(__('vulnerability.field.cat_pov'))
+                                    ->label($categories->get('POV'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('POV'))
                                     ->in($vulnerabilities->get('POV')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_liv')
-                                    ->label(__('vulnerability.field.cat_liv'))
+                                    ->label($categories->get('LIV'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('LIV'))
                                     ->rule(new MultipleIn($vulnerabilities->get('LIV')->keys()))
@@ -89,7 +92,7 @@ class CatagraphyResource extends Resource
                                     ->searchable(),
 
                                 Select::make('cat_fam')
-                                    ->label(__('vulnerability.field.cat_fam'))
+                                    ->label($categories->get('FAM'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('FAM'))
                                     ->rule(new MultipleIn($vulnerabilities->get('FAM')->keys()))
@@ -97,14 +100,14 @@ class CatagraphyResource extends Resource
                                     ->searchable(),
 
                                 Select::make('cat_edu')
-                                    ->label(__('vulnerability.field.cat_edu'))
+                                    ->label($categories->get('EDU'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('EDU'))
                                     ->in($vulnerabilities->get('EDU')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_vif')
-                                    ->label(__('vulnerability.field.cat_vif'))
+                                    ->label($categories->get('VIF'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('VIF'))
                                     ->rule(new MultipleIn($vulnerabilities->get('VIF')->keys()))
@@ -119,28 +122,51 @@ class CatagraphyResource extends Resource
                             ->schema([
 
                                 Select::make('cat_as')
-                                    ->label(__('vulnerability.field.cat_as'))
+                                    ->label($categories->get('AS'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('AS'))
                                     ->in($vulnerabilities->get('AS')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_mf')
-                                    ->label(__('vulnerability.field.cat_mf'))
+                                    ->label($categories->get('MF'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('MF'))
                                     ->in($vulnerabilities->get('MF')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_diz')
-                                    ->label(__('vulnerability.field.cat_diz'))
+                                    ->label($categories->get('DIZ'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('DIZ'))
                                     ->in($vulnerabilities->get('DIZ')->keys())
+                                    ->reactive()
                                     ->searchable(),
 
+                                Card::make()
+                                    ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
+                                    ->columns()
+                                    ->columnSpanFull()
+                                    ->pointer()
+                                    ->visible(fn (Closure $get) => Vulnerability::isDisability($get('cat_diz')))
+                                    ->schema([
+                                        Select::make('cat_diz_tip')
+                                            ->label($categories->get('DIZ_TIP'))
+                                            ->placeholder(__('placeholder.select_one'))
+                                            ->options($vulnerabilities->get('DIZ_TIP'))
+                                            ->in($vulnerabilities->get('DIZ_TIP')->keys())
+                                            ->searchable(),
+
+                                        Select::make('cat_diz_gr')
+                                            ->label($categories->get('DIZ_GR'))
+                                            ->placeholder(__('placeholder.select_one'))
+                                            ->options($vulnerabilities->get('DIZ_GR'))
+                                            ->in($vulnerabilities->get('DIZ_GR')->keys())
+                                            ->searchable(),
+                                    ]),
+
                                 Select::make('cat_cr')
-                                    ->label(__('vulnerability.field.cat_cr'))
+                                    ->label($categories->get('CR'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('CR'))
                                     ->rule(new MultipleIn($vulnerabilities->get('CR')->keys()))
@@ -148,7 +174,7 @@ class CatagraphyResource extends Resource
                                     ->searchable(),
 
                                 Select::make('cat_ns')
-                                    ->label(__('vulnerability.field.cat_ns'))
+                                    ->label($categories->get('NS'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('NS'))
                                     ->rule(new MultipleIn($vulnerabilities->get('NS')->keys()))
@@ -156,7 +182,7 @@ class CatagraphyResource extends Resource
                                     ->searchable(),
 
                                 Select::make('cat_ssa')
-                                    ->label(__('vulnerability.field.cat_ssa'))
+                                    ->label($categories->get('SSA'))
                                     ->placeholder(__('placeholder.select_many'))
                                     ->options($vulnerabilities->get('SSA'))
                                     ->rule(new MultipleIn($vulnerabilities->get('SSA')->keys()))
@@ -170,19 +196,28 @@ class CatagraphyResource extends Resource
                             ->columns(2)
                             ->schema([
                                 Select::make('cat_rep')
-                                    ->label(__('vulnerability.field.cat_rep'))
+                                    ->label($categories->get('REP'))
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('REP'))
                                     ->in($vulnerabilities->get('REP')->keys())
+                                    ->reactive()
                                     ->searchable(),
 
-                                Select::make('cat_preg')
-                                    ->label(__('vulnerability.field.cat_preg'))
-                                    ->placeholder(__('placeholder.select_many'))
-                                    ->options($vulnerabilities->get('PREG'))
-                                    ->rule(new MultipleIn($vulnerabilities->get('PREG')->keys()))
-                                    ->multiple()
-                                    ->searchable(),
+                                Card::make()
+                                    ->header(__('field.section_details', ['section' => $categories->get('PREG')]))
+                                    ->columns()
+                                    ->columnSpanFull()
+                                    ->pointer()
+                                    ->visible(fn (Closure $get) => Vulnerability::isPregnancy($get('cat_rep')))
+                                    ->schema([
+                                        Select::make('cat_preg')
+                                            ->label($categories->get('PREG'))
+                                            ->placeholder(__('placeholder.select_many'))
+                                            ->options($vulnerabilities->get('PREG'))
+                                            ->rule(new MultipleIn($vulnerabilities->get('PREG')->keys()))
+                                            ->multiple()
+                                            ->searchable(),
+                                    ]),
                             ]),
 
                         Subsection::make()

@@ -12,6 +12,7 @@ use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
 use App\Forms\Components\VulnerabilityChips;
 use App\Models\Catagraphy;
+use App\Models\Vulnerability\Vulnerability;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -109,7 +110,7 @@ class ViewCatagraphy extends ViewRecord
                                 VulnerabilityChips::make('cat_mf')
                                     ->label(__('vulnerability.field.cat_mf')),
 
-                                VulnerabilityChips::make('cat_diz')
+                                VulnerabilityChips::make('cat_diz_all')
                                     ->label(__('vulnerability.field.cat_diz')),
 
                                 VulnerabilityChips::make('cat_cr')
@@ -134,7 +135,8 @@ class ViewCatagraphy extends ViewRecord
                                     ->label(__('vulnerability.field.cat_rep')),
 
                                 VulnerabilityChips::make('cat_preg')
-                                    ->label(__('vulnerability.field.cat_preg')),
+                                    ->label(__('vulnerability.field.cat_preg'))
+                                    ->visible(fn (callable $get) => Vulnerability::isPregnancy($get('cat_rep'))),
                             ]),
 
                         Subsection::make()

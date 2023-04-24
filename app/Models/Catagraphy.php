@@ -25,6 +25,8 @@ class Catagraphy extends Model
         'cat_as',
         'cat_cr',
         'cat_diz',
+        'cat_diz_tip',
+        'cat_diz_gr',
         'cat_edu',
         'cat_fam',
         'cat_id',
@@ -46,6 +48,8 @@ class Catagraphy extends Model
         'cat_as' => 'string',
         'cat_cr' => 'array',
         'cat_diz' => 'string',
+        'cat_diz_tip' => 'string',
+        'cat_diz_gr' => 'string',
         'cat_edu' => 'string',
         'cat_fam' => 'array',
         'cat_id' => 'string',
@@ -105,9 +109,20 @@ class Catagraphy extends Model
             $this->cat_as,
             $this->cat_mf,
             $this->cat_diz,
+            $this->cat_diz_tip,
+            $this->cat_diz_gr,
             $this->cat_cr,
             $this->cat_ns,
             $this->cat_ssa,
+        ])->flatten();
+    }
+
+    public function getCatDizAllAttribute(): Collection
+    {
+        return collect([
+            $this->cat_diz,
+            $this->cat_diz_tip,
+            $this->cat_diz_gr,
         ])->flatten();
     }
 

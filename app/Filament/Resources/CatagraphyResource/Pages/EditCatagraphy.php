@@ -8,6 +8,7 @@ use App\Contracts\Forms\FixedActionBar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
+use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,6 +49,17 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+        // Handle pregnancy data
+        if (! Vulnerability::isPregnancy($data['cat_rep'])) {
+            $data['cat_preg'] = null;
+        }
+
+        // Handle disability data
+        if (! Vulnerability::isDisability($data['cat_diz'])) {
+            $data['cat_diz_tip'] = null;
+            $data['cat_diz_gr'] = null;
+        }
+
         $record->fill($data)->save();
 
         return $record;

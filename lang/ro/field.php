@@ -25,6 +25,7 @@ return [
     'current_status' => 'Status curent',
     'date_of_birth' => 'Data nașterii',
     'date' => 'Data',
+    'section_details' => ':section - detalii',
     'does_not_have_cnp' => 'Beneficiarul nu are CNP',
     'email' => 'Email',
     'employer_name' => 'Denumire angajator',

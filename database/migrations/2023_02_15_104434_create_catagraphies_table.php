@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('cat_as')->nullable();
             $table->json('cat_cr')->nullable();
             $table->string('cat_diz')->nullable();
+            $table->string('cat_diz_tip')->nullable();
+            $table->string('cat_diz_gr')->nullable();
             $table->string('cat_edu')->nullable();
             $table->json('cat_fam')->nullable();
             $table->string('cat_id')->nullable();
