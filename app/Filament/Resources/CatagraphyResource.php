@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Vulnerability;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Catagraphy;
-use App\Rules\EnumCollection;
+use App\Models\Vulnerability\Vulnerability;
+use App\Rules\MultipleIn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -26,6 +26,8 @@ class CatagraphyResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $vulnerabilities = Vulnerability::allAsOptions();
+
         return $form
             ->columns(1)
             ->schema([
@@ -53,59 +55,59 @@ class CatagraphyResource extends Resource
                                 Select::make('cat_id')
                                     ->label(__('vulnerability.field.cat_id'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatId::options())
-                                    ->enum(Vulnerability\CatId::class)
+                                    ->options($vulnerabilities->get('ID'))
+                                    ->in($vulnerabilities->get('ID')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_age')
                                     ->label(__('vulnerability.field.cat_age'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatAge::options())
-                                    ->enum(Vulnerability\CatAge::class)
+                                    ->options($vulnerabilities->get('AGE'))
+                                    ->in($vulnerabilities->get('AGE')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_inc')
                                     ->label(__('vulnerability.field.cat_inc'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatInc::options())
-                                    ->enum(Vulnerability\CatInc::class)
+                                    ->options($vulnerabilities->get('INC'))
+                                    ->in($vulnerabilities->get('INC')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_pov')
                                     ->label(__('vulnerability.field.cat_pov'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatPov::options())
-                                    ->enum(Vulnerability\CatPov::class)
+                                    ->options($vulnerabilities->get('POV'))
+                                    ->in($vulnerabilities->get('POV')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_liv')
                                     ->label(__('vulnerability.field.cat_liv'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatLiv::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatLiv::class))
+                                    ->options($vulnerabilities->get('LIV'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('LIV')->keys()))
                                     ->multiple()
                                     ->searchable(),
 
                                 Select::make('cat_fam')
                                     ->label(__('vulnerability.field.cat_fam'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatFam::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatFam::class))
+                                    ->options($vulnerabilities->get('FAM'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('FAM')->keys()))
                                     ->multiple()
                                     ->searchable(),
 
                                 Select::make('cat_edu')
                                     ->label(__('vulnerability.field.cat_edu'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatEdu::options())
-                                    ->enum(Vulnerability\CatEdu::class)
+                                    ->options($vulnerabilities->get('EDU'))
+                                    ->in($vulnerabilities->get('EDU')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_vif')
                                     ->label(__('vulnerability.field.cat_vif'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatVif::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatVif::class))
+                                    ->options($vulnerabilities->get('VIF'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('VIF')->keys()))
                                     ->multiple()
                                     ->searchable(),
                             ]),
@@ -119,45 +121,45 @@ class CatagraphyResource extends Resource
                                 Select::make('cat_as')
                                     ->label(__('vulnerability.field.cat_as'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatAs::options())
-                                    ->enum(Vulnerability\CatAs::class)
+                                    ->options($vulnerabilities->get('AS'))
+                                    ->in($vulnerabilities->get('AS')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_mf')
                                     ->label(__('vulnerability.field.cat_mf'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatMf::options())
-                                    ->enum(Vulnerability\CatMf::class)
+                                    ->options($vulnerabilities->get('MF'))
+                                    ->in($vulnerabilities->get('MF')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_diz')
                                     ->label(__('vulnerability.field.cat_diz'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatDiz::options())
-                                    ->enum(Vulnerability\CatDiz::class)
+                                    ->options($vulnerabilities->get('DIZ'))
+                                    ->in($vulnerabilities->get('DIZ')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_cr')
                                     ->label(__('vulnerability.field.cat_cr'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatCr::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatCr::class))
+                                    ->options($vulnerabilities->get('CR'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('CR')->keys()))
                                     ->multiple()
                                     ->searchable(),
 
                                 Select::make('cat_ns')
                                     ->label(__('vulnerability.field.cat_ns'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatNs::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatNs::class))
+                                    ->options($vulnerabilities->get('NS'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('NS')->keys()))
                                     ->multiple()
                                     ->searchable(),
 
                                 Select::make('cat_ssa')
                                     ->label(__('vulnerability.field.cat_ssa'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatSsa::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatSsa::class))
+                                    ->options($vulnerabilities->get('SSA'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('SSA')->keys()))
                                     ->multiple()
                                     ->searchable(),
                             ]),
@@ -170,15 +172,15 @@ class CatagraphyResource extends Resource
                                 Select::make('cat_rep')
                                     ->label(__('vulnerability.field.cat_rep'))
                                     ->placeholder(__('placeholder.select_one'))
-                                    ->options(Vulnerability\CatRep::options())
-                                    ->enum(Vulnerability\CatRep::class)
+                                    ->options($vulnerabilities->get('REP'))
+                                    ->in($vulnerabilities->get('REP')->keys())
                                     ->searchable(),
 
                                 Select::make('cat_preg')
                                     ->label(__('vulnerability.field.cat_preg'))
                                     ->placeholder(__('placeholder.select_many'))
-                                    ->options(Vulnerability\CatPreg::options())
-                                    ->rule(new EnumCollection(Vulnerability\CatPreg::class))
+                                    ->options($vulnerabilities->get('PREG'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('PREG')->keys()))
                                     ->multiple()
                                     ->searchable(),
                             ]),
