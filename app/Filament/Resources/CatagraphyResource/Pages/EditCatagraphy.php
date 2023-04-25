@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
 use App\Contracts\Forms\FixedActionBar;
+use App\Enums\Beneficiary\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
@@ -61,6 +62,10 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
         }
 
         $record->fill($data)->save();
+
+        if ($record->beneficiary->status->is(Status::REGISTERED)) {
+            $record->beneficiary->changeStatus(Status::CATAGRAPHED);
+        }
 
         return $record;
     }

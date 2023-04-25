@@ -6,14 +6,19 @@ namespace App\Filament\Resources;
 
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
+use App\Forms\Components\YearPicker;
 use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use App\Rules\MultipleIn;
 use Closure;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -135,34 +140,66 @@ class CatagraphyResource extends Resource
                                     ->in($vulnerabilities->get('MF')->keys())
                                     ->searchable(),
 
-                                Select::make('cat_diz')
-                                    ->label($categories->get('DIZ'))
-                                    ->placeholder(__('placeholder.select_one'))
-                                    ->options($vulnerabilities->get('DIZ'))
-                                    ->in($vulnerabilities->get('DIZ')->keys())
-                                    ->reactive()
-                                    ->searchable(),
+                                Grid::make()
+                                    ->columnSpanFull()
+                                    ->schema([
+                                        Select::make('cat_diz')
+                                            ->label($categories->get('DIZ'))
+                                            ->placeholder(__('placeholder.select_one'))
+                                            ->options($vulnerabilities->get('DIZ'))
+                                            ->in($vulnerabilities->get('DIZ')->keys())
+                                            ->reactive()
+                                            ->searchable(),
+                                    ]),
 
                                 Card::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
-                                    ->columns()
                                     ->columnSpanFull()
                                     ->pointer()
                                     ->visible(fn (Closure $get) => Vulnerability::isDisability($get('cat_diz')))
                                     ->schema([
-                                        Select::make('cat_diz_tip')
-                                            ->label($categories->get('DIZ_TIP'))
-                                            ->placeholder(__('placeholder.select_one'))
-                                            ->options($vulnerabilities->get('DIZ_TIP'))
-                                            ->in($vulnerabilities->get('DIZ_TIP')->keys())
-                                            ->searchable(),
+                                        Repeater::make('disabilities')
+                                            ->relationship()
+                                            ->disableItemMovement()
+                                            ->disableLabel()
+                                            ->columns()
+                                            ->minItems(1)
+                                            ->defaultItems(1)
+                                            ->schema([
+                                                Select::make('type')
+                                                    ->label($categories->get('DIZ_TIP'))
+                                                    ->placeholder(__('placeholder.select_one'))
+                                                    ->options($vulnerabilities->get('DIZ_TIP'))
+                                                    ->in($vulnerabilities->get('DIZ_TIP')->keys())
+                                                    ->searchable(),
 
-                                        Select::make('cat_diz_gr')
-                                            ->label($categories->get('DIZ_GR'))
-                                            ->placeholder(__('placeholder.select_one'))
-                                            ->options($vulnerabilities->get('DIZ_GR'))
-                                            ->in($vulnerabilities->get('DIZ_GR')->keys())
-                                            ->searchable(),
+                                                Select::make('degree')
+                                                    ->label($categories->get('DIZ_GR'))
+                                                    ->placeholder(__('placeholder.select_one'))
+                                                    ->options($vulnerabilities->get('DIZ_GR'))
+                                                    ->in($vulnerabilities->get('DIZ_GR')->keys())
+                                                    ->searchable(),
+
+                                                Select::make('diagnostic')
+                                                    ->label(__('field.cat_diz_dx'))
+                                                    ->disabled(),
+
+                                                Select::make('diagnostic_code')
+                                                    ->label(__('field.cat_diz_cdx'))
+                                                    ->disabled(),
+
+                                                Checkbox::make('receives_pension')
+                                                    ->label(__('field.cat_diz_iph'))
+                                                    ->columnSpanFull(),
+
+                                                YearPicker::make('start_year')
+                                                    ->label(__('field.cat_diz_deb')),
+
+                                                TextInput::make('notes')
+                                                    ->label(__('field.cat_diz_am'))
+                                                    ->nullable()
+                                                    ->maxLength(100),
+                                            ]),
                                     ]),
 
                                 Select::make('cat_cr')
@@ -188,6 +225,61 @@ class CatagraphyResource extends Resource
                                     ->rule(new MultipleIn($vulnerabilities->get('SSA')->keys()))
                                     ->multiple()
                                     ->searchable(),
+
+                                Select::make('cat_ss')
+                                    ->label($categories->get('SS'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options($vulnerabilities->get('SS'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('SS')->keys()))
+                                    ->reactive()
+                                    ->multiple()
+                                    ->searchable(),
+
+                                Card::make()
+                                    ->header(__('field.section_details', ['section' => $categories->get('SS')]))
+                                    ->columnSpanFull()
+                                    ->pointer('right')
+                                    ->visible(fn (Closure $get) => ! empty($get('cat_ss')))
+                                    ->schema([
+                                        Repeater::make('diseases')
+                                            ->relationship()
+                                            ->disableItemMovement()
+                                            ->disableLabel()
+                                            ->columns()
+                                            ->minItems(1)
+                                            ->defaultItems(1)
+                                            ->schema([
+                                                Select::make('type')
+                                                    ->label($categories->get('SSs'))
+                                                    ->placeholder(__('placeholder.select_one'))
+                                                    ->options($vulnerabilities->get('SS'))
+                                                    ->in($vulnerabilities->get('SS')->keys())
+                                                    ->searchable(),
+
+                                                Select::make('category')
+                                                    ->label($categories->get('SS_B'))
+                                                    ->placeholder(__('placeholder.select_one'))
+                                                    ->options($vulnerabilities->get('SS_B'))
+                                                    ->in($vulnerabilities->get('SS_B')->keys())
+                                                    ->searchable(),
+
+                                                Select::make('diagnostic')
+                                                    ->label(__('field.cat_diz_dx'))
+                                                    ->disabled(),
+
+                                                Select::make('diagnostic_code')
+                                                    ->label(__('field.cat_diz_cdx'))
+                                                    ->disabled(),
+
+                                                YearPicker::make('start_year')
+                                                    ->label(__('field.cat_diz_deb')),
+
+                                                TextInput::make('notes')
+                                                    ->label(__('field.cat_diz_am'))
+                                                    ->nullable()
+                                                    ->maxLength(100),
+                                            ]),
+                                    ]),
                             ]),
 
                         Subsection::make()

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -87,6 +88,16 @@ class Catagraphy extends Model
     public function nurse(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function disabilities(): HasMany
+    {
+        return $this->hasMany(Disability::class);
+    }
+
+    public function diseases(): HasMany
+    {
+        return $this->hasMany(Disease::class);
     }
 
     public function getSocioeconomicVulnerabilitiesAttribute(): Collection

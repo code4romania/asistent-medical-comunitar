@@ -89,11 +89,13 @@ class HouseholdResource extends Resource
                             ->searchable()
                             ->sortable()
                             ->alignment('left'),
+
                         TextColumn::make('families_count')
                             ->label(__('field.families_count'))
                             ->prefix(__('field.families_count') . ' ')
                             ->counts('families')
                             ->sortable(),
+
                         TextColumn::make('beneficiaries_count')
                             ->label(__('field.beneficiaries_count'))
                             ->prefix(__('field.beneficiaries_count') . ' ')
