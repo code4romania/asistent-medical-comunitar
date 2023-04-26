@@ -200,4 +200,15 @@ class Beneficiary extends Model
             'type' => Type::REGULAR,
         ]);
     }
+
+    public function changeStatus(Status | string $status): void
+    {
+        if (\is_string($status)) {
+            $status = Status::tryFrom($status);
+        }
+
+        $this->update([
+            'status' => $status,
+        ]);
+    }
 }
