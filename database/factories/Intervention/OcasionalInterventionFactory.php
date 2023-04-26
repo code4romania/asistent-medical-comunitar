@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Database\Factories\Intervention;
 
 use App\Models\Beneficiary;
-use App\Models\Intervention\OcasionalBeneficiaryIntervention;
+use App\Models\Intervention\OcasionalIntervention;
 use App\Models\Service\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Intervention>
  */
-class OcasionalBeneficiaryInterventionFactory extends Factory
+class OcasionalInterventionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -33,7 +33,7 @@ class OcasionalBeneficiaryInterventionFactory extends Factory
      */
     public function configure(): static
     {
-        return $this->afterCreating(function (OcasionalBeneficiaryIntervention $intervention) {
+        return $this->afterCreating(function (OcasionalIntervention $intervention) {
             $intervention->services()->attach(
                 Service::query()
                     ->inRandomOrder()

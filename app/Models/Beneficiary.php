@@ -86,8 +86,8 @@ class Beneficiary extends Model
    {
        return $this->hasMany(
            $this->isOcasional()
-               ? Intervention\OcasionalBeneficiaryIntervention::class
-               : Intervention\RegularBeneficiaryIntervention::class
+               ? Intervention\OcasionalIntervention::class
+               : Intervention\RegularIntervention::class
        );
    }
 
@@ -169,6 +169,11 @@ class Beneficiary extends Model
         ])
             ->filter()
             ->isEmpty();
+    }
+
+    public function getDoesNotHaveCnpAttribute(): bool
+    {
+        return \is_null($this->cnp);
     }
 
     public function isRegular(): bool
