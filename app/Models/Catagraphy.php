@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -100,46 +100,68 @@ class Catagraphy extends Model
         return $this->hasMany(Disease::class);
     }
 
-    public function getSocioeconomicVulnerabilitiesAttribute(): Collection
+    public function socioeconomicVulnerabilities(): Attribute
     {
-        return collect([
-            $this->cat_age,
-            $this->cat_inc,
-            $this->cat_id,
-            $this->cat_pov,
-            $this->cat_liv,
-            $this->cat_fam,
-            $this->cat_edu,
-            $this->cat_vif,
-        ])->flatten();
+        return Attribute::make(
+            get: fn () => collect([
+                $this->cat_age,
+                $this->cat_inc,
+                $this->cat_id,
+                $this->cat_pov,
+                $this->cat_liv,
+                $this->cat_fam,
+                $this->cat_edu,
+                $this->cat_vif,
+            ])->flatten()
+        )->shouldCache();
     }
 
-    public function getHealthVulnerabilitiesAttribute(): Collection
+    public function healthVulnerabilities(): Attribute
     {
-        return collect([
-            $this->cat_as,
-            $this->cat_mf,
-            $this->cat_diz_all,
-            $this->cat_cr,
-            $this->cat_ns,
-            $this->cat_ssa,
-        ])->flatten();
+        return Attribute::make(
+            get: fn () => collect([
+                $this->cat_as,
+                $this->cat_mf,
+                $this->cat_diz_all,
+                $this->cat_cr,
+                $this->cat_ns,
+                $this->cat_ssa,
+            ])->flatten()
+        )->shouldCache();
     }
 
-    public function getCatDizAllAttribute(): Collection
+    public function catDizAll(): Attribute
     {
-        return collect([
-            $this->cat_diz,
-            $this->cat_diz_tip,
-            $this->cat_diz_gr,
-        ])->flatten();
+        return Attribute::make(
+            get: fn () => collect([
+                $this->cat_diz,
+                $this->cat_diz_tip,
+                $this->cat_diz_gr,
+            ])->flatten()
+        )->shouldCache();
     }
 
-    public function getReproductiveHealthAttribute(): Collection
+    public function reproductiveHealth(): Attribute
     {
-        return collect([
-            $this->cat_rep,
-            $this->cat_preg,
-        ])->flatten();
+        return Attribute::make(
+            get: fn () => collect([
+                $this->cat_rep,
+                $this->cat_preg,
+            ])->flatten()
+        )->shouldCache();
+    }
+
+    public function allVulnerabilities(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => collect([
+                $this->socioeconomic_vulnerabilities,
+                $this->health_vulnerabilities,
+                $this->reproductive_health,
+            ])
+                ->flatten()
+                ->filter()
+                ->values()
+        )->shouldCache();
     }
 }

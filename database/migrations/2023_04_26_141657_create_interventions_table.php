@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Enums\InterventionType;
 use App\Models\Beneficiary;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\Service\Service;
+use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -31,10 +33,15 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->date('date')->nullable();
-            $table->boolean('is_case');
+            $table->enum('type', InterventionType::values());
+
             $table->string('reason')->nullable();
 
             $table->foreignIdFor(Beneficiary::class)->constrained();
+            $table->foreignIdFor(Service::class)->nullable()->constrained();
+            $table->foreignIdFor(Vulnerability::class)->nullable()->constrained();
+
+            $table->nestedSet();
         });
 
         Schema::create('intervention_service', function (Blueprint $table) {

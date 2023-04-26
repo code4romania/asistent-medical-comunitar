@@ -87,7 +87,7 @@ class Beneficiary extends Model
        return $this->hasMany(
            $this->isOcasional()
                ? Intervention\OcasionalIntervention::class
-               : Intervention\RegularIntervention::class
+               : Intervention\Intervention::class
        );
    }
 

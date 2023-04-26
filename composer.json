@@ -10,6 +10,7 @@
         "blade-ui-kit/blade-heroicons": "^1.4",
         "filament/filament": "^2.17.10",
         "guzzlehttp/guzzle": "^7.5",
+        "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^10.9",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",

@@ -51,6 +51,7 @@ class CatagraphyResource extends Resource
                                 Select::make('nurse_id')
                                     ->label(__('field.nurse'))
                                     ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
+                                    ->disabled()
                                     ->searchable()
                                     ->preload(),
                             ]),

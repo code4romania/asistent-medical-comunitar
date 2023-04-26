@@ -65,6 +65,7 @@ class BeneficiaryProgram extends Card
                 ->label(__('field.allocated_nurse'))
                 ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
                 ->getOptionLabelFromRecordUsing(fn (User $record) => "#{$record->id} {$record->full_name}")
+                ->disabled()
                 ->searchable()
                 ->preload(),
 
