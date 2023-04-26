@@ -30,6 +30,8 @@ return [
         'update' => 'Actualizează catagrafie',
         'delete' => 'Șterge catagrafie',
         'view' => 'Vezi formular',
+        'add_disability' => 'Adaugă încă o dizabilitate',
+        'add_disease' => 'Adaugă încă o boală',
     ],
 
     'vulnerability' => [

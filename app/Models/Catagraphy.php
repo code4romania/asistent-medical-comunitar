@@ -119,9 +119,7 @@ class Catagraphy extends Model
         return collect([
             $this->cat_as,
             $this->cat_mf,
-            $this->cat_diz,
-            $this->cat_diz_tip,
-            $this->cat_diz_gr,
+            $this->cat_diz_all,
             $this->cat_cr,
             $this->cat_ns,
             $this->cat_ssa,

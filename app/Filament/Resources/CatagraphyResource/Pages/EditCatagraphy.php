@@ -56,7 +56,7 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
         }
 
         // Handle disability data
-        if (! Vulnerability::isDisability($data['cat_diz'])) {
+        if (! Vulnerability::isValid($data['cat_diz'])) {
             $data['cat_diz_tip'] = null;
             $data['cat_diz_gr'] = null;
         }
