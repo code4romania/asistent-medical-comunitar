@@ -17,6 +17,11 @@ return [
         'view_case' => 'Vezi fișă',
     ],
 
+    'empty' => [
+        'title' => 'Nicio intervenție deschisă',
+        'create' => 'Deschide intervenție',
+    ],
+
     'type' => [
         'individual' => 'Serviciu individual',
         'case' => 'Management de caz',

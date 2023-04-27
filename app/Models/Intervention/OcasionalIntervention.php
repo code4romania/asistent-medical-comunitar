@@ -15,8 +15,6 @@ class OcasionalIntervention extends Model
 {
     use HasFactory;
 
-    protected $table = 'interventions_ocasional';
-
     protected $fillable = [
         'reason',
         'date',
@@ -33,6 +31,6 @@ class OcasionalIntervention extends Model
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class, 'intervention_service');
+        return $this->belongsToMany(Service::class);
     }
 }

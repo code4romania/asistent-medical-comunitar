@@ -8,17 +8,14 @@ use App\Enums\InterventionType;
 use App\Models\Beneficiary;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Kalnoy\Nestedset\NodeTrait;
 
-class Intervention extends Model
+class IndividualService extends Model
 {
     use HasFactory;
-    use NodeTrait;
-
-    protected $table = 'interventions_regular';
 
     protected $fillable = [
         'beneficiary_id',
@@ -45,6 +42,11 @@ class Intervention extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
+    }
+
+    public function scopeWithoutCase(Builder $query): Builder
+    {
+        return $query->whereNull('case_management_id');
     }
 
     public function isIndividual(): bool

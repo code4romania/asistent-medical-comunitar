@@ -210,7 +210,7 @@ trait CommonEditFormSchema
             Subsection::make()
                 ->icon('heroicon-o-lightning-bolt')
                 ->schema([
-                    Repeater::make('interventions')
+                    Repeater::make('ocasionalInterventions')
                         ->relationship()
                         ->label(__('intervention.label.plural'))
                         ->createItemButtonLabel(__('intervention.action.create'))

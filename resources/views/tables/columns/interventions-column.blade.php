@@ -20,7 +20,7 @@
                 <x-tables::cell class="px-4 py-6">STATUS</x-tables::cell>
                 <x-tables::cell class="px-4 py-6">0/0</x-tables::cell>
                 <x-tables::cell class="px-4 py-6">0</x-tables::cell>
-                <x-tables::cell class="px-4 py-6">
+                <x-tables::cell class="flex justify-end px-4 py-6">
                     @if ($intervention->isCase())
                         <x-filament::link href="#">
                             @lang('intervention.action.view_case')

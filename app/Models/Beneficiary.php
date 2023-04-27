@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\HasCaseManagement;
 use App\Concerns\HasLocation;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
@@ -23,6 +24,7 @@ use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 class Beneficiary extends Model
 {
     use BelongsToThroughTrait;
+    use HasCaseManagement;
     use HasFactory;
     use HasLocation;
     use LogsActivity;
@@ -82,14 +84,16 @@ class Beneficiary extends Model
         return $this->belongsTo(User::class);
     }
 
-   public function interventions(): HasMany
-   {
-       return $this->hasMany(
-           $this->isOcasional()
-               ? Intervention\OcasionalIntervention::class
-               : Intervention\Intervention::class
-       );
-   }
+    public function ocasionalInterventions(): HasMany
+    {
+        return $this->hasMany(Intervention\OcasionalIntervention::class);
+    }
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(Intervention\IndividualService::class)
+            ->withoutCase();
+    }
 
     public function catagraphy(): HasOne
     {

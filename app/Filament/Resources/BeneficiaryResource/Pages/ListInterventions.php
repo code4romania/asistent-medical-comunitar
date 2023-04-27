@@ -12,6 +12,7 @@ use App\Models\Intervention\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListInterventions extends ListRecords implements WithSidebar
@@ -68,6 +69,27 @@ class ListInterventions extends ListRecords implements WithSidebar
             // ->modalWidth('md')
             // ->centerModal(false)
 
+        ];
+    }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return __('intervention.empty.title');
+    }
+
+    protected function getTableEmptyStateActions(): array
+    {
+        return [
+            Tables\Actions\Action::make('create')
+                ->label(__('intervention.empty.create'))
+                // ->url(static::getResource()::getUrl('create'))
+                ->button()
+                ->color('secondary'),
         ];
     }
 }

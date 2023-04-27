@@ -114,7 +114,7 @@ trait CommonViewFormSchema
             Subsection::make()
                 ->icon('heroicon-o-lightning-bolt')
                 ->schema([
-                    Repeater::make('interventions')
+                    Repeater::make('ocasionalInterventions')
                         ->relationship(
                             callback: fn (Builder $query) => $query->with('services')
                         )
