@@ -15,8 +15,6 @@ class ProfileResource extends Resource
 
     protected static ?string $slug = 'profile';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
-
     protected static bool $shouldRegisterNavigation = false;
 
     public static function getRelations(): array

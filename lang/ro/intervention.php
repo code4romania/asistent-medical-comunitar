@@ -13,6 +13,8 @@ return [
         'create' => 'Adaugă altă intervenție',
         'add_service' => 'Adaugă serviciu',
         'open_case' => 'Deschide caz',
+        'view_individual' => 'Vezi serviciu',
+        'view_case' => 'Vezi fișă',
     ],
 
     'type' => [

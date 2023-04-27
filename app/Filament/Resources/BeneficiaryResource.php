@@ -21,8 +21,6 @@ class BeneficiaryResource extends Resource
 {
     protected static ?string $model = Beneficiary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
-
     protected static ?string $recordTitleAttribute = 'full_name';
 
     public static function getModelLabel(): string

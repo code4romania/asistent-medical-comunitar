@@ -27,8 +27,6 @@ class CatagraphyResource extends Resource
 {
     protected static ?string $model = Catagraphy::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
-
     protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
