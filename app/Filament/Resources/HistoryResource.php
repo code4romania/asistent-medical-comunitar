@@ -2,32 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\BeneficiaryResource\RelationManagers;
+namespace App\Filament\Resources;
 
 use App\Models\Activity;
 use Carbon\Carbon;
-use Closure;
 use Filament\Forms\Components\DatePicker;
-use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Contracts\Support\Htmlable;
 
-class HistoryRelationManager extends RelationManager
+class HistoryResource extends Resource
 {
-    protected static string $relationship = 'activity';
+    protected static ?string $model = Activity::class;
 
-    protected function getTableHeading(): string | Htmlable | Closure | null
-    {
-        return null;
-    }
+    protected static bool $shouldRegisterNavigation = false;
 
-    protected static function getPluralModelLabel(): string
+    public static function form(Form $form): Form
     {
-        return __('activity.label');
+        return $form;
     }
 
     public static function table(Table $table): Table
@@ -126,7 +122,6 @@ class HistoryRelationManager extends RelationManager
                             ->all()
                     ),
             ])
-            ->bulkActions([])
-            ->defaultSort('created_at', 'DESC');
+            ->bulkActions([]);
     }
 }

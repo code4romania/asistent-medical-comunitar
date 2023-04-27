@@ -5,25 +5,21 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
-use App\Filament\Resources\BeneficiaryResource\RelationManagers\InterventionsRelationManager;
 use App\Filament\Resources\InterventionResource;
 use App\Models\Beneficiary;
 use App\Models\Intervention\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ListInterventions extends ListRecords implements WithSidebar
 {
     use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
-    use InteractsWithRecord;
+    use Concerns\InteractsWithBeneficiaryRecord;
 
     protected static string $resource = InterventionResource::class;
 
@@ -73,30 +69,5 @@ class ListInterventions extends ListRecords implements WithSidebar
             // ->centerModal(false)
 
         ];
-    }
-
-    protected function getAllowedRelationManager(): ?string
-    {
-        return InterventionsRelationManager::class;
-    }
-
-    protected function resolveRecord($key): Beneficiary
-    {
-        $record = BeneficiaryResource::resolveRecordRouteBinding($key);
-
-        if ($record === null) {
-            throw (new ModelNotFoundException())->setModel(Beneficiary::class, [$key]);
-        }
-
-        return $record;
-    }
-
-    public function mount(): void
-    {
-        static::authorizeResourceAccess();
-
-        $this->record = $this->resolveRecord(request()->record);
-
-        abort_unless(static::getResource()::canView($this->getRecord()), 403);
     }
 }

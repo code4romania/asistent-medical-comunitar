@@ -7,8 +7,6 @@ namespace App\Filament\Resources;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
-use App\Filament\Resources\BeneficiaryResource\RelationManagers\HistoryRelationManager;
-use App\Filament\Resources\BeneficiaryResource\RelationManagers\InterventionsRelationManager;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Models\Beneficiary;
 use App\Tables\Columns\BadgeColumn;
@@ -117,14 +115,6 @@ class BeneficiaryResource extends Resource
                 Tables\Actions\ViewAction::make()
                     ->iconButton(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            InterventionsRelationManager::class,
-            HistoryRelationManager::class,
-        ];
     }
 
     public static function getPages(): array
