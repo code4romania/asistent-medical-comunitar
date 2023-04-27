@@ -8,27 +8,34 @@ use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\BeneficiaryResource\RelationManagers\InterventionsRelationManager;
-use App\Forms\Components\Radio;
+use App\Filament\Resources\InterventionResource;
+use App\Models\Beneficiary;
 use App\Models\Intervention\Intervention;
 use App\Models\Vulnerability\Vulnerability;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Resources\Pages\Concerns\InteractsWithRecord;
+use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class ListInterventions extends ViewRecord implements WithSidebar
+class ListInterventions extends ListRecords implements WithSidebar
 {
-    use Concerns\FiltersRelationManagers;
     use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
+    use InteractsWithRecord;
 
-    protected static string $resource = BeneficiaryResource::class;
+    protected static string $resource = InterventionResource::class;
 
-    protected static string $view = 'filament.pages.relation-managers';
+    protected function getTableQuery(): Builder
+    {
+        return Vulnerability::query()
+            ->with('category')
+            ->withWhereHas('interventions', function ($query) {
+                $query->where('beneficiary_id', $this->record?->id)
+                    ->with('service');
+            });
+    }
 
     public function getTitle(): string
     {
@@ -42,9 +49,6 @@ class ListInterventions extends ViewRecord implements WithSidebar
 
     protected function getActions(): array
     {
-        $vulnerabilities = Vulnerability::cachedList()
-            ->pluck('name', 'id');
-
         return [
             Actions\CreateAction::make('add_service')
                 ->label(__('intervention.action.add_service'))
@@ -57,54 +61,7 @@ class ListInterventions extends ViewRecord implements WithSidebar
 
                     return Intervention::create($data);
                 })
-                ->form([
-                    Grid::make(2)
-                        ->schema([
-                            Select::make('service')
-                                ->relationship('service', 'name')
-                                ->label(__('field.service'))
-                                ->placeholder(__('placeholder.select_one'))
-                                ->searchable()
-                                ->preload(),
-
-                            Select::make('vulnerability')
-                                ->relationship('vulnerability', 'name')
-                                ->label(__('field.targeted_vulnerability'))
-                                ->placeholder(__('placeholder.select_one'))
-                                ->options($vulnerabilities)
-                                ->in($vulnerabilities->keys())
-                                ->searchable(),
-
-                            Select::make('case')
-                                ->label(__('field.associated_case'))
-                                ->disabled(),
-
-                            Select::make('status')
-                                ->label(__('field.service_status'))
-                                ->disabled(),
-
-                            DatePicker::make('date')
-                                ->label(__('field.date')),
-
-                            Radio::make('integrated')
-                                ->label(__('field.integrated'))
-                                ->helperText('ceva help text aici TBD')
-                                ->inlineOptions()
-                                ->boolean()
-                                ->default(0),
-
-                            Textarea::make('notes')
-                                ->autosize(false)
-                                ->rows(4)
-                                ->extraInputAttributes([
-                                    'class' => 'resize-none',
-                                ])
-                                ->columnSpanFull(),
-
-                            Checkbox::make('outside_working_hours')
-                                ->label(__('field.outside_working_hours')),
-                        ]),
-                ]),
+                ->form(InterventionResource::getIndividualServiceFormSchema()),
 
             Actions\CreateAction::make('open_case')
                 ->label(__('intervention.action.open_case'))
@@ -121,5 +78,25 @@ class ListInterventions extends ViewRecord implements WithSidebar
     protected function getAllowedRelationManager(): ?string
     {
         return InterventionsRelationManager::class;
+    }
+
+    protected function resolveRecord($key): Beneficiary
+    {
+        $record = BeneficiaryResource::resolveRecordRouteBinding($key);
+
+        if ($record === null) {
+            throw (new ModelNotFoundException())->setModel(Beneficiary::class, [$key]);
+        }
+
+        return $record;
+    }
+
+    public function mount(): void
+    {
+        static::authorizeResourceAccess();
+
+        $this->record = $this->resolveRecord(request()->record);
+
+        abort_unless(static::getResource()::canView($this->getRecord()), 403);
     }
 }

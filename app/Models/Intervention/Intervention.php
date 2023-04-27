@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
+use App\Enums\InterventionType;
 use App\Models\Beneficiary;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
@@ -21,12 +22,14 @@ class Intervention extends Model
 
     protected $fillable = [
         'beneficiary_id',
+        'type',
         'reason',
         'date',
     ];
 
     protected $casts = [
         'date' => 'date',
+        'type' => InterventionType::class,
     ];
 
     public function beneficiary(): BelongsTo
@@ -42,5 +45,20 @@ class Intervention extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
+    }
+
+    public function isIndividual(): bool
+    {
+        return $this->type->is(InterventionType::INDIVIDUAL);
+    }
+
+    public function isCase(): bool
+    {
+        return $this->type->is(InterventionType::CASE);
+    }
+
+    public function isOcasional(): bool
+    {
+        return $this->type->is(InterventionType::OCASIONAL);
     }
 }

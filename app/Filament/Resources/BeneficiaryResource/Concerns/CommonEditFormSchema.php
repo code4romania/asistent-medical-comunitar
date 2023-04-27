@@ -229,7 +229,7 @@ trait CommonEditFormSchema
 
                             Select::make('services')
                                 ->relationship('services', 'name')
-                                ->label(__('field.services'))
+                                ->label(__('field.services_offered'))
                                 ->placeholder(__('placeholder.choose_services'))
                                 ->columnSpanFull()
                                 ->multiple()

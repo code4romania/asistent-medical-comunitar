@@ -48,7 +48,7 @@ class InterventionsRelationManager extends RelationManager
                     ->toggleable(),
 
                 TextColumn::make('services')
-                    ->label(__('field.services'))
+                    ->label(__('field.services_offered'))
                     ->sortable()
                     ->toggleable(),
 
@@ -60,7 +60,7 @@ class InterventionsRelationManager extends RelationManager
                 //     ->sortable(),
 
                 // TextColumn::make('log_name')
-                //     ->label(__('field.services'))
+                //     ->label(__('field.services_offered'))
                 //     // ->formatStateUsing(fn (Intervention $record) => __("activity.beneficiary.{$record->log_name}"))
                 //     ->toggleable()
                 //     ->sortable(),

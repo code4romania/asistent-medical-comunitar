@@ -128,7 +128,7 @@ trait CommonViewFormSchema
                                 ->label(__('field.date')),
 
                             Value::make('services')
-                                ->label(__('field.services'))
+                                ->label(__('field.services_offered'))
                                 ->columnSpanFull(),
                         ]),
                 ]),
