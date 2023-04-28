@@ -28,4 +28,11 @@ return [
         'ocasional' => 'Intervenție beneficiar ocazional',
     ],
 
+    'status' => [
+        'open' => 'Deschis',
+        'performed' => 'Realizat',
+        'not_performed' => 'Nerealizat',
+        'planned' => 'Planificat',
+    ],
+
 ];

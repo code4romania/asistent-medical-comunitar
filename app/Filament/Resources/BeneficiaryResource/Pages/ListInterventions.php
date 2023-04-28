@@ -7,8 +7,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
-use App\Models\Beneficiary;
-use App\Models\Intervention\Intervention;
+use App\Models\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -28,10 +27,7 @@ class ListInterventions extends ListRecords implements WithSidebar
     {
         return Vulnerability::query()
             ->with('category')
-            ->withWhereHas('interventions', function ($query) {
-                $query->where('beneficiary_id', $this->record?->id)
-                    ->with('service');
-            });
+            ->withInterventionsForBeneficiary($this->record);
     }
 
     public function getTitle(): string
@@ -51,24 +47,28 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->label(__('intervention.action.add_service'))
                 ->modalHeading(__('intervention.action.add_service'))
                 ->icon('heroicon-o-plus-circle')
-                ->model(Intervention::class)
+                ->model(Intervention\IndividualService::class)
                 ->disableCreateAnother()
                 ->using(function (array $data) {
                     $data['beneficiary_id'] = data_get($this->getRecord(), 'id');
+                    $data['status'] = 'REPLACE_ME';
 
-                    return Intervention::create($data);
+                    return Intervention\IndividualService::create($data);
                 })
                 ->form(InterventionResource::getIndividualServiceFormSchema()),
 
             Actions\CreateAction::make('open_case')
                 ->label(__('intervention.action.open_case'))
-                ->icon('heroicon-o-folder-add'),
-            // ->modalHeading(__('beneficiary.action_convert_confirm.title'))
-            // ->modalSubheading(__('beneficiary.action_convert_confirm.text'))
-            // ->modalButton(__('beneficiary.action_convert_confirm.action'))
-            // ->modalWidth('md')
-            // ->centerModal(false)
+                ->modalHeading(__('intervention.action.open_case'))
+                ->icon('heroicon-o-folder-add')
+                ->disableCreateAnother()
+                ->using(function (array $data) {
+                    $data['beneficiary_id'] = data_get($this->getRecord(), 'id');
+                    // $data['status'] = 'REPLACE_ME';
 
+                    return Intervention\CaseManagement::create($data);
+                })
+                ->form(InterventionResource::getCaseFormSchema()),
         ];
     }
 

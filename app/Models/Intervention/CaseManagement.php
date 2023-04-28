@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
+use App\Concerns\HasInterventions;
 use App\Enums\InterventionType;
 use App\Models\Beneficiary;
 use App\Models\Service\Service;
@@ -11,12 +12,13 @@ use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Kalnoy\Nestedset\NodeTrait;
 
 class CaseManagement extends Model
 {
     use HasFactory;
-    use NodeTrait;
+    use HasInterventions;
+
+    protected $table = 'cases';
 
     protected $fillable = [
         'beneficiary_id',
@@ -43,20 +45,5 @@ class CaseManagement extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
-    }
-
-    public function isIndividual(): bool
-    {
-        return $this->type->is(InterventionType::INDIVIDUAL);
-    }
-
-    public function isCase(): bool
-    {
-        return $this->type->is(InterventionType::CASE);
-    }
-
-    public function isOcasional(): bool
-    {
-        return $this->type->is(InterventionType::OCASIONAL);
     }
 }

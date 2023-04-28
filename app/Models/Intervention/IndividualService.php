@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
-use App\Enums\InterventionType;
 use App\Models\Beneficiary;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
@@ -18,20 +17,30 @@ class IndividualService extends Model
     use HasFactory;
 
     protected $fillable = [
-        'beneficiary_id',
-        'type',
-        'reason',
         'date',
+        'integrated',
+        'status',
+        'notes',
+        'outside_working_hours',
+
+        'beneficiary_id',
+        'case_id',
     ];
 
     protected $casts = [
         'date' => 'date',
-        'type' => InterventionType::class,
+        'integrated' => 'boolean',
+        'outside_working_hours' => 'boolean',
     ];
 
     public function beneficiary(): BelongsTo
     {
         return $this->belongsTo(Beneficiary::class);
+    }
+
+    public function case(): BelongsTo
+    {
+        return $this->belongsTo(CaseManagement::class);
     }
 
     public function service(): BelongsTo
@@ -44,23 +53,13 @@ class IndividualService extends Model
         return $this->belongsTo(Vulnerability::class);
     }
 
+    public function scopeWhereBeneficiary(Builder $query, ?Beneficiary $beneficiary): Builder
+    {
+        return $query->where('beneficiary_id', $beneficiary?->id);
+    }
+
     public function scopeWithoutCase(Builder $query): Builder
     {
-        return $query->whereNull('case_management_id');
-    }
-
-    public function isIndividual(): bool
-    {
-        return $this->type->is(InterventionType::INDIVIDUAL);
-    }
-
-    public function isCase(): bool
-    {
-        return $this->type->is(InterventionType::CASE);
-    }
-
-    public function isOcasional(): bool
-    {
-        return $this->type->is(InterventionType::OCASIONAL);
+        return $query->whereNull('case_id');
     }
 }

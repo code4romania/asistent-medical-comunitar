@@ -6,7 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Forms\Components\Radio;
-use App\Models\Intervention\Intervention;
+use App\Models\Intervention\IndividualService;
 use App\Models\Vulnerability\Vulnerability;
 use App\Tables\Columns\InterventionsColumn;
 use Filament\Forms\Components\Checkbox;
@@ -22,7 +22,7 @@ use Filament\Tables\Columns\TextColumn;
 
 class InterventionResource extends Resource
 {
-    protected static ?string $model = Intervention::class;
+    protected static ?string $model = IndividualService::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -138,7 +138,9 @@ class InterventionResource extends Resource
     public static function getCaseFormSchema(): array
     {
         return [
-
+            Select::make('status')
+                ->label(__('field.service_status'))
+                ->disabled(),
         ];
     }
 }

@@ -65,7 +65,9 @@ return [
     'study_institution' => 'Instituția care a emis diploma',
     'study_name' => 'Denumire studii',
     'study_type' => 'Tip studii',
+    'type' => 'Tip',
     'work_status' => 'Încadrat în muncă',
     'year' => 'An',
+    'vulnerability' => 'Vulnerabilitate',
 
 ];

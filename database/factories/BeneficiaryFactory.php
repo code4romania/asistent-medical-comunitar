@@ -12,6 +12,8 @@ use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\City;
 use App\Models\Family;
+use App\Models\Intervention\CaseManagement;
+use App\Models\Intervention\IndividualService;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -63,6 +65,16 @@ class BeneficiaryFactory extends Factory
                     ->disability()
                     ->reproductiveHealth()
                     ->withNotes()
+                    ->create();
+
+                IndividualService::factory()
+                    ->for($beneficiary)
+                    ->count(fake()->randomDigitNotNull())
+                    ->create();
+
+                CaseManagement::factory()
+                    ->for($beneficiary)
+                    ->count(fake()->randomDigitNotNull())
                     ->create();
             }
         });

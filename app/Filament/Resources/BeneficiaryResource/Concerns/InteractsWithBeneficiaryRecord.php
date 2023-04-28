@@ -31,5 +31,7 @@ trait InteractsWithBeneficiaryRecord
         $this->record = $this->resolveRecord(request()->record);
 
         abort_unless(static::getResource()::canView($this->getRecord()), 403);
+
+        abort_unless($this->getRecord()->isRegular(), 404);
     }
 }
