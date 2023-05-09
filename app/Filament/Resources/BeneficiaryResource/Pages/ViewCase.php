@@ -7,6 +7,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use App\Forms\Components\Card;
 use App\Models\Intervention\CaseManagement;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -20,9 +21,13 @@ class ViewCase extends ViewRecord implements WithSidebar
 
     protected static string $resource = BeneficiaryResource::class;
 
+    public ?CaseManagement $case = null;
+
     public function getTitle(): string
     {
-        return 'case management';
+        return __('case.title', [
+            'name' => $this->case->name,
+        ]);
     }
 
     public function getBreadcrumb(): string
@@ -33,9 +38,11 @@ class ViewCase extends ViewRecord implements WithSidebar
     protected function form(Form $form): Form
     {
         return $form
-            ->columns(1)
             ->schema([
-                //
+                Card::make()
+                    ->header(__('case.summary')),
+                Card::make()
+                    ->header(__('case.services')),
             ]);
     }
 
@@ -44,16 +51,13 @@ class ViewCase extends ViewRecord implements WithSidebar
         return [];
     }
 
-    public function mount($record): void
+    public function beforeFill()
     {
-        parent::mount($record);
-
-        // TODO: move to hook 'beforeFill'
         $this->case = app(CaseManagement::class)
             ->resolveRouteBindingQuery(
                 $this->getRecord()->cases(),
-                request()->case
+                request()->case->id
             )
-            ->first();
+            ->firstOrFail();
     }
 }

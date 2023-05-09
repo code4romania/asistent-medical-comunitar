@@ -55,8 +55,8 @@
                 </td> --}}
 
                 <td class="flex justify-end px-4 py-6">
-                    <x-filament::link href="#">
-                        @lang('intervention.action.view_case')
+                    <x-filament::link :href="$getActionUrl($intervention)">
+                        {{ $getActionLabel($intervention) }}
                     </x-filament::link>
                 </td>
             </tr>

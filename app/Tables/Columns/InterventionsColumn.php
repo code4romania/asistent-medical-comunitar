@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tables\Columns;
 
+use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\CaseManagement;
 use App\Models\Intervention\IndividualService;
-use App\Models\Intervention\OcasionalIntervention;
 use Filament\Tables\Columns\Column;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -40,7 +40,6 @@ class InterventionsColumn extends Column
         return match (\get_class($intervention)) {
             CaseManagement::class => $intervention->name,
             IndividualService::class => $intervention->service->name,
-            OcasionalIntervention::class => 'REPLACE_ME',
             default => null,
         };
     }
@@ -56,5 +55,26 @@ class InterventionsColumn extends Column
         }
 
         return __('intervention.type.individual');
+    }
+
+    public function getActionUrl(Model $intervention): string
+    {
+        if ($intervention instanceof CaseManagement) {
+            return BeneficiaryResource::getUrl('case.view', [
+                'record' => $intervention->beneficiary_id,
+                'case' => $intervention->id,
+            ]);
+        }
+
+        return '#';
+    }
+
+    public function getActionLabel(Model $intervention): string
+    {
+        if ($intervention instanceof CaseManagement) {
+            return __('intervention.action.view_case');
+        }
+
+        return __('intervention.action.view_individual');
     }
 }

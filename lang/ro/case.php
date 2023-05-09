@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
 
+    'title' => 'Management de caz: :name',
+
     'initiator' => [
         'nurse' => 'Inițiativă proprie',
         'gp' => 'Medicul de familie',
@@ -16,5 +18,8 @@ return [
         'case' => 'Management de caz',
         'ocasional' => 'Intervenție beneficiar ocazional',
     ],
+
+    'summary' => 'Sumar intervenție',
+    'services' => 'Servicii',
 
 ];
