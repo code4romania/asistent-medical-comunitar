@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create('vulnerabilities', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
-            $table->string('category_id');
+            $table->string('category_id')->nullable();
 
             $table->foreign('category_id')->references('id')->on('vulnerability_categories');
         });

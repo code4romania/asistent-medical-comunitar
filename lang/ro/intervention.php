@@ -24,8 +24,6 @@ return [
 
     'type' => [
         'individual' => 'Serviciu individual',
-        'case' => 'Management de caz',
-        'ocasional' => 'Intervenție beneficiar ocazional',
     ],
 
     'status' => [

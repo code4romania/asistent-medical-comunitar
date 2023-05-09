@@ -12,4 +12,9 @@ return [
         'other' => 'Alta entitate sau organizație',
     ],
 
+    'type' => [
+        'case' => 'Management de caz',
+        'ocasional' => 'Intervenție beneficiar ocazional',
+    ],
+
 ];

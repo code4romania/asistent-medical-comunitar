@@ -6,6 +6,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Enums\Beneficiary\Type;
+use App\Filament\Actions\ConvertOcasionalBeneficiaryAction;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\Badge;
@@ -29,16 +30,8 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Actions\Action::make('convert')
-                ->visible(fn () => $this->record->isOcasional())
-                ->action(fn () => $this->record->convertToRegular())
-                ->label(__('beneficiary.action_convert.action'))
-                ->modalHeading(__('beneficiary.action_convert_confirm.title'))
-                ->modalSubheading(__('beneficiary.action_convert_confirm.text'))
-                ->modalButton(__('beneficiary.action_convert_confirm.action'))
-                ->modalWidth('md')
-                ->centerModal(false)
-                ->color('secondary'),
+            ConvertOcasionalBeneficiaryAction::make()
+                ->record($this->getRecord()),
 
             Actions\EditAction::make()
                 ->icon('heroicon-s-pencil'),

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Models\Intervention;
 
 use App\Concerns\HasInterventions;
-use App\Enums\InterventionType;
+use App\Enums\Intervention\CaseInitiator;
+use App\Enums\Intervention\CaseType;
 use App\Models\Beneficiary;
-use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CaseManagement extends Model
 {
@@ -23,13 +24,14 @@ class CaseManagement extends Model
     protected $fillable = [
         'beneficiary_id',
         'type',
-        'reason',
-        'date',
+        'name',
+        'initiator',
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'type' => InterventionType::class,
+        'type' => CaseType::class,
+        'initiator' => CaseInitiator::class,
+        'integrated' => 'boolean',
     ];
 
     public function beneficiary(): BelongsTo
@@ -37,13 +39,13 @@ class CaseManagement extends Model
         return $this->belongsTo(Beneficiary::class);
     }
 
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class);
-    }
-
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
+    }
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(IndividualService::class, 'case_id');
     }
 }

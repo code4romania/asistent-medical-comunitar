@@ -570,9 +570,8 @@
                                                 x-collapse
                                                 x-cloak
                                                 @class([
-                                                    'pb-2 -mx-2',
-                                                    'md:pl-20 rtl:md:pl-0 rtl:md:pr-20' => (! $contentGrid) && $isSelectionEnabled,
-                                                    'md:pl-12 rtl:md:pl-0 rtl:md:pr-12' => (! $contentGrid) && (! $isSelectionEnabled),
+                                                    'pb-2',
+                                                    'md:pl-8 rtl:md:pl-0 rtl:md:pr-8' => (! $contentGrid) && $isSelectionEnabled,
                                                     'hidden' => $isReordering,
                                                 ])
                                             >

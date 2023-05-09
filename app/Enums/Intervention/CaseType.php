@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Intervention;
 
 use App\Concerns;
 
-enum InterventionType: string
+enum CaseType: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasLabel;
 
-    case INDIVIDUAL = 'individual';
     case CASE = 'case';
     case OCASIONAL = 'ocasional';
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'intervention.type';
+        return 'case.type';
     }
 }

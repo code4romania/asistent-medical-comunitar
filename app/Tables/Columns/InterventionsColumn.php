@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tables\Columns;
 
+use App\Enums\Intervention\CaseType;
 use App\Models\Intervention\CaseManagement;
 use App\Models\Intervention\IndividualService;
 use App\Models\Intervention\OcasionalIntervention;
@@ -47,11 +48,13 @@ class InterventionsColumn extends Column
 
     public function getTypeColumn(Model $intervention): ?string
     {
-        return match (\get_class($intervention)) {
-            CaseManagement::class => __('intervention.type.case'),
-            IndividualService::class => __('intervention.type.individual'),
-            OcasionalIntervention::class => __('intervention.type.ocasional'),
-            default => null,
-        };
+        if ($intervention instanceof CaseManagement) {
+            return match ($intervention->type) {
+                CaseType::CASE => __('case.type.case'),
+                CaseType::OCASIONAL => __('case.type.ocasional')
+            };
+        }
+
+        return __('intervention.type.individual');
     }
 }

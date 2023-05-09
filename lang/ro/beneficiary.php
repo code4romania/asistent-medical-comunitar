@@ -57,6 +57,7 @@ return [
         'text_line_1' => 'Beneficiarul este de tip **beneficiar ocazional**.',
         'text_line_2' => 'Doriți să modificați tipul beneficiarului în beneficiar propriu?',
         'action' => 'Modifică tipul beneficiarului',
+        'success' => 'Beneficiarul a fost modificat în beneficiar propriu',
     ],
 
     'action_convert_confirm' => [

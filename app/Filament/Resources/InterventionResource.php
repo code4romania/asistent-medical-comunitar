@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Forms\Components\Radio;
+use App\Forms\Components\Subsection;
 use App\Models\Intervention\IndividualService;
 use App\Models\Vulnerability\Vulnerability;
 use App\Tables\Columns\InterventionsColumn;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -30,8 +32,7 @@ class InterventionResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema(static::getIndividualServiceFormSchema());
+        return $form;
     }
 
     public static function table(Table $table): Table
@@ -44,6 +45,9 @@ class InterventionResource extends Resource
                             ->label(__('field.vulnerability'))
                             ->alignment('left')
                             ->searchable()
+                            ->extraAttributes(fn (Vulnerability $record) => [
+                                'class' => $record->id === 'NONE' ? 'italic' : null,
+                            ])
                             ->sortable(),
 
                         TextColumn::make('interventions_count')
@@ -122,6 +126,7 @@ class InterventionResource extends Resource
                         ->default(0),
 
                     Textarea::make('notes')
+                        ->label(__('field.notes'))
                         ->autosize(false)
                         ->rows(4)
                         ->extraInputAttributes([
@@ -137,10 +142,48 @@ class InterventionResource extends Resource
 
     public static function getCaseFormSchema(): array
     {
+        $vulnerabilities = Vulnerability::cachedList()
+            ->pluck('name', 'id');
+
         return [
-            Select::make('status')
-                ->label(__('field.service_status'))
-                ->disabled(),
+            Subsection::make()
+                ->icon('heroicon-o-document-text')
+                ->columns(2)
+                ->schema([
+                    TextInput::make('name')
+                        ->label(__('field.intervention_name'))
+                        ->columnSpanFull(),
+
+                    Select::make('')
+                        ->label(__('field.on_initiative')),
+
+                    Select::make('vulnerability')
+                        ->relationship('vulnerability', 'name')
+                        ->label(__('field.targeted_vulnerability'))
+                        ->placeholder(__('placeholder.select_one'))
+                        ->options($vulnerabilities)
+                        ->in($vulnerabilities->keys())
+                        ->searchable(),
+
+                    Radio::make('integrated')
+                        ->label(__('field.integrated'))
+                        ->helperText('ceva help text aici TBD')
+                        ->inlineOptions()
+                        ->boolean()
+                        ->default(0),
+                ]),
+
+            Subsection::make()
+                ->icon('heroicon-o-annotation')
+                ->schema([
+                    Textarea::make('notes')
+                        ->label(__('field.notes'))
+                        ->autosize(false)
+                        ->rows(4)
+                        ->extraInputAttributes([
+                            'class' => 'resize-none',
+                        ]),
+                ]),
         ];
     }
 }
