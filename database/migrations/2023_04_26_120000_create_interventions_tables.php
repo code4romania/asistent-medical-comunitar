@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Enums\Intervention\CaseInitiator;
-use App\Enums\Intervention\CaseType;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
 use App\Models\Service\Service;
@@ -43,8 +42,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name')->nullable();
             $table->enum('initiator', CaseInitiator::values())->nullable();
-            $table->enum('type', CaseType::values())->nullable();
             $table->boolean('integrated')->default(false);
+            $table->boolean('imported')->default(false);
             $table->text('notes')->nullable();
 
             $table->foreignIdFor(Beneficiary::class)->constrained();

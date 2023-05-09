@@ -6,7 +6,6 @@ namespace App\Models\Intervention;
 
 use App\Concerns\HasInterventions;
 use App\Enums\Intervention\CaseInitiator;
-use App\Enums\Intervention\CaseType;
 use App\Models\Beneficiary;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,16 +21,18 @@ class CaseManagement extends Model
     protected $table = 'cases';
 
     protected $fillable = [
-        'beneficiary_id',
-        'type',
         'name',
         'initiator',
+        'integrated',
+        'imported',
+
+        'beneficiary_id',
     ];
 
     protected $casts = [
-        'type' => CaseType::class,
         'initiator' => CaseInitiator::class,
         'integrated' => 'boolean',
+        'imported' => 'boolean',
     ];
 
     public function beneficiary(): BelongsTo

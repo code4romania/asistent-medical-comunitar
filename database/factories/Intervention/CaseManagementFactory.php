@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories\Intervention;
 
 use App\Enums\Intervention\CaseInitiator;
-use App\Enums\Intervention\CaseType;
 use App\Models\Beneficiary;
 use App\Models\Intervention\CaseManagement;
 use App\Models\Intervention\IndividualService;
@@ -29,7 +28,7 @@ class CaseManagementFactory extends Factory
             'name' => fake()->sentence(),
             'integrated' => fake()->boolean(),
             'initiator' => fake()->randomElement(CaseInitiator::values()),
-            'type' => fake()->randomElement(CaseType::values()),
+            'imported' => fake()->boolean(10),
             'notes' => fake()->text(),
 
             'beneficiary_id' => Beneficiary::factory(),

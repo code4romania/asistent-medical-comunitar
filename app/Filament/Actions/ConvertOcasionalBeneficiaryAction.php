@@ -6,7 +6,6 @@ namespace App\Filament\Actions;
 
 use App\Enums\Beneficiary\Type;
 use App\Enums\Intervention\CaseInitiator;
-use App\Enums\Intervention\CaseType;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use App\Models\Intervention\OcasionalIntervention;
@@ -46,8 +45,8 @@ class ConvertOcasionalBeneficiaryAction extends Action
                 ->map(function (OcasionalIntervention $ocasionalIntervention) use ($beneficiary) {
                     $case = $beneficiary->cases()->create([
                         'name' => $ocasionalIntervention->reason,
-                        'type' => CaseType::OCASIONAL,
                         'initiator' => CaseInitiator::NURSE,
+                        'imported' => true,
                         'notes' => null,
                     ]);
 

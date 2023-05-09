@@ -43,8 +43,10 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            CreateIndividualServiceAction::make(),
-            CreateCaseManagementAction::make(),
+            CreateIndividualServiceAction::make()
+                ->record($this->getRecord()),
+            CreateCaseManagementAction::make()
+                ->record($this->getRecord()),
         ];
     }
 

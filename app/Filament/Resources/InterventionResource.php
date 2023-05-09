@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\Intervention\CaseInitiator;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
@@ -154,8 +155,14 @@ class InterventionResource extends Resource
                         ->label(__('field.intervention_name'))
                         ->columnSpanFull(),
 
-                    Select::make('')
-                        ->label(__('field.on_initiative')),
+                    Select::make('initiator')
+                        ->label(__('field.initiator'))
+                        ->placeholder(__('placeholder.choose'))
+                        ->options(CaseInitiator::options())
+                        ->disablePlaceholderSelection()
+                        ->enum(CaseInitiator::class)
+                        ->default(CaseInitiator::NURSE)
+                        ->required(),
 
                     Select::make('vulnerability')
                         ->relationship('vulnerability', 'name')
@@ -163,7 +170,8 @@ class InterventionResource extends Resource
                         ->placeholder(__('placeholder.select_one'))
                         ->options($vulnerabilities)
                         ->in($vulnerabilities->keys())
-                        ->searchable(),
+                        ->searchable()
+                        ->required(),
 
                     Radio::make('integrated')
                         ->label(__('field.integrated'))
