@@ -10,11 +10,15 @@ return [
     ],
 
     'action' => [
-        'create' => 'Adaugă altă intervenție',
         'add_service' => 'Adaugă serviciu',
+        'close' => 'Închide intervenție',
+        'create' => 'Adaugă altă intervenție',
+        'delete' => 'Șterge intervenție',
+        'edit' => 'Editează',
+        'export' => 'Exportă',
         'open_case' => 'Deschide caz',
-        'view_individual' => 'Vezi serviciu',
         'view_case' => 'Vezi fișă',
+        'view_individual' => 'Vezi serviciu',
     ],
 
     'empty' => [

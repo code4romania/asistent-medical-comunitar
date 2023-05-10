@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\BeneficiaryResource\Pages;
+namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Actions\CreateCaseManagementAction;
 use App\Filament\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
+use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListInterventions extends ListRecords implements WithSidebar
 {
+    use HasRecordBreadcrumb;
     use Concerns\HasActions;
-    use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
     use Concerns\InteractsWithBeneficiaryRecord;
 
@@ -58,16 +58,5 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getTableEmptyStateHeading(): ?string
     {
         return __('intervention.empty.title');
-    }
-
-    protected function getTableEmptyStateActions(): array
-    {
-        return [
-            Tables\Actions\Action::make('create')
-                ->label(__('intervention.empty.create'))
-                // ->url(static::getResource()::getUrl('create'))
-                ->button()
-                ->color('secondary'),
-        ];
     }
 }

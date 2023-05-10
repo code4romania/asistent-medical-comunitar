@@ -77,7 +77,7 @@ class Value extends Component
             return null;
         }
 
-        $content = $this->evaluate($this->content) ?? $this->getRecord()?->{$this->getName()} ?? null;
+        $content = $this->evaluate($this->content) ?? data_get($this->getRecord(), $this->getName());
 
         $content = match (true) {
             $content instanceof BackedEnum => $this->getEnumLabel($content),

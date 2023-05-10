@@ -103,7 +103,6 @@ trait CommonEditFormSchema
                         ->label(__('field.gender'))
                         ->placeholder(__('placeholder.choose'))
                         ->options(Gender::options())
-                        ->disablePlaceholderSelection()
                         ->enum(Gender::class)
                         ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 
@@ -176,7 +175,6 @@ trait CommonEditFormSchema
                                 ->label(__('field.gender'))
                                 ->placeholder(__('placeholder.choose'))
                                 ->options(Gender::options())
-                                ->disablePlaceholderSelection()
                                 ->enum(Gender::class)
                                 ->required(fn (callable $get) => ! $get('has_unknown_identity')),
 

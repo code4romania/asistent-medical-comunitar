@@ -1,9 +1,5 @@
-<div {{ $attributes }}>
-    @if (null !== ($title = $getTitle()))
-        <h3 class="mb-3 text-lg font-semibold text-gray-900">{{ $title }}</h3>
-    @endif
-
-    <div class="flex flex-col items-stretch bg-gray-50 sm:flex-row">
+@capture($subsection)
+    <div class="flex flex-col items-stretch min-h-full bg-gray-50 sm:flex-row">
         <div class="p-3 bg-gray-200 shrink-0">
             <x-dynamic-component
                 :component="$getIcon()"
@@ -15,4 +11,16 @@
             {{ $getChildComponentContainer() }}
         </div>
     </div>
-</div>
+@endcapture
+
+@if (null !== ($title = $getTitle()))
+    <div {{ $attributes->merge($getExtraAttributes()) }}>
+        <h3 class="mb-3 text-lg font-semibold text-gray-900">
+            {{ $title }}
+        </h3>
+
+        {{ $subsection() }}
+    </div>
+@else
+    {{ $subsection() }}
+@endif

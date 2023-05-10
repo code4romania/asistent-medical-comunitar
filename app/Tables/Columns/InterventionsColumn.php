@@ -60,7 +60,7 @@ class InterventionsColumn extends Column
     public function getActionUrl(Model $intervention): string
     {
         if ($intervention instanceof CaseManagement) {
-            return BeneficiaryResource::getUrl('case.view', [
+            return BeneficiaryResource::getUrl('interventions.view', [
                 'record' => $intervention->beneficiary_id,
                 'case' => $intervention->id,
             ]);

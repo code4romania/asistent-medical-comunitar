@@ -8,6 +8,7 @@ use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
+use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
 use App\Models\Beneficiary;
 use App\Tables\Columns\BadgeColumn;
 use Filament\Resources\Resource;
@@ -132,9 +133,8 @@ class BeneficiaryResource extends Resource
             'catagraphy.view' => CatagraphyPages\ViewCatagraphy::route('/{record}/catagraphy/view'),
             'catagraphy.edit' => CatagraphyPages\EditCatagraphy::route('/{record}/catagraphy/edit'),
 
-            'interventions' => Pages\ListInterventions::route('/{record}/interventions'),
-
-            'case.view' => Pages\ViewCase::route('/{record}/interventions/case/{case}'),
+            'interventions.index' => InterventionPages\ListInterventions::route('/{record}/interventions'),
+            'interventions.view' => InterventionPages\ViewIntervention::route('/{record}/interventions/{intervention}'),
 
             'history' => Pages\ListHistory::route('/{record}/history'),
         ];

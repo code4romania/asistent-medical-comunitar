@@ -159,7 +159,6 @@ class InterventionResource extends Resource
                         ->label(__('field.initiator'))
                         ->placeholder(__('placeholder.choose'))
                         ->options(CaseInitiator::options())
-                        ->disablePlaceholderSelection()
                         ->enum(CaseInitiator::class)
                         ->default(CaseInitiator::NURSE)
                         ->required(),
