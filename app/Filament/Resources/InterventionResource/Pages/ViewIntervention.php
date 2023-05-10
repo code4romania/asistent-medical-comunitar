@@ -69,7 +69,8 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                                     ->label(__('field.addressed_vulnerability')),
 
                                 Value::make('integrated')
-                                    ->label(__('field.integrated')),
+                                    ->label(__('field.integrated'))
+                                    ->boolean(),
                             ]),
 
                         Subsection::make()

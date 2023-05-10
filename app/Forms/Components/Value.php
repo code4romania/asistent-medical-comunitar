@@ -31,6 +31,8 @@ class Value extends Component
 
     protected $withTime = false;
 
+    protected array $boolean = [];
+
     final public function __construct(string $name)
     {
         $this->name($name);
@@ -48,6 +50,16 @@ class Value extends Component
     public function empty(): static
     {
         $this->empty = true;
+
+        return $this;
+    }
+
+    public function boolean(?string $trueLabel = null, ?string $falseLabel = null): static
+    {
+        $this->boolean = [
+            1 => $trueLabel ?? __('forms::components.select.boolean.true'),
+            0 => $falseLabel ?? __('forms::components.select.boolean.false'),
+        ];
 
         return $this;
     }
@@ -78,6 +90,10 @@ class Value extends Component
         }
 
         $content = $this->evaluate($this->content) ?? data_get($this->getRecord(), $this->getName());
+
+        if (! empty($this->boolean)) {
+            $content = $this->boolean[\intval(\boolval($content))];
+        }
 
         $content = match (true) {
             $content instanceof BackedEnum => $this->getEnumLabel($content),
