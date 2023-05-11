@@ -16,7 +16,7 @@
             </x-tables::header-cell>
 
             <x-tables::header-cell>
-                @lang('field.services_performed')
+                @lang('field.services_realized')
             </x-tables::header-cell>
 
             {{-- <x-tables::header-cell>
@@ -54,10 +54,12 @@
                     0
                 </td> --}}
 
-                <td class="flex justify-end px-4 py-6">
-                    <x-filament::link :href="$getActionUrl($intervention)">
-                        {{ $getActionLabel($intervention) }}
-                    </x-filament::link>
+                <td class="px-4 py-6">
+                    <div class="flex justify-end">
+                        <x-filament::link :href="$getActionUrl($intervention)">
+                            {{ $getActionLabel($intervention) }}
+                        </x-filament::link>
+                    </div>
                 </td>
             </tr>
         @endforeach

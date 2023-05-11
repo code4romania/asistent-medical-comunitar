@@ -7,7 +7,6 @@ namespace App\Filament\Resources;
 use App\Models\Activity;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -20,11 +19,6 @@ class HistoryResource extends Resource
     protected static ?string $model = Activity::class;
 
     protected static bool $shouldRegisterNavigation = false;
-
-    public static function form(Form $form): Form
-    {
-        return $form;
-    }
 
     public static function table(Table $table): Table
     {

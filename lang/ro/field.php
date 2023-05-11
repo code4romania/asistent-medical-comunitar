@@ -62,7 +62,7 @@ return [
     'section_details' => ':section - detalii',
     'service_status' => 'Status serviciu',
     'services_offered' => 'Servicii oferite',
-    'services_performed' => 'Servicii realizate',
+    'services_realized' => 'Servicii realizate',
     'start_date' => 'Data de început',
     'start_year' => 'Anul de început',
     'status' => 'Status',

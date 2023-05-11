@@ -7,11 +7,11 @@ namespace App\Filament\Resources;
 use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\InterventionResource\Pages;
+use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
 use App\Models\Intervention\IndividualService;
 use App\Models\Vulnerability\Vulnerability;
-use App\Tables\Columns\InterventionsColumn;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -19,9 +19,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables\Columns\Layout;
-use Filament\Tables\Columns\TextColumn;
 
 class InterventionResource extends Resource
 {
@@ -31,49 +28,17 @@ class InterventionResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Layout\Grid::make(3)
-                    ->schema([
-                        TextColumn::make('name')
-                            ->label(__('field.vulnerability'))
-                            ->prefix(fn ($record) => $record->id)
-                            ->alignment('left')
-                            ->searchable()
-                            ->extraAttributes(fn (Vulnerability $record) => [
-                                'class' => $record->id === 'NONE' ? 'italic' : null,
-                            ]),
-
-                        TextColumn::make('interventions_count_column')
-                            ->alignment('left')
-                            ->label(__('field.interventions')),
-
-                        TextColumn::make('services_count_column')
-                            ->label(__('field.status'))
-                            ->alignment('left'),
-                    ]),
-
-                Layout\Split::make([
-                    InterventionsColumn::make('interventions'),
-                ])->collapsible(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                //
-            ])
-            ->bulkActions([
-                //
-            ]);
-    }
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageInterventions::route('/'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            InterventionsRelationManager::class,
         ];
     }
 

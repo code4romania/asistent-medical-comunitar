@@ -6,6 +6,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Models\Beneficiary;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Resources\Pages\EditRecord;
@@ -19,10 +20,12 @@ trait HasSidebar
             return;
         }
 
-        if ($this instanceof ViewRecord || $this instanceof EditRecord) {
-            // Sidebar layout doesn't apply to ocasional beneficiaries
-            if ($this->getRecord()->isOcasional()) {
-                return;
+        if ($this->getRecord() instanceof Beneficiary) {
+            if ($this instanceof ViewRecord || $this instanceof EditRecord) {
+                // Sidebar layout doesn't apply to ocasional beneficiaries
+                if ($this->getRecord()->isOcasional()) {
+                    return;
+                }
             }
         }
 

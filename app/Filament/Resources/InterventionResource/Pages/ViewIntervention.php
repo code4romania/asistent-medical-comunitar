@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
+use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
@@ -14,22 +14,22 @@ use App\Forms\Components\Value;
 use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ViewRecord;
 
-class ViewIntervention extends ListRecords implements WithSidebar
+class ViewIntervention extends ViewRecord implements WithSidebar
 {
     use Concerns\HasRecordBreadcrumb;
     use Concerns\InteractsWithCaseRecord;
     use HasSidebar;
 
-    protected static string $resource = BeneficiaryResource::class;
+    protected static string $resource = InterventionResource::class;
 
     public ?CaseManagement $intervention = null;
 
     public function getTitle(): string
     {
         return __('case.title', [
-            'name' => $this->intervention->name,
+            'name' => $this->getRecordTitle(),
         ]);
     }
 
@@ -81,8 +81,6 @@ class ViewIntervention extends ListRecords implements WithSidebar
                             ]),
                     ]),
 
-                Card::make()
-                    ->header(__('case.services')),
             ]);
     }
 
@@ -106,14 +104,4 @@ class ViewIntervention extends ListRecords implements WithSidebar
                 ->color('warning'),
         ];
     }
-
-    // public function beforeFill()
-    // {
-    //     $this->intervention = app(CaseManagement::class)
-    //         ->resolveRouteBindingQuery(
-    //             $this->getRecord()->cases(),
-    //             request()->intervention->id
-    //         )
-    //         ->firstOrFail();
-    // }
 }

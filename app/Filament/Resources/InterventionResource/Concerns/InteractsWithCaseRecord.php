@@ -16,10 +16,10 @@ trait InteractsWithCaseRecord
 
     public Beneficiary $beneficiary;
 
-    protected function resolveRecord($key): Beneficiary
+    protected function resolveRecord($key): CaseManagement
     {
         $record = app(CaseManagement::class)
-            ->resolveRouteBindingQuery($this->beneficiary->cases(), $key)
+            ->resolveRouteBindingQuery($this->record->cases(), $key)
             ->first();
 
         if ($record === null) {
@@ -29,15 +29,14 @@ trait InteractsWithCaseRecord
         return $record;
     }
 
-    public function mount(): void
+    public function mount(...$args): void
     {
         static::authorizeResourceAccess();
 
-        $this->beneficiary = BeneficiaryResource::resolveRecordRouteBinding(
-            request()->record
-        );
+        [$record, $intervention] = $args;
 
-        $this->record = $this->resolveRecord(request()->record);
+        $this->record = BeneficiaryResource::resolveRecordRouteBinding($record);
 
+        $this->intervention = $this->resolveRecord($intervention->id);
     }
 }
