@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\BelongsToBeneficiary;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Catagraphy extends Model
 {
+    use BelongsToBeneficiary;
     use HasFactory;
     use LogsActivity;
 
@@ -78,11 +80,6 @@ class Catagraphy extends Model
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->subject()->associate($activity->subject->beneficiary);
-    }
-
-    public function beneficiary(): BelongsTo
-    {
-        return $this->belongsTo(Beneficiary::class);
     }
 
     public function nurse(): BelongsTo

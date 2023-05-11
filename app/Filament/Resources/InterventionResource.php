@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Enums\Intervention\CaseInitiator;
+use App\Enums\Intervention\Status;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
@@ -17,7 +18,6 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\Layout;
@@ -31,11 +31,6 @@ class InterventionResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function form(Form $form): Form
-    {
-        return $form;
-    }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -44,23 +39,20 @@ class InterventionResource extends Resource
                     ->schema([
                         TextColumn::make('name')
                             ->label(__('field.vulnerability'))
+                            ->prefix(fn ($record) => $record->id)
                             ->alignment('left')
                             ->searchable()
                             ->extraAttributes(fn (Vulnerability $record) => [
                                 'class' => $record->id === 'NONE' ? 'italic' : null,
-                            ])
-                            ->sortable(),
+                            ]),
 
-                        TextColumn::make('interventions_count')
-                            ->counts('interventions')
+                        TextColumn::make('interventions_count_column')
                             ->alignment('left')
-                            ->label(__('field.interventions'))
-                            ->sortable(),
+                            ->label(__('field.interventions')),
 
-                        TextColumn::make('services_count')
+                        TextColumn::make('services_count_column')
                             ->label(__('field.status'))
-                            ->alignment('left')
-                            ->sortable(),
+                            ->alignment('left'),
                     ]),
 
                 Layout\Split::make([
@@ -114,14 +106,15 @@ class InterventionResource extends Resource
 
                     Select::make('status')
                         ->label(__('field.service_status'))
-                        ->disabled(),
+                        ->options(Status::options())
+                        ->enum(Status::class)
+                        ->default(Status::PLANNED),
 
                     DatePicker::make('date')
                         ->label(__('field.date')),
 
                     Radio::make('integrated')
                         ->label(__('field.integrated'))
-                        ->helperText('ceva help text aici TBD')
                         ->inlineOptions()
                         ->boolean()
                         ->default(0),

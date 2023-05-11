@@ -6,21 +6,21 @@ namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Resources\BeneficiaryResource\Concerns;
-use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
+use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
+use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
 use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Resources\Pages\ListRecords;
 
-class ViewIntervention extends ViewRecord implements WithSidebar
+class ViewIntervention extends ListRecords implements WithSidebar
 {
-    use Concerns\CommonViewFormSchema;
-    use HasRecordBreadcrumb;
-    use Concerns\HasSidebar;
+    use Concerns\HasRecordBreadcrumb;
+    use Concerns\InteractsWithCaseRecord;
+    use HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -107,13 +107,13 @@ class ViewIntervention extends ViewRecord implements WithSidebar
         ];
     }
 
-    public function beforeFill()
-    {
-        $this->intervention = app(CaseManagement::class)
-            ->resolveRouteBindingQuery(
-                $this->getRecord()->cases(),
-                request()->intervention->id
-            )
-            ->firstOrFail();
-    }
+    // public function beforeFill()
+    // {
+    //     $this->intervention = app(CaseManagement::class)
+    //         ->resolveRouteBindingQuery(
+    //             $this->getRecord()->cases(),
+    //             request()->intervention->id
+    //         )
+    //         ->firstOrFail();
+    // }
 }

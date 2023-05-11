@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
-use App\Models\Beneficiary;
+use App\Concerns\BelongsToBeneficiary;
+use App\Enums\Intervention\Status;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IndividualService extends Model
 {
+    use BelongsToBeneficiary;
     use HasFactory;
 
     protected $fillable = [
@@ -22,8 +24,6 @@ class IndividualService extends Model
         'status',
         'notes',
         'outside_working_hours',
-
-        'beneficiary_id',
         'case_id',
     ];
 
@@ -31,12 +31,8 @@ class IndividualService extends Model
         'date' => 'date',
         'integrated' => 'boolean',
         'outside_working_hours' => 'boolean',
+        'status' => Status::class,
     ];
-
-    public function beneficiary(): BelongsTo
-    {
-        return $this->belongsTo(Beneficiary::class);
-    }
 
     public function case(): BelongsTo
     {
@@ -51,11 +47,6 @@ class IndividualService extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
-    }
-
-    public function scopeWhereBeneficiary(Builder $query, ?Beneficiary $beneficiary): Builder
-    {
-        return $query->where('beneficiary_id', $beneficiary?->id);
     }
 
     public function scopeWithoutCase(Builder $query): Builder

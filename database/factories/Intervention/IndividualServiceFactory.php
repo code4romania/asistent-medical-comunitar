@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\Intervention;
 
+use App\Enums\Intervention\Status;
 use App\Models\Intervention\CaseManagement;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
@@ -34,7 +35,7 @@ class IndividualServiceFactory extends Factory
             'date' => fake()->date(),
             'integrated' => fake()->boolean(),
             'outside_working_hours' => fake()->boolean(15),
-            'status' => 'REPLACE_ME',
+            'status' => fake()->randomElement(Status::values()),
             'notes' => fake()->text(),
 
             'service_id' => $this->randomService(),

@@ -60,6 +60,7 @@ return [
     'phone' => 'Telefon',
     'reason_removed' => 'Motiv scoatere din evidență',
     'section_details' => ':section - detalii',
+    'service_status' => 'Status serviciu',
     'services_offered' => 'Servicii oferite',
     'services_performed' => 'Servicii realizate',
     'start_date' => 'Data de început',

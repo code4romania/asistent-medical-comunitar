@@ -32,9 +32,15 @@ return [
 
     'status' => [
         'open' => 'Deschis',
-        'performed' => 'Realizat',
-        'not_performed' => 'Nerealizat',
+        'closed' => 'Închis',
+        'realized' => 'Realizat',
+        'unrealized' => 'Nerealizat',
         'planned' => 'Planificat',
+    ],
+
+    'table' => [
+        'interventions' => '{0}:value intervenții|{1}:value intervenție|[2,19]:value intervenții|[20,*]:value de intervenții',
+        'services' => '{0}:value servicii realizate|{1}:value serviciu realizat|[2,19]:value servicii realizate|[20,*]:value de servicii realizate',
     ],
 
 ];

@@ -6,6 +6,7 @@ namespace App\Filament\Actions;
 
 use App\Enums\Beneficiary\Type;
 use App\Enums\Intervention\CaseInitiator;
+use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use App\Models\Intervention\OcasionalIntervention;
@@ -55,6 +56,7 @@ class ConvertOcasionalBeneficiaryAction extends Action
                             ->map(fn (Service $service) => [
                                 'date' => $ocasionalIntervention->date,
                                 'service_id' => $service->id,
+                                'status' => Status::REALIZED,
                             ])
                     );
 

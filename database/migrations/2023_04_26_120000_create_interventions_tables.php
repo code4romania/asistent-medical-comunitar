@@ -40,6 +40,7 @@ return new class extends Migration
         Schema::create('cases', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->timestamp('closed_at')->nullable();
             $table->string('name')->nullable();
             $table->enum('initiator', CaseInitiator::values())->nullable();
             $table->boolean('integrated')->default(false);

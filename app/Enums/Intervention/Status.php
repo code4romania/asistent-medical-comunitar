@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Intervention;
 
 use App\Concerns;
 
-enum InterventionStatus: string
+enum Status: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasLabel;
 
-    case OPEN = 'open';
-    case PERFORMED = 'performed';
-    case NOT_PERFORMED = 'not_performed';
     case PLANNED = 'planned';
+    case REALIZED = 'realized';
+    case UNREALIZED = 'unrealized';
 
     protected function labelKeyPrefix(): ?string
     {

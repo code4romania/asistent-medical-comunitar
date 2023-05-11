@@ -43,11 +43,11 @@
                 </td>
 
                 <td class="px-4 py-6">
-                    STATUS
+                    {{ $getStatusColumn($intervention) }}
                 </td>
 
                 <td class="px-4 py-6">
-                    0/0
+                    {{ $getServicesColumn($intervention) }}
                 </td>
 
                 {{-- <td class="px-4 py-6">

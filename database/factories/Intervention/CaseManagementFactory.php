@@ -30,6 +30,7 @@ class CaseManagementFactory extends Factory
             'initiator' => fake()->randomElement(CaseInitiator::values()),
             'imported' => fake()->boolean(10),
             'notes' => fake()->text(),
+            'closed_at' => fake()->boolean() ? fake()->dateTime() : null,
 
             'beneficiary_id' => Beneficiary::factory(),
             'vulnerability_id' => $this->randomVulnerability(),

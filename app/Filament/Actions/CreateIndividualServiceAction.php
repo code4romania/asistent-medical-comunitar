@@ -31,7 +31,6 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->using(function (array $data) {
             $data['beneficiary_id'] = $this->getRecord()?->id;
-            $data['status'] = 'REPLACE_ME';
 
             return IndividualService::create($data);
         });
