@@ -25,7 +25,10 @@
                 'filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8',
                 $maxContentWidth,
             ])>
-                <x-filament::layouts.app.topbar.breadcrumbs :breadcrumbs="$breadcrumbs" />
+                <x-filament::layouts.app.topbar.breadcrumbs
+                    :breadcrumbs="$breadcrumbs"
+                    class="mb-2"
+                />
 
                 {{ \Filament\Facades\Filament::renderHook('content.start') }}
 
