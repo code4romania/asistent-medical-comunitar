@@ -12,6 +12,7 @@ return [
     'action' => [
         'add_service' => 'Adaugă serviciu',
         'close' => 'Închide intervenție',
+        'reopen' => 'Redeschide intervenție',
         'create' => 'Adaugă altă intervenție',
         'delete' => 'Șterge intervenție',
         'edit' => 'Editează',

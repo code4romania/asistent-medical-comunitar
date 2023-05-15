@@ -59,7 +59,10 @@ class InterventionsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->icon('heroicon-o-plus-circle')
+                    ->label(__('intervention.action.add_service'))
+                    ->modalHeading(__('intervention.action.add_service')),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
