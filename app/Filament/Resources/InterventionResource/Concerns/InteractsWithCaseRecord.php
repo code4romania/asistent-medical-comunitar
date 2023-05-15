@@ -38,5 +38,7 @@ trait InteractsWithCaseRecord
         $this->record = BeneficiaryResource::resolveRecordRouteBinding($record);
 
         $this->intervention = $this->resolveRecord($intervention->id);
+
+        $this->fillForm();
     }
 }

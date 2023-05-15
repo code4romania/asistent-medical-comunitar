@@ -99,7 +99,7 @@ class InterventionResource extends Resource
         ];
     }
 
-    public static function getCaseFormSchema(): array
+    public static function getCaseFormSchema(int $columns = 2): array
     {
         $vulnerabilities = Vulnerability::cachedList()
             ->pluck('name', 'id');
@@ -108,6 +108,7 @@ class InterventionResource extends Resource
             Subsection::make()
                 ->icon('heroicon-o-document-text')
                 ->columns(2)
+                ->columnSpan($columns - 1)
                 ->schema([
                     TextInput::make('name')
                         ->label(__('field.intervention_name'))
@@ -140,14 +141,10 @@ class InterventionResource extends Resource
 
             Subsection::make()
                 ->icon('heroicon-o-annotation')
+                ->columnSpan(1)
                 ->schema([
                     Textarea::make('notes')
-                        ->label(__('field.notes'))
-                        ->autosize(false)
-                        ->rows(4)
-                        ->extraInputAttributes([
-                            'class' => 'resize-none',
-                        ]),
+                        ->label(__('field.notes')),
                 ]),
         ];
     }

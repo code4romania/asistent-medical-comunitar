@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
+use App\Filament\Actions\ToggleCaseManagementStatusAction;
+use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
@@ -29,7 +31,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
     public function getTitle(): string
     {
         return __('case.title', [
-            'name' => $this->getRecordTitle(),
+            'name' => $this->intervention?->name,
         ]);
     }
 
@@ -47,7 +49,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     ->componentActions(fn ($record) => [
                         Action::make('edit')
                             ->label(__('intervention.action.edit'))
-                            ->url('#')
+                            ->url(BeneficiaryResource::getUrl('interventions.edit', [$this->record, $this->intervention]))
                             ->color('secondary'),
                     ])
                     ->columns(3)
@@ -87,21 +89,21 @@ class ViewIntervention extends ViewRecord implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Action::make('delete')
-                ->label(__('intervention.action.delete'))
-                ->color('danger')
-                ->outlined()
-                ->disabled(),
+            // Action::make('delete')
+            //     ->label(__('intervention.action.delete'))
+            //     ->color('danger')
+            //     ->outlined()
+            //     ->disabled(),
 
             Action::make('export')
                 ->label(__('intervention.action.export'))
                 ->icon('heroicon-s-download')
-                ->color('secondary'),
+                ->color('secondary')
+                ->disabled(),
 
-            Action::make('close')
-                ->label(__('intervention.action.close'))
-                ->icon('heroicon-s-check-circle')
-                ->color('warning'),
+            ToggleCaseManagementStatusAction::make()
+                ->record($this->intervention),
+
         ];
     }
 }

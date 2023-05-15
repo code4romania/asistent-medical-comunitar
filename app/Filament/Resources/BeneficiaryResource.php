@@ -135,6 +135,7 @@ class BeneficiaryResource extends Resource
 
             'interventions.index' => InterventionPages\ListInterventions::route('/{record}/interventions'),
             'interventions.view' => InterventionPages\ViewIntervention::route('/{record}/interventions/{intervention}'),
+            'interventions.edit' => InterventionPages\EditIntervention::route('/{record}/interventions/{intervention}/edit'),
 
             'history' => Pages\ListHistory::route('/{record}/history'),
         ];

@@ -57,4 +57,11 @@ class CaseManagement extends Model
             ? __('intervention.status.open')
             : __('intervention.status.closed');
     }
+
+    public function close(): void
+    {
+        $this->update([
+            'closed_at' => $this->freshTimestamp(),
+        ]);
+    }
 }
