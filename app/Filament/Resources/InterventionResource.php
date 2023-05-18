@@ -10,6 +10,7 @@ use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
+use App\Models\Beneficiary;
 use App\Models\Intervention\IndividualService;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Forms\Components\Checkbox;
@@ -19,6 +20,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 
 class InterventionResource extends Resource
 {
@@ -42,7 +44,7 @@ class InterventionResource extends Resource
         ];
     }
 
-    public static function getIndividualServiceFormSchema(): array
+    public static function getIndividualServiceFormSchema(?Beneficiary $beneficiary = null): array
     {
         $vulnerabilities = Vulnerability::cachedList()
             ->pluck('name', 'id');
@@ -59,7 +61,7 @@ class InterventionResource extends Resource
 
                     Select::make('vulnerability')
                         ->relationship('vulnerability', 'name')
-                        ->label(__('field.targeted_vulnerability'))
+                        ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
                         ->options($vulnerabilities)
                         ->in($vulnerabilities->keys())
@@ -67,10 +69,12 @@ class InterventionResource extends Resource
 
                     Select::make('case')
                         ->label(__('field.associated_case'))
-                        ->disabled(),
+                        ->relationship('case', 'name', function (Builder $query) use ($beneficiary) {
+                            $query->whereBeneficiary($beneficiary);
+                        }),
 
                     Select::make('status')
-                        ->label(__('field.service_status'))
+                        ->label(__('field.status'))
                         ->options(Status::options())
                         ->enum(Status::class)
                         ->default(Status::PLANNED),

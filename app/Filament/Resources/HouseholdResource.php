@@ -9,6 +9,7 @@ use App\Models\Beneficiary;
 use App\Models\Family;
 use App\Models\Household;
 use App\Tables\Columns\HouseholdFamiliesColumn;
+use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +19,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Split;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 
 class HouseholdResource extends Resource

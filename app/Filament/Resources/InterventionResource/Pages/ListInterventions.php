@@ -12,10 +12,10 @@ use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Vulnerability\Vulnerability;
 use App\Tables\Columns\InterventionsColumn;
+use App\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\Layout;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListInterventions extends ListRecords implements WithSidebar

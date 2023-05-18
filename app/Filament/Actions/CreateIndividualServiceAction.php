@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Actions;
 
 use App\Filament\Resources\InterventionResource;
+use App\Models\Beneficiary;
 use App\Models\Intervention\IndividualService;
 use Filament\Pages\Actions\CreateAction;
 
@@ -35,6 +36,8 @@ class CreateIndividualServiceAction extends CreateAction
             return IndividualService::create($data);
         });
 
-        $this->form(InterventionResource::getIndividualServiceFormSchema());
+        $this->form(fn (Beneficiary $record) => InterventionResource::getIndividualServiceFormSchema(
+            beneficiary: $record
+        ));
     }
 }
