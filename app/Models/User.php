@@ -64,6 +64,7 @@ class User extends Authenticatable implements FilamentUser, HasName
     ];
 
     protected $casts = [
+        'password' => 'hashed',
         'gender' => Gender::class,
         'date_of_birth' => 'date',
     ];
