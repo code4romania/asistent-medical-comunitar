@@ -108,7 +108,9 @@ class InterventionResource extends Resource
             Subsection::make()
                 ->icon('heroicon-o-document-text')
                 ->columns(2)
-                ->columnSpan($columns - 1)
+                ->columnSpan([
+                    'lg' => $columns - 1,
+                ])
                 ->schema([
                     TextInput::make('name')
                         ->label(__('field.intervention_name'))
@@ -124,7 +126,7 @@ class InterventionResource extends Resource
 
                     Select::make('vulnerability')
                         ->relationship('vulnerability', 'name')
-                        ->label(__('field.targeted_vulnerability'))
+                        ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
                         ->options($vulnerabilities)
                         ->in($vulnerabilities->keys())
@@ -133,7 +135,6 @@ class InterventionResource extends Resource
 
                     Radio::make('integrated')
                         ->label(__('field.integrated'))
-                        ->helperText('ceva help text aici TBD')
                         ->inlineOptions()
                         ->boolean()
                         ->default(0),
@@ -141,7 +142,9 @@ class InterventionResource extends Resource
 
             Subsection::make()
                 ->icon('heroicon-o-annotation')
-                ->columnSpan(1)
+                ->columnSpan([
+                    'lg' => 1,
+                ])
                 ->schema([
                     Textarea::make('notes')
                         ->label(__('field.notes')),

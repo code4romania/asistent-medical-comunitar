@@ -23,7 +23,7 @@ class ListInterventions extends ListRecords implements WithSidebar
     use HasRecordBreadcrumb;
     use Concerns\HasActions;
     use Concerns\HasSidebar;
-    use Concerns\InteractsWithBeneficiaryRecord;
+    use Concerns\ListRecordsForBeneficiary;
 
     protected static string $resource = InterventionResource::class;
 
@@ -31,7 +31,7 @@ class ListInterventions extends ListRecords implements WithSidebar
     {
         return Vulnerability::query()
             ->with('category')
-            ->withInterventionsForBeneficiary($this->record);
+            ->withInterventionsForBeneficiary($this->getBeneficiary());
     }
 
     public function getTitle(): string
@@ -48,9 +48,9 @@ class ListInterventions extends ListRecords implements WithSidebar
     {
         return [
             CreateIndividualServiceAction::make()
-                ->record($this->getRecord()),
+                ->record($this->getBeneficiary()),
             CreateCaseManagementAction::make()
-                ->record($this->getRecord()),
+                ->record($this->getBeneficiary()),
         ];
     }
 

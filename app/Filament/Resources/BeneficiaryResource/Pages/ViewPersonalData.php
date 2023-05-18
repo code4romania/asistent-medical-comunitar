@@ -22,6 +22,13 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
 
     protected static string $resource = BeneficiaryResource::class;
 
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        $this->resolveBeneficiary($record);
+    }
+
     public function getTitle(): string
     {
         return __('beneficiary.section.personal_data');

@@ -2,19 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\InterventionResource\Concerns;
+namespace App\Concerns;
 
-use App\Filament\Resources\BeneficiaryResource;
-use App\Models\Beneficiary;
 use App\Models\Intervention\CaseManagement;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-trait InteractsWithCaseRecord
+trait InteractsWithCase
 {
     use InteractsWithRecord;
-
-    public Beneficiary $beneficiary;
+    use InteractsWithBeneficiary;
 
     protected function resolveRecord($key): CaseManagement
     {
@@ -33,11 +30,13 @@ trait InteractsWithCaseRecord
     {
         static::authorizeResourceAccess();
 
-        [$record, $intervention] = $args;
+        [$beneficiary, $record] = $args;
 
-        $this->record = BeneficiaryResource::resolveRecordRouteBinding($record);
+        $this->resolveBeneficiary($beneficiary);
 
-        $this->intervention = $this->resolveRecord($intervention->id);
+        $this->record = app(CaseManagement::class)
+            ->resolveRouteBindingQuery($this->getBeneficiary()->cases(), $record)
+            ->first();
 
         $this->fillForm();
     }

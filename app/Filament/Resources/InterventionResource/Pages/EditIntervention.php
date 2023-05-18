@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
+use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
@@ -14,22 +15,34 @@ use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
-use Illuminate\Database\Eloquent\Model;
 
 class EditIntervention extends EditRecord implements WithSidebar
 {
     use Concerns\HasRecordBreadcrumb;
-    use Concerns\InteractsWithCaseRecord;
     use HasSidebar;
+    use InteractsWithBeneficiary;
 
     protected static string $resource = InterventionResource::class;
 
-    public ?CaseManagement $intervention = null;
+    public function mount(...$args): void
+    {
+        [$beneficiary, $intervention] = $args;
+
+        $this->resolveBeneficiary($beneficiary);
+
+        $this->record = app(CaseManagement::class)
+            ->resolveRouteBindingQuery($this->getBeneficiary()->cases(), $intervention)
+            ->first();
+
+        $this->authorizeAccess();
+
+        $this->fillForm();
+    }
 
     public function getTitle(): string
     {
         return __('case.title', [
-            'name' => $this->intervention?->name,
+            'name' => $this->getRecordTitle(),
         ]);
     }
 
@@ -48,32 +61,7 @@ class EditIntervention extends EditRecord implements WithSidebar
                     ->schema(
                         InterventionResource::getCaseFormSchema(columns: 3)
                     ),
-
             ]);
-    }
-
-    protected function getForms(): array
-    {
-        return [
-            'form' => $this->makeForm()
-                ->context('edit')
-                ->model($this->intervention)
-                ->schema($this->getFormSchema())
-                ->statePath('data')
-                ->inlineLabel(config('filament.layout.forms.have_inline_labels')),
-        ];
-    }
-
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        return $this->intervention->attributesToArray();
-    }
-
-    protected function handleRecordUpdate(Model $record, array $data): Model
-    {
-        $this->intervention->update($data);
-
-        return $this->intervention;
     }
 
     protected function getActions(): array
@@ -91,6 +79,9 @@ class EditIntervention extends EditRecord implements WithSidebar
 
     protected function getRedirectUrl(): ?string
     {
-        return BeneficiaryResource::getUrl('interventions.view', [$this->record, $this->intervention]);
+        return BeneficiaryResource::getUrl('interventions.view', [
+            'record' => $this->getBeneficiary(),
+            'intervention' => $this->getRecord(),
+        ]);
     }
 }

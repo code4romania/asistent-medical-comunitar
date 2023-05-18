@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
+use App\Concerns\InteractsWithCase;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Actions\ToggleCaseManagementStatusAction;
 use App\Filament\Resources\BeneficiaryResource;
@@ -13,7 +14,6 @@ use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
-use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -21,17 +21,15 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewIntervention extends ViewRecord implements WithSidebar
 {
     use Concerns\HasRecordBreadcrumb;
-    use Concerns\InteractsWithCaseRecord;
     use HasSidebar;
+    use InteractsWithCase;
 
     protected static string $resource = InterventionResource::class;
-
-    public ?CaseManagement $intervention = null;
 
     public function getTitle(): string
     {
         return __('case.title', [
-            'name' => $this->intervention?->name,
+            'name' => $this->getRecordTitle(),
         ]);
     }
 
@@ -49,12 +47,10 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     ->componentActions(fn ($record) => [
                         Action::make('edit')
                             ->label(__('intervention.action.edit'))
-                            ->url(BeneficiaryResource::getUrl('interventions.edit', [$this->record, $this->intervention]))
+                            ->url(BeneficiaryResource::getUrl('interventions.edit', [$this->getBeneficiary(), $this->getRecord()]))
                             ->color('secondary'),
                     ])
                     ->columns(3)
-                    ->model($this->intervention)
-
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-document-text')
@@ -89,20 +85,21 @@ class ViewIntervention extends ViewRecord implements WithSidebar
     protected function getActions(): array
     {
         return [
+
             // Action::make('delete')
             //     ->label(__('intervention.action.delete'))
             //     ->color('danger')
             //     ->outlined()
             //     ->disabled(),
 
-            Action::make('export')
-                ->label(__('intervention.action.export'))
-                ->icon('heroicon-s-download')
-                ->color('secondary')
-                ->disabled(),
+            // Action::make('export')
+            //     ->label(__('intervention.action.export'))
+            //     ->icon('heroicon-s-download')
+            //     ->color('secondary')
+            //     ->disabled(),
 
             ToggleCaseManagementStatusAction::make()
-                ->record($this->intervention),
+                ->record($this->getRecord()),
 
         ];
     }

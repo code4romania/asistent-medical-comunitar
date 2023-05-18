@@ -51,6 +51,7 @@ return [
     'id' => 'ID',
     'initiator' => 'Efectuat la inițiativa',
     'integrated' => 'Abordare integrată',
+    'intervention_name' => 'Nume intervenție',
     'intervention_reason' => 'Motivul intervenției',
     'interventions' => 'Intervenții',
     'last_name' => 'Nume',

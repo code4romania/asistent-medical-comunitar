@@ -13,7 +13,7 @@ trait HasRecordBreadcrumb
     protected function getBreadcrumbs(): array
     {
         /** @var Beneficiary */
-        $beneficiary = $this->getRecord();
+        $beneficiary = $this->getBeneficiary();
 
         $breadcrumbs = [
             BeneficiaryResource::getUrl('index') => BeneficiaryResource::getBreadcrumb(),

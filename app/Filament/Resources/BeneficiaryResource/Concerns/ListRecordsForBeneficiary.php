@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
+use App\Concerns\InteractsWithBeneficiary;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-trait InteractsWithBeneficiaryRecord
+trait ListRecordsForBeneficiary
 {
     use InteractsWithRecord;
+    use InteractsWithBeneficiary;
 
     protected function resolveRecord($key): Beneficiary
     {
@@ -28,10 +30,10 @@ trait InteractsWithBeneficiaryRecord
     {
         static::authorizeResourceAccess();
 
-        $this->record = $this->resolveRecord(request()->record);
+        $this->resolveBeneficiary(request()->record);
 
-        abort_unless(static::getResource()::canView($this->getRecord()), 403);
+        abort_unless(static::getResource()::canView($this->getBeneficiary()), 403);
 
-        abort_unless($this->getRecord()->isRegular(), 404);
+        abort_unless($this->getBeneficiary()->isRegular(), 404);
     }
 }

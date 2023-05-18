@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
+use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\HistoryResource;
@@ -17,13 +18,20 @@ class ListHistory extends ListRecords implements WithSidebar
     use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
-    use Concerns\InteractsWithBeneficiaryRecord;
+    use InteractsWithBeneficiary;
 
     protected static string $resource = HistoryResource::class;
 
+    public function mount(): void
+    {
+        parent::mount();
+
+        $this->resolveBeneficiary(request()->record);
+    }
+
     protected function getTableQuery(): Builder
     {
-        return Activity::whereMorphRelation('subject', Beneficiary::class, 'id', $this->getRecord()->id);
+        return Activity::whereMorphRelation('subject', Beneficiary::class, 'id', $this->getBeneficiary()->id);
     }
 
     public function getTitle(): string

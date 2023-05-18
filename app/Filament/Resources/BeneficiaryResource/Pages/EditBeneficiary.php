@@ -22,6 +22,13 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
 
     protected static string $resource = BeneficiaryResource::class;
 
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        $this->resolveBeneficiary($record);
+    }
+
     protected function form(Form $form): Form
     {
         if ($this->getRecord()->isRegular()) {

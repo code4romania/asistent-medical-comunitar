@@ -27,6 +27,13 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
     protected static string $resource = BeneficiaryResource::class;
 
+    public function mount($record): void
+    {
+        parent::mount($record);
+
+        $this->resolveBeneficiary($record);
+    }
+
     protected function getActions(): array
     {
         return [

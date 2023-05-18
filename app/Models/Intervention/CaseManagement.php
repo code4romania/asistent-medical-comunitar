@@ -27,6 +27,7 @@ class CaseManagement extends Model
         'integrated',
         'imported',
         'closed_at',
+        'notes',
     ];
 
     protected $casts = [
@@ -56,6 +57,13 @@ class CaseManagement extends Model
         return $this->isOpen()
             ? __('intervention.status.open')
             : __('intervention.status.closed');
+    }
+
+    public function open(): void
+    {
+        $this->update([
+            'closed_at' => null,
+        ]);
     }
 
     public function close(): void

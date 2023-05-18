@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Actions;
 
+use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 
@@ -43,11 +44,21 @@ class ToggleCaseManagementStatusAction extends Action
         $this->centerModal(false);
 
         $this->action(function (CaseManagement $record) {
-            $record->close();
+            if ($record->isOpen()) {
+                $record->close();
+            } else {
+                $record->open();
+            }
 
             $this->success();
         });
 
         $this->successNotificationTitle(__('beneficiary.action_convert.success'));
+        $this->successRedirectUrl(function (CaseManagement $record) {
+            return BeneficiaryResource::getUrl('interventions.view', [
+                'record' => $record->beneficiary,
+                'intervention' => $record,
+            ]);
+        });
     }
 }
