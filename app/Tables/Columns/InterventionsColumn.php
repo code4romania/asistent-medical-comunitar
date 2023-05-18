@@ -8,6 +8,7 @@ use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\CaseManagement;
 use App\Models\Intervention\IndividualService;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\Column;
 use Illuminate\Support\Collection;
 
@@ -79,24 +80,32 @@ class InterventionsColumn extends Column
         return $performed . '/' . $total;
     }
 
-    public function getActionUrl(CaseManagement|IndividualService $intervention): string
+    public function getActions(CaseManagement|IndividualService $intervention): array
     {
         if ($intervention instanceof CaseManagement) {
-            return BeneficiaryResource::getUrl('interventions.view', [
+            $url = BeneficiaryResource::getUrl('interventions.view', [
                 'record' => $intervention->beneficiary_id,
                 'intervention' => $intervention->id,
             ]);
+
+            return [
+                ViewAction::make()
+                    ->label(__('intervention.action.view_case'))
+                    ->record($intervention)
+                    ->color('primary')
+                    ->size('sm')
+                    ->icon(null)
+                    ->url($url),
+            ];
         }
 
-        return '#';
-    }
-
-    public function getActionLabel(CaseManagement|IndividualService $intervention): string
-    {
-        if ($intervention instanceof CaseManagement) {
-            return __('intervention.action.view_case');
-        }
-
-        return __('intervention.action.view_individual');
+        return [
+            ViewAction::make()
+                ->label(__('intervention.action.view_individual'))
+                ->record($intervention)
+                ->color('primary')
+                ->size('sm')
+                ->icon(null),
+        ];
     }
 }

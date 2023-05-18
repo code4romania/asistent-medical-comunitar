@@ -31,7 +31,6 @@ class CreateCaseManagementAction extends CreateAction
 
         $this->using(function (array $data) {
             $data['beneficiary_id'] = $this->getRecord()?->id;
-            $data['status'] = 'REPLACE_ME';
 
             return CaseManagement::create($data);
         });

@@ -54,12 +54,12 @@
                     0
                 </td> --}}
 
-                <td class="px-4 py-6">
-                    <div class="flex justify-end">
-                        <x-filament::link :href="$getActionUrl($intervention)">
-                            {{ $getActionLabel($intervention) }}
-                        </x-filament::link>
-                    </div>
+                <td class="relative px-4 py-6">
+                    <x-tables::actions
+                        :actions="$getActions($intervention)"
+                        :record="$intervention"
+                        wrap="-md"
+                    />
                 </td>
             </tr>
         @endforeach
