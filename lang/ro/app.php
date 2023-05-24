@@ -8,4 +8,8 @@ return [
         'group' => 'Acțiuni rapide',
     ],
 
+    'filter' => [
+        'date_from' => 'Dată început',
+        'date_until' => 'Dată sfârșit',
+    ],
 ];

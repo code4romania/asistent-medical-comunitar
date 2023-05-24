@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Tables\Columns\TextColumn;
@@ -74,7 +75,7 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
                     ->toggleable(),
             ])
             ->filters([
-                //
+                DateRangeFilter::make('date_between'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()

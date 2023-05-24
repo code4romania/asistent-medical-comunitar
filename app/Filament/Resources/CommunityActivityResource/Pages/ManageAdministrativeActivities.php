@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Tables\Columns\TextColumn;
@@ -40,7 +41,6 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                 TextColumn::make('name')
                     ->label(__('field.activity'))
                     ->size('sm')
-                    ->limit(30)
                     ->searchable()
                     ->toggleable(),
 
@@ -61,7 +61,7 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
 
             ])
             ->filters([
-                //
+                DateRangeFilter::make('date_between'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
