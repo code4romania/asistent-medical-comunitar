@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
+use App\Filament\Actions\ActionGroup;
 use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\ActionGroup;
 
 trait HasActions
 {
