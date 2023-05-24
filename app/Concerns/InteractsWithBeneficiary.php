@@ -40,7 +40,7 @@ trait InteractsWithBeneficiary
     public function getBeneficiary(): Beneficiary
     {
         if (\is_null($this->beneficiary)) {
-            $this->resolveBeneficiary($this->record);
+            $this->resolveBeneficiary($this->record ?? null);
         }
 
         return $this->beneficiary;

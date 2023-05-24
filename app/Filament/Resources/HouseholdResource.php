@@ -90,13 +90,15 @@ class HouseholdResource extends Resource
 
                         TextColumn::make('families_count')
                             ->label(__('field.families_count'))
-                            ->prefix(__('field.families_count') . ' ')
+                            ->description(__('field.families_count'), position: 'above')
+                            ->alignment('left')
                             ->counts('families')
                             ->sortable(),
 
                         TextColumn::make('beneficiaries_count')
                             ->label(__('field.beneficiaries_count'))
-                            ->prefix(__('field.beneficiaries_count') . ' ')
+                            ->description(__('field.beneficiaries_count'), position: 'above')
+                            ->alignment('left')
                             ->counts('beneficiaries')
                             ->sortable(),
                     ]),
