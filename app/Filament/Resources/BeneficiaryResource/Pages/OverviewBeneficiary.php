@@ -119,6 +119,12 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
                 Card::make()
                     ->header(__('beneficiary.section.active_interventions'))
+                    ->componentActions(fn ($record) => [
+                        Actions\Action::make('view')
+                            ->label(__('beneficiary.action.view_details'))
+                            ->url(static::getResource()::getUrl('interventions.index', $record))
+                            ->color('secondary'),
+                    ])
                     ->columnSpan([
                         'xl' => 2,
                     ])
