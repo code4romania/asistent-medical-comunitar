@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Beneficiary;
+use App\Models\CommunityActivity;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Create community activities
+        CommunityActivity::factory()
+            ->count(25)
+            ->create();
+
         // Create an admin
         $admin = User::factory(['email' => 'admin@example.com'])
             ->admin()
