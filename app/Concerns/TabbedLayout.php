@@ -9,12 +9,17 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Str;
 
 trait TabbedLayout
 {
     public function bootedTabbedLayout(): void
     {
         if (! $this instanceof WithTabs) {
+            return;
+        }
+
+        if (! Str::startsWith(static::$view, 'filament::resources.pages')) {
             return;
         }
 
