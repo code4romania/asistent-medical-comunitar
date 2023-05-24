@@ -34,6 +34,18 @@ class DatabaseSeeder extends Seeder
             ->withProfile()
             ->create();
 
+        $this->generateBeneficiaries($nurse);
+
+        User::factory()
+            ->count(5)
+            ->nurse()
+            ->withProfile()
+            ->create()
+            ->each(fn (User $nurse) => $this->generateBeneficiaries($nurse));
+    }
+
+    protected function generateBeneficiaries(User $nurse): void
+    {
         Beneficiary::factory()
             ->count(10)
             ->recycle($nurse)
