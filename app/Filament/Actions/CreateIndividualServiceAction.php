@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Actions;
 
 use App\Enums\Intervention\Status;
-use App\Filament\Resources\InterventionResource;
 use App\Forms\Components\Radio;
 use App\Models\Beneficiary;
 use App\Models\Intervention\IndividualService;
@@ -44,9 +43,6 @@ class CreateIndividualServiceAction extends CreateAction
             return IndividualService::create($data);
         });
 
-        // $this->form(fn (Beneficiary $record) => InterventionResource::getIndividualServiceFormSchema(
-        //     beneficiary: $record
-        // ));
         $this->form(function (Beneficiary $record) {
             $vulnerabilities = Vulnerability::cachedList()
                 ->pluck('name', 'id');
