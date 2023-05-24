@@ -66,13 +66,16 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->form(CommunityActivityResource::getAdministrativeViewFormSchema())
+                    ->recordTitle(__('community_activity.type.administrative'))
                     ->iconButton(),
 
                 Tables\Actions\EditAction::make()
                     ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
+                    ->recordTitle(__('community_activity.type.administrative'))
                     ->iconButton(),
 
                 Tables\Actions\DeleteAction::make()
+                    ->recordTitle(__('community_activity.type.administrative'))
                     ->iconButton(),
             ]);
     }

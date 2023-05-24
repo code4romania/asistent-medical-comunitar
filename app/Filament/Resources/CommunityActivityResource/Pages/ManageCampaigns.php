@@ -86,13 +86,16 @@ class ManageCampaigns extends ManageRecords implements WithTabs
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->form(CommunityActivityResource::getCampaignViewFormSchema())
+                    ->recordTitle(__('community_activity.type.campaign'))
                     ->iconButton(),
 
                 Tables\Actions\EditAction::make()
                     ->form(CommunityActivityResource::getCampaignEditFormSchema())
+                    ->recordTitle(__('community_activity.type.campaign'))
                     ->iconButton(),
 
                 Tables\Actions\DeleteAction::make()
+                    ->recordTitle(__('community_activity.type.campaign'))
                     ->iconButton(),
             ]);
     }

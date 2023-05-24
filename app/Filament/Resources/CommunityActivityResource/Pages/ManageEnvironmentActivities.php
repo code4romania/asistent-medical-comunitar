@@ -80,13 +80,16 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->form(CommunityActivityResource::getEnvironmentViewFormSchema())
+                    ->recordTitle(__('community_activity.type.environment'))
                     ->iconButton(),
 
                 Tables\Actions\EditAction::make()
                     ->form(CommunityActivityResource::getEnvironmentEditFormSchema())
+                    ->recordTitle(__('community_activity.type.environment'))
                     ->iconButton(),
 
                 Tables\Actions\DeleteAction::make()
+                    ->recordTitle(__('community_activity.type.environment'))
                     ->iconButton(),
             ]);
     }
