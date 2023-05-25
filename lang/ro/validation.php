@@ -148,6 +148,8 @@ return [
     'ulid' => 'The :attribute must be a valid ULID.',
     'uuid' => 'Câmpul :attribute trebuie să fie un cod UUID valid.',
 
+    'cnp' => 'Câmpul :ATTRIBUTE nu are un format valid.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

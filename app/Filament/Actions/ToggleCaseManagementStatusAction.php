@@ -37,9 +37,21 @@ class ToggleCaseManagementStatusAction extends Action
                 : 'primary'
         );
 
-        $this->modalHeading(__('intervention.action_close_confirm.title'));
-        $this->modalSubheading(__('intervention.action_close_confirm.text'));
-        $this->modalButton(__('intervention.action_close_confirm.action'));
+        $this->modalHeading(
+            fn (CaseManagement $record) => $record->isOpen()
+                ? __('intervention.action_close_confirm.title')
+                : __('intervention.action_reopen_confirm.title')
+        );
+        $this->modalSubheading(
+            fn (CaseManagement $record) => $record->isOpen()
+                ? __('intervention.action_close_confirm.text')
+                : __('intervention.action_reopen_confirm.text')
+        );
+        $this->modalButton(
+            fn (CaseManagement $record) => $record->isOpen()
+                ? __('intervention.action_close_confirm.action')
+                : __('intervention.action_reopen_confirm.action')
+        );
         $this->modalWidth('md');
         $this->centerModal(false);
 
@@ -53,7 +65,12 @@ class ToggleCaseManagementStatusAction extends Action
             $this->success();
         });
 
-        $this->successNotificationTitle(__('beneficiary.action_convert.success'));
+        $this->successNotificationTitle(
+            fn (CaseManagement $record) => $record->isOpen()
+                ? __('intervention.action_reopen_confirm.success')
+                : __('intervention.action_close_confirm.success')
+        );
+
         $this->successRedirectUrl(function (CaseManagement $record) {
             return BeneficiaryResource::getUrl('interventions.view', [
                 'record' => $record->beneficiary,

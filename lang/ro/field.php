@@ -84,4 +84,10 @@ return [
     'work_status' => 'Încadrat în muncă',
     'year' => 'An',
 
+    'cat_diz_dx' => 'Diagnostic',
+    'cat_diz_cdx' => 'Cod diagnostic',
+    'cat_diz_iph' => 'Beneficiază de indemnizație/ pensie handicap',
+    'cat_diz_deb' => 'Debut',
+    'cat_diz_am' => 'Alte mențiuni',
+
 ];

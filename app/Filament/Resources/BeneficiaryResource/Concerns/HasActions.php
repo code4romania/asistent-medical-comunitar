@@ -17,7 +17,7 @@ trait HasActions
             ActionGroup::make([
                 Action::make('catagraphy')
                     ->label(__('catagraphy.action.update'))
-                    ->url(static::getResource()::getUrl('catagraphy.edit', $record)),
+                    ->url(static::getResource()::getUrl('catagraphy.edit', $this->getBeneficiary())),
 
                 // Action::make('case_management')
                 //     ->label(__('case_management.action.create'))

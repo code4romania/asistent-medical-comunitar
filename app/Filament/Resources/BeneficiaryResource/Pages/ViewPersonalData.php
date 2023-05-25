@@ -54,7 +54,6 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                             ->icon('heroicon-s-pencil')
                             ->url(static::getResource()::getUrl('edit', $record)),
                     ])
-                    ->footer(fn () => Actions\EditAction::make())
                     ->schema(static::getRegularBeneficiaryFormSchema()),
             ]);
     }

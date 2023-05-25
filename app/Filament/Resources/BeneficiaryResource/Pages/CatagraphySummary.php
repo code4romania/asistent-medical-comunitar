@@ -100,7 +100,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                         'actions' => [
                             TableAction::make('create')
                                 ->label(__('catagraphy.vulnerability.empty.create'))
-                                ->url(static::getResource()::getUrl('catagraphy.edit', ['record' => $this->getRecord()]))
+                                ->url(static::getResource()::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
                                 ->button()
                                 ->color('secondary'),
                         ],

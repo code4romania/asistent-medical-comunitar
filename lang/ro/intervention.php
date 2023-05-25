@@ -44,4 +44,18 @@ return [
         'services' => '{0}:value servicii realizate|{1}:value serviciu realizat|[2,19]:value servicii realizate|[20,*]:value de servicii realizate',
     ],
 
+    'action_close_confirm' => [
+        'title' => 'Închide intervenție',
+        'text' => 'Ești sigur că dorești să efectuezi operaţia?',
+        'action' => 'Închide',
+        'success' => 'Intervenția a fost închisă',
+    ],
+
+    'action_reopen_confirm' => [
+        'title' => 'Redeschide intervenție',
+        'text' => 'Ești sigur că dorești să efectuezi operaţia?',
+        'action' => 'Redeschide',
+        'success' => 'Intervenția a fost redeschisă',
+    ],
+
 ];
