@@ -8,6 +8,7 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Concerns;
 use App\Models\Report;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Exceptions\Halt;
 
@@ -39,17 +40,41 @@ class GenerateReport extends CreateRecord implements WithTabs
 
             $this->callHook('afterValidate');
 
-            $data = $this->mutateFormDataBeforeCreate($data);
+            $data = $this->mutateFormDataBeforeGenerate($data);
 
-            $this->callHook('beforeCreate');
+            $this->callHook('beforeGenerate');
 
-            $this->record = Report::make($data);
+            $this->record = Report::create($data);
 
             $this->form->model($this->record);
 
-            $this->callHook('afterCreate');
+            $this->callHook('afterGenerate');
         } catch (Halt $exception) {
             return;
         }
+    }
+
+    protected function mutateFormDataBeforeGenerate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        return $data;
+    }
+
+    protected function getCreateFormAction(): Action
+    {
+        return Action::make('create')
+            ->label(__('report.action.generate'))
+            ->submit('generate')
+            ->keyBindings(['mod+s'])
+            ->color('warning');
+    }
+
+    protected function getCancelFormAction(): Action
+    {
+        return Action::make('cancel')
+            ->label(__('report.action.cancel'))
+            ->url($this->previousUrl ?? static::getResource()::getUrl())
+            ->color('secondary');
     }
 }

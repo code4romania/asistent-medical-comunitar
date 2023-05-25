@@ -27,7 +27,7 @@ return [
     'column' => [
         'created_at' => 'Data generării raport',
         'type' => 'Tip raport',
-        'name' => 'Nume raport',
+        'title' => 'Nume raport',
         'indicators' => 'Indicatori',
         'segments' => 'Segmentare',
     ],
@@ -38,6 +38,13 @@ return [
         'vuln_list' => 'Vulnerabilități (Liste)',
         'health_total' => 'Stare de sănătate (Totaluri)',
         'health_list' => 'Stare de sănătate (Liste)',
+    ],
+
+    'action' => [
+        'cancel' => 'Resetează',
+        'generate' => 'Generează raport',
+        'export' => 'Exportă',
+        'save' => 'Salvează raport',
     ],
 
     'title' => [

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Report\Type;
+use App\Models\Scopes\CurrentUserScope;
 use App\Reports\NurseActivityReport;
 use App\Reports\ReportData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Report extends Model
 {
@@ -22,6 +24,7 @@ class Report extends Model
         'indicators',
         'segments',
         'data',
+        'user_id',
     ];
 
     protected $casts = [
@@ -32,6 +35,16 @@ class Report extends Model
         'segments' => 'collection',
         'data' => 'collection',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CurrentUserScope);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function data(): ReportData
     {

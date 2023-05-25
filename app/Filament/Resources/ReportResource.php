@@ -54,8 +54,9 @@ class ReportResource extends Resource
                     ->enum(Type::options())
                     ->toggleable(),
 
-                TextColumn::make('name')
-                    ->label(__('report.column.name'))
+                TextColumn::make('title')
+                    ->label(__('report.column.title'))
+                    ->wrap()
                     ->toggleable()
                     ->searchable(),
 
@@ -85,9 +86,7 @@ class ReportResource extends Resource
         return [
             'index' => Pages\GenerateReport::route('/generate'),
             'saved' => Pages\ListReports::route('/'),
-
-            // 'create' => Pages\CreateReport::route('/create'),
-            // 'edit' => Pages\EditReport::route('/{record}/edit'),
+            'view' => Pages\ViewReport::route('/{record}'),
         ];
     }
 

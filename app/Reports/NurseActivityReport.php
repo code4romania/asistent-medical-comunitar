@@ -45,6 +45,7 @@ class NurseActivityReport extends ReportData
             ->collapse();
 
         $this->report->update([
+            'title' => $this->getTitle(),
             'data' => $data,
         ]);
 

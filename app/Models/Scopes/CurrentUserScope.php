@@ -8,18 +8,17 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-class BeneficiaryScope implements Scope
+class CurrentUserScope implements Scope
 {
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     */
     public function apply(Builder $builder, Model $model): void
     {
         if (! auth()->check()) {
             return;
         }
 
-        if (! auth()->user()->isNurse()) {
-            return;
-        }
-
-        $builder->whereNurse(auth()->user());
+        $builder->where('user_id', auth()->user()->id);
     }
 }
