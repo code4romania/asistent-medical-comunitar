@@ -35,6 +35,7 @@ class CreateBeneficiary extends CreateRecord
                                     ->label(__('field.beneficiary_type'))
                                     ->options(Type::options())
                                     ->default(Type::REGULAR->value)
+                                    ->disablePlaceholderSelection()
                                     ->reactive()
                                     ->required(),
                             ]),

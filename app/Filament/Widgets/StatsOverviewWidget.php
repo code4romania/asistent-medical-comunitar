@@ -58,7 +58,9 @@ class StatsOverviewWidget extends BaseWidget
             return [
                 'beneficiaries_total' => [
                     'icon' => 'heroicon-s-user-group',
-                    'url' => BeneficiaryResource::getUrl('index'),
+                    'url' => auth()->user()->isNurse()
+                        ? BeneficiaryResource::getUrl('index')
+                        : null,
                     'value' => Beneficiary::query()
                         ->whereNurse(auth()->user())
                         ->count(),
@@ -66,7 +68,9 @@ class StatsOverviewWidget extends BaseWidget
 
                 'beneficiaries_active' => [
                     'icon' => 'heroicon-s-user',
-                    'url' => BeneficiaryResource::getUrl('index'),
+                    'url' => auth()->user()->isNurse()
+                        ? BeneficiaryResource::getUrl('index')
+                        : null,
                     'value' => Beneficiary::query()
                         ->whereNurse(auth()->user())
                         ->onlyActive()

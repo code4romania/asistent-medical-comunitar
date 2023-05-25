@@ -24,4 +24,14 @@ class Radio extends BaseRadio
     {
         return (bool) $this->evaluate($this->hasInlineOptions);
     }
+
+    public function boolean(?string $trueLabel = null, ?string $falseLabel = null): static
+    {
+        $this->options([
+            1 => $trueLabel ?? __('forms::components.select.boolean.true'),
+            0 => $falseLabel ?? __('forms::components.select.boolean.false'),
+        ]);
+
+        return $this;
+    }
 }

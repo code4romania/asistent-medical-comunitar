@@ -6,7 +6,6 @@ namespace App\Filament\Actions;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
-use App\Models\Beneficiary;
 use App\Models\Intervention\IndividualService;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Forms\Components\Checkbox;
@@ -43,7 +42,7 @@ class CreateIndividualServiceAction extends CreateAction
             return IndividualService::create($data);
         });
 
-        $this->form(function (Beneficiary $record) {
+        $this->form(function () {
             $vulnerabilities = Vulnerability::cachedList()
                 ->pluck('name', 'id');
 
