@@ -37,11 +37,7 @@ class BeneficiaryResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->withLocation()
-            ->when(
-                auth()->user()->isNurse(),
-                fn (Builder $query): Builder => $query->whereNurse(auth()->user())
-            );
+            ->withLocation();
     }
 
     public static function table(Table $table): Table

@@ -31,8 +31,8 @@ return [
     ],
 
     'empty' => [
-        'title' => 'Niciun activitate comunitară înregistrată',
-        'description' => 'Odată înregistrate în baza de date, acestea vor fi afișate în acest tabel',
+        'title' => 'Nicio activitate comunitară înregistrată',
+        'description' => 'Odată înregistrate în baza de date, activitățile comunitare vor fi afișate în acest tabel',
         'create' => 'Adaugă prima activitate comunitară',
     ],
 
