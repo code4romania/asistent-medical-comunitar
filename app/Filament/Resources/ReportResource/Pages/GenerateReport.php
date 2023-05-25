@@ -28,7 +28,7 @@ class GenerateReport extends CreateRecord implements WithTabs
         $this->fillForm();
     }
 
-    public function create(bool $another = false): void
+    public function generate(): void
     {
         $this->authorizeAccess();
 
@@ -43,32 +43,13 @@ class GenerateReport extends CreateRecord implements WithTabs
 
             $this->callHook('beforeCreate');
 
-            $this->record = $this->handleRecordCreation($data);
+            $this->record = Report::make($data);
 
-            // $this->form->model($this->record)->saveRelationships();
+            $this->form->model($this->record);
 
             $this->callHook('afterCreate');
         } catch (Halt $exception) {
             return;
         }
-
-        // $this->getCreatedNotification()?->send();
-
-        // if ($another) {
-        //     // Ensure that the form record is anonymized so that relationships aren't loaded.
-        //     $this->form->model($this->record::class);
-        //     $this->record = null;
-
-        //     $this->fillForm();
-
-        //     return;
-        // }
-
-        // $this->redirect($this->getRedirectUrl());
-    }
-
-    protected function handleRecordCreation(array $data): Report
-    {
-        return Report::make($data);
     }
 }

@@ -16,8 +16,13 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
+            $table->string('title')->nullable();
             $table->string('type');
+            $table->date('date_from')->nullable();
+            $table->date('date_until')->nullable();
+            $table->json('indicators')->nullable();
+            $table->json('segments')->nullable();
+            $table->json('data')->nullable();
         });
     }
 };

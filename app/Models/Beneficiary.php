@@ -10,6 +10,7 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
+use App\Models\Scopes\BeneficiaryScope;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,11 @@ class Beneficiary extends Model
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new BeneficiaryScope);
+    }
 
     public function getActivitylogOptions(): LogOptions
     {

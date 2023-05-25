@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Report;
 
 use App\Concerns;
 
-enum ReportType: string
+enum Type: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;

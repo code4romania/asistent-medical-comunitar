@@ -29,7 +29,7 @@ return [
         'type' => 'Tip raport',
         'name' => 'Nume raport',
         'indicators' => 'Indicatori',
-        'segmentation' => 'Segmentare',
+        'segments' => 'Segmentare',
     ],
 
     'type' => [
@@ -38,6 +38,46 @@ return [
         'vuln_list' => 'Vulnerabilități (Liste)',
         'health_total' => 'Stare de sănătate (Totaluri)',
         'health_list' => 'Stare de sănătate (Liste)',
+    ],
+
+    'title' => [
+        'date' => 'la data :date',
+        'date_range' => 'pentru perioada :from — :to',
+    ],
+
+    'indicator' => [
+        'beneficiaries' => [
+            'name' => 'Beneficiari',
+            'value' => [
+                'total' => 'Total beneficiari',
+                'registered' => 'Beneficiari înregistrați',
+                'catagraphed' => 'Beneficiari catagrafiați',
+                'active' => 'Beneficiari activi',
+                'inactive' => 'Beneficiari inactivi',
+                'removed' => 'Beneficiari scoși din evidență',
+                'ocasional' => 'Beneficiari ocazionali',
+            ],
+        ],
+    ],
+
+    'segment' => [
+        'age' => [
+            'value' => [
+                'VCV_01' => 'Copil 0-1 ani',
+                'VCV_02' => 'Copil 1-5 ani',
+                'VCV_03' => 'Copil 5-14 ani',
+                'VCV_04' => 'Adolescent 14-18 ani',
+                'VCV_05' => 'Adult 18-65 ani',
+                'VCV_06' => 'Vârstnic peste 65 ani',
+            ],
+        ],
+        'gender' => [
+            'value' => [
+                'male' => 'Masculin',
+                'female' => 'Feminin',
+                'other' => 'Altul',
+            ],
+        ],
     ],
 
 ];
