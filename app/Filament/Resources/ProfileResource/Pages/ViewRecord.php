@@ -7,6 +7,7 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource;
 use App\Filament\Resources\ProfileResource\Concerns;
+use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 use Illuminate\View\View;
@@ -20,10 +21,16 @@ class ViewRecord extends BaseViewRecord implements WithTabs
 
     protected function getActions(): array
     {
+        $name = "{$this->getActiveTab()}.edit";
+
         return [
             EditAction::make()
                 ->icon('heroicon-s-pencil')
-                ->url($this->getResource()::getUrl("{$this->getActiveTab()}.edit")),
+                ->url(
+                    auth()->user()->is($this->getRecord())
+                        ? ProfileResource::getUrl($name)
+                        : UserResource::getUrl($name, $this->getRecord())
+                ),
         ];
     }
 

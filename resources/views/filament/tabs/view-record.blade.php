@@ -10,7 +10,10 @@
         $relationManagers = $this->getRelationManagers();
     @endphp
 
-    <x-tabs :tabs="$this->getTabs()">
+    <x-tabs
+        :tabs="$this->getTabs()"
+        :actions="$this->getActions()"
+    >
         {{ $this->form }}
     </x-tabs>
 

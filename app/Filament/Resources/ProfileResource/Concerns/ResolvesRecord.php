@@ -22,7 +22,7 @@ trait ResolvesRecord
 
     public function getPageUrl(string $name): string
     {
-        if (request()->routeIs('filament.resources.profile.*')) {
+        if (auth()->user()->is($this->getRecord())) {
             return ProfileResource::getUrl($name);
         }
 

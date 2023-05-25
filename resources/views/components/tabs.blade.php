@@ -1,5 +1,6 @@
 @props([
     'tabs' => [],
+    'actions' => null,
 ])
 
 <div class="filament-forms-tabs-component">
@@ -20,6 +21,14 @@
     </nav>
 
     <div class="p-6 bg-white rounded-lg rounded-tl-none shadow filament-forms-tabs-component-tab focus:outline-none">
+        @if (null !== $actions)
+            <div class="flex flex-wrap items-center justify-end gap-4 pb-5">
+                @foreach ($actions as $action)
+                    {{ $action }}
+                @endforeach
+            </div>
+        @endif
+
         {{ $slot }}
     </div>
 </div>
