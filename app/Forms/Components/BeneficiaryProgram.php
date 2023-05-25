@@ -47,7 +47,8 @@ class BeneficiaryProgram extends Card
                 ->content(fn (Beneficiary $record) => "#{$record->nurse->id} {$record->nurse->full_name}"),
 
             Value::make('integrated')
-                ->label(__('field.integrated')),
+                ->label(__('field.integrated'))
+                ->boolean(),
 
         ];
     }
@@ -70,6 +71,7 @@ class BeneficiaryProgram extends Card
                 ->preload(),
 
             Select::make('integrated')
+                ->label(__('field.integrated'))
                 ->boolean(
                     trueLabel: __('beneficiary.integrated.yes'),
                     falseLabel: __('beneficiary.integrated.no'),

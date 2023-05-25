@@ -50,9 +50,10 @@ class HistoryResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('properties')
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable()
                     ->label(__('activity.column.change'))
+                    ->limit(75)
                     ->wrap(),
             ])
             ->filters([
