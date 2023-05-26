@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
 
     'accreditation_number' => 'Introdu seria și numărul',
+    'activity' => 'Introdu activitatea',
     'age' => 'Vârstă',
     'choose_services' => 'Alegeți unul sau mai multe servicii',
     'choose' => 'Alege o variantă',
@@ -28,10 +29,13 @@ return [
     'id_serial' => 'Introdu seria actului de identitate',
     'id_type' => 'Alege un tip de act de identitate',
     'last_name' => 'Introdu numele de familie',
+    'location' => 'Introdu locația',
     'no_segmentation_age' => 'Fără segmentare pe vârstă',
     'no_segmentation_city' => 'Fără segmentare pe localitate',
     'no_segmentation_county' => 'Fără segmentare pe județ',
     'no_segmentation_gender' => 'Fără segmentare pe sex',
+    'organizer' => 'Introdu organizatorul',
+    'participants' => 'Introdu număr beneficiari',
     'phone' => 'Număr de telefon',
     'select_many' => 'Selectează valorile care se aplică',
     'select_one' => 'Selectează o valoare',

@@ -28,6 +28,7 @@ class CommunityActivity extends Model
     protected $casts = [
         'type' => CommunityActivityType::class,
         'outside_working_hours' => 'boolean',
+        'participants' => 'integer',
         'date' => 'date',
     ];
 
