@@ -15,6 +15,7 @@ use App\Tables\Columns\TextColumn;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 
@@ -104,7 +105,10 @@ class BeneficiaryResource extends Resource
                     ),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->label(__('field.status'))
+                    ->options(Status::options())
+                    ->multiple(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
