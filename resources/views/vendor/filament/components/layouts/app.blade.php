@@ -18,7 +18,7 @@
 
 <x-filament::layouts.base :title="$title">
     <div class="flex w-full min-h-screen filament-app-layout overflow-x-clip">
-        <div class="flex flex-col flex-1 w-screen h-screen filament-main gap-y-8 rtl:lg:pl-0">
+        <div class="flex flex-col flex-1 w-screen min-h-screen filament-main gap-y-8 rtl:lg:pl-0">
             <x-filament::topbar />
 
             <div @class([

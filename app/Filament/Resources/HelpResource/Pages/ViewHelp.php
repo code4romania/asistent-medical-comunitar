@@ -20,6 +20,6 @@ class ViewHelp extends Page
 
     protected function getTitle(): string
     {
-        return 'Manual';
+        return 'Sistem de management de caz pentru asistența medicală comunitară';
     }
 }

@@ -20,7 +20,7 @@
     <div class="flex w-full min-h-screen filament-app-layout overflow-x-clip">
         <div
             x-data="{}"
-            class="flex flex-col flex-1 w-screen h-screen filament-main rtl:lg:pl-0"
+            class="flex flex-col flex-1 w-screen min-h-screen filament-main rtl:lg:pl-0"
         >
             <x-filament::topbar />
 
