@@ -10,7 +10,7 @@ return [
         'heading' => 'În ultimele 30 de zile,',
         'beneficiaries_total' => 'Total beneficiari',
         'beneficiaries_active' => 'Beneficiari activi',
-        'services' => 'Servicii librate',
+        'services' => 'Servicii livrate',
         'appointments' => 'Programări',
     ],
 ];
