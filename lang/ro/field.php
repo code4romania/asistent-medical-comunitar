@@ -13,6 +13,7 @@ return [
     'age' => 'Vârstă',
     'allocated_nurse' => 'AMC alocat',
     'associated_case' => 'Caz asociat',
+    'beneficiary' => 'Beneficiar',
     'beneficiaries_count' => 'Beneficiari',
     'beneficiary_id' => 'ID beneficiar',
     'beneficiary_notes' => 'Notițe despre beneficiar',
