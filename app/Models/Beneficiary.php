@@ -10,7 +10,7 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
-use App\Models\Scopes\BeneficiaryScope;
+use App\Models\Scopes\CurrentNurseScope;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -69,7 +69,7 @@ class Beneficiary extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new BeneficiaryScope);
+        static::addGlobalScope(new CurrentNurseScope);
     }
 
     public function getActivitylogOptions(): LogOptions
