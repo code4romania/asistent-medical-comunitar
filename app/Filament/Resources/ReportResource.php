@@ -27,7 +27,7 @@ class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?int $navigationSort = 4;
 
     public static function getModelLabel(): string
     {

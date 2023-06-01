@@ -23,6 +23,8 @@ class BeneficiaryResource extends Resource
 {
     protected static ?string $model = Beneficiary::class;
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $recordTitleAttribute = 'full_name';
 
     public static function getModelLabel(): string
@@ -113,7 +115,8 @@ class BeneficiaryResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getPages(): array
