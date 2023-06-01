@@ -19,8 +19,12 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->timestamp('started_at');
-            $table->timestamp('ended_at');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->string('interval')->virtualAs(<<<'SQL'
+                CONCAT_WS(" - ", TIME_FORMAT(start_time, '%H:%i'), TIME_FORMAT(end_time, '%H:%i'))
+            SQL);
 
             $table->string('type')->nullable();
             $table->string('location')->nullable();

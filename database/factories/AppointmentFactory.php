@@ -21,11 +21,13 @@ class AppointmentFactory extends Factory
      */
     public function definition(): array
     {
-        $startedAt = fake()->dateTimeBetween('-10 years', '2 years');
+        $date = Carbon::createFromInterface(fake()->dateTimeBetween('-10 years', '2 years'));
 
         return [
-            'started_at' => $startedAt,
-            'ended_at' => Carbon::createFromInterface($startedAt)->addHours(fake()->numberBetween(1, 4)),
+            'date' => $date->toDateString(),
+            'start_time' => $date->toTimeString(),
+            'end_time' => $date->addHours(fake()->numberBetween(1, 4))->toTimeString(),
+
             'type' => fake()->word(),
             'location' => fake()->word(),
             'attendant' => fake()->word(),
