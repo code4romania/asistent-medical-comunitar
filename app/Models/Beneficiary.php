@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\BelongsToNurse;
 use App\Concerns\HasCaseManagement;
 use App\Concerns\HasLocation;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
-use App\Models\Scopes\CurrentNurseScope;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +24,7 @@ use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 class Beneficiary extends Model
 {
+    use BelongsToNurse;
     use BelongsToThroughTrait;
     use HasCaseManagement;
     use HasFactory;
@@ -67,11 +68,6 @@ class Beneficiary extends Model
         'date_of_birth' => 'date',
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new CurrentNurseScope);
-    }
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -83,11 +79,6 @@ class Beneficiary extends Model
     public function activity()
     {
         return $this->morphMany(Activity::class, 'subject');
-    }
-
-    public function nurse(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function ocasionalInterventions(): HasMany
@@ -137,11 +128,6 @@ class Beneficiary extends Model
     public function scopeOnlyInactive(Builder $query): Builder
     {
         return $query;
-    }
-
-    public function scopeWhereNurse(Builder $query, User $user): Builder
-    {
-        return $query->whereBelongsTo($user, 'nurse');
     }
 
     public function getAgeAttribute(): ?int
