@@ -20,7 +20,7 @@ class CommunityActivityResource extends Resource
 {
     protected static ?string $model = CommunityActivity::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'community';
 
