@@ -227,6 +227,7 @@ class AppointmentResource extends Resource
     {
         return [
             'index' => Pages\ListAppointments::route('/'),
+            'calendar' => Pages\CalendarAppointments::route('/calendar'),
             'create' => Pages\CreateAppointment::route('/create'),
             'view' => Pages\ViewAppointment::route('/{record}'),
             'edit' => Pages\EditAppointment::route('/{record}/edit'),

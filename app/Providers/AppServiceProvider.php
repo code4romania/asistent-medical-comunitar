@@ -10,6 +10,7 @@ use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Foundation\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -41,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
 
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/app.css');
+            Filament::registerScripts([
+                app(Vite::class)('resources/js/app.js'),
+            ]);
 
             $this->registerUserMenuItems();
         });

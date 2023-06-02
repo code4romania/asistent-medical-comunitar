@@ -21,7 +21,7 @@ class AppointmentFactory extends Factory
      */
     public function definition(): array
     {
-        $date = Carbon::createFromInterface(fake()->dateTimeBetween('-10 years', '2 years'));
+        $date = Carbon::createFromInterface(fake()->dateTimeBetween('-1 week', '5 weeks'));
 
         return [
             'date' => $date->toDateString(),

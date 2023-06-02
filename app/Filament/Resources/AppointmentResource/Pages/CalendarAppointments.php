@@ -7,19 +7,21 @@ namespace App\Filament\Resources\AppointmentResource\Pages;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\AppointmentResource\Concerns;
-use Filament\Pages\Actions;
-use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\AppointmentResource\Widgets\CalendarWidget;
+use Filament\Resources\Pages\Page;
 
-class ListAppointments extends ListRecords implements WithTabs
+class CalendarAppointments extends Page implements WithTabs
 {
     use Concerns\HasTabs;
 
     protected static string $resource = AppointmentResource::class;
 
-    protected function getActions(): array
+    protected static string $view = 'filament.resources.appointment-resource.pages.calendar-appointments';
+
+    protected function calendar(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CalendarWidget::class,
         ];
     }
 }

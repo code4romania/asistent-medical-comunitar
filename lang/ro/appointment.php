@@ -13,6 +13,8 @@ return [
         'mandatory' => 'Detalii obligatorii',
         'additional' => 'Detalii adiționale',
         'notes' => 'Observații programare',
+        'index' => 'Listă',
+        'calendar' => 'Calendar',
     ],
 
     'empty' => [

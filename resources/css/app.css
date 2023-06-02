@@ -1,1 +1,15 @@
 @import '../../vendor/filament/filament/resources/css/app.css';
+@import '../../vendor/saade/filament-fullcalendar/resources/css/filament-fullcalendar.css';
+
+@layer components {
+    :root {
+        --fc-event-text-color: theme(colors.black);
+        --fc-small-font-size: theme(fontSize.xs);
+        --fc-event-bg-color: theme(colors.gray.50);
+    }
+}
+
+.fc-daygrid-block-event {
+    @apply !border-0 !border-l-4 !rounded-none !px-1 !py-1.5;
+}
+
