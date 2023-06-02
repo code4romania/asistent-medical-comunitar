@@ -59,12 +59,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'beneficiary' => \App\Models\Beneficiary::class,
+            'case_management' => \App\Models\Intervention\CaseManagement::class,
             'catagraphy' => \App\Models\Catagraphy::class,
             'city' => \App\Models\City::class,
             'county' => \App\Models\County::class,
             'family' => \App\Models\Family::class,
             'household' => \App\Models\Household::class,
-            'intervention' => \App\Models\Intervention::class,
+            'individual_service' => \App\Models\Intervention\IndividualService::class,
+            'ocasional_intervention' => \App\Models\Intervention\OcasionalIntervention::class,
             'profile_area' => \App\Models\Profile\Area::class,
             'profile_course' => \App\Models\Profile\Course::class,
             'profile_employer' => \App\Models\Profile\Employer::class,

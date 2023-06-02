@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AppointmentResource\Pages;
+use App\Filament\Resources\AppointmentResource\RelationManagers\ServicesRelationManager;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Appointment;
@@ -20,6 +21,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class AppointmentResource extends Resource
 {
@@ -43,20 +45,19 @@ class AppointmentResource extends Resource
             ->columns(1)
             ->schema([
                 Card::make()
-
                     ->schema([
                         Subsection::make()
                             ->title(__('appointment.section.mandatory'))
                             ->icon('heroicon-o-document-text')
-                            ->columns(2)
+                            ->columns(3)
                             ->schema([
                                 Select::make('beneficiary_id')
                                     ->label(__('field.beneficiary'))
-                                    ->relationship('beneficiary', 'full_name')
+                                    ->relationship('beneficiary', 'full_name', fn (Builder $query) => $query->onlyRegular())
                                     ->searchable()
                                     ->preload(),
 
-                                Grid::make(4)
+                                Grid::make(6)
                                     ->columnSpanFull()
                                     ->schema([
                                         DatePicker::make('date')
@@ -102,21 +103,25 @@ class AppointmentResource extends Resource
                             ]),
 
                         Subsection::make()
-                            ->title(__('appointment.section.mandatory'))
+                            ->title(__('appointment.section.additional'))
                             ->icon('heroicon-o-information-circle')
+                            ->columns(3)
                             ->schema([
                                 TextInput::make('type')
                                     ->label(__('field.type'))
+                                    ->columnSpan(2)
                                     ->nullable()
                                     ->maxLength(100),
 
                                 TextInput::make('location')
                                     ->label(__('field.location'))
+                                    ->columnSpan(2)
                                     ->nullable()
                                     ->maxLength(100),
 
                                 TextInput::make('attendant')
                                     ->label(__('field.attendant'))
+                                    ->columnSpan(2)
                                     ->nullable()
                                     ->maxLength(100),
                             ]),
@@ -175,10 +180,10 @@ class AppointmentResource extends Resource
                     ->searchable()
                     ->toggleable(),
 
-                TextColumn::make('services')
-                    ->label(__('field.services'))
-                    ->size('sm')
-                    ->toggleable(),
+                // TextColumn::make('services')
+                //     ->label(__('field.services'))
+                //     ->size('sm')
+                //     ->toggleable(),
 
                 TextColumn::make('location')
                     ->label(__('field.location'))
@@ -210,7 +215,7 @@ class AppointmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ServicesRelationManager::class,
         ];
     }
 

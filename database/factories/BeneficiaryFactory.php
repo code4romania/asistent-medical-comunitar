@@ -82,6 +82,12 @@ class BeneficiaryFactory extends Factory
                     ->recycle($beneficiary->nurse)
                     ->for($beneficiary)
                     ->count(fake()->randomDigitNotNull())
+                    ->has(
+                        IndividualService::factory()
+                            ->for($beneficiary)
+                            ->count(fake()->randomDigitNotNull()),
+                        'interventions'
+                    )
                     ->create();
             }
         });

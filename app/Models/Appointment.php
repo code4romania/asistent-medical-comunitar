@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
+use App\Concerns\HasInterventions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,7 @@ class Appointment extends Model
     use BelongsToBeneficiary;
     use BelongsToNurse;
     use HasFactory;
+    use HasInterventions;
 
     protected $fillable = [
         'date',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
+use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
 use App\Enums\Intervention\Status;
 use App\Models\Service\Service;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IndividualService extends Model
 {
+    use BelongsToAppointment;
     use BelongsToBeneficiary;
     use HasFactory;
 
