@@ -31,9 +31,9 @@ return [
         'date_time_picker' => [
             'first_day_of_week' => 1, // 0 to 7 are accepted values, with Monday as 1 and Sunday as 7 or 0.
             'display_formats' => [
-                'date' => 'j / m / Y',
-                'date_time' => 'j / m / Y H:i',
-                'date_time_with_seconds' => 'j / m / Y H:i:s',
+                'date' => 'j.m.Y',
+                'date_time' => 'j.m.Y H:i',
+                'date_time_with_seconds' => 'j.m.Y H:i:s',
                 'time' => 'H:i',
                 'time_with_seconds' => 'H:i:s',
             ],
