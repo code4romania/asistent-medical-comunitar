@@ -32,11 +32,11 @@
             "
             x-tooltip.html="tooltip" @endif
         @class([
-            'flex items-center justify-center gap-3 px-3 py-2 rounded-lg font-medium transition',
-            'hover:bg-gray-500/5 focus:bg-gray-500/5' => !$active,
+            'flex items-center justify-center gap-3 px-3 py-2 font-medium transition border-l-4',
+            'hover:bg-primary-700/5 focus:bg-primary-700/5 hover:border-primary-500/50 focus:border-primary-500/50 text-primary-700 border-transparent' => !$active,
             'dark:text-gray-300 dark:hover:bg-gray-700' =>
                 !$active && config('filament.dark_mode'),
-            'bg-primary-500 text-white' => $active,
+            'bg-primary-700/20 border-primary-500' => $active,
         ])
     >
         <div

@@ -30,7 +30,7 @@
         </button>
     @endif
 
-    <ul @class(['text-sm space-y-1 -mx-3', 'mt-2' => $label])>
+    <ul @class(['text-sm space-y-1', 'mt-2' => $label])>
         @foreach ($items as $item)
             @if ($item instanceof \Filament\Navigation\NavigationItem)
                 <x-layouts.app.sidebar.item

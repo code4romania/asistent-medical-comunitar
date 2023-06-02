@@ -8,12 +8,12 @@
         x-data="{
             navigate: function() {
                 let href = String(this.$el.value);
-
+        
                 if (href.startsWith(window.location.origin)) {
                     window.location.href = href;
                     return;
                 }
-
+        
                 console.error(href + ' does not match origin ' + window.location.origin);
             }
         }"
@@ -39,7 +39,7 @@
             <x-layouts.app.sidebar.start />
             {{ \Filament\Facades\Filament::renderHook('sidebar.start') }}
 
-            <ul class="px-6 space-y-6">
+            <ul class="space-y-6">
                 @foreach ($navigation as $group)
                     <x-layouts.app.sidebar.group
                         :label="$group->getLabel()"
