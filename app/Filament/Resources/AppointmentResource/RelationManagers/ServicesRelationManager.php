@@ -23,6 +23,11 @@ class ServicesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'service_name';
 
+    public static function getTitle(): string
+    {
+        return __('case.services');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -41,23 +46,17 @@ class ServicesRelationManager extends RelationManager
                     ->label(__('field.id'))
                     ->prefix('#')
                     ->size('sm')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
+                    ->sortable(),
 
                 TextColumn::make('service.name')
                     ->label(__('field.service_name'))
                     ->size('sm')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
+                    ->sortable(),
 
                 TextColumn::make('vulnerability.name')
                     ->label(__('field.addressed_vulnerability'))
                     ->size('sm')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
+                    ->sortable(),
 
                 SelectColumn::make('status')
                     ->label(__('field.status'))
@@ -69,6 +68,10 @@ class ServicesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AssociateAction::make()
+                    ->label(__('intervention.action.add_service'))
+                    ->modalHeading(__('intervention.action.add_service'))
+                    ->icon('heroicon-o-plus-circle')
+                    ->color('primary')
                     ->recordSelectOptionsQuery(function (Builder $query, self $livewire) {
                         $query
                             ->whereBeneficiary(

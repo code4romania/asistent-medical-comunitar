@@ -15,6 +15,10 @@ return [
         'notes' => 'Observații programare',
     ],
 
+    'empty' => [
+        'title' => 'Nicio programare asociată',
+    ],
+
     'action' => [
         'create' => 'Adaugă programare',
         'edit' => 'Editează programare',

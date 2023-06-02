@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Models\Intervention;
 
 use App\Concerns\BelongsToBeneficiary;
-use App\Concerns\HasInterventions;
 use App\Enums\Intervention\CaseInitiator;
+use App\Models\Appointment;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class CaseManagement extends Model
 {
     use BelongsToBeneficiary;
     use HasFactory;
-    use HasInterventions;
 
     protected $table = 'cases';
 
@@ -45,6 +45,18 @@ class CaseManagement extends Model
     public function interventions(): HasMany
     {
         return $this->hasMany(IndividualService::class, 'case_id');
+    }
+
+    public function appointments(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Appointment::class,
+            IndividualService::class,
+            'case_id',
+            'id',
+            'id',
+            'appointment_id'
+        );
     }
 
     public function isOpen(): bool

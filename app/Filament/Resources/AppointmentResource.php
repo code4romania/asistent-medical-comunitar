@@ -160,7 +160,7 @@ class AppointmentResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('interval')
-                    ->label(__('field.interval'))
+                    ->label(__('field.interval_hours'))
                     ->formatStateUsing(fn (Appointment $record) => $record->interval)
                     ->size('sm')
                     ->toggleable(),
@@ -185,6 +185,13 @@ class AppointmentResource extends Resource
                 //     ->size('sm')
                 //     ->toggleable(),
 
+                TextColumn::make('interventions_count')
+                    ->counts('interventions')
+                    ->label(__('field.associated_interventions'))
+                    ->size('sm')
+                    ->sortable()
+                    ->toggleable(),
+
                 TextColumn::make('location')
                     ->label(__('field.location'))
                     ->size('sm')
@@ -201,9 +208,6 @@ class AppointmentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->iconButton(),
-
-                Tables\Actions\EditAction::make()
                     ->iconButton(),
             ])
             ->bulkActions([

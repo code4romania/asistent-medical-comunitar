@@ -41,7 +41,7 @@ class ViewAppointment extends ViewRecord
                                             ->label(__('field.date')),
 
                                         Value::make('interval')
-                                            ->label(__('field.interval')),
+                                            ->label(__('field.interval_hours')),
                                     ]),
                             ]),
 

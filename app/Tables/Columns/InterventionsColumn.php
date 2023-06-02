@@ -10,6 +10,7 @@ use App\Models\Intervention\CaseManagement;
 use App\Models\Intervention\IndividualService;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\Column;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class InterventionsColumn extends Column
@@ -78,6 +79,14 @@ class InterventionsColumn extends Column
         }
 
         return $performed . '/' . $total;
+    }
+
+    public function getAppointmentsColumn(CaseManagement|IndividualService $intervention): array
+    {
+        return match (\get_class($intervention)) {
+            CaseManagement::class => $intervention->appointments->all(),
+            IndividualService::class => Arr::wrap($intervention->appointment),
+        };
     }
 
     public function getActions(CaseManagement|IndividualService $intervention): array
