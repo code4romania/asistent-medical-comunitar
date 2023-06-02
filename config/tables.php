@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'date_format' => 'j / m / Y',
-    'date_time_format' => 'j / m / Y H:i:s',
+    'date_format' => 'j.m.Y',
+    'date_time_format' => 'j.m.Y H:i:s',
     'time_format' => 'H:i:s',
 
     /*

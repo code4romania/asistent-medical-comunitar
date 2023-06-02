@@ -12,7 +12,7 @@
             {{ $this->form }}
 
             <div @class([
-                'fixed inset-x-0 bottom-0 p-6 bg-white border-t border-gray-300' =>
+                'fixed inset-x-0 bottom-0 p-6 bg-white border-t border-gray-300 z-10' =>
                     $this instanceof \App\Contracts\Forms\FixedActionBar,
             ])>
                 <x-filament::form.actions
