@@ -36,6 +36,16 @@ class OpenCasesWidget extends BaseWidget
         return 'cases';
     }
 
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'id';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'desc';
+    }
+
     protected function getTableColumns(): array
     {
         return [
@@ -51,12 +61,17 @@ class OpenCasesWidget extends BaseWidget
                 ->sortable(),
 
             TextColumn::make('name')
-                ->label(__('field.case_name'))
+                ->label(__('field.intervention_name'))
                 ->size('sm')
                 ->sortable(),
 
             TextColumn::make('realized_interventions_count')
                 ->label(__('field.services_realized')),
+
+            TextColumn::make('appointments_count')
+                ->counts('appointments')
+                ->label(__('field.appointments'))
+                ->sortable(),
         ];
     }
 

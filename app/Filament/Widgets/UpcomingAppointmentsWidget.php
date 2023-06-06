@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Enums\Beneficiary\Status;
+use App\Filament\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Tables\Columns\BadgeColumn;
 use App\Tables\Columns\TextColumn;
@@ -18,6 +19,11 @@ use Illuminate\Database\Eloquent\Builder;
 class UpcomingAppointmentsWidget extends TableWidget
 {
     protected static ?int $sort = 30;
+
+    public static function canView(): bool
+    {
+        return AppointmentResource::canViewAny();
+    }
 
     protected function getTableHeading(): string
     {
@@ -55,6 +61,11 @@ class UpcomingAppointmentsWidget extends TableWidget
             ]),
 
             Stack::make([
+                TextColumn::make('services')
+                    ->color('text-gray-400')
+                    ->icon('heroicon-s-lightning-bolt')
+                    ->size('sm'),
+
                 TextColumn::make('date')
                     ->label(__('field.date'))
                     ->color('text-gray-400')

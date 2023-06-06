@@ -12,6 +12,7 @@ return [
     'addressed_vulnerability' => 'Vulnerabilitate adresată',
     'age' => 'Vârstă',
     'allocated_nurse' => 'AMC alocat',
+    'appointments' => 'Programări',
     'associated_appointments' => 'Programări asociate',
     'associated_case' => 'Caz asociat',
     'associated_interventions' => 'Intervenții asociate',
