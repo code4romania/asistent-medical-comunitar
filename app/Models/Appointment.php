@@ -48,6 +48,13 @@ class Appointment extends Model
             });
     }
 
+    public function scopeUpcoming(Builder $query): Builder
+    {
+        return $query->where('date', '>=', today())
+            ->orderBy('date', 'asc')
+            ->orderBy('start_time', 'asc');
+    }
+
     public function getUrlAttribute(): string
     {
         return AppointmentResource::getUrl('view', $this);

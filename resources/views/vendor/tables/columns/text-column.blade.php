@@ -22,7 +22,7 @@
             'secondary' => 'text-gray-500',
             'success' => 'text-success-600',
             'warning' => 'text-warning-600',
-            default => null,
+            default => $getColor(),
         } => ! ($getAction() || $getUrl()),
         match ($getColor()) {
             'secondary' => 'dark:text-gray-400',

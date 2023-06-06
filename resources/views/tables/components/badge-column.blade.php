@@ -18,7 +18,7 @@
     ]) }}>
     @if (filled($state))
         <div @class([
-            'inline-flex items-center justify-center space-x-1 rtl:space-x-reverse min-h-6 px-3 py-0.5 text-sm font-medium tracking-tight rounded-xl whitespace-nowrap',
+            'inline-flex items-center justify-center space-x-1 rtl:space-x-reverse min-h-6 font-medium tracking-tight rounded-xl whitespace-nowrap',
             match ($getStateColor()) {
                 'danger' => 'text-danger-800 bg-danger-100',
                 'primary' => 'text-primary-800 bg-primary-100',
@@ -26,6 +26,13 @@
                 'warning' => 'text-warning-800 bg-warning-100',
                 null, 'secondary' => 'text-gray-800 bg-gray-100',
                 default => $getStateColor(),
+            },
+            match ($getSize()) {
+                'xs' => 'px-2.5 text-xs',
+                'sm' => 'px-2.5 text-sm',
+                default => 'px-3 py-0.5 text-sm',
+                'lg' => 'px-3.5 py-1 text-sm',
+                'xl' => 'px-4 py-1.5 text-sm',
             },
         ])>
             <x-icon-badge-dot @class([

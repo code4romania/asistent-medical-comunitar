@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'columns' => [
@@ -50,11 +52,11 @@ return [
             ],
 
             'next' => [
-                'label' => 'Pagina următoare',
+                'label' => 'Înainte',
             ],
 
             'previous' => [
-                'label' => 'Pagina precedentă',
+                'label' => 'Înapoi',
             ],
 
         ],

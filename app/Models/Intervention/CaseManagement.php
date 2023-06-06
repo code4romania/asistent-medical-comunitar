@@ -7,7 +7,9 @@ namespace App\Models\Intervention;
 use App\Concerns\BelongsToBeneficiary;
 use App\Enums\Intervention\CaseInitiator;
 use App\Models\Appointment;
+use App\Models\Scopes\CurrentNurseBeneficiaryScope;
 use App\Models\Vulnerability\Vulnerability;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,11 @@ class CaseManagement extends Model
         'imported' => 'boolean',
         'closed_at' => 'datetime',
     ];
+
+    public static function booted(): void
+    {
+        static::addGlobalScope(new CurrentNurseBeneficiaryScope);
+    }
 
     public function vulnerability(): BelongsTo
     {
@@ -69,6 +76,11 @@ class CaseManagement extends Model
         return $this->isOpen()
             ? __('intervention.status.open')
             : __('intervention.status.closed');
+    }
+
+    public function scopeOnlyOpen(Builder $query): Builder
+    {
+        return $query->whereNull('closed_at');
     }
 
     public function open(): void
