@@ -226,8 +226,8 @@ class AppointmentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAppointments::route('/'),
-            'calendar' => Pages\CalendarAppointments::route('/calendar'),
+            'index' => Pages\CalendarAppointments::route('/'),
+            'list' => Pages\ListAppointments::route('/list'),
             'create' => Pages\CreateAppointment::route('/create'),
             'view' => Pages\ViewAppointment::route('/{record}'),
             'edit' => Pages\EditAppointment::route('/{record}/edit'),

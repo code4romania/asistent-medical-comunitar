@@ -17,16 +17,16 @@ trait HasTabs
         return [
 
             NavigationItem::make()
-                ->label(__('appointment.section.index'))
-                ->icon('icon-none')
-                ->url(static::getResource()::getUrl('index'))
-                ->isActiveWhen(fn (): bool => static::class === Pages\ListAppointments::class),
-
-            NavigationItem::make()
                 ->label(__('appointment.section.calendar'))
                 ->icon('icon-none')
-                ->url(static::getResource()::getUrl('calendar'))
+                ->url(static::getResource()::getUrl('index'))
                 ->isActiveWhen(fn (): bool => static::class === Pages\CalendarAppointments::class),
+
+            NavigationItem::make()
+                ->label(__('appointment.section.index'))
+                ->icon('icon-none')
+                ->url(static::getResource()::getUrl('list'))
+                ->isActiveWhen(fn (): bool => static::class === Pages\ListAppointments::class),
 
         ];
     }
