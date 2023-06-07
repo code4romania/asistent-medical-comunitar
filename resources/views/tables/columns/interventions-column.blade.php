@@ -19,9 +19,9 @@
                 @lang('field.services_realized')
             </x-tables::header-cell>
 
-            {{-- <x-tables::header-cell>
-                @lang('field.appointments')
-            </x-tables::header-cell> --}}
+            <x-tables::header-cell>
+                @lang('field.associated_appointments')
+            </x-tables::header-cell>
 
             <x-tables::header-cell />
         </tr>
@@ -50,9 +50,15 @@
                     {{ $getServicesColumn($intervention) }}
                 </td>
 
-                {{-- <td class="px-4 py-6">
-                    0
-                </td> --}}
+                <td class="px-4 py-6">
+                    @forelse ($getAppointmentsColumn($intervention) as $appointment)
+                        <x-filament::link :href="$appointment->url">
+                            #{{ $appointment->id }} / {{ $appointment->date->toFormattedDate() }}
+                        </x-filament::link>
+                    @empty
+                        <em>@lang('appointment.empty.title')</em>
+                    @endforelse
+                </td>
 
                 <td class="relative px-4 py-6">
                     <x-tables::actions

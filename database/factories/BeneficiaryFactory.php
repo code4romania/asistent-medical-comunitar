@@ -8,6 +8,7 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
+use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\City;
@@ -75,6 +76,18 @@ class BeneficiaryFactory extends Factory
                 CaseManagement::factory()
                     ->for($beneficiary)
                     ->count(fake()->randomDigitNotNull())
+                    ->create();
+
+                Appointment::factory()
+                    ->recycle($beneficiary->nurse)
+                    ->for($beneficiary)
+                    ->count(fake()->randomDigitNotNull())
+                    ->has(
+                        IndividualService::factory()
+                            ->for($beneficiary)
+                            ->count(fake()->randomDigitNotNull()),
+                        'interventions'
+                    )
                     ->create();
             }
         });

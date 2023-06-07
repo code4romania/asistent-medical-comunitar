@@ -19,4 +19,9 @@ class Dashboard extends BaseDashboard
     {
         return __('dashboard.home');
     }
+
+    protected function getColumns(): int | string | array
+    {
+        return 3;
+    }
 }

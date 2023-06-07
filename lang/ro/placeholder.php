@@ -7,6 +7,7 @@ return [
     'accreditation_number' => 'Introdu seria și numărul',
     'activity' => 'Introdu activitatea',
     'age' => 'Vârstă',
+    'all_beneficiaries' => 'Toți beneficiarii',
     'choose_services' => 'Alegeți unul sau mai multe servicii',
     'choose' => 'Alege o variantă',
     'city' => 'Alege localitatea',

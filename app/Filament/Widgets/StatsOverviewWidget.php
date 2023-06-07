@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Enums\UserRole;
+use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -62,7 +63,6 @@ class StatsOverviewWidget extends BaseWidget
                         ? BeneficiaryResource::getUrl('index')
                         : null,
                     'value' => Beneficiary::query()
-                        ->whereNurse(auth()->user())
                         ->count(),
                 ],
 
@@ -72,7 +72,6 @@ class StatsOverviewWidget extends BaseWidget
                         ? BeneficiaryResource::getUrl('index')
                         : null,
                     'value' => Beneficiary::query()
-                        ->whereNurse(auth()->user())
                         ->onlyActive()
                         ->count(),
                 ],
@@ -84,6 +83,7 @@ class StatsOverviewWidget extends BaseWidget
 
                 'appointments' => [
                     'icon' => 'heroicon-s-lightning-bolt',
+                    'url' => AppointmentResource::getUrl('index'),
                     'value' => 0,
                 ],
             ];

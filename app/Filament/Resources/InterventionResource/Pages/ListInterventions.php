@@ -68,7 +68,7 @@ class ListInterventions extends ListRecords implements WithSidebar
     {
         return $table
             ->columns([
-                Layout\Grid::make(4)
+                Layout\Grid::make(5)
                     ->schema([
                         TextColumn::make('name')
                             ->columnSpan(2)
@@ -91,6 +91,14 @@ class ListInterventions extends ListRecords implements WithSidebar
                         TextColumn::make('services_count')
                             ->description(__('field.services_realized'), position: 'above')
                             ->label(__('field.services_realized'))
+                            ->alignment('left')
+                            ->extraAttributes([
+                                'class' => 'px-2 py-3',
+                            ]),
+
+                        TextColumn::make('appointments_count')
+                            ->description(__('field.associated_appointments'), position: 'above')
+                            ->label(__('field.associated_appointments'))
                             ->alignment('left')
                             ->extraAttributes([
                                 'class' => 'px-2 py-3',

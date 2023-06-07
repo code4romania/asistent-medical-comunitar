@@ -114,20 +114,14 @@ class Beneficiary extends Model
         return $query->where('type', Type::OCASIONAL);
     }
 
-    /**
-     * @todo implment active condition
-     */
     public function scopeOnlyActive(Builder $query): Builder
     {
-        return $query;
+        return $query->where('status', Status::ACTIVE);
     }
 
-    /**
-     * @todo implment inactive condition
-     */
     public function scopeOnlyInactive(Builder $query): Builder
     {
-        return $query;
+        return $query->where('status', Status::INACTIVE);
     }
 
     public function getAgeAttribute(): ?int
