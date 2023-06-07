@@ -29,7 +29,7 @@
         "friendsofphp/php-cs-fixer": "^3.17",
         "itsgoingd/clockwork": "^5.1",
         "laravel/sail": "^1.22",
-        "mockery/mockery": "^1.5",
+        "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^7.5",
         "phpunit/phpunit": "^10.2",
         "spatie/laravel-ignition": "^2.1"
