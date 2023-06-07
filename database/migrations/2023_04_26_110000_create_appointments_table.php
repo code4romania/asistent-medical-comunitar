@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -34,10 +33,6 @@ return new class extends Migration
 
             $table->foreignIdFor(Beneficiary::class)->constrained();
             $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
-        });
-
-        Schema::table('individual_services', function (Blueprint $table) {
-            $table->foreignIdFor(Appointment::class)->nullable()->constrained();
         });
     }
 };

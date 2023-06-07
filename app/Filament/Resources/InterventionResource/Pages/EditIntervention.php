@@ -11,7 +11,6 @@ use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
-use App\Models\Intervention\CaseManagement;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
@@ -28,15 +27,10 @@ class EditIntervention extends EditRecord implements WithSidebar
     {
         [$beneficiary, $intervention] = $args;
 
+        // dd($beneficiary, $intervention, $args);
+        parent::mount($intervention);
+
         $this->resolveBeneficiary($beneficiary);
-
-        $this->record = app(CaseManagement::class)
-            ->resolveRouteBindingQuery($this->getBeneficiary()->cases(), $intervention)
-            ->first();
-
-        $this->authorizeAccess();
-
-        $this->fillForm();
     }
 
     public function getTitle(): string

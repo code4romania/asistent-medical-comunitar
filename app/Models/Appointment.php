@@ -9,18 +9,22 @@ use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
 use App\Concerns\HasInterventions;
 use App\Filament\Resources\AppointmentResource;
+use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Appointment extends Model
 {
     use BelongsToBeneficiary;
     use BelongsToNurse;
     use HasFactory;
-    use HasInterventions;
+    use HasInterventions {
+        interventions as baseInterventions;
+    }
 
     protected $fillable = [
         'date',
@@ -37,6 +41,12 @@ class Appointment extends Model
         'start_time' => TimeCast::class,
         'end_time' => TimeCast::class,
     ];
+
+    public function interventions(): HasMany
+    {
+        return $this->baseInterventions()
+            ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
+    }
 
     public function scopeBetweenDates(Builder $query, ?string $from = null, ?string $until = null): Builder
     {

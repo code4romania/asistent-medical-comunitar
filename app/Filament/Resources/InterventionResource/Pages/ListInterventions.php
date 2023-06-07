@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Actions\CreateCaseManagementAction;
-use App\Filament\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
+use App\Filament\Resources\InterventionResource\Actions;
 use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Vulnerability\Vulnerability;
 use App\Tables\Columns\InterventionsColumn;
@@ -47,9 +46,10 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            CreateIndividualServiceAction::make()
+            Actions\CreateIndividualServiceAction::make()
                 ->record($this->getBeneficiary()),
-            CreateCaseManagementAction::make()
+
+            Actions\CreateCaseAction::make()
                 ->record($this->getBeneficiary()),
         ];
     }
@@ -80,29 +80,33 @@ class ListInterventions extends ListRecords implements WithSidebar
                                 'class' => 'px-2 py-3 ' . ($record->id === 'NONE' ? 'italic' : null),
                             ]),
 
-                        TextColumn::make('interventions_count')
-                            ->alignment('left')
-                            ->description(__('field.interventions'), position: 'above')
-                            ->label(__('field.interventions'))
-                            ->extraAttributes([
-                                'class' => 'px-2 py-3',
-                            ]),
+                        // TextColumn::make('interventions_count')
+                        //     ->counts('interventions')
+                        //     ->alignment('left')
+                        //     ->description(__('field.interventions'), position: 'above')
+                        //     ->label(__('field.interventions'))
+                        //     ->extraAttributes([
+                        //         'class' => 'px-2 py-3',
+                        //     ]),
 
-                        TextColumn::make('services_count')
-                            ->description(__('field.services_realized'), position: 'above')
-                            ->label(__('field.services_realized'))
-                            ->alignment('left')
-                            ->extraAttributes([
-                                'class' => 'px-2 py-3',
-                            ]),
+                        // TextColumn::make('services_count')
+                        //     ->description(__('field.services_realized'), position: 'above')
+                        //     ->label(__('field.services_realized'))
+                        //     ->alignment('left')
+                        //     ->extraAttributes([
+                        //         'class' => 'px-2 py-3',
+                        //     ]),
 
-                        TextColumn::make('appointments_count')
-                            ->description(__('field.associated_appointments'), position: 'above')
-                            ->label(__('field.associated_appointments'))
-                            ->alignment('left')
-                            ->extraAttributes([
-                                'class' => 'px-2 py-3',
-                            ]),
+                        // TextColumn::make('appointment_count')
+                        //     // ->sum('interventions', 'appointment_count')
+                        //     // ->counts('interventions.appointment_count')
+                        //     // ->sum('interventions', 'appointments_count')
+                        //     ->description(__('field.associated_appointments'), position: 'above')
+                        //     ->label(__('field.associated_appointments'))
+                        //     ->alignment('left')
+                        //     ->extraAttributes([
+                        //         'class' => 'px-2 py-3',
+                        //     ]),
                     ]),
 
                 Layout\Split::make([

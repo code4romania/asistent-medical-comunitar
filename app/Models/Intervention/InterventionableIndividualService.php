@@ -6,6 +6,7 @@ namespace App\Models\Intervention;
 
 use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\MorphsIntervention;
 use App\Enums\Intervention\Status;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
@@ -14,11 +15,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class IndividualService extends Model
+class InterventionableIndividualService extends Model
 {
     use BelongsToAppointment;
     use BelongsToBeneficiary;
+    use MorphsIntervention;
     use HasFactory;
+
+    protected $table = 'interventionable_individual_services';
 
     protected $fillable = [
         'date',
@@ -36,9 +40,13 @@ class IndividualService extends Model
         'status' => Status::class,
     ];
 
+    protected $with = [
+        'service',
+    ];
+
     public function case(): BelongsTo
     {
-        return $this->belongsTo(CaseManagement::class);
+        return $this->belongsTo(InterventionableCase::class);
     }
 
     public function service(): BelongsTo

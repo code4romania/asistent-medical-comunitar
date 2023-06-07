@@ -9,7 +9,7 @@ use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
-use App\Models\Intervention\IndividualService;
+use App\Models\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -18,7 +18,7 @@ use Filament\Resources\Resource;
 
 class InterventionResource extends Resource
 {
-    protected static ?string $model = IndividualService::class;
+    protected static ?string $model = Intervention::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 

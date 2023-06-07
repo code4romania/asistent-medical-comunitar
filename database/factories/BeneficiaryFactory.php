@@ -13,8 +13,7 @@ use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\City;
 use App\Models\Family;
-use App\Models\Intervention\CaseManagement;
-use App\Models\Intervention\IndividualService;
+use App\Models\Intervention;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -68,13 +67,15 @@ class BeneficiaryFactory extends Factory
                     ->withNotes()
                     ->create();
 
-                IndividualService::factory()
-                    ->for($beneficiary)
+                Intervention::factory()
+                    ->case()
+                    ->recycle($beneficiary)
                     ->count(fake()->randomDigitNotNull())
                     ->create();
 
-                CaseManagement::factory()
-                    ->for($beneficiary)
+                Intervention::factory()
+                    ->individualService()
+                    ->recycle($beneficiary)
                     ->count(fake()->randomDigitNotNull())
                     ->create();
 
@@ -83,8 +84,9 @@ class BeneficiaryFactory extends Factory
                     ->for($beneficiary)
                     ->count(fake()->randomDigitNotNull())
                     ->has(
-                        IndividualService::factory()
-                            ->for($beneficiary)
+                        Intervention::factory()
+                            ->individualService()
+                            ->recycle($beneficiary)
                             ->count(fake()->randomDigitNotNull()),
                         'interventions'
                     )

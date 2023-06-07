@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Actions;
+namespace App\Filament\Resources\InterventionResource\Actions;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
-use App\Models\Intervention\IndividualService;
+use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -34,12 +34,12 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->disableCreateAnother();
 
-        $this->model(IndividualService::class);
+        $this->model(InterventionableIndividualService::class);
 
         $this->using(function (array $data) {
             $data['beneficiary_id'] = $this->getRecord()?->id;
 
-            return IndividualService::create($data);
+            return InterventionableIndividualService::create($data);
         });
 
         $this->form(function () {

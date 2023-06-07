@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
-use App\Concerns\InteractsWithCase;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Actions\ToggleCaseManagementStatusAction;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
+use App\Filament\Resources\InterventionResource\Actions\ToggleCaseStatusAction;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
@@ -22,7 +21,6 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 {
     use Concerns\HasRecordBreadcrumb;
     use HasSidebar;
-    use InteractsWithCase;
 
     protected static string $resource = InterventionResource::class;
 
@@ -98,7 +96,8 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             //     ->color('secondary')
             //     ->disabled(),
 
-            ToggleCaseManagementStatusAction::make()
+            ToggleCaseStatusAction::make()
+                ->visible(fn ($record) => $record->isCase())
                 ->record($this->getRecord()),
 
         ];
