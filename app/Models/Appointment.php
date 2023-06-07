@@ -9,6 +9,7 @@ use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
 use App\Concerns\HasInterventions;
 use App\Filament\Resources\AppointmentResource;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,5 +71,17 @@ class Appointment extends Model
     {
         return $this->date->copy()
             ->setTimeFrom($this->end_time);
+    }
+
+    public function updateDateTime(string $start, string $end)
+    {
+        $start = Carbon::createFromTimeString($start);
+        $end = Carbon::createFromTimeString($end);
+
+        $this->update([
+            'date' => $start->format('Y-m-d'),
+            'start_time' => $start->format('H:i:s'),
+            'end_time' => $end->format('H:i:s'),
+        ]);
     }
 }

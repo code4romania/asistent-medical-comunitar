@@ -26,7 +26,9 @@ class AppointmentFactory extends Factory
         return [
             'date' => $date->toDateString(),
             'start_time' => $date->toTimeString(),
-            'end_time' => $date->addHours(fake()->numberBetween(1, 4))->toTimeString(),
+            'end_time' => $date
+                ->addUnitNoOverflow('hour', fake()->numberBetween(1, 4), 'day')
+                ->toTimeString(),
 
             'type' => fake()->word(),
             'location' => fake()->word(),

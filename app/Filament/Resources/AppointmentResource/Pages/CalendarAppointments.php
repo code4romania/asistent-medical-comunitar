@@ -8,9 +8,10 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\AppointmentResource\Concerns;
 use App\Filament\Resources\AppointmentResource\Widgets\CalendarWidget;
-use Filament\Resources\Pages\Page;
+use Filament\Pages\Actions;
+use Filament\Resources\Pages\ListRecords;
 
-class CalendarAppointments extends Page implements WithTabs
+class CalendarAppointments extends ListRecords implements WithTabs
 {
     use Concerns\HasTabs;
 
@@ -22,6 +23,13 @@ class CalendarAppointments extends Page implements WithTabs
     {
         return [
             CalendarWidget::class,
+        ];
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
         ];
     }
 }

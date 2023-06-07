@@ -8,7 +8,14 @@
             key: @js($this->getKey()),
             config: {
                 timeZone: @js(config('app.timezone')),
-                {{-- headerToolbar: {}, --}}
+                aspectRatio: 1.25,
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek'
+                },
+                allDaySlot: false,
+                nowIndicator: true,
                 navLinks: true,
                 editable: true,
                 selectable: false,
