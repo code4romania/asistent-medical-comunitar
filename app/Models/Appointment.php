@@ -55,6 +55,13 @@ class Appointment extends Model
             });
     }
 
+    public function scopeLastMonth(Builder $query): Builder
+    {
+        return $query
+            ->whereDate('date', '>=', today()->subMonth())
+            ->whereDate('date', '<=', today());
+    }
+
     public function scopeUpcoming(Builder $query): Builder
     {
         return $query->where('date', '>=', today())
