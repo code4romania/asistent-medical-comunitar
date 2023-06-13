@@ -6,7 +6,6 @@ namespace App\Models\Intervention;
 
 use App\Concerns\MorphsIntervention;
 use App\Enums\Intervention\CaseInitiator;
-use App\Models\Appointment;
 use App\Models\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class InterventionableCase extends Model
 {
@@ -47,18 +45,6 @@ class InterventionableCase extends Model
     {
         return $this->hasMany(Intervention::class, 'parent_id')
             ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
-    }
-
-    public function appointments(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            Appointment::class,
-            InterventionableIndividualService::class,
-            'case_id',
-            'id',
-            'id',
-            'appointment_id'
-        );
     }
 
     public function isOpen(): bool

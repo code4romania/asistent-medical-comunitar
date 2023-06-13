@@ -94,16 +94,13 @@ class ListInterventions extends ListRecords implements WithSidebar
                         //         'class' => 'px-2 py-3',
                         //     ]),
 
-                        // TextColumn::make('appointment_count')
-                        //     // ->sum('interventions', 'appointment_count')
-                        //     // ->counts('interventions.appointment_count')
-                        //     // ->sum('interventions', 'appointments_count')
-                        //     ->description(__('field.associated_appointments'), position: 'above')
-                        //     ->label(__('field.associated_appointments'))
-                        //     ->alignment('left')
-                        //     ->extraAttributes([
-                        //         'class' => 'px-2 py-3',
-                        //     ]),
+                        TextColumn::make('appointments_count')
+                            ->description(__('field.associated_appointments'), position: 'above')
+                            ->label(__('field.associated_appointments'))
+                            ->alignment('left')
+                            ->extraAttributes([
+                                'class' => 'px-2 py-3',
+                            ]),
                     ]),
 
                 Layout\Split::make([
