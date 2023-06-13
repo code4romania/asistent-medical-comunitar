@@ -23,10 +23,8 @@ class InterventionableIndividualServiceFactory extends Factory
     {
         return [
             'date' => fake()->date(),
-            'integrated' => fake()->boolean(),
             'outside_working_hours' => fake()->boolean(15),
             'status' => fake()->randomElement(Status::values()),
-            'notes' => fake()->text(),
 
             'service_id' => $this->randomService(),
         ];

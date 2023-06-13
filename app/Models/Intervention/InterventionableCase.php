@@ -24,15 +24,12 @@ class InterventionableCase extends Model
     protected $fillable = [
         'name',
         'initiator',
-        'integrated',
         'is_imported',
         'closed_at',
-        'notes',
     ];
 
     protected $casts = [
         'initiator' => CaseInitiator::class,
-        'integrated' => 'boolean',
         'is_imported' => 'boolean',
         'closed_at' => 'datetime',
     ];

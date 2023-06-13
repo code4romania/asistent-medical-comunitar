@@ -88,7 +88,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     Value::make('vulnerability.name')
                         ->label(__('field.addressed_vulnerability')),
 
-                    Value::make('interventionable.integrated')
+                    Value::make('integrated')
                         ->label(__('field.integrated'))
                         ->boolean(),
                 ]),
@@ -96,7 +96,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             Subsection::make()
                 ->icon('heroicon-o-annotation')
                 ->schema([
-                    Value::make('interventionable.notes')
+                    Value::make('notes')
                         ->label(__('field.notes')),
                 ]),
         ];
@@ -116,7 +116,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     Value::make('vulnerability.name')
                         ->label(__('field.addressed_vulnerability')),
 
-                    Value::make('interventionable.integrated')
+                    Value::make('integrated')
                         ->label(__('field.integrated'))
                         ->boolean(),
 
@@ -131,7 +131,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             Subsection::make()
                 ->icon('heroicon-o-annotation')
                 ->schema([
-                    Value::make('interventionable.notes')
+                    Value::make('notes')
                         ->label(__('field.notes')),
                 ]),
         ];

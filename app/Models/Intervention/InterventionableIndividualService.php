@@ -23,7 +23,6 @@ class InterventionableIndividualService extends Model
 
     protected $fillable = [
         'date',
-        'integrated',
         'status',
         'notes',
         'outside_working_hours',
@@ -32,7 +31,6 @@ class InterventionableIndividualService extends Model
 
     protected $casts = [
         'date' => 'date',
-        'integrated' => 'boolean',
         'outside_working_hours' => 'boolean',
         'status' => Status::class,
     ];

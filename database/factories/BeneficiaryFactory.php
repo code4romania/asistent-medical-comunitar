@@ -115,8 +115,8 @@ class BeneficiaryFactory extends Factory
                             return;
                         }
 
-                        $appointment->interventions()->save(
-                            $interventions->random()
+                        $appointment->interventions()->saveMany(
+                            $interventions->random(fake()->numberBetween(1, $interventions->count()))
                         );
                     })
                     ->create();

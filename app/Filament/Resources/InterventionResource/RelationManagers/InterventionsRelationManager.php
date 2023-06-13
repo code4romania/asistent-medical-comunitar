@@ -56,13 +56,13 @@ class InterventionsRelationManager extends RelationManager
                     ->label(__('field.date'))
                     ->default(today()),
 
-                Radio::make('interventionable.integrated')
+                Radio::make('integrated')
                     ->label(__('field.integrated'))
                     ->inlineOptions()
                     ->boolean()
                     ->default(0),
 
-                Textarea::make('interventionable.notes')
+                Textarea::make('notes')
                     ->label(__('field.notes'))
                     ->autosize(false)
                     ->rows(4)
@@ -86,7 +86,7 @@ class InterventionsRelationManager extends RelationManager
                     ->size('sm'),
 
                 TextColumn::make('interventionable.service.name')
-                    ->label(__('field.name'))
+                    ->label(__('field.service_name'))
                     ->size('sm'),
 
                 TextColumn::make('interventionable.status')
@@ -94,7 +94,7 @@ class InterventionsRelationManager extends RelationManager
                     ->formatStateUsing(fn ($state) => __("intervention.status.$state"))
                     ->size('sm'),
 
-                TextColumn::make('interventionable.integrated')
+                TextColumn::make('integrated')
                     ->label(__('field.integrated'))
                     ->boolean()
                     ->size('sm'),
@@ -104,7 +104,7 @@ class InterventionsRelationManager extends RelationManager
                     ->date()
                     ->size('sm'),
 
-                TextColumn::make('interventionable.notes')
+                TextColumn::make('notes')
                     ->label(__('field.notes'))
                     ->wrap()
                     ->limit(40)
@@ -123,6 +123,7 @@ class InterventionsRelationManager extends RelationManager
 
                         return $interventionable->intervention()->create([
                             'parent_id' => $livewire->getOwnerRecord()->id,
+                            'beneficiary_id' => $livewire->getOwnerRecord()->beneficiary_id,
                         ]);
                     }),
             ])

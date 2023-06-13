@@ -50,7 +50,6 @@ class ConvertOcasionalBeneficiaryAction extends Action
                         'name' => $ocasionalIntervention->reason,
                         'initiator' => CaseInitiator::NURSE,
                         'is_imported' => true,
-                        'notes' => null,
                     ]);
 
                     $case = $interventionable->intervention()->create([

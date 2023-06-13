@@ -18,6 +18,8 @@ class InterventionFactory extends Factory
     public function definition()
     {
         return [
+            'integrated' => fake()->boolean(),
+            'notes' => fake()->text(),
             'beneficiary_id' => Beneficiary::factory(),
             'vulnerability_id' => null,
         ];

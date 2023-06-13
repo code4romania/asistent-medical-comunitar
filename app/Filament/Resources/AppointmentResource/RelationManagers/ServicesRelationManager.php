@@ -7,7 +7,6 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention;
-use App\Models\Service\Service;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -58,7 +57,7 @@ class ServicesRelationManager extends RelationManager
                     ->size('sm')
                     ->sortable(),
 
-                SelectColumn::make('status')
+                SelectColumn::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::options()),
 
@@ -72,15 +71,27 @@ class ServicesRelationManager extends RelationManager
                     ->modalHeading(__('intervention.action.add_service'))
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
+                    ->recordTitle(
+                        fn (Intervention $record) => sprintf('#%d - %s', $record->id, $record->service_name)
+                    )
+                    ->recordSelectSearchColumns([
+                        'interventions.id',
+                        'services.name',
+                    ])
                     ->recordSelectOptionsQuery(function (Builder $query, self $livewire) {
-                        dd($query, $livewire);
                         $query
                             ->whereBeneficiary(
                                 $livewire->getOwnerRecord()->beneficiary
                             )
-                            ->addSelect([
-                                'service_name' => Service::select('name')
-                                    ->whereColumn('service_id', 'services.id'),
+                            ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', 'interventionable_individual_services.id')
+                            ->leftJoin('services', 'services.id', 'interventionable_individual_services.service_id')
+                            ->select([
+                                'interventions.id',
+                                'interventions.interventionable_type',
+                                'interventions.interventionable_id',
+                                'interventions.appointment_id',
+                                'interventions.parent_id',
+                                'services.name as service_name',
                             ]);
                     })
                     ->inverseRelationshipName('appointment')

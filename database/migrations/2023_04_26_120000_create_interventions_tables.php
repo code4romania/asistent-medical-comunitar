@@ -46,9 +46,7 @@ return new class extends Migration
             $table->timestamp('closed_at')->nullable();
             $table->string('name')->nullable();
             $table->enum('initiator', CaseInitiator::values())->nullable();
-            $table->boolean('integrated')->default(false);
             $table->boolean('is_imported')->default(false);
-            $table->text('notes')->nullable();
         });
 
         // Regular Beneficiary // Interventions // Individual
@@ -56,10 +54,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->date('date')->nullable();
-            $table->boolean('integrated')->default(false);
             $table->boolean('outside_working_hours')->default(false);
             $table->string('status')->nullable();
-            $table->text('notes')->nullable();
 
             $table->foreignIdFor(Service::class)->nullable()->constrained();
         });
@@ -68,6 +64,8 @@ return new class extends Migration
         Schema::create('interventions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->boolean('integrated')->default(false);
+            $table->text('notes')->nullable();
 
             $table->string('interventionable_type');
             $table->unsignedBigInteger('interventionable_id');

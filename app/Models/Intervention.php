@@ -26,10 +26,16 @@ class Intervention extends Model
     use HasFactory;
 
     protected $fillable = [
+        'integrated',
+        'notes',
         'appointment_id',
         'beneficiary_id',
         'parent_id',
         'vulnerability_id',
+    ];
+
+    protected $casts = [
+        'integrated' => 'boolean',
     ];
 
     protected $with = [
@@ -55,6 +61,14 @@ class Intervention extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function vulnerability(): BelongsTo
+    {
+        return $this->belongsTo(Vulnerability::class)
+            ->withDefault(function (Vulnerability $vulnerability, self $intervention) {
+                return $intervention->parent?->vulnerability;
+            });
     }
 
     public function interventions(): HasMany

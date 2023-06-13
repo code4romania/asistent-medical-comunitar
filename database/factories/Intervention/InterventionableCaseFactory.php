@@ -13,10 +13,8 @@ class InterventionableCaseFactory extends Factory
     {
         return [
             'name' => fake()->sentence(),
-            'integrated' => fake()->boolean(),
             'initiator' => fake()->randomElement(CaseInitiator::values()),
             'is_imported' => fake()->boolean(10),
-            'notes' => fake()->text(),
             'closed_at' => fake()->boolean() ? fake()->dateTime() : null,
         ];
     }

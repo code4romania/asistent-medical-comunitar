@@ -56,7 +56,7 @@ class InterventionResource extends Resource
                     'lg' => $columns - 1,
                 ])
                 ->schema([
-                    TextInput::make('interventionable.name')
+                    TextInput::make('name')
                         ->label(__('field.intervention_name'))
                         ->columnSpanFull(),
 
@@ -77,7 +77,7 @@ class InterventionResource extends Resource
                         ->searchable()
                         ->required(),
 
-                    Radio::make('interventionable.integrated')
+                    Radio::make('integrated')
                         ->label(__('field.integrated'))
                         ->inlineOptions()
                         ->boolean()
@@ -90,7 +90,7 @@ class InterventionResource extends Resource
                     'lg' => 1,
                 ])
                 ->schema([
-                    Textarea::make('interventionable.notes')
+                    Textarea::make('notes')
                         ->label(__('field.notes')),
                 ]),
         ];
@@ -131,13 +131,13 @@ class InterventionResource extends Resource
                     DatePicker::make('interventionable.date')
                         ->label(__('field.date')),
 
-                    Radio::make('interventionable.integrated')
+                    Radio::make('integrated')
                         ->label(__('field.integrated'))
                         ->inlineOptions()
                         ->boolean()
                         ->default(0),
 
-                    Textarea::make('interventionable.notes')
+                    Textarea::make('notes')
                         ->label(__('field.notes'))
                         ->autosize(false)
                         ->rows(4)
