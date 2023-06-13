@@ -6,6 +6,10 @@ namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
+use App\Models\Appointment;
+use App\Models\Intervention;
+use App\Models\Intervention\InterventionableIndividualService;
+use App\Models\Service\Service;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -15,6 +19,9 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class InterventionsRelationManager extends RelationManager
 {
@@ -24,27 +31,30 @@ class InterventionsRelationManager extends RelationManager
 
     public static function getTitle(): string
     {
-        return __('case.services');
+        return __('intervention.services');
     }
 
     public static function form(Form $form): Form
     {
+        $services = Service::cachedList()
+            ->pluck('name', 'id');
+
         return $form
             ->schema([
-                Select::make('service')
-                    ->relationship('service', 'name')
+                Select::make('interventionable.service_id')
                     ->label(__('field.service'))
                     ->placeholder(__('placeholder.select_one'))
                     ->searchable()
-                    ->preload(),
+                    ->options($services)
+                    ->in($services->keys()),
 
-                Select::make('status')
+                Select::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::options())
                     ->enum(Status::class)
                     ->default(Status::PLANNED),
 
-                DatePicker::make('date')
+                DatePicker::make('interventionable.date')
                     ->label(__('field.date'))
                     ->default(today()),
 
@@ -63,7 +73,7 @@ class InterventionsRelationManager extends RelationManager
                     ])
                     ->columnSpanFull(),
 
-                Checkbox::make('outside_working_hours')
+                Checkbox::make('interventionable.outside_working_hours')
                     ->label(__('field.outside_working_hours')),
             ]);
     }
@@ -77,11 +87,11 @@ class InterventionsRelationManager extends RelationManager
                     ->prefix('#')
                     ->size('sm'),
 
-                TextColumn::make('service.name')
-                    ->label(__('field.name'))
+                TextColumn::make('interventionable.service.name')
+                    ->label(__('field.service_name'))
                     ->size('sm'),
 
-                TextColumn::make('status')
+                TextColumn::make('interventionable.status')
                     ->label(__('field.status'))
                     ->formatStateUsing(fn ($state) => __("intervention.status.$state"))
                     ->size('sm'),
@@ -91,9 +101,24 @@ class InterventionsRelationManager extends RelationManager
                     ->boolean()
                     ->size('sm'),
 
-                TextColumn::make('date')
+                TextColumn::make('interventionable.date')
                     ->label(__('field.date'))
                     ->date()
+                    ->size('sm'),
+
+                TextColumn::make('appointment')
+                    ->label(__('field.associated_appointments'))
+                    ->formatStateUsing(
+                        function (?Appointment $state) {
+                            if (! $state) {
+                                return;
+                            }
+
+                            return Str::of($state->label)
+                                ->wrap('<a href="' . $state->url . '" class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-primary-600 hover:text-primary-500">', '</a>')
+                                ->toHtmlString();
+                        }
+                    )
                     ->size('sm'),
 
                 TextColumn::make('notes')
@@ -109,14 +134,44 @@ class InterventionsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make()
                     ->icon('heroicon-o-plus-circle')
                     ->label(__('intervention.action.add_service'))
-                    ->modalHeading(__('intervention.action.add_service')),
+                    ->modalHeading(__('intervention.action.add_service'))
+                    ->using(function (array $data, $livewire) {
+                        $interventionable = InterventionableIndividualService::create($data['interventionable']);
+
+                        return $interventionable->intervention()->create([
+                            'parent_id' => $livewire->getOwnerRecord()->id,
+                            'beneficiary_id' => $livewire->getOwnerRecord()->beneficiary_id,
+                        ]);
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->iconButton(),
+                    ->iconButton()
+                    ->mutateRecordDataUsing(function (array $data, Intervention $record): array {
+                        $data['interventionable'] = $record->interventionable->attributesToArray();
+
+                        return $data;
+                    }),
+
                 Tables\Actions\EditAction::make()
-                    ->iconButton(),
-                // Tables\Actions\DeleteAction::make(),
+                    ->iconButton()
+                    ->mutateRecordDataUsing(function (array $data, Intervention $record): array {
+                        $data['interventionable'] = $record->interventionable->attributesToArray();
+
+                        return $data;
+                    })
+                    ->using(function (array $data, Intervention $record) {
+                        $record->interventionable->update(Arr::pull($data, 'interventionable'));
+                    }),
             ]);
+    }
+
+    public static function canViewForRecord(Model $ownerRecord): bool
+    {
+        if (! $ownerRecord->isCase()) {
+            return false;
+        }
+
+        return parent::canViewForRecord($ownerRecord);
     }
 }

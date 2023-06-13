@@ -28,33 +28,35 @@
     </thead>
 
     <tbody class="divide-y">
-        @foreach ($interventions() as $intervention)
+        @foreach ($getState() as $intervention)
             <tr>
                 <td class="w-24 px-4 py-6">
                     #{{ $intervention->id }}
                 </td>
 
                 <td class="px-4 py-6">
-                    {{ $getNameColumn($intervention) }}
+                    {{ $intervention->name }}
                 </td>
 
                 <td class="px-4 py-6">
-                    {{ $getTypeColumn($intervention) }}
+                    {{ $intervention->type }}
                 </td>
 
                 <td class="px-4 py-6">
-                    {{ $getStatusColumn($intervention) }}
+                    {{ $intervention->status }}
                 </td>
 
                 <td class="px-4 py-6">
-                    {{ $getServicesColumn($intervention) }}
+                    {{ $intervention->services }}
                 </td>
 
                 <td class="px-4 py-6">
-                    @forelse ($getAppointmentsColumn($intervention) as $appointment)
-                        <x-filament::link :href="$appointment->url">
-                            #{{ $appointment->id }} / {{ $appointment->date->toFormattedDate() }}
-                        </x-filament::link>
+                    @forelse ($getAppointments($intervention) as $appointment)
+                        <div class="block">
+                            <x-filament::link :href="$appointment->url">
+                                {{ $appointment->label }}
+                            </x-filament::link>
+                        </div>
                     @empty
                         <em>@lang('appointment.empty.title')</em>
                     @endforelse

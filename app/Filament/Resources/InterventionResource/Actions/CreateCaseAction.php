@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Actions;
+namespace App\Filament\Resources\InterventionResource\Actions;
 
 use App\Filament\Resources\InterventionResource;
-use App\Models\Intervention\CaseManagement;
+use App\Models\Intervention\InterventionableCase;
 use Filament\Pages\Actions\CreateAction;
 
-class CreateCaseManagementAction extends CreateAction
+class CreateCaseAction extends CreateAction
 {
     public static function getDefaultName(): ?string
     {
-        return 'create_case_management';
+        return 'create_case';
     }
 
     protected function setUp(): void
@@ -27,12 +27,13 @@ class CreateCaseManagementAction extends CreateAction
 
         $this->disableCreateAnother();
 
-        $this->model(CaseManagement::class);
+        $this->using(function (array $data, $livewire) {
+            $interventionable = InterventionableCase::create($data);
 
-        $this->using(function (array $data) {
-            $data['beneficiary_id'] = $this->getRecord()?->id;
-
-            return CaseManagement::create($data);
+            return $interventionable->intervention()->create([
+                'beneficiary_id' => $livewire->getBeneficiary()?->id,
+                'vulnerability_id' => $data['vulnerability'],
+            ]);
         });
 
         $this->form(InterventionResource::getCaseFormSchema());

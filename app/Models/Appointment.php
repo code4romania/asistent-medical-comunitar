@@ -7,20 +7,20 @@ namespace App\Models;
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
-use App\Concerns\HasInterventions;
 use App\Filament\Resources\AppointmentResource;
+use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Appointment extends Model
 {
     use BelongsToBeneficiary;
     use BelongsToNurse;
     use HasFactory;
-    use HasInterventions;
 
     protected $fillable = [
         'date',
@@ -38,6 +38,12 @@ class Appointment extends Model
         'end_time' => TimeCast::class,
     ];
 
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(Intervention::class)
+            ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
+    }
+
     public function scopeBetweenDates(Builder $query, ?string $from = null, ?string $until = null): Builder
     {
         return $query
@@ -49,11 +55,23 @@ class Appointment extends Model
             });
     }
 
+    public function scopeLastMonth(Builder $query): Builder
+    {
+        return $query
+            ->whereDate('date', '>=', today()->subMonth())
+            ->whereDate('date', '<=', today());
+    }
+
     public function scopeUpcoming(Builder $query): Builder
     {
         return $query->where('date', '>=', today())
             ->orderBy('date', 'asc')
             ->orderBy('start_time', 'asc');
+    }
+
+    public function getLabelAttribute(): string
+    {
+        return sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
     }
 
     public function getUrlAttribute(): string

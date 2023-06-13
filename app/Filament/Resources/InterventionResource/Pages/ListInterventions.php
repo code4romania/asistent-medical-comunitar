@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Actions\CreateCaseManagementAction;
-use App\Filament\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
+use App\Filament\Resources\InterventionResource\Actions;
 use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Vulnerability\Vulnerability;
 use App\Tables\Columns\InterventionsColumn;
@@ -47,10 +46,9 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            CreateIndividualServiceAction::make()
-                ->record($this->getBeneficiary()),
-            CreateCaseManagementAction::make()
-                ->record($this->getBeneficiary()),
+            Actions\CreateIndividualServiceAction::make(),
+
+            Actions\CreateCaseAction::make(),
         ];
     }
 
@@ -91,6 +89,11 @@ class ListInterventions extends ListRecords implements WithSidebar
                         TextColumn::make('services_count')
                             ->description(__('field.services_realized'), position: 'above')
                             ->label(__('field.services_realized'))
+                            ->formatStateUsing(fn (Vulnerability $record) => sprintf(
+                                '%s/%s',
+                                $record->interventions->sum('realized_services_count'),
+                                $record->interventions->sum('all_services_count')
+                            ))
                             ->alignment('left')
                             ->extraAttributes([
                                 'class' => 'px-2 py-3',

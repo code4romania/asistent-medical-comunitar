@@ -6,8 +6,7 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Models\Intervention\IndividualService;
-use App\Models\Service\Service;
+use App\Models\Intervention;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -25,7 +24,7 @@ class ServicesRelationManager extends RelationManager
 
     public static function getTitle(): string
     {
-        return __('case.services');
+        return __('intervention.services');
     }
 
     public static function form(Form $form): Form
@@ -48,7 +47,7 @@ class ServicesRelationManager extends RelationManager
                     ->size('sm')
                     ->sortable(),
 
-                TextColumn::make('service.name')
+                TextColumn::make('interventionable.service.name')
                     ->label(__('field.service_name'))
                     ->size('sm')
                     ->sortable(),
@@ -58,7 +57,7 @@ class ServicesRelationManager extends RelationManager
                     ->size('sm')
                     ->sortable(),
 
-                SelectColumn::make('status')
+                SelectColumn::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::options()),
 
@@ -72,14 +71,27 @@ class ServicesRelationManager extends RelationManager
                     ->modalHeading(__('intervention.action.add_service'))
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
+                    ->recordTitle(
+                        fn (Intervention $record) => sprintf('#%d - %s', $record->id, $record->service_name)
+                    )
+                    ->recordSelectSearchColumns([
+                        'interventions.id',
+                        'services.name',
+                    ])
                     ->recordSelectOptionsQuery(function (Builder $query, self $livewire) {
                         $query
                             ->whereBeneficiary(
                                 $livewire->getOwnerRecord()->beneficiary
                             )
-                            ->addSelect([
-                                'service_name' => Service::select('name')
-                                    ->whereColumn('service_id', 'services.id'),
+                            ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', 'interventionable_individual_services.id')
+                            ->leftJoin('services', 'services.id', 'interventionable_individual_services.service_id')
+                            ->select([
+                                'interventions.id',
+                                'interventions.interventionable_type',
+                                'interventions.interventionable_id',
+                                'interventions.appointment_id',
+                                'interventions.parent_id',
+                                'services.name as service_name',
                             ]);
                     })
                     ->inverseRelationshipName('appointment')
@@ -87,9 +99,9 @@ class ServicesRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->url(fn (self $livewire, IndividualService $record) => BeneficiaryResource::getUrl('interventions.view', [
-                        'record' => $livewire->getOwnerRecord()->beneficiary,
-                        'intervention' => $record,
+                    ->url(fn (self $livewire, Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
+                        'beneficiary' => $livewire->getOwnerRecord()->beneficiary,
+                        'record' => $record,
                     ]))
                     ->iconButton(),
 

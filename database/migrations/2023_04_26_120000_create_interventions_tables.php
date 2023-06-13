@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\Intervention\CaseInitiator;
+use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
 use App\Models\Service\Service;
@@ -36,35 +37,44 @@ return new class extends Migration
             $table->foreignIdFor(Service::class)->constrained();
         });
 
-        // Regular Beneficiary // Interventions // Case Management
-        Schema::create('cases', function (Blueprint $table) {
+        // // // // // // // // // // // // // // // // // // // // // // // // //s
+
+        // Regular Beneficiary // Interventions // Cases
+        Schema::create('interventionable_cases', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->timestamp('closed_at')->nullable();
             $table->string('name')->nullable();
             $table->enum('initiator', CaseInitiator::values())->nullable();
-            $table->boolean('integrated')->default(false);
-            $table->boolean('imported')->default(false);
-            $table->text('notes')->nullable();
-
-            $table->foreignIdFor(Beneficiary::class)->constrained();
-            $table->foreignIdFor(Vulnerability::class)->default('NONE')->constrained();
+            $table->boolean('is_imported')->default(false);
         });
 
         // Regular Beneficiary // Interventions // Individual
-        Schema::create('individual_services', function (Blueprint $table) {
+        Schema::create('interventionable_individual_services', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date')->nullable(); //
-            $table->boolean('integrated')->default(false); //
-            $table->boolean('outside_working_hours')->default(false); //
+            $table->date('date')->nullable();
+            $table->boolean('outside_working_hours')->default(false);
             $table->string('status')->nullable();
+
+            $table->foreignIdFor(Service::class)->nullable()->constrained();
+        });
+
+        //
+        Schema::create('interventions', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->boolean('integrated')->default(false);
             $table->text('notes')->nullable();
 
-            $table->foreignIdFor(Intervention\CaseManagement::class, 'case_id')->nullable()->constrained('cases'); //
+            $table->string('interventionable_type');
+            $table->unsignedBigInteger('interventionable_id');
+            $table->unique(['interventionable_type', 'interventionable_id']);
+
             $table->foreignIdFor(Beneficiary::class)->nullable()->constrained();
-            $table->foreignIdFor(Service::class)->nullable()->constrained(); //
-            $table->foreignIdFor(Vulnerability::class)->nullable()->constrained(); //
+            $table->foreignIdFor(Vulnerability::class)->nullable()->constrained();
+            $table->foreignIdFor(Appointment::class)->nullable()->constrained();
+            $table->foreignIdFor(Intervention::class, 'parent_id')->nullable()->constrained('interventions');
         });
     }
 };

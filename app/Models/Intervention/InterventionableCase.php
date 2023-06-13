@@ -4,45 +4,37 @@ declare(strict_types=1);
 
 namespace App\Models\Intervention;
 
-use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\MorphsIntervention;
 use App\Enums\Intervention\CaseInitiator;
-use App\Models\Appointment;
-use App\Models\Scopes\CurrentNurseBeneficiaryScope;
+use App\Models\Intervention;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class CaseManagement extends Model
+class InterventionableCase extends Model
 {
-    use BelongsToBeneficiary;
+    use MorphsIntervention;
     use HasFactory;
-
-    protected $table = 'cases';
 
     protected $fillable = [
         'name',
         'initiator',
-        'integrated',
-        'imported',
+        'is_imported',
         'closed_at',
-        'notes',
     ];
 
     protected $casts = [
         'initiator' => CaseInitiator::class,
-        'integrated' => 'boolean',
-        'imported' => 'boolean',
+        'is_imported' => 'boolean',
         'closed_at' => 'datetime',
     ];
 
-    public static function booted(): void
-    {
-        static::addGlobalScope(new CurrentNurseBeneficiaryScope);
-    }
+    protected $withCount = [
+        'interventions',
+    ];
 
     public function vulnerability(): BelongsTo
     {
@@ -51,19 +43,8 @@ class CaseManagement extends Model
 
     public function interventions(): HasMany
     {
-        return $this->hasMany(IndividualService::class, 'case_id');
-    }
-
-    public function appointments(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            Appointment::class,
-            IndividualService::class,
-            'case_id',
-            'id',
-            'id',
-            'appointment_id'
-        );
+        return $this->hasMany(Intervention::class, 'parent_id')
+            ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
     }
 
     public function isOpen(): bool

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\BeneficiaryResource;
-use App\Models\Intervention\CaseManagement;
+use App\Models\Intervention;
+use App\Models\Intervention\InterventionableCase;
 use App\Tables\Columns\TextColumn;
 use Closure;
 use Filament\Tables\Actions\Action;
@@ -27,8 +28,12 @@ class OpenCasesWidget extends BaseWidget
 
     protected function getTableQuery(): Builder
     {
-        return CaseManagement::query()
-            ->onlyOpen();
+        return Intervention::query()
+            ->whereHasMorph(
+                'interventionable',
+                InterventionableCase::class,
+                fn (Builder $query) => $query->onlyOpen()
+            );
     }
 
     protected function getTableQueryStringIdentifier(): ?string
@@ -69,7 +74,7 @@ class OpenCasesWidget extends BaseWidget
                 ->label(__('field.services_realized')),
 
             TextColumn::make('appointments_count')
-                ->counts('appointments')
+                ->counts('appointment')
                 ->label(__('field.appointments'))
                 ->sortable(),
         ];
@@ -77,9 +82,9 @@ class OpenCasesWidget extends BaseWidget
 
     protected function getTableRecordUrlUsing(): ?Closure
     {
-        return fn (CaseManagement $record) => BeneficiaryResource::getUrl('interventions.view', [
-            'record' => $record->beneficiary_id,
-            'intervention' => $record,
+        return fn (Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
+            'beneficiary' => $record->beneficiary_id,
+            'record' => $record,
         ]);
     }
 

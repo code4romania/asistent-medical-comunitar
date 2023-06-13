@@ -44,29 +44,29 @@ class DatabaseSeeder extends Seeder
             ->each(fn (User $nurse) => $this->generateBeneficiaries($nurse));
     }
 
-    protected function generateBeneficiaries(User $nurse): void
+    protected function generateBeneficiaries(User $nurse, int $count = 10): void
     {
         Beneficiary::factory()
-            ->count(10)
+            ->count($count)
             ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
-            ->count(10)
+            ->count($count)
             ->withAddress()
             ->withCNP()
             ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
-            ->count(10)
+            ->count($count)
             ->withID()
             ->withCNP()
             ->recycle($nurse)
             ->create();
 
         Beneficiary::factory()
-            ->count(10)
+            ->count($count)
             ->withNotes()
             ->recycle($nurse)
             ->create();

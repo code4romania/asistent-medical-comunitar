@@ -9,6 +9,8 @@ use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
+use App\Models\Intervention\InterventionableCase;
+use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\Service\Service;
 use Filament\Pages\Actions\Action;
@@ -44,21 +46,30 @@ class ConvertOcasionalBeneficiaryAction extends Action
                 ->with('services')
                 ->get()
                 ->map(function (OcasionalIntervention $ocasionalIntervention) use ($beneficiary) {
-                    $case = $beneficiary->cases()->create([
+                    $interventionable = InterventionableCase::create([
                         'name' => $ocasionalIntervention->reason,
                         'initiator' => CaseInitiator::NURSE,
-                        'imported' => true,
-                        'notes' => null,
+                        'is_imported' => true,
                     ]);
 
-                    $case->interventions()->createMany(
-                        $ocasionalIntervention->services
-                            ->map(fn (Service $service) => [
-                                'date' => $ocasionalIntervention->date,
+                    $case = $interventionable->intervention()->create([
+                        'beneficiary_id' => $beneficiary->id,
+                        'vulnerability_id' => 'NONE',
+                    ]);
+
+                    $ocasionalIntervention->services
+                        ->each(function (Service $service) use ($ocasionalIntervention, $case) {
+                            $interventionable = InterventionableIndividualService::create([
                                 'service_id' => $service->id,
+                                'date' => $ocasionalIntervention->date,
                                 'status' => Status::REALIZED,
-                            ])
-                    );
+                            ]);
+
+                            $interventionable->intervention()->create([
+                                'parent_id' => $case->id,
+                                'beneficiary_id' => $case->beneficiary_id,
+                            ]);
+                        });
 
                     $ocasionalIntervention->delete();
                 });

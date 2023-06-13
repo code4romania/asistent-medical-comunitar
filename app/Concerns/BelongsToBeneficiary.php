@@ -20,8 +20,13 @@ trait BelongsToBeneficiary
         return $this->belongsTo(Beneficiary::class);
     }
 
-    public function scopeWhereBeneficiary(Builder $query, Beneficiary $beneficiary): Builder
+    public function scopeWhereBeneficiary(Builder $query, Beneficiary $beneficiary, string $prefix = ''): Builder
     {
-        return $query->where('beneficiary_id', $beneficiary->id);
+        return $query->where(
+            collect([$prefix, 'beneficiary_id'])
+                ->filter()
+                ->implode('.'),
+            $beneficiary->id
+        );
     }
 }

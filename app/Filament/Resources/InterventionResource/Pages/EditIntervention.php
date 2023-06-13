@@ -11,10 +11,12 @@ use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
-use App\Models\Intervention\CaseManagement;
+use App\Models\Intervention;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class EditIntervention extends EditRecord implements WithSidebar
 {
@@ -28,22 +30,23 @@ class EditIntervention extends EditRecord implements WithSidebar
     {
         [$beneficiary, $intervention] = $args;
 
+        // dd($beneficiary, $intervention, $args);
+        parent::mount($intervention);
+
         $this->resolveBeneficiary($beneficiary);
-
-        $this->record = app(CaseManagement::class)
-            ->resolveRouteBindingQuery($this->getBeneficiary()->cases(), $intervention)
-            ->first();
-
-        $this->authorizeAccess();
-
-        $this->fillForm();
     }
 
     public function getTitle(): string
     {
-        return __('case.title', [
-            'name' => $this->getRecordTitle(),
-        ]);
+        return __(
+            sprintf(
+                'intervention.title.%s',
+                $this->getRecord()->interventionable_type
+            ),
+            [
+                'name' => $this->getRecord()->name,
+            ]
+        );
     }
 
     public function getBreadcrumb(): string
@@ -56,12 +59,30 @@ class EditIntervention extends EditRecord implements WithSidebar
         return $form
             ->schema([
                 Card::make()
-                    ->header(__('case.summary'))
+                    ->header(__('intervention.summary'))
                     ->columns(3)
                     ->schema(
-                        InterventionResource::getCaseFormSchema(columns: 3)
+                        fn (Intervention $record) => $record->isCase()
+                            ? InterventionResource::getCaseFormSchema(columns: 3)
+                            : InterventionResource::getIndividualServiceFormSchema()
                     ),
             ]);
+    }
+
+    public function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['interventionable'] = $this->getRecord()->interventionable->attributesToArray();
+
+        return $data;
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        $record->interventionable->update(Arr::pull($data, 'interventionable'));
+
+        $record->update($data);
+
+        return $record;
     }
 
     protected function getActions(): array
@@ -80,8 +101,8 @@ class EditIntervention extends EditRecord implements WithSidebar
     protected function getRedirectUrl(): ?string
     {
         return BeneficiaryResource::getUrl('interventions.view', [
-            'record' => $this->getBeneficiary(),
-            'intervention' => $this->getRecord(),
+            'beneficiary' => $this->getBeneficiary(),
+            'record' => $this->getRecord(),
         ]);
     }
 }

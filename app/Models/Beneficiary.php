@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToNurse;
-use App\Concerns\HasCaseManagement;
+use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
@@ -26,8 +26,8 @@ class Beneficiary extends Model
 {
     use BelongsToNurse;
     use BelongsToThroughTrait;
-    use HasCaseManagement;
     use HasFactory;
+    use HasInterventions;
     use HasLocation;
     use LogsActivity;
 
@@ -84,12 +84,6 @@ class Beneficiary extends Model
     public function ocasionalInterventions(): HasMany
     {
         return $this->hasMany(Intervention\OcasionalIntervention::class);
-    }
-
-    public function interventions(): HasMany
-    {
-        return $this->hasMany(Intervention\IndividualService::class)
-            ->withoutCase();
     }
 
     public function catagraphy(): HasOne
