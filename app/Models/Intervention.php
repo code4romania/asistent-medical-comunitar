@@ -12,6 +12,8 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Scopes\CurrentNurseBeneficiaryScope;
+use App\Models\Vulnerability\Vulnerability;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -91,12 +93,6 @@ class Intervention extends Model
             ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
     }
 
-    public function realizedInterventions(): HasMany
-    {
-        return $this->hasMany(self::class, 'parent_id')
-            ->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::REALIZED);
-    }
-
     public function scopeWhereRoot(Builder $query): Builder
     {
         return $query->whereNull('parent_id');
@@ -143,15 +139,25 @@ class Intervention extends Model
 
     public function getServicesAttribute(): string
     {
+        return $this->realized_services_count . '/' . $this->all_services_count;
+    }
+
+    public function getAllServicesCountAttribute(): int
+    {
         if ($this->interventionable instanceof InterventionableCase) {
-            $performed = $this->realized_interventions_count;
-            $total = $this->interventions_count;
-        } else {
-            $performed = $this->interventionable->status->is(Status::REALIZED) ? 1 : 0;
-            $total = 1;
+            return $this->interventions_count;
         }
 
-        return $performed . '/' . $total;
+        return 1;
+    }
+
+    public function getRealizedServicesCountAttribute(): int
+    {
+        if ($this->interventionable instanceof InterventionableCase) {
+            return $this->realized_interventions_count;
+        }
+
+        return $this->interventionable->status->is(Status::REALIZED) ? 1 : 0;
     }
 
     public function getUrlAttribute(): string

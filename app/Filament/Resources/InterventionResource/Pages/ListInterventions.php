@@ -86,13 +86,18 @@ class ListInterventions extends ListRecords implements WithSidebar
                                 'class' => 'px-2 py-3',
                             ]),
 
-                        // TextColumn::make('services_count')
-                        //     ->description(__('field.services_realized'), position: 'above')
-                        //     ->label(__('field.services_realized'))
-                        //     ->alignment('left')
-                        //     ->extraAttributes([
-                        //         'class' => 'px-2 py-3',
-                        //     ]),
+                        TextColumn::make('services_count')
+                            ->description(__('field.services_realized'), position: 'above')
+                            ->label(__('field.services_realized'))
+                            ->formatStateUsing(fn (Vulnerability $record) => sprintf(
+                                '%s/%s',
+                                $record->interventions->sum('realized_services_count'),
+                                $record->interventions->sum('all_services_count')
+                            ))
+                            ->alignment('left')
+                            ->extraAttributes([
+                                'class' => 'px-2 py-3',
+                            ]),
 
                         TextColumn::make('appointments_count')
                             ->description(__('field.associated_appointments'), position: 'above')
