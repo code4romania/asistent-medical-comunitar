@@ -81,10 +81,7 @@ class Intervention extends Model
 
     public function vulnerability(): BelongsTo
     {
-        return $this->belongsTo(Vulnerability::class)
-            ->withDefault(function (Vulnerability $vulnerability, self $intervention) {
-                return $intervention->parent?->vulnerability;
-            });
+        return $this->belongsTo(Vulnerability::class);
     }
 
     public function interventions(): HasMany
