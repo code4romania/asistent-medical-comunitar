@@ -6,7 +6,6 @@ use App\Enums\Intervention\CaseInitiator;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
-use App\Models\Intervention\InterventionableCase;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Migrations\Migration;
@@ -69,12 +68,15 @@ return new class extends Migration
         Schema::create('interventions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->morphs('interventionable');
 
-            $table->foreignIdFor(Beneficiary::class)->constrained();
+            $table->string('interventionable_type');
+            $table->unsignedBigInteger('interventionable_id');
+            $table->unique(['interventionable_type', 'interventionable_id']);
+
+            $table->foreignIdFor(Beneficiary::class)->nullable()->constrained();
             $table->foreignIdFor(Vulnerability::class)->nullable()->constrained();
             $table->foreignIdFor(Appointment::class)->nullable()->constrained();
-            $table->foreignIdFor(InterventionableCase::class, 'case_id')->nullable()->constrained('interventionable_cases');
+            $table->foreignIdFor(Intervention::class, 'parent_id')->nullable()->constrained('interventions');
         });
     }
 };

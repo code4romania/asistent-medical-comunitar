@@ -73,8 +73,8 @@ class ToggleCaseStatusAction extends Action
 
         $this->successRedirectUrl(function (Intervention $record) {
             return BeneficiaryResource::getUrl('interventions.view', [
-                'record' => $record->beneficiary,
-                'intervention' => $record,
+                'beneficiary' => $record->beneficiary,
+                'record' => $record,
             ]);
         });
     }

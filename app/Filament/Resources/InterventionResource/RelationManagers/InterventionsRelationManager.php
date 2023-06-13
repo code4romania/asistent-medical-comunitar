@@ -6,6 +6,8 @@ namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
+use App\Models\Intervention\InterventionableIndividualService;
+use App\Models\Service\Service;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -25,37 +27,40 @@ class InterventionsRelationManager extends RelationManager
 
     public static function getTitle(): string
     {
-        return __('case.services');
+        return __('intervention.services');
     }
 
     public static function form(Form $form): Form
     {
+        $services = Service::cachedList()
+            ->pluck('name', 'id');
+
         return $form
             ->schema([
-                Select::make('service')
-                    ->relationship('service', 'name')
+                Select::make('interventionable.service_id')
                     ->label(__('field.service'))
                     ->placeholder(__('placeholder.select_one'))
                     ->searchable()
-                    ->preload(),
+                    ->options($services)
+                    ->in($services->keys()),
 
-                Select::make('status')
+                Select::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::options())
                     ->enum(Status::class)
                     ->default(Status::PLANNED),
 
-                DatePicker::make('date')
+                DatePicker::make('interventionable.date')
                     ->label(__('field.date'))
                     ->default(today()),
 
-                Radio::make('integrated')
+                Radio::make('interventionable.integrated')
                     ->label(__('field.integrated'))
                     ->inlineOptions()
                     ->boolean()
                     ->default(0),
 
-                Textarea::make('notes')
+                Textarea::make('interventionable.notes')
                     ->label(__('field.notes'))
                     ->autosize(false)
                     ->rows(4)
@@ -64,7 +69,7 @@ class InterventionsRelationManager extends RelationManager
                     ])
                     ->columnSpanFull(),
 
-                Checkbox::make('outside_working_hours')
+                Checkbox::make('interventionable.outside_working_hours')
                     ->label(__('field.outside_working_hours')),
             ]);
     }
@@ -78,26 +83,26 @@ class InterventionsRelationManager extends RelationManager
                     ->prefix('#')
                     ->size('sm'),
 
-                TextColumn::make('service.name')
+                TextColumn::make('interventionable.service_name')
                     ->label(__('field.name'))
                     ->size('sm'),
 
-                TextColumn::make('status')
+                TextColumn::make('interventionable.status')
                     ->label(__('field.status'))
                     ->formatStateUsing(fn ($state) => __("intervention.status.$state"))
                     ->size('sm'),
 
-                TextColumn::make('integrated')
+                TextColumn::make('interventionable.integrated')
                     ->label(__('field.integrated'))
                     ->boolean()
                     ->size('sm'),
 
-                TextColumn::make('date')
+                TextColumn::make('interventionable.date')
                     ->label(__('field.date'))
                     ->date()
                     ->size('sm'),
 
-                TextColumn::make('notes')
+                TextColumn::make('interventionable.notes')
                     ->label(__('field.notes'))
                     ->wrap()
                     ->limit(40)
@@ -110,14 +115,21 @@ class InterventionsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make()
                     ->icon('heroicon-o-plus-circle')
                     ->label(__('intervention.action.add_service'))
-                    ->modalHeading(__('intervention.action.add_service')),
+                    ->modalHeading(__('intervention.action.add_service'))
+                    ->using(function (array $data, $livewire) {
+                        $interventionable = InterventionableIndividualService::create($data['interventionable']);
+
+                        return $interventionable->intervention()->create([
+                            'parent_id' => $livewire->getOwnerRecord()->id,
+                        ]);
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->iconButton(),
+
                 Tables\Actions\EditAction::make()
                     ->iconButton(),
-                // Tables\Actions\DeleteAction::make(),
             ]);
     }
 

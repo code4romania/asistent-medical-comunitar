@@ -136,9 +136,9 @@ class BeneficiaryResource extends Resource
             'catagraphy.view' => CatagraphyPages\ViewCatagraphy::route('/{record}/catagraphy/view'),
             'catagraphy.edit' => CatagraphyPages\EditCatagraphy::route('/{record}/catagraphy/edit'),
 
-            'interventions.index' => InterventionPages\ListInterventions::route('/{record}/interventions'),
-            'interventions.view' => InterventionPages\ViewIntervention::route('/{record}/interventions/{intervention}'),
-            'interventions.edit' => InterventionPages\EditIntervention::route('/{record}/interventions/{intervention}/edit'),
+            'interventions.index' => InterventionPages\ListInterventions::route('/{beneficiary}/interventions'),
+            'interventions.view' => InterventionPages\ViewIntervention::route('/{beneficiary}/interventions/{record}'),
+            'interventions.edit' => InterventionPages\EditIntervention::route('/{beneficiary}/interventions/{record}/edit'),
 
             'history' => Pages\ListHistory::route('/{record}/history'),
         ];

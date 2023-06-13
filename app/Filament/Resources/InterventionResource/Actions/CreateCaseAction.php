@@ -27,12 +27,13 @@ class CreateCaseAction extends CreateAction
 
         $this->disableCreateAnother();
 
-        $this->model(InterventionableCase::class);
+        $this->using(function (array $data, $livewire) {
+            $interventionable = InterventionableCase::create($data);
 
-        $this->using(function (array $data) {
-            $data['beneficiary_id'] = $this->getRecord()?->id;
-
-            return InterventionableCase::create($data);
+            return $interventionable->intervention()->create([
+                'beneficiary_id' => $livewire->getBeneficiary()?->id,
+                'vulnerability_id' => $data['vulnerability'],
+            ]);
         });
 
         $this->form(InterventionResource::getCaseFormSchema());

@@ -14,6 +14,8 @@ use App\Models\Catagraphy;
 use App\Models\City;
 use App\Models\Family;
 use App\Models\Intervention;
+use App\Models\Intervention\InterventionableCase;
+use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -67,29 +69,53 @@ class BeneficiaryFactory extends Factory
                     ->withNotes()
                     ->create();
 
-                Intervention::factory()
-                    ->case()
-                    ->recycle($beneficiary)
+                InterventionableIndividualService::factory()
                     ->count(fake()->randomDigitNotNull())
+                    ->has(
+                        Intervention::factory()
+                            ->recycle($beneficiary),
+                        'intervention'
+                    )
                     ->create();
 
-                Intervention::factory()
-                    ->individualService()
-                    ->recycle($beneficiary)
+                InterventionableCase::factory()
                     ->count(fake()->randomDigitNotNull())
+                    ->has(
+                        Intervention::factory()
+                            ->recycle($beneficiary)
+                            ->afterCreating(function (Intervention $case) {
+                                InterventionableIndividualService::factory()
+                                    ->count(fake()->randomDigitNotNull())
+                                    ->has(
+                                        Intervention::factory([
+                                            'parent_id' => $case->id,
+                                            'beneficiary_id' => $case->beneficiary_id,
+                                        ]),
+                                        'intervention'
+                                    )
+                                    ->create();
+                            }),
+                        'intervention'
+                    )
                     ->create();
+
+                $interventions = Intervention::query()
+                    ->where('interventionable_type', 'individual_service')
+                    ->get();
 
                 Appointment::factory()
                     ->recycle($beneficiary->nurse)
                     ->for($beneficiary)
                     ->count(fake()->randomDigitNotNull())
-                    ->has(
-                        Intervention::factory()
-                            ->individualService()
-                            ->recycle($beneficiary)
-                            ->count(fake()->randomDigitNotNull()),
-                        'interventions'
-                    )
+                    ->afterCreating(function (Appointment $appointment) use ($interventions) {
+                        if (! fake()->boolean()) {
+                            return;
+                        }
+
+                        $appointment->interventions()->save(
+                            $interventions->random()
+                        );
+                    })
                     ->create();
             }
         });

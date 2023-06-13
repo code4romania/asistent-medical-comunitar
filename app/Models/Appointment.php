@@ -7,7 +7,6 @@ namespace App\Models;
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
-use App\Concerns\HasInterventions;
 use App\Filament\Resources\AppointmentResource;
 use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
@@ -22,9 +21,6 @@ class Appointment extends Model
     use BelongsToBeneficiary;
     use BelongsToNurse;
     use HasFactory;
-    use HasInterventions {
-        interventions as baseInterventions;
-    }
 
     protected $fillable = [
         'date',
@@ -44,7 +40,7 @@ class Appointment extends Model
 
     public function interventions(): HasMany
     {
-        return $this->baseInterventions()
+        return $this->hasMany(Intervention::class)
             ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
     }
 

@@ -10,7 +10,6 @@ use App\Concerns\MorphsIntervention;
 use App\Enums\Intervention\Status;
 use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,15 +21,13 @@ class InterventionableIndividualService extends Model
     use MorphsIntervention;
     use HasFactory;
 
-    protected $table = 'interventionable_individual_services';
-
     protected $fillable = [
         'date',
         'integrated',
         'status',
         'notes',
         'outside_working_hours',
-        'case_id',
+        'service_id',
     ];
 
     protected $casts = [
@@ -44,11 +41,6 @@ class InterventionableIndividualService extends Model
         'service',
     ];
 
-    public function case(): BelongsTo
-    {
-        return $this->belongsTo(InterventionableCase::class);
-    }
-
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
@@ -57,10 +49,5 @@ class InterventionableIndividualService extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
-    }
-
-    public function scopeWithoutCase(Builder $query): Builder
-    {
-        return $query->whereNull('case_id');
     }
 }

@@ -83,8 +83,8 @@ class OpenCasesWidget extends BaseWidget
     protected function getTableRecordUrlUsing(): ?Closure
     {
         return fn (Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
-            'record' => $record->beneficiary_id,
-            'intervention' => $record,
+            'beneficiary' => $record->beneficiary_id,
+            'record' => $record,
         ]);
     }
 

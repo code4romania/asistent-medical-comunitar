@@ -20,6 +20,6 @@ enum CaseInitiator: string
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'case.initiator';
+        return 'intervention.initiator';
     }
 }

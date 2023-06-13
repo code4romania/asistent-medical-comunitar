@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Enums\Intervention\CaseInitiator;
+use App\Enums\Intervention\Status;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
 use App\Forms\Components\Radio;
 use App\Forms\Components\Subsection;
 use App\Models\Intervention;
+use App\Models\Service\Service;
 use App\Models\Vulnerability\Vulnerability;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -51,11 +56,11 @@ class InterventionResource extends Resource
                     'lg' => $columns - 1,
                 ])
                 ->schema([
-                    TextInput::make('name')
+                    TextInput::make('interventionable.name')
                         ->label(__('field.intervention_name'))
                         ->columnSpanFull(),
 
-                    Select::make('initiator')
+                    Select::make('interventionable.initiator')
                         ->label(__('field.initiator'))
                         ->placeholder(__('placeholder.choose'))
                         ->options(CaseInitiator::options())
@@ -72,7 +77,7 @@ class InterventionResource extends Resource
                         ->searchable()
                         ->required(),
 
-                    Radio::make('integrated')
+                    Radio::make('interventionable.integrated')
                         ->label(__('field.integrated'))
                         ->inlineOptions()
                         ->boolean()
@@ -85,8 +90,64 @@ class InterventionResource extends Resource
                     'lg' => 1,
                 ])
                 ->schema([
-                    Textarea::make('notes')
+                    Textarea::make('interventionable.notes')
                         ->label(__('field.notes')),
+                ]),
+        ];
+    }
+
+    public static function getIndividualServiceFormSchema(): array
+    {
+        $vulnerabilities = Vulnerability::cachedList()
+            ->pluck('name', 'id');
+
+        $services = Service::cachedList()
+            ->pluck('name', 'id');
+
+        return [
+            Grid::make(2)
+                ->schema([
+                    Select::make('interventionable.service_id')
+                        ->label(__('field.service'))
+                        ->placeholder(__('placeholder.select_one'))
+                        ->options($services)
+                        ->in($services->keys())
+                        ->searchable(),
+
+                    Select::make('vulnerability')
+                        ->relationship('vulnerability', 'name')
+                        ->label(__('field.addressed_vulnerability'))
+                        ->placeholder(__('placeholder.select_one'))
+                        ->options($vulnerabilities)
+                        ->in($vulnerabilities->keys())
+                        ->searchable(),
+
+                    Select::make('interventionable.status')
+                        ->label(__('field.status'))
+                        ->options(Status::options())
+                        ->enum(Status::class)
+                        ->default(Status::PLANNED),
+
+                    DatePicker::make('interventionable.date')
+                        ->label(__('field.date')),
+
+                    Radio::make('interventionable.integrated')
+                        ->label(__('field.integrated'))
+                        ->inlineOptions()
+                        ->boolean()
+                        ->default(0),
+
+                    Textarea::make('interventionable.notes')
+                        ->label(__('field.notes'))
+                        ->autosize(false)
+                        ->rows(4)
+                        ->extraInputAttributes([
+                            'class' => 'resize-none',
+                        ])
+                        ->columnSpanFull(),
+
+                    Checkbox::make('interventionable.outside_working_hours')
+                        ->label(__('field.outside_working_hours')),
                 ]),
         ];
     }

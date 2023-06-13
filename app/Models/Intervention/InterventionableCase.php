@@ -48,7 +48,7 @@ class InterventionableCase extends Model
 
     public function interventions(): HasMany
     {
-        return $this->hasMany(Intervention::class, 'case_id')
+        return $this->hasMany(Intervention::class, 'parent_id')
             ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
     }
 

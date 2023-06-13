@@ -7,12 +7,14 @@ namespace App\Models;
 use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToVulnerability;
+use App\Enums\Intervention\Status;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Scopes\CurrentNurseBeneficiaryScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Intervention extends Model
@@ -21,6 +23,13 @@ class Intervention extends Model
     use BelongsToBeneficiary;
     use BelongsToVulnerability;
     use HasFactory;
+
+    protected $fillable = [
+        'appointment_id',
+        'beneficiary_id',
+        'parent_id',
+        'vulnerability_id',
+    ];
 
     protected $with = [
         'appointment',
@@ -37,9 +46,21 @@ class Intervention extends Model
         return $this->morphTo();
     }
 
-    public function case(): BelongsTo
+    public function appointment(): BelongsTo
     {
-        return $this->belongsTo(InterventionableCase::class);
+        return $this->belongsTo(Appointment::class);
+    }
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id')
+            ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
+    }
+
+    public function realizedInterventions(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id')
+            ->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::REALIZED);
     }
 
     public function isCase(): bool
@@ -65,8 +86,8 @@ class Intervention extends Model
     {
         if ($this->interventionable instanceof InterventionableCase) {
             return $this->interventionable->is_imported
-                ? __('case.type.ocasional')
-                : __('case.type.case');
+                ? __('intervention.type.ocasional')
+                : __('intervention.type.case');
         }
 
         return __('intervention.type.individual');
@@ -83,16 +104,13 @@ class Intervention extends Model
 
     public function getServicesAttribute(): string
     {
-        $performed = 0;
-        $total = 0;
-
-        // if ($this->interventionable instanceof InterventionableCase) {
-        //     $performed = $this->interventionable->realized_interventions_count;
-        //     $total = $this->interventionable->interventions_count;
-        // } else {
-        //     $performed = $this->interventionable->status->is(Status::REALIZED) ? 1 : 0;
-        //     $total = 1;
-        // }
+        if ($this->interventionable instanceof InterventionableCase) {
+            $performed = $this->realized_interventions_count;
+            $total = $this->interventions_count;
+        } else {
+            $performed = $this->interventionable->status->is(Status::REALIZED) ? 1 : 0;
+            $total = 1;
+        }
 
         return $performed . '/' . $total;
     }

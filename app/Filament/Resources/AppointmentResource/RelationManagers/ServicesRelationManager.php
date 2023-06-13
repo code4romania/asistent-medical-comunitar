@@ -6,7 +6,7 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Models\Intervention\IndividualService;
+use App\Models\Intervention;
 use App\Models\Service\Service;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms;
@@ -25,7 +25,7 @@ class ServicesRelationManager extends RelationManager
 
     public static function getTitle(): string
     {
-        return __('case.services');
+        return __('intervention.services');
     }
 
     public static function form(Form $form): Form
@@ -48,7 +48,7 @@ class ServicesRelationManager extends RelationManager
                     ->size('sm')
                     ->sortable(),
 
-                TextColumn::make('service.name')
+                TextColumn::make('interventionable.service.name')
                     ->label(__('field.service_name'))
                     ->size('sm')
                     ->sortable(),
@@ -73,6 +73,7 @@ class ServicesRelationManager extends RelationManager
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
                     ->recordSelectOptionsQuery(function (Builder $query, self $livewire) {
+                        dd($query, $livewire);
                         $query
                             ->whereBeneficiary(
                                 $livewire->getOwnerRecord()->beneficiary
@@ -87,9 +88,9 @@ class ServicesRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->url(fn (self $livewire, IndividualService $record) => BeneficiaryResource::getUrl('interventions.view', [
-                        'record' => $livewire->getOwnerRecord()->beneficiary,
-                        'intervention' => $record,
+                    ->url(fn (self $livewire, Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
+                        'beneficiary' => $livewire->getOwnerRecord()->beneficiary,
+                        'record' => $record,
                     ]))
                     ->iconButton(),
 

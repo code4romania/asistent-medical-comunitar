@@ -46,11 +46,9 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Actions\CreateIndividualServiceAction::make()
-                ->record($this->getBeneficiary()),
+            Actions\CreateIndividualServiceAction::make(),
 
-            Actions\CreateCaseAction::make()
-                ->record($this->getBeneficiary()),
+            Actions\CreateCaseAction::make(),
         ];
     }
 
@@ -80,14 +78,13 @@ class ListInterventions extends ListRecords implements WithSidebar
                                 'class' => 'px-2 py-3 ' . ($record->id === 'NONE' ? 'italic' : null),
                             ]),
 
-                        // TextColumn::make('interventions_count')
-                        //     ->counts('interventions')
-                        //     ->alignment('left')
-                        //     ->description(__('field.interventions'), position: 'above')
-                        //     ->label(__('field.interventions'))
-                        //     ->extraAttributes([
-                        //         'class' => 'px-2 py-3',
-                        //     ]),
+                        TextColumn::make('interventions_count')
+                            ->alignment('left')
+                            ->description(__('field.interventions'), position: 'above')
+                            ->label(__('field.interventions'))
+                            ->extraAttributes([
+                                'class' => 'px-2 py-3',
+                            ]),
 
                         // TextColumn::make('services_count')
                         //     ->description(__('field.services_realized'), position: 'above')

@@ -27,8 +27,8 @@ class InterventionsColumn extends Column
     public function getActions(Intervention $intervention): array
     {
         $url = BeneficiaryResource::getUrl('interventions.view', [
-            'record' => $intervention->beneficiary_id,
-            'intervention' => $intervention->id,
+            'beneficiary' => $intervention->beneficiary_id,
+            'record' => $intervention->id,
         ]);
 
         return [

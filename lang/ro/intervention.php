@@ -9,6 +9,14 @@ return [
         'plural' => 'Intervenții',
     ],
 
+    'title' => [
+        'case' => 'Management de caz: :name',
+        'individual_service' => 'Serviciu individual: :name',
+    ],
+
+    'summary' => 'Sumar intervenție',
+    'services' => 'Servicii',
+
     'action' => [
         'add_service' => 'Adaugă serviciu',
         'close' => 'Închide intervenție',
@@ -29,6 +37,8 @@ return [
 
     'type' => [
         'individual' => 'Serviciu individual',
+        'case' => 'Management de caz',
+        'ocasional' => 'Intervenție beneficiar ocazional',
     ],
 
     'status' => [
@@ -58,4 +68,11 @@ return [
         'success' => 'Intervenția a fost redeschisă',
     ],
 
+    'initiator' => [
+        'nurse' => 'Inițiativă proprie',
+        'gp' => 'Medicul de familie',
+        'team' => 'Echipa comunitară',
+        'dph' => 'DSP',
+        'other' => 'Alta entitate sau organizație',
+    ],
 ];

@@ -61,7 +61,7 @@ trait HasSidebar
                     NavigationItem::make()
                         ->label(__('intervention.label.plural'))
                         ->icon('icon-none')
-                        ->url(BeneficiaryResource::getUrl('interventions.index', ['record' => $this->getBeneficiary()]))
+                        ->url(BeneficiaryResource::getUrl('interventions.index', ['beneficiary' => $this->getBeneficiary()]))
                         ->isActiveWhen(fn (): bool => request()->routeIs(
                             'filament.resources.beneficiaries.interventions',
                             'filament.resources.beneficiaries.interventions.*'
