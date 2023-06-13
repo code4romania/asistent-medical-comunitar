@@ -56,7 +56,7 @@ class InterventionResource extends Resource
                     'lg' => $columns - 1,
                 ])
                 ->schema([
-                    TextInput::make('name')
+                    TextInput::make('interventionable.name')
                         ->label(__('field.intervention_name'))
                         ->columnSpanFull(),
 

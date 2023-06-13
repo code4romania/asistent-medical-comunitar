@@ -69,6 +69,11 @@ class Appointment extends Model
             ->orderBy('start_time', 'asc');
     }
 
+    public function getLabelAttribute(): string
+    {
+        return sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
+    }
+
     public function getUrlAttribute(): string
     {
         return AppointmentResource::getUrl('view', $this);

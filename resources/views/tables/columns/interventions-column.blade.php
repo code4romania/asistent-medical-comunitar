@@ -52,9 +52,11 @@
 
                 <td class="px-4 py-6">
                     @forelse ($getAppointments($intervention) as $appointment)
-                        <x-filament::link :href="$appointment->url">
-                            #{{ $appointment->id }} / {{ $appointment->date->toFormattedDate() }}
-                        </x-filament::link>
+                        <div class="block">
+                            <x-filament::link :href="$appointment->url">
+                                {{ $appointment->label }}
+                            </x-filament::link>
+                        </div>
                     @empty
                         <em>@lang('appointment.empty.title')</em>
                     @endforelse

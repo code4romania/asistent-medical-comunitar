@@ -6,6 +6,7 @@ namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
+use App\Models\Appointment;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Service\Service;
@@ -20,6 +21,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class InterventionsRelationManager extends RelationManager
 {
@@ -102,6 +104,21 @@ class InterventionsRelationManager extends RelationManager
                 TextColumn::make('interventionable.date')
                     ->label(__('field.date'))
                     ->date()
+                    ->size('sm'),
+
+                TextColumn::make('appointment')
+                    ->label(__('field.associated_appointments'))
+                    ->formatStateUsing(
+                        function (?Appointment $state) {
+                            if (! $state) {
+                                return;
+                            }
+
+                            return Str::of($state->label)
+                                ->wrap('<a href="' . $state->url . '" class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-primary-600 hover:text-primary-500">', '</a>')
+                                ->toHtmlString();
+                        }
+                    )
                     ->size('sm'),
 
                 TextColumn::make('notes')

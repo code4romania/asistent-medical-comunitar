@@ -19,7 +19,7 @@ class InterventionsColumn extends Column
     public function getAppointments(Intervention $intervention): array
     {
         return match (\get_class($intervention->interventionable)) {
-            InterventionableCase::class => [], //$intervention->interventionable->appointments->all(),
+            InterventionableCase::class => $intervention->appointments->all(),
             InterventionableIndividualService::class => Arr::wrap($intervention->appointment),
         };
     }

@@ -61,14 +61,15 @@ class Intervention extends Model
 
     public function appointments(): HasManyThrough
     {
-        return $this->hasManyThrough(
-            Appointment::class,
-            self::class,
-            'parent_id',
-            'id',
-            'id',
-            'appointment_id'
-        );
+        return $this
+            ->hasManyThrough(
+                Appointment::class,
+                self::class,
+                'parent_id',
+                'id',
+                'id',
+                'appointment_id'
+            )->distinct();
     }
 
     public function parent(): BelongsTo
@@ -94,6 +95,11 @@ class Intervention extends Model
     {
         return $this->hasMany(self::class, 'parent_id')
             ->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::REALIZED);
+    }
+
+    public function scopeWhereRoot(Builder $query): Builder
+    {
+        return $query->whereNull('parent_id');
     }
 
     public function isCase(): bool
