@@ -13,4 +13,11 @@ class CreateAppointment extends CreateRecord implements FixedActionBar
     protected static string $resource = AppointmentResource::class;
 
     protected static bool $canCreateAnother = false;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['nurse_id'] = auth()->id();
+
+        return $data;
+    }
 }

@@ -8,6 +8,7 @@ use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToVulnerability;
 use App\Enums\Intervention\Status;
+use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Scopes\CurrentNurseBeneficiaryScope;
@@ -49,6 +50,11 @@ class Intervention extends Model
     public function appointment(): BelongsTo
     {
         return $this->belongsTo(Appointment::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function interventions(): HasMany
@@ -113,5 +119,13 @@ class Intervention extends Model
         }
 
         return $performed . '/' . $total;
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return BeneficiaryResource::getUrl('interventions.view', [
+            'beneficiary' => $this->beneficiary_id,
+            'record' => $this->id,
+        ]);
     }
 }

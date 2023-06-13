@@ -73,6 +73,7 @@ class BeneficiaryFactory extends Factory
                     ->count(fake()->randomDigitNotNull())
                     ->has(
                         Intervention::factory()
+                            ->withVulnerability()
                             ->recycle($beneficiary),
                         'intervention'
                     )
@@ -82,6 +83,7 @@ class BeneficiaryFactory extends Factory
                     ->count(fake()->randomDigitNotNull())
                     ->has(
                         Intervention::factory()
+                            ->withVulnerability()
                             ->recycle($beneficiary)
                             ->afterCreating(function (Intervention $case) {
                                 InterventionableIndividualService::factory()
@@ -101,6 +103,7 @@ class BeneficiaryFactory extends Factory
 
                 $interventions = Intervention::query()
                     ->where('interventionable_type', 'individual_service')
+                    ->whereBeneficiary($beneficiary)
                     ->get();
 
                 Appointment::factory()

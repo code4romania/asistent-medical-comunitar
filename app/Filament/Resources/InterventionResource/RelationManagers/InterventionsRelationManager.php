@@ -6,6 +6,7 @@ namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Forms\Components\Radio;
+use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Service\Service;
 use App\Tables\Columns\TextColumn;
@@ -18,6 +19,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class InterventionsRelationManager extends RelationManager
 {
@@ -83,7 +85,7 @@ class InterventionsRelationManager extends RelationManager
                     ->prefix('#')
                     ->size('sm'),
 
-                TextColumn::make('interventionable.service_name')
+                TextColumn::make('interventionable.service.name')
                     ->label(__('field.name'))
                     ->size('sm'),
 
@@ -126,10 +128,23 @@ class InterventionsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->iconButton(),
+                    ->iconButton()
+                    ->mutateRecordDataUsing(function (array $data, Intervention $record): array {
+                        $data['interventionable'] = $record->interventionable->attributesToArray();
+
+                        return $data;
+                    }),
 
                 Tables\Actions\EditAction::make()
-                    ->iconButton(),
+                    ->iconButton()
+                    ->mutateRecordDataUsing(function (array $data, Intervention $record): array {
+                        $data['interventionable'] = $record->interventionable->attributesToArray();
+
+                        return $data;
+                    })
+                    ->using(function (array $data, Intervention $record) {
+                        $record->interventionable->update(Arr::pull($data, 'interventionable'));
+                    }),
             ]);
     }
 

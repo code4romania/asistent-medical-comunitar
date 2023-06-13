@@ -19,8 +19,15 @@ class InterventionFactory extends Factory
     {
         return [
             'beneficiary_id' => Beneficiary::factory(),
-            'vulnerability_id' => $this->randomVulnerability(),
+            'vulnerability_id' => null,
         ];
+    }
+
+    public function withVulnerability(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'vulnerability_id' => $this->randomVulnerability(),
+        ]);
     }
 
     private function randomVulnerability(): string

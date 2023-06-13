@@ -43,6 +43,13 @@ class ViewIntervention extends ViewRecord implements WithSidebar
         return $this->getTitle();
     }
 
+    public function beforeFill()
+    {
+        if ($this->getRecord()->parent_id !== null) {
+            $this->redirect($this->getRecord()->parent->url);
+        }
+    }
+
     protected function form(Form $form): Form
     {
         return $form

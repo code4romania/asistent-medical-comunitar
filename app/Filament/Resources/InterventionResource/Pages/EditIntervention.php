@@ -12,11 +12,11 @@ use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Forms\Components\Card;
 use App\Models\Intervention;
-use Arr;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class EditIntervention extends EditRecord implements WithSidebar
 {
