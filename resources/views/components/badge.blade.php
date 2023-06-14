@@ -5,10 +5,10 @@
 
 <span
     {{ $attributes->class([
-        'inline-flex items-center font-medium tracking-tight rounded-full whitespace-nowrap',
+        'inline-flex items-center text-xs font-medium tracking-tight rounded-full gap-x-1 whitespace-nowrap',
         match ($size) {
-            'sm' => 'px-2.5 py-0.5 text-xs',
-            null, 'lg' => 'px-3 py-0.5 text-sm',
+            'sm' => 'px-1.5 py-0.5',
+            null => 'px-2 py-1',
             default => $size,
         },
         match ($color) {
@@ -21,13 +21,7 @@
         },
     ]) }}
 >
-    <x-icon-badge-dot @class([
-        'mr-0.5 h-4 w-4 shrink-0',
-        match ($size) {
-            'sm' => '-ml-1.5',
-            default => '-ml-2',
-        },
-    ]) />
+    <x-icon-badge-dot class="h-1.5 w-1.5 shrink-0 opacity-70" />
 
     {{ $slot }}
 </span>

@@ -64,7 +64,7 @@ class UpcomingAppointmentsWidget extends TableWidget
 
                 BadgeColumn::make('beneficiary.status')
                     ->label(__('field.status'))
-                    ->size('xs')
+                    ->size('sm')
                     ->enum(Status::options())
                     ->colors(Status::flipColors())
                     ->alignEnd(),
