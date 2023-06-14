@@ -15,6 +15,7 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Widgets\TableWidget;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class UpcomingAppointmentsWidget extends TableWidget
 {
@@ -33,6 +34,15 @@ class UpcomingAppointmentsWidget extends TableWidget
     protected function getTableQuery(): Builder
     {
         return Appointment::query()
+            ->with([
+                'interventions' => fn ($query) => $query->select([
+                    'interventions.id',
+                    'interventions.interventionable_type',
+                    'interventions.interventionable_id',
+                    'interventions.appointment_id',
+                    'interventions.parent_id',
+                ]),
+            ])
             ->upcoming();
     }
 
@@ -61,10 +71,17 @@ class UpcomingAppointmentsWidget extends TableWidget
             ]),
 
             Stack::make([
-                TextColumn::make('services')
+                TextColumn::make('interventions')
                     ->color('text-gray-400')
                     ->icon('heroicon-s-lightning-bolt')
-                    ->size('sm'),
+                    ->size('sm')
+                    ->formatStateUsing(function (Collection $state) {
+                        if ($state->count() === 1) {
+                            return $state->first()->interventionable->service->name;
+                        }
+
+                        return trans_choice('intervention.services_count', $state->count());
+                    }),
 
                 TextColumn::make('date')
                     ->label(__('field.date'))

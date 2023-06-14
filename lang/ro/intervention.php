@@ -17,6 +17,7 @@ return [
 
     'summary' => 'Sumar intervenție',
     'services' => 'Servicii',
+    'services_count' => '{0}:count servicii |{1}:count serviciu|[2,19]:count servicii |[20,*]:count de servicii',
 
     'action' => [
         'add_service' => 'Adaugă serviciu',
