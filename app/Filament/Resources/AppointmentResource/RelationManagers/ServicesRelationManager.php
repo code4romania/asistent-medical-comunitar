@@ -59,8 +59,8 @@ class ServicesRelationManager extends RelationManager
 
                 SelectColumn::make('interventionable.status')
                     ->label(__('field.status'))
-                    ->options(Status::options()),
-
+                    ->options(Status::options())
+                    ->disablePlaceholderSelection(),
             ])
             ->filters([
                 //

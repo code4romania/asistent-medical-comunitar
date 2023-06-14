@@ -6,7 +6,6 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention;
-use App\Models\Intervention\InterventionableCase;
 use App\Tables\Columns\TextColumn;
 use Closure;
 use Filament\Tables\Actions\Action;
@@ -29,11 +28,8 @@ class OpenCasesWidget extends BaseWidget
     protected function getTableQuery(): Builder
     {
         return Intervention::query()
-            ->whereHasMorph(
-                'interventionable',
-                InterventionableCase::class,
-                fn (Builder $query) => $query->onlyOpen()
-            );
+            ->onlyCases()
+            ->onlyOpen();
     }
 
     protected function getTableQueryStringIdentifier(): ?string

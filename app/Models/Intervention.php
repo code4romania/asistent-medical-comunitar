@@ -35,10 +35,12 @@ class Intervention extends Model
         'beneficiary_id',
         'parent_id',
         'vulnerability_id',
+        'closed_at',
     ];
 
     protected $casts = [
         'integrated' => 'boolean',
+        'closed_at' => 'datetime',
     ];
 
     protected $with = [
@@ -87,12 +89,32 @@ class Intervention extends Model
     public function interventions(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')
-            ->whereMorphedTo('interventionable', InterventionableIndividualService::class);
+            ->onlyIndividualServices();
     }
 
     public function scopeWhereRoot(Builder $query): Builder
     {
         return $query->whereNull('parent_id');
+    }
+
+    public function scopeOnlyOpen(Builder $query): Builder
+    {
+        return $query->whereNull('closed_at');
+    }
+
+    public function scopeOnlyCases(Builder $query): Builder
+    {
+        return $query->whereMorphedTo('interventionable', InterventionableCase::class);
+    }
+
+    public function scopeOnlyIndividualServices(Builder $query): Builder
+    {
+        return $query->whereMorphedTo('interventionable', InterventionableIndividualService::class);
+    }
+
+    public function scopeOnlyRealized(Builder $query): Builder
+    {
+        return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::REALIZED);
     }
 
     public function isCase(): bool
@@ -103,6 +125,25 @@ class Intervention extends Model
     public function isIndividualService(): bool
     {
         return $this->getActualClassNameForMorph($this->interventionable_type) === InterventionableIndividualService::class;
+    }
+
+    public function isOpen(): bool
+    {
+        return \is_null($this->closed_at);
+    }
+
+    public function open(): void
+    {
+        $this->update([
+            'closed_at' => null,
+        ]);
+    }
+
+    public function close(): void
+    {
+        $this->update([
+            'closed_at' => $this->freshTimestamp(),
+        ]);
     }
 
     public function getNameAttribute(): ?string
@@ -128,7 +169,9 @@ class Intervention extends Model
     public function getStatusAttribute(): ?string
     {
         if ($this->interventionable instanceof InterventionableCase) {
-            return $this->interventionable->status;
+            return $this->isOpen()
+                ? __('intervention.status.open')
+                : __('intervention.status.closed');
         }
 
         return $this->interventionable->status?->label();

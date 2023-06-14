@@ -15,7 +15,6 @@ class InterventionableCaseFactory extends Factory
             'name' => fake()->sentence(),
             'initiator' => fake()->randomElement(CaseInitiator::values()),
             'is_imported' => fake()->boolean(10),
-            'closed_at' => fake()->boolean() ? fake()->dateTime() : null,
         ];
     }
 }

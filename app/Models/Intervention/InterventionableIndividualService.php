@@ -39,6 +39,19 @@ class InterventionableIndividualService extends Model
         'service',
     ];
 
+    protected static function booted(): void
+    {
+        static::updating(function (self $interventionable) {
+            if ($interventionable->isDirty('status')) {
+                $interventionable->intervention()->update([
+                    'closed_at' => $interventionable->status->is(Status::REALIZED)
+                        ? $interventionable->freshTimestamp()
+                        : null,
+                ]);
+            }
+        });
+    }
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
