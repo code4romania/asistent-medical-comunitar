@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\InterventionResource;
 use App\Models\Intervention;
 use App\Tables\Columns\TextColumn;
 use Closure;
@@ -25,11 +26,25 @@ class OpenCasesWidget extends BaseWidget
         'lg' => 2,
     ];
 
+    public static function canView(): bool
+    {
+        return InterventionResource::canViewAny();
+    }
+
+    protected function getTableHeading(): string
+    {
+        return __('intervention.title.open_cases_widget');
+    }
+
     protected function getTableQuery(): Builder
     {
         return Intervention::query()
             ->onlyCases()
-            ->onlyOpen();
+            ->onlyOpen()
+            ->withCount([
+                'appointments' => fn (Builder $query) => $query->countUnique(),
+                'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
+            ]);
     }
 
     protected function getTableQueryStringIdentifier(): ?string
@@ -67,7 +82,8 @@ class OpenCasesWidget extends BaseWidget
                 ->sortable(),
 
             TextColumn::make('realized_interventions_count')
-                ->label(__('field.services_realized')),
+                ->label(__('field.services_realized'))
+                ->sortable(),
 
             TextColumn::make('appointments_count')
                 ->counts('appointment')
@@ -88,6 +104,7 @@ class OpenCasesWidget extends BaseWidget
     {
         return [
             Action::make('view')
+                ->label(__('intervention.action.view_case'))
                 ->url($this->getTableRecordUrlUsing())
                 ->size('sm')
                 ->icon(null),

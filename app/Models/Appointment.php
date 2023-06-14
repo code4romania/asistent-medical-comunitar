@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Appointment extends Model
 {
@@ -67,6 +68,13 @@ class Appointment extends Model
         return $query->where('date', '>=', today())
             ->orderBy('date', 'asc')
             ->orderBy('start_time', 'asc');
+    }
+
+    public function scopeCountUnique(Builder $query): Builder
+    {
+        return $query->select(DB::raw(<<<'SQL'
+            COUNT(DISTINCT(appointments.id))
+        SQL));
     }
 
     public function getLabelAttribute(): string
