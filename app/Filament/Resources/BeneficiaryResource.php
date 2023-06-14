@@ -7,6 +7,8 @@ namespace App\Filament\Resources;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
+use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
+use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
 use App\Models\Beneficiary;
@@ -141,6 +143,14 @@ class BeneficiaryResource extends Resource
             'interventions.edit' => InterventionPages\EditIntervention::route('/{beneficiary}/interventions/{record}/edit'),
 
             'history' => Pages\ListHistory::route('/{record}/history'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            PersonalDataWidget::class,
+            ActiveInterventionsWidget::class,
         ];
     }
 }
