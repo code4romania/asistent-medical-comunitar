@@ -55,6 +55,31 @@ class ManageHouseholds extends ManageRecords implements WithTabs
     protected function getTableQuery(): Builder
     {
         return parent::getTableQuery()
-            ->with('families.beneficiaries');
+            ->with([
+                'families.beneficiaries.catagraphy' => function ($query) {
+                    $query->select([
+                        'cat_age',
+                        'cat_as',
+                        'cat_cr',
+                        'cat_diz',
+                        'cat_diz_tip',
+                        'cat_diz_gr',
+                        'cat_edu',
+                        'cat_fam',
+                        'cat_id',
+                        'cat_inc',
+                        'cat_liv',
+                        'cat_mf',
+                        'cat_ns',
+                        'cat_pov',
+                        'cat_preg',
+                        'cat_rep',
+                        'cat_ss',
+                        'cat_ssa',
+                        'cat_vif',
+                        'beneficiary_id',
+                    ]);
+                },
+            ]);
     }
 }

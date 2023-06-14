@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToBeneficiary;
+use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -158,6 +159,15 @@ class Catagraphy extends Model
             ])
                 ->flatten()
                 ->filter()
+                ->values()
+        )->shouldCache();
+    }
+
+    public function allValidVulnerabilities(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->all_vulnerabilities
+                ->filter(fn ($code) => Vulnerability::isValidCode($code))
                 ->values()
         )->shouldCache();
     }

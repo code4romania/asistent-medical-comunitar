@@ -84,6 +84,7 @@ class HouseholdResource extends Resource
                     ->schema([
                         TextColumn::make('name')
                             ->label(__('field.household'))
+                            ->description(__('field.household'), position: 'above')
                             ->searchable()
                             ->sortable()
                             ->alignment('left'),
@@ -121,13 +122,6 @@ class HouseholdResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

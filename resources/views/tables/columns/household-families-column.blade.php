@@ -1,45 +1,125 @@
-<table class="w-full divide-y table-auto bg-gray-50 filament-tables-table text-start">
+@php
+    $household = $getState();
+@endphp
+
+<table class="w-full text-sm divide-y table-fixed bg-gray-50 filament-tables-table text-start">
     <thead>
         <tr class="bg-gray-500/5">
-            <x-tables::header-cell>Familie</x-tables::header-cell>
-            <x-tables::header-cell>ID</x-tables::header-cell>
-            <x-tables::header-cell>Nume</x-tables::header-cell>
-            <x-tables::header-cell>Prenume</x-tables::header-cell>
-            <x-tables::header-cell>Status Beneficiar</x-tables::header-cell>
-            <x-tables::header-cell>CNP</x-tables::header-cell>
-            <x-tables::header-cell>Vârsta</x-tables::header-cell>
-            <x-tables::header-cell>Vulnerabilități</x-tables::header-cell>
-            <x-tables::header-cell></x-tables::header-cell>
+            <x-tables::header-cell>
+                @lang('field.family')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell class="w-24">
+                @lang('field.id')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell>
+                @lang('field.last_name')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell>
+                @lang('field.first_name')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell>
+                @lang('field.status')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell>
+                @lang('field.cnp')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell class="w-24">
+                @lang('field.age')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell class="w-24">
+                @lang('field.vulnerabilities')
+            </x-tables::header-cell>
+
+            <x-tables::header-cell />
         </tr>
     </thead>
 
     <tbody class="divide-y">
-        @foreach ($getState() as $family)
-            @foreach ($family->beneficiaries as $beneficiary)
-                <x-tables::row>
+
+        @forelse ($household as $family)
+            @forelse ($family->beneficiaries as $beneficiary)
+                <tr>
                     @if ($loop->first)
-                        <x-tables::cell
+                        <td
                             rowspan="{{ $family->beneficiaries->count() }}"
                             class="px-4 py-3 align-top"
                         >
                             {{ $family->name }}
-                        </x-tables::cell>
+                        </td>
                     @endif
 
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->id }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->last_name }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->first_name }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->status }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->cnp }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">{{ $beneficiary->age }}</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">0</x-tables::cell>
-                    <x-tables::cell class="px-4 py-3">
-                        <a href="{{ $beneficiaryUrl($beneficiary) }}">
-                            Vezi Fișa
-                        </a>
-                    </x-tables::cell>
-                </x-tables::row>
-            @endforeach
-        @endforeach
+                    <td class="px-4 py-3">
+                        #{{ $beneficiary->id }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        {{ $beneficiary->last_name }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        {{ $beneficiary->first_name }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <x-badge :color="$beneficiary->status->color()">
+                            {{ $beneficiary->status->label() }}
+                        </x-badge>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        {{ $beneficiary->cnp ?? '–' }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        {{ $beneficiary->age }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        {{ $beneficiary->catagraphy->all_valid_vulnerabilities->count() ?: '–' }}
+                    </td>
+
+                    <td class="relative px-4 py-6">
+                        <x-tables::actions
+                            :actions="$getActions($beneficiary)"
+                            :record="$beneficiary"
+                            wrap="-md"
+                        />
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td
+                        rowspan="{{ $family->beneficiaries->count() }}"
+                        class="px-4 py-3 align-top"
+                    >
+                        {{ $family->name }}
+                    </td>
+
+                    <td
+                        colspan="8"
+                        class="px-4 py-6 text-center"
+                    >
+                        @lang('household.empty_beneficiaries')
+                    </td>
+                </tr>
+            @endforelse
+        @empty
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="px-4 py-6 text-center"
+                >
+                    @lang('household.empty_families')
+                </td>
+            </tr>
+        @endforelse
     </tbody>
 </table>
