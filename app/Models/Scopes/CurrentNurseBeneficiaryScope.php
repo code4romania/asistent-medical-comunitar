@@ -20,8 +20,6 @@ class CurrentNurseBeneficiaryScope implements Scope
             return;
         }
 
-        $builder->whereHas('beneficiary', function (Builder $query) {
-            $query->whereNurse(auth()->user());
-        });
+        $builder->whereHas('beneficiary');
     }
 }

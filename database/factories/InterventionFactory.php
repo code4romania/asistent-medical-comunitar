@@ -22,7 +22,7 @@ class InterventionFactory extends Factory
             'notes' => fake()->text(),
             'beneficiary_id' => Beneficiary::factory(),
             'vulnerability_id' => null,
-            'closed_at' => fake()->boolean() ? fake()->dateTime() : null,
+            'closed_at' => fake()->boolean() ? fake()->dateTimeBetween('-2 months', '2 months') : null,
         ];
     }
 
