@@ -8,9 +8,10 @@ return [
 
     'stats' => [
         'heading' => 'În ultimele 30 de zile,',
-        'beneficiaries_total' => 'Total beneficiari',
-        'beneficiaries_active' => 'Beneficiari activi',
-        'services' => 'Servicii livrate',
         'appointments' => 'Programări',
+        'beneficiaries_active' => 'Beneficiari activi',
+        'beneficiaries_total' => 'Total beneficiari',
+        'nurses_total' => 'Total asistenți',
+        'services' => 'Servicii livrate',
     ],
 ];
