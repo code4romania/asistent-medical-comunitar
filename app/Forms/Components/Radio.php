@@ -9,7 +9,7 @@ use Filament\Forms\Components\Radio as BaseRadio;
 
 class Radio extends BaseRadio
 {
-    protected string $view = 'forms.components.radio';
+    protected string $view = 'components.forms.radio';
 
     protected bool | Closure $hasInlineOptions = false;
 

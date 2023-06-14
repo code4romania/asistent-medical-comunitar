@@ -17,7 +17,7 @@ class Card extends BaseCard
     use HasFooter;
     use HasHeader;
 
-    protected string $view = 'forms.components.card';
+    protected string $view = 'components.forms.card';
 
     protected string | Htmlable | Closure | null $pointer = null;
 

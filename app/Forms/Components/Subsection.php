@@ -13,7 +13,7 @@ class Subsection extends Component
     use HasIcon;
     use HasTitle;
 
-    protected string $view = 'forms.components.subsection';
+    protected string $view = 'components.forms.subsection';
 
     public static function make(): static
     {

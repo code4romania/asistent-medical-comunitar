@@ -13,5 +13,5 @@ class Badge extends Placeholder
     use HasColor;
     use HasSize;
 
-    protected string $view = 'forms.components.badge';
+    protected string $view = 'components.forms.badge';
 }

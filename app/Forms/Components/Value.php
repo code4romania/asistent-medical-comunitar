@@ -21,7 +21,7 @@ class Value extends Component
     use Concerns\HasHint;
     use Concerns\HasName;
 
-    protected string $view = 'forms.components.value';
+    protected string $view = 'components.forms.value';
 
     protected bool $empty = false;
 

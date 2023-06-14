@@ -87,7 +87,7 @@ class Location extends Grid
             return null;
         }
 
-        $html = view('forms.components.location.city', [
+        $html = view('components.forms.location.city', [
             'name' => $model->name,
             'suffix' => $model->parent_name,
         ])->render();
