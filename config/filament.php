@@ -235,7 +235,7 @@ return [
             'groups' => [
                 'are_collapsible' => false,
             ],
-            'width' => null,
+            'width' => '15rem',
             'collapsed_width' => null,
         ],
     ],
