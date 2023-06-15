@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
+use App\Filament\Forms\Components\Radio;
 use App\Filament\Tables\Columns\TextColumn;
-use App\Forms\Components\Radio;
 use App\Models\Appointment;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Forms\Components;
+namespace App\Filament\Forms\Components;
 
 use App\Concerns\Forms\HasIcon;
 use App\Concerns\Forms\HasTitle;

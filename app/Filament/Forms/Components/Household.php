@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Forms\Components;
+namespace App\Filament\Forms\Components;
 
 use App\Models\Family;
 use App\Models\Household as HouseholdModel;

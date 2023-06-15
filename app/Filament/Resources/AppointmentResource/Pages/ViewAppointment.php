@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\AppointmentResource\Pages;
 
+use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Subsection;
+use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\AppointmentResource;
-use App\Forms\Components\Card;
-use App\Forms\Components\Subsection;
-use App\Forms\Components\Value;
 use Filament\Forms\Components\Grid;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
