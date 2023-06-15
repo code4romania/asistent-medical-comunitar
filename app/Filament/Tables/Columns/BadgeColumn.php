@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tables\Columns;
+namespace App\Filament\Tables\Columns;
 
 use Filament\Tables\Columns\BadgeColumn as BaseColumn;
 use Filament\Tables\Columns\Concerns;

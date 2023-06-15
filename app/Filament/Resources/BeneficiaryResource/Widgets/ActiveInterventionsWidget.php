@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Widgets;
 
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
-use App\Tables\Columns\TextColumn;
 use Closure;
 use Filament\Tables\Actions\Action;
 use Filament\Widgets\TableWidget as BaseWidget;

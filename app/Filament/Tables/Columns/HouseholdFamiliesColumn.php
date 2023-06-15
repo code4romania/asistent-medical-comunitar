@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tables\Columns;
+namespace App\Filament\Tables\Columns;
 
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;

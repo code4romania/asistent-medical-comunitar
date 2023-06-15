@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\HouseholdResource\Pages\ManageHouseholds;
+use App\Filament\Tables\Columns\HouseholdFamiliesColumn;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
 use App\Models\Family;
 use App\Models\Household;
-use App\Tables\Columns\HouseholdFamiliesColumn;
-use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\RelationManagers;
 
 use App\Enums\CourseType;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Profile\Course;
-use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

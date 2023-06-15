@@ -6,8 +6,8 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Intervention;
-use App\Tables\Columns\TextColumn;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;

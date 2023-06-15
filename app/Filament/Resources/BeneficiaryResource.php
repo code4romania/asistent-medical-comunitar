@@ -11,9 +11,9 @@ use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
+use App\Filament\Tables\Columns\BadgeColumn;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
-use App\Tables\Columns\BadgeColumn;
-use App\Tables\Columns\TextColumn;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;

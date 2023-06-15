@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Activity;
-use App\Tables\Columns\TextColumn;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Resource;

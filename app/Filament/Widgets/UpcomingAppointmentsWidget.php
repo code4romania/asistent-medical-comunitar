@@ -6,9 +6,9 @@ namespace App\Filament\Widgets;
 
 use App\Enums\Beneficiary\Status;
 use App\Filament\Resources\AppointmentResource;
+use App\Filament\Tables\Columns\BadgeColumn;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Appointment;
-use App\Tables\Columns\BadgeColumn;
-use App\Tables\Columns\TextColumn;
 use Closure;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;

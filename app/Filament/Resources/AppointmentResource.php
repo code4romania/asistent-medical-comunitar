@@ -6,10 +6,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\RelationManagers\ServicesRelationManager;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Forms\Components\Card;
 use App\Forms\Components\Subsection;
 use App\Models\Appointment;
-use App\Tables\Columns\TextColumn;
 use Carbon\CarbonImmutable;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;

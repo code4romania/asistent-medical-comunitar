@@ -6,9 +6,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProfileResource\Pages as ProfilePages;
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Tables\Columns\BadgeColumn;
+use App\Filament\Tables\Columns\TextColumn;
 use App\Models\User;
-use App\Tables\Columns\BadgeColumn;
-use App\Tables\Columns\TextColumn;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;

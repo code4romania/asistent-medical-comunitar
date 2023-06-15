@@ -8,7 +8,7 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
-use App\Tables\Columns\TextColumn;
+use App\Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;

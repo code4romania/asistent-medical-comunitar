@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tables\Columns;
+namespace App\Filament\Tables\Columns;
 
 use Filament\Tables\Columns\TextColumn as Column;
 
