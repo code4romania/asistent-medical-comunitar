@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
+use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
@@ -22,8 +23,18 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 {
     use Concerns\HasRecordBreadcrumb;
     use HasSidebar;
+    use InteractsWithBeneficiary;
 
     protected static string $resource = InterventionResource::class;
+
+    public function mount(...$args): void
+    {
+        [$beneficiary, $intervention] = $args;
+
+        parent::mount($intervention);
+
+        $this->resolveBeneficiary($beneficiary);
+    }
 
     public function getTitle(): string
     {

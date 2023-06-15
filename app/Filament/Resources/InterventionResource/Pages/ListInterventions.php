@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
+use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
@@ -23,8 +24,16 @@ class ListInterventions extends ListRecords implements WithSidebar
     use Concerns\HasActions;
     use Concerns\HasSidebar;
     use Concerns\ListRecordsForBeneficiary;
+    use InteractsWithBeneficiary;
 
     protected static string $resource = InterventionResource::class;
+
+    public function mount(): void
+    {
+        parent::mount();
+
+        $this->resolveBeneficiary(request()->beneficiary);
+    }
 
     protected function getTableQuery(): Builder
     {

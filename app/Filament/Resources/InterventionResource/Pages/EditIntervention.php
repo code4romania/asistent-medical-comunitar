@@ -30,7 +30,6 @@ class EditIntervention extends EditRecord implements WithSidebar
     {
         [$beneficiary, $intervention] = $args;
 
-        // dd($beneficiary, $intervention, $args);
         parent::mount($intervention);
 
         $this->resolveBeneficiary($beneficiary);

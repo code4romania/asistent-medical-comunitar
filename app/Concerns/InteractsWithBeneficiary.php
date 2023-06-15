@@ -21,12 +21,6 @@ trait InteractsWithBeneficiary
                 : null;
         }
 
-        if (! \is_null($key)) {
-            session()->put('current_beneficiary_id', $key);
-        } else {
-            $key = session()->get('current_beneficiary_id');
-        }
-
         /** @var Beneficiary|null */
         $record = BeneficiaryResource::resolveRecordRouteBinding($key);
 
