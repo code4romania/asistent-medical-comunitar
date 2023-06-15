@@ -22,6 +22,6 @@ enum Beneficiaries: string
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'report.indicator.beneficiaries.value';
+        return 'report.indicator.beneficiaries';
     }
 }

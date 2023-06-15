@@ -11,6 +11,9 @@
     </x-tabs>
 
     @if ($record !== null)
-        <x-reports.report :report="$record" />
+        <x-reports.report
+            :report-factory="$record->factory()"
+            :actions="$actions()"
+        />
     @endif
 </x-filament::page>

@@ -54,16 +54,13 @@ return [
 
     'indicator' => [
         'beneficiaries' => [
-            'name' => 'Beneficiari',
-            'value' => [
-                'total' => 'Total beneficiari',
-                'registered' => 'Beneficiari înregistrați',
-                'catagraphed' => 'Beneficiari catagrafiați',
-                'active' => 'Beneficiari activi',
-                'inactive' => 'Beneficiari inactivi',
-                'removed' => 'Beneficiari scoși din evidență',
-                'ocasional' => 'Beneficiari ocazionali',
-            ],
+            'total' => 'Total beneficiari',
+            'registered' => 'Beneficiari înregistrați',
+            'catagraphed' => 'Beneficiari catagrafiați',
+            'active' => 'Beneficiari activi',
+            'inactive' => 'Beneficiari inactivi',
+            'removed' => 'Beneficiari scoși din evidență',
+            'ocasional' => 'Beneficiari ocazionali',
         ],
     ],
 

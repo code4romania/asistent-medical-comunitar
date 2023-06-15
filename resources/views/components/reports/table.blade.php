@@ -17,7 +17,9 @@
     <tbody class="divide-y">
         @foreach ($data as $label => $columns)
             <tr>
-                <th class="px-4 py-3 text-left bg-gray-100">{{ $label }}</th>
+                <th class="px-4 py-3 text-left bg-gray-100">
+                    @lang("report.indicator.$label")
+                </th>
 
                 @foreach ($columns as $column)
                     <td class="px-4 py-3">{{ $column }}</td>

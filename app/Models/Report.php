@@ -7,7 +7,7 @@ namespace App\Models;
 use App\Enums\Report\Type;
 use App\Models\Scopes\CurrentUserScope;
 use App\Reports\NurseActivityReport;
-use App\Reports\ReportData;
+use App\Reports\ReportFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -46,11 +46,14 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function data(): ReportData
+    public function factory(): ReportFactory
     {
-        $report = NurseActivityReport::class;
+        $report = match ($this->type) {
+            Type::NURSE_ACTIVITY => NurseActivityReport::class,
+            default => NurseActivityReport::class,
+        };
 
-        return new $report($this);
+        return $report::make($this);
     }
 
     public function getIndicatorsListAttribute(): ?string

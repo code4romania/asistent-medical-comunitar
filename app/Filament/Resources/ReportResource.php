@@ -156,7 +156,7 @@ class ReportResource extends Resource
                 ->columnSpanFull()
                 ->schema([
                     Select::make('indicators.beneficiaries')
-                        ->label(__('report.indicator.beneficiaries.name'))
+                        ->label(__('beneficiary.label.plural'))
                         ->placeholder(__('placeholder.select_many'))
                         ->options(Indicator\Beneficiaries::options())
                         ->rule(new MultipleIn(Indicator\Beneficiaries::values()))

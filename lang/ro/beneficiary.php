@@ -6,7 +6,7 @@ return [
 
     'label' => [
         'singular' => 'beneficiar',
-        'plural' => 'beneficiari',
+        'plural' => 'Beneficiari',
     ],
 
     'header' => [
