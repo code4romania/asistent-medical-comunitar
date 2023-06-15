@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\RelationManagers\ServicesRelationManager;
 use App\Filament\Tables\Columns\TextColumn;
-use App\Forms\Components\Card;
-use App\Forms\Components\Subsection;
 use App\Models\Appointment;
 use Carbon\CarbonImmutable;
 use Filament\Forms\Components\DatePicker;

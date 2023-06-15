@@ -6,11 +6,11 @@ namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
+use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
-use App\Forms\Components\Card;
 use App\Models\Intervention;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Forms\Components\Card;
-use App\Forms\Components\Subsection;
-use App\Forms\Components\YearPicker;
+use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Subsection;
+use App\Filament\Forms\Components\YearPicker;
 use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;

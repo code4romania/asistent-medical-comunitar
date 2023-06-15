@@ -6,11 +6,11 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Actions\ConvertOcasionalBeneficiaryAction;
+use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
-use App\Forms\Components\Card;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\UserRole;
+use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\UserResource;
-use App\Forms\Components\Card;
-use App\Forms\Components\Subsection;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\CreateRecord;

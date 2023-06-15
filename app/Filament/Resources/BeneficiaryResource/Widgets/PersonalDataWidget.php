@@ -6,9 +6,9 @@ namespace App\Filament\Resources\BeneficiaryResource\Widgets;
 
 use App\Concerns\Forms\HasComponentActions;
 use App\Enums\Beneficiary\Status;
+use App\Filament\Forms\Components\Badge;
+use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Forms\Components\Badge;
-use App\Forms\Components\Value;
 use App\Models\Beneficiary;
 use Filament\Forms\ComponentContainer;
 use Filament\Forms\Concerns\InteractsWithForms;

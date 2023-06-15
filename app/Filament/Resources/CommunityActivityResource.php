@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\CommunityActivityResource\Pages;
-use App\Forms\Components\Value;
 use App\Models\CommunityActivity;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;

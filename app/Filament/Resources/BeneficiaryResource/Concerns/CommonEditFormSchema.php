@@ -6,10 +6,10 @@ namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Gender;
-use App\Forms\Components\Household;
-use App\Forms\Components\Location;
-use App\Forms\Components\Subsection;
-use App\Forms\Components\Value;
+use App\Filament\Forms\Components\Household;
+use App\Filament\Forms\Components\Location;
+use App\Filament\Forms\Components\Subsection;
+use App\Filament\Forms\Components\Value;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;

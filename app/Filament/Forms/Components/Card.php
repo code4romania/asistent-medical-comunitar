@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Forms\Components;
+namespace App\Filament\Forms\Components;
 
 use App\Concerns\Forms\HasComponentActions;
 use App\Concerns\Forms\HasFooter;
