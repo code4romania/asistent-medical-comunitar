@@ -6,33 +6,24 @@ namespace App\Reports;
 
 use App\Enums\Report\Type;
 use App\Models\Beneficiary;
-use Tpetry\QueryExpressions\Function\Aggregate\CountFilter;
-use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
-use Tpetry\QueryExpressions\Language\Alias;
-use Tpetry\QueryExpressions\Operator\Comparison\Equal;
-use Tpetry\QueryExpressions\Value\Value;
+use Illuminate\Database\Eloquent\Builder;
 
 class NurseActivityReport extends ReportFactory
 {
-    public function getName(): string
-    {
-        return Type::NURSE_ACTIVITY->label();
-    }
+    protected Type $type = Type::NURSE_ACTIVITY;
 
-    protected function queryBeneficiaries(array $values): array
+    protected function queryBeneficiaries(array $values, array $segments): array
     {
-        $select = collect($values)
-            ->map(function (string $value) {
-                return new Alias(
-                    new Coalesce([
-                        new CountFilter(new Equal('status', new Value($value))),
-                        new Value(0),
-                    ]),
-                    $value
-                );
-            })
+        $columns = collect($segments)
+            ->map(fn (array|string $segment) => static::countFilter($segment))
             ->all();
 
-        return $this->runQueryFor(Beneficiary::class, $select);
+        return $this->runQueryFor(
+            Beneficiary::class,
+            fn (Builder $query) => $query->select($columns)
+                ->addSelect('status')
+                ->whereIn('status', $values)
+                ->groupBy('status')
+        );
     }
 }

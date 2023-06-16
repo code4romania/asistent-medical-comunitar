@@ -10,10 +10,7 @@
         </x-filament::form>
     </x-tabs>
 
-    @if ($record !== null)
-        <x-reports.report
-            :report-factory="$record->factory()"
-            :actions="$actions()"
-        />
+    @if ($this->record)
+        {{ $this->report }}
     @endif
 </x-filament::page>

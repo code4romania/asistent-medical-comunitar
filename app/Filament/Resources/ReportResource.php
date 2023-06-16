@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Gender;
 use App\Enums\Report\Indicator;
+use App\Enums\Report\Segment;
 use App\Enums\Report\Type;
+use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Report as ReportOutput;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Report;
@@ -101,12 +103,15 @@ class ReportResource extends Resource
                 Select::make('type')
                     ->label(__('report.column.type'))
                     ->placeholder(__('placeholder.select_one'))
+                    ->disablePlaceholderSelection()
+                    ->default(Type::NURSE_ACTIVITY)
                     ->options(Type::options())
                     ->enum(Type::class)
                     ->required()
-                    ->searchable()
                     ->reactive()
-                    ->columnSpan(2),
+                    ->columnSpan([
+                        'lg' => 2,
+                    ]),
 
                 DatePicker::make('date_from')
                     ->label(__('app.filter.date_from'))
@@ -129,23 +134,47 @@ class ReportResource extends Resource
 
                 Grid::make(4)
                     ->schema(static::getNurseActivitySchema())
-                    ->visible(fn (callable $get) => Type::NURSE_ACTIVITY->is($get('type'))),
+                    ->visible(fn (callable $get) => Type::NURSE_ACTIVITY->is($get('type')))
+                    ->columnSpanFull(),
 
                 Select::make('segments.age')
-                    ->label($categories->get('AGE'))
-                    ->placeholder(__('placeholder.no_segmentation_age'))
-                    ->options($vulnerabilities->get('AGE'))
-                    // ->in($vulnerabilities->get('AGE')->keys())
+                    ->label(__('report.column.age'))
+                    ->placeholder(__('placeholder.select_many'))
+                    ->options(Segment\Age::options())
+                    ->rule(new MultipleIn(Segment\Age::values()))
                     ->multiple()
                     ->searchable(),
 
                 Select::make('segments.gender')
-                    ->label(__('field.gender'))
-                    ->placeholder(__('placeholder.no_segmentation_gender'))
-                    ->options(Gender::options())
-                    ->rule(new MultipleIn(Gender::values()))
+                    ->label(__('report.column.gender'))
+                    ->placeholder(__('placeholder.select_many'))
+                    ->options(Segment\Gender::options())
+                    ->rule(new MultipleIn(Segment\Gender::values()))
                     ->multiple(),
+            ]);
+    }
 
+    public static function report(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Card::make()
+                    ->header(fn (Report $record) => $record->factory()->getTitle())
+                    ->componentActions([
+                        Action::make('export')
+                            ->label(__('report.action.export'))
+                            ->icon('heroicon-o-download')
+                            ->color('secondary')
+                            ->disabled(),
+
+                        Action::make('save')
+                            ->label(__('report.action.save'))
+                            ->icon('heroicon-o-bookmark-alt')
+                            ->disabled(),
+                    ])
+                    ->schema([
+                        ReportOutput::make(),
+                    ]),
             ]);
     }
 

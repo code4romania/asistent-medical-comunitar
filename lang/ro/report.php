@@ -30,6 +30,9 @@ return [
         'title' => 'Nume raport',
         'indicators' => 'Indicatori',
         'segments' => 'Segmentare',
+        'age' => 'Grupe de vârstă',
+        'gender' => 'Genuri',
+        'location' => 'Locații',
     ],
 
     'type' => [
@@ -50,6 +53,7 @@ return [
     'title' => [
         'date' => 'la data :date',
         'date_range' => 'pentru perioada :from — :to',
+        'segments' => 'pe :segments',
     ],
 
     'indicator' => [
@@ -66,21 +70,19 @@ return [
 
     'segment' => [
         'age' => [
-            'value' => [
-                'VCV_01' => 'Copil 0-1 ani',
-                'VCV_02' => 'Copil 1-5 ani',
-                'VCV_03' => 'Copil 5-14 ani',
-                'VCV_04' => 'Adolescent 14-18 ani',
-                'VCV_05' => 'Adult 18-65 ani',
-                'VCV_06' => 'Vârstnic peste 65 ani',
-            ],
+            'VCV_01' => '0-1 ani',
+            'VCV_02' => '1-5 ani',
+            'VCV_03' => '5-14 ani',
+            'VCV_04' => '14-18 ani',
+            'VCV_05' => '18-65 ani',
+            'VCV_06' => 'peste 65 ani',
+            'total' => 'Total',
         ],
         'gender' => [
-            'value' => [
-                'male' => 'Masculin',
-                'female' => 'Feminin',
-                'other' => 'Altul',
-            ],
+            'male' => 'Masculin',
+            'female' => 'Feminin',
+            'other' => 'Altul',
+            'total' => 'Total',
         ],
     ],
 
