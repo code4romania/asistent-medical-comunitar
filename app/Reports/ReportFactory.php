@@ -43,41 +43,6 @@ abstract class ReportFactory
         return $static;
     }
 
-    public function getName(): string
-    {
-        return $this->type->label();
-    }
-
-    public function getTitle(): string
-    {
-        $title = [
-            $this->getName(),
-        ];
-
-        if ($this->report->segments->isNotEmpty()) {
-            $title[] = __('report.title.segments', [
-                'segments' => $this->report->segments
-                    ->filter()
-                    ->keys()
-                    ->map(fn (string $segment) => Str::lower(__("report.column.{$segment}")))
-                    ->implode(', '),
-            ]);
-        }
-
-        if ($this->report->date_until === null) {
-            $title[] = __('report.title.date', [
-                'date' => $this->report->date_from->toFormattedDate(),
-            ]);
-        } else {
-            $title[] = __('report.title.date_range', [
-                'from' => $this->report->date_from->toFormattedDate(),
-                'to' => $this->report->date_until->toFormattedDate(),
-            ]);
-        }
-
-        return implode(' ', $title);
-    }
-
     public function getHeader(): ?array
     {
         $segments = $this->report->segments
@@ -133,7 +98,7 @@ abstract class ReportFactory
             })
             ->pipe(function (Collection $collection) {
                 $this->report->fill([
-                    'title' => $this->getTitle(),
+                    'title' => $this->report->title,
                     'data' => $collection->map(fn (array $data) => Arr::expandWith($data, '_')),
                 ]);
 

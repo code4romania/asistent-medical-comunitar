@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class Report extends Model
 {
@@ -55,6 +56,36 @@ class Report extends Model
         };
 
         return $report::make($this);
+    }
+
+    public function getTitleAttribute(): string
+    {
+        $title = [
+            $this->type->label(),
+        ];
+
+        if ($this->segments->isNotEmpty()) {
+            $title[] = __('report.title.segments', [
+                'segments' => $this->segments
+                    ->filter()
+                    ->keys()
+                    ->map(fn (string $segment) => Str::lower(__("report.column.{$segment}")))
+                    ->implode(', '),
+            ]);
+        }
+
+        if ($this->date_until === null) {
+            $title[] = __('report.title.date', [
+                'date' => $this->date_from->toFormattedDate(),
+            ]);
+        } else {
+            $title[] = __('report.title.date_range', [
+                'from' => $this->date_from->toFormattedDate(),
+                'to' => $this->date_until->toFormattedDate(),
+            ]);
+        }
+
+        return implode(' ', $title);
     }
 
     public function getIndicatorsListAttribute(): ?string

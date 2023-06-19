@@ -159,7 +159,7 @@ class ReportResource extends Resource
         return $form
             ->schema([
                 Card::make()
-                    ->header(fn (Report $record) => $record->factory()->getTitle())
+                    ->header(fn (Report $record) => $record->title)
                     ->componentActions([
                         Action::make('export')
                             ->label(__('report.action.export'))
