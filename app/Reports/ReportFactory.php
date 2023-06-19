@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 use Tpetry\QueryExpressions\Function\Aggregate\CountFilter;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
-use Tpetry\QueryExpressions\Operator\Comparison\Equal;
 use Tpetry\QueryExpressions\Operator\Logical\CondAnd;
 use Tpetry\QueryExpressions\Value\Value;
 
@@ -26,6 +25,10 @@ abstract class ReportFactory
     protected Report $report;
 
     protected Type $type;
+
+    abstract protected function segmentByAge(string $value);
+
+    abstract protected function segmentByGender(string $value);
 
     public function __construct(Report $report)
     {
@@ -112,10 +115,8 @@ abstract class ReportFactory
             return $this->report->data;
         }
 
-        $segments = $this->prepareSegments();
-
         return $this->report->indicators
-            ->map(function (array $values, string $indicator) use ($segments) {
+            ->map(function (array $values, string $indicator) {
                 $method = Str::of("query-{$indicator}")
                     ->slug()
                     ->camel()
@@ -125,32 +126,19 @@ abstract class ReportFactory
                     throw new Exception("Method {$method} does not exists");
                 }
 
-                return $this->$method($values, $segments);
+                return $this->$method($values, $this->report->segment_tuples);
             })
             ->flatMap(function (array $values, string $indicator) {
                 return Arr::prependKeysWith($values, $indicator . '.');
             })
-            ->tap(function (Collection $data) {
+            ->pipe(function (Collection $collection) {
                 $this->report->fill([
                     'title' => $this->getTitle(),
-                    'data' => $data,
+                    'data' => $collection->map(fn (array $data) => Arr::expandWith($data, '_')),
                 ]);
+
+                return $this->report->data;
             });
-    }
-
-    protected function prepareSegments(): array
-    {
-        $segments = $this->report->segments
-            ->map(function (array $values, string $indicator) {
-                return collect($values)
-                    ->map(fn ($value) => $indicator . '.' . $value)
-                    ->all();
-            })
-            ->filter()
-            ->values()
-            ->all();
-
-        return Arr::crossJoin(...$segments);
     }
 
     protected function runQueryFor(string $model, Closure $callback): array
@@ -167,6 +155,12 @@ abstract class ReportFactory
             ->get()
             ->collect()
             ->keyBy('status')
+            ->map(function (object $data) {
+                return Arr::except(
+                    json_decode(json_encode($data), true),
+                    ['status']
+                );
+            })
             ->all();
     }
 
@@ -176,22 +170,11 @@ abstract class ReportFactory
             ->mapWithKeys(function (string $segment) {
                 [$key, $value] = explode('.', $segment);
 
-                $method = Str::of("expression-{$key}-{$value}")
-                    ->slug()
-                    ->camel()
-                    ->value();
-
-                if (method_exists($this, $method)) {
-                    return [
-                        $segment => $this->$method($value),
-                    ];
-                }
-
                 return [
-                    $segment => new Equal($key, match ($value) {
-                        'total' => $key,
-                        default => new Value($value),
-                    }),
+                    $segment => match ($key) {
+                        'age' => $this->segmentByAge($value),
+                        'gender' => $this->segmentByGender($value),
+                    },
                 ];
             });
 

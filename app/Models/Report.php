@@ -11,6 +11,7 @@ use App\Reports\ReportFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Arr;
 
 class Report extends Model
 {
@@ -86,5 +87,20 @@ class Report extends Model
                 )
             )
             ->join(', ');
+    }
+
+    public function getSegmentTuplesAttribute(): array
+    {
+        $segments = $this->segments
+            ->map(function (array $values, string $indicator) {
+                return collect($values)
+                    ->map(fn ($value) => $indicator . '.' . $value)
+                    ->all();
+            })
+            ->filter()
+            ->values()
+            ->all();
+
+        return Arr::crossJoin(...$segments);
     }
 }
