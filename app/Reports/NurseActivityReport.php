@@ -17,32 +17,6 @@ class NurseActivityReport extends ReportFactory
 {
     protected Type $type = Type::NURSE_ACTIVITY;
 
-    protected function queryBeneficiaries(array $values, array $segments): array
-    {
-        $columns = collect($segments)
-            ->map(fn (array|string $segment) => static::countFilter($segment))
-            ->all();
-
-        return $this->runQueryFor(
-            Beneficiary::class,
-            fn (Builder $query) => $query->select($columns)
-                ->addSelect('status')
-                ->when(
-                    $this->report->segments->has('age'),
-                    function (Builder $query) {
-                        $query->fromSub(function ($query) {
-                            $query
-                                ->select('*')
-                                ->selectRaw('TIMESTAMPDIFF(YEAR, date_of_birth, ?) AS age', [$this->report->date_from->toDateString()])
-                                ->from('beneficiaries');
-                        }, 'beneficiaries');
-                    }
-                )
-                ->whereIn('status', $values)
-                ->groupBy('status')
-        );
-    }
-
     protected function segmentByAge(string $value): Expression
     {
         return match ($value) {
@@ -63,5 +37,27 @@ class NurseActivityReport extends ReportFactory
             'total' => 'gender',
             default => new Value($value),
         });
+    }
+
+    protected function queryBeneficiaries(array $values, array $columns): array
+    {
+        return $this->runQueryFor(
+            Beneficiary::class,
+            fn (Builder $query) => $query->select($columns)
+                ->addSelect('status')
+                ->when(
+                    $this->report->segments->has('age'),
+                    function (Builder $query) {
+                        $query->fromSub(function ($query) {
+                            $query
+                                ->select('*')
+                                ->selectRaw('TIMESTAMPDIFF(YEAR, date_of_birth, ?) AS age', [$this->report->date_from->toDateString()])
+                                ->from('beneficiaries');
+                        }, 'beneficiaries');
+                    }
+                )
+                ->whereIn('status', $values)
+                ->groupBy('status')
+        );
     }
 }

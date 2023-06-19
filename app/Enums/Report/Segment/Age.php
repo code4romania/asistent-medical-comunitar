@@ -22,6 +22,6 @@ enum Age: string
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'report.segment.age';
+        return 'report.segment.value.age';
     }
 }

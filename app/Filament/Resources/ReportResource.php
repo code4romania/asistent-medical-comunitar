@@ -19,6 +19,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -138,7 +139,7 @@ class ReportResource extends Resource
                     ->columnSpanFull(),
 
                 Select::make('segments.age')
-                    ->label(__('report.column.age'))
+                    ->label(__('report.segment.label.age'))
                     ->placeholder(__('placeholder.select_many'))
                     ->options(Segment\Age::options())
                     ->rule(new MultipleIn(Segment\Age::values()))
@@ -146,7 +147,7 @@ class ReportResource extends Resource
                     ->searchable(),
 
                 Select::make('segments.gender')
-                    ->label(__('report.column.gender'))
+                    ->label(__('report.segment.label.gender'))
                     ->placeholder(__('placeholder.select_many'))
                     ->options(Segment\Gender::options())
                     ->rule(new MultipleIn(Segment\Gender::values()))
@@ -183,9 +184,10 @@ class ReportResource extends Resource
         return [
             Fieldset::make(__('report.column.indicators'))
                 ->columnSpanFull()
+                ->columns(3)
                 ->schema([
                     Select::make('indicators.beneficiaries')
-                        ->label(__('beneficiary.label.plural'))
+                        ->label(__('report.indicator.label.beneficiaries'))
                         ->placeholder(__('placeholder.select_many'))
                         ->options(Indicator\Beneficiaries::options())
                         ->rule(new MultipleIn(Indicator\Beneficiaries::values()))

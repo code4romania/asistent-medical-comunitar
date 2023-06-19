@@ -45,7 +45,7 @@
             @foreach ($getRecord()->data as $label => $columns)
                 <tr>
                     <th class="sticky left-0 px-4 py-3 text-left bg-gray-100 border-r min-w-[5rem] max-w-[8rem]">
-                        @lang("report.indicator.$label")
+                        @lang("report.indicator.value.$label")
                     </th>
 
                     @foreach ($columns as $data)

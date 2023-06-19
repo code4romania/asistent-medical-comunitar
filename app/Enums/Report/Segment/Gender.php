@@ -19,6 +19,6 @@ enum Gender: string
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'report.segment.gender';
+        return 'report.segment.value.gender';
     }
 }

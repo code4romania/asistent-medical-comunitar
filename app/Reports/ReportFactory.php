@@ -80,8 +80,13 @@ abstract class ReportFactory
             return $this->report->data;
         }
 
+        $segments = collect($this->report->segment_tuples)
+            ->map(fn (array|string $segment) => static::countFilter($segment))
+            ->all();
+
         return $this->report->indicators
-            ->map(function (array $values, string $indicator) {
+            ->filter()
+            ->map(function (array $values, string $indicator) use ($segments) {
                 $method = Str::of("query-{$indicator}")
                     ->slug()
                     ->camel()
@@ -91,7 +96,7 @@ abstract class ReportFactory
                     throw new Exception("Method {$method} does not exists");
                 }
 
-                return $this->$method($values, $this->report->segment_tuples);
+                return $this->$method($values, $segments);
             })
             ->flatMap(function (array $values, string $indicator) {
                 return Arr::prependKeysWith($values, $indicator . '.');

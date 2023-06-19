@@ -57,32 +57,53 @@ return [
     ],
 
     'indicator' => [
-        'beneficiaries' => [
-            'total' => 'Total beneficiari',
-            'registered' => 'Beneficiari înregistrați',
-            'catagraphed' => 'Beneficiari catagrafiați',
-            'active' => 'Beneficiari activi',
-            'inactive' => 'Beneficiari inactivi',
-            'removed' => 'Beneficiari scoși din evidență',
-            'ocasional' => 'Beneficiari ocazionali',
+        'label' => [
+            'beneficiaries' => 'Beneficiari (număr)',
+            'vulnerabilities' => 'Vulnerabilități (număr)',
+        ],
+        'value' => [
+            'beneficiaries' => [
+                'total' => 'Total beneficiari',
+                'registered' => 'Beneficiari înregistrați',
+                'catagraphed' => 'Beneficiari catagrafiați',
+                'active' => 'Beneficiari activi',
+                'inactive' => 'Beneficiari inactivi',
+                'removed' => 'Beneficiari scoși din evidență',
+                'ocasional' => 'Beneficiari ocazionali',
+            ],
+            'vulnerabilities' => [
+                'catagraphy_total' => 'Total catagrafii',
+                'catagraphy_new' => 'Catagrafii noi create',
+                'catagraphy_updated' => 'Catagrafii noi create',
+                'vulnerability_active_total' => 'Total vulnerabilități active',
+                'vulnerability_new' => 'Vulnerabilități nou identificate',
+                'beneficiary_vulnerable' => 'Beneficiari vulnerabili (minim o vulnerabilitate)',
+                'beneficiary_nonvulnerable' => 'Beneficiari catagrafiați fără nicio vulnerabilitate',
+            ],
         ],
     ],
 
     'segment' => [
-        'age' => [
-            'VCV_01' => '0-1 ani',
-            'VCV_02' => '1-5 ani',
-            'VCV_03' => '5-14 ani',
-            'VCV_04' => '14-18 ani',
-            'VCV_05' => '18-65 ani',
-            'VCV_06' => 'peste 65 ani',
-            'total' => 'Total',
+        'label' => [
+            'age' => 'Grupe de vârstă beneficiar',
+            'gender' => 'Gen beneficiar',
         ],
-        'gender' => [
-            'male' => 'Masculin',
-            'female' => 'Feminin',
-            'other' => 'Altul',
-            'total' => 'Total',
+        'value' => [
+            'age' => [
+                'VCV_01' => '0-1 ani',
+                'VCV_02' => '1-5 ani',
+                'VCV_03' => '5-14 ani',
+                'VCV_04' => '14-18 ani',
+                'VCV_05' => '18-65 ani',
+                'VCV_06' => 'peste 65 ani',
+                'total' => 'Total',
+            ],
+            'gender' => [
+                'male' => 'Masculin',
+                'female' => 'Feminin',
+                'other' => 'Altul',
+                'total' => 'Total',
+            ],
         ],
     ],
 

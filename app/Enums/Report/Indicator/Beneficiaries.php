@@ -18,10 +18,10 @@ enum Beneficiaries: string
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
     case REMOVED = 'removed';
-    case OCASIONAL = 'ocasional';
+    // case OCASIONAL = 'ocasional';
 
     protected function labelKeyPrefix(): ?string
     {
-        return 'report.indicator.beneficiaries';
+        return 'report.indicator.value.beneficiaries';
     }
 }

@@ -97,7 +97,7 @@ class Report extends Model
         return $this->indicators
             ->flatMap(
                 fn (array $indicators, string $group) => array_map(
-                    fn ($indicator) => __(sprintf('report.indicator.%s.value.%s', $group, $indicator)),
+                    fn ($indicator) => __(sprintf('report.indicator.value.%s.%s', $group, $indicator)),
                     $indicators
                 )
             )
@@ -113,7 +113,7 @@ class Report extends Model
         return $this->segments
             ->flatMap(
                 fn (array $segments, string $group) => array_map(
-                    fn ($segment) => __(sprintf('report.segment.%s.value.%s', $group, $segment)),
+                    fn ($segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)),
                     $segments
                 )
             )
