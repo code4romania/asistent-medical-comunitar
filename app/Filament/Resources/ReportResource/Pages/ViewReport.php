@@ -15,7 +15,7 @@ class ViewReport extends ViewRecord implements WithTabs
 
     protected static string $resource = ReportResource::class;
 
-    protected static string $view = 'filament.resources.report-resource.pages.generate';
+    protected static string $view = 'filament.resources.report-resource.pages.view';
 
     protected function getActions(): array
     {

@@ -8,6 +8,7 @@ use App\Enums\Report\Type;
 use App\Models\Beneficiary;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Language\Alias;
 use Tpetry\QueryExpressions\Operator\Comparison\Between;
 use Tpetry\QueryExpressions\Operator\Comparison\Equal;
 use Tpetry\QueryExpressions\Operator\Comparison\GreaterThanOrEqual;
@@ -41,10 +42,15 @@ class NurseActivityReport extends ReportFactory
 
     protected function queryBeneficiaries(array $values, array $columns): array
     {
+        $statuses = collect($values)
+            ->reject('total')
+            ->values();
+
         return $this->runQueryFor(
             Beneficiary::class,
-            fn (Builder $query) => $query->select($columns)
-                ->addSelect('status')
+            'created_at',
+            fn (Builder $query) => $query
+                ->select($columns)
                 ->when(
                     $this->report->segments->has('age'),
                     function (Builder $query) {
@@ -56,8 +62,19 @@ class NurseActivityReport extends ReportFactory
                         }, 'beneficiaries');
                     }
                 )
-                ->whereIn('status', $values)
-                ->groupBy('status')
+                ->when(
+                    $statuses->isNotEmpty(),
+                    function (Builder $query) use ($statuses) {
+                        $query->whereIn('status', $statuses->all())
+                            ->selectRaw('IF(GROUPING(status), "total", status) AS status')
+                            ->groupByRaw('status WITH ROLLUP');
+                    },
+                    function (Builder $query) {
+                        $query->addSelect(new Alias(new Value('total'), 'status'));
+                    }
+                )
+        );
+    }
         );
     }
 }

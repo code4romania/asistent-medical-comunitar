@@ -8,6 +8,7 @@ use App\Enums\Report\Type;
 use App\Models\Scopes\CurrentUserScope;
 use App\Reports\NurseActivityReport;
 use App\Reports\ReportFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,7 @@ use Illuminate\Support\Str;
 
 class Report extends Model
 {
+    use HasUuids;
     use HasFactory;
 
     protected $fillable = [

@@ -74,7 +74,7 @@ return [
             'vulnerabilities' => [
                 'catagraphy_total' => 'Total catagrafii',
                 'catagraphy_new' => 'Catagrafii noi create',
-                'catagraphy_updated' => 'Catagrafii noi create',
+                'catagraphy_updated' => 'Catagrafii actualizate/ modificate',
                 'vulnerability_active_total' => 'Total vulnerabilități active',
                 'vulnerability_new' => 'Vulnerabilități nou identificate',
                 'beneficiary_vulnerable' => 'Beneficiari vulnerabili (minim o vulnerabilitate)',

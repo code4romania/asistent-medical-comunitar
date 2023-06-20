@@ -11,9 +11,9 @@ use Exception;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Tpetry\QueryExpressions\Function\Aggregate\Count;
 use Tpetry\QueryExpressions\Function\Aggregate\CountFilter;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
@@ -81,45 +81,54 @@ abstract class ReportFactory
         }
 
         $segments = collect($this->report->segment_tuples)
-            ->map(fn (array|string $segment) => static::countFilter($segment))
+            ->map(fn (array $segment) => static::countFilter($segment))
+            ->filter()
+            ->whenEmpty(function (Collection $collection) {
+                $collection->push(new Alias(new Count('*'), 'count'));
+            })
             ->all();
 
         return $this->report->indicators
             ->filter()
-            ->map(function (array $values, string $indicator) use ($segments) {
-                $method = Str::of("query-{$indicator}")
-                    ->slug()
-                    ->camel()
-                    ->value();
+            ->whenNotEmpty(function (Collection $collection) use ($segments) {
+                return $collection
+                    ->map(function (array $values, string $indicator) use ($segments) {
+                        $method = Str::of("query-{$indicator}")
+                            ->slug()
+                            ->camel()
+                            ->value();
 
-                if (! method_exists($this, $method)) {
-                    throw new Exception("Method {$method} does not exists");
-                }
+                        if (! method_exists($this, $method)) {
+                            throw new Exception("Method {$method} does not exists");
+                        }
 
-                return $this->$method($values, $segments);
-            })
-            ->flatMap(function (array $values, string $indicator) {
-                return Arr::prependKeysWith($values, $indicator . '.');
-            })
-            ->pipe(function (Collection $collection) {
-                $this->report->fill([
-                    'title' => $this->report->title,
-                    'data' => $collection->map(fn (array $data) => Arr::expandWith($data, '_')),
-                ]);
+                        return $this->$method($values, $segments);
+                    })
+                    ->flatMap(function (array $values, string $indicator) {
+                        return Arr::prependKeysWith($values, $indicator . '.');
+                    })
+                    ->pipe(function (Collection $collection) {
+                        $this->report->fill([
+                            'title' => $this->report->title,
+                            'data' => $collection->map(fn (array $data) => Arr::expandWith($data, '_')),
+                        ]);
 
-                return $this->report->data;
+                        return $this->report->data;
+                    });
             });
     }
 
-    protected function runQueryFor(string $model, Closure $callback): array
+    protected function runQueryFor(string $model, string $dateColumn, Closure $callback): array
     {
         return $model::query()
-            ->when($this->report->date_from, function (Builder $query, Carbon $date) {
-                $query->whereDate('beneficiaries.created_at', '>=', $date);
-            })
-            ->when($this->report->date_until, function (Builder $query, Carbon $date) {
-                $query->whereDate('beneficiaries.created_at', '<=', $date);
-            })
+            ->when(
+                $this->report->date_until,
+                fn (Builder $query) => $query
+                    ->whereDate($dateColumn, '>=', $this->report->date_from)
+                    ->whereDate($dateColumn, '<=', $this->report->date_until),
+                fn (Builder $query) => $query
+                    ->whereDate($dateColumn, '=', $this->report->date_from)
+            )
             ->tap($callback)
             ->toBase()
             ->get()
@@ -134,7 +143,7 @@ abstract class ReportFactory
             ->all();
     }
 
-    protected function countFilter(array|string $segment): Expression
+    protected function countFilter(array $segment): ?Expression
     {
         $filter = collect($segment)
             ->mapWithKeys(function (string $segment) {
@@ -147,6 +156,10 @@ abstract class ReportFactory
                     },
                 ];
             });
+
+        if ($filter->isEmpty()) {
+            return null;
+        }
 
         return new Alias(
             new Coalesce([

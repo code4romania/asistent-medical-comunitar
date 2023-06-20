@@ -12,8 +12,6 @@ use App\Filament\Forms\Components\Report as ReportOutput;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Report;
-use App\Models\Vulnerability\Vulnerability;
-use App\Models\Vulnerability\VulnerabilityCategory;
 use App\Rules\MultipleIn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
@@ -95,11 +93,8 @@ class ReportResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $vulnerabilities = Vulnerability::allAsOptions();
-        $categories = VulnerabilityCategory::cachedList();
-
         return $form
-            ->columns(4)
+            ->columns(3)
             ->schema([
                 Select::make('type')
                     ->label(__('report.column.type'))
@@ -109,10 +104,7 @@ class ReportResource extends Resource
                     ->options(Type::options())
                     ->enum(Type::class)
                     ->required()
-                    ->reactive()
-                    ->columnSpan([
-                        'lg' => 2,
-                    ]),
+                    ->reactive(),
 
                 DatePicker::make('date_from')
                     ->label(__('app.filter.date_from'))
