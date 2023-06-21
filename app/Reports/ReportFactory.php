@@ -118,7 +118,7 @@ abstract class ReportFactory
             });
     }
 
-    protected function runQueryFor(string $model, string $dateColumn, Closure $callback): array
+    protected function runQueryFor(string $model, string $dateColumn, Closure $callback, string $keyBy): array
     {
         return $model::query()
             ->when(
@@ -133,13 +133,11 @@ abstract class ReportFactory
             ->toBase()
             ->get()
             ->collect()
-            ->keyBy('status')
-            ->map(function (object $data) {
-                return Arr::except(
-                    json_decode(json_encode($data), true),
-                    ['status']
-                );
-            })
+            ->keyBy($keyBy)
+            ->map(fn (object $data) => Arr::except(
+                json_decode(json_encode($data), true),
+                [$keyBy]
+            ))
             ->all();
     }
 

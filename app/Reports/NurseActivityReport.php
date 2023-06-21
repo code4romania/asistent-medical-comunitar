@@ -42,7 +42,7 @@ class NurseActivityReport extends ReportFactory
 
     protected function queryBeneficiaries(array $values, array $columns): array
     {
-        $statuses = collect($values)
+        $indicators = collect($values)
             ->reject('total')
             ->values();
 
@@ -63,18 +63,17 @@ class NurseActivityReport extends ReportFactory
                     }
                 )
                 ->when(
-                    $statuses->isNotEmpty(),
-                    function (Builder $query) use ($statuses) {
-                        $query->whereIn('status', $statuses->all())
+                    $indicators->isNotEmpty(),
+                    function (Builder $query) use ($indicators) {
+                        $query->whereIn('status', $indicators->all())
                             ->selectRaw('IF(GROUPING(status), "total", status) AS status')
                             ->groupByRaw('status WITH ROLLUP');
                     },
                     function (Builder $query) {
                         $query->addSelect(new Alias(new Value('total'), 'status'));
                     }
-                )
-        );
-    }
+                ),
+            'status'
         );
     }
 }
