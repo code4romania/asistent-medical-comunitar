@@ -13,6 +13,11 @@ return [
         'list' => 'Rapoarte',
     ],
 
+    'notification' => [
+        'saved' => 'Raportul a fost salvat cu succes',
+        'failed' => 'Raportul nu a putut fi salvat',
+    ],
+
     'section' => [
         'generator' => 'Generator rapoarte',
         'list' => 'Rapoarte salvate',

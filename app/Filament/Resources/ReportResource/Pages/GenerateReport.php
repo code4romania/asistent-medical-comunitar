@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ReportResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Resources\InterventionResource\Actions\SaveReportAction;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Concerns;
 use App\Models\Report;
@@ -19,6 +20,8 @@ class GenerateReport extends Page implements HasFormActions, WithTabs
 {
     use Concerns\HasTabs;
     use UsesResourceForm;
+
+    public $data;
 
     public ?Report $record = null;
 
@@ -58,9 +61,7 @@ class GenerateReport extends Page implements HasFormActions, WithTabs
         try {
             $data = $this->form->getState();
 
-            $data = $this->mutateFormDataBeforeGenerate($data);
-
-            $this->record = Report::make($data);
+            $this->record = $this->getModel()::make($data);
 
             $this->form->model($this->record);
 
@@ -70,24 +71,17 @@ class GenerateReport extends Page implements HasFormActions, WithTabs
         }
     }
 
-    protected function mutateFormDataBeforeGenerate(array $data): array
-    {
-        $data['user_id'] = auth()->id();
-
-        return $data;
-    }
-
     protected function getForms(): array
     {
         return [
             'form' => $this->makeForm()
-                ->context('create')
+                ->context('generate')
                 ->model($this->record)
                 ->schema(ReportResource::form(Form::make())->getSchema())
                 ->statePath('data'),
 
             'report' => $this->makeForm()
-                ->context('view')
+                ->context('generate')
                 ->model($this->record)
                 ->schema(ReportResource::report(Form::make())->getSchema())
                 ->statePath('data'),
@@ -99,13 +93,17 @@ class GenerateReport extends Page implements HasFormActions, WithTabs
         return [
             Action::make('create')
                 ->label(__('report.action.generate'))
-                ->submit('generate')
+                ->submit()
                 ->keyBindings(['mod+s'])
                 ->color('warning'),
+
             Action::make('cancel')
                 ->label(__('report.action.cancel'))
                 ->url($this->previousUrl ?? static::getResource()::getUrl())
                 ->color('secondary'),
+
+            SaveReportAction::make()
+                ->extraAttributes(['class' => 'hidden']),
         ];
     }
 }

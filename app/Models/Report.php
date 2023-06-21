@@ -21,7 +21,6 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
         'type',
         'date_from',
         'date_until',
@@ -66,10 +65,11 @@ class Report extends Model
             $this->type->label(),
         ];
 
-        if ($this->segments->isNotEmpty()) {
+        $segments = $this->segments->filter();
+
+        if ($segments->isNotEmpty()) {
             $title[] = __('report.title.segments', [
-                'segments' => $this->segments
-                    ->filter()
+                'segments' => $segments
                     ->keys()
                     ->map(fn (string $segment) => Str::lower(__("report.column.{$segment}")))
                     ->implode(', '),
@@ -101,22 +101,6 @@ class Report extends Model
                 fn (array $indicators, string $group) => array_map(
                     fn ($indicator) => __(sprintf('report.indicator.value.%s.%s', $group, $indicator)),
                     $indicators
-                )
-            )
-            ->join(', ');
-    }
-
-    public function getSegmentsListAttribute(): ?string
-    {
-        if ($this->segments === null) {
-            return null;
-        }
-
-        return $this->segments
-            ->flatMap(
-                fn (array $segments, string $group) => array_map(
-                    fn ($segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)),
-                    $segments
                 )
             )
             ->join(', ');

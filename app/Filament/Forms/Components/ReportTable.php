@@ -6,9 +6,9 @@ namespace App\Filament\Forms\Components;
 
 use Filament\Forms\Components\Component;
 
-class Report extends Component
+class ReportTable extends Component
 {
-    protected string $view = 'components.forms.report';
+    protected string $view = 'components.forms.report-table';
 
     public static function make(): static
     {

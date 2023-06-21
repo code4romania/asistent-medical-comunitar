@@ -88,7 +88,7 @@ abstract class ReportFactory
             })
             ->all();
 
-        return $this->report->indicators
+        return collect($this->report->indicators)
             ->filter()
             ->whenNotEmpty(function (Collection $collection) use ($segments) {
                 return $collection

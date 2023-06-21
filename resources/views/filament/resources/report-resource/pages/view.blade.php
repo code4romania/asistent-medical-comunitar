@@ -10,5 +10,5 @@
         </x-filament::form>
     </x-tabs>
 
-    <x-reports.table :record="$this->getRecord()" />
+    {{ $this->report }}
 </x-filament::page>

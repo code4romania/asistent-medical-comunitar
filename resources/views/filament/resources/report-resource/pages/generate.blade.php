@@ -10,7 +10,5 @@
         </x-filament::form>
     </x-tabs>
 
-    @if ($this->record)
-        {{ $this->report }}
-    @endif
+    {{ $this->report }}
 </x-filament::page>

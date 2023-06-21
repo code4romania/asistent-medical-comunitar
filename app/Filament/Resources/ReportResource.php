@@ -7,8 +7,7 @@ namespace App\Filament\Resources;
 use App\Enums\Report\Indicator;
 use App\Enums\Report\Segment;
 use App\Enums\Report\Type;
-use App\Filament\Forms\Components\Card;
-use App\Filament\Forms\Components\Report as ReportOutput;
+use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Report;
@@ -17,7 +16,6 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -67,9 +65,15 @@ class ReportResource extends Resource
                     ->wrap()
                     ->toggleable(),
 
-                TextColumn::make('segments')
-                    ->label(__('report.column.segments'))
-                    ->formatStateUsing(fn (Report $record) => Str::limit($record->segments_list, 100, '...'))
+                TextColumn::make('segments.age')
+                    ->label(__('report.column.age'))
+                    ->formatStateUsing(fn ($state) => static::segmentsList('age', $state))
+                    ->wrap()
+                    ->toggleable(),
+
+                TextColumn::make('segments.gender')
+                    ->label(__('report.column.gender'))
+                    ->formatStateUsing(fn ($state) => static::segmentsList('gender', $state))
                     ->wrap()
                     ->toggleable(),
             ])
@@ -79,7 +83,16 @@ class ReportResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
+    }
+
+    protected static function segmentsList(string $group, string $segments): string
+    {
+        return collect(explode(', ', $segments))
+            ->filter()
+            ->map(fn (string $segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)))
+            ->join(', ');
     }
 
     public static function getPages(): array
@@ -150,25 +163,7 @@ class ReportResource extends Resource
     public static function report(Form $form): Form
     {
         return $form
-            ->schema([
-                Card::make()
-                    ->header(fn (Report $record) => $record->title)
-                    ->componentActions([
-                        Action::make('export')
-                            ->label(__('report.action.export'))
-                            ->icon('heroicon-o-download')
-                            ->color('secondary')
-                            ->disabled(),
-
-                        Action::make('save')
-                            ->label(__('report.action.save'))
-                            ->icon('heroicon-o-bookmark-alt')
-                            ->disabled(),
-                    ])
-                    ->schema([
-                        ReportOutput::make(),
-                    ]),
-            ]);
+            ->schema(ReportCard::make());
     }
 
     protected static function getNurseActivitySchema(): array
