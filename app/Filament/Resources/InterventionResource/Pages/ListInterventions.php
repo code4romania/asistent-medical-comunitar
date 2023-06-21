@@ -28,11 +28,13 @@ class ListInterventions extends ListRecords implements WithSidebar
 
     protected static string $resource = InterventionResource::class;
 
-    public function mount(): void
+    public function mount(...$args): void
     {
         parent::mount();
 
-        $this->resolveBeneficiary(request()->beneficiary);
+        [$beneficiary] = $args;
+
+        $this->resolveBeneficiary($beneficiary);
     }
 
     protected function getTableQuery(): Builder

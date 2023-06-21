@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 trait InteractsWithBeneficiary
 {
-    protected ?Beneficiary $beneficiary = null;
+    public ?Beneficiary $beneficiary = null;
 
     protected function resolveBeneficiary(mixed $key): void
     {
