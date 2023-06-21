@@ -26,7 +26,7 @@ trait HasTabs
                 ->label(__('report.section.list'))
                 ->icon('icon-none')
                 ->url(static::getResource()::getUrl('saved'))
-                ->isActiveWhen(fn (): bool => static::class === Pages\ListReports::class),
+                ->isActiveWhen(fn (): bool => \in_array(static::class, [Pages\ListReports::class, Pages\ViewReport::class])),
 
         ];
     }

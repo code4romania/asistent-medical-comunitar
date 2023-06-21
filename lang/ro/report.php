@@ -13,6 +13,11 @@ return [
         'list' => 'Rapoarte',
     ],
 
+    'notification' => [
+        'saved' => 'Raportul a fost salvat cu succes',
+        'failed' => 'Raportul nu a putut fi salvat',
+    ],
+
     'section' => [
         'generator' => 'Generator rapoarte',
         'list' => 'Rapoarte salvate',
@@ -30,6 +35,9 @@ return [
         'title' => 'Nume raport',
         'indicators' => 'Indicatori',
         'segments' => 'Segmentare',
+        'age' => 'Grupe de vârstă',
+        'gender' => 'Genuri',
+        'location' => 'Locații',
     ],
 
     'type' => [
@@ -50,12 +58,16 @@ return [
     'title' => [
         'date' => 'la data :date',
         'date_range' => 'pentru perioada :from — :to',
+        'segments' => 'pe :segments',
     ],
 
     'indicator' => [
-        'beneficiaries' => [
-            'name' => 'Beneficiari',
-            'value' => [
+        'label' => [
+            'beneficiaries' => 'Beneficiari (număr)',
+            'vulnerabilities' => 'Vulnerabilități (număr)',
+        ],
+        'value' => [
+            'beneficiaries' => [
                 'total' => 'Total beneficiari',
                 'registered' => 'Beneficiari înregistrați',
                 'catagraphed' => 'Beneficiari catagrafiați',
@@ -64,25 +76,38 @@ return [
                 'removed' => 'Beneficiari scoși din evidență',
                 'ocasional' => 'Beneficiari ocazionali',
             ],
+            'vulnerabilities' => [
+                'catagraphy_total' => 'Total catagrafii',
+                'catagraphy_new' => 'Catagrafii noi create',
+                'catagraphy_updated' => 'Catagrafii actualizate/ modificate',
+                'vulnerability_active_total' => 'Total vulnerabilități active',
+                'vulnerability_new' => 'Vulnerabilități nou identificate',
+                'beneficiary_vulnerable' => 'Beneficiari vulnerabili (minim o vulnerabilitate)',
+                'beneficiary_nonvulnerable' => 'Beneficiari catagrafiați fără nicio vulnerabilitate',
+            ],
         ],
     ],
 
     'segment' => [
-        'age' => [
-            'value' => [
-                'VCV_01' => 'Copil 0-1 ani',
-                'VCV_02' => 'Copil 1-5 ani',
-                'VCV_03' => 'Copil 5-14 ani',
-                'VCV_04' => 'Adolescent 14-18 ani',
-                'VCV_05' => 'Adult 18-65 ani',
-                'VCV_06' => 'Vârstnic peste 65 ani',
-            ],
+        'label' => [
+            'age' => 'Grupe de vârstă beneficiar',
+            'gender' => 'Gen beneficiar',
         ],
-        'gender' => [
-            'value' => [
+        'value' => [
+            'age' => [
+                'VCV_01' => '0-1 ani',
+                'VCV_02' => '1-5 ani',
+                'VCV_03' => '5-14 ani',
+                'VCV_04' => '14-18 ani',
+                'VCV_05' => '18-65 ani',
+                'VCV_06' => 'peste 65 ani',
+                'total' => 'Total',
+            ],
+            'gender' => [
                 'male' => 'Masculin',
                 'female' => 'Feminin',
                 'other' => 'Altul',
+                'total' => 'Total',
             ],
         ],
     ],

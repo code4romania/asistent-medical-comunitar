@@ -15,9 +15,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->timestamps();
-            $table->string('title')->nullable();
             $table->string('type');
             $table->date('date_from')->nullable();
             $table->date('date_until')->nullable();

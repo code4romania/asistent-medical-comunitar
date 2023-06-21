@@ -4,96 +4,76 @@ declare(strict_types=1);
 
 namespace App\Reports;
 
-use App\Enums\Beneficiary\Status as BeneficiaryStatus;
-use App\Enums\Beneficiary\Type as BeneficiaryType;
 use App\Enums\Report\Type;
 use App\Models\Beneficiary;
-use App\Models\Report;
-use Carbon\Carbon;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
+use Tpetry\QueryExpressions\Language\Alias;
+use Tpetry\QueryExpressions\Operator\Comparison\Between;
+use Tpetry\QueryExpressions\Operator\Comparison\Equal;
+use Tpetry\QueryExpressions\Operator\Comparison\GreaterThanOrEqual;
+use Tpetry\QueryExpressions\Value\Value;
 
-class NurseActivityReport extends ReportData
+class NurseActivityReport extends ReportFactory
 {
-    public function __construct(Report $report)
+    protected Type $type = Type::NURSE_ACTIVITY;
+
+    protected function segmentByAge(string $value): Expression
     {
-        $this->report = $report;
-    }
-
-    public function getName(): string
-    {
-        return Type::NURSE_ACTIVITY->label();
-    }
-
-    public function getData(): Collection
-    {
-        if ($this->report->data !== null) {
-            return $this->report->data;
-        }
-
-        $data = $this->report
-            ->indicators
-            ->flatMap(
-                fn (array $indicators, string $group) => array_map(function ($indicator) use ($group) {
-                    return [
-                        __(sprintf('report.indicator.%s.value.%s', $group, $indicator)) => [
-                            $this->query("$group.$indicator"),
-                        ],
-                    ];
-                }, $indicators)
-            )
-            ->collapse();
-
-        $this->report->update([
-            'title' => $this->getTitle(),
-            'data' => $data,
-        ]);
-
-        return $data;
-    }
-
-    public function query(string $forIndicator)
-    {
-        return match ($forIndicator) {
-            'beneficiaries.total' => $this->beneficiaryQuery()
-                ->count(),
-
-            'beneficiaries.registered' => $this->beneficiaryQuery()
-                ->where('status', BeneficiaryStatus::REGISTERED)
-                ->count(),
-
-            'beneficiaries.catagraphed' => $this->beneficiaryQuery()
-                ->where('status', BeneficiaryStatus::CATAGRAPHED)
-                ->count(),
-
-            'beneficiaries.active' => $this->beneficiaryQuery()
-                ->where('status', BeneficiaryStatus::ACTIVE)
-                ->count(),
-
-            'beneficiaries.inactive' => $this->beneficiaryQuery()
-                ->where('status', BeneficiaryStatus::INACTIVE)
-                ->count(),
-
-            'beneficiaries.removed' => $this->beneficiaryQuery()
-                ->where('status', BeneficiaryStatus::REMOVED)
-                ->count(),
-
-            'beneficiaries.ocasional' => $this->beneficiaryQuery()
-                ->where('type', BeneficiaryType::OCASIONAL)
-                ->count(),
-
-            default => null,
+        return match ($value) {
+            'total' => new Equal('age', 'age'),
+            'VCV_01' => new Equal('age', new Value(0)),
+            'VCV_02' => new Between('age', new Value(1), new Value(4)),
+            'VCV_03' => new Between('age', new Value(5), new Value(13)),
+            'VCV_04' => new Between('age', new Value(14), new Value(17)),
+            'VCV_05' => new Between('age', new Value(18), new Value(64)),
+            'VCV_06' => new GreaterThanOrEqual('age', new Value(65)),
+            default => new Value($value),
         };
     }
 
-    protected function beneficiaryQuery(): Builder
+    protected function segmentByGender(string $value): Expression
     {
-        return Beneficiary::query()
-            ->when($this->report->date_from, function (Builder $query, Carbon $date) {
-                $query->whereDate('created_at', '>=', $date);
-            })
-            ->when($this->report->date_until, function (Builder $query, Carbon $date) {
-                $query->whereDate('created_at', '<=', $date);
-            });
+        return new Equal('gender', match ($value) {
+            'total' => 'gender',
+            default => new Value($value),
+        });
+    }
+
+    protected function queryBeneficiaries(array $values, array $columns): array
+    {
+        $indicators = collect($values)
+            ->reject('total')
+            ->values();
+
+        return $this->runQueryFor(
+            Beneficiary::class,
+            'created_at',
+            fn (Builder $query) => $query
+                ->select($columns)
+                ->when(
+                    $this->report->segments->has('age'),
+                    function (Builder $query) {
+                        $query->fromSub(function ($query) {
+                            $query
+                                ->select('*')
+                                ->selectRaw('TIMESTAMPDIFF(YEAR, date_of_birth, ?) AS age', [$this->report->date_from->toDateString()])
+                                ->from('beneficiaries');
+                        }, 'beneficiaries');
+                    }
+                )
+                ->when(
+                    $indicators->isNotEmpty(),
+                    function (Builder $query) use ($indicators) {
+                        $query->whereIn('status', $indicators->all())
+                            ->selectRaw('IF(GROUPING(status), "total", status) AS status')
+                            ->groupByRaw('status WITH ROLLUP');
+                    },
+                    function (Builder $query) {
+                        $query->addSelect(new Alias(new Value('total'), 'status'));
+                    }
+                ),
+            'status'
+        );
     }
 }

@@ -50,7 +50,7 @@ return [
     'recommendation' => [
         'empty' => [
             'title' => 'Recomandări indisponibile',
-            'description' => 'Sistemul îți va  face unele recomandări de intervenții, în funcție de vulnerabilitățile beneficiarului. Momentan nu avem niciuna identificată.',
+            'description' => 'Sistemul îți va face unele recomandări de intervenții, în funcție de vulnerabilitățile beneficiarului. Momentan nu avem niciuna identificată.',
         ],
     ],
 

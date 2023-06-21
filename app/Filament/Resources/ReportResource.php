@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Gender;
 use App\Enums\Report\Indicator;
+use App\Enums\Report\Segment;
 use App\Enums\Report\Type;
+use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Report;
-use App\Models\Vulnerability\Vulnerability;
-use App\Models\Vulnerability\VulnerabilityCategory;
 use App\Rules\MultipleIn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
@@ -66,9 +65,15 @@ class ReportResource extends Resource
                     ->wrap()
                     ->toggleable(),
 
-                TextColumn::make('segments')
-                    ->label(__('report.column.segments'))
-                    ->formatStateUsing(fn (Report $record) => Str::limit($record->segments_list, 100, '...'))
+                TextColumn::make('segments.age')
+                    ->label(__('report.column.age'))
+                    ->formatStateUsing(fn ($state) => static::segmentsList('age', $state))
+                    ->wrap()
+                    ->toggleable(),
+
+                TextColumn::make('segments.gender')
+                    ->label(__('report.column.gender'))
+                    ->formatStateUsing(fn ($state) => static::segmentsList('gender', $state))
                     ->wrap()
                     ->toggleable(),
             ])
@@ -78,7 +83,16 @@ class ReportResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
+    }
+
+    protected static function segmentsList(string $group, string $segments): string
+    {
+        return collect(explode(', ', $segments))
+            ->filter()
+            ->map(fn (string $segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)))
+            ->join(', ');
     }
 
     public static function getPages(): array
@@ -92,21 +106,18 @@ class ReportResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $vulnerabilities = Vulnerability::allAsOptions();
-        $categories = VulnerabilityCategory::cachedList();
-
         return $form
-            ->columns(4)
+            ->columns(3)
             ->schema([
                 Select::make('type')
                     ->label(__('report.column.type'))
                     ->placeholder(__('placeholder.select_one'))
+                    ->disablePlaceholderSelection()
+                    ->default(Type::NURSE_ACTIVITY)
                     ->options(Type::options())
                     ->enum(Type::class)
                     ->required()
-                    ->searchable()
-                    ->reactive()
-                    ->columnSpan(2),
+                    ->reactive(),
 
                 DatePicker::make('date_from')
                     ->label(__('app.filter.date_from'))
@@ -129,24 +140,30 @@ class ReportResource extends Resource
 
                 Grid::make(4)
                     ->schema(static::getNurseActivitySchema())
-                    ->visible(fn (callable $get) => Type::NURSE_ACTIVITY->is($get('type'))),
+                    ->visible(fn (callable $get) => Type::NURSE_ACTIVITY->is($get('type')))
+                    ->columnSpanFull(),
 
                 Select::make('segments.age')
-                    ->label($categories->get('AGE'))
-                    ->placeholder(__('placeholder.no_segmentation_age'))
-                    ->options($vulnerabilities->get('AGE'))
-                    // ->in($vulnerabilities->get('AGE')->keys())
+                    ->label(__('report.segment.label.age'))
+                    ->placeholder(__('placeholder.select_many'))
+                    ->options(Segment\Age::options())
+                    ->rule(new MultipleIn(Segment\Age::values()))
                     ->multiple()
                     ->searchable(),
 
                 Select::make('segments.gender')
-                    ->label(__('field.gender'))
-                    ->placeholder(__('placeholder.no_segmentation_gender'))
-                    ->options(Gender::options())
-                    ->rule(new MultipleIn(Gender::values()))
+                    ->label(__('report.segment.label.gender'))
+                    ->placeholder(__('placeholder.select_many'))
+                    ->options(Segment\Gender::options())
+                    ->rule(new MultipleIn(Segment\Gender::values()))
                     ->multiple(),
-
             ]);
+    }
+
+    public static function report(Form $form): Form
+    {
+        return $form
+            ->schema(ReportCard::make());
     }
 
     protected static function getNurseActivitySchema(): array
@@ -154,9 +171,10 @@ class ReportResource extends Resource
         return [
             Fieldset::make(__('report.column.indicators'))
                 ->columnSpanFull()
+                ->columns(3)
                 ->schema([
                     Select::make('indicators.beneficiaries')
-                        ->label(__('report.indicator.beneficiaries.name'))
+                        ->label(__('report.indicator.label.beneficiaries'))
                         ->placeholder(__('placeholder.select_many'))
                         ->options(Indicator\Beneficiaries::options())
                         ->rule(new MultipleIn(Indicator\Beneficiaries::values()))
