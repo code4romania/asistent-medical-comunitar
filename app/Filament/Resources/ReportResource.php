@@ -180,6 +180,14 @@ class ReportResource extends Resource
                         ->rule(new MultipleIn(Indicator\Beneficiaries::values()))
                         ->multiple()
                         ->searchable(),
+
+                    Select::make('indicators.general_record')
+                        ->label(__('report.indicator.label.general_record'))
+                        ->placeholder(__('placeholder.select_many'))
+                        ->options(Indicator\GeneralRecord::options())
+                        ->rule(new MultipleIn(Indicator\GeneralRecord::values()))
+                        ->multiple()
+                        ->searchable(),
                 ]),
         ];
     }

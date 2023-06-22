@@ -65,6 +65,7 @@ return [
         'label' => [
             'beneficiaries' => 'Beneficiari (număr)',
             'vulnerabilities' => 'Vulnerabilități (număr)',
+            'general_record' => 'Fișă generală',
         ],
         'value' => [
             'beneficiaries' => [
@@ -84,6 +85,22 @@ return [
                 'vulnerability_new' => 'Vulnerabilități nou identificate',
                 'beneficiary_vulnerable' => 'Beneficiari vulnerabili (minim o vulnerabilitate)',
                 'beneficiary_nonvulnerable' => 'Beneficiari catagrafiați fără nicio vulnerabilitate',
+            ],
+            'general_record' => [
+                'adult_no_medicosocial' => 'Adult (fără probleme medicosociale)',
+                'adult_with_cronic_illness' => 'Adult cu boli cronice',
+                'adult_with_disabilities' => 'Adult cu dizabilități',
+                'adult_without_family' => 'Adult fără familie',
+                'familiy_with_domestic_violence_case' => 'Caz de violență în familie',
+                'woman_fertile_age' => 'Femeie de vârstă fertilă (15-45 de ani)',
+                'woman_postpartum' => 'Lăuză',
+                'underage_mother' => 'Mamă minoră',
+                'family_planning' => 'Planificare familială',
+                'person_without_gp' => 'Persoană neînscrisă la medicul de familie',
+                'elderly' => 'Vârstnic (peste 65 de ani)',
+                'elderly_without_family' => 'Persoană vârstnică fără familie',
+                'elderly_with_cronic_illness' => 'Vârstnic cu boli cronice',
+                'elderly_with_disabilities' => 'Vârstnic cu dizabilități',
             ],
         ],
     ],
