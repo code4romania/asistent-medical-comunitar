@@ -8,12 +8,14 @@ use App\Enums\Report\Type;
 use App\Models\Scopes\CurrentUserScope;
 use App\Reports\NurseActivityReport;
 use App\Reports\ReportFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Throwable;
 
 class Report extends Model
 {
@@ -49,12 +51,16 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function factory(): ReportFactory
+    public function factory(): ?ReportFactory
     {
-        $report = match ($this->type) {
-            Type::NURSE_ACTIVITY => NurseActivityReport::class,
-            default => NurseActivityReport::class,
-        };
+        try {
+            $report = match ($this->type) {
+                Type::NURSE_ACTIVITY => NurseActivityReport::class,
+                default => throw new Exception('Invalid report type'),
+            };
+        } catch (Throwable $th) {
+            return null;
+        }
 
         return $report::make($this);
     }

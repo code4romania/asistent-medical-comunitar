@@ -1,7 +1,7 @@
 @props(['record'])
 
 @php
-    $header = $record->factory()->getHeader();
+    $header = $record->factory()?->getHeader();
     $data = $record->data;
 @endphp
 

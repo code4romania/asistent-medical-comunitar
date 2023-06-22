@@ -22,7 +22,7 @@ class ReportCard extends Card
     {
         parent::setUp();
 
-        $this->hidden(fn (?Report $record) => null === $record);
+        $this->hidden(fn (?Report $record) => null === $record?->type);
 
         $this->header(function (?Report $record) {
             if ($this->isHidden()) {
