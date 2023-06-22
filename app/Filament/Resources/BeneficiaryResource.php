@@ -96,8 +96,7 @@ class BeneficiaryResource extends Resource
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
-                    ->colors(Status::flipColors())
-                    ->default($default),
+                    ->colors(Status::flipColors()),
 
                 BadgeColumn::make('type')
                     ->label(__('field.beneficiary_type'))

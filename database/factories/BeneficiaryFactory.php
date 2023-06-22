@@ -32,8 +32,6 @@ class BeneficiaryFactory extends Factory
      */
     public function definition()
     {
-        $status = fake()->randomElement(Status::values());
-
         return [
             'nurse_id' => User::factory(),
             'family_id' => Family::factory(),
@@ -44,84 +42,94 @@ class BeneficiaryFactory extends Factory
             'integrated' => fake()->boolean(),
             'gender' => fake()->randomElement(Gender::values()),
             'date_of_birth' => fake()->date(),
-
-            'status' => $status,
-            'reason_removed' => Status::REMOVED->is($status) ? fake()->sentence() : null,
         ];
     }
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Beneficiary $beneficiary) {
-            if ($beneficiary->isOcasional()) {
-                OcasionalIntervention::factory()
-                    ->for($beneficiary)
-                    ->count(fake()->randomDigitNotNull())
-                    ->create();
-            }
+        return $this
+            ->state(function (array $attributes) {
+                if (Type::OCASIONAL->is($attributes['type'])) {
+                    return [];
+                }
 
-            if ($beneficiary->isRegular()) {
-                Catagraphy::factory()
-                    ->recycle($beneficiary->nurse)
-                    ->for($beneficiary)
-                    ->disability()
-                    ->reproductiveHealth()
-                    ->withNotes()
-                    ->create();
+                $status = fake()->randomElement(Status::values());
 
-                InterventionableIndividualService::factory()
-                    ->count(fake()->randomDigitNotNull())
-                    ->has(
-                        Intervention::factory()
-                            ->withVulnerability()
-                            ->recycle($beneficiary),
-                        'intervention'
-                    )
-                    ->create();
+                return [
+                    'status' => $status,
+                    'reason_removed' => Status::REMOVED->is($status) ? fake()->sentence() : null,
+                ];
+            })
+            ->afterCreating(function (Beneficiary $beneficiary) {
+                if ($beneficiary->isOcasional()) {
+                    OcasionalIntervention::factory()
+                        ->for($beneficiary)
+                        ->count(fake()->randomDigitNotNull())
+                        ->create();
+                }
 
-                InterventionableCase::factory()
-                    ->count(fake()->randomDigitNotNull())
-                    ->has(
-                        Intervention::factory()
-                            ->withVulnerability()
-                            ->recycle($beneficiary)
-                            ->afterCreating(function (Intervention $case) {
-                                InterventionableIndividualService::factory()
-                                    ->count(fake()->randomDigitNotNull())
-                                    ->has(
-                                        Intervention::factory([
-                                            'parent_id' => $case->id,
-                                            'beneficiary_id' => $case->beneficiary_id,
-                                        ]),
-                                        'intervention'
-                                    )
-                                    ->create();
-                            }),
-                        'intervention'
-                    )
-                    ->create();
+                if ($beneficiary->isRegular()) {
+                    Catagraphy::factory()
+                        ->recycle($beneficiary->nurse)
+                        ->for($beneficiary)
+                        ->disability()
+                        ->reproductiveHealth()
+                        ->withNotes()
+                        ->create();
 
-                $interventions = Intervention::query()
-                    ->where('interventionable_type', 'individual_service')
-                    ->whereBeneficiary($beneficiary)
-                    ->get();
+                    InterventionableIndividualService::factory()
+                        ->count(fake()->randomDigitNotNull())
+                        ->has(
+                            Intervention::factory()
+                                ->withVulnerability()
+                                ->recycle($beneficiary),
+                            'intervention'
+                        )
+                        ->create();
 
-                Appointment::factory()
-                    ->recycle($beneficiary->nurse)
-                    ->for($beneficiary)
-                    ->count(fake()->randomDigitNotNull())
-                    ->afterCreating(function (Appointment $appointment) use ($interventions) {
-                        if (! fake()->boolean()) {
-                            return;
-                        }
+                    InterventionableCase::factory()
+                        ->count(fake()->randomDigitNotNull())
+                        ->has(
+                            Intervention::factory()
+                                ->withVulnerability()
+                                ->recycle($beneficiary)
+                                ->afterCreating(function (Intervention $case) {
+                                    InterventionableIndividualService::factory()
+                                        ->count(fake()->randomDigitNotNull())
+                                        ->has(
+                                            Intervention::factory([
+                                                'parent_id' => $case->id,
+                                                'beneficiary_id' => $case->beneficiary_id,
+                                            ]),
+                                            'intervention'
+                                        )
+                                        ->create();
+                                }),
+                            'intervention'
+                        )
+                        ->create();
 
-                        $appointment->interventions()->saveMany(
-                            $interventions->random(fake()->numberBetween(1, $interventions->count()))
-                        );
-                    })
-                    ->create();
-            }
-        });
+                    $interventions = Intervention::query()
+                        ->where('interventionable_type', 'individual_service')
+                        ->whereBeneficiary($beneficiary)
+                        ->get();
+
+                    Appointment::factory()
+                        ->recycle($beneficiary->nurse)
+                        ->for($beneficiary)
+                        ->count(fake()->randomDigitNotNull())
+                        ->afterCreating(function (Appointment $appointment) use ($interventions) {
+                            if (! fake()->boolean()) {
+                                return;
+                            }
+
+                            $appointment->interventions()->saveMany(
+                                $interventions->random(fake()->numberBetween(1, $interventions->count()))
+                            );
+                        })
+                        ->create();
+                }
+            });
     }
 
     public function withCNP(): static

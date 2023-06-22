@@ -68,6 +68,21 @@ class Beneficiary extends Model
         'date_of_birth' => 'date',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function (self $beneficiary) {
+            if ($beneficiary->isRegular() && ! $beneficiary->status) {
+                $beneficiary->status = Status::REGISTERED;
+            }
+        });
+
+        static::updating(function (self $beneficiary) {
+            if ($beneficiary->isRegular() && $beneficiary->isDirty('type')) {
+                $beneficiary->status = Status::REGISTERED;
+            }
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
