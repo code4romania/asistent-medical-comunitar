@@ -20,10 +20,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('theme');
-            $table->string('provider');
-            $table->string('type');
-            $table->integer('credits');
+            $table->string('theme')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('credits')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
