@@ -21,6 +21,7 @@ return [
 
     'action' => [
         'add_service' => 'Adaugă serviciu',
+        'dissociate_service' => 'Înlătură serviciu din programare',
         'close' => 'Închide intervenție',
         'reopen' => 'Redeschide intervenție',
         'create' => 'Adaugă altă intervenție',

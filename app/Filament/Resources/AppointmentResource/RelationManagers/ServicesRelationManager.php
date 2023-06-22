@@ -105,7 +105,9 @@ class ServicesRelationManager extends RelationManager
                     ]))
                     ->iconButton(),
 
-                Tables\Actions\DetachAction::make()
+                Tables\Actions\DissociateAction::make()
+                    ->modalHeading(__('intervention.action.dissociate_service'))
+                    ->inverseRelationshipName('appointment')
                     ->iconButton(),
             ])
             ->bulkActions([
