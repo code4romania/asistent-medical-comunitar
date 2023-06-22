@@ -14,6 +14,7 @@ use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
 use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -96,7 +97,8 @@ class BeneficiaryResource extends Resource
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
-                    ->colors(Status::flipColors()),
+                    ->colors(Status::flipColors())
+                    ->hidden(fn (Page $livewire) => $livewire instanceof Pages\ListOcasionalBeneficiaries),
 
                 BadgeColumn::make('type')
                     ->label(__('field.beneficiary_type'))
@@ -104,7 +106,7 @@ class BeneficiaryResource extends Resource
                     ->colors(Type::flipColors())
                     ->default($default)
                     ->hidden(
-                        fn ($livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)
+                        fn (Page $livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)
                     ),
             ])
             ->filters([
