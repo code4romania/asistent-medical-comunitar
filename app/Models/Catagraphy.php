@@ -80,7 +80,16 @@ class Catagraphy extends Model
 
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $activity->subject()->associate($activity->subject->beneficiary);
+        $beneficiary = $activity->subject->beneficiary;
+
+        $activity->subject()->associate($beneficiary);
+
+        activity('vulnerabilities')
+            ->causedBy($activity->causer)
+            ->performedOn($beneficiary)
+            ->withProperties($this->all_valid_vulnerabilities)
+            ->event($eventName)
+            ->log($eventName);
     }
 
     public function nurse(): BelongsTo
