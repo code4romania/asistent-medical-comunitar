@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\Beneficiary\Status;
 use App\Models\City;
 use App\Models\County;
 use App\Models\Family;
@@ -33,7 +32,7 @@ return new class extends Migration
             $table->boolean('integrated')->default(false);
 
             $table->string('type')->nullable();
-            $table->string('status')->default(Status::REGISTERED->value);
+            $table->string('status')->nullable();
 
             $table->string('cnp', 13)->nullable()->unique();
             $table->string('id_type')->nullable();
