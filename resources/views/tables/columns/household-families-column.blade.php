@@ -68,9 +68,11 @@
                     </td>
 
                     <td class="px-4 py-3">
-                        <x-badge :color="$beneficiary->status->color()">
-                            {{ $beneficiary->status->label() }}
-                        </x-badge>
+                        @if ($beneficiary->status !== null)
+                            <x-badge :color="$beneficiary->status->color()">
+                                {{ $beneficiary->status->label() }}
+                            </x-badge>
+                        @endif
                     </td>
 
                     <td class="px-4 py-3">
