@@ -32,7 +32,7 @@ class EditStudies extends EditRecord
                                 TextInput::make('name')
                                     ->label(__('field.study_name'))
                                     ->placeholder(__('placeholder.study_name'))
-                                    ->maxLength(50)
+                                    ->maxLength(200)
                                     ->required(),
                                 Select::make('type')
                                     ->label(__('field.study_type'))

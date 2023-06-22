@@ -61,7 +61,7 @@ class EditGeneral extends EditRecord
                             ->label(__('field.email'))
                             ->placeholder(__('placeholder.email'))
                             ->email()
-                            ->maxLength(50)
+                            ->maxLength(200)
                             ->required(),
                         TextInput::make('phone')
                             ->label(__('field.phone'))
@@ -79,7 +79,7 @@ class EditGeneral extends EditRecord
                             ->label(__('field.accreditation_number'))
                             ->placeholder(__('placeholder.accreditation_number'))
                             ->nullable()
-                            ->maxLength(50),
+                            ->maxLength(200),
                         DatePicker::make('accreditation_date')
                             ->label(__('field.accreditation_date'))
                             ->placeholder(__('placeholder.date')),
