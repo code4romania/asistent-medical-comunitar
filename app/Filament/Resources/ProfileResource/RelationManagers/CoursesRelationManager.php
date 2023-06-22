@@ -41,13 +41,13 @@ class CoursesRelationManager extends RelationManager
                     ->label(__('field.course_name'))
                     ->placeholder(__('placeholder.course_name'))
                     ->required()
-                    ->maxLength(50),
+                    ->maxLength(200),
 
                 TextInput::make('theme')
                     ->label(__('field.course_theme'))
                     ->placeholder(__('placeholder.course_theme'))
                     ->nullable()
-                    ->maxLength(50),
+                    ->maxLength(200),
 
                 Select::make('type')
                     ->label(__('field.course_type'))
@@ -91,7 +91,7 @@ class CoursesRelationManager extends RelationManager
 
                 TextColumn::make('end_date')
                     ->label(__('field.year'))
-                    ->formatStateUsing((fn (Course $record) => $record->end_date->format('Y')))
+                    ->formatStateUsing((fn (Course $record) => $record->end_date?->format('Y')))
                     ->sortable(),
 
                 TextColumn::make('provider')
