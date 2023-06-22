@@ -26,10 +26,10 @@ class CourseFactory extends Factory
 
         return [
             'name' => fake()->sentence(),
-            'theme' => fake()->sentence(),
-            'provider' => fake()->company(),
-            'type' => fake()->randomElement(CourseType::values()),
-            'credits' => fake()->randomNumber(3),
+            'theme' => fake()->boolean() ? fake()->sentence() : null,
+            'provider' => fake()->boolean() ? fake()->company() : null,
+            'type' => fake()->boolean() ? fake()->randomElement(CourseType::values()) : null,
+            'credits' => fake()->boolean() ? fake()->randomNumber(3) : null,
             'start_date' => $startDate,
             'end_date' => $endDate,
         ];
