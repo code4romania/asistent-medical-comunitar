@@ -11,6 +11,18 @@ class Settings extends MyProfile
 {
     protected static ?string $slug = 'settings';
 
+    protected function getTitle(): string
+    {
+        return __('auth.settings');
+    }
+
+    protected function getBreadcrumbs(): array
+    {
+        return [
+            //
+        ];
+    }
+
     protected function getUpdateProfileFormSchema(): array
     {
         return [
