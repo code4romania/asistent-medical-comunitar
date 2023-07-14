@@ -7,6 +7,8 @@
         x-data="calendarComponent({
             key: @js($this->getKey()),
             config: {
+                schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                plugins: @js(config('filament-fullcalendar.plugins')),
                 timeZone: @js(config('app.timezone')),
                 aspectRatio: 1.25,
                 headerToolbar: {
@@ -44,7 +46,7 @@
                     window.open(event.url, event.extendedProps.shouldOpenInNewTab ? '_blank' : '_self');
                     return false;
                 }
-        
+
                 @if($this::isListeningClickEvent())
                 $wire.onEventClick(event)
                 @endif

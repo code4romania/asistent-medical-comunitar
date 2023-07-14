@@ -110,7 +110,7 @@ abstract class ReportFactory
                     ->pipe(function (Collection $collection) {
                         $this->report->fill([
                             'title' => $this->report->title,
-                            'data' => $collection->map(fn (array $data) => Arr::expandWith($data, '_')),
+                            'data' => $collection->map(fn (array $data) => Arr::undot($data)),
                         ]);
 
                         return $this->report->data;
@@ -176,7 +176,7 @@ abstract class ReportFactory
                         ->afterLast('.')
                         ->slug()
                 )
-                ->implode('_')
+                ->implode('.')
         );
     }
 }

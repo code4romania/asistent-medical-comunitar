@@ -27,8 +27,8 @@ class AlphabeticalOrder implements Scope
      * @param  \Illuminate\Database\Eloquent\Model   $model
      * @return void
      */
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model): void
     {
-        return $builder->orderBy($this->column, $this->direction);
+        $builder->orderBy($this->column, $this->direction);
     }
 }

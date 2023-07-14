@@ -6,13 +6,12 @@ namespace App\Providers;
 
 use App\Filament\Pages\Settings;
 use App\Filament\Resources\ProfileResource;
-use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Vite;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerCollectionMacros();
         $this->registerCarbonMacros();
     }
 
@@ -49,48 +47,6 @@ class AppServiceProvider extends ServiceProvider
             ]);
 
             $this->registerUserMenuItems();
-        });
-    }
-
-    protected function registerCollectionMacros(): void
-    {
-        Arr::macro('expandWith', function (array $array, string $char = '.') {
-            $results = [];
-
-            /**
-             * @see \Illuminate\Support\Arr::set()
-             */
-            $callback = function (&$array, $key, $value, $char = '.') {
-                if (\is_null($key)) {
-                    return $array = $value;
-                }
-
-                $keys = explode($char, $key);
-
-                foreach ($keys as $i => $key) {
-                    if (\count($keys) === 1) {
-                        break;
-                    }
-
-                    unset($keys[$i]);
-
-                    if (! isset($array[$key]) || ! \is_array($array[$key])) {
-                        $array[$key] = [];
-                    }
-
-                    $array = &$array[$key];
-                }
-
-                $array[array_shift($keys)] = $value;
-
-                return $array;
-            };
-
-            foreach ($array as $key => $value) {
-                $callback($results, $key, $value, $char);
-            }
-
-            return $results;
         });
     }
 
