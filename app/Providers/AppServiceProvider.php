@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Filament\Pages\Settings;
 use App\Filament\Resources\ProfileResource;
 use Carbon\Carbon;
 use Filament\Facades\Filament;
@@ -129,15 +130,18 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
+        $items = [
+            'settings' => UserMenuItem::make()
+                ->url(Settings::getUrl())
+                ->label(__('auth.settings'))
+                ->icon('heroicon-o-cog'),
+        ];
+
         if (auth()->user()->isNurse()) {
-            $items = [
-                'account' => UserMenuItem::make()
-                    ->url(ProfileResource::getUrl('general.view')),
-            ];
-        } else {
-            $items = [
-                //
-            ];
+            $items['profile'] = UserMenuItem::make()
+                ->url(ProfileResource::getUrl('general.view'))
+                ->label(__('auth.profile'))
+                ->icon('heroicon-o-user');
         }
 
         Filament::registerUserMenuItems($items);

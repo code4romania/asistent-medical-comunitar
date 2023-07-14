@@ -10,7 +10,6 @@ use App\Filament\Resources\ProfileResource\Concerns;
 use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
-use Illuminate\View\View;
 
 class ViewRecord extends BaseViewRecord implements WithTabs
 {
@@ -34,9 +33,11 @@ class ViewRecord extends BaseViewRecord implements WithTabs
         ];
     }
 
-    protected function getHeader(): View
+    protected function getTitle(): string
     {
-        return view('profile.header');
+        return $this->isOwnProfile
+            ? __('user.profile.my_profile')
+            : $this->getRecord()->full_name;
     }
 
     protected function getBreadcrumbs(): array

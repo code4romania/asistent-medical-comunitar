@@ -9,7 +9,6 @@ use App\Filament\Resources\ProfileResource;
 use App\Filament\Resources\ProfileResource\Concerns;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
-use Illuminate\View\View;
 
 class EditRecord extends BaseEditRecord implements WithTabs
 {
@@ -23,9 +22,11 @@ class EditRecord extends BaseEditRecord implements WithTabs
         return [];
     }
 
-    protected function getHeader(): View
+    protected function getTitle(): string
     {
-        return view('profile.header');
+        return $this->isOwnProfile
+            ? __('user.profile.my_profile')
+            : $this->getRecord()->full_name;
     }
 
     protected function getBreadcrumbs(): array

@@ -9,10 +9,13 @@ use App\Filament\Resources\UserResource;
 
 trait ResolvesRecord
 {
+    protected bool $isOwnProfile = false;
+
     public function mount($record = null): void
     {
         if (\is_null($record)) {
             $this->record = auth()->user();
+            $this->isOwnProfile = true;
 
             $this->fillForm();
         } else {

@@ -17,4 +17,7 @@ return [
         'no_user' => 'Acest utilizator nu este valid.',
         'already_used' => 'Acest link a fost folosit deja.',
     ],
+
+    'profile' => 'Profil',
+    'settings' => 'Setări',
 ];
