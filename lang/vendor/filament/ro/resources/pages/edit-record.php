@@ -11,7 +11,7 @@ return [
         'actions' => [
 
             'cancel' => [
-                'label' => 'Anulare',
+                'label' => 'Renunță',
             ],
 
             'save' => [

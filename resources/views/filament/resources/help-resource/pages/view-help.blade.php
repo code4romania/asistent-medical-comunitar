@@ -327,7 +327,7 @@
                 <li>Adaugi un nou curs sau modul educațional pe care l-ai urmat apăsând butonul “Adaugă studii” din
                     stânga jos. La apăsarea acestui butonul se va insera o nouă secțiune cu câmpuri necompletate pentru
                     a putea introduce informații despre curs/modul. La final, pentru a salva modificările apasă
-                    “Salvare”. Dacă te-ai răzgândit sau dacă ai greșit, apasă “Anulare”. </li>
+                    “Salvare”. Dacă te-ai răzgândit sau dacă ai greșit, apasă “Renunță”. </li>
             </ul>
 
             <img
@@ -349,7 +349,7 @@
                 <li>Adaugi un nou Angajator apăsând butonul “Adaugă angajator” din stânga jos. La apăsarea acestui
                     butonul se va insera o nouă secțiune cu câmpuri necompletate pentru a putea introduce informații
                     despre Angajator. La final, pentru a salva modificările apasă “Salvare”. Dacă te-ai răzgândit sau
-                    dacă ai greșit, apasă “Anulare”. </li>
+                    dacă ai greșit, apasă “Renunță”. </li>
             </ul>
 
             <img
@@ -370,7 +370,7 @@
                 <li>Adaugi o nouă arie apăsând butonul “Adaugă angajator” din stânga jos. La apăsarea acestui butonul se
                     va insera o nouă secțiune cu câmpuri necompletate pentru a putea introduce informații despre aria
                     acoperită. La final, pentru a salva modificările apasă “Salvare”. Dacă te-ai răzgândit sau dacă ai
-                    greșit, apasă “Anulare”. </li>
+                    greșit, apasă “Renunță”. </li>
             </ul>
 
             <img
@@ -529,7 +529,7 @@
                     actului, dacă există, data nașterii, genul, etnia și dacă este sau nu încadrat în muncă. Următoarea
                     secțiune va solicita informații despre gospodărie și familie, județ, localitate, adresa, numărul de
                     telefon dacă există, și apoi vei putea adăuga observații sau comentarii dacă este necesar. </li>
-                <li>Pentru a finaliza procesul apasă pe “Creare”. Dacă vrei să anulezi procesul, apasă pe “Anulare”
+                <li>Pentru a finaliza procesul apasă pe “Creare”. Dacă vrei să anulezi procesul, apasă pe “Renunță”
                 </li>
             </ul>
 
