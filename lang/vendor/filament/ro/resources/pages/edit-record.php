@@ -15,7 +15,7 @@ return [
             ],
 
             'save' => [
-                'label' => 'Salvare',
+                'label' => 'Salvează',
             ],
 
         ],

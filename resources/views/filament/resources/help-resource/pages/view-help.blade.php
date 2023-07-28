@@ -304,7 +304,7 @@
             <ul>
                 <li>Apasă pe “Editează”</li>
                 <li>Modifică orice informație ai nevoie</li>
-                <li>Apasă pe butonul “Salvare” când ai finalizat.</li>
+                <li>Apasă pe butonul “Salvează” când ai finalizat.</li>
             </ul>
 
             <p>Dacă nu ai operat nicio modificare, sau dacă te-ai răzgândit, atunci apasă pe butonul “Anulează”</p>
@@ -327,7 +327,7 @@
                 <li>Adaugi un nou curs sau modul educațional pe care l-ai urmat apăsând butonul “Adaugă studii” din
                     stânga jos. La apăsarea acestui butonul se va insera o nouă secțiune cu câmpuri necompletate pentru
                     a putea introduce informații despre curs/modul. La final, pentru a salva modificările apasă
-                    “Salvare”. Dacă te-ai răzgândit sau dacă ai greșit, apasă “Renunță”. </li>
+                    “Salvează”. Dacă te-ai răzgândit sau dacă ai greșit, apasă “Renunță”. </li>
             </ul>
 
             <img
@@ -348,7 +348,7 @@
                     modul</li>
                 <li>Adaugi un nou Angajator apăsând butonul “Adaugă angajator” din stânga jos. La apăsarea acestui
                     butonul se va insera o nouă secțiune cu câmpuri necompletate pentru a putea introduce informații
-                    despre Angajator. La final, pentru a salva modificările apasă “Salvare”. Dacă te-ai răzgândit sau
+                    despre Angajator. La final, pentru a salva modificările apasă “Salvează”. Dacă te-ai răzgândit sau
                     dacă ai greșit, apasă “Renunță”. </li>
             </ul>
 
@@ -369,7 +369,7 @@
                     modul</li>
                 <li>Adaugi o nouă arie apăsând butonul “Adaugă angajator” din stânga jos. La apăsarea acestui butonul se
                     va insera o nouă secțiune cu câmpuri necompletate pentru a putea introduce informații despre aria
-                    acoperită. La final, pentru a salva modificările apasă “Salvare”. Dacă te-ai răzgândit sau dacă ai
+                    acoperită. La final, pentru a salva modificările apasă “Salvează”. Dacă te-ai răzgândit sau dacă ai
                     greșit, apasă “Renunță”. </li>
             </ul>
 
