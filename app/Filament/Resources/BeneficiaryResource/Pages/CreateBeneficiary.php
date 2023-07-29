@@ -22,6 +22,11 @@ class CreateBeneficiary extends CreateRecord
 
     protected static bool $canCreateAnother = false;
 
+    protected function getTitle(): string
+    {
+        return __('beneficiary.header.create');
+    }
+
     protected function form(Form $form): Form
     {
         return $form
