@@ -27,6 +27,16 @@ class HouseholdResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
+    public static function getModelLabel(): string
+    {
+        return __('household.label.singular');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('household.label.plural');
+    }
+
     public static function form(Form $form): Form
     {
         $beneficiaries = Beneficiary::pluck('full_name', 'id');
