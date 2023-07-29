@@ -19,7 +19,7 @@ class ViewAppointment extends ViewRecord
     protected function getTitle(): string
     {
         $record = $this->getRecord();
-        return __('appointment.header.view').$record->beneficiary->full_name." - ".$record->date->toFormattedDate()." ".$record->start_time;
+        return __('appointment.header.view').sprintf('%s-%s %s',$record->beneficiary->full_name,$record->date->toFormattedDate(),$record->start_time)
     }
 
     protected function form(Form $form): Form
