@@ -48,6 +48,7 @@ class HouseholdResource extends Resource
 
                 Repeater::make('families')
                     ->label(ucfirst(__('family.label.plural')))
+                    ->createItemButtonLabel(__('family.action.create'))
                     ->relationship(callback: function (Builder $query) {
                         $query->with('beneficiaries');
                     })
