@@ -47,6 +47,8 @@ class HouseholdResource extends Resource
                     ->label(__('field.household_name')),
 
                 Repeater::make('families')
+                    ->label(ucfirst(__('family.label.plural')))
+                    ->createItemButtonLabel(__('family.action.create'))
                     ->relationship(callback: function (Builder $query) {
                         $query->with('beneficiaries');
                     })
@@ -55,9 +57,10 @@ class HouseholdResource extends Resource
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('name')
-                            ->label(__('field.family_name')),
+                            ->label(ucfirst(__('field.family_name'))),
 
                         Select::make('beneficiaries')
+                            ->label(__('beneficiary.label.plural'))
                             ->options($beneficiaries)
                             ->searchable()
                             ->multiple()
