@@ -16,6 +16,12 @@ class ViewAppointment extends ViewRecord
 {
     protected static string $resource = AppointmentResource::class;
 
+    protected function getTitle(): string
+    {
+        $record = $this->getRecord();
+        return __('appointment.header.view').$record->beneficiary->full_name;
+    }
+
     protected function form(Form $form): Form
     {
         return $form

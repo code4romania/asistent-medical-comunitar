@@ -9,6 +9,10 @@ return [
         'plural' => 'Programări',
     ],
 
+    'header' => [
+        'view' => 'Programare '
+    ],
+
     'section' => [
         'mandatory' => 'Detalii obligatorii',
         'additional' => 'Detalii adiționale',
