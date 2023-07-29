@@ -12,6 +12,7 @@ return [
     'header' => [
         'id' => 'Date identificare',
         'list' => 'Listă beneficiari',
+        'create' => 'Adăugare beneficiar'
     ],
 
     'status' => [
