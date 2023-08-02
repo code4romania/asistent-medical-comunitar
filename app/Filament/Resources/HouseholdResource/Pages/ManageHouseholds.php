@@ -80,6 +80,6 @@ class ManageHouseholds extends ManageRecords implements WithTabs
                         'beneficiary_id',
                     ]);
                 },
-            ]);
+            ])->orderBy('created_at', 'desc');
     }
 }
