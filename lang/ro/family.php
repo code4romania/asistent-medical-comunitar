@@ -6,13 +6,11 @@ return [
 
     'label' => [
         'singular' => 'familie',
-        'plural' => 'familii',
+        'plural' => 'Familii',
     ],
+
     'action' => [
         'create' => 'Adaugă încă o familie',
     ],
-
-    'empty_families' => 'Nicio familie înregistrată în gospodărie',
-    'empty_beneficiaries' => 'Niciun beneficiar înregistrat în familie',
 
 ];

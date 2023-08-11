@@ -10,7 +10,7 @@ return [
     ],
 
     'header' => [
-        'view' => 'Programare '
+        'view' => 'Programare :beneficiary - :date, :start_time',
     ],
 
     'section' => [
