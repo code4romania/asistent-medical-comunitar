@@ -36,6 +36,7 @@ return [
     'empty' => [
         'title' => 'Nicio intervenție deschisă',
         'create' => 'Deschide intervenție',
+        'description' => 'Realizează catagrafia beneficiarului, pentru a putea deschide intervenții.',
     ],
 
     'type' => [
