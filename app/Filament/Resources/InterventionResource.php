@@ -10,9 +10,9 @@ use App\Filament\Forms\Components\Radio;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
+use App\Models\Catagraphy;
 use App\Models\Intervention;
 use App\Models\Service\Service;
-use App\Models\Vulnerability\Vulnerability;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -20,6 +20,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class InterventionResource extends Resource
 {
@@ -45,9 +47,6 @@ class InterventionResource extends Resource
 
     public static function getCaseFormSchema(int $columns = 2): array
     {
-        $vulnerabilities = Vulnerability::cachedList()
-            ->pluck('name', 'id');
-
         return [
             Subsection::make()
                 ->icon('heroicon-o-document-text')
@@ -69,11 +68,10 @@ class InterventionResource extends Resource
                         ->required(),
 
                     Select::make('vulnerability')
-                        ->relationship('vulnerability', 'name')
                         ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
-                        ->options($vulnerabilities)
-                        ->in($vulnerabilities->keys())
+                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire))
+                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire)?->keys())
                         ->searchable()
                         ->required(),
 
@@ -98,9 +96,6 @@ class InterventionResource extends Resource
 
     public static function getIndividualServiceFormSchema(): array
     {
-        $vulnerabilities = Vulnerability::cachedList()
-            ->pluck('name', 'id');
-
         $services = Service::cachedList()
             ->pluck('name', 'id');
 
@@ -115,12 +110,12 @@ class InterventionResource extends Resource
                         ->searchable(),
 
                     Select::make('vulnerability')
-                        ->relationship('vulnerability', 'name')
                         ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
-                        ->options($vulnerabilities)
-                        ->in($vulnerabilities->keys())
-                        ->searchable(),
+                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire))
+                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire)?->keys())
+                        ->searchable()
+                        ->preload(),
 
                     Select::make('interventionable.status')
                         ->label(__('field.status'))
@@ -150,5 +145,25 @@ class InterventionResource extends Resource
                         ->label(__('field.outside_working_hours')),
                 ]),
         ];
+    }
+
+    protected static function getValidVulnerabilities($livewire): Collection | null
+    {
+        $beneficiary = $livewire->getBeneficiary();
+
+        return Cache::driver('array')
+            ->remember(
+                "valid-vulnerabilities-beneficiary-{$beneficiary->id}",
+                MINUTE_IN_SECONDS,
+                fn () => Catagraphy::whereBeneficiary($beneficiary)
+                    ->first()
+                    ?->all_valid_vulnerabilities
+                    ->pluck('name', 'id')
+            );
+    }
+
+    public static function hasValidVulnerabilities($livewire): bool
+    {
+        return static::getValidVulnerabilities($livewire)?->isNotEmpty() ?? false;
     }
 }

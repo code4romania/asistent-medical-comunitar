@@ -37,5 +37,7 @@ class CreateIndividualServiceAction extends CreateAction
         });
 
         $this->form(InterventionResource::getIndividualServiceFormSchema());
+
+        $this->disabled(fn ($livewire) => ! InterventionResource::hasValidVulnerabilities($livewire));
     }
 }

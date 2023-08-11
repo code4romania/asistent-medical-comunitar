@@ -37,5 +37,7 @@ class CreateCaseAction extends CreateAction
         });
 
         $this->form(InterventionResource::getCaseFormSchema());
+
+        $this->disabled(fn ($livewire) => ! InterventionResource::hasValidVulnerabilities($livewire));
     }
 }
