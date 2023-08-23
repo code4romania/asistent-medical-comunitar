@@ -41,6 +41,7 @@ class ActiveInterventionsWidget extends BaseWidget
     protected function getTableQuery(): Builder
     {
         return Intervention::query()
+            ->where('beneficiary_id', request()->record)
             ->onlyOpen();
     }
 
