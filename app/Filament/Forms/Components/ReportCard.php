@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Forms\Components;
 
-use App\Filament\Resources\InterventionResource\Actions\SaveReportAction;
+use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Models\Report;
 use Filament\Pages\Actions\Action;
 
