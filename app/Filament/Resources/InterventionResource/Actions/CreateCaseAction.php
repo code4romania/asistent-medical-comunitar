@@ -25,6 +25,8 @@ class CreateCaseAction extends CreateAction
 
         $this->icon('heroicon-o-folder-add');
 
+        $this->groupedIcon(null);
+
         $this->disableCreateAnother();
 
         $this->using(function (array $data, $livewire) {

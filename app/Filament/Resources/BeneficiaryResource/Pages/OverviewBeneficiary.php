@@ -18,7 +18,10 @@ use Filament\Resources\Pages\ViewRecord;
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
 {
     use Concerns\CommonViewFormSchema;
-    use Concerns\HasActions;
+    use Concerns\HasActions {
+        getActions as getActionsFromTrait;
+    }
+
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasSidebar;
 
@@ -33,6 +36,10 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
     protected function getActions(): array
     {
+        if ($this->getRecord()->isRegular()) {
+            return $this->getActionsFromTrait();
+        }
+
         return [
             ConvertOcasionalBeneficiaryAction::make()
                 ->record($this->getRecord()),
