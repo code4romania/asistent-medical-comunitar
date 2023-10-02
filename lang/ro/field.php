@@ -22,7 +22,6 @@ return [
     'beneficiary_notes' => 'Notițe despre beneficiar',
     'beneficiary_type' => 'Tip beneficiar',
     'beneficiary' => 'Beneficiar',
-    'case_management_type' => 'Tip management de caz',
     'cat_diz_am' => 'Alte mențiuni',
     'cat_diz_cdx' => 'Cod diagnostic',
     'cat_diz_deb' => 'Debut',
