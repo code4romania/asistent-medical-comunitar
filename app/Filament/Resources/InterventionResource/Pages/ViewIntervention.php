@@ -67,12 +67,13 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('intervention.summary'))
-                    ->componentActions(fn ($record) => [
+                    ->componentActions(fn (Intervention $record) => auth()->user()->can('update', $record) ? [
                         Action::make('edit')
                             ->label(__('intervention.action.edit'))
                             ->url(BeneficiaryResource::getUrl('interventions.edit', [$this->getBeneficiary(), $this->getRecord()]))
                             ->color('secondary'),
-                    ])
+                    ]
+                    : [])
                     ->columns(3)
                     ->schema(
                         fn (Intervention $record) => $record->isCase()
@@ -165,7 +166,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             //     ->disabled(),
 
             ToggleCaseStatusAction::make()
-                ->visible(fn ($record) => $record->isCase())
+                ->visible(fn ($record) => $record->isCase() && ! $record->interventionable->is_imported)
                 ->record($this->getRecord()),
 
         ];

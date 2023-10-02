@@ -22,7 +22,8 @@ class InterventionPolicy
      */
     public function view(User $user, Intervention $intervention): bool
     {
-        return $user->isNurse() && $user->beneficiaries->contains('id', $intervention->beneficiary_id);
+        return $user->isNurse()
+            && $user->beneficiaries->contains('id', $intervention->beneficiary_id);
     }
 
     /**
@@ -38,7 +39,9 @@ class InterventionPolicy
      */
     public function update(User $user, Intervention $intervention): bool
     {
-        return $user->isNurse() && $user->beneficiaries->contains('id', $intervention->beneficiary_id);
+        return $user->isNurse()
+            && $user->beneficiaries->contains('id', $intervention->beneficiary_id)
+            && $intervention->isOpen();
     }
 
     /**
