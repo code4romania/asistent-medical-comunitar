@@ -113,6 +113,11 @@ class Beneficiary extends Model
             });
     }
 
+    public function hasCatagraphy(): bool
+    {
+        return $this->catagraphy->created_at !== null;
+    }
+
     public function scopeOnlyRegular(Builder $query): Builder
     {
         return $query->where('type', Type::REGULAR);

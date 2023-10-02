@@ -6,6 +6,7 @@ namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
+use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Actions;
@@ -15,6 +16,7 @@ use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Layout;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -70,7 +72,35 @@ class ListInterventions extends ListRecords implements WithSidebar
 
     protected function getTableEmptyStateHeading(): ?string
     {
-        return __('intervention.empty.title');
+        if ($this->getBeneficiary()->hasCatagraphy()) {
+            return __('intervention.empty.title');
+        }
+
+        return __('catagraphy.vulnerability.empty.title');
+    }
+
+    protected function getTableEmptyStateDescription(): ?string
+    {
+        if ($this->getBeneficiary()->hasCatagraphy()) {
+            return null;
+        }
+
+        return __('intervention.empty.description');
+    }
+
+    protected function getTableEmptyStateActions(): array
+    {
+        if ($this->getBeneficiary()->hasCatagraphy()) {
+            return [];
+        }
+
+        return [
+            TableAction::make('create')
+                ->label(__('catagraphy.vulnerability.empty.create'))
+                ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
+                ->button()
+                ->color('secondary'),
+        ];
     }
 
     protected function table(Table $table): Table

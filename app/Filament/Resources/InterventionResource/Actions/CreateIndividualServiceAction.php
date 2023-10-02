@@ -33,9 +33,13 @@ class CreateIndividualServiceAction extends CreateAction
             return $interventionable->intervention()->create([
                 'beneficiary_id' => $livewire->getBeneficiary()?->id,
                 'vulnerability_id' => $data['vulnerability'],
+                'integrated' => $data['integrated'],
+                'notes' => $data['notes'],
             ]);
         });
 
         $this->form(InterventionResource::getIndividualServiceFormSchema());
+
+        $this->disabled(fn ($livewire) => ! InterventionResource::hasValidVulnerabilities($livewire));
     }
 }

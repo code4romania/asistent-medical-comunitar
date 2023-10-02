@@ -87,7 +87,7 @@ class Catagraphy extends Model
         activity('vulnerabilities')
             ->causedBy($activity->causer)
             ->performedOn($beneficiary)
-            ->withProperties($this->all_valid_vulnerabilities)
+            ->withProperties($this->all_valid_vulnerabilities->pluck('id'))
             ->event($eventName)
             ->log($eventName);
     }
@@ -175,9 +175,10 @@ class Catagraphy extends Model
     public function allValidVulnerabilities(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->all_vulnerabilities
-                ->filter(fn ($code) => Vulnerability::isValidCode($code))
-                ->values()
+            get: fn () => Vulnerability::query()
+                ->whereIn('id', $this->all_vulnerabilities->all())
+                ->whereIsValid()
+                ->get()
         )->shouldCache();
     }
 }

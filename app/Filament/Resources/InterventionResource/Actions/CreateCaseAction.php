@@ -28,14 +28,18 @@ class CreateCaseAction extends CreateAction
         $this->disableCreateAnother();
 
         $this->using(function (array $data, $livewire) {
-            $interventionable = InterventionableCase::create($data);
+            $interventionable = InterventionableCase::create($data['interventionable']);
 
             return $interventionable->intervention()->create([
                 'beneficiary_id' => $livewire->getBeneficiary()?->id,
                 'vulnerability_id' => $data['vulnerability'],
+                'integrated' => $data['integrated'],
+                'notes' => $data['notes'],
             ]);
         });
 
         $this->form(InterventionResource::getCaseFormSchema());
+
+        $this->disabled(fn ($livewire) => ! InterventionResource::hasValidVulnerabilities($livewire));
     }
 }
