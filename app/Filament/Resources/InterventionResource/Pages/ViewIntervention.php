@@ -38,14 +38,10 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 
     public function getTitle(): string
     {
-        return __(
-            sprintf(
-                'intervention.title.%s',
-                $this->getRecord()->interventionable_type
-            ),
-            [
-                'name' => $this->getRecord()->name,
-            ]
+        return sprintf(
+            '%s: %s',
+            $this->getRecord()->type,
+            $this->getRecord()->name
         );
     }
 
