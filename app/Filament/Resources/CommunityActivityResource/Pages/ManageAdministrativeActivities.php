@@ -77,6 +77,7 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                 Tables\Actions\DeleteAction::make()
                     ->recordTitle(__('community_activity.type.administrative'))
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }

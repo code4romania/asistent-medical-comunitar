@@ -91,6 +91,7 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
                 Tables\Actions\DeleteAction::make()
                     ->recordTitle(__('community_activity.type.environment'))
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }
