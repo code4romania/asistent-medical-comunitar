@@ -53,6 +53,7 @@ class ConvertOcasionalBeneficiaryAction extends Action
                     ]);
 
                     $case = $interventionable->intervention()->create([
+                        'closed_at' => now(),
                         'beneficiary_id' => $beneficiary->id,
                         'vulnerability_id' => 'NONE',
                     ]);
