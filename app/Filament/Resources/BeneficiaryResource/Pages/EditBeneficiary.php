@@ -56,4 +56,9 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
     {
         return [];
     }
+
+    protected function getActions(): array
+    {
+        return [];
+    }
 }
