@@ -25,6 +25,8 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->icon('heroicon-o-plus-circle');
 
+        $this->groupedIcon(null);
+
         $this->disableCreateAnother();
 
         $this->using(function (array $data, $livewire) {
