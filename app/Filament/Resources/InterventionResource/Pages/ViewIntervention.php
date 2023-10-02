@@ -166,7 +166,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             //     ->disabled(),
 
             ToggleCaseStatusAction::make()
-                ->visible(fn ($record) => $record->isCase())
+                ->visible(fn ($record) => $record->isCase() && ! $record->interventionable->is_imported)
                 ->record($this->getRecord()),
 
         ];

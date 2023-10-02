@@ -142,7 +142,8 @@ class InterventionsRelationManager extends RelationManager
                             'parent_id' => $livewire->getOwnerRecord()->id,
                             'beneficiary_id' => $livewire->getOwnerRecord()->beneficiary_id,
                         ]);
-                    }),
+                    })
+                    ->visible(fn ($livewire) => auth()->user()->can('update', $livewire->getOwnerRecord())),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
