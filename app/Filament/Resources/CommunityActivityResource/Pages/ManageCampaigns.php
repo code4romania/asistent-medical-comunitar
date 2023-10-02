@@ -97,6 +97,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                 Tables\Actions\DeleteAction::make()
                     ->recordTitle(__('community_activity.type.campaign'))
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }
