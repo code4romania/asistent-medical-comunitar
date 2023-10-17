@@ -22,7 +22,7 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment): bool
     {
-        return true;
+        return $user->isNurse() && $appointment->nurse_id === $user->id;
     }
 
     /**
@@ -30,7 +30,7 @@ class AppointmentPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isNurse();
     }
 
     /**
@@ -38,7 +38,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment): bool
     {
-        return true;
+        return $user->isNurse() && $appointment->nurse_id === $user->id;
     }
 
     /**
@@ -46,7 +46,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment): bool
     {
-        return true;
+        return $user->isNurse() && $appointment->nurse_id === $user->id;
     }
 
     /**
@@ -54,7 +54,7 @@ class AppointmentPolicy
      */
     public function restore(User $user, Appointment $appointment): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -62,6 +62,6 @@ class AppointmentPolicy
      */
     public function forceDelete(User $user, Appointment $appointment): bool
     {
-        return true;
+        return false;
     }
 }

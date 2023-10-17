@@ -9,6 +9,7 @@ use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\AppointmentResource;
 use Filament\Forms\Components\Grid;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -23,6 +24,13 @@ class ViewAppointment extends ViewRecord
             'date' => $this->getRecord()->date->toFormattedDate(),
             'start_time' => $this->getRecord()->start_time,
         ]);
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            DeleteAction::make(),
+        ];
     }
 
     protected function form(Form $form): Form
