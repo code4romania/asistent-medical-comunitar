@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [
         laravel({
             refresh: true,
-            valetTls: 'amc.test',
+            detectTls: 'amc.test',
             input: ['resources/css/app.css', 'resources/js/app.js'],
         }),
     ],
