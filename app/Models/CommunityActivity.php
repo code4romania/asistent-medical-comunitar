@@ -53,4 +53,9 @@ class CommunityActivity extends Model
             ? __('community_activity.hour.outside_working_hours')
             : __('community_activity.hour.within_working_hours');
     }
+
+    public function getTitleAttribute(): string
+    {
+        return $this->name . ' ' . $this->date->toFormattedDate();
+    }
 }
