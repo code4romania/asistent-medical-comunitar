@@ -22,7 +22,7 @@ trait HasActions
                     ->using(function (array $data) {
                         $data['type'] = CommunityActivityType::CAMPAIGN;
 
-                        CommunityActivity::create($data);
+                        return CommunityActivity::create($data);
                     })
                     ->label(__('community_activity.action.create_campaign'))
                     ->modalHeading(__('community_activity.action.create_campaign'))
@@ -34,7 +34,7 @@ trait HasActions
                     ->using(function (array $data) {
                         $data['type'] = CommunityActivityType::ENVIRONMENT;
 
-                        CommunityActivity::create($data);
+                        return CommunityActivity::create($data);
                     })
                     ->label(__('community_activity.action.create_environment'))
                     ->modalHeading(__('community_activity.action.create_environment'))
@@ -46,7 +46,7 @@ trait HasActions
                     ->using(function (array $data) {
                         $data['type'] = CommunityActivityType::ADMINISTRATIVE;
 
-                        CommunityActivity::create($data);
+                        return CommunityActivity::create($data);
                     })
                     ->label(__('community_activity.action.create_administrative'))
                     ->modalHeading(__('community_activity.action.create_administrative'))
