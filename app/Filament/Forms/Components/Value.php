@@ -29,6 +29,10 @@ class Value extends Component
 
     protected string | Htmlable | Closure | null $fallback = null;
 
+    protected string | Htmlable | Closure | null $url = null;
+
+    protected bool | Closure $shouldOpenUrlInNewTab = false;
+
     protected $withTime = false;
 
     protected array $boolean = [];
@@ -62,6 +66,31 @@ class Value extends Component
         ];
 
         return $this;
+    }
+
+    public function url(string | Closure | null $url, bool | Closure $shouldOpenInNewTab = false): static
+    {
+        $this->shouldOpenUrlInNewTab = $shouldOpenInNewTab;
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->evaluate($this->url);
+    }
+
+    public function openUrlInNewTab(bool | Closure $condition = true): static
+    {
+        $this->shouldOpenUrlInNewTab = $condition;
+
+        return $this;
+    }
+
+    public function shouldOpenUrlInNewTab(): bool
+    {
+        return (bool) $this->evaluate($this->shouldOpenUrlInNewTab);
     }
 
     public function fallback(string | Htmlable | Closure | null $fallback): static
@@ -109,6 +138,19 @@ class Value extends Component
         }
 
         if (! $content->isEmpty()) {
+            if (null !== ($url = $this->getUrl())) {
+                $content = Str::of($content)
+                    ->wrap(
+                        sprintf(
+                            '<a href="%s"%s class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-primary-600 hover:text-primary-500">',
+                            $url,
+                            $this->shouldOpenUrlInNewTab() ? ' target="_blank" rel="noopener"' : '',
+                        ),
+                        '</a>'
+                    )
+                    ->toHtmlString();
+            }
+
             return $content;
         }
 

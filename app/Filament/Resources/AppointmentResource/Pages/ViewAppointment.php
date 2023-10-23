@@ -8,6 +8,8 @@ use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\AppointmentResource;
+use App\Filament\Resources\BeneficiaryResource;
+use App\Models\Appointment;
 use Filament\Forms\Components\Grid;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Form;
@@ -49,7 +51,8 @@ class ViewAppointment extends ViewRecord
                                     ->label(__('field.id')),
 
                                 Value::make('beneficiary.full_name')
-                                    ->label(__('field.beneficiary')),
+                                    ->label(__('field.beneficiary'))
+                                    ->url(fn (Appointment $record) => BeneficiaryResource::geturl('view', $record->beneficiary)),
 
                                 Grid::make(4)
                                     ->columnSpanFull()
