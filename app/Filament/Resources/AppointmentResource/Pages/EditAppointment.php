@@ -18,4 +18,9 @@ class EditAppointment extends EditRecord implements FixedActionBar
             //
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('view', $this->getRecord());
+    }
 }
