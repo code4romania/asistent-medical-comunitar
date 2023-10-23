@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Enums\CommunityActivityType;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Filament\Tables\Columns\TextColumn;
+use App\Models\CommunityActivity;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -91,6 +93,18 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
                 Tables\Actions\DeleteAction::make()
                     ->recordTitle(__('community_activity.type.environment'))
                     ->iconButton(),
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->form(CommunityActivityResource::getEnvironmentEditFormSchema())
+                    ->using(function (array $data) {
+                        $data['type'] = CommunityActivityType::ENVIRONMENT;
+
+                        return CommunityActivity::create($data);
+                    })
+                    ->label(__('community_activity.action.create_environment'))
+                    ->modalHeading(__('community_activity.action.create_environment'))
+                    ->disableCreateAnother(),
             ])
             ->defaultSort('id', 'desc');
     }

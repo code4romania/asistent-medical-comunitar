@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Enums\CommunityActivityType;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Filament\Tables\Columns\TextColumn;
+use App\Models\CommunityActivity;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -97,6 +99,18 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                 Tables\Actions\DeleteAction::make()
                     ->recordTitle(__('community_activity.type.campaign'))
                     ->iconButton(),
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->form(CommunityActivityResource::getCampaignEditFormSchema())
+                    ->using(function (array $data) {
+                        $data['type'] = CommunityActivityType::CAMPAIGN;
+
+                        return CommunityActivity::create($data);
+                    })
+                    ->label(__('community_activity.action.create_campaign'))
+                    ->modalHeading(__('community_activity.action.create_campaign'))
+                    ->disableCreateAnother(),
             ])
             ->defaultSort('id', 'desc');
     }
