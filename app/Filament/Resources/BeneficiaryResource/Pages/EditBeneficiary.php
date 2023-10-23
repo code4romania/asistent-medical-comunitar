@@ -61,4 +61,13 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
     {
         return [];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        if ($this->getRecord()->isRegular()) {
+            return static::getResource()::getUrl('personal_data', $this->getRecord());
+        }
+
+        return static::getResource()::getUrl('view', $this->getRecord());
+    }
 }
