@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Enums\CommunityActivityType;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Filament\Tables\Columns\TextColumn;
+use App\Models\CommunityActivity;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -66,17 +68,29 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->form(CommunityActivityResource::getAdministrativeViewFormSchema())
-                    ->recordTitle(__('community_activity.type.administrative'))
+                    ->modalHeading(fn (CommunityActivity $record) => $record->title)
                     ->iconButton(),
 
                 Tables\Actions\EditAction::make()
                     ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
-                    ->recordTitle(__('community_activity.type.administrative'))
+                    ->modalHeading(fn (CommunityActivity $record) => $record->title)
                     ->iconButton(),
 
                 Tables\Actions\DeleteAction::make()
-                    ->recordTitle(__('community_activity.type.administrative'))
+                    ->modalHeading(fn (CommunityActivity $record) => $record->title)
                     ->iconButton(),
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
+                    ->using(function (array $data) {
+                        $data['type'] = CommunityActivityType::ADMINISTRATIVE;
+
+                        return CommunityActivity::create($data);
+                    })
+                    ->label(__('community_activity.action.create_administrative'))
+                    ->modalHeading(__('community_activity.action.create_administrative'))
+                    ->disableCreateAnother(),
             ])
             ->defaultSort('id', 'desc');
     }
