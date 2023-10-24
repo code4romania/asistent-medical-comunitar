@@ -43,7 +43,10 @@ class YearPicker extends Select
 
     protected function setUp(): void
     {
-        $this->options(range($this->getMaxYear(), $this->getMinYear()));
+        // Options must be key => value pairs, not just value.
+        $range = range($this->getMinYear(), $this->getMaxYear());
+
+        $this->options(array_combine($range, $range));
 
         parent::setUp();
     }
