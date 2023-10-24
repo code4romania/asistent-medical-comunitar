@@ -81,6 +81,7 @@ class NurseStatsWidget extends BaseWidget
             ->trend(
                 Intervention::select(static::countsComparedBy('closed_at'))
                     ->onlyIndividualServices()
+                    ->onlyRealized()
                     ->toBase()
                     ->first()
             );
