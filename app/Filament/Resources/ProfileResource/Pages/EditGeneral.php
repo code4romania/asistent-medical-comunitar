@@ -9,8 +9,8 @@ use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 
@@ -80,11 +80,20 @@ class EditGeneral extends EditRecord
                             ->placeholder(__('placeholder.accreditation_number'))
                             ->nullable()
                             ->maxLength(200),
+
                         DatePicker::make('accreditation_date')
                             ->label(__('field.accreditation_date'))
                             ->placeholder(__('placeholder.date')),
-                        FileUpload::make('accreditation_document')
+
+                        SpatieMediaLibraryFileUpload::make('accreditation_document')
                             ->label(__('field.accreditation_document'))
+                            ->collection('accreditation_document')
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'image/jpeg',
+                                'image/png',
+                            ])
+                            ->maxSize(512 * 1024 * 10)
                             ->columnSpanFull(),
                     ]),
             ]);

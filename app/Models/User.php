@@ -23,14 +23,17 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements FilamentUser, HasName
+class User extends Authenticatable implements FilamentUser, HasName, HasMedia
 {
     use CausesActivity;
     use HasApiTokens;
     use HasFactory;
     use HasLocation;
     use HasRole;
+    use InteractsWithMedia;
     use LogsActivity;
     use MustSetInitialPassword;
     use Notifiable;
@@ -68,6 +71,12 @@ class User extends Authenticatable implements FilamentUser, HasName
         'gender' => Gender::class,
         'date_of_birth' => 'date',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('accreditation_document')
+            ->singleFile();
+    }
 
     public function canAccessFilament(): bool
     {
