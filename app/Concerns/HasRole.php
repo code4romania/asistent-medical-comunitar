@@ -27,6 +27,16 @@ trait HasRole
         return $this->role === UserRole::ADMIN;
     }
 
+    public function isCoordinator(): bool
+    {
+        return $this->role === UserRole::COORDINATOR;
+    }
+
+    public function isMediator(): bool
+    {
+        return $this->role === UserRole::MEDIATOR;
+    }
+
     public function isNurse(): bool
     {
         return $this->role === UserRole::NURSE;
