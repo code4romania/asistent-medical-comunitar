@@ -12,7 +12,7 @@
 
     <x-tabs
         :tabs="$this->getTabs()"
-        :actions="$this->getActions()"
+        :actions="$this->getCachedActions()"
     >
         {{ $this->form }}
     </x-tabs>

@@ -15,6 +15,7 @@ _ide_helper.php
 .env
 .env.backup
 .env.production
+.phpactor.json
 .php_cs.cache
 .php-cs-fixer.cache
 .php-cs-fixer.php

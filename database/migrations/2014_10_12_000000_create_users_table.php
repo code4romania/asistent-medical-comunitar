@@ -41,7 +41,7 @@ return new class extends Migration
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();
 
-            $table->string('accreditation_number', 50)->nullable();
+            $table->string('accreditation_number')->nullable();
             $table->date('accreditation_date')->nullable();
         });
     }
