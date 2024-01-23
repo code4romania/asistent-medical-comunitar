@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('status')->nullable();
 
-            $table->string('cnp', 13)->nullable()->unique();
+            $table->string('cnp')->nullable();
             $table->string('id_type')->nullable();
             $table->string('id_serial')->nullable();
             $table->string('id_number')->nullable();

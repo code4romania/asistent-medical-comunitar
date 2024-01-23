@@ -37,6 +37,12 @@ class UserResource extends Resource
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('username')
+                    ->label(__('field.username'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 TextColumn::make('first_name')
                     ->label(__('field.first_name'))
                     ->sortable()
