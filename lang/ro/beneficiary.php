@@ -49,6 +49,7 @@ return [
         'households' => 'Gospodării',
         'personal_data' => 'Date personale',
         'active_interventions' => 'Intervenții active',
+        'documents' => 'Arhivă documente',
         'catagraphy' => 'Catagrafie',
         'program' => 'Program AMC',
     ],

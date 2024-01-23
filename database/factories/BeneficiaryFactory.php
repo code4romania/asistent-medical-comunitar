@@ -12,6 +12,7 @@ use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\City;
+use App\Models\Document;
 use App\Models\Family;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableCase;
@@ -127,6 +128,11 @@ class BeneficiaryFactory extends Factory
                                 $interventions->random(fake()->numberBetween(1, $interventions->count()))
                             );
                         })
+                        ->create();
+
+                    Document::factory()
+                        ->for($beneficiary)
+                        ->count(fake()->randomDigitNotNull())
                         ->create();
                 }
             });

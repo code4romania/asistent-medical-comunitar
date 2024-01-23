@@ -10,6 +10,7 @@ use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
+use App\Filament\Resources\DocumentResource\Pages as DocumentPages;
 use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
 use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
@@ -142,6 +143,10 @@ class BeneficiaryResource extends Resource
             'interventions.index' => InterventionPages\ListInterventions::route('/{beneficiary}/interventions'),
             'interventions.view' => InterventionPages\ViewIntervention::route('/{beneficiary}/interventions/{record}'),
             'interventions.edit' => InterventionPages\EditIntervention::route('/{beneficiary}/interventions/{record}/edit'),
+
+            'documents.index' => DocumentPages\ListDocuments::route('/{beneficiary}/documents'),
+            'documents.view' => DocumentPages\ViewDocument::route('/{beneficiary}/documents/{record}'),
+            'documents.edit' => DocumentPages\EditDocument::route('/{beneficiary}/documents/{record}/edit'),
 
             'history' => Pages\ListHistory::route('/{record}/history'),
         ];
