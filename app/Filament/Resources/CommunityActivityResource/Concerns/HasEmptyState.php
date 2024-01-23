@@ -1,0 +1,80 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Resources\CommunityActivityResource\Concerns;
+
+use App\Concerns\HasConditionalTableEmptyState;
+use App\Enums\CommunityActivityType;
+use App\Filament\Resources\CommunityActivityResource;
+use App\Filament\Resources\CommunityActivityResource\Pages\ManageAdministrativeActivities;
+use App\Filament\Resources\CommunityActivityResource\Pages\ManageCampaigns;
+use App\Filament\Resources\CommunityActivityResource\Pages\ManageEnvironmentActivities;
+use App\Models\CommunityActivity;
+use Filament\Tables\Actions\CreateAction;
+
+trait HasEmptyState
+{
+    use HasConditionalTableEmptyState;
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
+        return __('community_activity.empty.title');
+    }
+
+    protected function getTableEmptyStateDescription(): ?string
+    {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
+        return __('community_activity.empty.description');
+    }
+
+    protected function getTableEmptyStateActions(): array
+    {
+        return [
+            CreateAction::make()
+                ->label(fn ($livewire) => match (\get_class($livewire)) {
+                    ManageCampaigns::class => __('community_activity.action.create_campaign'),
+                    ManageEnvironmentActivities::class => __('community_activity.action.create_environment'),
+                    ManageAdministrativeActivities::class => __('community_activity.action.create_administrative'),
+                })
+                ->modalHeading(fn ($livewire) => match (\get_class($livewire)) {
+                    ManageCampaigns::class => __('community_activity.action.create_campaign'),
+                    ManageEnvironmentActivities::class => __('community_activity.action.create_environment'),
+                    ManageAdministrativeActivities::class => __('community_activity.action.create_administrative'),
+                })
+                ->form(fn ($livewire) => match (\get_class($livewire)) {
+                    ManageCampaigns::class => CommunityActivityResource::getCampaignEditFormSchema(),
+                    ManageEnvironmentActivities::class => CommunityActivityResource::getEnvironmentEditFormSchema(),
+                    ManageAdministrativeActivities::class => CommunityActivityResource::getAdministrativeEditFormSchema(),
+                })
+                ->using(function (array $data, $livewire) {
+                    $data['type'] = match (\get_class($livewire)) {
+                        ManageCampaigns::class => CommunityActivityType::CAMPAIGN,
+                        ManageEnvironmentActivities::class => CommunityActivityType::ENVIRONMENT,
+                        ManageAdministrativeActivities::class => CommunityActivityType::ADMINISTRATIVE,
+                    };
+
+                    return CommunityActivity::create($data);
+                })
+                ->button()
+                ->color('secondary')
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
+        ];
+    }
+}

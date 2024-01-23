@@ -39,6 +39,11 @@ return [
         'description' => 'Realizează catagrafia beneficiarului, pentru a putea deschide intervenții.',
     ],
 
+    'empty_active' => [
+        'title' => 'Nicio intervenție activă',
+        'create' => 'Deschide intervenție',
+    ],
+
     'type' => [
         'individual' => 'Serviciu individual',
         'case' => 'Management de caz',
