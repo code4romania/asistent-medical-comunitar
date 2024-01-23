@@ -93,6 +93,7 @@ return [
     'study_name' => 'Denumire studii',
     'study_type' => 'Tip studii',
     'type' => 'Tip',
+    'username' => 'Nume utilizator',
     'vulnerabilities' => 'Vulnerabilități',
     'vulnerability' => 'Vulnerabilitate',
     'work_status' => 'Încadrat în muncă',
