@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use App\Filament\Forms\Components\Value;
 use Filament\Forms\Components\TextInput;
 use JeffGreco13\FilamentBreezy\Pages\MyProfile;
 
@@ -27,8 +26,9 @@ class Settings extends MyProfile
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-            Value::make('username')
-                ->label(__('field.username')),
+            TextInput::make('username')
+                ->label(__('field.username'))
+                ->disabled(),
 
             TextInput::make('email')
                 ->required()

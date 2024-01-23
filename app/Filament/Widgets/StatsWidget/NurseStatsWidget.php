@@ -12,6 +12,7 @@ use App\Models\Beneficiary;
 use App\Models\Intervention;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Tpetry\QueryExpressions\Function\Aggregate\CountFilter;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
 use Tpetry\QueryExpressions\Operator\Comparison\Between;
 use Tpetry\QueryExpressions\Value\Value;
@@ -106,8 +107,21 @@ class NurseStatsWidget extends BaseWidget
         $twoMonthsAgo = today()->subMonths(2)->toDateString();
 
         return [
-            new Alias(new CountFilter(new Between($column, new Value($oneMonthAgo), new Value($today))), 'current'),
-            new Alias(new CountFilter(new Between($column, new Value($twoMonthsAgo), new Value($oneMonthAgo))), 'previous'),
+            new Alias(
+                new Coalesce([
+                    new CountFilter(new Between($column, new Value($oneMonthAgo), new Value($today))),
+                    new Value(0),
+                ]),
+                'current'
+            ),
+
+            new Alias(
+                new Coalesce([
+                    new CountFilter(new Between($column, new Value($twoMonthsAgo), new Value($oneMonthAgo))),
+                    new Value(0),
+                ]),
+                'previous'
+            ),
         ];
     }
 }
