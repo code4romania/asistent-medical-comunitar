@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine as vendor
+FROM php:8.2-fpm-alpine AS vendor
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
@@ -33,7 +33,7 @@ RUN composer install \
     --no-dev \
     --prefer-dist
 
-FROM node:18-alpine as assets
+FROM node:20-alpine AS assets
 
 WORKDIR /build
 
@@ -53,7 +53,7 @@ RUN npm run build
 
 FROM vendor
 
-ARG S6_OVERLAY_VERSION=3.1.4.1
+ARG S6_OVERLAY_VERSION=3.1.6.2
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz

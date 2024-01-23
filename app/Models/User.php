@@ -44,6 +44,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'first_name',
         'last_name',
         'email',
@@ -54,6 +55,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         'phone',
         'accreditation_number',
         'accreditation_date',
+        'notes',
     ];
 
     /**

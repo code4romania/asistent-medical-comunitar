@@ -25,6 +25,11 @@ class EditGeneral extends EditRecord
                     ->icon('heroicon-o-user')
                     ->columns(2)
                     ->schema([
+                        TextInput::make('username')
+                            ->label(__('field.username'))
+                            ->unique(ignoreRecord: true)
+                            ->maxLength(50)
+                            ->required(),
                         TextInput::make('first_name')
                             ->label(__('field.first_name'))
                             ->placeholder(__('placeholder.first_name'))
@@ -60,6 +65,7 @@ class EditGeneral extends EditRecord
                         TextInput::make('email')
                             ->label(__('field.email'))
                             ->placeholder(__('placeholder.email'))
+                            ->unique(ignoreRecord: true)
                             ->email()
                             ->maxLength(200)
                             ->required(),

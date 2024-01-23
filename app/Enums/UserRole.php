@@ -12,5 +12,7 @@ enum UserRole: string
     use Concerns\Enums\Comparable;
 
     case ADMIN = 'admin';
+    case COORDINATOR = 'coordinator';
+    case MEDIATOR = 'mediator';
     case NURSE = 'nurse';
 }
