@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\Actions;
 
 use App\Filament\Resources\InterventionResource;
+use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
 use Filament\Pages\Actions\CreateAction;
 
@@ -29,19 +30,22 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->disableCreateAnother();
 
-        $this->using(function (array $data, $livewire) {
-            $interventionable = InterventionableIndividualService::create($data['interventionable']);
-
-            return $interventionable->intervention()->create([
-                'beneficiary_id' => $livewire->getBeneficiary()?->id,
-                'vulnerability_id' => $data['vulnerability'],
-                'integrated' => $data['integrated'],
-                'notes' => $data['notes'],
-            ]);
-        });
+        $this->using(fn (array $data, $livewire) => static::create($data, $livewire));
 
         $this->form(InterventionResource::getIndividualServiceFormSchema());
 
         $this->disabled(fn ($livewire) => ! InterventionResource::hasValidVulnerabilities($livewire));
+    }
+
+    public static function create(array $data, $livewire): Intervention
+    {
+        $interventionable = InterventionableIndividualService::create($data['interventionable']);
+
+        return $interventionable->intervention()->create([
+            'beneficiary_id' => $livewire->getBeneficiary()?->id,
+            'vulnerability_id' => $data['vulnerability'],
+            'integrated' => $data['integrated'],
+            'notes' => $data['notes'],
+        ]);
     }
 }

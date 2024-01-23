@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\InterventionResource\Pages;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\InterventionResource;
-use App\Filament\Resources\InterventionResource\Actions;
+use App\Filament\Resources\InterventionResource\Actions\CreateCaseAction;
+use App\Filament\Resources\InterventionResource\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\InterventionResource\Concerns\HasRecordBreadcrumb;
 use App\Filament\Tables\Columns\InterventionsColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\Action as TableAction;
+use Filament\Tables;
 use Filament\Tables\Columns\Layout;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListInterventions extends ListRecords implements WithSidebar
 {
+    use HasConditionalTableEmptyState;
     use HasRecordBreadcrumb;
     use Concerns\HasActions;
     use Concerns\HasSidebar;
@@ -59,19 +62,27 @@ class ListInterventions extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Actions\CreateIndividualServiceAction::make(),
+            CreateIndividualServiceAction::make(),
 
-            Actions\CreateCaseAction::make(),
+            CreateCaseAction::make(),
         ];
     }
 
     protected function getTableEmptyStateIcon(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return 'icon-empty-state';
     }
 
     protected function getTableEmptyStateHeading(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         if ($this->getBeneficiary()->hasCatagraphy()) {
             return __('intervention.empty.title');
         }
@@ -81,6 +92,10 @@ class ListInterventions extends ListRecords implements WithSidebar
 
     protected function getTableEmptyStateDescription(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         if ($this->getBeneficiary()->hasCatagraphy()) {
             return null;
         }
@@ -90,16 +105,34 @@ class ListInterventions extends ListRecords implements WithSidebar
 
     protected function getTableEmptyStateActions(): array
     {
-        if ($this->getBeneficiary()->hasCatagraphy()) {
-            return [];
-        }
-
         return [
-            TableAction::make('create')
+
+            Tables\Actions\Action::make('create')
                 ->label(__('catagraphy.vulnerability.empty.create'))
                 ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
                 ->button()
-                ->color('secondary'),
+                ->color('secondary')
+                ->hidden(fn () => $this->getBeneficiary()->hasCatagraphy()),
+
+            Tables\Actions\CreateAction::make('create_individual_service')
+                ->label(__('intervention.action.add_service'))
+                ->modalHeading(__('intervention.action.add_service'))
+                ->using(fn (array $data, $livewire) => CreateIndividualServiceAction::create($data, $livewire))
+                ->form(InterventionResource::getIndividualServiceFormSchema())
+                ->icon('heroicon-o-plus-circle')
+                ->button()
+                ->color('secondary')
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
+
+            Tables\Actions\CreateAction::make('create_case')
+                ->label(__('intervention.action.open_case'))
+                ->modalHeading(__('intervention.action.open_case'))
+                ->using(fn (array $data, $livewire) => CreateCaseAction::create($data, $livewire))
+                ->form(InterventionResource::getCaseFormSchema())
+                ->icon('heroicon-o-folder-add')
+                ->button()
+                ->color('secondary')
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
 
