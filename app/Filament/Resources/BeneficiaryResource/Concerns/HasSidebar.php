@@ -68,6 +68,15 @@ trait HasSidebar
                         )),
 
                     NavigationItem::make()
+                        ->label(__('beneficiary.section.documents'))
+                        ->icon('icon-none')
+                        ->url(BeneficiaryResource::getUrl('documents.index', ['beneficiary' => $this->getBeneficiary()]))
+                        ->isActiveWhen(fn (): bool => request()->routeIs(
+                            'filament.resources.beneficiaries.documents',
+                            'filament.resources.beneficiaries.documents.*'
+                        )),
+
+                    NavigationItem::make()
                         ->label(__('activity.label'))
                         ->icon('icon-none')
                         ->url(BeneficiaryResource::getUrl('history', ['record' => $this->getBeneficiary()]))

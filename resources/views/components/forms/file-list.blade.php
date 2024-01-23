@@ -1,3 +1,5 @@
+{{-- @use('Illuminate\Support\Number::class) --}}
+
 <x-dynamic-component
     :component="$getFieldWrapperView()"
     :id="$getId()"
@@ -19,6 +21,10 @@
                     download="{{ $file->original_file_name }}">
                     {{ $file->original_file_name }}
                 </a>
+
+                <span class="text-gray-500">
+                    ({{ Number::fileSize($file->size) }})
+                </span>
             </li>
         @empty
             <span class="text-gray-500">&mdash;</span>

@@ -73,6 +73,7 @@ class AppServiceProvider extends ServiceProvider
             'community_activity' => \App\Models\CommunityActivity::class,
             'city' => \App\Models\City::class,
             'county' => \App\Models\County::class,
+            'document' => \App\Models\Document::class,
             'family' => \App\Models\Family::class,
             'household' => \App\Models\Household::class,
             'individual_service' => \App\Models\Intervention\InterventionableIndividualService::class,
