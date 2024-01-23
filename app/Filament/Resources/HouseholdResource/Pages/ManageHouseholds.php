@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\HouseholdResource\Pages;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\HouseholdResource;
-use Filament\Pages\Actions;
+use Filament\Pages;
 use Filament\Resources\Pages\ManageRecords;
-use Filament\Tables\Actions\Modal\Actions\Action;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
 class ManageHouseholds extends ManageRecords implements WithTabs
 {
+    use HasConditionalTableEmptyState;
     use BeneficiaryResource\Concerns\HasRecordBreadcrumb;
     use BeneficiaryResource\Concerns\HasTabs;
 
@@ -22,33 +24,49 @@ class ManageHouseholds extends ManageRecords implements WithTabs
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make()
+            Pages\Actions\CreateAction::make()
                 ->disableCreateAnother(),
         ];
     }
 
     protected function getTableEmptyStateIcon(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return 'icon-empty-state';
     }
 
     protected function getTableEmptyStateHeading(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('household.empty.title');
     }
 
     protected function getTableEmptyStateDescription(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('household.empty.description');
     }
 
     protected function getTableEmptyStateActions(): array
     {
         return [
-            // Action::make('create')
-            //     ->label(__('household.empty.create'))
-            //     ->button()
-            //     ->color('secondary'),
+            Tables\Actions\CreateAction::make()
+                ->label(__('household.empty.create'))
+                ->modalHeading(__('household.empty.create'))
+                ->button()
+                ->color('secondary')
+                ->disableCreateAnother()
+                ->form(HouseholdResource::getFormSchema())
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
 

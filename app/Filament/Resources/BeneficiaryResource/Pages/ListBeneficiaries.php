@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
@@ -13,6 +14,7 @@ use Filament\Tables;
 
 class ListBeneficiaries extends ListRecords implements WithTabs
 {
+    use HasConditionalTableEmptyState;
     use Concerns\HasRecordBreadcrumb;
     use Concerns\HasTabs;
 
@@ -27,16 +29,28 @@ class ListBeneficiaries extends ListRecords implements WithTabs
 
     protected function getTableEmptyStateIcon(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return 'icon-empty-state';
     }
 
     protected function getTableEmptyStateHeading(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('beneficiary.empty.title');
     }
 
     protected function getTableEmptyStateDescription(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('beneficiary.empty.description');
     }
 
@@ -47,7 +61,8 @@ class ListBeneficiaries extends ListRecords implements WithTabs
                 ->label(__('beneficiary.empty.create'))
                 ->url(static::getResource()::getUrl('create'))
                 ->button()
-                ->color('secondary'),
+                ->color('secondary')
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
 

@@ -39,54 +39,60 @@ class HouseholdResource extends Resource
 
     public static function form(Form $form): Form
     {
+        return $form
+            ->schema(static::getFormSchema());
+    }
+
+    public static function getFormSchema(): array
+    {
         $beneficiaries = Beneficiary::pluck('full_name', 'id');
 
-        return $form
-            ->schema([
-                TextInput::make('name')
-                    ->label(__('field.household_name')),
+        return [
+            TextInput::make('name')
+                ->label(__('field.household_name')),
 
-                Repeater::make('families')
-                    ->label(__('family.label.plural'))
-                    ->createItemButtonLabel(__('family.action.create'))
-                    ->relationship(callback: function (Builder $query) {
-                        $query->with('beneficiaries');
-                    })
-                    ->minItems(1)
-                    ->columns(2)
-                    ->columnSpanFull()
-                    ->schema([
-                        TextInput::make('name')
-                            ->label(__('field.family_name')),
+            Repeater::make('families')
+                ->label(__('family.label.plural'))
+                ->createItemButtonLabel(__('family.action.create'))
+                ->relationship(callback: function (Builder $query) {
+                    $query->with('beneficiaries');
+                })
+                ->minItems(1)
+                ->columns(2)
+                ->columnSpanFull()
+                ->schema([
+                    TextInput::make('name')
+                        ->label(__('field.family_name')),
 
-                        Select::make('beneficiaries')
-                            ->label(__('beneficiary.label.plural'))
-                            ->options($beneficiaries)
-                            ->searchable()
-                            ->multiple()
-                            ->loadStateFromRelationshipsUsing(static function ($component, $state) {
-                                $component->state(
-                                    $component->getModelInstance()
-                                        ->beneficiaries
-                                        ->pluck('id')
-                                        ->all()
-                                );
-                            })
-                            ->saveRelationshipsUsing(function (Family $record, $state) {
-                                $record->beneficiaries()
-                                    ->whereNotIn('id', $state)
-                                    ->update([
-                                        'family_id' => null,
-                                    ]);
+                    Select::make('beneficiaries')
+                        ->label(__('beneficiary.label.plural'))
+                        ->options($beneficiaries)
+                        ->searchable()
+                        ->multiple()
+                        ->loadStateFromRelationshipsUsing(static function ($component, $state) {
+                            $component->state(
+                                $component->getModelInstance()
+                                    ->beneficiaries
+                                    ->pluck('id')
+                                    ->all()
+                            );
+                        })
+                        ->saveRelationshipsUsing(function (Family $record, $state) {
+                            $record->beneficiaries()
+                                ->whereNotIn('id', $state)
+                                ->update([
+                                    'family_id' => null,
+                                ]);
 
-                                Beneficiary::query()
-                                    ->whereIn('id', $state)
-                                    ->update([
-                                        'family_id' => $record->id,
-                                    ]);
-                            }),
-                    ]),
-            ]);
+                            Beneficiary::query()
+                                ->whereIn('id', $state)
+                                ->update([
+                                    'family_id' => $record->id,
+                                ]);
+                        }),
+                ]),
+
+        ];
     }
 
     public static function table(Table $table): Table
