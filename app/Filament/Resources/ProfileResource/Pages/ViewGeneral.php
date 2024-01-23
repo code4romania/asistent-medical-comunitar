@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
+use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
@@ -62,8 +63,10 @@ class ViewGeneral extends ViewRecord
                         Value::make('accreditation_date')
                             ->label(__('field.accreditation_date')),
 
-                        Value::make('accreditation_document')
-                            ->label(__('field.accreditation_document')),
+                        FileList::make('accreditation_document')
+                            ->label(__('field.accreditation_document'))
+                            ->collection('accreditation_document')
+                            ->columnSpanFull(),
                     ]),
             ]);
     }

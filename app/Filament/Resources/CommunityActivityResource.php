@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\CommunityActivityResource\Pages;
 use App\Models\CommunityActivity;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -84,8 +85,10 @@ class CommunityActivityResource extends Resource
                         ->minValue(0)
                         ->maxValue(65535),
 
-                    FileUpload::make('participants_list')
-                        ->label(__('field.participants_list')),
+                    SpatieMediaLibraryFileUpload::make('participants_list')
+                        ->label(__('field.participants_list'))
+                        ->collection('participants_list')
+                        ->maxSize(1024 * 1024 * 2),
 
                     Textarea::make('notes')
                         ->label(__('field.notes'))
@@ -125,9 +128,9 @@ class CommunityActivityResource extends Resource
                     Value::make('participants')
                         ->label(__('field.participants')),
 
-                    FileUpload::make('participants_list')
+                    FileList::make('participants_list')
                         ->label(__('field.participants_list'))
-                        ->enableDownload(),
+                        ->collection('participants_list'),
 
                     Value::make('notes')
                         ->label(__('field.notes'))
