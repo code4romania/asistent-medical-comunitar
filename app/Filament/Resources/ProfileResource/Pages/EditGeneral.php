@@ -99,7 +99,7 @@ class EditGeneral extends EditRecord
                                 'image/jpeg',
                                 'image/png',
                             ])
-                            ->maxSize(512 * 1024 * 10)
+                            ->maxSize(1024 * 1024 * 5)
                             ->columnSpanFull(),
                     ]),
             ]);

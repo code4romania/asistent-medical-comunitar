@@ -70,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
             'beneficiary' => \App\Models\Beneficiary::class,
             'case' => \App\Models\Intervention\InterventionableCase::class,
             'catagraphy' => \App\Models\Catagraphy::class,
+            'community_activity' => \App\Models\CommunityActivity::class,
             'city' => \App\Models\City::class,
             'county' => \App\Models\County::class,
             'family' => \App\Models\Family::class,

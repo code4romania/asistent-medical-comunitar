@@ -9,8 +9,9 @@
     :hint-color="$getHintColor()"
     :hint-icon="$getHintIcon()"
     :state-path="$getStatePath()">
-    <ul {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-value-component text-gray-600 font-normal']) }}>
-        @foreach ($getFiles() as $file)
+    <ul
+        {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-value-component text-gray-600 font-normal']) }}>
+        @forelse ($getFiles() as $file)
             <li>
                 <a
                     href="{{ $file->getFullUrl() }}"
@@ -19,6 +20,8 @@
                     {{ $file->original_file_name }}
                 </a>
             </li>
-        @endforeach
+        @empty
+            <span class="text-gray-500">&mdash;</span>
+        @endforelse
     </ul>
 </x-dynamic-component>

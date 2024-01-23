@@ -8,10 +8,13 @@ use App\Enums\CommunityActivityType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class CommunityActivity extends Model
+class CommunityActivity extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'type',
@@ -21,7 +24,6 @@ class CommunityActivity extends Model
         'location',
         'organizer',
         'participants',
-        'participants_list',
         'notes',
     ];
 
@@ -31,6 +33,12 @@ class CommunityActivity extends Model
         'participants' => 'integer',
         'date' => 'date',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('participants_list')
+            ->singleFile();
+    }
 
     public function scopeOnlyCampaigns(Builder $query): Builder
     {

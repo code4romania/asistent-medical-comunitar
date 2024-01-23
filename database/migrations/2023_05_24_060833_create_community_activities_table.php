@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('organizer')->nullable();
             $table->unsignedSmallInteger('participants')->nullable();
-            $table->string('participants_list')->nullable();
             $table->text('notes')->nullable();
         });
     }
