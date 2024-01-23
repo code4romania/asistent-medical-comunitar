@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Enums\Beneficiary\Status;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Tables\Columns\BadgeColumn;
@@ -19,6 +20,8 @@ use Illuminate\Support\Collection;
 
 class UpcomingAppointmentsWidget extends TableWidget
 {
+    use HasConditionalTableEmptyState;
+
     protected static ?int $sort = 30;
 
     public static function canView(): bool
@@ -116,5 +119,15 @@ class UpcomingAppointmentsWidget extends TableWidget
             ['*'],
             $this->getTablePaginationPageName(),
         );
+    }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return __('appointment.empty_upcoming.title');
     }
 }

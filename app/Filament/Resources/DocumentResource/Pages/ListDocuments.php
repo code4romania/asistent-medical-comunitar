@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\DocumentResource\Pages;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Document;
-use Filament\Pages\Actions as PageActions;
+use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Actions as TableActions;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListDocuments extends ListRecords implements WithSidebar
 {
+    use HasConditionalTableEmptyState;
     use HasRecordBreadcrumb;
     use Concerns\HasActions;
     use Concerns\HasSidebar;
@@ -43,7 +45,7 @@ class ListDocuments extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            PageActions\CreateAction::make()
+            Pages\Actions\CreateAction::make()
                 ->label(__('document.action.create'))
                 ->modalHeading(__('document.action.create'))
                 ->icon('heroicon-o-plus-circle')
@@ -59,23 +61,35 @@ class ListDocuments extends ListRecords implements WithSidebar
 
     protected function getTableEmptyStateIcon(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return 'icon-clipboard';
     }
 
     protected function getTableEmptyStateHeading(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('document.empty.title');
     }
 
     protected function getTableEmptyStateDescription(): ?string
     {
+        if ($this->hasAlteredTableQuery()) {
+            return null;
+        }
+
         return __('document.empty.description');
     }
 
     protected function getTableEmptyStateActions(): array
     {
         return [
-            TableActions\CreateAction::make()
+            Tables\Actions\CreateAction::make()
                 ->label(__('document.action.create'))
                 ->modalHeading(__('document.action.create'))
                 ->disableCreateAnother()
@@ -85,7 +99,8 @@ class ListDocuments extends ListRecords implements WithSidebar
                     Document::create($data);
                 })
                 ->form(DocumentResource::getFormSchema())
-                ->color('secondary'),
+                ->color('secondary')
+                ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
 }

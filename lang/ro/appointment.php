@@ -22,7 +22,12 @@ return [
     ],
 
     'empty' => [
-        'title' => 'Nicio programare asociată',
+        'title' => 'Nicio programare înregistrată',
+        'description' => 'Odată înregistrate programări în baza de date, acestea vor fi afișate în acest tabel.',
+    ],
+
+    'empty_upcoming' => [
+        'title' => 'Nicio programare viitoare',
     ],
 
     'action' => [

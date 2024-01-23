@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ManageAdministrativeActivities extends ManageRecords implements WithTabs
 {
     use Concerns\HasActions;
+    use Concerns\HasEmptyState;
     use Concerns\HasTabs;
 
     protected static string $resource = CommunityActivityResource::class;

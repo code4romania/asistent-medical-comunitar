@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use App\Concerns\HasConditionalTableEmptyState;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Tables\Columns\TextColumn;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class OpenCasesWidget extends BaseWidget
 {
+    use HasConditionalTableEmptyState;
     use CanPaginateRecords {
         paginateTableQuery as protected;
     }
@@ -109,5 +111,15 @@ class OpenCasesWidget extends BaseWidget
                 ->size('sm')
                 ->icon(null),
         ];
+    }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return __('intervention.empty.title');
     }
 }

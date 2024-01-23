@@ -95,4 +95,25 @@ class ActiveInterventionsWidget extends BaseWidget
     {
         return [5];
     }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'icon-empty-state';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return __('intervention.empty_active.title');
+    }
+
+    protected function getTableEmptyStateActions(): array
+    {
+        return [
+            Action::make('create')
+                ->label(__('intervention.empty_active.create'))
+                ->url(BeneficiaryResource::getUrl('interventions.index', ['beneficiary' => $this->record]))
+                ->button()
+                ->color('secondary'),
+        ];
+    }
 }
