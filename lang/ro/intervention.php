@@ -42,6 +42,7 @@ return [
     'empty_active' => [
         'title' => 'Nicio intervenție activă',
         'create' => 'Deschide intervenție',
+        'description' => 'Beneficiarul trebuie să fie catagrafiat, pentru a putea beneficia de intervenții',
     ],
 
     'type' => [

@@ -106,14 +106,29 @@ class ActiveInterventionsWidget extends BaseWidget
         return __('intervention.empty_active.title');
     }
 
+    protected function getTableEmptyStateDescription(): ?string
+    {
+        return ! $this->record->hasCatagraphy()
+            ? __('intervention.empty_active.description')
+            : __('intervention.empty.description');
+    }
+
     protected function getTableEmptyStateActions(): array
     {
         return [
-            Action::make('create')
-                ->label(__('intervention.empty_active.create'))
+            Action::make('create_catagraphy')
+                ->label(__('catagraphy.vulnerability.empty.create'))
+                ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->record]))
+                ->button()
+                ->color('secondary')
+                ->visible(fn () => ! $this->record->hasCatagraphy()),
+
+            Action::make('create_intervention')
+                ->label(fn () => __('intervention.empty_active.create'))
                 ->url(BeneficiaryResource::getUrl('interventions.index', ['beneficiary' => $this->record]))
                 ->button()
-                ->color('secondary'),
+                ->color('secondary')
+                ->visible(fn () => $this->record->hasCatagraphy()),
         ];
     }
 }
