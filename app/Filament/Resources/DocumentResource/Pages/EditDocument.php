@@ -15,6 +15,7 @@ use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
 
@@ -26,11 +27,22 @@ class EditDocument extends EditRecord implements WithSidebar
 
     protected static string $resource = DocumentResource::class;
 
-    protected function getActions(): array
+    protected function configureDeleteAction(DeleteAction $action): void
     {
-        return [
-            //
-        ];
+        $resource = static::getResource();
+
+        $action
+            ->authorize($resource::canDelete($this->getRecord()))
+            ->record($this->getRecord())
+            ->recordTitle($this->getRecordTitle())
+            ->successRedirectUrl($this->getDeleteRedirectUrl());
+    }
+
+    protected function getDeleteRedirectUrl(): ?string
+    {
+        return BeneficiaryResource::getUrl('documents.index', [
+            $this->getBeneficiary(),
+        ]);
     }
 
     protected function getRedirectUrl(): ?string

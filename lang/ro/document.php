@@ -17,4 +17,10 @@ return [
     ],
 
     'summary' => 'Detalii document',
+
+    'empty' => [
+        'title' => 'Nu există documente încărcate',
+        'create' => 'Încarcă documente',
+        'description' => 'Încarcă aici toate documentele de identificare ale beneficiarului de care ai nevoie pentru evidența lui.',
+    ],
 ];
