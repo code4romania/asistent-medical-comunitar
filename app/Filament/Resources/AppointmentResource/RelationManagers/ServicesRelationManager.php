@@ -80,9 +80,8 @@ class ServicesRelationManager extends RelationManager
                     ])
                     ->recordSelectOptionsQuery(function (Builder $query, self $livewire) {
                         $query
-                            ->whereBeneficiary(
-                                $livewire->getOwnerRecord()->beneficiary
-                            )
+                            ->whereBeneficiary($livewire->getOwnerRecord()->beneficiary)
+                            ->onlyPlanned()
                             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', 'interventionable_individual_services.id')
                             ->leftJoin('services', 'services.id', 'interventionable_individual_services.service_id')
                             ->select([

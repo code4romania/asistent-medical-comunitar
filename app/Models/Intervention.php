@@ -117,6 +117,11 @@ class Intervention extends Model
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::REALIZED);
     }
 
+    public function scopeOnlyPlanned(Builder $query): Builder
+    {
+        return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
+    }
+
     public function isCase(): bool
     {
         return $this->getActualClassNameForMorph($this->interventionable_type) === InterventionableCase::class;
