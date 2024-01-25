@@ -7,8 +7,10 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Tables\Columns\TextColumn;
+use App\Models\Appointment;
 use App\Models\Intervention;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
@@ -72,7 +74,15 @@ class ServicesRelationManager extends RelationManager
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
                     ->recordTitle(
-                        fn (Intervention $record) => sprintf('#%d - %s', $record->id, $record->service_name)
+                        fn (Intervention $record, Appointment $ownerRecord) => view('components.forms.appointment-intervention-item', [
+                            'appointment' => $ownerRecord,
+                            'intervention' => $record,
+                        ])
+                    )
+                    ->recordSelect(
+                        fn (Select $select) => $select
+                            ->helperText(__('appointment.service_already_associated'))
+                            ->allowHtml()
                     )
                     ->recordSelectSearchColumns([
                         'interventions.id',

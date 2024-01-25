@@ -36,4 +36,6 @@ return [
         'update' => 'Actualizează programare',
         'delete' => 'Șterge programare',
     ],
+
+    'service_already_associated' => 'Serviciile marcate cu &#9888; sunt deja asociate unei alte programări. Selectarea unui serviciu asociat unei alte programări va duce la mutarea acestuia în programarea curentă.',
 ];
