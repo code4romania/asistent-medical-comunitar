@@ -15,7 +15,7 @@ use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Actions\ToggleCaseStatusAction;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Models\Intervention;
-use Filament\Pages\Actions\Action;
+use Filament\Pages;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -63,13 +63,6 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('intervention.summary'))
-                    ->componentActions(fn (Intervention $record) => auth()->user()->can('update', $record) ? [
-                        Action::make('edit')
-                            ->label(__('intervention.action.edit'))
-                            ->url(BeneficiaryResource::getUrl('interventions.edit', [$this->getBeneficiary(), $this->getRecord()]))
-                            ->color('secondary'),
-                    ]
-                    : [])
                     ->columns(3)
                     ->schema(
                         fn (Intervention $record) => $record->isCase()
@@ -149,11 +142,19 @@ class ViewIntervention extends ViewRecord implements WithSidebar
     {
         return [
 
-            // Action::make('delete')
-            //     ->label(__('intervention.action.delete'))
-            //     ->color('danger')
-            //     ->outlined()
-            //     ->disabled(),
+            Pages\Actions\EditAction::make()
+                ->label(__('intervention.action.edit'))
+                ->url(BeneficiaryResource::getUrl('interventions.edit', [
+                    $this->getBeneficiary(),
+                    $this->getRecord(),
+                ]))
+                ->color('secondary'),
+
+            Pages\Actions\DeleteAction::make()
+                ->label(__('intervention.action.delete'))
+                ->successRedirectUrl(BeneficiaryResource::getUrl('interventions.index', [
+                    $this->getBeneficiary(),
+                ])),
 
             // Action::make('export')
             //     ->label(__('intervention.action.export'))
