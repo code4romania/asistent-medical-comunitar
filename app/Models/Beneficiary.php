@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToNurse;
+use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
 use App\Enums\Beneficiary\IDType;
-use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Gender;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -26,6 +26,7 @@ class Beneficiary extends Model
 {
     use BelongsToNurse;
     use BelongsToThroughTrait;
+    use HasBeneficiaryStatus;
     use HasFactory;
     use HasInterventions;
     use HasLocation;
@@ -33,7 +34,6 @@ class Beneficiary extends Model
 
     protected $fillable = [
         'type',
-        'status',
         'integrated',
 
         'first_name',
@@ -61,27 +61,11 @@ class Beneficiary extends Model
 
     protected $casts = [
         'type' => Type::class,
-        'status' => Status::class,
         'id_type' => IDType::class,
         'gender' => Gender::class,
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
     ];
-
-    protected static function booted()
-    {
-        static::creating(function (self $beneficiary) {
-            if ($beneficiary->isRegular() && ! $beneficiary->status) {
-                $beneficiary->status = Status::REGISTERED;
-            }
-        });
-
-        static::updating(function (self $beneficiary) {
-            if ($beneficiary->isRegular() && $beneficiary->isDirty('type')) {
-                $beneficiary->status = Status::REGISTERED;
-            }
-        });
-    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -126,16 +110,6 @@ class Beneficiary extends Model
     public function scopeOnlyOcasional(Builder $query): Builder
     {
         return $query->where('type', Type::OCASIONAL);
-    }
-
-    public function scopeOnlyActive(Builder $query): Builder
-    {
-        return $query->where('status', Status::ACTIVE);
-    }
-
-    public function scopeOnlyInactive(Builder $query): Builder
-    {
-        return $query->where('status', Status::INACTIVE);
     }
 
     public function getAgeAttribute(): ?int
@@ -198,16 +172,5 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
-    }
-
-    public function changeStatus(Status | string $status): void
-    {
-        if (\is_string($status)) {
-            $status = Status::tryFrom($status);
-        }
-
-        $this->update([
-            'status' => $status,
-        ]);
     }
 }

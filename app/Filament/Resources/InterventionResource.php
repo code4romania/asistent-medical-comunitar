@@ -112,7 +112,8 @@ class InterventionResource extends Resource
                         ->placeholder(__('placeholder.select_one'))
                         ->options($services)
                         ->in($services->keys())
-                        ->searchable(),
+                        ->searchable()
+                        ->required(),
 
                     Select::make('vulnerability')
                         ->label(__('field.addressed_vulnerability'))

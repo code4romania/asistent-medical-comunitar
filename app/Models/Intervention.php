@@ -51,6 +51,12 @@ class Intervention extends Model
     public static function booted(): void
     {
         static::addGlobalScope(new CurrentNurseBeneficiaryScope);
+
+        static::created(function (self $intervention): void {
+            if ($intervention->beneficiary->isCatagraphed()) {
+                $intervention->beneficiary->markAsActive();
+            }
+        });
     }
 
     public function interventionable(): MorphTo

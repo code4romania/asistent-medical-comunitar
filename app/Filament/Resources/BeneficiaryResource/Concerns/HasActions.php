@@ -21,9 +21,11 @@ trait HasActions
                     ->url(static::getResource()::getUrl('catagraphy.edit', $this->getBeneficiary())),
 
                 CreateCaseAction::make()
+                    ->after(fn () => $this->emit('updateInterventionsWidget'))
                     ->icon(null),
 
                 CreateIndividualServiceAction::make()
+                    ->after(fn () => $this->emit('updateInterventionsWidget'))
                     ->icon(null),
 
                 Action::make('appointment')
