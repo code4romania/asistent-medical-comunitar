@@ -10,7 +10,6 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\HtmlString;
 
 class Location extends Grid
 {
@@ -71,27 +70,25 @@ class Location extends Grid
                         ->limit(100)
                         ->get()
                         ->mapWithKeys(fn (City $city) => [
-                            $city->getKey() => static::getRenderedOptionLabel($city)->toHtml(),
+                            $city->getKey() => static::getRenderedOptionLabel($city),
                         ]);
                 })
                 ->getOptionLabelUsing(
-                    fn ($value) => static::getRenderedOptionLabel(City::find($value))->toHtml()
+                    fn ($value) => static::getRenderedOptionLabel(City::find($value))
                 ),
 
         ];
     }
 
-    private static function getRenderedOptionLabel(?Model $model): ?HtmlString
+    private static function getRenderedOptionLabel(?Model $model): ?string
     {
         if (\is_null($model)) {
             return null;
         }
 
-        $html = view('components.forms.location.city', [
+        return view('components.forms.location.city', [
             'name' => $model->name,
             'suffix' => $model->parent_name,
         ])->render();
-
-        return new HtmlString($html);
     }
 }
