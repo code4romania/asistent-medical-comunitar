@@ -22,6 +22,10 @@ class ActiveInterventionsWidget extends BaseWidget
         'xl' => 2,
     ];
 
+    protected $listeners = [
+        'updateInterventionsWidget' => '$refresh',
+    ];
+
     protected function getTableHeading(): string
     {
         return __('beneficiary.section.active_interventions');
@@ -41,7 +45,7 @@ class ActiveInterventionsWidget extends BaseWidget
     protected function getTableQuery(): Builder
     {
         return Intervention::query()
-            ->where('beneficiary_id', request()->record)
+            ->where('beneficiary_id', $this->record->id)
             ->onlyOpen();
     }
 
@@ -130,5 +134,15 @@ class ActiveInterventionsWidget extends BaseWidget
                 ->color('secondary')
                 ->visible(fn () => $this->record->hasCatagraphy()),
         ];
+    }
+
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'id';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'desc';
     }
 }
