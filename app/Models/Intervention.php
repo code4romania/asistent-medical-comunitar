@@ -129,11 +129,19 @@ class Intervention extends Model
 
     public function isOpen(): bool
     {
+        if (! $this->isCase()) {
+            return true;
+        }
+
         return \is_null($this->closed_at);
     }
 
     public function open(): void
     {
+        if (! $this->isCase()) {
+            return;
+        }
+
         $this->update([
             'closed_at' => null,
         ]);
@@ -141,6 +149,10 @@ class Intervention extends Model
 
     public function close(): void
     {
+        if (! $this->isCase()) {
+            return;
+        }
+
         $this->update([
             'closed_at' => $this->freshTimestamp(),
         ]);

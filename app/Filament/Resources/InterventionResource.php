@@ -10,6 +10,7 @@ use App\Filament\Forms\Components\Radio;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
+use App\Http\Middleware\RedirectToDashboard;
 use App\Models\Catagraphy;
 use App\Models\Intervention;
 use App\Models\Service\Service;
@@ -30,6 +31,10 @@ class InterventionResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static bool $shouldRegisterNavigation = false;
+
+    protected static string | array $middlewares = [
+        RedirectToDashboard::class,
+    ];
 
     public static function getPages(): array
     {

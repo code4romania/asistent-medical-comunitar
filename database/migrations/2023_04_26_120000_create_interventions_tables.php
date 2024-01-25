@@ -52,7 +52,10 @@ return new class extends Migration
             $table->foreignIdFor(Beneficiary::class)->nullable()->constrained();
             $table->foreignIdFor(Vulnerability::class)->nullable()->constrained();
             $table->foreignIdFor(Appointment::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(Intervention::class, 'parent_id')->nullable()->constrained('interventions');
+            $table->foreignIdFor(Intervention::class, 'parent_id')
+                ->nullable()
+                ->constrained('interventions')
+                ->cascadeOnDelete();
         });
 
         // Regular Beneficiary // Interventions // Cases
