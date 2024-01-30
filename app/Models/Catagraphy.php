@@ -111,9 +111,9 @@ class Catagraphy extends Model
     {
         return Attribute::make(
             get: fn () => collect([
+                $this->cat_id,
                 $this->cat_age,
                 $this->cat_inc,
-                $this->cat_id,
                 $this->cat_pov,
                 $this->cat_liv,
                 $this->cat_fam,
@@ -133,6 +133,7 @@ class Catagraphy extends Model
                 $this->cat_cr,
                 $this->cat_ns,
                 $this->cat_ssa,
+                $this->cat_ss,
             ])->flatten()
         )->shouldCache();
     }
