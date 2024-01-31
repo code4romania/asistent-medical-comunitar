@@ -22,6 +22,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Livewire\Component;
 
 class CatagraphyResource extends Resource
 {
@@ -148,7 +149,18 @@ class CatagraphyResource extends Resource
                                             ->options($vulnerabilities->get('DIZ'))
                                             ->in($vulnerabilities->get('DIZ')->keys())
                                             ->reactive()
-                                            ->searchable(),
+                                            ->searchable()
+                                            ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
+                                                if (! Vulnerability::isValidCode($state)) {
+                                                    return;
+                                                }
+
+                                                if (collect($get('disabilities'))->isNotEmpty()) {
+                                                    return;
+                                                }
+
+                                                $livewire->dispatchFormEvent('repeater::createItem', 'data.disabilities');
+                                            }),
                                     ]),
 
                                 Card::make()
@@ -232,7 +244,18 @@ class CatagraphyResource extends Resource
                                     ->rule(new MultipleIn($vulnerabilities->get('SS')->keys()))
                                     ->reactive()
                                     ->multiple()
-                                    ->searchable(),
+                                    ->searchable()
+                                    ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
+                                        if (! Vulnerability::isValidCode($state)) {
+                                            return;
+                                        }
+
+                                        if (collect($get('diseases'))->isNotEmpty()) {
+                                            return;
+                                        }
+
+                                        $livewire->dispatchFormEvent('repeater::createItem', 'data.diseases');
+                                    }),
 
                                 Card::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('SS')]))
