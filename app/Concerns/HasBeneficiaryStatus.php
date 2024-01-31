@@ -17,7 +17,7 @@ trait HasBeneficiaryStatus
         $this->fillable[] = 'status';
     }
 
-    protected static function bootedHasBeneficiaryStatus(): void
+    protected static function bootHasBeneficiaryStatus(): void
     {
         static::creating(function (Beneficiary $beneficiary) {
             if ($beneficiary->isRegular() && ! $beneficiary->status) {
