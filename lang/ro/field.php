@@ -54,6 +54,7 @@ return [
     'families_count' => 'Familii',
     'family_name' => 'Nume familie',
     'family' => 'Familie',
+    'file' => 'Fișier',
     'first_name' => 'Prenume',
     'gender' => 'Gen',
     'has_unknown_identity' => 'Identitate necunoscută beneficiar',

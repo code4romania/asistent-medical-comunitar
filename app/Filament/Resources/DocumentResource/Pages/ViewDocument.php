@@ -7,6 +7,7 @@ namespace App\Filament\Resources\DocumentResource\Pages;
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\DocumentPreview;
 use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
@@ -67,6 +68,25 @@ class ViewDocument extends ViewRecord implements WithSidebar
                             ]),
                     ]),
 
+                Card::make()
+                    ->header(__('document.preview'))
+                    ->componentActions(function (Document $record) {
+                        $media = $record->getFirstMedia('default');
+
+                        return [
+                            Actions\Action::make('download')
+                                ->label(__('document.action.download'))
+                                ->url($media->getFullUrl())
+                                ->color('secondary')
+                                ->icon('heroicon-o-download')
+                                ->extraAttributes([
+                                    'download' => $media->original_file_name,
+                                ]),
+                        ];
+                    })
+                    ->schema([
+                        DocumentPreview::make(),
+                    ]),
             ]);
     }
 }

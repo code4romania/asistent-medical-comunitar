@@ -14,10 +14,10 @@
     <ul
         {{ $attributes->merge($getExtraAttributes())->class(['filament-forms-value-component text-gray-600 font-normal']) }}>
         @forelse ($getFiles() as $file)
-            <li>
+            <li class="flex gap-1 whitespace-nowrap">
                 <a
                     href="{{ $file->getFullUrl() }}"
-                    class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none underline hover:no-underline focus:underline text-primary-600 hover:text-primary-500"
+                    class="font-medium underline truncate outline-none text-ellipsis filament-link hover:no-underline focus:underline text-primary-600 hover:text-primary-500"
                     download="{{ $file->original_file_name }}">
                     {{ $file->original_file_name }}
                 </a>
