@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\User;
 
 use App\Concerns;
 
-enum UserRole: string
+enum Role: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
 
     case ADMIN = 'admin';
     case COORDINATOR = 'coordinator';
-    case MEDIATOR = 'mediator';
     case NURSE = 'nurse';
 }

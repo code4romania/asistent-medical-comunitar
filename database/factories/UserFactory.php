@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\Gender;
-use App\Enums\UserRole;
+use App\Enums\User\Role;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
@@ -38,14 +38,14 @@ class UserFactory extends Factory
     public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
-            'role' => UserRole::ADMIN,
+            'role' => Role::ADMIN,
         ]);
     }
 
     public function nurse(): static
     {
         return $this->state(fn (array $attributes) => [
-            'role' => UserRole::NURSE,
+            'role' => Role::NURSE,
         ]);
     }
 

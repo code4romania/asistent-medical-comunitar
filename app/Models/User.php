@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\HasLocation;
-use App\Concerns\HasRole;
 use App\Concerns\MustSetInitialPassword;
+use App\Concerns\Users\HasRole;
 use App\Enums\Gender;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;

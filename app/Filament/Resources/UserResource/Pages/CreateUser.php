@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Enums\UserRole;
+use App\Enums\User\Role;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\UserResource;
@@ -63,7 +63,7 @@ class CreateUser extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['role'] = UserRole::NURSE;
+        $data['role'] = Role::NURSE;
 
         return $data;
     }
