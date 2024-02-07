@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\Gender;
 use App\Enums\User\Role;
+use App\Models\County;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
@@ -31,6 +32,7 @@ class UserFactory extends Factory
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',   // password
+            'password_set_at' => fake()->dateTime(),
             'remember_token' => Str::random(10),
         ];
     }
@@ -42,10 +44,32 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function coordinator(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => Role::COORDINATOR,
+            'county_id' => County::query()->inRandomOrder()->first()->id,
+        ]);
+    }
+
     public function nurse(): static
     {
         return $this->state(fn (array $attributes) => [
             'role' => Role::NURSE,
+        ]);
+    }
+
+    public function invited(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'password_set_at' => null,
+        ]);
+    }
+
+    public function deactivated(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'deactivated_at' => fake()->dateTime(),
         ]);
     }
 

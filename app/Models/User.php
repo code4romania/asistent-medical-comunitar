@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Concerns\HasLocation;
 use App\Concerns\MustSetInitialPassword;
 use App\Concerns\Users\HasRole;
+use App\Concerns\Users\HasStatus;
 use App\Enums\Gender;
 use App\Models\Profile\Area;
 use App\Models\Profile\Course;
@@ -14,9 +15,10 @@ use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -33,6 +35,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
     use HasFactory;
     use HasLocation;
     use HasRole;
+    use HasStatus;
     use InteractsWithMedia;
     use LogsActivity;
     use MustSetInitialPassword;
@@ -105,9 +108,19 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         return $this->hasMany(Employer::class);
     }
 
+    public function latestEmployer(): HasOne
+    {
+        return $this->hasOne(Employer::class)->latestOfMany();
+    }
+
     public function areas(): HasMany
     {
         return $this->hasMany(Area::class);
+    }
+
+    public function activityCounties(): HasManyThrough
+    {
+        return $this->hasManyThrough(County::class, Area::class, 'user_id', 'id', 'id', 'county_id');
     }
 
     public function beneficiaries(): HasMany
@@ -115,26 +128,15 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         return $this->hasMany(Beneficiary::class, 'nurse_id');
     }
 
+    public function interventions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'nurse_id', 'beneficiary_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logOnly(['email'])
             ->logOnlyDirty();
-    }
-
-    /**
-     * @todo implment active condition
-     */
-    public function scopeOnlyActive(Builder $query): Builder
-    {
-        return $query;
-    }
-
-    /**
-     * @todo implment inactive condition
-     */
-    public function scopeOnlyInactive(Builder $query): Builder
-    {
-        return $query;
     }
 }

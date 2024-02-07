@@ -25,25 +25,25 @@ trait HasTabs
                 ->label(__('beneficiary.section.index'))
                 ->icon('icon-none')
                 ->url(BeneficiaryResource::getUrl('index'))
-                ->isActiveWhen(fn (): bool => static::class === ListBeneficiaries::class),
+                ->isActiveWhen(fn () => static::class === ListBeneficiaries::class),
 
             NavigationItem::make()
                 ->label(__('beneficiary.section.regular'))
                 ->icon('icon-none')
                 ->url(BeneficiaryResource::getUrl('regular'))
-                ->isActiveWhen(fn (): bool => static::class === ListRegularBeneficiaries::class),
+                ->isActiveWhen(fn () => static::class === ListRegularBeneficiaries::class),
 
             NavigationItem::make()
                 ->label(__('beneficiary.section.ocasional'))
                 ->icon('icon-none')
                 ->url(BeneficiaryResource::getUrl('ocasional'))
-                ->isActiveWhen(fn (): bool => static::class === ListOcasionalBeneficiaries::class),
+                ->isActiveWhen(fn () => static::class === ListOcasionalBeneficiaries::class),
 
             NavigationItem::make()
                 ->label(__('beneficiary.section.households'))
                 ->icon('icon-none')
                 ->url(HouseholdResource::getUrl('index'))
-                ->isActiveWhen(fn (): bool => static::class === ManageHouseholds::class),
+                ->isActiveWhen(fn () => static::class === ManageHouseholds::class),
 
         ];
     }

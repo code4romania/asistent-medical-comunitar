@@ -13,7 +13,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isCoordinator();
     }
 
     /**
@@ -21,7 +21,15 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->isAdmin() || $user->is($model);
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->isCoordinator()) {
+            return $model->activityCounties->contains($user->county);
+        }
+
+        return $user->is($model);
     }
 
     /**
@@ -29,7 +37,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isCoordinator();
     }
 
     /**
@@ -37,7 +45,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->isAdmin() || $user->is($model);
+        return $user->is($model);
     }
 
     /**

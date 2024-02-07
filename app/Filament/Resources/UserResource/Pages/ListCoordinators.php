@@ -6,10 +6,10 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class ListActiveUsers extends ListUsers
+class ListCoordinators extends ListUsers
 {
     protected function getTableQuery(): Builder
     {
-        return parent::getTableQuery()->onlyActive();
+        return parent::getTableQuery()->onlyCoordinators();
     }
 }

@@ -3,6 +3,12 @@
 declare(strict_types=1);
 
 return [
+
+    'label' => [
+        'singular' => 'utilizator',
+        'plural' => 'Utilizatori',
+    ],
+
     'profile' => [
         'my_profile' => 'Profilul meu',
 
@@ -16,9 +22,26 @@ return [
     ],
 
     'section' => [
-        'index' => 'Toți asistenții',
-        'active' => 'Asistenți activi',
-        'inactive' => 'Asistenți inactivi',
+        'nurses' => 'Asistenți medicali comunitari',
+        'coordinators' => 'Coordonatori județeni',
+        'admins' => 'Admin MS',
+    ],
+
+    'role' => [
+        'admin' => 'Admin MS',
+        'coordinator' => 'Coordonator județean',
+        'nurse' => 'Asistent medical comunitar',
+    ],
+
+    'status' => [
+        'active' => 'Activ',
+        'inactive' => 'Inactiv',
+        'invited' => 'Invitat',
+    ],
+
+    'action' => [
+        'create' => 'Creează cont utilizator',
+        'invite' => 'Invită utilizator',
     ],
 
 ];

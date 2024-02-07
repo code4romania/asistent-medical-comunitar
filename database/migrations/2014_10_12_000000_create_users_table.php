@@ -19,6 +19,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->timestamp('deactivated_at')->nullable();
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('full_name')->virtualAs(<<<'SQL'
@@ -30,7 +33,6 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('password_set_at')->nullable();
             $table->rememberToken();
-            $table->timestamps();
 
             $table->string('role');
 

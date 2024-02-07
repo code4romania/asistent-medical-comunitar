@@ -6,6 +6,10 @@
 <div class="filament-forms-tabs-component">
     <nav class="filament-forms-tabs-component-header flex gap-x-[2px] overflow-y-auto">
         @foreach ($tabs as $tab)
+            @if ($tab->isHidden())
+                @continue
+            @endif
+
             <a
                 href="{{ $tab->getUrl() }}"
                 @class([
@@ -13,8 +17,7 @@
                     $tab->isActive()
                         ? 'filament-forms-tabs-component-button-active bg-white text-primary-700 border-current'
                         : 'text-white bg-primary-700 border-transparent',
-                ])
-            >
+                ])>
                 {{ $tab->getLabel() }}
             </a>
         @endforeach

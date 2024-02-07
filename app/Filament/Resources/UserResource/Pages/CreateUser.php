@@ -6,8 +6,13 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Role;
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
+use App\Filament\Resources\ProfileResource\Pages\EditArea;
 use App\Filament\Resources\UserResource;
+use Closure;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\CreateRecord;
@@ -24,12 +29,20 @@ class CreateUser extends CreateRecord
             ->columns(1)
             ->schema([
                 Card::make()
-                    ->header(__('user.action.invite'))
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-user')
                             ->columns(2)
                             ->schema([
+                                Grid::make()
+                                    ->schema([
+                                        TextInput::make('username')
+                                            ->label(__('field.username'))
+                                            ->unique()
+                                            ->maxLength(50)
+                                            ->required(),
+                                    ])
+                                    ->columnSpanFull(),
 
                                 TextInput::make('first_name')
                                     ->label(__('field.first_name'))
@@ -56,14 +69,33 @@ class CreateUser extends CreateRecord
                                     ->tel()
                                     ->required()
                                     ->maxLength(15),
+
+                                Select::make('role')
+                                    ->label(__('field.role'))
+                                    ->options(Role::options())
+                                    ->enum(Role::class)
+                                    ->reactive()
+                                    ->required(),
+
+                                Location::make()
+                                    ->label(__('field.county'))
+                                    ->withoutCity()
+                                    ->required()
+                                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::COORDINATOR))
+                                    ->columnSpan(1),
+
                             ]),
                     ]),
+
+                Card::make()
+                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE))
+                    ->schema(EditArea::getRepeaterSchema()),
             ]);
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['role'] = Role::NURSE;
+        $data['role'] ??= Role::NURSE;
 
         return $data;
     }

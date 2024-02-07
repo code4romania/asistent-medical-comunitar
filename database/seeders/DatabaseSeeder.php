@@ -31,6 +31,14 @@ class DatabaseSeeder extends Seeder
             ->admin()
             ->create();
 
+        // Create a coordinator
+        $coordinator = User::factory([
+            'email' => 'coord@example.com',
+            'username' => 'coord',
+        ])
+            ->coordinator()
+            ->create();
+
         // Create a community nurse
         $nurse = User::factory([
             'email' => 'nurse@example.com',
@@ -41,6 +49,29 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $this->generateBeneficiaries($nurse);
+
+        User::factory()
+            ->count(10)
+            ->coordinator()
+            ->create();
+
+        User::factory()
+            ->count(10)
+            ->coordinator()
+            ->deactivated()
+            ->create();
+
+        User::factory()
+            ->count(5)
+            ->nurse()
+            ->invited()
+            ->create();
+
+        User::factory()
+            ->count(5)
+            ->nurse()
+            ->deactivated()
+            ->create();
 
         User::factory()
             ->count(5)

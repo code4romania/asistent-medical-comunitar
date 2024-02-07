@@ -6,6 +6,7 @@ namespace App\Filament\Forms\Components;
 
 use App\Models\City;
 use App\Models\County;
+use Filament\Forms\Components\Concerns\CanBeValidated;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Cache;
 
 class Location extends Grid
 {
+    use CanBeValidated;
+
+    protected bool $withCity = true;
+
+    public function withoutCity(): self
+    {
+        $this->withCity = false;
+
+        return $this;
+    }
+
     public function getChildComponents(): array
     {
         return match ($this->getContainer()->getContext()) {
@@ -23,35 +35,55 @@ class Location extends Grid
 
     protected function getViewComponents(): array
     {
-        return [
-            Value::make('county')
-                ->label(__('field.county'))
-                ->content(fn ($record) => $record->county?->name),
+        $county = Value::make('county')
+            ->label(__('field.county'))
+            ->content(fn ($record) => $record->county?->name);
 
-            Value::make('city')
-                ->label(__('field.city'))
-                ->content(fn ($record) => static::getRenderedOptionLabel($record->city)),
+        $components = [
+            ! $this->withCity
+                ? $county->columnSpanFull()
+                : $county,
         ];
+
+        if ($this->withCity) {
+            $components[] = Value::make('city')
+                ->label(__('field.city'))
+                ->content(fn ($record) => static::getRenderedOptionLabel($record->city));
+        }
+
+        return $components;
     }
 
     protected function getEditComponents(): array
     {
-        return [
-            Select::make('county_id')
-                ->label(__('field.county'))
-                ->placeholder(__('placeholder.county'))
-                ->options(function () {
-                    return Cache::driver('array')
-                        ->rememberForever(
-                            'counties',
-                            fn () => County::pluck('name', 'id')
-                        );
-                })
-                ->searchable()
-                ->reactive()
-                ->afterStateUpdated(fn (callable $set) => $set('city_id', null)),
+        $county = Select::make('county_id')
+            ->label(__('field.county'))
+            ->placeholder(__('placeholder.county'))
+            ->options(function () {
+                return Cache::driver('array')
+                    ->rememberForever(
+                        'counties',
+                        fn () => County::pluck('name', 'id')
+                    );
+            })
+            ->searchable()
+            ->reactive()
+            ->afterStateUpdated(function (callable $set) {
+                if (! $this->withCity) {
+                    return;
+                }
 
-            Select::make('city_id')
+                $set('city_id', null);
+            });
+
+        $components = [
+            ! $this->withCity
+                ? $county->columnSpanFull()
+                : $county,
+        ];
+
+        if ($this->withCity) {
+            $components[] = Select::make('city_id')
                 ->label(__('field.city'))
                 ->placeholder(__('placeholder.city'))
                 ->allowHtml()
@@ -75,9 +107,10 @@ class Location extends Grid
                 })
                 ->getOptionLabelUsing(
                     fn ($value) => static::getRenderedOptionLabel(City::find($value))
-                ),
+                );
+        }
 
-        ];
+        return $components;
     }
 
     private static function getRenderedOptionLabel(?Model $model): ?string
