@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\ProfileResource\Pages;
+namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;

@@ -261,7 +261,7 @@ return [
     |
     */
 
-    'default_avatar_provider' => \Filament\AvatarProviders\UiAvatarsProvider::class,
+    'default_avatar_provider' => Filament\AvatarProviders\UiAvatarsProvider::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -311,6 +311,7 @@ return [
             Illuminate\Session\Middleware\AuthenticateSession::class,
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
             Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            App\Http\Middleware\EnsureUserIsActive::class,
             Illuminate\Routing\Middleware\SubstituteBindings::class,
             Filament\Http\Middleware\DispatchServingFilamentEvent::class,
             Filament\Http\Middleware\MirrorConfigToSubpackages::class,

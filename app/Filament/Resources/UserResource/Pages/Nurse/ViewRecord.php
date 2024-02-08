@@ -2,21 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\ProfileResource\Pages;
+namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
 use App\Contracts\Pages\WithTabs;
-use App\Filament\Resources\ProfileResource;
-use App\Filament\Resources\ProfileResource\Concerns;
+use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
+use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
+use App\Filament\Resources\UserResource\Concerns;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 
 class ViewRecord extends BaseViewRecord implements WithTabs
 {
-    use Concerns\HasTabs;
+    use HasTabs;
     use Concerns\ResolvesRecord;
 
-    protected static string $resource = ProfileResource::class;
+    protected static string $resource = UserResource::class;
 
     protected function getActions(): array
     {
@@ -25,12 +27,14 @@ class ViewRecord extends BaseViewRecord implements WithTabs
         return [
             EditAction::make()
                 ->icon('heroicon-s-pencil')
-                ->url(
-                    auth()->user()->is($this->getRecord())
-                        ? ProfileResource::getUrl($name)
-                        : UserResource::getUrl($name, $this->getRecord())
-                )
+                ->url(fn ($record) => UserResource::getUrl($name, $record))
                 ->visible(fn ($record) => auth()->user()->can('update', $record)),
+
+            ActivateUserAction::make()
+                ->record($this->getRecord()),
+
+            DeactivateUserAction::make()
+                ->record($this->getRecord()),
         ];
     }
 

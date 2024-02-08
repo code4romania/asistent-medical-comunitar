@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Report\Type;
-use App\Models\Scopes\CurrentUserScope;
 use App\Reports\NurseActivityReport;
 use App\Reports\ReportFactory;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,7 +43,13 @@ class Report extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new CurrentUserScope);
+        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
+            if (! auth()->check()) {
+                return;
+            }
+
+            $builder->whereBelongsTo(auth()->user());
+        });
     }
 
     public function user(): BelongsTo

@@ -13,6 +13,18 @@ class ViewUser extends ViewRecord
 
     public function mount($record): void
     {
-        redirect()->to(static::getResource()::getUrl('general.view', $record));
+        static::authorizeResourceAccess();
+
+        $this->record = $this->resolveRecord($record);
+
+        abort_unless(static::getResource()::canView($this->getRecord()), 403);
+
+        $url = match (true) {
+            $this->record->isNurse() => static::getResource()::getUrl('general.view', $this->record),
+            $this->record->isAdmin() => static::getResource()::getUrl('general.view', $this->record),
+            $this->record->isCoordinator() => static::getResource()::getUrl('general.view', $this->record),
+        };
+
+        redirect()->to($url);
     }
 }

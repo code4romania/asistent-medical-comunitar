@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Concerns;
 
 use App\Notifications\WelcomeNotification;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -40,5 +41,10 @@ trait MustSetInitialPassword
     public function sendWelcomeNotification(): void
     {
         $this->notify(new WelcomeNotification);
+    }
+
+    public function scopeOnlyInvited(Builder $query): Builder
+    {
+        return $query->whereNull('password_set_at');
     }
 }

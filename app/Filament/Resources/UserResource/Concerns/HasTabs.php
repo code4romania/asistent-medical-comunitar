@@ -6,6 +6,10 @@ namespace App\Filament\Resources\UserResource\Concerns;
 
 use App\Concerns\TabbedLayout;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\UserResource\Pages\ListAdmins;
+use App\Filament\Resources\UserResource\Pages\ListCoordinators;
+use App\Filament\Resources\UserResource\Pages\ListNurses;
+use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Support\Str;
 
@@ -18,22 +22,25 @@ trait HasTabs
         return [
 
             NavigationItem::make()
-                ->label(__('user.section.index'))
+                ->label(__('user.section.nurses'))
                 ->icon('icon-none')
                 ->url(UserResource::getUrl('index'))
-                ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.users.index')),
+                ->isActiveWhen(fn () => static::class === ListNurses::class)
+                ->visible(fn () => true),
 
             NavigationItem::make()
-                ->label(__('user.section.active'))
+                ->label(__('user.section.coordinators'))
                 ->icon('icon-none')
-                ->url(UserResource::getUrl('active'))
-                ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.users.active')),
+                ->url(UserResource::getUrl('coordinators'))
+                ->isActiveWhen(fn () => static::class === ListCoordinators::class)
+                ->visible(fn () => Filament::auth()->user()->isAdmin()),
 
             NavigationItem::make()
-                ->label(__('user.section.inactive'))
+                ->label(__('user.section.admins'))
                 ->icon('icon-none')
-                ->url(UserResource::getUrl('inactive'))
-                ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.users.inactive')),
+                ->url(UserResource::getUrl('admins'))
+                ->isActiveWhen(fn () => static::class === ListAdmins::class)
+                ->visible(fn () => Filament::auth()->user()->isAdmin()),
 
         ];
     }

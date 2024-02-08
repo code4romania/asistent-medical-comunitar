@@ -14,7 +14,7 @@ class EnumCollection implements ValidationRule
     /**
      * The enum validation rule.
      *
-     * @var \Illuminate\Validation\Rules\Enum
+     * @var Enum
      */
     protected Enum $rule;
 

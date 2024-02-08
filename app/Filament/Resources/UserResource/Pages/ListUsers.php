@@ -11,7 +11,7 @@ use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 
-class ListUsers extends ListRecords implements WithTabs
+abstract class ListUsers extends ListRecords implements WithTabs
 {
     use Concerns\HasTabs;
 
@@ -26,6 +26,9 @@ class ListUsers extends ListRecords implements WithTabs
 
     protected function getTableQuery(): Builder
     {
-        return parent::getTableQuery()->onlyNurses();
+        return parent::getTableQuery()
+            ->with([
+                'activityCounties',
+            ]);
     }
 }
