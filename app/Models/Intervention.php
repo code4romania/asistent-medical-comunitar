@@ -54,7 +54,7 @@ class Intervention extends Model
                 return;
             }
 
-            if (auth()->iser()->isAdmin()) {
+            if (auth()->user()->isAdmin()) {
                 return;
             }
 
