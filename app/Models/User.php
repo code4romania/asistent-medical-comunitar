@@ -15,6 +15,7 @@ use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -138,5 +139,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         return LogOptions::defaults()
             ->logOnly(['email'])
             ->logOnlyDirty();
+    }
+
+    public function scopeActivatesInCounty(Builder $query, int $county_id): Builder
+    {
+        return $query->whereRelation('activityCounties', 'counties.id', $county_id);
     }
 }

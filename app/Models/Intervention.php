@@ -11,7 +11,6 @@ use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
-use App\Models\Scopes\CurrentNurseBeneficiaryScope;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,7 +49,17 @@ class Intervention extends Model
 
     public static function booted(): void
     {
-        static::addGlobalScope(new CurrentNurseBeneficiaryScope);
+        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
+            if (! auth()->check()) {
+                return;
+            }
+
+            if (auth()->iser()->isAdmin()) {
+                return;
+            }
+
+            $builder->whereHas('beneficiary');
+        });
 
         static::created(function (self $intervention): void {
             if ($intervention->beneficiary->isCatagraphed()) {

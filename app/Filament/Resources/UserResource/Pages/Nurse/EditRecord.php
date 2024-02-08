@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Concerns;
 use Filament\Pages\Actions\Action;
@@ -12,7 +13,7 @@ use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 
 class EditRecord extends BaseEditRecord implements WithTabs
 {
-    use Concerns\HasTabs;
+    use HasTabs;
     use Concerns\ResolvesRecord;
 
     protected static string $resource = UserResource::class;
