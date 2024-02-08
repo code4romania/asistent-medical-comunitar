@@ -39,6 +39,8 @@ return [
         'invited' => 'Invitat',
     ],
 
+    'inactive_error' => 'Contul tău nu este activ. Pentru mai multe detalii te rugăm să contactezi un administrator.',
+
     'action' => [
         'create' => 'Creează cont utilizator',
         'invite' => 'Invită utilizator',

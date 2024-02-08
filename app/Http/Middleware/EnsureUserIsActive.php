@@ -28,6 +28,6 @@ class EnsureUserIsActive
         $request->session()->regenerateToken();
 
         return redirect()->route('filament.auth.login')
-            ->with('error', 'Your account is not active.');
+            ->with('error', __('user.inactive_error'));
     }
 }
