@@ -34,7 +34,7 @@ class ListNurses extends ListUsers
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label(__('field.nurse_id'))
+                    ->label(__('field.id'))
                     ->prefix('#')
                     ->sortable()
                     ->searchable()
@@ -92,11 +92,6 @@ class ListNurses extends ListUsers
 
                 TextColumn::make('latestEmployer.name')
                     ->label(__('field.employer')),
-                // ->getStateUsing(
-                //     fn (User $record) => $record->employers
-                //         ->pluck('name')
-                //         ->join(', ')
-                // ),
 
                 BadgeColumn::make('status')
                     ->label(__('field.status'))

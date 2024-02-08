@@ -24,6 +24,10 @@ class DeactivateUserAction extends Action
                 return false;
             }
 
+            if (auth()->user()->is($record)) {
+                return false;
+            }
+
             return auth()->user()->isAdmin() || auth()->user()->isCoordinator();
         });
 
