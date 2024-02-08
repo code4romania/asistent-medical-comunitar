@@ -68,6 +68,8 @@ class Location extends Grid
             })
             ->searchable()
             ->reactive()
+            ->required($this->isRequired())
+            ->disabled($this->isDisabled())
             ->afterStateUpdated(function (callable $set) {
                 if (! $this->withCity) {
                     return;
@@ -88,6 +90,8 @@ class Location extends Grid
                 ->placeholder(__('placeholder.city'))
                 ->allowHtml()
                 ->searchable()
+                ->required($this->isRequired())
+                ->disabled($this->isDisabled())
                 ->requiredWith('county_id')
                 ->getSearchResultsUsing(function (string $search, callable $get) {
                     $countyId = (int) $get('county_id');

@@ -32,7 +32,7 @@ class UserResource extends Resource
             'admins' => Pages\ListAdmins::route('/admins'),
 
             'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}/view'),
+            'view' => Pages\ViewUser::route('/{record}'),
 
             'general.view' => Pages\Nurse\ViewGeneral::route('/{record}/general'),
             'general.edit' => Pages\Nurse\EditGeneral::route('/{record}/general/edit'),

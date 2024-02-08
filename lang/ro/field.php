@@ -77,7 +77,6 @@ return [
     'location' => 'Locație',
     'notes' => 'Descriere / Observații',
     'nurse' => 'Asistent Medical Comunitar',
-    'nurse_id' => 'ID Asistent',
     'organizer' => 'Organizator',
     'outside_working_hours' => 'Realizat în afara programului de lucru',
     'participants_list' => 'Listă nominală participanți',
