@@ -7,6 +7,8 @@ namespace App\Filament\Resources\UserResource\Pages\Nurse;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
+use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Concerns;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
@@ -27,6 +29,12 @@ class ViewRecord extends BaseViewRecord implements WithTabs
                 ->icon('heroicon-s-pencil')
                 ->url(fn ($record) => UserResource::getUrl($name, $record))
                 ->visible(fn ($record) => auth()->user()->can('update', $record)),
+
+            ActivateUserAction::make()
+                ->record($this->getRecord()),
+
+            DeactivateUserAction::make()
+                ->record($this->getRecord()),
         ];
     }
 

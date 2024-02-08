@@ -42,6 +42,22 @@ return [
     'action' => [
         'create' => 'Creează cont utilizator',
         'invite' => 'Invită utilizator',
+        'activate' => 'Activează cont utilizator',
+        'deactivate' => 'Dezactivează cont utilizator',
+    ],
+
+    'action_activate_confirm' => [
+        'title' => 'Activează cont utilizator',
+        'text' => 'Ești sigur că vrei să activezi acest utilizator?',
+        'action' => 'Activează',
+        'success' => 'Utilizatorul a fost activat cu succes.',
+    ],
+
+    'action_deactivate_confirm' => [
+        'title' => 'Dezactivează cont utilizator',
+        'text' => 'Ești sigur că vrei să dezactivezi acest utilizator?',
+        'action' => 'Dezactivează',
+        'success' => 'Utilizatorul a fost dezactivat cu succes.',
     ],
 
 ];
