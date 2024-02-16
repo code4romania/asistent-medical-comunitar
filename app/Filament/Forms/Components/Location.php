@@ -117,7 +117,7 @@ class Location extends Grid
         return $components;
     }
 
-    private static function getRenderedOptionLabel(?Model $model): ?string
+    public static function getRenderedOptionLabel(?Model $model): ?string
     {
         if (\is_null($model)) {
             return null;

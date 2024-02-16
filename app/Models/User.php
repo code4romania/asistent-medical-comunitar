@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\HasActivityAreas;
 use App\Concerns\HasLocation;
 use App\Concerns\MustSetInitialPassword;
 use App\Concerns\Users\HasRole;
 use App\Concerns\Users\HasStatus;
 use App\Enums\Gender;
-use App\Models\Profile\Area;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -34,6 +33,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
     use CausesActivity;
     use HasApiTokens;
     use HasFactory;
+    use HasActivityAreas;
     use HasLocation;
     use HasRole;
     use HasStatus;
@@ -114,16 +114,6 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         return $this->hasOne(Employer::class)->latestOfMany();
     }
 
-    public function areas(): HasMany
-    {
-        return $this->hasMany(Area::class);
-    }
-
-    public function activityCounties(): HasManyThrough
-    {
-        return $this->hasManyThrough(County::class, Area::class, 'user_id', 'id', 'id', 'county_id');
-    }
-
     public function beneficiaries(): HasMany
     {
         return $this->hasMany(Beneficiary::class, 'nurse_id');
@@ -139,10 +129,5 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
         return LogOptions::defaults()
             ->logOnly(['email'])
             ->logOnlyDirty();
-    }
-
-    public function scopeActivatesInCounty(Builder $query, int $county_id): Builder
-    {
-        return $query->whereRelation('activityCounties', 'counties.id', $county_id);
     }
 }

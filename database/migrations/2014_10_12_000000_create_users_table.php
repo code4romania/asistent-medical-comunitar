@@ -41,6 +41,8 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('cnp')->nullable();
 
+            $table->foreignIdFor(County::class, 'activity_county_id')->nullable()->constrained('counties');
+
             $table->foreignIdFor(County::class)->nullable()->constrained();
             $table->foreignIdFor(City::class)->nullable()->constrained();
 

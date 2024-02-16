@@ -89,7 +89,7 @@ class CreateUser extends CreateRecord
 
                 Card::make()
                     ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE))
-                    ->schema(EditArea::getRepeaterSchema()),
+                    ->schema(EditArea::getSchema()),
             ]);
     }
 

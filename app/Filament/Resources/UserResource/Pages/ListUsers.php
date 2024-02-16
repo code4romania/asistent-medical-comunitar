@@ -28,7 +28,7 @@ abstract class ListUsers extends ListRecords implements WithTabs
     {
         return parent::getTableQuery()
             ->with([
-                'activityCounties',
+                'activityCounty',
             ]);
     }
 }

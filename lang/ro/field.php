@@ -28,6 +28,7 @@ return [
     'cat_diz_deb' => 'Debut',
     'cat_diz_dx' => 'Diagnostic',
     'cat_diz_iph' => 'Beneficiază de indemnizație/ pensie handicap',
+    'cities' => 'Localități',
     'city' => 'Localitate',
     'cnp' => 'CNP',
     'county' => 'Județ',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Status;
+use App\Filament\Forms\Components\Location;
 use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\HtmlString;
 
 class ListNurses extends ListUsers
 {
@@ -20,11 +22,11 @@ class ListNurses extends ListUsers
         return parent::getTableQuery()
             ->onlyNurses()
             ->when(auth()->user()->isCoordinator(), function (Builder $query) {
-                $query->whereRelation('activityCounties', 'counties.id', auth()->user()->county_id);
+                $query->whereRelation('activityCounty', 'counties.id', auth()->user()->county_id);
             })
             ->with([
-                'areas.city',
-                'areas.county',
+                'activityCounty',
+                'activityCities',
                 'latestEmployer',
             ]);
     }
@@ -58,22 +60,18 @@ class ListNurses extends ListUsers
                     ->searchable()
                     ->toggleable(),
 
-                TextColumn::make('activityCounties')
+                TextColumn::make('activityCounty.name')
                     ->label(__('field.county'))
-                    ->getStateUsing(
-                        fn (User $record) => $record->activityCounties
-                            ->pluck('name')
-                            ->join(', ')
-                    )
-                    ->wrap()
                     ->toggleable(),
 
-                TextColumn::make('areas.city')
+                TextColumn::make('activityCities.name')
                     ->label(__('field.area'))
                     ->getStateUsing(
-                        fn (User $record) => $record->areas
-                            ->pluck('city.name')
-                            ->join(', ')
+                        fn (User $record) => new HtmlString(
+                            $record->activityCities
+                                ->map(fn ($city) => Location::getRenderedOptionLabel($city))
+                                ->join(', ')
+                        )
                     )
                     ->wrap()
                     ->toggleable(),

@@ -7,7 +7,6 @@ namespace Database\Factories;
 use App\Enums\Gender;
 use App\Enums\User\Role;
 use App\Models\County;
-use App\Models\Profile\Area;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
@@ -56,6 +55,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => Role::NURSE,
+            'activity_county_id' => County::query()->inRandomOrder()->first()->id,
         ]);
     }
 
@@ -85,7 +85,6 @@ class UserFactory extends Factory
                 'accreditation_number' => null,
                 'accreditation_date' => fake()->date(),
             ])
-            ->has(Area::factory()->count(3))
             ->has(Study::factory()->count(5))
             ->has(Course::factory()->count(10))
             ->has(Employer::factory()->past())
