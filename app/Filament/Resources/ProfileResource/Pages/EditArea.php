@@ -29,10 +29,9 @@ class EditArea extends EditRecord
                 ->icon('heroicon-o-location-marker')
                 ->columns()
                 ->schema([
-
                     Value::make('activity_county')
                         ->label(__('field.county'))
-                        ->content(fn (User $record) => $record->activityCounty?->name),
+                        ->content(fn (?User $record) => $record?->activityCounty?->name),
 
                     Select::make('activity_cities')
                         ->label(__('field.cities'))

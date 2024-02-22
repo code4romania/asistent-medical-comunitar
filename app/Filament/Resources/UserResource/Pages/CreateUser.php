@@ -8,7 +8,6 @@ use App\Enums\User\Role;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
-use App\Filament\Resources\ProfileResource\Pages\EditArea;
 use App\Filament\Resources\UserResource;
 use Closure;
 use Filament\Forms\Components\Grid;
@@ -89,7 +88,7 @@ class CreateUser extends CreateRecord
 
                 Card::make()
                     ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE))
-                    ->schema(EditArea::getSchema()),
+                    ->schema(Nurse\EditArea::getSchema()),
             ]);
     }
 

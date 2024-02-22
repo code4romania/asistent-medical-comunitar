@@ -37,7 +37,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isCoordinator();
     }
 
     /**
@@ -45,6 +45,14 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->isCoordinator()) {
+            return $model->activityCounties->contains($user->county);
+        }
+
         return $user->is($model);
     }
 
