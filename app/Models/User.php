@@ -117,6 +117,11 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         return $this->hasOne(Employer::class)->latestOfMany();
     }
 
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'nurse_id');
+    }
+
     public function beneficiaries(): HasMany
     {
         return $this->hasMany(Beneficiary::class, 'nurse_id');
