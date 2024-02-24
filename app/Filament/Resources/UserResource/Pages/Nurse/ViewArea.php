@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
+use App\Models\City;
+use App\Models\User;
+use Filament\Resources\Form;
+use Filament\Forms\Components\Repeater;
+use App\Filament\Forms\Components\Value;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
-use Filament\Forms\Components\Repeater;
-use Filament\Resources\Form;
-use Illuminate\Database\Eloquent\Builder;
 
 class ViewArea extends ViewRecord
 {
@@ -16,21 +19,29 @@ class ViewArea extends ViewRecord
     {
         return $form
             ->columns(1)
-            ->schema([
-                Repeater::make('areas')
-                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
-                    ->schema([
-                        Subsection::make()
-                            ->icon('heroicon-o-location-marker')
-                            ->columns(2)
-                            ->schema([
-                                Location::make(),
-                            ]),
-                    ])
-                    ->label(__('user.profile.section.area'))
-                    ->defaultItems(1)
-                    ->disableItemMovement(),
-            ]);
+            ->schema(static::getSchema());
+    }
+
+    public static function getSchema(): array
+    {
+        return [
+            Subsection::make()
+                ->icon('heroicon-o-location-marker')
+                ->columns()
+                ->schema([
+                    Value::make('activity_county')
+                        ->label(__('field.county'))
+                        ->content(fn (User $record) => $record->activityCounty?->name),
+
+                    Value::make('activity_cities')
+                        ->label(__('field.cities'))
+                        ->content(
+                            fn (User $record) => $record->activityCities
+                                ?->map(fn (City $city) => Location::getRenderedOptionLabel($city))
+                                ->join(', ')
+                        ),
+                ]),
+        ];
     }
 
     protected function getRelationManagers(): array

@@ -6,7 +6,11 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
-use Filament\Forms\Components\Repeater;
+use App\Filament\Forms\Components\Value;
+use App\Models\City;
+use App\Models\User;
+use Closure;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 
 class EditArea extends EditRecord
@@ -15,25 +19,42 @@ class EditArea extends EditRecord
     {
         return $form
             ->columns(1)
-            ->schema(static::getRepeaterSchema());
+            ->schema(static::getSchema());
     }
 
-    public static function getRepeaterSchema(): array
+    public static function getSchema(): array
     {
         return [
-            Repeater::make('areas')
-                ->relationship()
-                ->label(__('area.label.plural'))
-                ->createItemButtonLabel(__('area.action.create'))
-                ->minItems(1)
+            Subsection::make()
+                ->icon('heroicon-o-location-marker')
+                ->columns()
                 ->schema([
-                    Subsection::make()
-                        ->icon('heroicon-o-location-marker')
-                        ->schema([
-                            Location::make(),
-                        ]),
-                ])
-                ->required(),
+                    Value::make('activity_county')
+                        ->label(__('field.county'))
+                        ->content(fn (?User $record) => $record?->activityCounty?->name),
+
+                    Select::make('activity_cities')
+                        ->label(__('field.cities'))
+                        ->placeholder(__('placeholder.cities'))
+                        ->relationship('activityCities', 'name')
+                        ->multiple()
+                        ->allowHtml()
+                        ->searchable()
+                        ->required()
+                        ->getSearchResultsUsing(
+                            fn (string $search, Closure $get) => City::query()
+                                ->where('county_id', $get('activity_county_id'))
+                                ->search($search)
+                                ->limit(100)
+                                ->get()
+                                ->mapWithKeys(fn (City $city) => [
+                                    $city->getKey() => 'Location::getRenderedOptionLabel($city)',
+                                ])
+                        )
+                        ->getOptionLabelFromRecordUsing(
+                            fn (City $record) => Location::getRenderedOptionLabel($record)
+                        ),
+                ]),
         ];
     }
 }

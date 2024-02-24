@@ -10,6 +10,7 @@ return [
     'all_beneficiaries' => 'Toți beneficiarii',
     'choose_services' => 'Alegeți unul sau mai multe servicii',
     'choose' => 'Alege o variantă',
+    'cities' => 'Alege localitățile',
     'city' => 'Alege localitatea',
     'cnp' => 'Cod Numeric Personal',
     'county' => 'Alege județul',
