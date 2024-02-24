@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\CommunityActivityType;
+use App\Models\County;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Lottery;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CommunityActivity>
@@ -45,6 +47,11 @@ class CommunityActivityFactory extends Factory
             'participants' => $participants ?? null,
 
             'notes' => fake()->paragraphs(asText: true),
+
+            'county_id' => Lottery::odds(4, 5)
+                ->winner(fn () => County::inRandomOrder()->first()->id)
+                ->loser(fn () => null)
+                ->choose(),
         ];
     }
 }

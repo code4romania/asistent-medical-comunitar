@@ -12,6 +12,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -60,6 +61,13 @@ class CommunityActivityResource extends Resource
                         ->placeholder(__('placeholder.organizer'))
                         ->required()
                         ->maxLength(200),
+
+                    Select::make('county_id')
+                        ->label(__('field.county'))
+                        ->placeholder(__('placeholder.county'))
+                        ->relationship('county', 'name')
+                        ->required()
+                        ->visible(fn () => auth()->user()->isAdmin()),
 
                     TextInput::make('location')
                         ->label(__('field.location'))
@@ -114,6 +122,11 @@ class CommunityActivityResource extends Resource
                     Value::make('organizer')
                         ->label(__('field.organizer')),
 
+                    Value::make('county')
+                        ->label(__('field.county'))
+                        ->content(fn ($record) => $record->county?->name)
+                        ->visible(fn () => auth()->user()->isAdmin()),
+
                     Value::make('location')
                         ->label(__('field.location')),
 
@@ -156,6 +169,13 @@ class CommunityActivityResource extends Resource
                         ->required()
                         ->maxLength(200),
 
+                    Select::make('county_id')
+                        ->label(__('field.county'))
+                        ->placeholder(__('placeholder.county'))
+                        ->relationship('county', 'name')
+                        ->required()
+                        ->visible(fn () => auth()->user()->isAdmin()),
+
                     TextInput::make('location')
                         ->label(__('field.location'))
                         ->placeholder(__('placeholder.location'))
@@ -196,6 +216,11 @@ class CommunityActivityResource extends Resource
                     Value::make('organizer')
                         ->label(__('field.organizer')),
 
+                    Value::make('county')
+                        ->label(__('field.county'))
+                        ->content(fn ($record) => $record->county?->name)
+                        ->visible(fn () => auth()->user()->isAdmin()),
+
                     Value::make('location')
                         ->label(__('field.location')),
 
@@ -224,6 +249,13 @@ class CommunityActivityResource extends Resource
                         ->placeholder(__('placeholder.activity'))
                         ->required()
                         ->maxLength(200),
+
+                    Select::make('county_id')
+                        ->label(__('field.county'))
+                        ->placeholder(__('placeholder.county'))
+                        ->relationship('county', 'name')
+                        ->required()
+                        ->visible(fn () => auth()->user()->isAdmin()),
 
                     Group::make([
                         DatePicker::make('date')
@@ -255,6 +287,11 @@ class CommunityActivityResource extends Resource
                 ->schema([
                     Value::make('name')
                         ->label(__('field.activity')),
+
+                    Value::make('county')
+                        ->label(__('field.county'))
+                        ->content(fn ($record) => $record->county?->name)
+                        ->visible(fn () => auth()->user()->isAdmin()),
 
                     Group::make([
                         Value::make('date')
