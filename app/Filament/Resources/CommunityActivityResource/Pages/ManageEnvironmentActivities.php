@@ -14,6 +14,7 @@ use App\Models\CommunityActivity;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 class ManageEnvironmentActivities extends ManageRecords implements WithTabs
@@ -63,6 +64,13 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
                     ->sortable()
                     ->toggleable(),
 
+                TextColumn::make('county.name')
+                    ->label(__('field.county'))
+                    ->size('sm')
+                    ->sortable()
+                    ->toggleable()
+                    ->visible(fn () => auth()->user()->isAdmin()),
+
                 TextColumn::make('location')
                     ->label(__('field.location'))
                     ->size('sm')
@@ -79,6 +87,11 @@ class ManageEnvironmentActivities extends ManageRecords implements WithTabs
             ])
             ->filters([
                 DateRangeFilter::make('date_between'),
+
+                SelectFilter::make('county_id')
+                    ->label(__('field.county'))
+                    ->relationship('county', 'name')
+                    ->visible(fn () => auth()->user()->isAdmin()),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
