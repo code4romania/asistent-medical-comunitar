@@ -18,7 +18,7 @@ class EnsureUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guest() || Auth::user()->isActive()) {
+        if (Auth::user()->isActive()) {
             return $next($request);
         }
 
