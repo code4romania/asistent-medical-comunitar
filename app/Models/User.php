@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Concerns\HasActivityAreas;
 use App\Concerns\HasLocation;
 use App\Concerns\MustSetInitialPassword;
+use App\Concerns\Users\GetsOnboarded;
 use App\Concerns\Users\HasRole;
 use App\Concerns\Users\HasStatus;
 use App\Enums\Gender;
@@ -27,7 +28,6 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Onboard\Concerns\GetsOnboarded;
 use Spatie\Onboard\Concerns\Onboardable;
 
 class User extends Authenticatable implements FilamentUser, HasName, HasMedia, Onboardable

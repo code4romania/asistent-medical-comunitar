@@ -53,7 +53,7 @@
             aria-hidden="true"></div>
     @endif
 
-    @if ($step->link)
+    @if ($step->link && !$next)
         <a href="{{ $step->link }}" class="relative flex items-center w-full gap-3 group lg:flex-col">
             {{ $stepContent() }}
         </a>

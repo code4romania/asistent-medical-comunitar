@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\ProfileResource;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,8 @@ class OnboardingServiceProvider extends ServiceProvider
         $isNotANurse = fn (User $model) => ! $model->isNurse();
 
         Onboard::addStep(__('onboarding.step.profile'))
+            ->link(ProfileResource::getUrl('onboard'))
+            ->completeIf(fn (User $model) => $model->hasCompletedProfile())
             ->excludeIf($isNotANurse);
 
         Onboard::addStep(__('onboarding.step.first_beneficiary'))
