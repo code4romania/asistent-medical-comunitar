@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Filament\Forms\Components\Location;
+use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
-use Filament\Forms\Components\Repeater;
 use Filament\Resources\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 

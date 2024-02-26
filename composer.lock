@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5306fce7533d13f9d5ab10ea22a860fc",
+    "content-hash": "8b498b2aa6acdba7a4d5c98cdf7c9054",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -5658,6 +5658,78 @@
             "time": "2023-11-03T13:09:19+00:00"
         },
         {
+            "name": "spatie/laravel-onboard",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-onboard.git",
+                "reference": "e351e9cb5aa27f892529ce0cfe6c8924b783dbdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-onboard/zipball/e351e9cb5aa27f892529ce0cfe6c8924b783dbdb",
+                "reference": "e351e9cb5aa27f892529ce0cfe6c8924b783dbdb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0|^10.0|^11.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.9.2",
+                "spatie/once": "^3.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "pestphp/pest": "^1.21|^2.0",
+                "pestphp/pest-plugin-laravel": "^1.1|^2.0",
+                "phpstan/extension-installer": "^1.1|^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Onboard\\OnboardServiceProvider"
+                    ],
+                    "aliases": {
+                        "Onboard": "Spatie\\Onboard\\OnboardFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Onboard\\": "src",
+                    "Spatie\\Onboard\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rias Van der Veken",
+                    "email": "rias@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel package to help track user onboarding steps",
+            "homepage": "https://github.com/spatie/laravel-onboard",
+            "keywords": [
+                "laravel",
+                "laravel-onboard",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-onboard/issues",
+                "source": "https://github.com/spatie/laravel-onboard/tree/2.6.0"
+            },
+            "time": "2024-02-14T13:09:56+00:00"
+        },
+        {
             "name": "spatie/laravel-package-tools",
             "version": "1.16.2",
             "source": {
@@ -5716,6 +5788,68 @@
                 }
             ],
             "time": "2024-01-11T08:43:00+00:00"
+        },
+        {
+            "name": "spatie/once",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/once.git",
+                "reference": "aab3fc8694e7caec98b2d330c4a8420391c7559d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/once/zipball/aab3fc8694e7caec98b2d330c4a8420391c7559d",
+                "reference": "aab3fc8694e7caec98b2d330c4a8420391c7559d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.21",
+                "symfony/var-dumper": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Once\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A magic memoization function",
+            "homepage": "https://github.com/spatie/once",
+            "keywords": [
+                "cache",
+                "callable",
+                "memoization",
+                "once",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/once/tree/3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-04-21T12:23:20+00:00"
         },
         {
             "name": "spatie/temporary-directory",

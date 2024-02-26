@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
+use App\Filament\Forms\Components\Location;
+use App\Filament\Forms\Components\Subsection;
+use App\Filament\Forms\Components\Value;
 use App\Models\City;
 use App\Models\User;
 use Filament\Resources\Form;
-use Filament\Forms\Components\Repeater;
-use App\Filament\Forms\Components\Value;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Forms\Components\Location;
-use App\Filament\Forms\Components\Subsection;
 
 class ViewArea extends ViewRecord
 {

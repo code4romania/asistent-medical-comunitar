@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Filament\Resources\ProfileResource;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureUserIsActive
+class EnsureUserHasCompletedProfile
 {
     /**
      * Handle an incoming request.
@@ -18,16 +19,15 @@ class EnsureUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->isActive()) {
+        $onboardUrl = ProfileResource::getUrl('onboard');
+
+        if (
+            Auth::user()->hasCompletedProfile() ||
+            $onboardUrl === $request->getUri()
+        ) {
             return $next($request);
         }
 
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('filament.auth.login')
-            ->with('error', __('user.inactive_error'));
+        return redirect()->to($onboardUrl);
     }
 }

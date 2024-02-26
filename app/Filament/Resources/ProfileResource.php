@@ -29,6 +29,8 @@ class ProfileResource extends Resource
     public static function getPages(): array
     {
         return [
+            'onboard' => Pages\Onboard::route('/onboard'),
+
             'general.view' => Pages\ViewGeneral::route('/general'),
             'general.edit' => Pages\EditGeneral::route('/general/edit'),
 
