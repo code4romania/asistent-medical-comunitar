@@ -18,6 +18,11 @@ class Onboard extends EditRecord
 
     protected static string $resource = ProfileResource::class;
 
+    protected function getTitle(): string
+    {
+        return __('onboarding.step.profile');
+    }
+
     protected function getActions(): array
     {
         return [];

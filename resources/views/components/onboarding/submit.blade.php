@@ -1,6 +1,6 @@
 <x-filament::button
     type="submit"
-    form="handle"
+    icon="heroicon-o-check"
     class="w-full">
     {{ __('onboarding.finish') }}
 </x-filament::button>
