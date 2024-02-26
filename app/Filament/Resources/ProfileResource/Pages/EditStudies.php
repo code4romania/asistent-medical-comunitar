@@ -6,9 +6,9 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Enums\StudyType;
 use App\Filament\Forms\Components\Location;
+use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\YearPicker;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
