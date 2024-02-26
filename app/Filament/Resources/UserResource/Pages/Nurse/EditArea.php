@@ -55,7 +55,7 @@ class EditArea extends EditRecord
                                 ->limit(100)
                                 ->get()
                                 ->mapWithKeys(fn (City $city) => [
-                                    $city->getKey() => 'Location::getRenderedOptionLabel($city)',
+                                    $city->getKey() => Location::getRenderedOptionLabel($city),
                                 ])
                         )
                         ->getOptionLabelFromRecordUsing(
