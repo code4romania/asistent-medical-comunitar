@@ -304,6 +304,7 @@ return [
         'auth' => [
             Filament\Http\Middleware\Authenticate::class,
             App\Http\Middleware\EnsureUserIsActive::class,
+            App\Http\Middleware\EnsureUserHasCompletedProfile::class,
         ],
         'base' => [
             Illuminate\Cookie\Middleware\EncryptCookies::class,
