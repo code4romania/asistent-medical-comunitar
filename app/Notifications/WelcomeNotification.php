@@ -29,14 +29,14 @@ class WelcomeNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('auth.welcome.subject'))
-            ->greeting(__('auth.welcome.greeting', [
-                'name' => $notifiable->full_name,
+            ->subject(__('welcome.email.subject'))
+            ->greeting(__('welcome.email.greeting', [
+                'name' => $notifiable->first_name,
             ]))
-            ->line(__('auth.welcome.intro', [
+            ->line(__('welcome.email.intro', [
                 'app' => config('app.name'),
             ]))
-            ->action(__('auth.welcome.submit'), URL::signedRoute(
+            ->action(__('welcome.email.submit'), URL::signedRoute(
                 'filament.auth.welcome',
                 ['user' => $notifiable->id]
             ));

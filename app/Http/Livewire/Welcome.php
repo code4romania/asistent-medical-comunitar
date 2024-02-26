@@ -5,18 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Http\Responses\Auth\LoginResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Welcome extends Component implements HasForms
@@ -39,17 +36,13 @@ class Welcome extends Component implements HasForms
         }
 
         if (! $request->hasValidSignature()) {
-            abort(Response::HTTP_FORBIDDEN, __('auth.welcome.invalid_signature'));
+            abort(Response::HTTP_FORBIDDEN, __('welcome.invalid_signature'));
         }
 
         $this->user = $user;
 
         if (\is_null($this->user)) {
-            abort(Response::HTTP_FORBIDDEN, __('auth.welcome.no_user'));
-        }
-
-        if ($this->user->hasSetPassword()) {
-            abort(Response::HTTP_FORBIDDEN, __('auth.welcome.already_used'));
+            abort(Response::HTTP_FORBIDDEN, __('welcome.no_user'));
         }
 
         $this->form->fill([
@@ -57,28 +50,13 @@ class Welcome extends Component implements HasForms
         ]);
     }
 
-    public function handle(): ?LoginResponse
+    public function handle(): void
     {
-        try {
-            $this->rateLimit(5);
-        } catch (TooManyRequestsException $exception) {
-            throw ValidationException::withMessages([
-                'email' => __('filament::login.messages.throttled', [
-                    'seconds' => $exception->secondsUntilAvailable,
-                    'minutes' => ceil($exception->secondsUntilAvailable / 60),
-                ]),
-            ]);
-        }
-
         $this->user->update([
             'password' => Hash::make(data_get($this->form->getState(), 'password')),
         ]);
 
         $this->user->markPasswordAsSet();
-
-        Filament::auth()->login($this->user);
-
-        return app(LoginResponse::class);
     }
 
     protected function getFormSchema(): array
@@ -105,7 +83,7 @@ class Welcome extends Component implements HasForms
     public function render(): View
     {
         return view('auth.welcome')
-            ->layout('filament::components.layouts.card', [
+            ->layout('components.layouts.onboarding', [
                 'title' => __('filament::login.title'),
             ]);
     }
