@@ -22,6 +22,7 @@ class EnsureUserHasCompletedProfile
         $onboardUrl = ProfileResource::getUrl('onboard');
 
         if (
+            ! Auth::user()->isNurse() ||
             Auth::user()->hasCompletedProfile() ||
             $onboardUrl === $request->getUri()
         ) {

@@ -18,6 +18,15 @@ class Onboard extends EditRecord
 
     protected static string $resource = ProfileResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        if (! $this->getRecord()?->isNurse()) {
+            redirect()->to(Dashboard::getUrl());
+
+            return;
+        }
+    }
+
     protected function getTitle(): string
     {
         return __('onboarding.step.profile');

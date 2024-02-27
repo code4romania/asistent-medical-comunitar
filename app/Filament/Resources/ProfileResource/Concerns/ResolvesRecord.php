@@ -14,6 +14,10 @@ trait ResolvesRecord
     {
         $this->record = auth()->user();
 
+        if (method_exists($this, 'authorizeAccess')) {
+            $this->authorizeAccess();
+        }
+
         $this->fillForm();
     }
 
