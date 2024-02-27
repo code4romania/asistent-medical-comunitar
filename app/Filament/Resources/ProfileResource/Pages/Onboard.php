@@ -44,7 +44,6 @@ class Onboard extends EditRecord
             ->schema([
                 Wizard::make()
                     ->columnSpanFull()
-                    ->skippable()
                     ->steps([
                         Wizard\Step::make(__('onboarding.step.number', ['step' => 1]))
                             ->description(__('user.profile.section.general'))
