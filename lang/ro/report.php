@@ -11,6 +11,7 @@ return [
 
     'header' => [
         'list' => 'Rapoarte',
+        'coming_soon' => 'Disponibile în curând.',
     ],
 
     'notification' => [

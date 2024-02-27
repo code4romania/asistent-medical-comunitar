@@ -98,9 +98,10 @@ class ReportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\GenerateReport::route('/generate'),
-            'saved' => Pages\ListReports::route('/'),
-            'view' => Pages\ViewReport::route('/{record}'),
+            'index' => Pages\ComingSoon::route('/'),
+            // 'index' => Pages\GenerateReport::route('/generate'),
+            // 'saved' => Pages\ListReports::route('/'),
+            // 'view' => Pages\ViewReport::route('/{record}'),
         ];
     }
 
