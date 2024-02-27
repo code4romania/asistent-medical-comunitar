@@ -26,7 +26,7 @@ class UserPolicy
         }
 
         if ($user->isCoordinator()) {
-            return $model->activityCounties->contains($user->county);
+            return $model->activityCounty->is($user->county);
         }
 
         return $user->is($model);
@@ -50,7 +50,7 @@ class UserPolicy
         }
 
         if ($user->isCoordinator()) {
-            return $model->activityCounties->contains($user->county);
+            return $model->activityCounty->is($user->county);
         }
 
         return $user->is($model);
