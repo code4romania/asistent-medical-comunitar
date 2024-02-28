@@ -9,9 +9,9 @@ use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\DocumentResource;
+use App\Filament\Resources\DocumentResource\Actions\CreateDocumentAction;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Document;
-use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,17 +45,7 @@ class ListDocuments extends ListRecords implements WithSidebar
     protected function getActions(): array
     {
         return [
-            Pages\Actions\CreateAction::make()
-                ->label(__('document.action.create'))
-                ->modalHeading(__('document.action.create'))
-                ->icon('heroicon-o-plus-circle')
-                ->disableCreateAnother()
-                ->using(function (array $data, $livewire) {
-                    $data['beneficiary_id'] = $livewire->getBeneficiary()?->id;
-
-                    Document::create($data);
-                })
-                ->form(DocumentResource::getFormSchema()),
+            CreateDocumentAction::make(),
         ];
     }
 
