@@ -16,6 +16,7 @@ RUN apk update && \
     #
     # install extensions
     install-php-extensions \
+    excimer \
     gd \
     pdo_mysql \
     zip \
@@ -74,5 +75,7 @@ ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
+
+ENV SENTRY_SAMPLE_RATE 0
 
 EXPOSE 80
