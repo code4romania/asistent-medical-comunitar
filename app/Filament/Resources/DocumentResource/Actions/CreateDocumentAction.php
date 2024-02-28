@@ -32,7 +32,7 @@ class CreateDocumentAction extends CreateAction
         $this->using(function (array $data, $livewire) {
             $data['beneficiary_id'] = $livewire->getBeneficiary()?->id;
 
-            Document::create($data);
+            return Document::create($data);
         });
 
         $this->form(DocumentResource::getFormSchema());
