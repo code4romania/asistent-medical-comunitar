@@ -122,7 +122,7 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->icon('heroicon-o-plus-circle')
                 ->button()
                 ->color('secondary')
-                ->hidden(fn () => $this->hasAlteredTableQuery()),
+                ->hidden(fn () => ! $this->getBeneficiary()->hasCatagraphy() || $this->hasAlteredTableQuery()),
 
             Tables\Actions\CreateAction::make('create_case')
                 ->label(__('intervention.action.open_case'))
@@ -132,7 +132,7 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->icon('heroicon-o-folder-add')
                 ->button()
                 ->color('secondary')
-                ->hidden(fn () => $this->hasAlteredTableQuery()),
+                ->hidden(fn () => ! $this->getBeneficiary()->hasCatagraphy() || $this->hasAlteredTableQuery()),
         ];
     }
 
