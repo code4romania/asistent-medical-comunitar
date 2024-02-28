@@ -69,6 +69,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                     ]),
 
                 Card::make()
+                    ->visible(fn (Document $record) => $record->hasMedia('default'))
                     ->header(__('document.preview'))
                     ->componentActions(function (Document $record) {
                         $media = $record->getFirstMedia('default');
