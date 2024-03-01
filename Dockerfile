@@ -17,12 +17,14 @@ RUN apk update && \
     # install extensions
     install-php-extensions \
     excimer \
+    exif \
     gd \
-    pdo_mysql \
-    zip \
     intl \
     mbstring \
-    exif
+    opcache \
+    pdo_mysql \
+    redis \
+    zip
 
 COPY --chown=www-data:www-data . /var/www
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
