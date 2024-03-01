@@ -25,6 +25,7 @@ class Policy extends BasePolicy
             ])
             ->addDirective(Directive::FONT, [
                 Keyword::SELF,
+                'data:',
             ])
             ->addDirective(Directive::SCRIPT, [
                 Keyword::SELF,
@@ -38,6 +39,7 @@ class Policy extends BasePolicy
             ->addDirective(Directive::IMG, [
                 '*',
                 'data:',
+                'blob:',
             ])
             ->addDirective(Directive::OBJECT, Keyword::SELF);
     }
