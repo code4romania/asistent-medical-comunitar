@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
+use JeffGreco13\FilamentBreezy\FilamentBreezy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,6 +55,25 @@ class AppServiceProvider extends ServiceProvider
 
             $this->registerUserMenuItems();
         });
+
+        $this->setPasswordDefaults();
+    }
+
+    private static function passwordDefaults(): Password
+    {
+        return Password::min(8)
+            ->uncompromised();
+    }
+
+    protected function setPasswordDefaults(): void
+    {
+        Password::defaults(function () {
+            return static::passwordDefaults();
+        });
+
+        FilamentBreezy::setPasswordRules([
+            static::passwordDefaults(),
+        ]);
     }
 
     protected function registerCarbonMacros(): void
