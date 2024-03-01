@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender')->nullable();
-            $table->string('cnp', 13)->nullable()->unique();
+            $table->string('cnp')->nullable()->unique();
 
             $table->foreignIdFor(County::class, 'activity_county_id')->nullable()->constrained('counties');
 

@@ -29,10 +29,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         // Create a coordinator
-        $coordinator = User::factory([
-            'email' => 'coord@example.com',
-            'username' => 'coord',
-        ])
+        $coordinator = User::factory(['email' => 'coord@example.com'])
             ->coordinator()
             ->create();
 
