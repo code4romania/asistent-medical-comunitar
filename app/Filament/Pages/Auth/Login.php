@@ -22,7 +22,7 @@ class Login extends BaseLogin
     private function loginAsNurse(): void
     {
         $this->form->fill([
-            'username' => 'nurse',
+            'email' => 'nurse@example.com',
             'password' => 'password',
             'remember' => true,
         ]);

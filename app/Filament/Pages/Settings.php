@@ -26,14 +26,10 @@ class Settings extends MyProfile
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-            TextInput::make('username')
-                ->label(__('field.username'))
-                ->disabled(),
-
-            TextInput::make('email')
+            TextInput::make($this->loginColumn)
                 ->required()
-                ->email()
-                ->unique(config('filament-breezy.user_model'), ignoreRecord: true)
+                ->email(fn () => $this->loginColumn === 'email')
+                ->unique(config('filament-breezy.user_model'), ignorable: $this->user)
                 ->label(__('filament-breezy::default.fields.email')),
         ];
     }
