@@ -30,12 +30,6 @@ class EditGeneral extends EditRecord
                 ->icon('heroicon-o-user')
                 ->columns(2)
                 ->schema([
-                    TextInput::make('username')
-                        ->label(__('field.username'))
-                        ->unique(ignoreRecord: true)
-                        ->maxLength(50)
-                        ->required()
-                        ->disabled(),
                     TextInput::make('first_name')
                         ->label(__('field.first_name'))
                         ->placeholder(__('placeholder.first_name'))

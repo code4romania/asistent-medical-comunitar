@@ -24,26 +24,17 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         // Create an admin
-        $admin = User::factory([
-            'email' => 'admin@example.com',
-            'username' => 'admin',
-        ])
+        $admin = User::factory(['email' => 'admin@example.com'])
             ->admin()
             ->create();
 
         // Create a coordinator
-        $coordinator = User::factory([
-            'email' => 'coord@example.com',
-            'username' => 'coord',
-        ])
+        $coordinator = User::factory(['email' => 'coord@example.com'])
             ->coordinator()
             ->create();
 
         // Create a community nurse
-        $nurse = User::factory([
-            'email' => 'nurse@example.com',
-            'username' => 'nurse',
-        ])
+        $nurse = User::factory(['email' => 'nurse@example.com'])
             ->nurse()
             ->withProfile()
             ->create();

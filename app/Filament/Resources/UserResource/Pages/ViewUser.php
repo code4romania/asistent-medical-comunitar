@@ -55,10 +55,6 @@ class ViewUser extends ViewRecord
                             ->columns(2)
                             ->schema([
 
-                                Value::make('username')
-                                    ->label(__('field.username'))
-                                    ->columnSpanFull(),
-
                                 Value::make('first_name')
                                     ->label(__('field.first_name')),
 

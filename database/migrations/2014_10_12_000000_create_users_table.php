@@ -28,8 +28,7 @@ return new class extends Migration
                 NULLIF(CONCAT_WS(" ", first_name, last_name), " ")
             SQL);
 
-            $table->string('username')->unique();
-            $table->string('email')->nullable();
+            $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('password_set_at')->nullable();
             $table->rememberToken();
@@ -39,7 +38,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender')->nullable();
-            $table->string('cnp')->nullable();
+            $table->string('cnp')->nullable()->unique();
 
             $table->foreignIdFor(County::class, 'activity_county_id')->nullable()->constrained('counties');
 
@@ -48,8 +47,6 @@ return new class extends Migration
 
             $table->string('accreditation_number')->nullable();
             $table->date('accreditation_date')->nullable();
-
-            $table->text('notes')->nullable();
         });
     }
 };
