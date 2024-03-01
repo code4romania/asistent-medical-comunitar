@@ -61,7 +61,7 @@ return [
     |--------------------------------------------------------------------------
     | Enable Two-Factor Authentication (2FA).
     */
-    'enable_2fa' => false,
+    'enable_2fa' => true,
     /*
     |--------------------------------------------------------------------------
     | Number of seconds before asking the user to confirm their password in PasswordButtonAction again. 300 = 5 minutes
