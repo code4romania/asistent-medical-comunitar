@@ -23,7 +23,6 @@ RUN apk update && \
     mbstring \
     opcache \
     pdo_mysql \
-    redis \
     zip
 
 COPY --chown=www-data:www-data . /var/www
@@ -72,9 +71,32 @@ COPY docker/s6-rc.d /etc/s6-overlay/s6-rc.d
 
 COPY --from=assets --chown=www-data:www-data /build/public/build /var/www/public/build
 
+ARG VERSION
+ARG REVISION
+
+RUN echo "$VERSION (${REVISION:0:7})" > /var/www/.version
+
 ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
+ENV CACHE_DRIVER database
+ENV QUEUE_CONNECTION database
+ENV SESSION_DRIVER database
+
+# The number of jobs to process before stopping
+ENV WORKER_MAX_JOBS 5
+
+# Number of seconds to sleep when no job is available
+ENV WORKER_SLEEP 10
+
+# Number of seconds to rest between jobs
+ENV WORKER_REST 1
+
+# The number of seconds a child process can run
+ENV WORKER_TIMEOUT 600
+
+# Number of times to attempt a job before logging it failed
+ENV WORKER_TRIES 3
 
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
 

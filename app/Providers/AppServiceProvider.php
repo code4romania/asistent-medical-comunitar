@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use JeffGreco13\FilamentBreezy\FilamentBreezy;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerCarbonMacros();
+        $this->registerReleaseVersion();
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
@@ -75,6 +77,15 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentBreezy::setPasswordRules([
             static::passwordDefaults(),
+        ]);
+    }
+
+    public function registerReleaseVersion(): void
+    {
+        $version = rescue(fn () => File::get(base_path('.version')), 'develop', report: false);
+
+        config([
+            'sentry.release' => $version,
         ]);
     }
 
