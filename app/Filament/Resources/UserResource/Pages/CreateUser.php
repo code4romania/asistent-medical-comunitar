@@ -10,7 +10,6 @@ use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\UserResource;
 use Closure;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -33,16 +32,6 @@ class CreateUser extends CreateRecord
                             ->icon('heroicon-o-user')
                             ->columns(2)
                             ->schema([
-                                Grid::make()
-                                    ->schema([
-                                        TextInput::make('username')
-                                            ->label(__('field.username'))
-                                            ->unique()
-                                            ->maxLength(50)
-                                            ->required(),
-                                    ])
-                                    ->columnSpanFull(),
-
                                 TextInput::make('first_name')
                                     ->label(__('field.first_name'))
                                     ->placeholder(__('placeholder.first_name'))
