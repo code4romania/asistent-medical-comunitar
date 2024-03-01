@@ -113,7 +113,6 @@ class AppServiceProvider extends ServiceProvider
             'individual_service' => \App\Models\Intervention\InterventionableIndividualService::class,
             'intervention' => \App\Models\Intervention::class,
             'ocasional_intervention' => \App\Models\Intervention\OcasionalIntervention::class,
-            'profile_area' => \App\Models\Profile\Area::class,
             'profile_course' => \App\Models\Profile\Course::class,
             'profile_employer' => \App\Models\Profile\Employer::class,
             'profile_study' => \App\Models\Profile\Study::class,
