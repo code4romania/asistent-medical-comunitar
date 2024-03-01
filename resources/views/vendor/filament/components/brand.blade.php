@@ -1,7 +1,3 @@
-<div
-    {{ $attributes->class([
-        'filament-brand text-xl font-bold tracking-tight',
-        'dark:text-white' => config('filament.dark_mode'),
-    ]) }}>
+<div {{ $attributes->class(['filament-brand text-xl font-bold tracking-tight']) }}>
     @svg('logo', 'h-10')
 </div>

@@ -56,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
             $this->registerUserMenuItems();
         });
 
+        Filament::registerRenderHook('head.end', fn () => view('components.favicons'));
+
         $this->setPasswordDefaults();
     }
 
