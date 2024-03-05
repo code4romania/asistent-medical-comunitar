@@ -187,6 +187,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Aedart\Antivirus\Providers\AntivirusServiceProvider::class,
 
         /*
          * Application Service Providers...
