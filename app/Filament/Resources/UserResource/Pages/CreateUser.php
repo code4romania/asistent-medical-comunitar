@@ -8,7 +8,9 @@ use App\Enums\User\Role;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
+use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\UserResource;
+use App\Models\City;
 use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -64,7 +66,8 @@ class CreateUser extends CreateRecord
                                     ->options(Role::options())
                                     ->enum(Role::class)
                                     ->reactive()
-                                    ->required(),
+                                    ->required()
+                                    ->visible(fn () => auth()->user()->isAdmin()),
 
                                 Location::make()
                                     ->label(__('field.county'))
@@ -72,19 +75,60 @@ class CreateUser extends CreateRecord
                                     ->required()
                                     ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::COORDINATOR))
                                     ->columnSpan(1),
-
                             ]),
                     ]),
 
                 Card::make()
-                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE))
+                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
                     ->schema(Nurse\EditArea::getSchema()),
+
+                Card::make()
+                    ->visible(fn () => auth()->user()->isCoordinator())
+                    ->schema([
+                        Subsection::make()
+                            ->icon('heroicon-o-location-marker')
+                            ->columns()
+                            ->schema([
+                                Value::make('activity_county_id')
+                                    ->label(__('field.county'))
+                                    ->content(fn () => auth()->user()->county->name),
+
+                                Select::make('activity_cities')
+                                    ->label(__('field.cities'))
+                                    ->placeholder(__('placeholder.cities'))
+                                    ->relationship('activityCities', 'name')
+                                    ->multiple()
+                                    ->allowHtml()
+                                    ->searchable()
+                                    ->required()
+                                    ->getSearchResultsUsing(
+                                        fn (string $search, Closure $get) => City::query()
+                                            ->where('county_id', auth()->user()->county_id)
+                                            ->search($search)
+                                            ->limit(100)
+                                            ->get()
+                                            ->mapWithKeys(fn (City $city) => [
+                                                $city->getKey() => Location::getRenderedOptionLabel($city),
+                                            ])
+                                    )
+                                    ->getOptionLabelFromRecordUsing(
+                                        fn (City $record) => Location::getRenderedOptionLabel($record)
+                                    ),
+                            ]),
+                    ]),
             ]);
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['role'] ??= Role::NURSE;
+
+        if (
+            auth()->user()->isCoordinator() &&
+            Role::isValue($data['role'], Role::NURSE)
+        ) {
+            $data['activity_county_id'] = auth()->user()->county_id;
+        }
 
         return $data;
     }
