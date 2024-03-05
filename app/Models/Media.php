@@ -29,11 +29,13 @@ class Media extends Model
         return response()->stream(function () {
             $stream = $this->stream();
 
+            if (! \is_resource($stream)) {
+                return;
+            }
+
             fpassthru($stream);
 
-            if (\is_resource($stream)) {
-                fclose($stream);
-            }
+            fclose($stream);
         }, 200, $downloadHeaders);
     }
 }

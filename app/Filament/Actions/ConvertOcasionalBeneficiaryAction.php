@@ -42,6 +42,10 @@ class ConvertOcasionalBeneficiaryAction extends Action
             /** @var Beneficiary */
             $beneficiary = $this->getRecord();
 
+            $beneficiary->update([
+                'type' => Type::REGULAR,
+            ]);
+
             $beneficiary->ocasionalInterventions()
                 ->with('services')
                 ->get()
@@ -74,10 +78,6 @@ class ConvertOcasionalBeneficiaryAction extends Action
 
                     $ocasionalIntervention->delete();
                 });
-
-            $beneficiary->update([
-                'type' => Type::REGULAR,
-            ]);
 
             $this->success();
         });
