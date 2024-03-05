@@ -134,6 +134,8 @@ class Value extends Component
         if (! $content instanceof HtmlString) {
             $content = Str::of($content)
                 ->trim()
+                ->inlineMarkdown()
+                ->sanitizeHtml()
                 ->toHtmlString();
         }
 
