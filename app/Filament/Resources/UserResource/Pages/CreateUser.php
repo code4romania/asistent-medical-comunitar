@@ -47,6 +47,7 @@ class CreateUser extends CreateRecord
                                 TextInput::make('email')
                                     ->label(__('field.email'))
                                     ->placeholder(__('placeholder.email'))
+                                    ->unique()
                                     ->email()
                                     ->maxLength(200)
                                     ->required(),
