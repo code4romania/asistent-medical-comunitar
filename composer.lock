@@ -4,8 +4,408 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d12bebbea66743036924a8269679999",
+    "content-hash": "58df81a788617c31b3da3dd2a8a8d813",
     "packages": [
+        {
+            "name": "aedart/athenaeum-antivirus",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-antivirus.git",
+                "reference": "08f21da4c78ef86c2a3b4835f214079b0d888e7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/08f21da4c78ef86c2a3b4835f214079b0d888e7e",
+                "reference": "08f21da4c78ef86c2a3b4835f214079b0d888e7e",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "aedart/athenaeum-streams": "^7.32",
+                "aedart/athenaeum-support": "^7.32",
+                "aedart/athenaeum-validation": "^7.32",
+                "ext-sockets": "*",
+                "illuminate/events": "^v10.46.0",
+                "php": "^8.1.22",
+                "xenolope/quahog": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\Antivirus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Antivirus scanner for Laravel",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "antivirus",
+                "clamav"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/7.32.0"
+            },
+            "time": "2024-02-29T08:00:08+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-contracts",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-contracts.git",
+                "reference": "d0608b53e0032f5f2b795cbd9317a9d3ed983f5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/d0608b53e0032f5f2b795cbd9317a9d3ed983f5f",
+                "reference": "d0608b53e0032f5f2b795cbd9317a9d3ed983f5f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^v10.46.0",
+                "php": "^8.1.22"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\Contracts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Athenaeum contracts package",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "contracts",
+                "interfaces"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-contracts/tree/7.32.0"
+            },
+            "time": "2024-02-29T08:00:15+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-mime-types",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-mime-types.git",
+                "reference": "7da53688a5ae93398e6c2e359674eae2abb2a58a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/7da53688a5ae93398e6c2e359674eae2abb2a58a",
+                "reference": "7da53688a5ae93398e6c2e359674eae2abb2a58a",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "aedart/athenaeum-support": "^7.32",
+                "ext-fileinfo": "*",
+                "php": "^8.1.22"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\MimeTypes\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Mime-Types",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "mime-type",
+                "utilities"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-mime-types/tree/7.32.0"
+            },
+            "time": "2024-01-25T08:06:09+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-streams",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-streams.git",
+                "reference": "8c00a61bbf20770ab409f78f82c4051f07b12aaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/8c00a61bbf20770ab409f78f82c4051f07b12aaa",
+                "reference": "8c00a61bbf20770ab409f78f82c4051f07b12aaa",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "aedart/athenaeum-mime-types": "^7.32",
+                "aedart/athenaeum-support": "^7.32",
+                "php": "^8.1.22",
+                "psr/http-message": "^1.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\Streams\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Stream utilities",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "resource",
+                "stream",
+                "utilities"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-streams/tree/7.32.0"
+            },
+            "time": "2024-01-25T08:06:13+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-support",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-support.git",
+                "reference": "aed4f2e602dd0b273e977cfa8a8e46add82a97c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/aed4f2e602dd0b273e977cfa8a8e46add82a97c3",
+                "reference": "aed4f2e602dd0b273e977cfa8a8e46add82a97c3",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "aedart/athenaeum-utils": "^7.32",
+                "illuminate/config": "^v10.46.0",
+                "illuminate/support": "^v10.46.0",
+                "php": "^8.1.22"
+            },
+            "require-dev": {
+                "predis/predis": "^2.2.2",
+                "symfony/console": "^v6.4.4",
+                "twig/twig": "^3.8.0"
+            },
+            "suggest": {
+                "twig/twig": "Required for using aware-of generator"
+            },
+            "bin": [
+                "aware-of"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "helpers/properties.php"
+                ],
+                "psr-4": {
+                    "Aedart\\Support\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Aware-of Helpers for Laravel components and other utilities",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "Aware Of",
+                "helpers",
+                "properties",
+                "utils"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-support/tree/7.32.0"
+            },
+            "time": "2024-02-29T08:00:41+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-utils",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-utils.git",
+                "reference": "68e61d60cc51ee16d2edca9e2ac90bb7a3dfed1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/68e61d60cc51ee16d2edca9e2ac90bb7a3dfed1a",
+                "reference": "68e61d60cc51ee16d2edca9e2ac90bb7a3dfed1a",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "composer-runtime-api": "^2.0.0",
+                "illuminate/support": "^v10.46.0",
+                "mockery/mockery": "1.5.*",
+                "php": "^8.1.22"
+            },
+            "bin": [
+                "bin/build-version"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\Utils\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Offers a few utility components that are used by the Athenaeum packages",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "array",
+                "function",
+                "json",
+                "math",
+                "utilities",
+                "version"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-utils/tree/7.32.0"
+            },
+            "time": "2024-02-29T08:00:33+00:00"
+        },
+        {
+            "name": "aedart/athenaeum-validation",
+            "version": "7.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aedart/athenaeum-validation.git",
+                "reference": "818c4338db453c372fbb2f3a9137ea4b70137e2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/818c4338db453c372fbb2f3a9137ea4b70137e2b",
+                "reference": "818c4338db453c372fbb2f3a9137ea4b70137e2b",
+                "shasum": ""
+            },
+            "require": {
+                "aedart/athenaeum-contracts": "^7.32",
+                "aedart/athenaeum-support": "^7.32",
+                "aedart/athenaeum-utils": "^7.32",
+                "illuminate/validation": "^v10.46.0",
+                "php": "^8.1.22"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aedart\\Validation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alin Eugen Deac",
+                    "email": "aedart@gmail.com"
+                }
+            ],
+            "description": "Validation rules and utilities for Laravel",
+            "homepage": "https://aedart.github.io/athenaeum/",
+            "keywords": [
+                "Athenaeum",
+                "validation"
+            ],
+            "support": {
+                "source": "https://github.com/aedart/athenaeum-validation/tree/7.32.0"
+            },
+            "time": "2024-02-29T08:00:30+00:00"
+        },
         {
             "name": "akaunting/laravel-money",
             "version": "4.0.1",
@@ -457,6 +857,75 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "clue/socket-raw",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clue/socket-raw.git",
+                "reference": "91e9f619f6769f931454a9882c21ffd7623d06cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clue/socket-raw/zipball/91e9f619f6769f931454a9882c21ffd7623d06cb",
+                "reference": "91e9f619f6769f931454a9882c21ffd7623d06cb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-sockets": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Socket\\Raw\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                }
+            ],
+            "description": "Simple and lightweight OOP wrapper for PHP's low-level sockets extension (ext-sockets).",
+            "homepage": "https://github.com/clue/socket-raw",
+            "keywords": [
+                "Socket",
+                "client",
+                "datagram",
+                "dgram",
+                "icmp",
+                "ipv6",
+                "server",
+                "stream",
+                "tcp",
+                "udg",
+                "udp",
+                "unix"
+            ],
+            "support": {
+                "issues": "https://github.com/clue/socket-raw/issues",
+                "source": "https://github.com/clue/socket-raw/tree/v1.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://clue.engineering/support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/clue",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-14T14:58:06+00:00"
         },
         {
             "name": "composer/semver",
@@ -1988,6 +2457,57 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
+            "name": "hamcrest/hamcrest-php",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hamcrest/hamcrest-php.git",
+                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
+                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3|^7.0|^8.0"
+            },
+            "replace": {
+                "cordoval/hamcrest-php": "*",
+                "davedevelopment/hamcrest-php": "*",
+                "kodova/hamcrest-php": "*"
+            },
+            "require-dev": {
+                "phpunit/php-file-iterator": "^1.4 || ^2.0",
+                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "hamcrest"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "This is the PHP port of Hamcrest Matchers",
+            "keywords": [
+                "test"
+            ],
+            "support": {
+                "issues": "https://github.com/hamcrest/hamcrest-php/issues",
+                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
+            },
+            "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
             "name": "intervention/image",
             "version": "2.7.2",
             "source": {
@@ -2269,16 +2789,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.46.0",
+            "version": "v10.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5e95946a8283a8d5c015035793f9c61c297e937f"
+                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5e95946a8283a8d5c015035793f9c61c297e937f",
-                "reference": "5e95946a8283a8d5c015035793f9c61c297e937f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fce29b8de62733cdecbe12e3bae801f83fff2ea4",
+                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4",
                 "shasum": ""
             },
             "require": {
@@ -2471,7 +2991,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-02-27T16:46:54+00:00"
+            "time": "2024-03-05T15:18:36+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3661,6 +4181,78 @@
             "time": "2023-05-10T11:58:31+00:00"
         },
         {
+            "name": "mockery/mockery",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mockery/mockery.git",
+                "reference": "e92dcc83d5a51851baf5f5591d32cb2b16e3684e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/e92dcc83d5a51851baf5f5591d32cb2b16e3684e",
+                "reference": "e92dcc83d5a51851baf5f5591d32cb2b16e3684e",
+                "shasum": ""
+            },
+            "require": {
+                "hamcrest/hamcrest-php": "^2.0.1",
+                "lib-pcre": ">=7.0",
+                "php": "^7.3 || ^8.0"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mockery": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                },
+                {
+                    "name": "Dave Marshall",
+                    "email": "dave.marshall@atstsolutions.co.uk",
+                    "homepage": "http://davedevelopment.co.uk"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework",
+            "homepage": "https://github.com/mockery/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/mockery/mockery/issues",
+                "source": "https://github.com/mockery/mockery/tree/1.5.1"
+            },
+            "time": "2022-09-07T15:32:08+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.5.0",
             "source": {
@@ -4797,16 +5389,16 @@
         },
         {
             "name": "psr/http-message",
-            "version": "2.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/402d35bcb92c70c026d1a6a9883f06b2ead23d71",
-                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
@@ -4815,7 +5407,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -4830,7 +5422,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
+                    "homepage": "http://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP messages",
@@ -4844,9 +5436,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/2.0"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2023-04-04T09:54:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
@@ -7142,16 +7734,16 @@
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v6.4.4",
+            "version": "v6.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "7a186f64a7f02787c04e8476538624d6aa888e42"
+                "reference": "f6947cb939d8efee137797382cb4db1af653ef75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/7a186f64a7f02787c04e8476538624d6aa888e42",
-                "reference": "7a186f64a7f02787c04e8476538624d6aa888e42",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f6947cb939d8efee137797382cb4db1af653ef75",
+                "reference": "f6947cb939d8efee137797382cb4db1af653ef75",
                 "shasum": ""
             },
             "require": {
@@ -7235,7 +7827,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v6.4.4"
+                "source": "https://github.com/symfony/http-kernel/tree/v6.4.5"
             },
             "funding": [
                 {
@@ -7251,7 +7843,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-27T06:32:13+00:00"
+            "time": "2024-03-04T21:00:47+00:00"
         },
         {
             "name": "symfony/mailer",
@@ -8341,16 +8933,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v6.4.3",
+            "version": "v6.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "3b2957ad54902f0f544df83e3d58b38d7e8e5842"
+                "reference": "7fe30068e207d9c31c0138501ab40358eb2d49a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/3b2957ad54902f0f544df83e3d58b38d7e8e5842",
-                "reference": "3b2957ad54902f0f544df83e3d58b38d7e8e5842",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/7fe30068e207d9c31c0138501ab40358eb2d49a4",
+                "reference": "7fe30068e207d9c31c0138501ab40358eb2d49a4",
                 "shasum": ""
             },
             "require": {
@@ -8404,7 +8996,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v6.4.3"
+                "source": "https://github.com/symfony/routing/tree/v6.4.5"
             },
             "funding": [
                 {
@@ -8420,7 +9012,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-30T13:55:02+00:00"
+            "time": "2024-02-27T12:33:30+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -9303,6 +9895,51 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xenolope/quahog",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonjomckay/quahog.git",
+                "reference": "b3823659050cc54a160e8739d077c96d8830a2fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonjomckay/quahog/zipball/b3823659050cc54a160e8739d077c96d8830a2fa",
+                "reference": "b3823659050cc54a160e8739d077c96d8830a2fa",
+                "shasum": ""
+            },
+            "require": {
+                "clue/socket-raw": "^1.3",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Xenolope\\Quahog\\": "src/Quahog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonjo McKay",
+                    "email": "jonjo@jonjomckay.com"
+                }
+            ],
+            "description": "A PHP client library for ClamAV clamd daemon",
+            "support": {
+                "issues": "https://github.com/jonjomckay/quahog/issues",
+                "source": "https://github.com/jonjomckay/quahog/tree/v3.0.0"
+            },
+            "time": "2020-11-25T12:06:14+00:00"
         }
     ],
     "packages-dev": [
@@ -10317,57 +10954,6 @@
             "time": "2024-02-28T19:50:06+00:00"
         },
         {
-            "name": "hamcrest/hamcrest-php",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hamcrest/hamcrest-php.git",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3|^7.0|^8.0"
-            },
-            "replace": {
-                "cordoval/hamcrest-php": "*",
-                "davedevelopment/hamcrest-php": "*",
-                "kodova/hamcrest-php": "*"
-            },
-            "require-dev": {
-                "phpunit/php-file-iterator": "^1.4 || ^2.0",
-                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "hamcrest"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "This is the PHP port of Hamcrest Matchers",
-            "keywords": [
-                "test"
-            ],
-            "support": {
-                "issues": "https://github.com/hamcrest/hamcrest-php/issues",
-                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
-            },
-            "time": "2020-07-09T08:09:16+00:00"
-        },
-        {
             "name": "itsgoingd/clockwork",
             "version": "v5.2.0",
             "source": {
@@ -10640,89 +11226,6 @@
                 "source": "https://github.com/maximebf/php-debugbar/tree/v1.20.2"
             },
             "time": "2024-02-15T10:49:09+00:00"
-        },
-        {
-            "name": "mockery/mockery",
-            "version": "1.6.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mockery/mockery.git",
-                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
-                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
-                "shasum": ""
-            },
-            "require": {
-                "hamcrest/hamcrest-php": "^2.0.1",
-                "lib-pcre": ">=7.0",
-                "php": ">=7.3"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.6.10",
-                "symplify/easy-coding-standard": "^12.0.8"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "library/helpers.php",
-                    "library/Mockery.php"
-                ],
-                "psr-4": {
-                    "Mockery\\": "library/Mockery"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Pádraic Brady",
-                    "email": "padraic.brady@gmail.com",
-                    "homepage": "https://github.com/padraic",
-                    "role": "Author"
-                },
-                {
-                    "name": "Dave Marshall",
-                    "email": "dave.marshall@atstsolutions.co.uk",
-                    "homepage": "https://davedevelopment.co.uk",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Nathanael Esayeas",
-                    "email": "nathanael.esayeas@protonmail.com",
-                    "homepage": "https://github.com/ghostwriter",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "Mockery is a simple yet flexible PHP mock object framework",
-            "homepage": "https://github.com/mockery/mockery",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "library",
-                "mock",
-                "mock objects",
-                "mockery",
-                "stub",
-                "test",
-                "test double",
-                "testing"
-            ],
-            "support": {
-                "docs": "https://docs.mockery.io/",
-                "issues": "https://github.com/mockery/mockery/issues",
-                "rss": "https://github.com/mockery/mockery/releases.atom",
-                "security": "https://github.com/mockery/mockery/security/advisories",
-                "source": "https://github.com/mockery/mockery"
-            },
-            "time": "2023-12-10T02:24:34+00:00"
         },
         {
             "name": "myclabs/deep-copy",
