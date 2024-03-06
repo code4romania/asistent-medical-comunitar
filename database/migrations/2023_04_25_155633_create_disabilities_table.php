@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Catagraphy;
+use App\Models\ICD10AM\ICD10AMDiagnostic;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,13 +21,17 @@ return new class extends Migration
 
             $table->string('type')->nullable();
             $table->string('degree')->nullable();
-            $table->string('diagnostic')->nullable();
-            $table->string('diagnostic_code')->nullable();
             $table->boolean('receives_pension')->default(false);
             $table->year('start_year')->nullable();
             $table->string('notes')->nullable();
 
-            $table->foreignIdFor(Catagraphy::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(ICD10AMDiagnostic::class, 'diagnostic_id')
+                ->nullable()
+                ->constrained('icd10am_diagnostics');
+
+            $table->foreignIdFor(Catagraphy::class)
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 };
