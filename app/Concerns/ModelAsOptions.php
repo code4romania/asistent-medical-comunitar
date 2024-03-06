@@ -18,12 +18,15 @@ trait ModelAsOptions
             ->snake()
             ->value();
 
-        return Cache::remember($key, MINUTE_IN_SECONDS, function () {
-            return static::query()
-                ->with('category')
-                ->get()
-                ->keyBy('id');
-        });
+        return Cache::driver('array')
+            ->remember(
+                $key,
+                MINUTE_IN_SECONDS,
+                fn () => static::query()
+                    ->with('category')
+                    ->get()
+                    ->keyBy('id')
+            );
     }
 
     public static function allAsOptions(): Collection

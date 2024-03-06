@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Beneficiary;
+use App\Models\Catagraphy;
+use App\Models\Disability;
+use App\Models\Disease;
 use App\Models\User;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,6 +34,9 @@ class CatagraphyFactory extends Factory
             'nurse_id' => User::factory()->withProfile(),
             'beneficiary_id' => Beneficiary::factory(),
 
+            'has_disabilities' => fake()->boolean(),
+            'has_health_issues' => fake()->boolean(),
+
             'cat_age' => fake()->randomElement($this->vulnerabilities->get('AGE')->keys()),
             'cat_as' => fake()->randomElement($this->vulnerabilities->get('AS')->keys()),
             'cat_cr' => fake()->randomElements($this->vulnerabilities->get('CR')->keys(), rand(1, 3)),
@@ -42,23 +48,9 @@ class CatagraphyFactory extends Factory
             'cat_mf' => fake()->randomElement($this->vulnerabilities->get('MF')->keys()),
             'cat_ns' => fake()->randomElements($this->vulnerabilities->get('NS')->keys(), rand(1, 3)),
             'cat_pov' => fake()->randomElement($this->vulnerabilities->get('POV')->keys()),
-            'cat_ss' => fake()->randomElements($this->vulnerabilities->get('SS')->keys(), rand(1, 3)),
             'cat_ssa' => fake()->randomElements($this->vulnerabilities->get('SSA')->keys(), rand(1, 3)),
             'cat_vif' => fake()->randomElements($this->vulnerabilities->get('VIF')->keys(), rand(1, 3)),
         ];
-    }
-
-    public function disability(): static
-    {
-        if (! fake()->boolean()) {
-            return $this;
-        }
-
-        return $this->state(fn () => [
-            'cat_diz' => fake()->randomElement($this->vulnerabilities->get('DIZ')->keys()),
-            'cat_diz_tip' => fake()->randomElement($this->vulnerabilities->get('DIZ_TIP')->keys()),
-            'cat_diz_gr' => fake()->randomElement($this->vulnerabilities->get('DIZ_GR')->keys()),
-        ]);
     }
 
     public function reproductiveHealth(): static
@@ -78,5 +70,24 @@ class CatagraphyFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'notes' => fake()->paragraphs(asText: true),
         ]);
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Catagraphy $catagraphy) {
+            if ($catagraphy->has_health_issues) {
+                Disease::factory()
+                    ->count(rand(1, 3))
+                    ->for($catagraphy)
+                    ->create();
+            }
+
+            if ($catagraphy->has_disabilities) {
+                Disability::factory()
+                    ->count(rand(1, 3))
+                    ->for($catagraphy)
+                    ->create();
+            }
+        });
     }
 }
