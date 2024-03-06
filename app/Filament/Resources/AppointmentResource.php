@@ -61,6 +61,7 @@ class AppointmentResource extends Resource
                         ->label(__('field.beneficiary'))
                         ->relationship('beneficiary', 'full_name', fn (Builder $query) => $query->onlyRegular())
                         ->searchable()
+                        ->required()
                         ->preload(),
 
                     Grid::make(6)
@@ -68,6 +69,7 @@ class AppointmentResource extends Resource
                         ->schema([
                             DatePicker::make('date')
                                 ->label(__('field.date'))
+                                ->required()
                                 ->columnSpan(2),
 
                             TextInput::make('start_time')
@@ -75,6 +77,7 @@ class AppointmentResource extends Resource
                                 ->type('time')
                                 ->rule('date_format:H:i')
                                 ->reactive()
+                                ->required()
                                 ->afterStateUpdated(function ($old, $state, callable $get, callable $set) {
                                     /** @var CarbonImmutable */
                                     $oldStartTime = rescue(
@@ -104,6 +107,7 @@ class AppointmentResource extends Resource
                                 ->label(__('field.end_time'))
                                 ->type('time')
                                 ->after('start_time')
+                                ->required()
                                 ->disabled(fn (callable $get) => $get('start_time') === null),
                         ]),
                 ]),
