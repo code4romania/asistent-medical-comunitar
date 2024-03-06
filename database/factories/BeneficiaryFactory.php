@@ -73,7 +73,6 @@ class BeneficiaryFactory extends Factory
                     Catagraphy::factory()
                         ->recycle($beneficiary->nurse)
                         ->for($beneficiary)
-                        ->disability()
                         ->reproductiveHealth()
                         ->withNotes()
                         ->create();

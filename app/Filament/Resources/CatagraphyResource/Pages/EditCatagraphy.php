@@ -54,11 +54,8 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
             $data['cat_preg'] = null;
         }
 
-        // Handle disability data
-        if (! Vulnerability::isValidCode($data['cat_diz'])) {
-            $data['cat_diz_tip'] = null;
-            $data['cat_diz_gr'] = null;
-        }
+        // TODO: clear disabilities relationship if has_disabilities is set to false
+        // TODO: clear diseases relationship if has_health_issues is set to false
 
         $record->fill($data)->save();
 

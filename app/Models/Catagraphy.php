@@ -28,9 +28,7 @@ class Catagraphy extends Model
         'cat_age',
         'cat_as',
         'cat_cr',
-        'cat_diz',
-        'cat_diz_tip',
-        'cat_diz_gr',
+        'has_disabilities',
         'cat_edu',
         'cat_fam',
         'cat_id',
@@ -41,7 +39,7 @@ class Catagraphy extends Model
         'cat_pov',
         'cat_preg',
         'cat_rep',
-        'cat_ss',
+        'has_health_issues',
         'cat_ssa',
         'cat_vif',
     ];
@@ -51,9 +49,6 @@ class Catagraphy extends Model
         'cat_age' => 'string',
         'cat_as' => 'string',
         'cat_cr' => 'array',
-        'cat_diz' => 'string',
-        'cat_diz_tip' => 'string',
-        'cat_diz_gr' => 'string',
         'cat_edu' => 'string',
         'cat_fam' => 'array',
         'cat_id' => 'string',
@@ -64,9 +59,10 @@ class Catagraphy extends Model
         'cat_pov' => 'string',
         'cat_preg' => 'array',
         'cat_rep' => 'string',
-        'cat_ss' => 'array',
         'cat_ssa' => 'array',
         'cat_vif' => 'array',
+        'has_disabilities' => 'boolean',
+        'has_health_issues' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -129,7 +125,7 @@ class Catagraphy extends Model
             get: fn () => collect([
                 $this->cat_as,
                 $this->cat_mf,
-                $this->cat_diz_all,
+                $this->cat_diz,
                 $this->cat_cr,
                 $this->cat_ns,
                 $this->cat_ssa,
@@ -138,14 +134,25 @@ class Catagraphy extends Model
         )->shouldCache();
     }
 
-    public function catDizAll(): Attribute
+    public function catDiz(): Attribute
     {
         return Attribute::make(
-            get: fn () => collect([
-                $this->cat_diz,
-                $this->cat_diz_tip,
-                $this->cat_diz_gr,
-            ])->flatten()
+            get: fn () => match ($this->has_disabilities) {
+                true => $this->disabilities,
+                false => 'VDH_99',
+                default => null,
+            }
+        )->shouldCache();
+    }
+
+    public function catSs(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->has_health_issues) {
+                true => $this->diseases,
+                false => 'VSG_99',
+                default => null,
+            }
         )->shouldCache();
     }
 

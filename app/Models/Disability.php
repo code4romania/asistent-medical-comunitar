@@ -19,6 +19,7 @@ class Disability extends Model
         'type',
         'degree',
         'receives_pension',
+        'has_certificate',
         'start_year',
         'notes',
     ];
@@ -27,7 +28,17 @@ class Disability extends Model
         'type' => 'string',
         'degree' => 'string',
         'receives_pension' => 'boolean',
+        'has_certificate' => 'boolean',
         'start_year' => 'int',
         'notes' => 'string',
     ];
+
+    protected $with = [
+        'diagnostic',
+    ];
+
+    public function getCertificateVulnerabilityAttribute(): string
+    {
+        return $this->has_certificate ? 'VDH_01' : 'VDH_02';
+    }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('degree')->nullable();
             $table->boolean('receives_pension')->default(false);
+            $table->boolean('has_certificate')->default(false);
             $table->year('start_year')->nullable();
             $table->string('notes')->nullable();
 

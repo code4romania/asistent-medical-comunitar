@@ -28,4 +28,8 @@ class Disease extends Model
         'start_year' => 'int',
         'notes' => 'string',
     ];
+
+    protected $with = [
+        'diagnostic',
+    ];
 }
