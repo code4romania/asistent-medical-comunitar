@@ -1,0 +1,260 @@
+﻿IdSubClasaDiagnostic;IdClasaDiagnostic;DenSubClasaDiagnostic
+1;2;Sechelele cauzelor externe ale morbiditatii si mortalitatii
+2;4;Dorsopatii prin deformare
+3;2;Contact cu animale veninoase si plante veninoase
+4;10;Tumori maligne primare localizate la nivelul tiroidei si altor glande endocrine
+5;8;Hernia
+6;6;Tulburari mentale, fara precizare
+7;17;Infectii virale caracterizate prin leziuni cutanate si mucoase
+8;11;Nasterea
+9;7;Recurgere la servicii de sanatate pentru acte medicale specifice si de ingrijire medicala
+10;1;Alte malformatii congenitale ale aparatului digestiv
+11;3;Bolile renale tubulo-interstitiale
+12;17;Infectii al caror mod de transmitere este, in special sexual
+13;5;Cardiopatia reumatismala cronica
+14;17;Boli infectioase intestinale
+15;10;Tumori maligne primare localizate la nivelul organelor genitale masculine
+16;3;Alte afectiuni ale tractului genito-urinar
+17;11;Alte afectiuni obstetricale, neclasate la alte locuri
+18;2;Accidente de transport pe apa
+19;13;Rezultate anormale ale examinarii altor lichide, substante si tesuturi, fara diagnostic
+20;15;Tulburari referitoare la durata gestatiei si cresterea fatului
+21;10;Tumori benigne
+22;16;Boile urechii externe
+23;5;Alte forme de cardiopatii
+24;12;Boli cronice ale cailor respiratorii inferioare
+25;18;Afectiunile corpului vitros si ale globului ocular
+26;7;Persoane in contact cu serviciile de sanatate pentru diverse investigatii
+27;8;Bolile vezicii biliare, ale cailor biliare si pancreasului
+28;11;Complicatiile travaliului si nasterii
+29;17;Pediculoza, acariaza si alte infestatii
+30;10;Melanomul si alte tumori maligne ale pielii
+31;19;Leziuni papulo-scuamoase
+32;2;Evenimente a caror intentie nu este precizata
+33;2;Agresiunea
+34;13;Simptome si semne generale
+35;12;Boli pulmonare datorate agentilor externi
+36;9;Leziuni traumatice ale genunchiului si gambei
+37;18;Afectiuni ale nervului si cailor optice
+38;13;Simptome si semne referitoare la  limbaj si voce
+39;9;Efectele cauzelor externe, alte si neprecizate
+40;6;Tulburari mentale organice, inclusiv tulburarile simptomatice
+41;14;Afectiunile nervilor, radacinilor si plexurilor nervoase
+42;6;Tulburari de comportament si emotionale ce apar de obicei in perioada copilariei si adolescentei
+43;17;Bolile prin virusul imunodeficientei umane (HIV)
+44;4;Alte atingeri articulare
+45;15;Tulburari ale aparatului digestiv al fatului si nou-nascutului
+46;1;Malformatii congenitale ale organelor genitale
+47;17;Helmintiaze
+48;9;Leziuni traumatice ale pumnului si mainii
+49;2;Motociclist ranit intr-un accident de transport
+50;15;Tulburari endocrine si metabolice tranzitorii specifice fatului si nou-nascutului
+51;2;Intoxicatii accidentale prin si la expunere de substante nocive
+52;20;Diabetul zaharat
+53;13;Rezultate anormale ale examenelor de sange, fara diagnostic
+54;18;Afectiunile muschilor oculari, ale miscarilor binoculare, de acomodare si de refractie
+55;7;Persoane care se adreseaza serviciilor de sanatate pentru motive legate de reproductie
+56;8;Bolile ficatului
+57;9;Leziuni traumatice ale gatului
+58;5;Bolile venelor, vaselor limfatice si gg. limfatici neclasate la alte locuri
+59;2;Factori suplimentari legati de cauzele de morbiditate si mortalitate, clasate la alte locuri
+60;10;Tumori maligne primare localizate la nivelul organelor genitale feminine
+61;3;Litiaza urinara
+62;2;Ocupant al unui autobuz,  ranit intr-un accident de transport
+63;12;Afectiuni acute ale cailor respiratorii superioare
+64;4;Alte osteopatii
+65;13;Simptome si semne referitoare la  piele si tesut subcutanat
+66;4;Artropatii infectioase
+67;8;Alte boli ale aparatului digestiv
+68;7;Alte motive de recurgere la serviciile de sanatate
+69;9;Leziuni traumatice ale toracelui
+70;5;Reumatismul articular acut
+71;18;Afectiuni ale choroidei si retinei
+72;2;Expunere la forte mecanice animate
+73;11;Ingrijiri acordate mamei legate de fat, cavitatea amniotica si eventuale distocii
+74;2;Acte chirurgicale si alte acte medicale la originea unor reactii anormale ale pacientului sau complicatiilor ulterioare
+75;9;Complicatii ale tratamentului chirurgical si medical, neclasate la alte locuri
+76;2;Pieton ranit intr-un accident de transport
+77;4;Poliartropatii inflamatorii
+78;10;Tumori maligne primare localizate la tesutul endotelial si tesuturile moi
+79;2;Alte accidente de transport terestru
+80;13;Simptome si semne referitoare la  sistemul nervos si osteo-muscular
+81;3;Alte boli ale aparatului urinar
+82;2;Leziuni auto-provocate
+83;10;Tumori maligne cu localizari multiple independente (primare)
+84;9;Leziuni traumatice ale cotului si antebratului
+85;13;Simptome si semne referitoare la aparatul circulator si respirator
+86;14;Alte afectiuni ale sistemului nervos
+87;17;Tuberculoza
+88;1;Anomalii cromozomiale neclasate la alte locuri
+89;6;Tulburarile personalitatii si de comportament la adulti
+90;18;Afectiuni ale conjunctivei
+91;1;Malformatii congenitale ale aparatului urinar
+92;17;Alte boli prin Chlamydia
+93;13;Simptome si semne referitoare la  aparatul urinar
+94;9;Leziuni traumatice ale capului
+95;1;Malformatii si deformatii ale sistemului osteo-articular si ale muschilor
+96;19;Bolile fanerelor si anexelor pielii
+97;4;Alte afectiuni ale tesuturilor moi
+98;18;Afectiuni ale scleroticei, corneei, irisului si corpilor ciliari
+99;17;Alte boli infectioase
+100;12;Alte afectiuni ale pleurei
+101;2;Expunere la forte mecanice inerte
+102;5;Alte afectiuni ale aparatului circulator si nespecificate
+103;15;Traumatisme obstetricale
+104;10;Tumori cu evolutie imprevizibila si necunoscuta
+105;20;Alte tulburari ale metabolismului glucozei si ale secretiei pancreatice interne
+106;17;Alte boli virotice
+107;5;Boala hipertensiva
+108;19;Alte afectiuni ale pielii si tesutului celular subcutanat
+109;17;Agenti de infectii bacteriene, virale si altele
+110;2;Inec si submersie accidentala
+111;6;Tulburari nevrotice, de stress si somatoforme
+112;8;Enterita si colita neinfectioase
+113;9;Unele complicatii precoce ale traumatismelor
+114;10;Tumori maligne cu localizari rau definite, secundare si neprecizate
+115;4;Afectiunile diseminate ale tesutului conjunctiv
+116;11;Alte tulburari materne legate in special de sarcina
+117;9;Degeraturi
+118;18;Alte afectiuni ale ochiului si anexelor sale
+119;14;Paralizii cerebrale si alte sindroame paralitice
+120;8;Alte boli ale intestinului
+121;8;Bolile apendicelui
+122;2;Interventia fortei publice si actiuni de razboi
+123;3;Afectiuni inflamatorii ale organelor genitale ale femeii
+124;3;Afectiunile sanului
+125;16;Bolile urechii interne
+126;4;Miopatii
+127;10;Tumori maligne primare localizate la organele digestive
+128;21;Anomalii de coagulare, purpura si alte afectiuni hemoragice
+129;13;Cauze de mortalitate rau definite si necunoscute
+130;10;Tumori maligne primare localizate la nivelul cailor urinare
+131;19;Bolile pielii si ale tesutului celular subcutanat legate de o iradiere
+132;20;Alte carente nutritionale
+133;2;Expunere la fum, foc si flacari
+134;14;Alte afectiuni degenerative ale sistemului nervos
+135;17;Rickettsioze
+136;9;Leziuni traumatice ale gleznei si piciorului
+137;6;Schizofrenia, tulburari schizoide si delirante
+138;4;Spondilopatii
+139;14;Afectiuni episodice si paroxistice
+140;19;Infectiile pielii si ale tesutului celular subcutanat
+141;12;Gripa si pneumonia
+142;2;Expunerea la curentul electric, radiatii, temperaturi si presiuni extreme ale mediului ambiant
+143;15;Tulburari hemoragice si hematologice ale fatului si nou-nascutului
+144;18;Afectiuni ale cristalinului
+145;11;Complicatiile legate in principal de lauzie
+146;4;Chondropatii
+147;15;Afectiuni interesand tegumentul si reglarea termica a fatului si nou-nascutului
+148;3;Glomerulopatiile
+149;2;Caderi
+150;10;Tumori maligne al tesutului limfoid, hematopoietic si inrudite
+151;2;Expunerea accidentala la factori, alti si fara precizare
+152;9;Efectele toxice ale substantelor in special nemedicamentoase
+153;17;Infectii virale ale sistemului nervos
+154;2;Ocupant al unui automobil,  ranit intr-un accident de transport
+155;10;Tumori maligne primare localizate la oasele si cartilagiile articulare
+156;9;Arsuri si coroziuni
+157;2;Contact cu o sursa de caldura si substante arzande
+158;5;Bolile cerebro-vasculare
+159;14;Boli inflamatorii ale SNC
+160;3;Bolile organelor genitale la barbati
+161;9;Leziuni traumatice ale soldului si coapsei
+162;13;Rezultate anormale ale imaginii diagnostice si probelor functionale, fara diagnostic
+163;6;Retard mental
+164;11;Sarcina terminata prin avort
+165;17;Unele antropozoonoze bacteriene
+166;9;Intoxicatii prin medicamente si substante biologice
+167;9;Leziuni traumatice ale umarului si bratului
+168;4;Artroze
+169;20;Malnutritia
+170;20;Tulburari de metabolism
+171;2;Ocupant al unui vehicul greu,  ranit intr-un accident de transport
+172;6;Tulburari ale dispozitiei afective
+173;3;Afectiuni neinflamatorii ale tractului genital la femeie
+174;17;Alte boli prin spirochete
+175;18;Tulburari de vedere si cecitate
+176;21;Anemii hemolitice
+177;12;Alte boli ale cailor respiratorii superioare
+178;15;Fat si nou-nascut afectati de tulburari materne si de complicatiile sarcinii, nasterii si lauziei
+179;1;Malformatii congenitale ale aparatului circulator
+180;13;Simptome si semne referitoare la aparatul digestiv si la abdomen
+181;9;Sechelele leziunilor traumatice, otravirilor si ale altor consecinte ale cauzelor externe
+182;20;Bolile altor glande endocrine
+183;14;Polinevrite si alte afectiuni ale sistemului nervos periferic
+184;5;Bolile arterelor, arteriolelor si capilarelor
+185;2;Expunere la fortele naturii
+186;11;Edem, proteinurie si hipertensiune in cursul sarcinii, nasterii si lauziei
+187;9;Leziuni traumatice ale corpului cu localizari multiple
+188;2;Surmenaj, voiaj si privatiuni
+189;21;Alte boli de sange si ale organelor hematopoietice
+190;14;Afectiuni musculare si neuro-musculare
+191;2;Accidente si complicatii in cursul actelor medicale si chirurgicale
+192;17;Alte boli bacteriene
+193;2;Medicamente si substante biologice ce au provocat efecte indezirabile in cursul utilizarii lor terapeutice
+194;7;Persoane susceptibile de a fi fost contaminate de boli transmisibile
+195;2;Aparate medicale asociate accidentelor, in cursul actelor medicale de diagnostic si tratament
+196;17;Febre virale transmise de artropode si febre virale hemoragice
+197;1;Malformatii congenitale ale ochiului, urechii, fetei si gatului
+198;21;Aplazii medulare si alte anemii
+199;12;Alte boli respiratorii atingand, in special, tesutul interstitial
+200;2;Ocupant al unei autocamionete,  ranit intr-un accident de transport
+201;2;Accidente de transport, alte si fara precizare
+202;4;Alte dorsopatii
+203;13;Rezultate anormale ale investigatiilor din urina, fara diagnostic
+204;17;Hepatita virala
+205;1;Malformatii congenitale ale sistemului nervos
+206;3;Alte afectiuni ale rinichiului si ureterului
+207;15;Alte afectiuni a caror origine se situeaza in perioada perinatala
+208;2;Accidente de transport aerian si de zbor spatial
+209;8;Bolile cavitatii bucale, glandelor salivare si maxilarelor
+210;7;Antecedente personale si familiale putand crea riscuri latente de boala si unele afectiuni cu efect asupra starii de sanatate
+211;1;Malformatii congenitale ale aparatului respirator
+212;6;Tulburari mentale si de comportament legate de utilizare substantelor psiho-active
+213;19;Urticaria si eritemul
+214;4;Alte boli ale sistemului osteo-articular, ale muschilor si tesutului conjunctiv
+215;3;Insuficienta renala
+216;10;Tumori in situ
+217;20;Obezitatea si alte tulburari prin exces de aport
+218;17;Micoze
+219;5;Cardiopatia pulmonara si bolile vaselor pulmonare
+220;10;Tumori maligne primare localizate la buza, cavitatea bucala, faringe
+221;1;Fisura labiala si fisura palatina
+222;8;Bolile esofagului, stomacului si duodenului
+223;19;Dermatoze buloase
+224;21;Anemii de nutritie
+225;17;Sechelele unor boli infectioase si parazitare
+226;8;Bolile peritoneului
+227;16;Bolile urechii medii si apofizei mastoide
+228;14;Boli demielinizante ale SNC
+229;2;Ocupant  al unui vehicul cu trei roti, ranit intr-un accident de transport
+230;14;Atrofii primare sistemice, afectand, in special, SNC
+231;2;Alte accidente afectand respiratia
+232;14;Tulburari extrapiramidale si ale motricitatii
+233;15;Tulburari respiratorii si cardio-vasculare specifice perioadei perinatale
+234;13;Simptome si semne referitoare la  constienta, perceptie si comportament
+235;12;Alte afectiuni acute ale cailor respiratorii inferioare
+236;2;Ciclist ranit intr-un accident de transport
+237;12;Boli supurative si necrotice ale cailor respiratorii inferioare
+238;9;Efectele penetrarii unui corp strain printr-un orificiu natural
+239;15;Infectii specifice perioadei perinatale
+240;6;Sindroame comportamentale asociate perturbarilor fiziologice si factorilor psihici
+241;20;Afectiunile glandei tiroide
+242;10;Tumori maligne primare localizate la nivelul sanului
+243;17;Boli prin protozoare
+244;6;Tulburari ale dezvoltarii psihologice
+245;21;Unele tulburari ale sistemului imunitar
+246;10;Tumori maligne primare localizate la organele respiratorii, intratoracice si ale urechii
+247;5;Boala ischemica a inimii
+248;12;Alte afectiuni ale aparatului respirator
+249;16;Alte afectiuni ale urechii
+250;18;Afectiunile pleoapei, aparatului lacrimal si orbitei
+251;4;Atingeri ale densitatii si structurii osoase
+252;9;Leziuni traumatice ale abdomenului, lombelor, coloanei vertebrale lombare si ale bazinului
+253;10;Tumori maligne primare localizate la nivelul ochiului, creierului si altor parti ale SNC
+254;19;Dermite si eczeme
+255;18;Glaucomul
+256;7;Persoane cu risc de sanatate conditionat de factori socio-economici sau psiho-sociali
+257;4;Atingerile sinoviei si tendonului
+258;1;Alte malformatii congenitale
+259;9;Leziuni traumatice cu localizari neprecizate ale trunchiului, membrelor sau regiuni ale corpului
