@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Concerns\HasActivityAreas;
 use App\Concerns\HasLocation;
+use App\Concerns\HasUuid;
 use App\Concerns\MustSetInitialPassword;
 use App\Concerns\Users\GetsOnboarded;
 use App\Concerns\Users\HasRole;
@@ -41,6 +42,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     use HasLocation;
     use HasRole;
     use HasStatus;
+    use HasUuid;
     use InteractsWithMedia;
     use LogsActivity;
     use MustSetInitialPassword;
