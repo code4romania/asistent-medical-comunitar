@@ -9,10 +9,22 @@ return [
     'already_used' => 'Acest link a fost folosit deja.',
 
     'email' => [
-        'subject' => 'Noul tău cont',
+        'subject' => 'Bine ai venit în platforma AMC-MSR!',
         'greeting' => 'Salut, :name!',
-        'intro' => 'Ai primit acest email pentru că ți-a fost creat un cont pe :app',
+        'intro' => 'Felicitări! Contul tău a fost creat cu succes în platforma AMC-MSR.',
+        'steps' => [
+            'intro' => 'Pentru a-ți accesa contul, te rugăm să urmezi pașii de mai jos:',
+            'set_password' => '1. Apasă pe butonul "Setează parola" de mai jos.',
+            'login' => '2. După ce ai setat parola, te poți loga în platformă folosind adresa ta de email și noua parolă. ',
+        ],
+        'help' => [
+            'nurse' => 'Dacă întâmpini nelămuriri sau ai nevoie de asistență, te rugăm să iei legătura cu coordonatorul județean.',
+        ],
         'submit' => 'Setează parola',
+        'salutation' => [
+            'regards' => 'Cu drag',
+            'signature' => 'Echipa AMC-MSR',
+        ],
     ],
 
     'set_password' => [
