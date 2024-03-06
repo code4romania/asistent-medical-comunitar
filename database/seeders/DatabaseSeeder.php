@@ -8,6 +8,7 @@ use App\Models\Beneficiary;
 use App\Models\CommunityActivity;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Mail;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Mail::fake();
+
         // Create community activities
         CommunityActivity::factory()
             ->count(25)

@@ -58,7 +58,6 @@ class CreateUser extends CreateRecord
                                     ->label(__('field.phone'))
                                     ->placeholder(__('placeholder.phone'))
                                     ->tel()
-                                    ->required()
                                     ->maxLength(15),
 
                                 Select::make('role')

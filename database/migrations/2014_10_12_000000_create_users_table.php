@@ -19,6 +19,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->timestamps();
             $table->timestamp('deactivated_at')->nullable();
 
