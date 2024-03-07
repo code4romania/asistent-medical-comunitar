@@ -77,11 +77,11 @@ class ViewDocument extends ViewRecord implements WithSidebar
                         return [
                             Actions\Action::make('download')
                                 ->label(__('document.action.download'))
-                                ->url($media->getFullUrl())
+                                ->url($media?->getFullUrl())
                                 ->color('secondary')
                                 ->icon('heroicon-o-download')
                                 ->extraAttributes([
-                                    'download' => $media->original_file_name,
+                                    'download' => $media?->original_file_name,
                                 ]),
                         ];
                     })

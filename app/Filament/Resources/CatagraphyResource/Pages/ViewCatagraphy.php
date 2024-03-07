@@ -110,7 +110,7 @@ class ViewCatagraphy extends ViewRecord
                                 VulnerabilityChips::make('cat_mf')
                                     ->label(__('vulnerability.field.cat_mf')),
 
-                                VulnerabilityChips::make('cat_diz_all')
+                                VulnerabilityChips::make('cat_diz')
                                     ->label(__('vulnerability.field.cat_diz'))
                                     ->columnSpanFull(),
 

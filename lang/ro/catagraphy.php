@@ -35,7 +35,7 @@ return [
     ],
 
     'vulnerability' => [
-        'none' => 'Fără :vulnerability',
+        'none' => 'Nicio valoare selectată pentru :vulnerability',
         'empty' => [
             'title' => 'Vulnerabilități indisponibile',
             'description' => 'Realizează catagrafia beneficiarului, pentru a putea identifica vulnerabilitățile acestuia.',

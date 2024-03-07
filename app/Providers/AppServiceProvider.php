@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Aedart\Antivirus\Validation\Rules\InfectionFreeFile;
 use App\Filament\Pages\Settings;
 use App\Filament\Resources\ProfileResource;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -61,6 +63,10 @@ class AppServiceProvider extends ServiceProvider
         Filament::registerRenderHook('head.end', fn () => view('components.favicons'));
 
         $this->setPasswordDefaults();
+
+        SpatieMediaLibraryFileUpload::configureUsing(function (SpatieMediaLibraryFileUpload $component) {
+            $component->rule(new InfectionFreeFile);
+        });
     }
 
     private static function passwordDefaults(): Password

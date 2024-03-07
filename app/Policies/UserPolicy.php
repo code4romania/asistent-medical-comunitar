@@ -26,7 +26,7 @@ class UserPolicy
         }
 
         if ($user->isCoordinator()) {
-            return $model->activityCounty->is($user->county);
+            return $model->activity_county_id === $user->county_id;
         }
 
         return $user->is($model);
@@ -50,7 +50,7 @@ class UserPolicy
         }
 
         if ($user->isCoordinator()) {
-            return $model->activityCounty->is($user->county);
+            return $model->activity_county_id === $user->county_id;
         }
 
         return $user->is($model);

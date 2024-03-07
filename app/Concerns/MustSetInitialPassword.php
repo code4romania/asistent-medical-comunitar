@@ -20,9 +20,7 @@ trait MustSetInitialPassword
         });
 
         static::created(function (self $user) {
-            if (! app()->runningInConsole()) {
-                $user->sendWelcomeNotification();
-            }
+            $user->sendWelcomeNotification();
         });
     }
 

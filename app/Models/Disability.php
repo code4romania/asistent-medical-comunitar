@@ -4,37 +4,41 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\BelongsToCatagraphy;
+use App\Concerns\HasDiagnostic;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Disability extends Model
 {
+    use BelongsToCatagraphy;
+    use HasDiagnostic;
     use HasFactory;
 
     protected $fillable = [
         'type',
         'degree',
-        'diagnostic',
-        'diagnostic_code',
         'receives_pension',
+        'has_certificate',
         'start_year',
         'notes',
-        'catagraphy_id',
     ];
 
     protected $casts = [
         'type' => 'string',
         'degree' => 'string',
-        'diagnostic' => 'string',
-        'diagnostic_code' => 'string',
         'receives_pension' => 'boolean',
+        'has_certificate' => 'boolean',
         'start_year' => 'int',
         'notes' => 'string',
     ];
 
-    public function catagraphy(): BelongsTo
+    protected $with = [
+        'diagnostic',
+    ];
+
+    public function getCertificateVulnerabilityAttribute(): string
     {
-        return $this->belongsTo(Catagraphy::class);
+        return $this->has_certificate ? 'VDH_01' : 'VDH_02';
     }
 }

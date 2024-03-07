@@ -25,9 +25,7 @@ return new class extends Migration
             $table->string('cat_age')->nullable();
             $table->string('cat_as')->nullable();
             $table->json('cat_cr')->nullable();
-            $table->string('cat_diz')->nullable();
-            $table->string('cat_diz_tip')->nullable();
-            $table->string('cat_diz_gr')->nullable();
+            $table->boolean('has_disabilities')->nullable();
             $table->string('cat_edu')->nullable();
             $table->json('cat_fam')->nullable();
             $table->string('cat_id')->nullable();
@@ -38,7 +36,7 @@ return new class extends Migration
             $table->string('cat_pov')->nullable();
             $table->json('cat_preg')->nullable();
             $table->string('cat_rep')->nullable();
-            $table->json('cat_ss')->nullable();
+            $table->boolean('has_health_issues')->nullable();
             $table->json('cat_ssa')->nullable();
             $table->json('cat_vif')->nullable();
 

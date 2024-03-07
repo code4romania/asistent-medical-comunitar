@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class MediaController extends Controller
@@ -27,6 +28,8 @@ class MediaController extends Controller
         };
 
         abort_unless($authorized, 404);
+
+        abort_unless(Storage::disk($media->disk)->exists($media->getPathRelativeToRoot()), 404);
 
         return $media->streamDownload($request);
     }

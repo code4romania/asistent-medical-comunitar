@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\DiagnosticSelect;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\YearPicker;
@@ -15,7 +16,6 @@ use App\Rules\MultipleIn;
 use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -140,34 +140,35 @@ class CatagraphyResource extends Resource
                                     ->in($vulnerabilities->get('MF')->keys())
                                     ->searchable(),
 
-                                Grid::make()
+                                Select::make('has_disabilities')
+                                    ->label($categories->get('DIZ'))
                                     ->columnSpanFull()
-                                    ->schema([
-                                        Select::make('cat_diz')
-                                            ->label($categories->get('DIZ'))
-                                            ->placeholder(__('placeholder.select_one'))
-                                            ->options($vulnerabilities->get('DIZ'))
-                                            ->in($vulnerabilities->get('DIZ')->keys())
-                                            ->reactive()
-                                            ->searchable()
-                                            ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
-                                                if (! Vulnerability::isValidCode($state)) {
-                                                    return;
-                                                }
+                                    ->boolean(
+                                        trueLabel: __('field.cat_diz_yes'),
+                                        falseLabel: __('field.cat_diz_no'),
+                                        placeholder: __('placeholder.select_one'),
+                                    )
+                                    ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
+                                    ->reactive()
+                                    ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
+                                        $state = \boolval($state);
 
-                                                if (collect($get('disabilities'))->isNotEmpty()) {
-                                                    return;
-                                                }
+                                        if (! $state) {
+                                            return;
+                                        }
 
-                                                $livewire->dispatchFormEvent('repeater::createItem', 'data.disabilities');
-                                            }),
-                                    ]),
+                                        if (collect($get('disabilities'))->isNotEmpty()) {
+                                            return;
+                                        }
+
+                                        $livewire->dispatchFormEvent('repeater::createItem', 'data.disabilities');
+                                    }),
 
                                 Card::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
                                     ->columnSpanFull()
                                     ->pointer()
-                                    ->visible(fn (Closure $get) => Vulnerability::isValidCode($get('cat_diz')))
+                                    ->visible(fn (Closure $get) => \boolval($get('has_disabilities')))
                                     ->schema([
                                         Repeater::make('disabilities')
                                             ->relationship()
@@ -182,7 +183,8 @@ class CatagraphyResource extends Resource
                                                     ->placeholder(__('placeholder.select_one'))
                                                     ->options($vulnerabilities->get('DIZ_TIP'))
                                                     ->in($vulnerabilities->get('DIZ_TIP')->keys())
-                                                    ->searchable(),
+                                                    ->searchable()
+                                                    ->required(),
 
                                                 Select::make('degree')
                                                     ->label($categories->get('DIZ_GR'))
@@ -191,13 +193,12 @@ class CatagraphyResource extends Resource
                                                     ->in($vulnerabilities->get('DIZ_GR')->keys())
                                                     ->searchable(),
 
-                                                Select::make('diagnostic')
-                                                    ->label(__('field.cat_diz_dx'))
-                                                    ->disabled(),
+                                                DiagnosticSelect::make('diagnostic')
+                                                    ->label(__('field.cat_diz_dx')),
 
-                                                Select::make('diagnostic_code')
-                                                    ->label(__('field.cat_diz_cdx'))
-                                                    ->disabled(),
+                                                Checkbox::make('has_certificate')
+                                                    ->label(__('field.cat_diz_cert'))
+                                                    ->columnSpanFull(),
 
                                                 Checkbox::make('receives_pension')
                                                     ->label(__('field.cat_diz_iph'))
@@ -237,16 +238,20 @@ class CatagraphyResource extends Resource
                                     ->multiple()
                                     ->searchable(),
 
-                                Select::make('cat_ss')
+                                Select::make('has_health_issues')
                                     ->label($categories->get('SS'))
-                                    ->placeholder(__('placeholder.select_many'))
-                                    ->options($vulnerabilities->get('SS'))
-                                    ->rule(new MultipleIn($vulnerabilities->get('SS')->keys()))
+                                    ->columnSpanFull()
+                                    ->boolean(
+                                        trueLabel: __('field.cat_ss_yes'),
+                                        falseLabel: __('field.cat_ss_no'),
+                                        placeholder: __('placeholder.select_one'),
+                                    )
+                                    ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
                                     ->reactive()
-                                    ->multiple()
-                                    ->searchable()
                                     ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
-                                        if (! Vulnerability::isValidCode($state)) {
+                                        $state = \boolval($state);
+
+                                        if (! $state) {
                                             return;
                                         }
 
@@ -261,7 +266,7 @@ class CatagraphyResource extends Resource
                                     ->header(__('field.section_details', ['section' => $categories->get('SS')]))
                                     ->columnSpanFull()
                                     ->pointer('right')
-                                    ->visible(fn (Closure $get) => Vulnerability::isValidCode($get('cat_ss')))
+                                    ->visible(fn (Closure $get) => \boolval($get('has_health_issues')))
                                     ->schema([
                                         Repeater::make('diseases')
                                             ->relationship()
@@ -274,9 +279,10 @@ class CatagraphyResource extends Resource
                                                 Select::make('type')
                                                     ->label($categories->get('SS'))
                                                     ->placeholder(__('placeholder.select_one'))
-                                                    ->options($vulnerabilities->get('SS'))
-                                                    ->in($vulnerabilities->get('SS')->keys())
-                                                    ->searchable(),
+                                                    ->options($vulnerabilities->get('SS')->except('VSG_99'))
+                                                    ->in($vulnerabilities->get('SS')->except('VSG_99')->keys())
+                                                    ->searchable()
+                                                    ->required(),
 
                                                 Select::make('category')
                                                     ->label($categories->get('SS_B'))
@@ -285,13 +291,8 @@ class CatagraphyResource extends Resource
                                                     ->in($vulnerabilities->get('SS_B')->keys())
                                                     ->searchable(),
 
-                                                Select::make('diagnostic')
-                                                    ->label(__('field.cat_diz_dx'))
-                                                    ->disabled(),
-
-                                                Select::make('diagnostic_code')
-                                                    ->label(__('field.cat_diz_cdx'))
-                                                    ->disabled(),
+                                                DiagnosticSelect::make('diagnostic')
+                                                    ->label(__('field.cat_diz_dx')),
 
                                                 YearPicker::make('start_year')
                                                     ->label(__('field.cat_diz_deb')),
