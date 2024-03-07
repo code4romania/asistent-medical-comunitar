@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use JeffGreco13\FilamentBreezy\FilamentBreezy;
 use Livewire\Component;
 
 class Welcome extends Component implements HasForms
@@ -70,6 +71,7 @@ class Welcome extends Component implements HasForms
             TextInput::make('password')
                 ->label(__('filament::login.fields.password.label'))
                 ->password()
+                ->rules(app(FilamentBreezy::class)->getPasswordRules())
                 ->required()
                 ->confirmed(),
 
