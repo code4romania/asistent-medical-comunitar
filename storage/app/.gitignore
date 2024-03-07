@@ -1,3 +1,5 @@
 *
+!private/
 !public/
+!import/
 !.gitignore

@@ -85,10 +85,10 @@ ENV QUEUE_CONNECTION database
 ENV SESSION_DRIVER database
 
 # The number of jobs to process before stopping
-ENV WORKER_MAX_JOBS 5
+ENV WORKER_MAX_JOBS 50
 
 # Number of seconds to sleep when no job is available
-ENV WORKER_SLEEP 10
+ENV WORKER_SLEEP 30
 
 # Number of seconds to rest between jobs
 ENV WORKER_REST 1
