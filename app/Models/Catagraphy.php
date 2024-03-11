@@ -175,6 +175,11 @@ class Catagraphy extends Model
                 $this->reproductive_health,
             ])
                 ->flatten()
+                ->map(fn (mixed $vulnerability) => match (true) {
+                    $vulnerability instanceof Disability => $vulnerability->type,
+                    $vulnerability instanceof Disease => $vulnerability->type,
+                    default => $vulnerability,
+                })
                 ->filter()
                 ->values()
         )->shouldCache();
