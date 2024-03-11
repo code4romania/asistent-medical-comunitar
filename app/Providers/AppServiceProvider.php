@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use JeffGreco13\FilamentBreezy\FilamentBreezy;
@@ -29,12 +29,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerCarbonMacros();
-        $this->registerReleaseVersion();
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        Config::set('sentry.release', $this->getAppVersion());
     }
 
     /**
@@ -61,12 +62,29 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Filament::registerRenderHook('head.end', fn () => view('components.favicons'));
+        Filament::registerRenderHook('footer.end', fn () => $this->getAppVersion());
 
         $this->setPasswordDefaults();
 
         SpatieMediaLibraryFileUpload::configureUsing(function (SpatieMediaLibraryFileUpload $component) {
             $component->rule(new InfectionFreeFile);
         });
+    }
+
+    /**
+     * Read the application version.
+     *
+     * @return string
+     */
+    public function getAppVersion(): string
+    {
+        $version = base_path('.version');
+
+        if (! file_exists($version)) {
+            return 'develop';
+        }
+
+        return trim(file_get_contents($version));
     }
 
     private static function passwordDefaults(): Password
@@ -83,15 +101,6 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentBreezy::setPasswordRules([
             static::passwordDefaults(),
-        ]);
-    }
-
-    public function registerReleaseVersion(): void
-    {
-        $version = rescue(fn () => File::get(base_path('.version')), 'develop', report: false);
-
-        config([
-            'sentry.release' => $version,
         ]);
     }
 
