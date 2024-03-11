@@ -26,10 +26,6 @@ class ViewRecord extends BaseViewRecord implements WithTabs
         $name = "{$this->getActiveTab()}.edit";
 
         return [
-            EditAction::make()
-                ->icon('heroicon-s-pencil')
-                ->url(fn ($record) => UserResource::getUrl($name, $record))
-                ->visible(fn ($record) => auth()->user()->can('update', $record)),
             ResendInvitationAction::make()
                 ->record($this->getRecord()),
 
@@ -38,6 +34,11 @@ class ViewRecord extends BaseViewRecord implements WithTabs
 
             DeactivateUserAction::make()
                 ->record($this->getRecord()),
+
+            EditAction::make()
+                ->icon('heroicon-s-pencil')
+                ->url(fn ($record) => UserResource::getUrl($name, $record))
+                ->visible(fn ($record) => auth()->user()->can('update', $record)),
         ];
     }
 
