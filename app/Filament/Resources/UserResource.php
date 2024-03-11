@@ -33,6 +33,7 @@ class UserResource extends Resource
 
             'create' => Pages\CreateUser::route('/create'),
             'view' => Pages\ViewUser::route('/{record}'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
 
             'general.view' => Pages\Nurse\ViewGeneral::route('/{record}/general'),
             'general.edit' => Pages\Nurse\EditGeneral::route('/{record}/general/edit'),

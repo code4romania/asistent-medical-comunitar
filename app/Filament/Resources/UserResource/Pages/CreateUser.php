@@ -27,95 +27,7 @@ class CreateUser extends CreateRecord
     {
         return $form
             ->columns(1)
-            ->schema([
-                Card::make()
-                    ->schema([
-                        Subsection::make()
-                            ->icon('heroicon-o-user')
-                            ->columns(2)
-                            ->schema([
-                                TextInput::make('first_name')
-                                    ->label(__('field.first_name'))
-                                    ->placeholder(__('placeholder.first_name'))
-                                    ->maxLength(50)
-                                    ->required(),
-
-                                TextInput::make('last_name')
-                                    ->label(__('field.last_name'))
-                                    ->placeholder(__('placeholder.last_name'))
-                                    ->maxLength(50)
-                                    ->required(),
-
-                                TextInput::make('email')
-                                    ->label(__('field.email'))
-                                    ->placeholder(__('placeholder.email'))
-                                    ->unique()
-                                    ->email()
-                                    ->maxLength(200)
-                                    ->required(),
-
-                                TextInput::make('phone')
-                                    ->label(__('field.phone'))
-                                    ->placeholder(__('placeholder.phone'))
-                                    ->tel()
-                                    ->maxLength(15),
-
-                                Select::make('role')
-                                    ->label(__('field.role'))
-                                    ->options(Role::options())
-                                    ->enum(Role::class)
-                                    ->reactive()
-                                    ->required()
-                                    ->visible(fn () => auth()->user()->isAdmin()),
-
-                                Location::make()
-                                    ->label(__('field.county'))
-                                    ->withoutCity()
-                                    ->required()
-                                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::COORDINATOR))
-                                    ->columnSpan(1),
-                            ]),
-                    ]),
-
-                Card::make()
-                    ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
-                    ->schema(Nurse\EditArea::getSchema()),
-
-                Card::make()
-                    ->visible(fn () => auth()->user()->isCoordinator())
-                    ->schema([
-                        Subsection::make()
-                            ->icon('heroicon-o-location-marker')
-                            ->columns()
-                            ->schema([
-                                Value::make('activity_county_id')
-                                    ->label(__('field.county'))
-                                    ->content(fn () => auth()->user()->county->name),
-
-                                Select::make('activity_cities')
-                                    ->label(__('field.cities'))
-                                    ->placeholder(__('placeholder.cities'))
-                                    ->relationship('activityCities', 'name')
-                                    ->multiple()
-                                    ->allowHtml()
-                                    ->searchable()
-                                    ->required()
-                                    ->getSearchResultsUsing(
-                                        fn (string $search, Closure $get) => City::query()
-                                            ->where('county_id', auth()->user()->county_id)
-                                            ->search($search)
-                                            ->limit(100)
-                                            ->get()
-                                            ->mapWithKeys(fn (City $city) => [
-                                                $city->getKey() => Location::getRenderedOptionLabel($city),
-                                            ])
-                                    )
-                                    ->getOptionLabelFromRecordUsing(
-                                        fn (City $record) => Location::getRenderedOptionLabel($record)
-                                    ),
-                            ]),
-                    ]),
-            ]);
+            ->schema(static::getSchema());
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
@@ -130,5 +42,98 @@ class CreateUser extends CreateRecord
         }
 
         return $data;
+    }
+
+    public static function getSchema(): array
+    {
+        return [
+            Card::make()
+                ->schema([
+                    Subsection::make()
+                        ->icon('heroicon-o-user')
+                        ->columns(2)
+                        ->schema([
+                            TextInput::make('first_name')
+                                ->label(__('field.first_name'))
+                                ->placeholder(__('placeholder.first_name'))
+                                ->maxLength(50)
+                                ->required(),
+
+                            TextInput::make('last_name')
+                                ->label(__('field.last_name'))
+                                ->placeholder(__('placeholder.last_name'))
+                                ->maxLength(50)
+                                ->required(),
+
+                            TextInput::make('email')
+                                ->label(__('field.email'))
+                                ->placeholder(__('placeholder.email'))
+                                ->unique(ignoreRecord: true)
+                                ->email()
+                                ->maxLength(200)
+                                ->required(),
+
+                            TextInput::make('phone')
+                                ->label(__('field.phone'))
+                                ->placeholder(__('placeholder.phone'))
+                                ->tel()
+                                ->maxLength(15),
+
+                            Select::make('role')
+                                ->label(__('field.role'))
+                                ->options(Role::options())
+                                ->enum(Role::class)
+                                ->reactive()
+                                ->required()
+                                ->visible(fn () => auth()->user()->isAdmin()),
+
+                            Location::make()
+                                ->label(__('field.county'))
+                                ->withoutCity()
+                                ->required()
+                                ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::COORDINATOR))
+                                ->columnSpan(1),
+                        ]),
+                ]),
+
+            Card::make()
+                ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
+                ->schema(Nurse\EditArea::getSchema()),
+
+            Card::make()
+                ->visible(fn () => auth()->user()->isCoordinator())
+                ->schema([
+                    Subsection::make()
+                        ->icon('heroicon-o-location-marker')
+                        ->columns()
+                        ->schema([
+                            Value::make('activity_county_id')
+                                ->label(__('field.county'))
+                                ->content(fn () => auth()->user()->county->name),
+
+                            Select::make('activity_cities')
+                                ->label(__('field.cities'))
+                                ->placeholder(__('placeholder.cities'))
+                                ->relationship('activityCities', 'name')
+                                ->multiple()
+                                ->allowHtml()
+                                ->searchable()
+                                ->required()
+                                ->getSearchResultsUsing(
+                                    fn (string $search, Closure $get) => City::query()
+                                        ->where('county_id', auth()->user()->county_id)
+                                        ->search($search)
+                                        ->limit(100)
+                                        ->get()
+                                        ->mapWithKeys(fn (City $city) => [
+                                            $city->getKey() => Location::getRenderedOptionLabel($city),
+                                        ])
+                                )
+                                ->getOptionLabelFromRecordUsing(
+                                    fn (City $record) => Location::getRenderedOptionLabel($record)
+                                ),
+                        ]),
+                ]),
+        ];
     }
 }
