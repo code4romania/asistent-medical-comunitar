@@ -13,6 +13,7 @@ use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Models\User;
 use Filament\Forms\Components\Card;
+use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -31,6 +32,9 @@ class ViewUser extends ViewRecord
 
             DeactivateUserAction::make()
                 ->record($this->getRecord()),
+
+            EditAction::make()
+                ->icon('heroicon-s-pencil'),
         ];
     }
 
@@ -42,8 +46,8 @@ class ViewUser extends ViewRecord
 
         abort_unless(static::getResource()::canView($this->getRecord()), 403);
 
-        if ($this->record->isNurse()) {
-            redirect()->to(static::getResource()::getUrl('general.view', $this->record));
+        if ($this->getRecord()->isNurse()) {
+            redirect()->to(static::getResource()::getUrl('general.view', $this->getRecord()));
         }
     }
 

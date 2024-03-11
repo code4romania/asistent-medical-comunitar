@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Actions;
 
-use App\Filament\Resources\UserResource;
 use App\Models\User;
 use Filament\Pages\Actions\Action;
 
@@ -33,7 +32,7 @@ class DeactivateUserAction extends Action
 
         $this->label(__('user.action.deactivate'));
 
-        $this->color('primary');
+        $this->color('danger');
 
         $this->modalHeading(__('user.action_deactivate_confirm.title'));
 
@@ -49,9 +48,5 @@ class DeactivateUserAction extends Action
         });
 
         $this->successNotificationTitle(__('user.action_deactivate_confirm.success'));
-
-        $this->successRedirectUrl(function (User $record) {
-            return UserResource::getUrl('view', $record);
-        });
     }
 }
