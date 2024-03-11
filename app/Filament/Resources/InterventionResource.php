@@ -121,16 +121,19 @@ class InterventionResource extends Resource
                         ->options(fn ($livewire) => static::getValidVulnerabilities($livewire))
                         ->in(fn ($livewire) => static::getValidVulnerabilities($livewire)?->keys())
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->required(),
 
                     Select::make('interventionable.status')
                         ->label(__('field.status'))
                         ->options(Status::options())
                         ->enum(Status::class)
-                        ->default(Status::PLANNED),
+                        ->default(Status::PLANNED)
+                        ->required(),
 
                     DatePicker::make('interventionable.date')
-                        ->label(__('field.date')),
+                        ->label(__('field.date'))
+                        ->required(),
 
                     Radio::make('integrated')
                         ->label(__('field.integrated'))

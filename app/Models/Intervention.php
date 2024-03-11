@@ -61,7 +61,19 @@ class Intervention extends Model
             $builder->whereHas('beneficiary');
         });
 
-        static::created(function (self $intervention): void {
+        static::creating(function (self $intervention) {
+            if (! $intervention->isIndividualService()) {
+                return;
+            }
+
+            if (! $intervention->interventionable->isRealized()) {
+                return;
+            }
+
+            $intervention->closed_at = $intervention->interventionable->date ?? now();
+        });
+
+        static::created(function (self $intervention) {
             if ($intervention->beneficiary->isCatagraphed()) {
                 $intervention->beneficiary->markAsActive();
             }

@@ -44,8 +44,8 @@ class InterventionableIndividualService extends Model
         static::updating(function (self $interventionable) {
             if ($interventionable->isDirty('status')) {
                 $interventionable->intervention()->update([
-                    'closed_at' => $interventionable->status->is(Status::REALIZED)
-                        ? $interventionable->freshTimestamp()
+                    'closed_at' => $interventionable->isRealized()
+                        ? ($interventionable->date ?? now())
                         : null,
                 ]);
             }
@@ -60,5 +60,20 @@ class InterventionableIndividualService extends Model
     public function vulnerability(): BelongsTo
     {
         return $this->belongsTo(Vulnerability::class);
+    }
+
+    public function isPlanned(): bool
+    {
+        return $this->status->is(Status::PLANNED);
+    }
+
+    public function isRealized(): bool
+    {
+        return $this->status->is(Status::REALIZED);
+    }
+
+    public function isUnrealized(): bool
+    {
+        return $this->status->is(Status::UNREALIZED);
     }
 }
