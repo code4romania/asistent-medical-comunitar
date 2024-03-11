@@ -10,6 +10,7 @@ use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
+use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
@@ -22,6 +23,9 @@ class ViewUser extends ViewRecord
     protected function getActions(): array
     {
         return [
+            ResendInvitationAction::make()
+                ->record($this->getRecord()),
+
             ActivateUserAction::make()
                 ->record($this->getRecord()),
 

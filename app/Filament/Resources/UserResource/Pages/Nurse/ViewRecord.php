@@ -9,6 +9,7 @@ use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
+use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Filament\Resources\UserResource\Concerns;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
@@ -29,6 +30,8 @@ class ViewRecord extends BaseViewRecord implements WithTabs
                 ->icon('heroicon-s-pencil')
                 ->url(fn ($record) => UserResource::getUrl($name, $record))
                 ->visible(fn ($record) => auth()->user()->can('update', $record)),
+            ResendInvitationAction::make()
+                ->record($this->getRecord()),
 
             ActivateUserAction::make()
                 ->record($this->getRecord()),
