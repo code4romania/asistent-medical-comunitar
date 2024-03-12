@@ -60,7 +60,7 @@ return [
 
                 // Whether scanner should "pass" file scans (true), or
                 // "fail" them (false).
-                'should_pass' => false,
+                'should_pass' => env('CLAMAV_NULL_PASS', false),
             ],
         ],
     ],
