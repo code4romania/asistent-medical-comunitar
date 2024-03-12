@@ -76,12 +76,11 @@ class ManageHouseholds extends ManageRecords implements WithTabs
             ->with([
                 'families.beneficiaries.catagraphy' => function ($query) {
                     $query->select([
+                        'id',
                         'cat_age',
                         'cat_as',
                         'cat_cr',
-                        'cat_diz',
-                        'cat_diz_tip',
-                        'cat_diz_gr',
+                        'has_disabilities',
                         'cat_edu',
                         'cat_fam',
                         'cat_id',
@@ -92,7 +91,7 @@ class ManageHouseholds extends ManageRecords implements WithTabs
                         'cat_pov',
                         'cat_preg',
                         'cat_rep',
-                        'cat_ss',
+                        'has_health_issues',
                         'cat_ssa',
                         'cat_vif',
                         'beneficiary_id',
