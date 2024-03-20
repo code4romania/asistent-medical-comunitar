@@ -73,7 +73,8 @@ class CommunityActivityResource extends Resource
                             ->required(),
 
                         Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
+                            ->label(__('field.outside_working_hours'))
+                            ->helperText(__('field.outside_working_hours_help')),
                     ]),
 
                     TextInput::make('participants')
@@ -126,7 +127,8 @@ class CommunityActivityResource extends Resource
                             ->label(__('field.date')),
 
                         Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
+                            ->label(__('field.outside_working_hours'))
+                            ->helperText(__('field.outside_working_hours_help')),
                     ]),
 
                     Value::make('participants')
@@ -161,7 +163,8 @@ class CommunityActivityResource extends Resource
                             ->required(),
 
                         Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
+                            ->label(__('field.outside_working_hours'))
+                            ->helperText(__('field.outside_working_hours_help')),
                     ]),
 
                     Textarea::make('notes')
@@ -195,7 +198,8 @@ class CommunityActivityResource extends Resource
                             ->label(__('field.date')),
 
                         Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
+                            ->label(__('field.outside_working_hours'))
+                            ->helperText(__('field.outside_working_hours_help')),
                     ]),
 
                     Value::make('notes')

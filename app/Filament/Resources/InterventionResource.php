@@ -154,7 +154,8 @@ class InterventionResource extends Resource
                         ->columnSpanFull(),
 
                     Checkbox::make('interventionable.outside_working_hours')
-                        ->label(__('field.outside_working_hours')),
+                        ->label(__('field.outside_working_hours'))
+                        ->helperText(__('field.outside_working_hours_help')),
                 ]),
         ];
     }
