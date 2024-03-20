@@ -11,11 +11,13 @@ use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\CommunityActivity;
+use App\Models\County;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 
 class ManageCampaigns extends ManageRecords implements WithTabs
 {
@@ -64,7 +66,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     ->sortable()
                     ->toggleable(),
 
-                TextColumn::make('county.name')
+                TextColumn::make('nurse.activityCounty.name')
                     ->label(__('field.county'))
                     ->size('sm')
                     ->sortable()
@@ -94,10 +96,22 @@ class ManageCampaigns extends ManageRecords implements WithTabs
             ->filters([
                 DateRangeFilter::make('date_between'),
 
-                SelectFilter::make('county_id')
+                SelectFilter::make('county')
                     ->label(__('field.county'))
-                    ->relationship('county', 'name')
-                    ->visible(fn () => auth()->user()->isAdmin()),
+                    ->options(
+                        fn () => Cache::driver('array')
+                            ->rememberForever(
+                                'counties',
+                                fn () => County::pluck('name', 'id')
+                            )
+                    )
+                    ->query(function (Builder $query, array $data) {
+                        if (blank($data['value'])) {
+                            return $query;
+                        }
+
+                        $query->whereRelation('nurse.activityCounty', 'counties.id', $data['value']);
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -124,6 +138,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     })
                     ->label(__('community_activity.action.create_campaign'))
                     ->modalHeading(__('community_activity.action.create_campaign'))
+                    ->visible(fn () => auth()->user()->can('create', CommunityActivity::class))
                     ->disableCreateAnother(),
             ])
             ->defaultSort('id', 'desc');

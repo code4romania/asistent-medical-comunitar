@@ -30,7 +30,7 @@ class CommunityActivityPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isNurse();
     }
 
     /**
@@ -38,7 +38,7 @@ class CommunityActivityPolicy
      */
     public function update(User $user, CommunityActivity $communityActivity): bool
     {
-        return true;
+        return $user->isNurse() && $communityActivity->nurse_id === $user->id;
     }
 
     /**
@@ -46,7 +46,7 @@ class CommunityActivityPolicy
      */
     public function delete(User $user, CommunityActivity $communityActivity): bool
     {
-        return $user->isAdmin();
+        return $user->isNurse() && $communityActivity->nurse_id === $user->id;
     }
 
     /**
@@ -54,7 +54,7 @@ class CommunityActivityPolicy
      */
     public function restore(User $user, CommunityActivity $communityActivity): bool
     {
-        return $user->isAdmin();
+        return $user->isNurse() && $communityActivity->nurse_id === $user->id;
     }
 
     /**
@@ -62,6 +62,6 @@ class CommunityActivityPolicy
      */
     public function forceDelete(User $user, CommunityActivity $communityActivity): bool
     {
-        return $user->isAdmin();
+        return $user->isNurse() && $communityActivity->nurse_id === $user->id;
     }
 }
