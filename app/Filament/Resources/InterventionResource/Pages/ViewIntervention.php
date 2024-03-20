@@ -127,6 +127,9 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 
                     Value::make('status')
                         ->label(__('field.status')),
+
+                    Value::make('interventionable.date')
+                        ->label(__('field.date')),
                 ]),
 
             Subsection::make()
