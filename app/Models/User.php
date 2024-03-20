@@ -65,6 +65,8 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         'phone',
         'accreditation_number',
         'accreditation_date',
+        'has_participated_specialization',
+        'has_graduated_specialization',
     ];
 
     /**
@@ -81,6 +83,8 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         'password' => 'hashed',
         'gender' => Gender::class,
         'date_of_birth' => 'date',
+        'has_participated_specialization' => 'boolean',
+        'has_graduated_specialization' => 'boolean',
     ];
 
     public function registerMediaCollections(): void
