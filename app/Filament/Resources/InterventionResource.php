@@ -14,6 +14,7 @@ use App\Http\Middleware\RedirectToDashboard;
 use App\Models\Catagraphy;
 use App\Models\Intervention;
 use App\Models\Service\Service;
+use Carbon\Carbon;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -133,6 +134,8 @@ class InterventionResource extends Resource
 
                     DatePicker::make('interventionable.date')
                         ->label(__('field.date'))
+                        ->minDate(fn () => InterventionResource::minReportingDate())
+                        ->default(today())
                         ->required(),
 
                     Radio::make('integrated')
@@ -174,5 +177,14 @@ class InterventionResource extends Resource
     public static function hasValidVulnerabilities($livewire): bool
     {
         return static::getValidVulnerabilities($livewire)?->isNotEmpty() ?? false;
+    }
+
+    public static function minReportingDate(): Carbon
+    {
+        if (today()->day > 5) {
+            return today()->startOfMonth();
+        }
+
+        return today()->subMonth()->startOfMonth();
     }
 }

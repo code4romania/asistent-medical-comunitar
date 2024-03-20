@@ -6,6 +6,7 @@ namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Filament\Forms\Components\Radio;
+use App\Filament\Resources\InterventionResource;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Appointment;
 use App\Models\Intervention;
@@ -44,19 +45,23 @@ class InterventionsRelationManager extends RelationManager
                 Select::make('interventionable.service_id')
                     ->label(__('field.service'))
                     ->placeholder(__('placeholder.select_one'))
-                    ->searchable()
                     ->options($services)
-                    ->in($services->keys()),
+                    ->in($services->keys())
+                    ->searchable()
+                    ->required(),
 
                 Select::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::options())
                     ->enum(Status::class)
-                    ->default(Status::PLANNED),
+                    ->default(Status::PLANNED)
+                    ->required(),
 
                 DatePicker::make('interventionable.date')
                     ->label(__('field.date'))
-                    ->default(today()),
+                    ->minDate(fn () => InterventionResource::minReportingDate())
+                    ->default(today())
+                    ->required(),
 
                 Radio::make('integrated')
                     ->label(__('field.integrated'))
