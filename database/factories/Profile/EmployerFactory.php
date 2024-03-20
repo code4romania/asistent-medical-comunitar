@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories\Profile;
 
-use App\Enums\EmployerType;
+use App\Enums\Employer\Funding;
+use App\Enums\Employer\Type;
 use App\Models\City;
 use App\Models\ProfileEmployer;
 use Carbon\Carbon;
@@ -26,10 +27,13 @@ class EmployerFactory extends Factory
 
         return [
             'name' => fake()->company(),
-            'type' => fake()->randomElement(EmployerType::values()),
+            'type' => fake()->randomElement(Type::values()),
+            'funding' => fake()->randomElement(Funding::values()),
             'start_date' => fake()->date(),
             'county_id' => $city->county_id,
             'city_id' => $city->id,
+            'email' => fake()->boolean() ? fake()->safeEmail() : null,
+            'phone' => fake()->boolean() ? fake()->phoneNumber() : null,
         ];
     }
 
@@ -53,6 +57,16 @@ class EmployerFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'project' => fake()->sentence(),
+        ]);
+    }
+
+    public function withGPAgreement(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'has_gp_agreement' => true,
+            'gp_name' => fake()->name(),
+            'gp_email' => fake()->safeEmail(),
+            'gp_phone' => fake()->phoneNumber(),
         ]);
     }
 }

@@ -88,7 +88,7 @@ class UserFactory extends Factory
             ])
             ->has(Study::factory()->count(5))
             ->has(Course::factory()->count(10))
-            ->has(Employer::factory()->past())
+            ->has(Employer::factory()->past()->withGPAgreement())
             ->has(Employer::factory()->past()->withProject())
             ->has(Employer::factory()->current());
     }
