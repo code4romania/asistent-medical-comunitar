@@ -94,6 +94,7 @@ return [
     'nurse' => 'Asistent Medical Comunitar',
     'organizer' => 'Organizator',
     'outside_working_hours' => 'Realizat în afara programului de lucru',
+    'outside_working_hours_help' => 'Dacă bifați căsuța, vă rugăm să descrieți situația în câmpul Descriere/Observații',
     'participants_list' => 'Listă nominală participanți',
     'participants' => 'Participanți',
     'performed_interventions_count' => 'Servicii efectuate',
