@@ -17,6 +17,12 @@ return [
         'other' => 'Alt tip de angajator',
     ],
 
+    'funding' => [
+        'state' => 'Buget de stat',
+        'local' => 'Buget local',
+        'project' => 'Post cu finanțare din proiect cu fonduri',
+    ],
+
     'action' => [
         'create' => 'Adaugă angajator',
     ],
