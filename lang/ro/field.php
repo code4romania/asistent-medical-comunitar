@@ -72,6 +72,8 @@ return [
     'gp_email' => 'Email medic de familie',
     'gp_phone' => 'Telefon medic de familie',
     'has_gp_agreement' => 'Există acord de parteneriat între angajator și medicul de familie?',
+    'has_graduated_specialization' => 'Absolvire program',
+    'has_participated_specialization' => 'Parcurgere program',
     'has_unknown_identity' => 'Identitate necunoscută beneficiar',
     'hour' => 'Oră',
     'household_name' => 'Denumire gospodărie',

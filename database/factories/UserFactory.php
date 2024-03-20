@@ -85,6 +85,8 @@ class UserFactory extends Factory
                 'accreditation_number' => null,
                 'accreditation_date' => fake()->date(),
                 'profile_completed_at' => now(),
+                'has_participated_specialization' => fake()->boolean(),
+                'has_graduated_specialization' => fake()->boolean(),
             ])
             ->has(Study::factory()->count(5))
             ->has(Course::factory()->count(10))

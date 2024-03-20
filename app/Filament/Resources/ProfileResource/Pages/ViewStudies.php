@@ -17,36 +17,55 @@ class ViewStudies extends ViewRecord
     {
         return $form
             ->columns(1)
-            ->schema([
-                Repeater::make('studies')
-                    ->relationship(callback: fn (Builder $query) => $query->withLocation())
-                    ->label(__('user.profile.section.studies'))
-                    ->schema([
-                        Subsection::make()
-                            ->icon('heroicon-o-academic-cap')
-                            ->columns(2)
-                            ->schema([
-                                Value::make('name')
-                                    ->label(__('field.study_name')),
+            ->schema(static::getSchema());
+    }
 
-                                Value::make('type')
-                                    ->label(__('field.study_type')),
+    public static function getSchema(): array
+    {
+        return [
+            Repeater::make('studies')
+                ->relationship(callback: fn (Builder $query) => $query->withLocation())
+                ->label(__('user.profile.section.studies'))
+                ->schema([
+                    Subsection::make()
+                        ->icon('heroicon-o-academic-cap')
+                        ->columns(2)
+                        ->schema([
+                            Value::make('name')
+                                ->label(__('field.study_name')),
 
-                                Value::make('institution')
-                                    ->label(__('field.study_institution')),
+                            Value::make('type')
+                                ->label(__('field.study_type')),
 
-                                Value::make('duration')
-                                    ->label(__('field.study_duration')),
+                            Value::make('institution')
+                                ->label(__('field.study_institution')),
 
-                                Location::make(),
+                            Value::make('duration')
+                                ->label(__('field.study_duration')),
 
-                                Value::make('start_year')
-                                    ->label(__('field.start_year')),
+                            Location::make(),
 
-                                Value::make('end_year')
-                                    ->label(__('field.end_year')),
-                            ]),
-                    ]),
-            ]);
+                            Value::make('start_year')
+                                ->label(__('field.start_year')),
+
+                            Value::make('end_year')
+                                ->label(__('field.end_year')),
+                        ]),
+                ]),
+
+            Subsection::make()
+                ->title(__('study.specialization_section'))
+                ->icon('heroicon-o-document-text')
+                ->columns(2)
+                ->schema([
+                    Value::make('has_participated_specialization')
+                        ->label(__('field.has_participated_specialization'))
+                        ->boolean(),
+
+                    Value::make('has_graduated_specialization')
+                        ->label(__('field.has_graduated_specialization'))
+                        ->boolean(),
+                ]),
+        ];
     }
 }

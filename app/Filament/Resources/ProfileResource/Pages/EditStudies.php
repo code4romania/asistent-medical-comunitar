@@ -9,6 +9,7 @@ use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\YearPicker;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -40,30 +41,48 @@ class EditStudies extends EditRecord
                                 ->placeholder(__('placeholder.study_name'))
                                 ->maxLength(200)
                                 ->required(),
+
                             Select::make('type')
                                 ->label(__('field.study_type'))
                                 ->placeholder(__('placeholder.choose'))
                                 ->options(StudyType::options())
                                 ->required(),
+
                             TextInput::make('institution')
                                 ->label(__('field.study_institution'))
                                 ->placeholder(__('placeholder.study_institution')),
+
                             TextInput::make('duration')
                                 ->label(__('field.study_duration'))
                                 ->placeholder(__('placeholder.study_duration'))
                                 ->integer()
                                 ->nullable(),
+
                             Location::make(),
+
                             YearPicker::make('start_year')
                                 ->label(__('field.start_year'))
                                 ->placeholder(__('placeholder.choose'))
                                 ->nullable(),
+
                             YearPicker::make('end_year')
                                 ->label(__('field.end_year'))
                                 ->placeholder(__('placeholder.choose'))
                                 ->after('start_year')
                                 ->nullable(),
                         ]),
+                ]),
+
+            Subsection::make()
+                ->title(__('study.specialization_section'))
+                ->icon('heroicon-o-document-text')
+                ->columns(2)
+                ->schema([
+                    Checkbox::make('has_participated_specialization')
+                        ->label(__('field.has_participated_specialization')),
+
+                    Checkbox::make('has_graduated_specialization')
+                        ->label(__('field.has_graduated_specialization')),
                 ]),
         ];
     }
