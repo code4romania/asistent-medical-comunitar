@@ -13,7 +13,6 @@ enum CommunityActivityType: string
     use Concerns\Enums\HasLabel;
 
     case CAMPAIGN = 'campaign';
-    case ENVIRONMENT = 'environment';
     case ADMINISTRATIVE = 'administrative';
 
     protected function labelKeyPrefix(): ?string

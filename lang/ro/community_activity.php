@@ -15,13 +15,11 @@ return [
 
     'type' => [
         'campaign' => 'Campanie sănătate',
-        'environment' => 'Activitate de mediu',
         'administrative' => 'Activitate administrativă',
     ],
 
     'section' => [
         'campaign' => 'Campanii sănătate',
-        'environment' => 'Activități de mediu',
         'administrative' => 'Activități administrative',
     ],
 
@@ -44,7 +42,6 @@ return [
 
     'action' => [
         'create_campaign' => 'Adaugă campanie sănătate',
-        'create_environment' => 'Adaugă activitate de mediu',
         'create_administrative' => 'Adaugă activitate administrativă',
 
         'edit' => 'Modifică activitate',

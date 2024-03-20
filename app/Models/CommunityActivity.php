@@ -79,11 +79,6 @@ class CommunityActivity extends Model implements HasMedia
         return $query->where('type', CommunityActivityType::CAMPAIGN);
     }
 
-    public function scopeOnlyEnvironmentActivities(Builder $query): Builder
-    {
-        return $query->where('type', CommunityActivityType::ENVIRONMENT);
-    }
-
     public function scopeOnlyAdministrativeActivities(Builder $query): Builder
     {
         return $query->where('type', CommunityActivityType::ADMINISTRATIVE);
