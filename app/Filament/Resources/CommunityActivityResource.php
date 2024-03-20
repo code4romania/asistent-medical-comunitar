@@ -40,7 +40,6 @@ class CommunityActivityResource extends Resource
     {
         return [
             'index' => Pages\ManageCampaigns::route('/'),
-            'environment' => Pages\ManageEnvironmentActivities::route('/environment'),
             'administrative' => Pages\ManageAdministrativeActivities::route('/administrative'),
         ];
     }
@@ -144,93 +143,6 @@ class CommunityActivityResource extends Resource
                     FileList::make('participants_list')
                         ->label(__('field.participants_list'))
                         ->collection('participants_list'),
-
-                    Value::make('notes')
-                        ->label(__('field.notes'))
-                        ->columnSpanFull(),
-                ]),
-        ];
-    }
-
-    public static function getEnvironmentEditFormSchema(): array
-    {
-        return [
-            Grid::make(2)
-                ->schema([
-                    TextInput::make('name')
-                        ->label(__('field.activity'))
-                        ->placeholder(__('placeholder.activity'))
-                        ->required()
-                        ->maxLength(200),
-
-                    TextInput::make('organizer')
-                        ->label(__('field.organizer'))
-                        ->placeholder(__('placeholder.organizer'))
-                        ->required()
-                        ->maxLength(200),
-
-                    Select::make('county_id')
-                        ->label(__('field.county'))
-                        ->placeholder(__('placeholder.county'))
-                        ->relationship('county', 'name')
-                        ->required()
-                        ->visible(fn () => auth()->user()->isAdmin()),
-
-                    TextInput::make('location')
-                        ->label(__('field.location'))
-                        ->placeholder(__('placeholder.location'))
-                        ->required()
-                        ->maxLength(200),
-
-                    Group::make([
-                        DatePicker::make('date')
-                            ->label(__('field.date'))
-                            ->placeholder('zz / ll / aaaa')
-                            ->required(),
-
-                        Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
-                    ]),
-
-                    Textarea::make('notes')
-                        ->label(__('field.notes'))
-                        ->autosize(false)
-                        ->rows(4)
-                        ->columnSpanFull()
-                        ->extraInputAttributes([
-                            'class' => 'resize-none',
-                        ])
-                        ->columnSpanFull(),
-                ]),
-        ];
-    }
-
-    public static function getEnvironmentViewFormSchema(): array
-    {
-        return [
-            Grid::make(2)
-                ->schema([
-                    Value::make('name')
-                        ->label(__('field.activity')),
-
-                    Value::make('organizer')
-                        ->label(__('field.organizer')),
-
-                    Value::make('county')
-                        ->label(__('field.county'))
-                        ->content(fn ($record) => $record->county?->name)
-                        ->visible(fn () => auth()->user()->isAdmin()),
-
-                    Value::make('location')
-                        ->label(__('field.location')),
-
-                    Group::make([
-                        Value::make('date')
-                            ->label(__('field.date')),
-
-                        Checkbox::make('outside_working_hours')
-                            ->label(__('field.outside_working_hours')),
-                    ]),
 
                     Value::make('notes')
                         ->label(__('field.notes'))

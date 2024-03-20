@@ -29,18 +29,6 @@ trait HasActions
                     ->groupedIcon(null)
                     ->disableCreateAnother(),
 
-                CreateAction::make('environment')
-                    ->form(CommunityActivityResource::getEnvironmentEditFormSchema())
-                    ->using(function (array $data) {
-                        $data['type'] = CommunityActivityType::ENVIRONMENT;
-
-                        return CommunityActivity::create($data);
-                    })
-                    ->label(__('community_activity.action.create_environment'))
-                    ->modalHeading(__('community_activity.action.create_environment'))
-                    ->groupedIcon(null)
-                    ->disableCreateAnother(),
-
                 CreateAction::make('admin')
                     ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
                     ->using(function (array $data) {

@@ -23,17 +23,10 @@ class CommunityActivityFactory extends Factory
     {
         $type = fake()->randomElement(CommunityActivityType::cases());
 
-        switch ($type) {
-            case CommunityActivityType::CAMPAIGN:
-                $participants = fake()->numberBetween(0, 65535);
-
-            case CommunityActivityType::ENVIRONMENT:
-                $organizer = fake()->word();
-                $location = fake()->words(asText: true);
-
-            case CommunityActivityType::ADMINISTRATIVE:
-                // noop
-                break;
+        if (CommunityActivityType::CAMPAIGN->is($type)) {
+            $participants = fake()->numberBetween(0, 65535);
+            $organizer = fake()->word();
+            $location = fake()->words(asText: true);
         }
 
         return [

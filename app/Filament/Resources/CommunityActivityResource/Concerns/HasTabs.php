@@ -8,7 +8,6 @@ use App\Concerns\TabbedLayout;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Pages\ManageAdministrativeActivities;
 use App\Filament\Resources\CommunityActivityResource\Pages\ManageCampaigns;
-use App\Filament\Resources\CommunityActivityResource\Pages\ManageEnvironmentActivities;
 use Filament\Navigation\NavigationItem;
 
 trait HasTabs
@@ -24,12 +23,6 @@ trait HasTabs
                 ->icon('icon-none')
                 ->url(CommunityActivityResource::getUrl('index'))
                 ->isActiveWhen(fn (): bool => static::class === ManageCampaigns::class),
-
-            NavigationItem::make()
-                ->label(__('community_activity.section.environment'))
-                ->icon('icon-none')
-                ->url(CommunityActivityResource::getUrl('environment'))
-                ->isActiveWhen(fn (): bool => static::class === ManageEnvironmentActivities::class),
 
             NavigationItem::make()
                 ->label(__('community_activity.section.administrative'))
