@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\Gender;
 use App\Enums\User\Role;
+use App\Models\CommunityActivity;
 use App\Models\County;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
@@ -92,6 +93,7 @@ class UserFactory extends Factory
             ->has(Course::factory()->count(10))
             ->has(Employer::factory()->past()->withGPAgreement())
             ->has(Employer::factory()->past()->withProject())
-            ->has(Employer::factory()->current());
+            ->has(Employer::factory()->current())
+            ->has(CommunityActivity::factory()->count(10));
     }
 }
