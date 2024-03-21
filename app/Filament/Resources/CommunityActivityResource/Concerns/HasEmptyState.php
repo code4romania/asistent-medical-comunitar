@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Concerns;
 
 use App\Concerns\HasConditionalTableEmptyState;
-use App\Enums\CommunityActivityType;
+use App\Enums\CommunityActivity\Type;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Pages\ManageAdministrativeActivities;
 use App\Filament\Resources\CommunityActivityResource\Pages\ManageCampaigns;
@@ -61,8 +61,8 @@ trait HasEmptyState
                 })
                 ->using(function (array $data, $livewire) {
                     $data['type'] = match (\get_class($livewire)) {
-                        ManageCampaigns::class => CommunityActivityType::CAMPAIGN,
-                        ManageAdministrativeActivities::class => CommunityActivityType::ADMINISTRATIVE,
+                        ManageCampaigns::class => Type::CAMPAIGN,
+                        ManageAdministrativeActivities::class => Type::ADMINISTRATIVE,
                     };
 
                     return CommunityActivity::create($data);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CommunityActivityResource\Concerns;
 
-use App\Enums\CommunityActivityType;
+use App\Enums\CommunityActivity\Type;
 use App\Filament\Actions\ActionGroup;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Models\CommunityActivity;
@@ -20,7 +20,7 @@ trait HasActions
                 CreateAction::make('campaign')
                     ->form(CommunityActivityResource::getCampaignEditFormSchema())
                     ->using(function (array $data) {
-                        $data['type'] = CommunityActivityType::CAMPAIGN;
+                        $data['type'] = Type::CAMPAIGN;
 
                         return CommunityActivity::create($data);
                     })
@@ -32,7 +32,7 @@ trait HasActions
                 CreateAction::make('admin')
                     ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
                     ->using(function (array $data) {
-                        $data['type'] = CommunityActivityType::ADMINISTRATIVE;
+                        $data['type'] = Type::ADMINISTRATIVE;
 
                         return CommunityActivity::create($data);
                     })

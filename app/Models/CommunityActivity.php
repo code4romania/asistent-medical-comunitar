@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToNurse;
-use App\Enums\CommunityActivityType;
+use App\Enums\CommunityActivity\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +30,7 @@ class CommunityActivity extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'type' => CommunityActivityType::class,
+        'type' => Type::class,
         'outside_working_hours' => 'boolean',
         'participants' => 'integer',
         'date' => 'date',
@@ -44,12 +44,12 @@ class CommunityActivity extends Model implements HasMedia
 
     public function scopeOnlyCampaigns(Builder $query): Builder
     {
-        return $query->where('type', CommunityActivityType::CAMPAIGN);
+        return $query->where('type', Type::CAMPAIGN);
     }
 
     public function scopeOnlyAdministrativeActivities(Builder $query): Builder
     {
-        return $query->where('type', CommunityActivityType::ADMINISTRATIVE);
+        return $query->where('type', Type::ADMINISTRATIVE);
     }
 
     public function getHourAttribute(): string

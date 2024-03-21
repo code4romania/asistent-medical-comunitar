@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\CommunityActivityType;
+use App\Enums\CommunityActivity\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,9 +20,9 @@ class CommunityActivityFactory extends Factory
      */
     public function definition(): array
     {
-        $type = fake()->randomElement(CommunityActivityType::cases());
+        $type = fake()->randomElement(Type::cases());
 
-        if (CommunityActivityType::CAMPAIGN->is($type)) {
+        if (Type::CAMPAIGN->is($type)) {
             $participants = fake()->numberBetween(0, 65535);
             $organizer = fake()->word();
             $location = fake()->words(asText: true);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
-use App\Enums\CommunityActivityType;
+use App\Enums\CommunityActivity\Type;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Filament\Resources\CommunityActivityResource\Concerns;
@@ -132,7 +132,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                 Tables\Actions\CreateAction::make()
                     ->form(CommunityActivityResource::getCampaignEditFormSchema())
                     ->using(function (array $data) {
-                        $data['type'] = CommunityActivityType::CAMPAIGN;
+                        $data['type'] = Type::CAMPAIGN;
 
                         return CommunityActivity::create($data);
                     })
