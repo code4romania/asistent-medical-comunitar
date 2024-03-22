@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToNurse;
+use App\Enums\CommunityActivity\Administrative;
+use App\Enums\CommunityActivity\Campaign;
 use App\Enums\CommunityActivity\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,12 +22,14 @@ class CommunityActivity extends Model implements HasMedia
 
     protected $fillable = [
         'type',
+        'subtype',
         'name',
         'date',
         'outside_working_hours',
         'location',
         'organizer',
         'participants',
+        'roma_participants',
         'notes',
     ];
 
@@ -33,6 +37,7 @@ class CommunityActivity extends Model implements HasMedia
         'type' => Type::class,
         'outside_working_hours' => 'boolean',
         'participants' => 'integer',
+        'roma_participants' => 'integer',
         'date' => 'date',
     ];
 
@@ -62,5 +67,20 @@ class CommunityActivity extends Model implements HasMedia
     public function getTitleAttribute(): string
     {
         return $this->name . ' ' . $this->date->toFormattedDate();
+    }
+
+    public function getSubtypeAttribute(?string $value): Campaign | Administrative | null
+    {
+        $enum = match ($this->type) {
+            Type::CAMPAIGN => Campaign::class,
+            Type::ADMINISTRATIVE => Administrative::class,
+            default => null,
+        };
+
+        if (! $enum || ! $value) {
+            return null;
+        }
+
+        return $enum::tryFrom($value);
     }
 }

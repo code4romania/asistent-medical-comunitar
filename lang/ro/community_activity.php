@@ -35,9 +35,19 @@ return [
     ],
 
     'campaign' => [
-        'label' => [
-            'singular' => '',
-        ],
+        'national' => 'Campanie națională',
+        'local' => 'Campanie locală',
+        'activity' => 'Activitate fizică și nutriție',
+        'intervention' => 'Intervenție scurtă în comunitățile vulnerabile',
+    ],
+
+    'administrative' => [
+        'software' => 'Operare software AMC-MSR',
+        'vacation' => 'Raportare concediu',
+        'meeting' => 'Ședință',
+        'training' => 'Activitate de pregătire profesională',
+        'planning' => 'Planificare activitate',
+        'other' => 'Altă activitate administrativă',
     ],
 
     'action' => [

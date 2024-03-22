@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\CommunityActivity\Administrative;
+use App\Enums\CommunityActivity\Campaign;
 use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\CommunityActivityResource\Pages;
@@ -12,6 +14,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -48,6 +51,15 @@ class CommunityActivityResource extends Resource
         return [
             Grid::make(2)
                 ->schema([
+                    Grid::make()
+                        ->schema([
+                            Select::make('subtype')
+                                ->label(__('field.type'))
+                                ->options(Campaign::options())
+                                ->enum(Campaign::class)
+                                ->required(),
+                        ]),
+
                     TextInput::make('name')
                         ->label(__('field.activity'))
                         ->placeholder(__('placeholder.activity'))
@@ -85,10 +97,18 @@ class CommunityActivityResource extends Resource
                         ->minValue(0)
                         ->maxValue(65535),
 
+                    TextInput::make('roma_participants')
+                        ->label(__('field.roma_participants'))
+                        ->placeholder(__('placeholder.participants'))
+                        ->integer()
+                        ->minValue(0)
+                        ->maxValue(65535),
+
                     SpatieMediaLibraryFileUpload::make('participants_list')
                         ->label(__('field.participants_list'))
                         ->collection('participants_list')
-                        ->maxSize(1024 * 1024 * 2),
+                        ->maxSize(1024 * 1024 * 2)
+                        ->columnSpanFull(),
 
                     Textarea::make('notes')
                         ->label(__('field.notes'))
@@ -108,6 +128,10 @@ class CommunityActivityResource extends Resource
         return [
             Grid::make(2)
                 ->schema([
+                    Value::make('subtype')
+                        ->label(__('field.type'))
+                        ->columnSpanFull(),
+
                     Value::make('name')
                         ->label(__('field.activity')),
 
@@ -126,17 +150,21 @@ class CommunityActivityResource extends Resource
                         Value::make('date')
                             ->label(__('field.date')),
 
-                        Checkbox::make('outside_working_hours')
+                        Value::make('outside_working_hours')
                             ->label(__('field.outside_working_hours'))
-                            ->helperText(__('field.outside_working_hours_help')),
+                            ->boolean(),
                     ]),
 
                     Value::make('participants')
                         ->label(__('field.participants')),
 
+                    Value::make('roma_participants')
+                        ->label(__('field.roma_participants')),
+
                     FileList::make('participants_list')
                         ->label(__('field.participants_list'))
-                        ->collection('participants_list'),
+                        ->collection('participants_list')
+                        ->columnSpanFull(),
 
                     Value::make('notes')
                         ->label(__('field.notes'))
@@ -150,6 +178,15 @@ class CommunityActivityResource extends Resource
         return [
             Grid::make(2)
                 ->schema([
+                    Grid::make()
+                        ->schema([
+                            Select::make('subtype')
+                                ->label(__('field.type'))
+                                ->options(Administrative::options())
+                                ->enum(Administrative::class)
+                                ->required(),
+                        ]),
+
                     TextInput::make('name')
                         ->label(__('field.activity'))
                         ->placeholder(__('placeholder.activity'))
@@ -185,6 +222,10 @@ class CommunityActivityResource extends Resource
         return [
             Grid::make(2)
                 ->schema([
+                    Value::make('subtype')
+                        ->label(__('field.type'))
+                        ->columnSpanFull(),
+
                     Value::make('name')
                         ->label(__('field.activity')),
 
@@ -197,9 +238,9 @@ class CommunityActivityResource extends Resource
                         Value::make('date')
                             ->label(__('field.date')),
 
-                        Checkbox::make('outside_working_hours')
+                        Value::make('outside_working_hours')
                             ->label(__('field.outside_working_hours'))
-                            ->helperText(__('field.outside_working_hours_help')),
+                            ->boolean(),
                     ]),
 
                     Value::make('notes')

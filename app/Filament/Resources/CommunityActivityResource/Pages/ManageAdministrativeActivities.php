@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Enums\CommunityActivity\Administrative;
 use App\Enums\CommunityActivity\Type;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
@@ -44,6 +45,12 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('subtype')
+                    ->label(__('field.type'))
+                    ->enum(Administrative::options())
+                    ->size('sm')
+                    ->toggleable(),
+
                 TextColumn::make('name')
                     ->label(__('field.activity'))
                     ->size('sm')
@@ -74,6 +81,11 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
             ])
             ->filters([
                 DateRangeFilter::make('date_between'),
+
+                SelectFilter::make('subtype')
+                    ->label(__('field.type'))
+                    ->options(Administrative::options())
+                    ->multiple(),
 
                 SelectFilter::make('county')
                     ->label(__('field.county'))

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivityResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
+use App\Enums\CommunityActivity\Campaign;
 use App\Enums\CommunityActivity\Type;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\CommunityActivityResource;
@@ -42,6 +43,12 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     ->size('sm')
                     ->sortable()
                     ->searchable()
+                    ->toggleable(),
+
+                TextColumn::make('subtype')
+                    ->label(__('field.type'))
+                    ->enum(Campaign::options())
+                    ->size('sm')
                     ->toggleable(),
 
                 TextColumn::make('name')
@@ -92,9 +99,20 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     ->size('sm')
                     ->sortable()
                     ->toggleable(),
+
+                TextColumn::make('roma_participants')
+                    ->label(__('field.roma_participants'))
+                    ->size('sm')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 DateRangeFilter::make('date_between'),
+
+                SelectFilter::make('subtype')
+                    ->label(__('field.type'))
+                    ->options(Campaign::options())
+                    ->multiple(),
 
                 SelectFilter::make('county')
                     ->label(__('field.county'))
