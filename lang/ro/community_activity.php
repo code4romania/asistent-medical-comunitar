@@ -43,7 +43,6 @@ return [
 
     'administrative' => [
         'software' => 'Operare software AMC-MSR',
-        'vacation' => 'Raportare concediu',
         'meeting' => 'Ședință',
         'training' => 'Activitate de pregătire profesională',
         'planning' => 'Planificare activitate',

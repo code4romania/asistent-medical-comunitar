@@ -13,7 +13,6 @@ enum Administrative: string
     use Concerns\Enums\HasLabel;
 
     case SOFTWARE = 'software';
-    case VACATION = 'vacation';
     case MEETING = 'meeting';
     case TRAINING = 'training';
     case PLANNING = 'planning';
