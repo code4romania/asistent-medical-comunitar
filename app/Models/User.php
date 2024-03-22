@@ -138,6 +138,11 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         return $this->hasMany(CommunityActivity::class, 'nurse_id');
     }
 
+    public function vacations(): HasMany
+    {
+        return $this->hasMany(Vacation::class, 'nurse_id');
+    }
+
     public function interventions(): HasManyThrough
     {
         return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'nurse_id', 'beneficiary_id');
