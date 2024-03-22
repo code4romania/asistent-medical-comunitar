@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\CommunityActivity;
 
 use App\Concerns;
 
-enum CommunityActivityType: string
+enum Type: string
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
