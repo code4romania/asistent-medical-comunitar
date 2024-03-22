@@ -48,6 +48,7 @@ return [
     'document_title' => 'Denumire',
     'document_type' => 'Tip document',
     'does_not_have_cnp' => 'Beneficiarul nu are CNP',
+    'does_not_provide_cnp' => 'Beneficiarul nu dorește să furnizeze CNP-ul',
     'email' => 'Email',
     'employer' => 'Angajator',
     'employer_email' => 'Email angajator',

@@ -51,8 +51,15 @@ trait CommonEditFormSchema
                                 ->unique(ignoreRecord: true)
                                 ->nullable()
                                 ->rule(new ValidCNP)
-                                ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
-                                ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp'))
+                                ->disabled(function (callable $get) {
+                                    return (bool) $get('does_not_have_cnp')
+                                        || (bool) $get('does_not_provide_cnp');
+                                })
+                                ->required(function (callable $get) {
+                                    return ! $get('has_unknown_identity')
+                                        && ! $get('does_not_have_cnp')
+                                        && ! $get('does_not_provide_cnp');
+                                })
                                 ->afterStateHydrated(function ($state, callable $set) {
                                     if (\is_null($state)) {
                                         $set('does_not_have_cnp', true);
@@ -62,10 +69,19 @@ trait CommonEditFormSchema
                             Checkbox::make('does_not_have_cnp')
                                 ->label(__('field.does_not_have_cnp'))
                                 ->default(false)
-                                ->extraAttributes(['class' => ' justify-end'])
                                 ->reactive()
                                 ->afterStateUpdated(function (callable $set) {
                                     $set('cnp', null);
+                                    $set('does_not_provide_cnp', false);
+                                }),
+
+                            Checkbox::make('does_not_provide_cnp')
+                                ->label(__('field.does_not_provide_cnp'))
+                                ->default(false)
+                                ->reactive()
+                                ->afterStateUpdated(function (callable $set) {
+                                    $set('cnp', null);
+                                    $set('does_not_have_cnp', false);
                                 }),
                         ]),
 
@@ -186,16 +202,32 @@ trait CommonEditFormSchema
                                         ->unique(ignoreRecord: true)
                                         ->nullable()
                                         ->rule(new ValidCNP)
-                                        ->disabled(fn (callable $get) => (bool) $get('does_not_have_cnp'))
-                                        ->required(fn (callable $get) => ! $get('has_unknown_identity') && ! $get('does_not_have_cnp')),
+                                        ->disabled(function (callable $get) {
+                                            return (bool) $get('does_not_have_cnp')
+                                                || (bool) $get('does_not_provide_cnp');
+                                        })
+                                        ->required(function (callable $get) {
+                                            return ! $get('has_unknown_identity')
+                                                && ! $get('does_not_have_cnp')
+                                                && ! $get('does_not_provide_cnp');
+                                        }),
 
                                     Checkbox::make('does_not_have_cnp')
                                         ->label(__('field.does_not_have_cnp'))
                                         ->default(false)
-                                        ->extraAttributes(['class' => ' justify-end'])
                                         ->reactive()
                                         ->afterStateUpdated(function (callable $set) {
                                             $set('cnp', null);
+                                            $set('does_not_provide_cnp', false);
+                                        }),
+
+                                    Checkbox::make('does_not_provide_cnp')
+                                        ->label(__('field.does_not_provide_cnp'))
+                                        ->default(false)
+                                        ->reactive()
+                                        ->afterStateUpdated(function (callable $set) {
+                                            $set('cnp', null);
+                                            $set('does_not_have_cnp', false);
                                         }),
                                 ]),
                         ]),
