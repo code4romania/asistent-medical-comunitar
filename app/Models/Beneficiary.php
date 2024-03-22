@@ -57,6 +57,9 @@ class Beneficiary extends Model
 
         'nurse_id',
         'family_id',
+
+        'does_not_have_cnp',
+        'does_not_provide_cnp',
     ];
 
     protected $casts = [
@@ -65,6 +68,8 @@ class Beneficiary extends Model
         'gender' => Gender::class,
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
+        'does_not_have_cnp' => 'boolean',
+        'does_not_provide_cnp' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -147,11 +152,6 @@ class Beneficiary extends Model
         ])
             ->filter()
             ->isEmpty();
-    }
-
-    public function getDoesNotHaveCnpAttribute(): bool
-    {
-        return \is_null($this->cnp);
     }
 
     public function isRegular(): bool

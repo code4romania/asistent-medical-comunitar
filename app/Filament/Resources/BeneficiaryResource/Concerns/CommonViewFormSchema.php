@@ -14,6 +14,7 @@ use App\Models\Beneficiary;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\HtmlString;
 
 trait CommonViewFormSchema
 {
@@ -32,7 +33,7 @@ trait CommonViewFormSchema
 
                     Value::make('cnp')
                         ->label(__('field.cnp'))
-                        ->fallback(__('field.does_not_have_cnp')),
+                        ->fallback(fn (Beneficiary $record) => static::getCnpFallback($record)),
 
                     Value::make('id_type')
                         ->label(__('field.id_type')),
@@ -103,7 +104,7 @@ trait CommonViewFormSchema
 
                             Value::make('cnp')
                                 ->label(__('field.cnp'))
-                                ->fallback(__('field.does_not_have_cnp')),
+                                ->fallback(fn (Beneficiary $record) => static::getCnpFallback($record)),
                         ]),
                 ]),
 
@@ -158,5 +159,18 @@ trait CommonViewFormSchema
                 Value::make('phone')
                     ->label(__('field.phone')),
             ]);
+    }
+
+    private static function getCnpFallback(Beneficiary $beneficiary): string
+    {
+        if ($beneficiary->does_not_provide_cnp) {
+            return __('field.does_not_provide_cnp');
+        }
+
+        if ($beneficiary->does_not_have_cnp) {
+            return __('field.does_not_have_cnp');
+        }
+
+        return new HtmlString('&mdash;');
     }
 }

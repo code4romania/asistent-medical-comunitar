@@ -33,6 +33,8 @@ class BeneficiaryFactory extends Factory
      */
     public function definition()
     {
+        $cnpMissingReason = fake()->boolean();
+
         return [
             'nurse_id' => User::factory(),
             'family_id' => Family::factory(),
@@ -43,6 +45,8 @@ class BeneficiaryFactory extends Factory
             'integrated' => fake()->boolean(),
             'gender' => fake()->randomElement(Gender::values()),
             'date_of_birth' => fake()->date(),
+            'does_not_have_cnp' => ! $cnpMissingReason,
+            'does_not_provide_cnp' => $cnpMissingReason,
         ];
     }
 
@@ -143,6 +147,8 @@ class BeneficiaryFactory extends Factory
             'cnp' => fake()->cnp(
                 dateOfBirth: $attributes['date_of_birth'],
             ),
+            'does_not_have_cnp' => false,
+            'does_not_provide_cnp' => false,
         ]);
     }
 
