@@ -45,7 +45,7 @@ class ImportUsersCommand extends Command
         $importer = match (Role::tryFrom($role)) {
             Role::ADMIN => AdminsImport::class,
             Role::COORDINATOR => CoordinatorsImport::class,
-            // Role::NURSE => NursesImport::class,
+            Role::NURSE => NursesImport::class,
         };
 
         try {
