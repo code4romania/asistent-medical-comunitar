@@ -15,7 +15,9 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\PersistRelations;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -23,10 +25,12 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Validators\Failure;
+use Throwable;
 
-class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValidation, SkipsEmptyRows, SkipsOnFailure, WithChunkReading, WithEvents
+class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValidation, SkipsEmptyRows, SkipsOnError, SkipsOnFailure, WithChunkReading, WithEvents
 {
     use Importable;
+    use SkipsErrors;
     use SkipsFailures;
     use RegistersEventListeners;
 
@@ -34,12 +38,12 @@ class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValida
 
     public function chunkSize(): int
     {
-        return 100;
+        return 50;
     }
 
     public function isEmptyWhen(array $row): bool
     {
-        return ! Sanitize::email($row[4]);
+        return ! Sanitize::text($row[4]);
     }
 
     public function rules(): array
@@ -48,19 +52,25 @@ class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValida
             'prenume' => ['string'],
             'nume' => ['string'],
             'email' => ['email', 'unique:users,email'],
-            'judet' => ['string'],
-            'denumire_uat' => ['string'],
+            'judet' => ['exists:counties,id'],
+            'denumire_uat' => ['exists:cities,id'],
         ];
     }
 
     public function prepareForValidation($row, $index): array
     {
+        $county = $this->getCounty(Sanitize::text($row[0]));
+        $city = $this->getCity(Sanitize::text($row[1]), $county);
+
         return [
-            'judet' => Sanitize::text($row[0]),
-            'denumire_uat' => Sanitize::text($row[1]),
+            'judet' => $county?->id,
+            'denumire_uat' => $city?->id,
             'nume' => Sanitize::title($row[2]),
             'prenume' => Sanitize::title($row[3]),
             'email' => Sanitize::email($row[4]),
+
+            'county' => $county,
+            'city' => $city,
         ];
     }
 
@@ -71,16 +81,20 @@ class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValida
             'first_name' => $row['prenume'],
             'last_name' => $row['nume'],
             'email' => $row['email'],
-            'activity_county_id' => $this->getCounty($row['judet'])->id,
+            'activity_county_id' => $row['judet'],
         ]);
 
-        $user->setRelation('activityCities', $this->getCity($row['denumire_uat']));
+        $user->setRelation('activityCities', $row['city']);
 
         return $user;
     }
 
-    private function getCounty(string $rawCountyName): County
+    private function getCounty(?string $rawCountyName): ?County
     {
+        if (! $rawCountyName) {
+            return null;
+        }
+
         if (Str::slug($this->county?->name || '') !== Str::slug($rawCountyName)) {
             $this->county = County::query()
                 ->with([
@@ -103,13 +117,17 @@ class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValida
         return $this->county;
     }
 
-    private function getCity(string $rawCityName): City
+    private function getCity(?string $rawCityName, ?County $county): ?City
     {
-        $city = $this->county->cities
+        if (! $county || ! $rawCityName) {
+            return null;
+        }
+
+        $city = $county->cities
             ->first(fn (City $city) => Str::slug($city->name) === Str::slug($rawCityName));
 
         if (! $city && Str::contains($rawCityName, ' ')) {
-            $city = $this->county->cities
+            $city = $county->cities
                 ->reject(fn (City $city) => \is_null($city->parent))
                 ->first(function (City $city) use ($rawCityName) {
                     $parts = Str::of($rawCityName)
@@ -138,6 +156,10 @@ class NursesImport implements ToModel, PersistRelations, ShouldQueue, WithValida
                         'message' => $message,
                     ])
                 ));
+        });
+
+        $event->getConcernable()->errors()->each(function (Throwable $error) {
+            logger()->error($error->getMessage(), $error->getTrace());
         });
     }
 }
