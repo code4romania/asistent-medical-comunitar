@@ -11,6 +11,7 @@ use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
+use App\Models\Service\Service;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -19,6 +20,7 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Cache;
 
 trait CommonEditFormSchema
 {
@@ -263,6 +265,16 @@ trait CommonEditFormSchema
                                 ->placeholder(__('placeholder.choose_services'))
                                 ->columnSpanFull()
                                 ->multiple()
+                                ->options(
+                                    fn () => Cache::driver('array')
+                                        ->rememberForever(
+                                            'services',
+                                            fn () => Service::query()
+                                                ->orderBy('name')
+                                                ->pluck('name', 'id')
+                                        )
+                                )
+                                ->optionsLimit(250)
                                 ->preload(),
                         ]),
                 ]),
