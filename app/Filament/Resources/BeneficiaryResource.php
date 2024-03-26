@@ -69,7 +69,10 @@ class BeneficiaryResource extends Resource
 
                 TextColumn::make('last_name_with_prior')
                     ->label(__('field.last_name'))
-                    ->sortable()
+                    ->sortable(
+                        query: fn (Builder $query, string $direction) => $query
+                            ->orderBy('last_name', $direction)
+                    )
                     ->searchable(
                         query: fn (Builder $query, string $search) => $query
                             ->where('last_name', 'like', "%{$search}%")
