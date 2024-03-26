@@ -99,13 +99,19 @@ class Household extends Group
                         ->limit(100)
                 )
                 ->preload()
-                ->createOptionForm([
-                    Grid::make()
-                        ->schema([
-                            TextInput::make('name')
-                                ->label(__('field.household_name')),
-                        ]),
-                ])
+                ->createOptionForm(function (callable $get) {
+                    if (! $get('household_id')) {
+                        return null;
+                    }
+
+                    return [
+                        Grid::make()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label(__('field.family_name')),
+                            ]),
+                    ];
+                })
                 ->createOptionUsing(function (array $data, callable $get) {
                     $data['household_id'] = $get('household_id');
 
