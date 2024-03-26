@@ -60,8 +60,7 @@ class ActiveInterventionsWidget extends BaseWidget
 
             TextColumn::make('name')
                 ->label(__('field.intervention_name'))
-                ->size('sm')
-                ->sortable(),
+                ->size('sm'),
 
             TextColumn::make('vulnerability.name')
                 ->label(__('field.vulnerability'))
