@@ -194,7 +194,7 @@ class Intervention extends Model
     {
         return match ($this->getActualClassNameForMorph($this->interventionable_type)) {
             InterventionableCase::class => $this->interventionable->name,
-            InterventionableIndividualService::class => $this->interventionable->service->name,
+            InterventionableIndividualService::class => $this->interventionable->service?->name,
             default => null,
         };
     }

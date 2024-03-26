@@ -190,7 +190,7 @@ class Value extends Component
 
     protected function getEnumLabel(BackedEnum $content): ?string
     {
-        if (! \in_array(\App\Concerns\Enums\Arrayable::class, class_uses_recursive($content))) {
+        if (! \in_array(\App\Concerns\Enums\HasLabel::class, class_uses_recursive($content))) {
             return null;
         }
 

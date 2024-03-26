@@ -80,8 +80,7 @@ class OpenCasesWidget extends BaseWidget
 
             TextColumn::make('name')
                 ->label(__('field.intervention_name'))
-                ->size('sm')
-                ->sortable(),
+                ->size('sm'),
 
             TextColumn::make('realized_interventions_count')
                 ->label(__('field.services_realized'))
