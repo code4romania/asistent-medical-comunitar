@@ -67,7 +67,7 @@ class ActiveInterventionsWidget extends BaseWidget
                 ->size('sm')
                 ->sortable(),
 
-            TextColumn::make('appointments_count')
+            TextColumn::make('appointment_count')
                 ->counts('appointment')
                 ->label(__('field.appointments'))
                 ->sortable(),
