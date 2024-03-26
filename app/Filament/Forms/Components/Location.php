@@ -97,7 +97,7 @@ class Location extends Grid
                     $countyId = (int) $get('county_id');
 
                     if (! $countyId) {
-                        return null;
+                        return [];
                     }
 
                     return City::query()
