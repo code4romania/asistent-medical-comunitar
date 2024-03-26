@@ -56,6 +56,8 @@ class EditStudies extends EditRecord
                                 ->label(__('field.study_duration'))
                                 ->placeholder(__('placeholder.study_duration'))
                                 ->integer()
+                                ->minValue(0)
+                                ->maxValue(100)
                                 ->nullable(),
 
                             Location::make(),
