@@ -36,7 +36,6 @@ class CoursesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-
                 TextInput::make('name')
                     ->label(__('field.course_name'))
                     ->placeholder(__('placeholder.course_name'))
@@ -80,7 +79,6 @@ class CoursesRelationManager extends RelationManager
                     ->placeholder(__('placeholder.choose'))
                     ->afterOrEqual('start_date')
                     ->nullable(),
-
             ]);
     }
 
@@ -88,7 +86,6 @@ class CoursesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-
                 TextColumn::make('end_date')
                     ->label(__('field.year'))
                     ->formatStateUsing((fn (Course $record) => $record->end_date?->format('Y')))
@@ -110,7 +107,6 @@ class CoursesRelationManager extends RelationManager
                 TextColumn::make('credits')
                     ->label(__('field.course_credits'))
                     ->sortable(),
-
             ])
             ->filters([
                 //

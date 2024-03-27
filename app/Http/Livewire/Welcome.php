@@ -66,6 +66,7 @@ class Welcome extends Component implements HasForms
             TextInput::make('email')
                 ->label(__('filament::login.fields.email.label'))
                 ->email()
+                ->maxLength(200)
                 ->disabled(),
 
             TextInput::make('password')

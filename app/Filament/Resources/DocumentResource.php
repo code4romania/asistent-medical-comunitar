@@ -88,10 +88,12 @@ class DocumentResource extends Resource
                 ->schema([
                     TextInput::make('title')
                         ->label(__('field.document_title'))
+                        ->maxLength(200)
                         ->required(),
 
                     TextInput::make('type')
                         ->label(__('field.document_type'))
+                        ->maxLength(200)
                         ->nullable(),
 
                     SpatieMediaLibraryFileUpload::make('document')
@@ -102,7 +104,8 @@ class DocumentResource extends Resource
                     Textarea::make('notes')
                         ->label(__('field.notes'))
                         ->nullable()
-                        ->columnSpanFull(),
+                        ->columnSpanFull()
+                        ->maxLength(65535),
                 ]),
         ];
     }

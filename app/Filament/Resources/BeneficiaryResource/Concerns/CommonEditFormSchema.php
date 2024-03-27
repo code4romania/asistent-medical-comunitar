@@ -110,11 +110,13 @@ trait CommonEditFormSchema
                         ->schema([
                             TextInput::make('id_serial')
                                 ->label(__('field.id_serial'))
-                                ->placeholder(__('placeholder.id_serial')),
+                                ->placeholder(__('placeholder.id_serial'))
+                                ->maxLength(50),
 
                             TextInput::make('id_number')
                                 ->label(__('field.id_number'))
-                                ->placeholder(__('placeholder.id_number')),
+                                ->placeholder(__('placeholder.id_number'))
+                                ->maxLength(50),
                         ]),
 
                     Select::make('gender')
@@ -252,6 +254,7 @@ trait CommonEditFormSchema
                             TextInput::make('reason')
                                 ->label(__('field.intervention_reason'))
                                 ->placeholder(__('placeholder.intervention_reason'))
+                                ->maxLength(200)
                                 ->nullable(),
 
                             DatePicker::make('date')

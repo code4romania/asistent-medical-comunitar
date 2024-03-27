@@ -63,6 +63,8 @@ class InterventionResource extends Resource
                 ->schema([
                     TextInput::make('interventionable.name')
                         ->label(__('field.intervention_name'))
+                        ->required()
+                        ->maxLength(200)
                         ->columnSpanFull(),
 
                     Select::make('interventionable.initiator')
@@ -95,7 +97,9 @@ class InterventionResource extends Resource
                 ])
                 ->schema([
                     Textarea::make('notes')
-                        ->label(__('field.notes')),
+                        ->label(__('field.notes'))
+                        ->nullable()
+                        ->maxLength(65535),
                 ]),
         ];
     }
@@ -148,10 +152,11 @@ class InterventionResource extends Resource
                         ->label(__('field.notes'))
                         ->autosize(false)
                         ->rows(4)
+                        ->columnSpanFull()
                         ->extraInputAttributes([
                             'class' => 'resize-none',
                         ])
-                        ->columnSpanFull(),
+                        ->maxLength(65535),
 
                     Checkbox::make('interventionable.outside_working_hours')
                         ->label(__('field.outside_working_hours'))

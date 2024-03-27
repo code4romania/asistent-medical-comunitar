@@ -42,6 +42,7 @@ class EditEmployers extends EditRecord
                             TextInput::make('name')
                                 ->label(__('field.employer_name'))
                                 ->placeholder(__('placeholder.employer_name'))
+                                ->maxLength(200)
                                 ->required(),
 
                             Select::make('type')
@@ -77,6 +78,7 @@ class EditEmployers extends EditRecord
                                         ->label(__('field.employer_project'))
                                         ->placeholder(__('placeholder.employer_project'))
                                         ->reactive()
+                                        ->maxLength(200)
                                         ->afterStateHydrated(function (callable $set, $state) {
                                             $set('is_project_based', $state !== null);
                                         }),
@@ -142,6 +144,7 @@ class EditEmployers extends EditRecord
                                     TextInput::make('gp_name')
                                         ->label(__('field.gp_name'))
                                         ->placeholder(__('placeholder.gp_name'))
+                                        ->maxLength(200)
                                         ->columnSpanFull(),
 
                                     TextInput::make('gp_email')
