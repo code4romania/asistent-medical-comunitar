@@ -7,6 +7,7 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix(config('filament.path'))
                 ->name('filament.')
                 ->group(base_path('routes/filament.php'));
+
+            // This fixes the issue with the login route sometimes not being found
+            // It also redirects the previous login route to the new one
+            Route::redirect('/intrare.php', '/login', Response::HTTP_MOVED_PERMANENTLY)->name('login');
         });
     }
 
