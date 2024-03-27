@@ -72,7 +72,6 @@ class Household extends Group
                         $component->getModelInstance()->family?->household?->id
                     );
                 })
-
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))

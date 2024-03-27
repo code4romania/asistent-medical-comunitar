@@ -76,14 +76,16 @@ class BeneficiaryProgram extends Card
                     trueLabel: __('beneficiary.integrated.yes'),
                     falseLabel: __('beneficiary.integrated.no'),
                 )
-                ->formatStateUsing(fn (bool $state) => (int) $state),
+                ->formatStateUsing(fn (bool $state) => (int) $state)
+                ->required(),
 
             Select::make('status')
                 ->label(__('field.current_status'))
                 ->placeholder(__('placeholder.choose'))
                 ->options(Status::options())
                 ->enum(Status::class)
-                ->reactive(),
+                ->reactive()
+                ->required(),
 
             TextInput::make('reason_removed')
                 ->label(__('field.reason_removed'))
