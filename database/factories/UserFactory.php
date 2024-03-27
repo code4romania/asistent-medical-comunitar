@@ -11,6 +11,7 @@ use App\Models\County;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
+use App\Models\Vacation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -94,6 +95,7 @@ class UserFactory extends Factory
             ->has(Employer::factory()->past()->withGPAgreement())
             ->has(Employer::factory()->past()->withProject())
             ->has(Employer::factory()->current())
-            ->has(CommunityActivity::factory()->count(10));
+            ->has(CommunityActivity::factory()->count(10))
+            ->has(Vacation::factory()->count(5));
     }
 }

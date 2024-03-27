@@ -7,6 +7,7 @@ namespace App\Providers;
 use Aedart\Antivirus\Validation\Rules\InfectionFreeFile;
 use App\Filament\Pages\Settings;
 use App\Filament\Resources\ProfileResource;
+use App\Filament\Resources\VacationResource;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Navigation\UserMenuItem;
@@ -153,6 +154,11 @@ class AppServiceProvider extends ServiceProvider
                 ->url(ProfileResource::getUrl('general.view'))
                 ->label(__('auth.profile'))
                 ->icon('heroicon-o-user');
+
+            $items['vacations'] = UserMenuItem::make()
+                ->url(VacationResource::getUrl('index'))
+                ->label(__('vacation.label.plural'))
+                ->icon('heroicon-o-calendar');
         }
 
         Filament::registerUserMenuItems($items);
