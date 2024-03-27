@@ -38,5 +38,6 @@ return [
     'beneficiary' => [
         'default' => 'Date personale',
         'catagraphy' => 'Catagrafie',
+        'vulnerabilities' => 'Vulnerabilități',
     ],
 ];
