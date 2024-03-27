@@ -50,7 +50,8 @@ class EditStudies extends EditRecord
 
                             TextInput::make('institution')
                                 ->label(__('field.study_institution'))
-                                ->placeholder(__('placeholder.study_institution')),
+                                ->placeholder(__('placeholder.study_institution'))
+                                ->maxLength(200),
 
                             TextInput::make('duration')
                                 ->label(__('field.study_duration'))

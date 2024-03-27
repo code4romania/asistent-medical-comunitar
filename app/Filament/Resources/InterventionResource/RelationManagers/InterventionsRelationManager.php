@@ -73,10 +73,11 @@ class InterventionsRelationManager extends RelationManager
                     ->label(__('field.notes'))
                     ->autosize(false)
                     ->rows(4)
+                    ->columnSpanFull()
                     ->extraInputAttributes([
                         'class' => 'resize-none',
                     ])
-                    ->columnSpanFull(),
+                    ->maxLength(65535),
 
                 Checkbox::make('interventionable.outside_working_hours')
                     ->label(__('field.outside_working_hours'))

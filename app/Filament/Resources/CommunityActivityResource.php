@@ -118,7 +118,7 @@ class CommunityActivityResource extends Resource
                         ->extraInputAttributes([
                             'class' => 'resize-none',
                         ])
-                        ->columnSpanFull(),
+                        ->maxLength(65535),
                 ]),
         ];
     }
@@ -212,7 +212,7 @@ class CommunityActivityResource extends Resource
                         ->extraInputAttributes([
                             'class' => 'resize-none',
                         ])
-                        ->columnSpanFull(),
+                        ->maxLength(65535),
                 ]),
         ];
     }

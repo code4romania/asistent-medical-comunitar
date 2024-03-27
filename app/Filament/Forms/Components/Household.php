@@ -81,6 +81,7 @@ class Household extends Group
                         ->schema([
                             TextInput::make('name')
                                 ->label(__('field.household_name'))
+                                ->maxLength(200)
                                 ->required(),
                         ]),
                 ])
@@ -110,6 +111,7 @@ class Household extends Group
                             ->schema([
                                 TextInput::make('name')
                                     ->label(__('field.family_name'))
+                                    ->maxLength(200)
                                     ->required(),
                             ]),
                     ];

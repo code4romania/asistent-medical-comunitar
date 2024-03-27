@@ -88,6 +88,7 @@ class BeneficiaryProgram extends Card
             TextInput::make('reason_removed')
                 ->label(__('field.reason_removed'))
                 ->visible(fn (callable $get) => Status::REMOVED->is($get('status')))
+                ->maxLength(200)
                 ->required(),
 
         ];

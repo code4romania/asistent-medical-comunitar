@@ -49,7 +49,9 @@ class HouseholdResource extends Resource
 
         return [
             TextInput::make('name')
-                ->label(__('field.household_name')),
+                ->label(__('field.household_name'))
+                ->maxLength(200)
+                ->required(),
 
             Repeater::make('families')
                 ->label(__('family.label.plural'))
@@ -62,7 +64,9 @@ class HouseholdResource extends Resource
                 ->columnSpanFull()
                 ->schema([
                     TextInput::make('name')
-                        ->label(__('field.family_name')),
+                        ->label(__('field.family_name'))
+                        ->maxLength(200)
+                        ->required(),
 
                     Select::make('beneficiaries')
                         ->label(__('beneficiary.label.plural'))
