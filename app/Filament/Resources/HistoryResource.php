@@ -34,8 +34,7 @@ class HistoryResource extends Resource
                     ->label(__('activity.column.causer'))
                     ->default(__('activity.no_causer'))
                     ->searchable()
-                    ->toggleable()
-                    ->sortable(),
+                    ->toggleable(),
 
                 TextColumn::make('log_name')
                     ->label(__('activity.column.section'))
