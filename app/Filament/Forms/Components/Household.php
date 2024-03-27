@@ -119,6 +119,10 @@ class Household extends Group
                 ->createOptionUsing(function (array $data, callable $get) {
                     $data['household_id'] = $get('household_id');
 
+                    if (! $data['household_id']) {
+                        return null;
+                    }
+
                     return data_get(Family::create($data), 'id');
                 }),
 
