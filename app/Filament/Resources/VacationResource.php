@@ -67,20 +67,21 @@ class VacationResource extends Resource
                 TextColumn::make('nurse.full_name')
                     ->label(__('field.nurse'))
                     ->size('sm')
-                    ->toggleable()
+                    ->toggleable(fn (TextColumn $column) => ! $column->isHidden())
                     ->hidden(fn () => auth()->user()->isNurse()),
 
                 TextColumn::make('nurse.activityCounty.name')
                     ->label(__('field.county'))
                     ->size('sm')
-                    ->toggleable()
+                    ->toggleable(fn (TextColumn $column) => ! $column->isHidden())
                     ->visible(fn () => auth()->user()->isAdmin()),
 
                 TextColumn::make('type')
                     ->label(__('field.type'))
                     ->size('sm')
                     ->limit(30)
-                    ->searchable()
+                    ->enum(VacationType::options())
+                    ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('start_date')

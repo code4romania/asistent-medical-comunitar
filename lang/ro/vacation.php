@@ -19,45 +19,17 @@ return [
         'child' => 'Creștere copil',
     ],
 
-    'section' => [
-        'campaign' => 'Campanii sănătate',
-        'administrative' => 'Activități administrative',
-    ],
-
-    'hour' => [
-        'outside_working_hours' => 'În afara programului de lucru',
-        'within_working_hours' => 'În programul de lucru',
-    ],
-
     'empty' => [
-        'title' => 'Nicio activitate comunitară înregistrată',
-        'description' => 'Odată înregistrate în baza de date, activitățile comunitare vor fi afișate în acest tabel',
-        'create' => 'Adaugă prima activitate comunitară',
-    ],
-
-    'campaign' => [
-        'national' => 'Campanie națională',
-        'local' => 'Campanie locală',
-        'activity' => 'Activitate fizică și nutriție',
-        'intervention' => 'Intervenție scurtă în comunitățile vulnerabile',
-    ],
-
-    'administrative' => [
-        'software' => 'Operare software AMC-MSR',
-        'vacation' => 'Raportare concediu',
-        'meeting' => 'Ședință',
-        'training' => 'Activitate de pregătire profesională',
-        'planning' => 'Planificare activitate',
-        'other' => 'Altă activitate administrativă',
+        'title' => 'Niciun concediu înregistrat',
+        'description' => 'Odată înregistrate în baza de date, concediile vor fi afișate în acest tabel',
+        'create' => 'Adaugă primul concediu',
     ],
 
     'action' => [
-        'create_campaign' => 'Adaugă campanie sănătate',
-        'create_administrative' => 'Adaugă activitate administrativă',
-
-        'edit' => 'Modifică activitate',
-        'update' => 'Actualizează activitatew',
-        'delete' => 'Șterge activitate',
+        'create' => 'Adaugă concediu',
+        'edit' => 'Modifică concediu',
+        'update' => 'Actualizează concediu',
+        'delete' => 'Șterge concediu',
         'view_details' => 'Vezi detalii',
     ],
 

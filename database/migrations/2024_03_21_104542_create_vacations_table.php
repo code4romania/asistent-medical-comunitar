@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->text('notes')->nullable();
-            $table->foreignIdFor(User::class, 'nurse_id')->nullable()->constrained('users');
+            $table->foreignIdFor(User::class, 'nurse_id')->constrained('users');
         });
     }
 };
