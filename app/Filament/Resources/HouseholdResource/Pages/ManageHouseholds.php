@@ -8,6 +8,7 @@ use App\Concerns\HasConditionalTableEmptyState;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\HouseholdResource;
+use App\Models\Household;
 use Filament\Pages;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables;
@@ -25,6 +26,11 @@ class ManageHouseholds extends ManageRecords implements WithTabs
     {
         return [
             Pages\Actions\CreateAction::make()
+                ->using(function (array $data) {
+                    $data['nurse_id'] = auth()->id();
+
+                    return Household::create($data);
+                })
                 ->disableCreateAnother(),
         ];
     }
@@ -75,27 +81,29 @@ class ManageHouseholds extends ManageRecords implements WithTabs
         return parent::getTableQuery()
             ->with([
                 'families.beneficiaries.catagraphy' => function ($query) {
-                    $query->select([
-                        'id',
-                        'cat_age',
-                        'cat_as',
-                        'cat_cr',
-                        'has_disabilities',
-                        'cat_edu',
-                        'cat_fam',
-                        'cat_id',
-                        'cat_inc',
-                        'cat_liv',
-                        'cat_mf',
-                        'cat_ns',
-                        'cat_pov',
-                        'cat_preg',
-                        'cat_rep',
-                        'has_health_issues',
-                        'cat_ssa',
-                        'cat_vif',
-                        'beneficiary_id',
-                    ]);
+                    $query
+                        ->with(['disabilities', 'diseases'])
+                        ->select([
+                            'id',
+                            'cat_age',
+                            'cat_as',
+                            'cat_cr',
+                            'has_disabilities',
+                            'cat_edu',
+                            'cat_fam',
+                            'cat_id',
+                            'cat_inc',
+                            'cat_liv',
+                            'cat_mf',
+                            'cat_ns',
+                            'cat_pov',
+                            'cat_preg',
+                            'cat_rep',
+                            'has_health_issues',
+                            'cat_ssa',
+                            'cat_vif',
+                            'beneficiary_id',
+                        ]);
                 },
             ])
             ->orderBy('created_at', 'desc');
