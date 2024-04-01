@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use App\Filament\Actions\ActionGroup;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
@@ -13,6 +14,7 @@ use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Models\User;
 use Filament\Forms\Components\Card;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -24,17 +26,23 @@ class ViewUser extends ViewRecord
     protected function getActions(): array
     {
         return [
-            ResendInvitationAction::make()
-                ->record($this->getRecord()),
+            ActionGroup::make([
+                ResendInvitationAction::make()
+                    ->record($this->getRecord()),
 
-            ActivateUserAction::make()
-                ->record($this->getRecord()),
+                EditAction::make()
+                    ->icon('heroicon-s-pencil'),
 
-            DeactivateUserAction::make()
-                ->record($this->getRecord()),
+                ActivateUserAction::make()
+                    ->record($this->getRecord()),
 
-            EditAction::make()
-                ->icon('heroicon-s-pencil'),
+                DeactivateUserAction::make()
+                    ->record($this->getRecord()),
+
+                DeleteAction::make()
+                    ->icon('heroicon-s-trash'),
+            ])
+                ->label(__('user.action.manage_profile')),
         ];
     }
 
