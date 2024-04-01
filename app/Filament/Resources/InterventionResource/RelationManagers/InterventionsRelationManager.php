@@ -37,8 +37,7 @@ class InterventionsRelationManager extends RelationManager
 
     public static function form(Form $form): Form
     {
-        $services = Service::cachedList()
-            ->pluck('name', 'id');
+        $services = Service::allAsFlatOptions();
 
         return $form
             ->schema([
@@ -46,6 +45,7 @@ class InterventionsRelationManager extends RelationManager
                     ->label(__('field.service'))
                     ->placeholder(__('placeholder.select_one'))
                     ->options($services)
+                    ->optionsLimit($services->count())
                     ->in($services->keys())
                     ->searchable()
                     ->required(),

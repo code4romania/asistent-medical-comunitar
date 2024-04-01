@@ -35,4 +35,10 @@ trait ModelAsOptions
             ->groupBy('category_id')
             ->map->pluck('name', 'id');
     }
+
+    public static function allAsFlatOptions(): Collection
+    {
+        return static::allAsOptions()
+            ->flatten();
+    }
 }
