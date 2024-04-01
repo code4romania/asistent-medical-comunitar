@@ -41,13 +41,15 @@ trait HasStatus
 
     public function getStatusAttribute(): Status
     {
+        if ($this->isInactive()) {
+            return Status::INACTIVE;
+        }
+
         if (! $this->hasSetPassword()) {
             return Status::INVITED;
         }
 
-        return $this->isInactive()
-            ? Status::INACTIVE
-            : Status::ACTIVE;
+        return Status::ACTIVE;
     }
 
     public function scopeOnlyActive(Builder $query): Builder
