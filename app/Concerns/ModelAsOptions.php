@@ -38,7 +38,7 @@ trait ModelAsOptions
 
     public static function allAsFlatOptions(): Collection
     {
-        return static::allAsOptions()
-            ->flatten();
+        return static::cachedList()
+            ->pluck('name', 'id');
     }
 }
