@@ -20,7 +20,6 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Facades\Cache;
 
 trait CommonEditFormSchema
 {
@@ -157,6 +156,8 @@ trait CommonEditFormSchema
 
     protected static function getOcasionalBeneficiaryFormSchema(): array
     {
+        $services = Service::allAsFlatOptions();
+
         return [
             Subsection::make()
                 ->icon('heroicon-o-user')
@@ -268,16 +269,9 @@ trait CommonEditFormSchema
                                 ->placeholder(__('placeholder.choose_services'))
                                 ->columnSpanFull()
                                 ->multiple()
-                                ->options(
-                                    fn () => Cache::driver('array')
-                                        ->rememberForever(
-                                            'services',
-                                            fn () => Service::query()
-                                                ->orderBy('name')
-                                                ->pluck('name', 'id')
-                                        )
-                                )
-                                ->optionsLimit(250)
+                                ->options($services)
+                                ->optionsLimit($services->count())
+                                ->in($services->keys())
                                 ->preload(),
                         ]),
                 ]),

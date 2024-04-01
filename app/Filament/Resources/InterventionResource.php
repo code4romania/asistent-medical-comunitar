@@ -106,8 +106,7 @@ class InterventionResource extends Resource
 
     public static function getIndividualServiceFormSchema(): array
     {
-        $services = Service::cachedList()
-            ->pluck('name', 'id');
+        $services = Service::allAsFlatOptions();
 
         return [
             Grid::make(2)
@@ -116,6 +115,7 @@ class InterventionResource extends Resource
                         ->label(__('field.service'))
                         ->placeholder(__('placeholder.select_one'))
                         ->options($services)
+                        ->optionsLimit($services->count())
                         ->in($services->keys())
                         ->searchable()
                         ->required(),
