@@ -47,6 +47,7 @@ return [
         'activate' => 'Activează cont utilizator',
         'deactivate' => 'Dezactivează cont utilizator',
         'resend_invitation' => 'Retrimite invitația',
+        'manage_profile' => 'Gestionează profil',
     ],
 
     'action_activate_confirm' => [

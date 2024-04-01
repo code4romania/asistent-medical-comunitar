@@ -43,6 +43,12 @@ class ListCoordinators extends ListUsers
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('email')
+                    ->label(__('field.email'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 TextColumn::make('county.name')
                     ->label(__('field.county'))
                     ->toggleable(),

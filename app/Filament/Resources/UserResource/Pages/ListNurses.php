@@ -54,6 +54,12 @@ class ListNurses extends ListUsers
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('email')
+                    ->label(__('field.email'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 TextColumn::make('activityCounty.name')
                     ->label(__('field.county'))
                     ->toggleable(),
