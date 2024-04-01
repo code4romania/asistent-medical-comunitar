@@ -79,6 +79,10 @@ class AppointmentResource extends Resource
                                 ->reactive()
                                 ->required()
                                 ->afterStateUpdated(function ($old, $state, callable $get, callable $set) {
+                                    if (blank($state)) {
+                                        return;
+                                    }
+
                                     /** @var CarbonImmutable */
                                     $oldStartTime = rescue(
                                         fn () => CarbonImmutable::createFromFormat('H:i', $old),
