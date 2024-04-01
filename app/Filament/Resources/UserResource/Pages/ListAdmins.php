@@ -43,6 +43,12 @@ class ListAdmins extends ListUsers
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('email')
+                    ->label(__('field.email'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 BadgeColumn::make('status')
                     ->label(__('field.status'))
                     ->enum(Status::options())
