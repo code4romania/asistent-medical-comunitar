@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Actions\ActionGroup;
 use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Filament\Resources\UserResource\Concerns;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 
@@ -26,19 +28,25 @@ class ViewRecord extends BaseViewRecord implements WithTabs
         $name = "{$this->getActiveTab()}.edit";
 
         return [
-            ResendInvitationAction::make()
-                ->record($this->getRecord()),
+            ActionGroup::make([
+                ResendInvitationAction::make()
+                    ->record($this->getRecord()),
 
-            ActivateUserAction::make()
-                ->record($this->getRecord()),
+                EditAction::make()
+                    ->icon('heroicon-s-pencil')
+                    ->url(fn ($record) => UserResource::getUrl($name, $record))
+                    ->visible(fn ($record) => auth()->user()->can('update', $record)),
 
-            DeactivateUserAction::make()
-                ->record($this->getRecord()),
+                ActivateUserAction::make()
+                    ->record($this->getRecord()),
 
-            EditAction::make()
-                ->icon('heroicon-s-pencil')
-                ->url(fn ($record) => UserResource::getUrl($name, $record))
-                ->visible(fn ($record) => auth()->user()->can('update', $record)),
+                DeactivateUserAction::make()
+                    ->record($this->getRecord()),
+
+                DeleteAction::make()
+                    ->icon('heroicon-s-trash'),
+            ])
+                ->label(__('user.action.manage_profile')),
         ];
     }
 
