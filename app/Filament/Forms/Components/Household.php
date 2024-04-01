@@ -84,13 +84,7 @@ class Household extends Group
                                 ->required(),
                         ]),
                 ])
-                ->createOptionUsing(function (array $data) {
-                    $data['nurse_id'] = auth()->id();
-
-                    $household = HouseholdModel::create($data);
-
-                    return $household->getKey();
-                }),
+                ->createOptionUsing(fn (array $data) => HouseholdModel::createForCurrentNurse($data)->getKey()),
 
             Select::make('family_id')
                 ->label(__('field.family'))
