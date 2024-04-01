@@ -39,4 +39,11 @@ class Household extends Model
             ->logFillable()
             ->logOnlyDirty();
     }
+
+    public static function createForCurrentNurse(array $data): self
+    {
+        $data['nurse_id'] = auth()->id();
+
+        return self::create($data);
+    }
 }

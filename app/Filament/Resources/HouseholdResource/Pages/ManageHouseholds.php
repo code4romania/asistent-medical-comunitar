@@ -26,11 +26,7 @@ class ManageHouseholds extends ManageRecords implements WithTabs
     {
         return [
             Pages\Actions\CreateAction::make()
-                ->using(function (array $data) {
-                    $data['nurse_id'] = auth()->id();
-
-                    return Household::create($data);
-                })
+                ->using(fn (array $data) => Household::createForCurrentNurse($data))
                 ->disableCreateAnother(),
         ];
     }
@@ -72,6 +68,7 @@ class ManageHouseholds extends ManageRecords implements WithTabs
                 ->color('secondary')
                 ->disableCreateAnother()
                 ->form(HouseholdResource::getFormSchema())
+                ->using(fn (array $data) => Household::createForCurrentNurse($data))
                 ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
