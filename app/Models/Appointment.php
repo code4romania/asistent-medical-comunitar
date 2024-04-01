@@ -16,12 +16,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Appointment extends Model
 {
     use BelongsToBeneficiary;
     use BelongsToNurse;
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
         'date',
@@ -109,5 +112,13 @@ class Appointment extends Model
             'start_time' => $start->format('H:i:s'),
             'end_time' => $end->format('H:i:s'),
         ]);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
     }
 }
