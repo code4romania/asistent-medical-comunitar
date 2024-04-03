@@ -305,6 +305,7 @@ return [
             Filament\Http\Middleware\Authenticate::class,
             App\Http\Middleware\EnsureUserIsActive::class,
             App\Http\Middleware\EnsureUserHasCompletedProfile::class,
+            App\Http\Middleware\FixMissingPasswordSetAtAttribute::class,
         ],
         'base' => [
             Illuminate\Cookie\Middleware\EncryptCookies::class,
