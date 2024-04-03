@@ -9,11 +9,14 @@ use App\Enums\Employer\Funding;
 use App\Enums\Employer\Type;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employer extends Model
 {
     use HasFactory;
     use HasLocation;
+    use LogsActivity;
 
     protected $table = 'profile_employers';
 
@@ -39,6 +42,14 @@ class Employer extends Model
         'end_date' => 'date',
         'has_gp_agreement' => 'boolean',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
+    }
 
     protected function getIsProjectBasedAttribute(): bool
     {

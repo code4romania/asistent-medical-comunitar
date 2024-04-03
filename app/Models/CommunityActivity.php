@@ -11,6 +11,8 @@ use App\Enums\CommunityActivity\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -19,6 +21,7 @@ class CommunityActivity extends Model implements HasMedia
     use BelongsToNurse;
     use HasFactory;
     use InteractsWithMedia;
+    use LogsActivity;
 
     protected $fillable = [
         'type',
@@ -41,10 +44,33 @@ class CommunityActivity extends Model implements HasMedia
         'date' => 'date',
     ];
 
+    public static function booted(): void
+    {
+        static::creating(function (self $communityActivity) {
+            if (! auth()->check()) {
+                return;
+            }
+
+            if (! auth()->user()->isNurse()) {
+                return;
+            }
+
+            $communityActivity->nurse_id = auth()->id();
+        });
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('participants_list')
             ->singleFile();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
     }
 
     public function scopeOnlyCampaigns(Builder $query): Builder

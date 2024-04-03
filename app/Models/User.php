@@ -151,7 +151,8 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['email'])
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
             ->logOnlyDirty();
     }
 }

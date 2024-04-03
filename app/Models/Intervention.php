@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Intervention extends Model
 {
@@ -26,6 +28,7 @@ class Intervention extends Model
     use BelongsToBeneficiary;
     use BelongsToVulnerability;
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
         'integrated',
@@ -78,6 +81,14 @@ class Intervention extends Model
                 $intervention->beneficiary->markAsActive();
             }
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
     }
 
     public function interventionable(): MorphTo

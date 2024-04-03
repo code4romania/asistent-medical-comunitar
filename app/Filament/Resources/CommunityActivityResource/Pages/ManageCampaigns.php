@@ -156,7 +156,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     })
                     ->label(__('community_activity.action.create_campaign'))
                     ->modalHeading(__('community_activity.action.create_campaign'))
-                    ->visible(fn () => auth()->user()->can('create', CommunityActivity::class))
+                    ->authorize(CommunityActivityResource::canCreate())
                     ->disableCreateAnother(),
             ])
             ->defaultSort('id', 'desc');

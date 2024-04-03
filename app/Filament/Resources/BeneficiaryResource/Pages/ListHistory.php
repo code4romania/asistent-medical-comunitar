@@ -31,7 +31,9 @@ class ListHistory extends ListRecords implements WithSidebar
 
     protected function getTableQuery(): Builder
     {
-        return Activity::whereMorphRelation('subject', Beneficiary::class, 'id', $this->getBeneficiary()->id);
+        return Activity::query()
+            ->whereMorphRelation('subject', Beneficiary::class, 'id', $this->getBeneficiary()->id)
+            ->orWhereJsonContains('properties->beneficiary_id', $this->getBeneficiary()->id);
     }
 
     public function getTitle(): string

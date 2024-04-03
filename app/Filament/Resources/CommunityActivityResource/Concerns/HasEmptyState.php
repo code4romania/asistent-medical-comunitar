@@ -69,7 +69,9 @@ trait HasEmptyState
                 })
                 ->button()
                 ->color('secondary')
-                ->hidden(fn () => $this->hasAlteredTableQuery()),
+                ->authorize(CommunityActivityResource::canCreate())
+                ->hidden(fn () => $this->hasAlteredTableQuery())
+                ->disableCreateAnother(),
         ];
     }
 }
