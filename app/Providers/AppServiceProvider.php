@@ -124,6 +124,8 @@ class AppServiceProvider extends ServiceProvider
             'community_activity' => \App\Models\CommunityActivity::class,
             'city' => \App\Models\City::class,
             'county' => \App\Models\County::class,
+            'disability' => \App\Models\Disability::class,
+            'disease' => \App\Models\Disease::class,
             'document' => \App\Models\Document::class,
             'family' => \App\Models\Family::class,
             'household' => \App\Models\Household::class,
@@ -134,6 +136,7 @@ class AppServiceProvider extends ServiceProvider
             'profile_employer' => \App\Models\Profile\Employer::class,
             'profile_study' => \App\Models\Profile\Study::class,
             'user' => \App\Models\User::class,
+            'vacation' => \App\Models\Vacation::class,
         ]);
     }
 

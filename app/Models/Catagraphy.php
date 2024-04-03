@@ -76,13 +76,11 @@ class Catagraphy extends Model
 
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $beneficiary = $activity->subject->beneficiary;
-
-        $activity->subject()->associate($beneficiary);
+        $activity->properties = $activity->properties
+            ->put('beneficiary_id', $activity->subject->beneficiary_id);
 
         activity('vulnerabilities')
             ->causedBy($activity->causer)
-            ->performedOn($beneficiary)
             ->withProperties($this->all_valid_vulnerabilities->pluck('id'))
             ->event($eventName)
             ->log($eventName);
