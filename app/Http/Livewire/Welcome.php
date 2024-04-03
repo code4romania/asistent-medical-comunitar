@@ -56,8 +56,6 @@ class Welcome extends Component implements HasForms
         $this->user->update([
             'password' => Hash::make(data_get($this->form->getState(), 'password')),
         ]);
-
-        $this->user->markPasswordAsSet();
     }
 
     protected function getFormSchema(): array
