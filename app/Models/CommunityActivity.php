@@ -41,6 +41,21 @@ class CommunityActivity extends Model implements HasMedia
         'date' => 'date',
     ];
 
+    public static function booted(): void
+    {
+        static::creating(function (self $communityActivity) {
+            if (! auth()->check()) {
+                return;
+            }
+
+            if (! auth()->user()->isNurse()) {
+                return;
+            }
+
+            $communityActivity->nurse_id = auth()->id();
+        });
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('participants_list')
