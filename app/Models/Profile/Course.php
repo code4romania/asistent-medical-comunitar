@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models\Profile;
 
-use App\Concerns\HasLocation;
 use App\Enums\CourseType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Course extends Model
 {
     use HasFactory;
-    use HasLocation;
+    use LogsActivity;
 
     protected $table = 'profile_courses';
 
@@ -32,4 +33,12 @@ class Course extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logOnlyDirty();
+    }
 }
