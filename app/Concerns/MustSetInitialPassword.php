@@ -22,6 +22,12 @@ trait MustSetInitialPassword
         static::created(function (self $user) {
             $user->sendWelcomeNotification();
         });
+
+        static::updating(function (self $user) {
+            if ($user->isDirty('password') && ! $user->hasSetPassword()) {
+                $user->markPasswordAsSet();
+            }
+        });
     }
 
     public function hasSetPassword(): bool
@@ -29,11 +35,11 @@ trait MustSetInitialPassword
         return ! \is_null($this->password_set_at);
     }
 
-    public function markPasswordAsSet(): bool
+    public function markPasswordAsSet(): self
     {
         return $this->forceFill([
-            'password_set_at' => $this->freshTimestamp(),
-        ])->save();
+            'password_set_at' => now(),
+        ]);
     }
 
     public function sendWelcomeNotification(): void
