@@ -12,6 +12,7 @@ use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Models\Service\Service;
+use App\Rules\MultipleIn;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -271,7 +272,7 @@ trait CommonEditFormSchema
                                 ->multiple()
                                 ->options($services)
                                 ->optionsLimit($services->count())
-                                ->in($services->keys())
+                                ->rule(new MultipleIn($services->keys()))
                                 ->preload(),
                         ]),
                 ]),
