@@ -13,7 +13,6 @@ use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use JeffGreco13\FilamentBreezy\FilamentBreezy;
 use Livewire\Component;
 
@@ -54,7 +53,7 @@ class Welcome extends Component implements HasForms
     public function handle(): void
     {
         $this->user->update([
-            'password' => Hash::make(data_get($this->form->getState(), 'password')),
+            'password' => data_get($this->form->getState(), 'password'),
         ]);
     }
 
