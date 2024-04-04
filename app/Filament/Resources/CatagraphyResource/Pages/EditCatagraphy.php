@@ -63,6 +63,8 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
             $record->beneficiary->markAsCatagraphed();
         }
 
+        $this->form->saveRelationships();
+
         return $record;
     }
 }
