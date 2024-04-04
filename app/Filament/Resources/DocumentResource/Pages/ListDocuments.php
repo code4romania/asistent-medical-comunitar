@@ -86,7 +86,7 @@ class ListDocuments extends ListRecords implements WithSidebar
                 ->using(function (array $data, $livewire) {
                     $data['beneficiary_id'] = $livewire->getBeneficiary()?->id;
 
-                    Document::create($data);
+                    return Document::create($data);
                 })
                 ->form(DocumentResource::getFormSchema())
                 ->color('secondary')
