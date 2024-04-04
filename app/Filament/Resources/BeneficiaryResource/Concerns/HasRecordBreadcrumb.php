@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Concerns\InteractsWithBeneficiary;
+use App\Filament\Resources\BeneficiaryResource\Pages\EditBeneficiary;
 use App\Filament\Resources\BeneficiaryResource\Pages\OverviewBeneficiary;
 use Filament\Resources\Pages\ListRecords;
 
@@ -26,7 +27,10 @@ trait HasRecordBreadcrumb
             $resource::getUrl() => $resource::getBreadcrumb(),
         ];
 
-        if (! $this instanceof OverviewBeneficiary) {
+        if (
+            ! $this instanceof OverviewBeneficiary &&
+            ! $this instanceof EditBeneficiary
+        ) {
             if ($this->getBeneficiary()->exists && $resource::hasRecordTitle()) {
                 if ($resource::hasPage('view') && $resource::canView($beneficiary)) {
                     $breadcrumbs[
