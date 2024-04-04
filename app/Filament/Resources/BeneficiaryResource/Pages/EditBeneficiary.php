@@ -29,6 +29,16 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
         $this->resolveBeneficiary($record);
     }
 
+    public function getTitle(): string
+    {
+        return $this->getRecord()->full_name ?? __('field.has_unknown_identity');
+    }
+
+    public function getBreadcrumb(): string
+    {
+        return $this->getTitle();
+    }
+
     protected function form(Form $form): Form
     {
         if ($this->getRecord()->isRegular()) {
