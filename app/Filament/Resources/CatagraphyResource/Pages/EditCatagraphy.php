@@ -8,6 +8,7 @@ use App\Contracts\Forms\FixedActionBar;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
+use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
@@ -47,6 +48,9 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
         return BeneficiaryResource::getUrl('catagraphy.view', $this->getBeneficiary());
     }
 
+    /**
+     * @param Catagraphy $record
+     */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         // Handle pregnancy data
@@ -54,13 +58,24 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
             $data['cat_preg'] = null;
         }
 
-        // TODO: clear disabilities relationship if has_disabilities is set to false
-        // TODO: clear diseases relationship if has_health_issues is set to false
-
         $record->fill($data)->save();
 
         if ($record->beneficiary->isRegistered()) {
             $record->beneficiary->markAsCatagraphed();
+        }
+
+        $this->form->saveRelationships();
+
+        // Clear disabilities relationship if has_disabilities is false
+        // using each->delete() to trigger the model events
+        if (! $record->has_disabilities) {
+            $record->disabilities->each->delete();
+        }
+
+        // Clear diseases relationship if has_health_issues is false
+        // using each->delete() to trigger the model events
+        if (! $record->has_health_issues) {
+            $record->diseases->each->delete();
         }
 
         return $record;
