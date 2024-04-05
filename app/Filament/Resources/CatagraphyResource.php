@@ -45,7 +45,8 @@ class CatagraphyResource extends Resource
                             ->icon('heroicon-o-information-circle')
                             ->columns(2)
                             ->schema([
-                                DatePicker::make('evaluation_date'),
+                                DatePicker::make('evaluation_date')
+                                    ->required(),
 
                                 Select::make('nurse_id')
                                     ->label(__('field.nurse'))
