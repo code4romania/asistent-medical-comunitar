@@ -46,6 +46,7 @@ class CatagraphyResource extends Resource
                             ->columns(2)
                             ->schema([
                                 DatePicker::make('evaluation_date')
+                                    ->label(__('field.evaluation_date'))
                                     ->required(),
 
                                 Select::make('nurse_id')
