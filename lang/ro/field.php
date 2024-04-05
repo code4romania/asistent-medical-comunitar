@@ -62,6 +62,7 @@ return [
     'end_time' => 'Oră sfârșit',
     'end_year' => 'Anul de finalizare',
     'ethnicity' => 'Etnie',
+    'evaluation_date' => 'Dată catagrafiere',
     'families_count' => 'Familii',
     'family_name' => 'Nume familie',
     'family' => 'Familie',

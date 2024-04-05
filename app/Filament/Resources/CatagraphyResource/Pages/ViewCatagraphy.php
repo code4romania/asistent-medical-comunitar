@@ -11,7 +11,6 @@ use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
-use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
@@ -63,10 +62,7 @@ class ViewCatagraphy extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 Value::make('evaluation_date')
-                                    ->content(fn (Catagraphy $record) => $record->updated_at),
-
-                                Value::make('nurse')
-                                    ->content(fn (Catagraphy $record) => $record->nurse->full_name),
+                                    ->label(__('field.evaluation_date')),
                             ]),
 
                         Subsection::make()

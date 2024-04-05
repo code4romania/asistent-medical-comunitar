@@ -53,6 +53,8 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
      */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+        $data['nurse_id'] = auth()->id();
+
         // Handle pregnancy data
         if (! Vulnerability::isPregnancy($data['cat_rep'])) {
             $data['cat_preg'] = null;
