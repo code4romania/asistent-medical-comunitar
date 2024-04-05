@@ -21,7 +21,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class CatagraphyResource extends Resource
@@ -49,12 +48,6 @@ class CatagraphyResource extends Resource
                                     ->label(__('field.evaluation_date'))
                                     ->required(),
 
-                                Select::make('nurse_id')
-                                    ->label(__('field.nurse'))
-                                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
-                                    ->disabled()
-                                    ->searchable()
-                                    ->preload(),
                             ]),
 
                         Subsection::make()

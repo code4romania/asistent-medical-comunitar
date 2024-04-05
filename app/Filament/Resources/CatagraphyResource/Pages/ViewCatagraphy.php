@@ -63,9 +63,6 @@ class ViewCatagraphy extends ViewRecord
                             ->schema([
                                 Value::make('evaluation_date')
                                     ->label(__('field.evaluation_date')),
-
-                                Value::make('nurse.full_name')
-                                    ->label(__('field.nurse')),
                             ]),
 
                         Subsection::make()
