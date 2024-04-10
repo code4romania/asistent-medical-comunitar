@@ -14,12 +14,12 @@
         "guzzlehttp/guzzle": "^7.8",
         "jeffgreco13/filament-breezy": "^1.5",
         "kalnoy/nestedset": "^6.0",
-        "laravel/framework": "^10.46",
+        "laravel/framework": "^10.48",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "saade/filament-fullcalendar": "^1.9",
-        "sentry/sentry-laravel": "^4.3",
+        "sentry/sentry-laravel": "^4.4",
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-csp": "^2.9",
         "spatie/laravel-onboard": "^2.6",
@@ -29,18 +29,17 @@
         "tpetry/laravel-query-expressions": "^1.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.12",
-        "barryvdh/laravel-ide-helper": "^2.15",
-        "doctrine/dbal": "^3.7",
+        "barryvdh/laravel-debugbar": "^3.13",
+        "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.23",
-        "friendsofphp/php-cs-fixer": "^3.52",
+        "friendsofphp/php-cs-fixer": "^3.53",
         "itsgoingd/clockwork": "^5.2",
         "laravel/sail": "^1.29",
         "laravel/telescope": "^4.17",
         "mockery/mockery": "^1.5",
         "nunomaduro/collision": "^7.10",
         "phpunit/phpunit": "^10.5",
-        "spatie/laravel-ignition": "^2.4"
+        "spatie/laravel-ignition": "^2.5"
     },
     "autoload": {
         "psr-4": {
