@@ -42,6 +42,16 @@ class ListDocuments extends ListRecords implements WithSidebar
             ->whereBeneficiary($this->getBeneficiary());
     }
 
+    public function getTitle(): string
+    {
+        return __('beneficiary.section.documents');
+    }
+
+    public function getBreadcrumb(): string
+    {
+        return $this->getTitle();
+    }
+
     protected function getActions(): array
     {
         return [
