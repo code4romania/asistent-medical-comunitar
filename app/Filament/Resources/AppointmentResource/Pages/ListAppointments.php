@@ -57,7 +57,7 @@ class ListAppointments extends ListRecords implements WithTabs
     {
         return [
             Tables\Actions\CreateAction::make()
-                ->label(__('document.action.create'))
+                ->label(__('appointment.action.create'))
                 ->url(static::getResource()::getUrl('create'))
                 ->color('secondary')
                 ->hidden(fn () => $this->hasAlteredTableQuery()),
