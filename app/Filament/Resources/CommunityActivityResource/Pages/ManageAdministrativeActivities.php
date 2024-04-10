@@ -45,6 +45,33 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                     ->searchable()
                     ->toggleable(),
 
+                TextColumn::make('nurse.full_name')
+                    ->label(__('field.nurse'))
+                    ->size('sm')
+                    ->sortable()
+                    ->toggleable()
+                    ->hidden(fn () => auth()->user()->isNurse()),
+
+                TextColumn::make('nurse.activityCounty.name')
+                    ->label(__('field.county'))
+                    ->size('sm')
+                    ->toggleable()
+                    ->visible(fn () => auth()->user()->isAdmin())
+                    ->hidden(fn () => auth()->user()->isNurse()),
+
+                TextColumn::make('nurse.activitiyCities')
+                    ->label(__('field.cities'))
+                    ->size('sm')
+                    ->toggleable()
+                    ->formatStateUsing(
+                        fn (CommunityActivity $record) => $record
+                            ->nurse
+                            ->activityCities
+                            ->pluck('name')
+                            ->join(', ')
+                    )
+                    ->hidden(fn () => auth()->user()->isNurse()),
+
                 TextColumn::make('subtype')
                     ->label(__('field.type'))
                     ->enum(Administrative::options())
@@ -71,13 +98,6 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                     ->size('sm')
                     ->sortable()
                     ->toggleable(),
-
-                TextColumn::make('nurse.activityCounty.name')
-                    ->label(__('field.county'))
-                    ->size('sm')
-                    ->sortable()
-                    ->toggleable()
-                    ->visible(fn () => auth()->user()->isAdmin()),
             ])
             ->filters([
                 DateRangeFilter::make('date_between'),
