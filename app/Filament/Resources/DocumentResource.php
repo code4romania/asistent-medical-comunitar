@@ -10,7 +10,6 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -23,12 +22,14 @@ class DocumentResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function form(Form $form): Form
+    public static function getModelLabel(): string
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return __('document.label.singular');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('document.label.plural');
     }
 
     public static function table(Table $table): Table
