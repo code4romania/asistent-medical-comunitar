@@ -31,6 +31,8 @@ class DiagnosticSelect extends Select
         $this->getOptionLabelUsing(
             fn ($value) => static::getRenderedOptionLabel(ICD10AMDiagnostic::find($value))
         );
+
+        $this->helperText(__('field.optional'));
     }
 
     public static function getRenderedOptionLabel(?ICD10AMDiagnostic $model): ?string
