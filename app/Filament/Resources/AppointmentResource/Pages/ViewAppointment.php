@@ -12,6 +12,7 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Appointment;
 use Filament\Forms\Components\Grid;
 use Filament\Pages\Actions\DeleteAction;
+use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -31,6 +32,7 @@ class ViewAppointment extends ViewRecord
     protected function getActions(): array
     {
         return [
+            EditAction::make(),
             DeleteAction::make(),
         ];
     }
