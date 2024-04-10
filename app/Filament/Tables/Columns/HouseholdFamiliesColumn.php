@@ -26,7 +26,10 @@ class HouseholdFamiliesColumn extends ViewColumn
                 ->color('primary')
                 ->size('sm')
                 ->icon(null)
-                ->url($url),
+                ->url($url)
+                ->extraAttributes([
+                    'class' => 'whitespace-nowrap',
+                ]),
         ];
     }
 }
