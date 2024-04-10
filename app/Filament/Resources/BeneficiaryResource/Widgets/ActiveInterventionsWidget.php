@@ -113,7 +113,7 @@ class ActiveInterventionsWidget extends BaseWidget
     {
         return ! $this->record->hasCatagraphy()
             ? __('intervention.empty_active.description')
-            : __('intervention.empty.description');
+            : null;
     }
 
     protected function getTableEmptyStateActions(): array
