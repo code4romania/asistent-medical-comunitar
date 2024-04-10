@@ -17,7 +17,7 @@ return [
         'other' => 'Altă situație',
     ],
 
-    'specialization_section' => 'Program de specializare în asistența comunitară',
+    'specialization_section' => 'Program de specializare în asistența medicală comunitară',
 
     'action' => [
         'create' => 'Adaugă studii',
