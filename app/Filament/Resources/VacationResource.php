@@ -121,9 +121,9 @@ class VacationResource extends Resource
 
                 SelectFilter::make('nurse')
                     ->label(__('field.nurse'))
-                    ->relationship('nurse', 'full_name')
+                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
                     ->multiple()
-                    ->visible(fn () => auth()->user()->isAdmin() || auth()->user()->isCoordinator()),
+                    ->hidden(fn () => auth()->user()->isNurse()),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
