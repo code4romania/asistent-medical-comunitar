@@ -10,7 +10,7 @@ return [
     ],
 
     'action' => [
-        'create' => 'Adaugă încă o familie',
+        'create' => 'Adaugă familie nouă în gospodărie',
     ],
 
 ];

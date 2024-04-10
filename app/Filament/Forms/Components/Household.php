@@ -75,6 +75,7 @@ class Household extends Group
                 ->searchable()
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
+                ->createOptionModalHeading(__('household.action.create'))
                 ->createOptionForm([
                     Grid::make()
                         ->schema([
@@ -100,6 +101,7 @@ class Household extends Group
                         ->limit(100)
                 )
                 ->preload()
+                ->createOptionModalHeading(__('family.action.create'))
                 ->createOptionForm(function (callable $get) {
                     if (! $get('household_id')) {
                         return null;
