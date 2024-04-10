@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
 
-    'title' => 'Start your journey',
+    'title' => 'Fă primii pași în utilizarea aplicației AMC-MSR',
 
     'step' => [
         'number' => 'Pasul :step',
