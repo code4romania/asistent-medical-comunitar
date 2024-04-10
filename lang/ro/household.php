@@ -9,6 +9,10 @@ return [
         'plural' => 'gospodării',
     ],
 
+    'action' => [
+        'create' => 'Adaugă gospodărie nouă',
+    ],
+
     'empty_families' => 'Nicio familie înregistrată în gospodărie',
     'empty_beneficiaries' => 'Niciun beneficiar înregistrat în familie',
 
