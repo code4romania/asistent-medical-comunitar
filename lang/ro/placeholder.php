@@ -33,7 +33,7 @@ return [
     'id_number' => 'Introdu numărul actului de identitate',
     'id_serial' => 'Introdu seria actului de identitate',
     'id_type' => 'Alege un tip de act de identitate',
-    'intervention_reason' => 'Motivul intervenției',
+    'intervention_name' => 'Introdu numele intervenției',
     'last_name' => 'Introdu numele de familie',
     'location' => 'Introdu locația',
     'no_segmentation_age' => 'Fără segmentare pe vârstă',

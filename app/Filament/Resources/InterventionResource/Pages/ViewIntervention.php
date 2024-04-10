@@ -81,7 +81,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                 ->columnSpan(2)
                 ->schema([
                     Value::make('interventionable.name')
-                        ->label(__('field.intervention_reason')),
+                        ->label(__('field.intervention_name')),
 
                     Value::make('interventionable.initiator')
                         ->label(__('field.initiator')),
