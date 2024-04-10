@@ -134,6 +134,12 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     ->options(Campaign::options())
                     ->multiple(),
 
+                SelectFilter::make('nurse')
+                    ->label(__('field.nurse'))
+                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
+                    ->multiple()
+                    ->hidden(fn () => auth()->user()->isNurse()),
+
                 SelectFilter::make('county')
                     ->label(__('field.county'))
                     ->options(
@@ -149,7 +155,8 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                         }
 
                         $query->whereRelation('nurse.activityCounty', 'counties.id', $data['value']);
-                    }),
+                    })
+                    ->visible(fn () => auth()->user()->isAdmin()),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
