@@ -123,7 +123,7 @@ trait CommonViewFormSchema
                         ->columns(2)
                         ->schema([
                             Value::make('reason')
-                                ->label(__('field.intervention_reason')),
+                                ->label(__('field.intervention_name')),
 
                             Value::make('date')
                                 ->label(__('field.date')),

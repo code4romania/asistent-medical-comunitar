@@ -254,8 +254,8 @@ trait CommonEditFormSchema
                         ->columns(2)
                         ->schema([
                             TextInput::make('reason')
-                                ->label(__('field.intervention_reason'))
-                                ->placeholder(__('placeholder.intervention_reason'))
+                                ->label(__('field.intervention_name'))
+                                ->placeholder(__('placeholder.intervention_name'))
                                 ->maxLength(200)
                                 ->nullable(),
 

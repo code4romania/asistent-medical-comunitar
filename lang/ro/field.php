@@ -88,7 +88,6 @@ return [
     'integrated' => 'Abordare integrată',
     'interval_hours' => 'Interval orar',
     'intervention_name' => 'Nume intervenție',
-    'intervention_reason' => 'Motivul intervenției',
     'interventions' => 'Intervenții',
     'last_name' => 'Nume',
     'location' => 'Locație',
