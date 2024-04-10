@@ -100,7 +100,7 @@ class ListInterventions extends ListRecords implements WithSidebar
             return null;
         }
 
-        return __('intervention.empty.description');
+        return __('intervention.empty_active.description');
     }
 
     protected function getTableEmptyStateActions(): array
