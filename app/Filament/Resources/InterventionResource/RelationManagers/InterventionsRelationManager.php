@@ -170,7 +170,8 @@ class InterventionsRelationManager extends RelationManager
                     })
                     ->using(function (array $data, Intervention $record) {
                         $record->interventionable->update(Arr::pull($data, 'interventionable'));
-                    }),
+                    })
+                    ->visible(fn ($livewire) => auth()->user()->can('update', $livewire->getOwnerRecord())),
             ]);
     }
 
