@@ -101,6 +101,11 @@ class Catagraphy extends Model
         return $this->hasMany(Disease::class);
     }
 
+    public function suspicions(): HasMany
+    {
+        return $this->hasMany(Suspicion::class);
+    }
+
     public function socioeconomicVulnerabilities(): Attribute
     {
         return Attribute::make(

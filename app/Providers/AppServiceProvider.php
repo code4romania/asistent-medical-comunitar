@@ -144,6 +144,7 @@ class AppServiceProvider extends ServiceProvider
             'profile_course' => \App\Models\Profile\Course::class,
             'profile_employer' => \App\Models\Profile\Employer::class,
             'profile_study' => \App\Models\Profile\Study::class,
+            'suspicion' => \App\Models\Suspicion::class,
             'user' => \App\Models\User::class,
             'vacation' => \App\Models\Vacation::class,
         ]);

@@ -8,6 +8,7 @@ use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\Disability;
 use App\Models\Disease;
+use App\Models\Suspicion;
 use App\Models\User;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -87,6 +88,11 @@ class CatagraphyFactory extends Factory
                     ->for($catagraphy)
                     ->create();
             }
+
+            Suspicion::factory()
+                ->count(rand(0, 3))
+                ->for($catagraphy)
+                ->create();
 
             if ($catagraphy->has_disabilities) {
                 Disability::factory()

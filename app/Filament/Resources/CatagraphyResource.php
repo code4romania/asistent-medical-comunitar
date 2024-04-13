@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\Suspicion\Category;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\DiagnosticSelect;
 use App\Filament\Forms\Components\Repeater;
@@ -339,6 +340,45 @@ class CatagraphyResource extends Resource
                                             ->multiple()
                                             ->searchable(),
                                     ]),
+                            ]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.suspicions'))
+                            ->icon('heroicon-o-question-mark-circle')
+                            ->schema([
+                                Repeater::make('suspicions')
+                                    ->relationship()
+                                    ->createItemButtonLabel(__('catagraphy.action.add_suspicion'))
+                                    ->disableItemMovement()
+                                    ->disableLabel()
+                                    ->columns()
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->label(__('field.suspicion_name'))
+                                            ->nullable(),
+
+                                        Select::make('category')
+                                            ->label(__('field.suspicion_category'))
+                                            ->placeholder(__('placeholder.select_one'))
+                                            ->options(Category::options())
+                                            ->enum(Category::class),
+
+                                        Select::make('elements')
+                                            ->label(__('field.suspicion_elements'))
+                                            ->multiple()
+                                            ->columnSpanFull(),
+
+                                        TextInput::make('notes')
+                                            ->label(__('field.suspicion_notes'))
+                                            ->maxLength(100)
+                                            ->nullable()
+                                            ->columnSpanFull(),
+                                    ])
+                                    ->afterStateHydrated(function (?array $state, Component $livewire) {
+                                        if (collect($state)->isEmpty()) {
+                                            $livewire->dispatchFormEvent('repeater::createItem', 'data.suspicions');
+                                        }
+                                    }),
                             ]),
 
                         Subsection::make()
