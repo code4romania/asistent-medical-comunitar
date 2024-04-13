@@ -69,7 +69,7 @@ class BeneficiaryFactory extends Factory
                 if ($beneficiary->isOcasional()) {
                     OcasionalIntervention::factory()
                         ->for($beneficiary)
-                        ->count(fake()->randomDigitNotNull())
+                        ->count(rand(1, 3))
                         ->create();
                 }
 
@@ -82,7 +82,7 @@ class BeneficiaryFactory extends Factory
                         ->create();
 
                     InterventionableIndividualService::factory()
-                        ->count(fake()->randomDigitNotNull())
+                        ->count(rand(1, 3))
                         ->has(
                             Intervention::factory()
                                 ->withVulnerability()
@@ -92,14 +92,14 @@ class BeneficiaryFactory extends Factory
                         ->create();
 
                     InterventionableCase::factory()
-                        ->count(fake()->randomDigitNotNull())
+                        ->count(rand(1, 3))
                         ->has(
                             Intervention::factory()
                                 ->withVulnerability()
                                 ->recycle($beneficiary)
                                 ->afterCreating(function (Intervention $case) {
                                     InterventionableIndividualService::factory()
-                                        ->count(fake()->randomDigitNotNull())
+                                        ->count(rand(1, 3))
                                         ->has(
                                             Intervention::factory([
                                                 'parent_id' => $case->id,
@@ -121,7 +121,7 @@ class BeneficiaryFactory extends Factory
                     Appointment::factory()
                         ->recycle($beneficiary->nurse)
                         ->for($beneficiary)
-                        ->count(fake()->randomDigitNotNull())
+                        ->count(rand(1, 3))
                         ->afterCreating(function (Appointment $appointment) use ($interventions) {
                             if (! fake()->boolean()) {
                                 return;
@@ -135,7 +135,7 @@ class BeneficiaryFactory extends Factory
 
                     Document::factory()
                         ->for($beneficiary)
-                        ->count(fake()->randomDigitNotNull())
+                        ->count(rand(1, 3))
                         ->create();
                 }
             });

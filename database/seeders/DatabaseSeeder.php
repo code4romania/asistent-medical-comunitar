@@ -39,12 +39,12 @@ class DatabaseSeeder extends Seeder
         $this->generateBeneficiaries($nurse);
 
         User::factory()
-            ->count(10)
+            ->count(5)
             ->coordinator()
             ->create();
 
         User::factory()
-            ->count(10)
+            ->count(5)
             ->coordinator()
             ->deactivated()
             ->create();
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
             ->each(fn (User $nurse) => $this->generateBeneficiaries($nurse));
     }
 
-    protected function generateBeneficiaries(User $nurse, int $count = 10): void
+    protected function generateBeneficiaries(User $nurse, int $count = 5): void
     {
         Beneficiary::factory()
             ->count($count)

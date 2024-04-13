@@ -80,6 +80,12 @@ class CatagraphyFactory extends Factory
                     ->count(rand(1, 3))
                     ->for($catagraphy)
                     ->create();
+
+                Disease::factory()
+                    ->count(rand(0, 1))
+                    ->rare()
+                    ->for($catagraphy)
+                    ->create();
             }
 
             if ($catagraphy->has_disabilities) {
