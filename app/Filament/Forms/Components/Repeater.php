@@ -13,31 +13,27 @@ class Repeater extends BaseRepeater
     {
         parent::setUp();
 
-        $this->disableItemDeletion(function (array $state) {
+        $this->disableItemDeletion(function (?array $state) {
             if ($this->getMinItems() === null) {
                 return false;
             }
 
-            return \count($state) <= $this->getMinItems();
+            return collect($state)->count() <= $this->getMinItems();
         });
     }
 
     public function fillFromRelationship(): void
     {
-        $state = $this->getStateFromRelatedRecords($this->getCachedExistingRecords());
+        parent::fillFromRelationship();
 
-        $this->state($state);
-
-        $this->ensureMinItems($state);
+        $this->ensureMinItems();
     }
 
-    protected function ensureMinItems(array $state): void
+    public function ensureMinItems(): void
     {
-        if ($this->getMinItems() === null) {
-            return;
-        }
-
-        $count = \count($state);
+        $count = $this->getMinItems()
+            ? collect($this->getState())->count()
+            : 1;
 
         while ($count < $this->getMinItems()) {
             $this->createItem();
