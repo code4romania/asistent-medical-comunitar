@@ -100,6 +100,14 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     Value::make('notes')
                         ->label(__('field.notes')),
                 ]),
+
+            Subsection::make()
+                ->icon('heroicon-o-clipboard-check')
+                ->columnSpanFull()
+                ->schema([
+                    Value::make('interventionable.recommendations')
+                        ->label(__('field.monitoring_recommendations')),
+                ]),
         ];
     }
 

@@ -22,6 +22,7 @@ class InterventionableCase extends Model
         'name',
         'initiator',
         'is_imported',
+        'recommendations',
     ];
 
     protected $casts = [
