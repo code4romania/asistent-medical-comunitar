@@ -78,7 +78,9 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             Subsection::make()
                 ->icon('heroicon-o-document-text')
                 ->columns(2)
-                ->columnSpan(2)
+                ->columnSpan([
+                    'lg' => 2,
+                ])
                 ->schema([
                     Value::make('interventionable.name')
                         ->label(__('field.intervention_name')),
