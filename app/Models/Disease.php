@@ -18,6 +18,7 @@ class Disease extends Model
     protected $fillable = [
         'type',
         'category',
+        'rare_disease',
         'start_year',
         'notes',
     ];
@@ -25,6 +26,7 @@ class Disease extends Model
     protected $casts = [
         'type' => 'string',
         'category' => 'string',
+        'rare_disease' => 'string',
         'start_year' => 'int',
         'notes' => 'string',
     ];
