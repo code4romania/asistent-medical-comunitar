@@ -91,6 +91,7 @@ return [
     'interventions' => 'Intervenții',
     'last_name' => 'Nume',
     'location' => 'Locație',
+    'monitoring_recommendations' => 'Elemente de monitorizare / Acțiuni recomandate',
     'notes' => 'Descriere / Observații',
     'nurse' => 'Asistent Medical Comunitar',
     'optional' => 'Câmp opțional',

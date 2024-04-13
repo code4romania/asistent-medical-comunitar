@@ -101,6 +101,16 @@ class InterventionResource extends Resource
                         ->nullable()
                         ->maxLength(65535),
                 ]),
+
+            Subsection::make()
+                ->icon('heroicon-o-clipboard-check')
+                ->columnSpanFull()
+                ->schema([
+                    Textarea::make('interventionable.recommendations')
+                        ->label(__('field.monitoring_recommendations'))
+                        ->nullable()
+                        ->maxLength(65535),
+                ]),
         ];
     }
 

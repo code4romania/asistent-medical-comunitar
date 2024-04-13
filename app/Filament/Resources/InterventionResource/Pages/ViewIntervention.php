@@ -78,7 +78,9 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             Subsection::make()
                 ->icon('heroicon-o-document-text')
                 ->columns(2)
-                ->columnSpan(2)
+                ->columnSpan([
+                    'lg' => 2,
+                ])
                 ->schema([
                     Value::make('interventionable.name')
                         ->label(__('field.intervention_name')),
@@ -99,6 +101,14 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                 ->schema([
                     Value::make('notes')
                         ->label(__('field.notes')),
+                ]),
+
+            Subsection::make()
+                ->icon('heroicon-o-clipboard-check')
+                ->columnSpanFull()
+                ->schema([
+                    Value::make('interventionable.recommendations')
+                        ->label(__('field.monitoring_recommendations')),
                 ]),
         ];
     }

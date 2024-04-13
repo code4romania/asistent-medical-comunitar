@@ -6,6 +6,7 @@ namespace Database\Factories\Intervention;
 
 use App\Enums\Intervention\CaseInitiator;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Lottery;
 
 class InterventionableCaseFactory extends Factory
 {
@@ -15,6 +16,10 @@ class InterventionableCaseFactory extends Factory
             'name' => fake()->sentence(),
             'initiator' => fake()->randomElement(CaseInitiator::values()),
             'is_imported' => fake()->boolean(10),
+            'recommendations' => Lottery::odds(3, 4)
+                ->winner(fn () => fake()->paragraphs(3, true))
+                ->loser(fn () => null)
+                ->choose(),
         ];
     }
 }
