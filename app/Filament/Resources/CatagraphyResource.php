@@ -284,10 +284,21 @@ class CatagraphyResource extends Resource
                                                     ->placeholder(__('placeholder.select_one'))
                                                     ->options($vulnerabilities->get('SS_B'))
                                                     ->in($vulnerabilities->get('SS_B')->keys())
+                                                    ->reactive()
                                                     ->searchable(),
 
                                                 DiagnosticSelect::make('diagnostic')
-                                                    ->label(__('field.cat_diz_dx')),
+                                                    ->label(__('field.cat_diz_dx'))
+                                                    ->columnSpanFull(),
+
+                                                Select::make('rare_disease')
+                                                    ->label($categories->get('SS_SL'))
+                                                    ->placeholder(__('placeholder.select_one'))
+                                                    ->options($vulnerabilities->get('SS_SL'))
+                                                    ->in($vulnerabilities->get('SS_SL')->keys())
+                                                    ->searchable()
+                                                    ->visible(fn (Closure $get) => $get('category') === 'VSG_BR')
+                                                    ->columnSpanFull(),
 
                                                 YearPicker::make('start_year')
                                                     ->label(__('field.cat_diz_deb')),
