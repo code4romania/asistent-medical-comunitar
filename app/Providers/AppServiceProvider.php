@@ -29,12 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerTelescope();
         $this->registerCarbonMacros();
-
-        if ($this->app->environment('local')) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
-        }
 
         Config::set('sentry.release', $this->getAppVersion());
     }
@@ -103,6 +99,19 @@ class AppServiceProvider extends ServiceProvider
         FilamentBreezy::setPasswordRules([
             static::passwordDefaults(),
         ]);
+    }
+
+    protected function registerTelescope(): void
+    {
+        if (
+            ! $this->app->environment('local') ||
+            ! class_exists(\Laravel\Telescope\TelescopeServiceProvider::class, false)
+        ) {
+            return;
+        }
+
+        $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+        $this->app->register(TelescopeServiceProvider::class);
     }
 
     protected function registerCarbonMacros(): void
