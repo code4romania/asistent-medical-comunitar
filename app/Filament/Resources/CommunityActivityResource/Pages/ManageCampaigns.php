@@ -30,7 +30,9 @@ class ManageCampaigns extends ManageRecords implements WithTabs
 
     protected function getTableQuery(): Builder
     {
-        return parent::getTableQuery()->onlyCampaigns();
+        return parent::getTableQuery()
+            ->onlyCampaigns()
+            ->with('nurse.activityCities');
     }
 
     protected function table(Table $table): Table
@@ -66,7 +68,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
                     ->formatStateUsing(
                         fn (CommunityActivity $record) => $record
                             ->nurse
-                            ->activityCities
+                            ?->activityCities
                             ->pluck('name')
                             ->join(', ')
                     )
