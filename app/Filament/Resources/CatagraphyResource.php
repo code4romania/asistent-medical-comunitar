@@ -355,17 +355,20 @@ class CatagraphyResource extends Resource
                                     ->schema([
                                         TextInput::make('name')
                                             ->label(__('field.suspicion_name'))
-                                            ->nullable(),
+                                            ->required(),
 
                                         Select::make('category')
                                             ->label(__('field.suspicion_category'))
                                             ->placeholder(__('placeholder.select_one'))
                                             ->options(Category::options())
-                                            ->enum(Category::class),
+                                            ->enum(Category::class)
+                                            ->required()
+                                            ->reactive(),
 
                                         Select::make('elements')
                                             ->label(__('field.suspicion_elements'))
                                             ->multiple()
+                                            ->visible(fn (Closure $get) => Category::isValue($get('category'), Category::RARE_DISEASE))
                                             ->columnSpanFull(),
 
                                         TextInput::make('notes')
@@ -373,12 +376,7 @@ class CatagraphyResource extends Resource
                                             ->maxLength(100)
                                             ->nullable()
                                             ->columnSpanFull(),
-                                    ])
-                                    ->afterStateHydrated(function (?array $state, Component $livewire) {
-                                        if (collect($state)->isEmpty()) {
-                                            $livewire->dispatchFormEvent('repeater::createItem', 'data.suspicions');
-                                        }
-                                    }),
+                                    ]),
                             ]),
 
                         Subsection::make()

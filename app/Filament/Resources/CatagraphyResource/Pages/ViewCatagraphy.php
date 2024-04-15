@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
+use App\Enums\Suspicion\Category;
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Forms\Components\VulnerabilityChips;
@@ -12,6 +14,7 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
 use App\Models\Vulnerability\Vulnerability;
+use Closure;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -134,6 +137,29 @@ class ViewCatagraphy extends ViewRecord
                                 VulnerabilityChips::make('cat_preg')
                                     ->label(__('vulnerability.field.cat_preg'))
                                     ->visible(fn (callable $get) => Vulnerability::isPregnancy($get('cat_rep'))),
+                            ]),
+
+                        Repeater::make('suspicions')
+                            ->relationship()
+                            ->label(__('catagraphy.section.suspicions'))
+                            ->schema([
+                                Subsection::make()
+                                    ->icon('heroicon-o-question-mark-circle')
+                                    ->columns()
+                                    ->schema([
+                                        Value::make('name')
+                                            ->label(__('field.suspicion_name')),
+
+                                        Value::make('category')
+                                            ->label(__('field.suspicion_category')),
+
+                                        Value::make('elements')
+                                            ->label(__('field.suspicion_elements'))
+                                            ->visible(fn (Closure $get) => Category::isValue($get('category'), Category::RARE_DISEASE)),
+
+                                        Value::make('notes')
+                                            ->label(__('field.suspicion_notes')),
+                                    ]),
                             ]),
 
                         Subsection::make()

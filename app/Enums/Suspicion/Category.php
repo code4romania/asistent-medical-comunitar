@@ -12,7 +12,7 @@ enum Category: string
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasLabel;
 
-    case CHRONIC = 'chronic';
+    case RARE_DISEASE = 'rare_disease';
     case OTHER = 'other';
 
     protected function labelKeyPrefix(): ?string
