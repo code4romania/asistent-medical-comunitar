@@ -62,6 +62,7 @@ return [
     ],
 
     'suspicion' => [
+        'label' => 'Suspiciune',
         'category' => [
             'rare_disease' => 'Boală rară',
             'other' => 'Altă categorie',
@@ -69,5 +70,6 @@ return [
         'element' => [
 
         ],
+
     ],
 ];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
-use App\Enums\Suspicion\Category;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
@@ -137,6 +136,14 @@ class ViewCatagraphy extends ViewRecord
                                 VulnerabilityChips::make('cat_preg')
                                     ->label(__('vulnerability.field.cat_preg'))
                                     ->visible(fn (callable $get) => Vulnerability::isPregnancy($get('cat_rep'))),
+                            ]),
+
+                        Subsection::make()
+                            ->title(__('catagraphy.section.suspicions'))
+                            ->icon('heroicon-o-question-mark-circle')
+                            ->schema([
+                                VulnerabilityChips::make('suspicions')
+                                    ->label(__('vulnerability.field.suspicions')),
                             ]),
 
                         Repeater::make('suspicions')

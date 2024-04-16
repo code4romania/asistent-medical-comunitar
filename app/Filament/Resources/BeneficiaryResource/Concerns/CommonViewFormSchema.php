@@ -14,6 +14,7 @@ use App\Models\Beneficiary;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
 
 trait CommonViewFormSchema
@@ -161,7 +162,7 @@ trait CommonViewFormSchema
             ]);
     }
 
-    private static function getCnpFallback(Beneficiary $beneficiary): string
+    private static function getCnpFallback(Beneficiary $beneficiary): string | Htmlable
     {
         if ($beneficiary->does_not_provide_cnp) {
             return __('field.does_not_provide_cnp');
