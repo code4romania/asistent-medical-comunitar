@@ -23,8 +23,8 @@ class Suspicion extends Model
 
     protected $casts = [
         'name' => 'string',
-        'category' => Category::class,
-        'elements' => 'collection', // TODO: replace with actual data after getting element definitions
+        'category' => 'string',
+        'elements' => 'collection',
         'notes' => 'string',
     ];
 }

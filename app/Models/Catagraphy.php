@@ -176,6 +176,7 @@ class Catagraphy extends Model
                 $this->socioeconomic_vulnerabilities,
                 $this->health_vulnerabilities,
                 $this->reproductive_health,
+                $this->suspicions,
             ])
                 ->flatten()
                 ->map(fn (mixed $vulnerability) => match (true) {

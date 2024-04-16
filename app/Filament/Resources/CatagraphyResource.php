@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Suspicion\Category;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\DiagnosticSelect;
 use App\Filament\Forms\Components\Repeater;
@@ -360,15 +359,20 @@ class CatagraphyResource extends Resource
                                         Select::make('category')
                                             ->label(__('field.suspicion_category'))
                                             ->placeholder(__('placeholder.select_one'))
-                                            ->options(Category::options())
-                                            ->enum(Category::class)
+                                            ->label($categories->get('SUS_CS'))
+                                            ->options($vulnerabilities->get('SUS_CS'))
+                                            ->in($vulnerabilities->get('SUS_CS')->keys())
                                             ->required()
                                             ->reactive(),
 
                                         Select::make('elements')
                                             ->label(__('field.suspicion_elements'))
+                                            ->placeholder(__('placeholder.select_many'))
                                             ->multiple()
-                                            ->visible(fn (Closure $get) => Category::isValue($get('category'), Category::RARE_DISEASE))
+                                            ->label($categories->get('SUS_BR_ES'))
+                                            ->options($vulnerabilities->get('SUS_BR_ES'))
+                                            ->rule(new MultipleIn($vulnerabilities->get('SUS_BR_ES')->keys()))
+                                            ->visible(fn (Closure $get) => $get('category') === 'VSP_01')
                                             ->columnSpanFull(),
 
                                         TextInput::make('notes')
