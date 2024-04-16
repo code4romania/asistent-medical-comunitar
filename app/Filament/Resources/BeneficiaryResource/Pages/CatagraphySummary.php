@@ -117,6 +117,9 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
 
             VulnerabilityChips::make('reproductive_health')
                 ->label(__('catagraphy.vulnerability.reproductive_health')),
+
+            VulnerabilityChips::make('suspicions')
+                ->label(__('catagraphy.vulnerability.suspicions')),
         ];
     }
 

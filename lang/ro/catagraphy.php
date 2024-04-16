@@ -32,6 +32,7 @@ return [
         'view' => 'Vezi formular',
         'add_disability' => 'Adaugă încă o dizabilitate',
         'add_disease' => 'Adaugă încă o boală',
+        'add_suspicion' => 'Adaugă o suspiciune',
     ],
 
     'vulnerability' => [
@@ -56,6 +57,17 @@ return [
 
     'section' => [
         'general' => 'Informații generale',
+        'suspicions' => 'Suspiciuni (opțional)',
         'notes' => 'Observații finale',
+    ],
+
+    'suspicion' => [
+        'category' => [
+            'rare_disease' => 'Boală rară',
+            'other' => 'Altă categorie',
+        ],
+        'element' => [
+
+        ],
     ],
 ];

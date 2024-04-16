@@ -101,6 +101,11 @@ class Catagraphy extends Model
         return $this->hasMany(Disease::class);
     }
 
+    public function suspicions(): HasMany
+    {
+        return $this->hasMany(Suspicion::class);
+    }
+
     public function socioeconomicVulnerabilities(): Attribute
     {
         return Attribute::make(
@@ -171,6 +176,7 @@ class Catagraphy extends Model
                 $this->socioeconomic_vulnerabilities,
                 $this->health_vulnerabilities,
                 $this->reproductive_health,
+                $this->suspicions,
             ])
                 ->flatten()
                 ->map(fn (mixed $vulnerability) => match (true) {

@@ -342,6 +342,48 @@ class CatagraphyResource extends Resource
                             ]),
 
                         Subsection::make()
+                            ->title(__('catagraphy.section.suspicions'))
+                            ->icon('heroicon-o-question-mark-circle')
+                            ->schema([
+                                Repeater::make('suspicions')
+                                    ->relationship()
+                                    ->createItemButtonLabel(__('catagraphy.action.add_suspicion'))
+                                    ->disableItemMovement()
+                                    ->disableLabel()
+                                    ->columns()
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->label(__('field.suspicion_name'))
+                                            ->required(),
+
+                                        Select::make('category')
+                                            ->label(__('field.suspicion_category'))
+                                            ->placeholder(__('placeholder.select_one'))
+                                            ->label($categories->get('SUS_CS'))
+                                            ->options($vulnerabilities->get('SUS_CS'))
+                                            ->in($vulnerabilities->get('SUS_CS')->keys())
+                                            ->required()
+                                            ->reactive(),
+
+                                        Select::make('elements')
+                                            ->label(__('field.suspicion_elements'))
+                                            ->placeholder(__('placeholder.select_many'))
+                                            ->multiple()
+                                            ->label($categories->get('SUS_BR_ES'))
+                                            ->options($vulnerabilities->get('SUS_BR_ES'))
+                                            ->rule(new MultipleIn($vulnerabilities->get('SUS_BR_ES')->keys()))
+                                            ->visible(fn (Closure $get) => $get('category') === 'VSP_01')
+                                            ->columnSpanFull(),
+
+                                        TextInput::make('notes')
+                                            ->label(__('field.suspicion_notes'))
+                                            ->maxLength(100)
+                                            ->nullable()
+                                            ->columnSpanFull(),
+                                    ]),
+                            ]),
+
+                        Subsection::make()
                             ->title(__('catagraphy.section.notes'))
                             ->icon('heroicon-o-annotation')
                             ->schema([
