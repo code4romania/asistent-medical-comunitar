@@ -155,7 +155,7 @@ class ViewCatagraphy extends ViewRecord
 
                                         Value::make('elements')
                                             ->label(__('field.suspicion_elements'))
-                                            ->visible(fn (Closure $get) => Category::isValue($get('category'), Category::RARE_DISEASE)),
+                                            ->visible(fn (Closure $get) => $get('category') === 'VSP_01'),
 
                                         Value::make('notes')
                                             ->label(__('field.suspicion_notes')),
