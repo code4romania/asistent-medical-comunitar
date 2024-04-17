@@ -9,6 +9,7 @@ use App\Concerns\HasDiagnostic;
 use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityData;
 use App\DataTransferObjects\VulnerabilityEntry;
+use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -82,6 +83,20 @@ class Disability extends Model implements HasVulnerabilityData
                     value: $this->start_year,
                 ),
             ]
+        );
+    }
+
+    public function vulnerabilityListItem(): VulnerabilityListItem
+    {
+        $vulnerabilities = Vulnerability::cachedList();
+
+        $type = $vulnerabilities->get($this->certificate_vulnerability);
+        $vulnerability = $vulnerabilities->get($this->type);
+
+        return new VulnerabilityListItem(
+            label: "{$type->name}: {$vulnerability->name}",
+            value: $this->id, // TODO: ????
+            type: $this->getMorphClass(),
         );
     }
 }

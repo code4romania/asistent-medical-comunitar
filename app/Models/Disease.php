@@ -9,6 +9,7 @@ use App\Concerns\HasDiagnostic;
 use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityData;
 use App\DataTransferObjects\VulnerabilityEntry;
+use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -76,6 +77,20 @@ class Disease extends Model implements HasVulnerabilityData
             name: "{$vulnerability->name}: {$category?->name}",
             category: $vulnerability->name,
             entries: $entries,
+        );
+    }
+
+    public function vulnerabilityListItem(): VulnerabilityListItem
+    {
+        $vulnerabilities = Vulnerability::cachedList();
+
+        $category = $vulnerabilities->get($this->category);
+        $vulnerability = $vulnerabilities->get($this->type);
+
+        return new VulnerabilityListItem(
+            label: "{$vulnerability->name}: {$category?->name}",
+            value: $this->id, // TODO: ????
+            type: $this->getMorphClass(),
         );
     }
 }

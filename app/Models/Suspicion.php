@@ -8,6 +8,7 @@ use App\Concerns\BelongsToCatagraphy;
 use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityData;
 use App\DataTransferObjects\VulnerabilityEntry;
+use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,6 +63,15 @@ class Suspicion extends Model implements HasVulnerabilityData
                     value: $this->notes,
                 ),
             ]
+        );
+    }
+
+    public function vulnerabilityListItem(): VulnerabilityListItem
+    {
+        return new VulnerabilityListItem(
+            label: $this->name,
+            value: $this->id, // TODO: ????
+            type: $this->getMorphClass(),
         );
     }
 }
