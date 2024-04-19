@@ -146,6 +146,8 @@ class AppServiceProvider extends ServiceProvider
             'profile_study' => \App\Models\Profile\Study::class,
             'suspicion' => \App\Models\Suspicion::class,
             'user' => \App\Models\User::class,
+            'vulnerability' => \App\Models\Vulnerability\Vulnerability::class,
+            'vulnerability_category' => \App\Models\Vulnerability\VulnerabilityCategory::class,
             'vacation' => \App\Models\Vacation::class,
         ]);
     }

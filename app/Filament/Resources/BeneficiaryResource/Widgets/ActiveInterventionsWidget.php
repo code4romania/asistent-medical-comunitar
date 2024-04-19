@@ -45,7 +45,9 @@ class ActiveInterventionsWidget extends BaseWidget
     protected function getTableQuery(): Builder
     {
         return Intervention::query()
-            ->where('beneficiary_id', $this->record->id)
+            ->with('vulnerability')
+            ->whereBeneficiary($this->record)
+            ->whereRoot()
             ->onlyOpen();
     }
 
@@ -62,7 +64,7 @@ class ActiveInterventionsWidget extends BaseWidget
                 ->label(__('field.intervention_name'))
                 ->size('sm'),
 
-            TextColumn::make('vulnerability.name')
+            TextColumn::make('vulnerability_label')
                 ->label(__('field.vulnerability'))
                 ->size('sm')
                 ->sortable(),

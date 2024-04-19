@@ -79,6 +79,11 @@ class EditIntervention extends EditRecord implements WithSidebar
     {
         $record->interventionable->update(Arr::pull($data, 'interventionable'));
 
+        $record->setVulnerability($data['vulnerability_id']);
+
+        unset($data['vulnerability_id']);
+        unset($data['vulnerability_label']);
+
         $record->update($data);
 
         return $record;

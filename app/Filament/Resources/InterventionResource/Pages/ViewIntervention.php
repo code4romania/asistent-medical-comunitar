@@ -88,7 +88,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     Value::make('interventionable.initiator')
                         ->label(__('field.initiator')),
 
-                    Value::make('vulnerability.name')
+                    Value::make('vulnerability_label')
                         ->label(__('field.addressed_vulnerability')),
 
                     Value::make('integrated')
@@ -124,7 +124,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     Value::make('name')
                         ->label(__('field.service')),
 
-                    Value::make('vulnerability.name')
+                    Value::make('vulnerability_label')
                         ->label(__('field.addressed_vulnerability')),
 
                     Value::make('integrated')

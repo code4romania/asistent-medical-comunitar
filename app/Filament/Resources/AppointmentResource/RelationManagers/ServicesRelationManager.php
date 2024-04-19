@@ -39,6 +39,12 @@ class ServicesRelationManager extends RelationManager
             ]);
     }
 
+    protected function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()
+            ->with(['vulnerability', 'parent']);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -54,9 +60,12 @@ class ServicesRelationManager extends RelationManager
                     ->size('sm')
                     ->sortable(),
 
-                TextColumn::make('vulnerability.name')
+                TextColumn::make('vulnerability_label')
                     ->label(__('field.addressed_vulnerability'))
                     ->size('sm')
+                    ->formatStateUsing(
+                        fn (Intervention $record, ?string $state) => $state ?? $record->parent->vulnerability_label
+                    )
                     ->sortable(),
 
                 SelectColumn::make('interventionable.status')

@@ -6,9 +6,8 @@ namespace Database\Factories;
 
 use App\Models\Beneficiary;
 use App\Models\Family;
-use App\Models\Vulnerability\Vulnerability;
+use App\Models\Intervention;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * @extends Factory<Family>
@@ -28,16 +27,13 @@ class InterventionFactory extends Factory
 
     public function withVulnerability(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'vulnerability_id' => $this->randomVulnerability(),
-        ]);
-    }
+        return $this->afterMaking(function (Intervention $intervention) {
+            $count = $intervention->beneficiary
+                ->catagraphy
+                ->all_valid_vulnerabilities
+                ->count();
 
-    private function randomVulnerability(): string
-    {
-        return Cache::driver('array')->rememberForever(
-            'all_vulnerabilities',
-            fn () => Vulnerability::pluck('id')
-        )->random();
+            $intervention->setVulnerability(rand(0, $count));
+        });
     }
 }

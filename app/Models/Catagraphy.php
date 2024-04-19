@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToBeneficiary;
+use App\Contracts\HasVulnerabilityData;
+use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -65,6 +68,12 @@ class Catagraphy extends Model
         'has_health_issues' => 'boolean',
     ];
 
+    protected $with = [
+        'disabilities',
+        'diseases',
+        'suspicions',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -81,7 +90,7 @@ class Catagraphy extends Model
 
         activity('vulnerabilities')
             ->causedBy($activity->causer)
-            ->withProperties($this->all_valid_vulnerabilities->pluck('id'))
+            ->withProperties($this->all_valid_vulnerabilities->pluck('value'))
             ->event($eventName)
             ->log($eventName);
     }
@@ -106,10 +115,22 @@ class Catagraphy extends Model
         return $this->hasMany(Suspicion::class);
     }
 
+    private function mapVulnerabilities(array $items): Collection
+    {
+        $vulnerabilities = Vulnerability::cachedList();
+
+        return collect($items)
+            ->flatten()
+            ->map(fn ($item) => match (true) {
+                $item instanceof HasVulnerabilityData => $item,
+                default => $vulnerabilities->get($item),
+            });
+    }
+
     public function socioeconomicVulnerabilities(): Attribute
     {
         return Attribute::make(
-            get: fn () => collect([
+            get: fn () => $this->mapVulnerabilities([
                 $this->cat_id,
                 $this->cat_age,
                 $this->cat_inc,
@@ -118,14 +139,14 @@ class Catagraphy extends Model
                 $this->cat_fam,
                 $this->cat_edu,
                 $this->cat_vif,
-            ])->flatten()
+            ])
         )->shouldCache();
     }
 
     public function healthVulnerabilities(): Attribute
     {
         return Attribute::make(
-            get: fn () => collect([
+            get: fn () => $this->mapVulnerabilities([
                 $this->cat_as,
                 $this->cat_mf,
                 $this->cat_diz,
@@ -133,7 +154,7 @@ class Catagraphy extends Model
                 $this->cat_ns,
                 $this->cat_ssa,
                 $this->cat_ss,
-            ])->flatten()
+            ])
         )->shouldCache();
     }
 
@@ -162,10 +183,10 @@ class Catagraphy extends Model
     public function reproductiveHealth(): Attribute
     {
         return Attribute::make(
-            get: fn () => collect([
+            get: fn () => $this->mapVulnerabilities([
                 $this->cat_rep,
                 $this->cat_preg,
-            ])->flatten()
+            ])
         )->shouldCache();
     }
 
@@ -179,23 +200,25 @@ class Catagraphy extends Model
                 $this->suspicions,
             ])
                 ->flatten()
-                ->map(fn (mixed $vulnerability) => match (true) {
-                    $vulnerability instanceof Disability => $vulnerability->type,
-                    $vulnerability instanceof Disease => $vulnerability->type,
-                    default => $vulnerability,
-                })
                 ->filter()
                 ->values()
+        )->shouldCache();
+    }
+
+    public function allVulnerabilitiesItems(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->all_vulnerabilities
+                ->map(fn (HasVulnerabilityData $vulnerability) => $vulnerability->vulnerabilityListItem())
         )->shouldCache();
     }
 
     public function allValidVulnerabilities(): Attribute
     {
         return Attribute::make(
-            get: fn () => Vulnerability::query()
-                ->whereIn('id', $this->all_vulnerabilities->all())
-                ->whereIsValid()
-                ->get()
+            get: fn () => $this->all_vulnerabilities_items
+                ->filter(fn (VulnerabilityListItem $vulnerability) => $vulnerability->valid)
+                ->values()
         )->shouldCache();
     }
 }

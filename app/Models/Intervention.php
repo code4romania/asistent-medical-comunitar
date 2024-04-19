@@ -37,6 +37,7 @@ class Intervention extends Model
         'beneficiary_id',
         'parent_id',
         'vulnerability_id',
+        'vulnerability_label',
         'closed_at',
     ];
 
@@ -260,6 +261,24 @@ class Intervention extends Model
         return BeneficiaryResource::getUrl('interventions.view', [
             'beneficiary' => $this->beneficiary_id,
             'record' => $this->id,
+        ]);
+    }
+
+    public function getVulnerabilityLabelAttribute(): ?string
+    {
+        return $this->attributes['vulnerability_label'] ?? $this->vulnerability?->name;
+    }
+
+    public function setVulnerability($index)
+    {
+        $vulnerability = $this->beneficiary
+            ->catagraphy
+            ->all_valid_vulnerabilities
+            ->get($index);
+
+        return $this->fill([
+            'vulnerability_id' => $vulnerability?->value,
+            'vulnerability_label' => $vulnerability?->label,
         ]);
     }
 }
