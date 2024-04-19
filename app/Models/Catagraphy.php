@@ -68,6 +68,12 @@ class Catagraphy extends Model
         'has_health_issues' => 'boolean',
     ];
 
+    protected $with = [
+        'disabilities',
+        'diseases',
+        'suspicions',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -84,7 +90,7 @@ class Catagraphy extends Model
 
         activity('vulnerabilities')
             ->causedBy($activity->causer)
-            ->withProperties($this->all_valid_vulnerabilities->pluck('id'))
+            ->withProperties($this->all_valid_vulnerabilities->pluck('value'))
             ->event($eventName)
             ->log($eventName);
     }
@@ -109,13 +115,16 @@ class Catagraphy extends Model
         return $this->hasMany(Suspicion::class);
     }
 
-    private function mapVulnerabilities(array $codes): Collection
+    private function mapVulnerabilities(array $items): Collection
     {
         $vulnerabilities = Vulnerability::cachedList();
 
-        return collect($codes)
+        return collect($items)
             ->flatten()
-            ->map(fn (?string $code) => $vulnerabilities->get($code));
+            ->map(fn ($item) => match (true) {
+                $item instanceof HasVulnerabilityData => $item,
+                default => $vulnerabilities->get($item),
+            });
     }
 
     public function socioeconomicVulnerabilities(): Attribute
@@ -209,6 +218,7 @@ class Catagraphy extends Model
         return Attribute::make(
             get: fn () => $this->all_vulnerabilities_items
                 ->filter(fn (VulnerabilityListItem $vulnerability) => $vulnerability->valid)
+                ->values()
         )->shouldCache();
     }
 }

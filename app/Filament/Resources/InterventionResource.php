@@ -11,13 +11,16 @@ use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\InterventionResource\Pages;
 use App\Filament\Resources\InterventionResource\RelationManagers\InterventionsRelationManager;
 use App\Http\Middleware\RedirectToDashboard;
+use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\Intervention;
 use App\Models\Service\Service;
 use Carbon\Carbon;
+use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -75,13 +78,24 @@ class InterventionResource extends Resource
                         ->default(CaseInitiator::NURSE)
                         ->required(),
 
-                    Select::make('vulnerability')
+                    Select::make('vulnerability_id')
                         ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
-                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire))
-                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire)?->keys())
+                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary()))
+                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary())?->keys())
                         ->searchable()
+                        ->reactive()
                         ->required(),
+
+                    Hidden::make('vulnerability_label')
+                        ->afterStateHydrated(function (Closure $set, $state, $livewire) {
+                            $vulnerability_id = static::getValidVulnerabilities($livewire->getBeneficiary())
+                                ->filter(fn (string $value) => $value === $state)
+                                ->keys()
+                                ->first();
+
+                            $set('vulnerability_id', $vulnerability_id);
+                        }),
 
                     Radio::make('integrated')
                         ->label(__('field.integrated'))
@@ -130,14 +144,24 @@ class InterventionResource extends Resource
                         ->searchable()
                         ->required(),
 
-                    Select::make('vulnerability')
+                    Select::make('vulnerability_id')
                         ->label(__('field.addressed_vulnerability'))
                         ->placeholder(__('placeholder.select_one'))
-                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire))
-                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire)?->keys())
+                        ->options(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary()))
+                        ->in(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary())?->keys())
                         ->searchable()
-                        ->preload()
+                        ->reactive()
                         ->required(),
+
+                    Hidden::make('vulnerability_label')
+                        ->afterStateHydrated(function (Closure $set, $state, $livewire) {
+                            $vulnerability_id = static::getValidVulnerabilities($livewire->getBeneficiary())
+                                ->filter(fn (string $value) => $value === $state)
+                                ->keys()
+                                ->first();
+
+                            $set('vulnerability_id', $vulnerability_id);
+                        }),
 
                     Select::make('interventionable.status')
                         ->label(__('field.status'))
@@ -175,10 +199,8 @@ class InterventionResource extends Resource
         ];
     }
 
-    protected static function getValidVulnerabilities($livewire): Collection | null
+    public static function getValidVulnerabilities(Beneficiary $beneficiary): Collection | null
     {
-        $beneficiary = $livewire->getBeneficiary();
-
         return Cache::driver('array')
             ->remember(
                 "valid-vulnerabilities-beneficiary-{$beneficiary->id}",
@@ -186,13 +208,14 @@ class InterventionResource extends Resource
                 fn () => Catagraphy::whereBeneficiary($beneficiary)
                     ->first()
                     ?->all_valid_vulnerabilities
-                    ->pluck('name', 'id')
+                    ->pluck('label')
             );
     }
 
     public static function hasValidVulnerabilities($livewire): bool
     {
-        return static::getValidVulnerabilities($livewire)?->isNotEmpty() ?? false;
+        return static::getValidVulnerabilities($livewire->getBeneficiary())
+            ?->isNotEmpty() ?? false;
     }
 
     public static function minReportingDate(): Carbon

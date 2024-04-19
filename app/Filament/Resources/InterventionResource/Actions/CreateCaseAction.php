@@ -41,11 +41,16 @@ class CreateCaseAction extends CreateAction
     {
         $interventionable = InterventionableCase::create($data['interventionable']);
 
-        return $interventionable->intervention()->create([
+        $intervention = $interventionable->intervention()->create([
             'beneficiary_id' => $livewire->getBeneficiary()?->id,
-            'vulnerability_id' => $data['vulnerability'],
             'integrated' => $data['integrated'],
             'notes' => $data['notes'],
         ]);
+
+        $intervention
+            ->setVulnerability($data['vulnerability_id'])
+            ->save();
+
+        return $intervention;
     }
 }

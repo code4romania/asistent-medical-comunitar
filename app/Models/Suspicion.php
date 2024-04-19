@@ -41,7 +41,10 @@ class Suspicion extends Model implements HasVulnerabilityData
         $category = $vulnerabilities->get($this->category);
 
         return new VulnerabilityData(
-            name: __('catagraphy.suspicion.label') . ': ' . $this->name,
+            name: __('catagraphy.suspicion.label', [
+                'category' => $category?->name,
+                'name' => $this->name,
+            ]),
             category: $category?->name,
             entries: [
                 new VulnerabilityEntry(
@@ -68,10 +71,17 @@ class Suspicion extends Model implements HasVulnerabilityData
 
     public function vulnerabilityListItem(): VulnerabilityListItem
     {
+        $vulnerabilities = Vulnerability::cachedList();
+        $category = $vulnerabilities->get($this->category);
+
         return new VulnerabilityListItem(
-            label: $this->name,
-            value: $this->id, // TODO: ????
+            label: __('catagraphy.suspicion.label', [
+                'category' => $category?->name,
+                'name' => $this->name,
+            ]),
+            value: $this->category,
             type: $this->getMorphClass(),
+            valid: true
         );
     }
 }

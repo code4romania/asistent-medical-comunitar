@@ -95,8 +95,9 @@ class Disability extends Model implements HasVulnerabilityData
 
         return new VulnerabilityListItem(
             label: "{$type->name}: {$vulnerability->name}",
-            value: $this->id, // TODO: ????
+            value: $vulnerability->id,
             type: $this->getMorphClass(),
+            valid: true
         );
     }
 }

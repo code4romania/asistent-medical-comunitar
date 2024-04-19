@@ -46,6 +46,7 @@ return [
         'socioeconomic' => 'Vulnerabilități socio-economice',
         'health' => 'Vulnerabilități de sănătate',
         'reproductive_health' => 'Sănătate reproductivă',
+        'suspicions' => 'Suspiciuni',
     ],
 
     'recommendation' => [
@@ -62,7 +63,7 @@ return [
     ],
 
     'suspicion' => [
-        'label' => 'Suspiciune',
+        'label' => 'Suspiciune :category: :name',
         'category' => [
             'rare_disease' => 'Boală rară',
             'other' => 'Altă categorie',

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
 use App\Filament\Forms\Components\Card;
-use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Forms\Components\VulnerabilityChips;
@@ -13,7 +12,7 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
 use App\Models\Vulnerability\Vulnerability;
-use Closure;
+use App\Models\Vulnerability\VulnerabilityCategory;
 use Filament\Pages\Actions;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
@@ -53,6 +52,8 @@ class ViewCatagraphy extends ViewRecord
 
     protected function form(Form $form): Form
     {
+        $categories = VulnerabilityCategory::cachedList();
+
         return $form
             ->columns(1)
             ->schema([
@@ -73,28 +74,28 @@ class ViewCatagraphy extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 VulnerabilityChips::make('cat_id')
-                                    ->label(__('vulnerability.field.cat_id')),
+                                    ->label($categories->get('ID')),
 
                                 VulnerabilityChips::make('cat_age')
-                                    ->label(__('vulnerability.field.cat_age')),
+                                    ->label($categories->get('AGE')),
 
                                 VulnerabilityChips::make('cat_inc')
-                                    ->label(__('vulnerability.field.cat_inc')),
+                                    ->label($categories->get('INC')),
 
                                 VulnerabilityChips::make('cat_pov')
-                                    ->label(__('vulnerability.field.cat_pov')),
+                                    ->label($categories->get('POV')),
 
                                 VulnerabilityChips::make('cat_liv')
-                                    ->label(__('vulnerability.field.cat_liv')),
+                                    ->label($categories->get('LIV')),
 
                                 VulnerabilityChips::make('cat_fam')
-                                    ->label(__('vulnerability.field.cat_fam')),
+                                    ->label($categories->get('FAM')),
 
                                 VulnerabilityChips::make('cat_edu')
-                                    ->label(__('vulnerability.field.cat_edu')),
+                                    ->label($categories->get('EDU')),
 
                                 VulnerabilityChips::make('cat_vif')
-                                    ->label(__('vulnerability.field.cat_vif')),
+                                    ->label($categories->get('VIF')),
                             ]),
 
                         Subsection::make()
@@ -103,26 +104,26 @@ class ViewCatagraphy extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 VulnerabilityChips::make('cat_as')
-                                    ->label(__('vulnerability.field.cat_as')),
+                                    ->label($categories->get('AS')),
 
                                 VulnerabilityChips::make('cat_mf')
-                                    ->label(__('vulnerability.field.cat_mf')),
+                                    ->label($categories->get('MF')),
 
                                 VulnerabilityChips::make('cat_diz')
-                                    ->label(__('vulnerability.field.cat_diz'))
+                                    ->label($categories->get('DIZ'))
                                     ->columnSpanFull(),
 
                                 VulnerabilityChips::make('cat_cr')
-                                    ->label(__('vulnerability.field.cat_cr')),
+                                    ->label($categories->get('CR')),
 
                                 VulnerabilityChips::make('cat_ns')
-                                    ->label(__('vulnerability.field.cat_ns')),
+                                    ->label($categories->get('NS')),
 
                                 VulnerabilityChips::make('cat_ssa')
-                                    ->label(__('vulnerability.field.cat_ssa')),
+                                    ->label($categories->get('SSA')),
 
                                 VulnerabilityChips::make('cat_ss')
-                                    ->label(__('vulnerability.field.cat_ss')),
+                                    ->label($categories->get('SS')),
                             ]),
 
                         Subsection::make()
@@ -131,10 +132,10 @@ class ViewCatagraphy extends ViewRecord
                             ->columns(2)
                             ->schema([
                                 VulnerabilityChips::make('cat_rep')
-                                    ->label(__('vulnerability.field.cat_rep')),
+                                    ->label($categories->get('REP')),
 
                                 VulnerabilityChips::make('cat_preg')
-                                    ->label(__('vulnerability.field.cat_preg'))
+                                    ->label($categories->get('PREG'))
                                     ->visible(fn (callable $get) => Vulnerability::isPregnancy($get('cat_rep'))),
                             ]),
 
@@ -143,30 +144,7 @@ class ViewCatagraphy extends ViewRecord
                             ->icon('heroicon-o-question-mark-circle')
                             ->schema([
                                 VulnerabilityChips::make('suspicions')
-                                    ->label(__('vulnerability.field.suspicions')),
-                            ]),
-
-                        Repeater::make('suspicions')
-                            ->relationship()
-                            ->label(__('catagraphy.section.suspicions'))
-                            ->schema([
-                                Subsection::make()
-                                    ->icon('heroicon-o-question-mark-circle')
-                                    ->columns()
-                                    ->schema([
-                                        Value::make('name')
-                                            ->label(__('field.suspicion_name')),
-
-                                        Value::make('category')
-                                            ->label(__('field.suspicion_category')),
-
-                                        Value::make('elements')
-                                            ->label(__('field.suspicion_elements'))
-                                            ->visible(fn (Closure $get) => $get('category') === 'VSP_01'),
-
-                                        Value::make('notes')
-                                            ->label(__('field.suspicion_notes')),
-                                    ]),
+                                    ->label($categories->get('SUS_CS')),
                             ]),
 
                         Subsection::make()
