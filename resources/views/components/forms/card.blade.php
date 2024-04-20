@@ -1,10 +1,10 @@
 <div
     {!! $getId() ? "id=\"{$getId()}\"" : null !!}
     {{ $attributes->merge($getExtraAttributes())->class([
+            'flex flex-col h-full overflow-hidden',
             'filament-forms-card-component bg-white rounded-xl border relative',
             'dark:border-gray-600 dark:bg-gray-800' => config('forms.dark_mode'),
-        ]) }}
->
+        ]) }}>
 
     @if (null !== ($pointer = $getPointer()))
         <div
@@ -16,15 +16,14 @@
                 },
             ])
             style="clip-path: polygon(0 0, 100% 0, 0 100%)"
-            aria-hidden="true"
-        ></div>
+            aria-hidden="true"></div>
     @endif
 
     @if (null !== ($header = $getHeader()))
         <div class="flex flex-col justify-between gap-4 px-4 py-5 md:flex-row md:items-center sm:px-6">
             <h3 class="text-lg font-bold text-gray-900">{{ $header }}</h3>
 
-            @if (null !== ($actions = $getComponentActions()))
+            @if (filled($actions = $getHeaderActions()))
                 <div class="flex flex-wrap items-center gap-4">
                     @foreach ($actions as $action)
                         {{ $action }}
@@ -34,13 +33,21 @@
         </div>
     @endif
 
-    <div class="px-4 py-5 sm:px-6">
+    <div class="flex-1 px-4 py-5 sm:px-6">
         {{ $getChildComponentContainer() }}
     </div>
 
     @if (null !== ($footer = $getFooter()))
         <div class="px-4 py-5 sm:px-6">
             {{ $footer }}
+        </div>
+    @endif
+
+    @if (filled($actions = $getFooterActions()))
+        <div class="flex flex-wrap items-center gap-4 p-6 bg-gray-50">
+            @foreach ($actions as $action)
+                {{ $action }}
+            @endforeach
         </div>
     @endif
 </div>

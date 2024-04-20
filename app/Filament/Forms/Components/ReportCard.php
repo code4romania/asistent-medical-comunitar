@@ -32,7 +32,7 @@ class ReportCard extends Card
             return $record->title;
         });
 
-        $this->componentActions(function (?Report $record, $livewire) {
+        $this->headerActions(function (?Report $record) {
             if ($this->isHidden()) {
                 return [];
             }

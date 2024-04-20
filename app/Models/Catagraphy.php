@@ -221,4 +221,9 @@ class Catagraphy extends Model
                 ->values()
         )->shouldCache();
     }
+
+    public function hasValidVulnerabilities(): bool
+    {
+        return $this->all_valid_vulnerabilities->isNotEmpty();
+    }
 }

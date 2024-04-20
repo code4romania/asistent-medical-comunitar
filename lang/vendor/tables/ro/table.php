@@ -7,7 +7,7 @@ return [
     'columns' => [
 
         'tags' => [
-            'more' => 'si alte :count',
+            'more' => 'și alte :count',
         ],
 
         'messages' => [

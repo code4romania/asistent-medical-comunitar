@@ -10,17 +10,31 @@ use Illuminate\Support\Arr;
 
 trait HasComponentActions
 {
-    protected array | ActionGroup | Closure $componentActions = [];
+    protected array | ActionGroup | Closure $headerActions = [];
 
-    public function componentActions(array | ActionGroup | Closure $componentActions): static
+    protected array | ActionGroup | Closure $footerActions = [];
+
+    public function headerActions(array | ActionGroup | Closure $headerActions): static
     {
-        $this->componentActions = $componentActions;
+        $this->headerActions = $headerActions;
 
         return $this;
     }
 
-    public function getComponentActions(): array
+    public function getHeaderActions(): array
     {
-        return Arr::wrap($this->evaluate($this->componentActions));
+        return Arr::wrap($this->evaluate($this->headerActions));
+    }
+
+    public function footerActions(array | ActionGroup | Closure $footerActions): static
+    {
+        $this->footerActions = $footerActions;
+
+        return $this;
+    }
+
+    public function getFooterActions(): array
+    {
+        return Arr::wrap($this->evaluate($this->footerActions));
     }
 }

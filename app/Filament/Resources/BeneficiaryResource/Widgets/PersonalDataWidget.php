@@ -36,7 +36,7 @@ class PersonalDataWidget extends Widget implements HasForms
     {
         parent::__construct($id);
 
-        $this->componentActions(fn () => [
+        $this->headerActions(fn () => [
             Action::make('view')
                 ->label(__('beneficiary.action.view_details'))
                 ->url(BeneficiaryResource::getUrl('personal_data', $this->record))
