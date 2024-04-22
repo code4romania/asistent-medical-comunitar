@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Forms\Components\Card;
-use App\Filament\Forms\Components\DiagnosticSelect;
+use App\Filament\Forms\Components\ICD10AMDiagnosticSelect;
+use App\Filament\Forms\Components\OrphaDiagnosticSelect;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\YearPicker;
@@ -188,7 +189,7 @@ class CatagraphyResource extends Resource
                                                     ->in($vulnerabilities->get('DIZ_GR')->keys())
                                                     ->searchable(),
 
-                                                DiagnosticSelect::make('diagnostic')
+                                                ICD10AMDiagnosticSelect::make('diagnostic')
                                                     ->label(__('field.cat_diz_dx')),
 
                                                 Checkbox::make('has_certificate')
@@ -287,7 +288,7 @@ class CatagraphyResource extends Resource
                                                     ->reactive()
                                                     ->searchable(),
 
-                                                DiagnosticSelect::make('diagnostic')
+                                                ICD10AMDiagnosticSelect::make('diagnostic')
                                                     ->label(__('field.cat_diz_dx'))
                                                     ->columnSpanFull(),
 
@@ -297,6 +298,11 @@ class CatagraphyResource extends Resource
                                                     ->options($vulnerabilities->get('SS_SL'))
                                                     ->in($vulnerabilities->get('SS_SL')->keys())
                                                     ->searchable()
+                                                    ->visible(fn (Closure $get) => $get('category') === 'VSG_BR')
+                                                    ->columnSpanFull(),
+
+                                                OrphaDiagnosticSelect::make('orphaDiagnostic')
+                                                    ->label(__('field.cat_ss_orph'))
                                                     ->visible(fn (Closure $get) => $get('category') === 'VSG_BR')
                                                     ->columnSpanFull(),
 

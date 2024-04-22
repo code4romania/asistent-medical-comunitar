@@ -33,6 +33,7 @@ return [
     'cat_diz_cert' => 'Deține certificat pentru dizabilitate',
     'cat_ss_yes' => 'Prezintă boli sau probleme de sănătate',
     'cat_ss_no' => 'Fără boli sau probleme de sănătate',
+    'cat_ss_orph' => 'Diagnostic ORPHA',
     'cities' => 'Localități',
     'city' => 'Localitate',
     'cnp' => 'CNP',

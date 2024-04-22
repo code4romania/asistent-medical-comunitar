@@ -10,10 +10,12 @@ use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityData;
 use App\DataTransferObjects\VulnerabilityEntry;
 use App\DataTransferObjects\VulnerabilityListItem;
+use App\Models\Orpha\OrphaDiagnostic;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Disease extends Model implements HasVulnerabilityData
 {
@@ -39,7 +41,13 @@ class Disease extends Model implements HasVulnerabilityData
 
     protected $with = [
         'diagnostic',
+        'orphaDiagnostic',
     ];
+
+    public function orphaDiagnostic(): BelongsTo
+    {
+        return $this->belongsTo(OrphaDiagnostic::class);
+    }
 
     public function vulnerabilityData(): VulnerabilityData
     {
@@ -60,6 +68,18 @@ class Disease extends Model implements HasVulnerabilityData
             $entries[] = new VulnerabilityEntry(
                 label: $categories->get('SS_SL'),
                 value: $vulnerabilities->get($this->rare_disease)?->name,
+            );
+        }
+
+        if ($this->orpha_diagnostic_id) {
+            $entries[] = new VulnerabilityEntry(
+                label: __('field.cat_ss_orph'),
+                value: collect([
+                    $this->orphaDiagnostic?->code,
+                    $this->orphaDiagnostic?->name,
+                ])
+                    ->filter()
+                    ->join(' - ')
             );
         }
 
