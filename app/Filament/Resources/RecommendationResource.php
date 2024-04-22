@@ -113,6 +113,11 @@ class RecommendationResource extends Resource
                     ->label(__('field.recommendation_vulnerabilities'))
                     ->relationship('vulnerabilities', 'name')
                     ->multiple(),
+
+                SelectFilter::make('services')
+                    ->label(__('field.recommendation_services'))
+                    ->relationship('services', 'name')
+                    ->multiple(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
