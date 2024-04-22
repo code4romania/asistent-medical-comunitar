@@ -31,7 +31,7 @@ class Recommendation extends Model
         return $this->belongsToMany(Vulnerability::class);
     }
 
-    public function scopeForVulnerabilities(Builder $query, Collection | array | null $vulnerabilities): Builder
+    public static function forVulnerabilities(Collection | array | null $vulnerabilities): Collection
     {
         $vulnerabilities = collect($vulnerabilities)
             ->map(fn ($vulnerability) => match (true) {
@@ -39,8 +39,18 @@ class Recommendation extends Model
                 default => $vulnerability,
             });
 
-        return $query->whereHas('vulnerabilities', function (Builder $query) use ($vulnerabilities) {
-            return $query->whereIn('vulnerabilities.id', $vulnerabilities);
-        });
+        return static::query()
+            ->with(['services', 'vulnerabilities.category'])
+            ->whereHas('vulnerabilities', function (Builder $query) use ($vulnerabilities) {
+                $query->whereIn('vulnerabilities.id', $vulnerabilities);
+            })
+            ->get()
+            ->reject(
+                fn (Recommendation $recommendation) => $recommendation
+                    ->vulnerabilities
+                    ->pluck('id')
+                    ->diff($vulnerabilities)
+                    ->isNotEmpty()
+            );
     }
 }

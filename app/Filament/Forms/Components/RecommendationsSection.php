@@ -8,6 +8,7 @@ use App\Models\Catagraphy;
 use App\Models\Recommendation;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class RecommendationsSection extends Card
@@ -18,29 +19,38 @@ class RecommendationsSection extends Card
 
         $this->header(__('catagraphy.header.recommendations'));
 
-        $this->schema(
-            fn (Catagraphy $record) => $record->hasValidVulnerabilities()
-                ? $this->getRecommendations($record)
-                : $this->getEmptyStateSchema($record)
-        );
+        $this->schema(function (Catagraphy $record) {
+            return Cache::driver('array')
+                ->remember(
+                    "recommendations-beneficiary-{$record->beneficiary_id}",
+                    MINUTE_IN_SECONDS,
+                    function () use ($record) {
+                        $recommendations = Recommendation::forVulnerabilities(
+                            $record
+                                ->all_valid_vulnerabilities
+                                ->pluck('value')
+                        );
+
+                        if ($recommendations->isEmpty()) {
+                            return $this->getEmptyStateSchema($record);
+                        }
+
+                        return $this->getRecommendationCards($recommendations);
+                    }
+                );
+        });
 
         $this->footer(''); // Used for padding
     }
 
-    protected function getRecommendations(Catagraphy $catagraphy): array
+    protected function getRecommendationCards(Collection $recommendations): array
     {
-        $schema = Cache::driver('array')
-            ->remember(
-                "recommendations-beneficiary-{$catagraphy->beneficiary_id}",
-                MINUTE_IN_SECONDS,
-                fn () => Recommendation::query()
-                    ->with(['services', 'vulnerabilities.category'])
-                    ->forVulnerabilities($catagraphy->all_valid_vulnerabilities->pluck('value'))
-                    ->limit(5)
-                    ->get()
-                    ->map(fn (Recommendation $recommendation) => RecommendationCard::make()->model($recommendation))
-                    ->all()
-            );
+        $schema = $recommendations
+            ->map(
+                fn (Recommendation $recommendation) => RecommendationCard::make()
+                    ->model($recommendation)
+            )
+            ->all();
 
         return [
             Grid::make()
