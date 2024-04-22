@@ -7,6 +7,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Concerns\InteractsWithCatagraphy;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\RecommendationsSection;
 use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
@@ -59,7 +60,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
             ->schema([
                 Card::make()
                     ->header(__('catagraphy.header.vulnerabilities'))
-                    ->componentActions(function (Catagraphy $record) {
+                    ->headerActions(function (Catagraphy $record) {
                         if (! $record->created_at) {
                             return false;
                         }
@@ -74,17 +75,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                     ->footer($this->getVulnerabilitiesFooter())
                     ->schema($this->getVulnerabilitiesFormSchema()),
 
-                Card::make()
-                    ->header(__('catagraphy.header.recommendations'))
-                    ->hidden()
-                    ->schema([
-                        View::make('tables::components.empty-state.index')
-                            ->viewData([
-                                'icon' => 'icon-clipboard',
-                                'heading' => __('catagraphy.recommendation.empty.title'),
-                                'description' => __('catagraphy.recommendation.empty.description'),
-                            ]),
-                    ]),
+                RecommendationsSection::make(),
             ]);
     }
 

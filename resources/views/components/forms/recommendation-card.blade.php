@@ -43,11 +43,29 @@
         </div>
     @endif
 
-    @if (filled($actions = $getFooterActions()))
-        <div class="flex flex-wrap items-center gap-4 p-6 bg-gray-50">
-            @foreach ($actions as $action)
-                {{ $action }}
-            @endforeach
-        </div>
-    @endif
+    <div class="flex flex-wrap items-center gap-4 p-6 bg-gray-50">
+        <x-filament::modal
+            display-classes="block"
+            x-init="livewire = $wire.__instance"
+            width="4xl">
+
+            <x-slot name="trigger">
+                <x-filament::link
+                    x-on:click="open"
+                    tag="button"
+                    size="sm">
+                    {{ __('recommendation.action.view_services') }}
+                </x-filament::link>
+            </x-slot>
+
+            <x-slot name="header">
+                <x-forms::modal.heading>
+                    {{ data_get($getRecord(), 'title') }}
+                </x-forms::modal.heading>
+            </x-slot>
+
+            {{ $getModalChildComponentContainer() }}
+        </x-filament::modal>
+    </div>
+
 </div>

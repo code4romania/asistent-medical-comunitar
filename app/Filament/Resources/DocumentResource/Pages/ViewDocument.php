@@ -35,7 +35,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                 Card::make()
                     ->header(__('document.summary'))
                     ->columns()
-                    ->componentActions(fn (Document $record) => [
+                    ->headerActions(fn (Document $record) => [
                         Actions\Action::make('edit')
                             ->label(__('document.action.edit'))
                             ->url(BeneficiaryResource::getUrl('documents.edit', [
@@ -71,7 +71,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                 Card::make()
                     ->visible(fn (Document $record) => $record->hasMedia('default'))
                     ->header(__('document.preview'))
-                    ->componentActions(function (Document $record) {
+                    ->headerActions(function (Document $record) {
                         $media = $record->getFirstMedia('default');
 
                         return [

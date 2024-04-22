@@ -48,7 +48,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
 
                 Card::make()
                     ->header(__('beneficiary.header.id'))
-                    ->componentActions(fn ($record) => [
+                    ->headerActions(fn ($record) => [
                         Actions\Action::make('view')
                             ->label(__('filament-support::actions/edit.single.label'))
                             ->icon('heroicon-s-pencil')

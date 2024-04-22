@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Beneficiary;
+use App\Models\Recommendation;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Mail;
@@ -19,6 +20,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Mail::fake();
+
+        Recommendation::factory()
+            ->count(30)
+            ->create();
 
         // Create an admin
         $admin = User::factory(['email' => 'admin@example.com'])
