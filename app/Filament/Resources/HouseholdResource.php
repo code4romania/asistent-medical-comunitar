@@ -143,7 +143,7 @@ class HouseholdResource extends Resource
                     ->iconButton(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //
             ]);
     }
 

@@ -116,6 +116,8 @@ class HistoryResource extends Resource
                             ->all()
                     ),
             ])
-            ->bulkActions([]);
+            ->bulkActions([
+                //
+            ]);
     }
 }

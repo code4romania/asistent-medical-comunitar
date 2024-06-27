@@ -117,6 +117,7 @@ class ListNurses extends ListUsers
             ])
             ->bulkActions([
                 //
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }

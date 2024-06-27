@@ -172,7 +172,8 @@ class InterventionsRelationManager extends RelationManager
                         $record->interventionable->update(Arr::pull($data, 'interventionable'));
                     })
                     ->visible(fn ($livewire) => auth()->user()->can('update', $livewire->getOwnerRecord())),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function canViewForRecord(Model $ownerRecord): bool
