@@ -1,7 +1,7 @@
 <div
     {!! $getId() ? "id=\"{$getId()}\"" : null !!}
     {{ $attributes->merge($getExtraAttributes())->class([
-            'flex flex-col h-full overflow-hidden',
+            'flex flex-col h-full',
             'filament-forms-card-component bg-white rounded-xl border relative',
             'dark:border-gray-600 dark:bg-gray-800' => config('forms.dark_mode'),
         ]) }}>
