@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -17,7 +18,7 @@ class MediaController extends Controller
     public function __invoke(Request $request, Media $media): StreamedResponse
     {
         if (\is_null($media->model)) {
-            abort(404);
+            abort(Response::HTTP_NOT_FOUND);
         }
 
         $authorized = match ($media->model_type) {
@@ -27,9 +28,9 @@ class MediaController extends Controller
             default => false,
         };
 
-        abort_unless($authorized, 404);
+        abort_unless($authorized, Response::HTTP_FORBIDDEN);
 
-        abort_unless(Storage::disk($media->disk)->exists($media->getPathRelativeToRoot()), 404);
+        abort_unless(Storage::disk($media->disk)->exists($media->getPathRelativeToRoot()), Response::HTTP_NOT_FOUND);
 
         return $media->streamDownload($request);
     }
@@ -41,11 +42,11 @@ class MediaController extends Controller
         }
 
         if (auth()->user()->isCoordinator()) {
-            return auth()->user()->county_id === $model->county_id;
+            return auth()->user()->county_id === $model->nurse->activity_county_id;
         }
 
         if (auth()->user()->isNurse()) {
-            return auth()->user()->activity_county_id === $model->county_id;
+            return auth()->user()->id === $model->nurse_id;
         }
 
         return false;
