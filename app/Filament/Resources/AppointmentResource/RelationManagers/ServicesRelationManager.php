@@ -130,6 +130,7 @@ class ServicesRelationManager extends RelationManager
             ])
             ->bulkActions([
                 //
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }

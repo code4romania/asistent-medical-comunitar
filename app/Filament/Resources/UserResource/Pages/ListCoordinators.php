@@ -79,6 +79,7 @@ class ListCoordinators extends ListUsers
             ])
             ->bulkActions([
                 //
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }

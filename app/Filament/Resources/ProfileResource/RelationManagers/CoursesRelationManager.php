@@ -126,6 +126,7 @@ class CoursesRelationManager extends RelationManager
                 DeleteAction::make()
                     ->label(__('course.action.delete'))
                     ->iconButton(),
-            ]);
+            ])
+            ->defaultSort('end_date', 'desc');
     }
 }

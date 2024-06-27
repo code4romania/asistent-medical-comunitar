@@ -75,6 +75,7 @@ class ListAdmins extends ListUsers
             ])
             ->bulkActions([
                 //
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 }
