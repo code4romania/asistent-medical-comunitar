@@ -8,8 +8,10 @@ use App\Concerns\BelongsToNurse;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
+use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Type;
+use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,6 +51,7 @@ class Beneficiary extends Model
         'date_of_birth',
 
         'ethnicity',
+        'work_status',
 
         'address',
         'phone',
@@ -66,6 +69,8 @@ class Beneficiary extends Model
         'type' => Type::class,
         'id_type' => IDType::class,
         'gender' => Gender::class,
+        'ethnicity' => Ethnicity::class,
+        'work_status' => WorkStatus::class,
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
         'does_not_have_cnp' => 'boolean',

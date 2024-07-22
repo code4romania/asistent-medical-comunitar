@@ -33,6 +33,24 @@ return [
         'ocasional' => 'Beneficiar ocazional',
     ],
 
+    'ethnicity' => [
+        'romanian' => 'Română',
+        'hungarian' => 'Maghiară',
+        'ukrainian' => 'Ucraineană',
+        'german' => 'Germană',
+        'lipovan' => 'Ruso-lipoveană',
+        'turkish' => 'Turcă',
+        'tatar' => 'Tătară',
+        'serbian' => 'Sârbă',
+        'other' => 'Altă etnie',
+    ],
+
+    'work_status' => [
+        'yes' => 'Da',
+        'no' => 'Nu',
+        'other' => 'Altă situație',
+    ],
+
     'id_type' => [
         'birth_certificate' => 'Certificat de naștere',
         'id_card' => 'Carte de identitate',
