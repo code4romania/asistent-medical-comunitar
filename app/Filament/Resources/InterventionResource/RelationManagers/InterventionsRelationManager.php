@@ -143,12 +143,12 @@ class InterventionsRelationManager extends RelationManager
                     ->label(__('intervention.action.add_service'))
                     ->modalHeading(__('intervention.action.add_service'))
                     ->using(function (array $data, $livewire) {
-                        $interventionable = InterventionableIndividualService::create($data['interventionable']);
+                        $interventionable = InterventionableIndividualService::create(Arr::pull($data, 'interventionable'));
 
-                        return $interventionable->intervention()->create([
-                            'parent_id' => $livewire->getOwnerRecord()->id,
-                            'beneficiary_id' => $livewire->getOwnerRecord()->beneficiary_id,
-                        ]);
+                        $data['parent_id'] = $livewire->getOwnerRecord()->id;
+                        $data['beneficiary_id'] = $livewire->getOwnerRecord()->beneficiary_id;
+
+                        return $interventionable->intervention()->create($data);
                     })
                     ->visible(fn ($livewire) => auth()->user()->can('update', $livewire->getOwnerRecord())),
             ])
@@ -170,6 +170,8 @@ class InterventionsRelationManager extends RelationManager
                     })
                     ->using(function (array $data, Intervention $record) {
                         $record->interventionable->update(Arr::pull($data, 'interventionable'));
+
+                        $record->update($data);
                     })
                     ->visible(fn ($livewire) => auth()->user()->can('update', $livewire->getOwnerRecord())),
             ])
