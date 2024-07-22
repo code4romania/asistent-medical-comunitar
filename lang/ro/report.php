@@ -20,6 +20,7 @@ return [
     ],
 
     'section' => [
+        'standard' => 'Rapoarte standard',
         'generator' => 'Generator rapoarte',
         'list' => 'Rapoarte salvate',
     ],
@@ -47,6 +48,13 @@ return [
         'vuln_list' => 'Vulnerabilități (Liste)',
         'health_total' => 'Stare de sănătate (Totaluri)',
         'health_list' => 'Stare de sănătate (Liste)',
+    ],
+
+    'standard_type' => [
+        'GENERAL' => 'Asistent medical comunitar (Fişa generală)',
+        'PREGNANT' => 'Gravidă (fişă raportare)',
+        'CHILD' => 'Copil (fişă raportare)',
+        'RARE_DISEASE' => 'Asistent medical comunitar (fişă raportare boli rare)',
     ],
 
     'action' => [

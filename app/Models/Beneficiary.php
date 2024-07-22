@@ -13,7 +13,7 @@ use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -177,5 +177,14 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder
+    {
+        return $query->whereHas('activities', function (Builder $query) use ($callback) {
+            $query
+                ->where('log_name', 'vulnerabilities')
+                ->tap($callback);
+        });
     }
 }

@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Report\Indicator;
 use App\Enums\Report\Segment;
+use App\Enums\Report\StandardType;
 use App\Enums\Report\Type;
 use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
@@ -98,10 +99,10 @@ class ReportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ComingSoon::route('/'),
-            // 'index' => Pages\GenerateReport::route('/generate'),
-            // 'saved' => Pages\ListReports::route('/'),
-            // 'view' => Pages\ViewReport::route('/{record}'),
+            'index' => Pages\GenerateStandardReport::route('/standard'),
+            'generate' => Pages\GenerateReport::route('/generate'),
+            'saved' => Pages\ListReports::route('/'),
+            'view' => Pages\ViewReport::route('/{record}'),
         ];
     }
 
@@ -158,6 +159,27 @@ class ReportResource extends Resource
                     ->options(Segment\Gender::options())
                     ->rule(new MultipleIn(Segment\Gender::values()))
                     ->multiple(),
+            ]);
+    }
+
+    public static function predefinedGenerator(Form $form): Form
+    {
+        return $form
+            ->columns(3)
+            ->schema([
+                Select::make('type')
+                    ->label(__('report.column.type'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->options(StandardType::options())
+                    ->enum(StandardType::class)
+                    ->required()
+                    ->reactive(),
+
+                Select::make('indicator')
+                    ->label(__('report.column.indicators'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->required()
+                    ->reactive(),
             ]);
     }
 
