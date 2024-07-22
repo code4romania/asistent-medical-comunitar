@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
+use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
@@ -47,6 +49,8 @@ class BeneficiaryFactory extends Factory
             'date_of_birth' => fake()->date(),
             'does_not_have_cnp' => ! $cnpMissingReason,
             'does_not_provide_cnp' => $cnpMissingReason,
+            'ethnicity' => fake()->boolean(25) ? fake()->randomElement(Ethnicity::values()) : null,
+            'work_status' => fake()->boolean(25) ? fake()->randomElement(WorkStatus::values()) : null,
         ];
     }
 

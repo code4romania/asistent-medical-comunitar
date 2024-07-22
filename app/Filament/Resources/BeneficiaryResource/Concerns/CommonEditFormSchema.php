@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
+use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
+use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
 use App\Models\Service\Service;
 use App\Rules\MultipleIn;
 use App\Rules\ValidCNP;
@@ -132,11 +133,17 @@ trait CommonEditFormSchema
                         ->maxDate(today()->endOfDay())
                         ->nullable(),
 
-                    Value::make('ethnicity')
-                        ->label(__('field.ethnicity')),
+                    Select::make('ethnicity')
+                        ->label(__('field.ethnicity'))
+                        ->placeholder(__('placeholder.choose'))
+                        ->options(Ethnicity::options())
+                        ->enum(Ethnicity::class),
 
-                    Value::make('work_status')
-                        ->label(__('field.work_status')),
+                    Select::make('work_status')
+                        ->label(__('field.work_status'))
+                        ->placeholder(__('placeholder.choose'))
+                        ->options(WorkStatus::options())
+                        ->enum(WorkStatus::class),
                 ]),
 
             Household::make(),
