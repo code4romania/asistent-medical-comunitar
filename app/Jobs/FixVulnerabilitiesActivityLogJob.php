@@ -125,9 +125,5 @@ class FixVulnerabilitiesActivityLogJob implements ShouldQueue, ShouldBeUnique
         Activity::query()
             ->whereIn('id', $this->deletes)
             ->delete();
-
-        logger()->info('Upserting activities', [
-            'user_id' => $this->userId,
-        ]);
     }
 }
