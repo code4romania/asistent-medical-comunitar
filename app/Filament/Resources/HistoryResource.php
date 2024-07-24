@@ -48,12 +48,10 @@ class HistoryResource extends Resource
                     ->toggleable()
                     ->sortable(),
 
-                TextColumn::make('properties')
+                TextColumn::make('changes_count')
+                    ->label(__('activity.column.changes_count'))
                     ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable()
-                    ->label(__('activity.column.change'))
-                    ->limit(75)
-                    ->wrap(),
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('log_name')
