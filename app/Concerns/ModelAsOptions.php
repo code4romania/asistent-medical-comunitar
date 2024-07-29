@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Concerns;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ trait ModelAsOptions
                 $key,
                 MINUTE_IN_SECONDS,
                 fn () => static::query()
+                    ->when(method_exists(static::class, 'modelAsOptionsQuery'), fn (Builder $query) => static::modelAsOptionsQuery($query))
                     ->with('category')
                     ->get()
                     ->keyBy('id')
