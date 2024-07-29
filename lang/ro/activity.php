@@ -10,7 +10,7 @@ return [
         'created_at' => 'Data',
         'causer' => 'AMC',
         'section' => 'Secțiune',
-        'change' => 'Modificare',
+        'changes_count' => 'Număr modificări',
         'event' => 'Eveniment',
     ],
 
