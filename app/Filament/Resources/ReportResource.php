@@ -6,7 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Report\Indicator;
 use App\Enums\Report\Segment;
-use App\Enums\Report\StandardType;
+use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
 use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
@@ -167,19 +167,48 @@ class ReportResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Select::make('type')
-                    ->label(__('report.column.type'))
+                Select::make('category')
+                    ->label(__('report.column.category'))
                     ->placeholder(__('placeholder.select_one'))
-                    ->options(StandardType::options())
-                    ->enum(StandardType::class)
+                    ->options(Category::options())
+                    ->enum(Category::class)
                     ->required()
                     ->reactive(),
 
                 Select::make('indicator')
                     ->label(__('report.column.indicators'))
                     ->placeholder(__('placeholder.select_one'))
-                    ->required()
-                    ->reactive(),
+                    ->options(
+                        fn (callable $get) => Category::tryFrom((string) $get('category'))
+                            ?->indicators()::options()
+                    )
+                    ->required(),
+
+                Select::make('type')
+                    ->label(__('report.column.type'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->options(Type::options())
+                    ->enum(Type::class)
+                    ->required(),
+
+                DatePicker::make('date_from')
+                    ->label(__('app.filter.date_from'))
+                    ->placeholder(
+                        fn (): string => today()
+                            ->subYear()
+                            ->toFormattedDate()
+                    )
+                    ->maxDate(today())
+                    ->required(),
+
+                DatePicker::make('date_until')
+                    ->label(__('app.filter.date_until'))
+                    ->placeholder(
+                        fn (): string => today()
+                            ->toFormattedDate()
+                    )
+                    ->afterOrEqual('date_from')
+                    ->maxDate(today()),
             ]);
     }
 

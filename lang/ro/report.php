@@ -43,18 +43,50 @@ return [
     ],
 
     'type' => [
-        'nurse_activity' => 'Activitate AMC',
-        'vuln_total' => 'Vulnerabilități (Totaluri)',
-        'vuln_list' => 'Vulnerabilități (Liste)',
-        'health_total' => 'Stare de sănătate (Totaluri)',
-        'health_list' => 'Stare de sănătate (Liste)',
+        'list' => 'Liste',
+        'statistic' => 'Statistici',
     ],
 
-    'standard_type' => [
-        'GENERAL' => 'Asistent medical comunitar (Fişa generală)',
-        'PREGNANT' => 'Gravidă (fişă raportare)',
-        'CHILD' => 'Copil (fişă raportare)',
-        'RARE_DISEASE' => 'Asistent medical comunitar (fişă raportare boli rare)',
+    'standard' => [
+        'category' => [
+            'general' => 'Asistent medical comunitar (fișă generală)',
+            'pregnant' => 'Gravidă (fișă raportare)',
+            'child' => 'Copil (fișă raportare)',
+            'rare_disease' => 'Asistent medical comunitar (fișă raportare boli rare)',
+        ],
+
+        'indicator' => [
+            'general' => [
+                'G01' => 'Femeie de vârstă fertilă (15-45 de ani)',
+                'G02' => 'Femeie care utilizează metode contraceptive',
+                'G03' => 'Vârstnic (peste 65 de ani)',
+                'G04' => 'Persoană neînscrisă la medicul de familie',
+                'G05' => 'Caz de violenţă în familie',
+                'G06' => 'Persoană vârstnică fără familie',
+                'G07' => 'Persoană vârstnică cu nevoi medicosociale',
+                'G08' => 'Adult cu TBC',
+                'G09' => 'Adult cu HIV/SIDA',
+                'G10' => 'Adult cu dizabilităţi',
+                'G11' => 'Administrare de medicamente pentru persoane vulnerabile',
+                'G12' => 'Adult cu risc medicosocial',
+                'G13' => 'Adult fără familie',
+                'G14' => 'Adult cu boli cronice',
+                'G15' => 'Vârstnic cu boli cronice',
+                'G16' => 'Vârstnic cu TBC',
+                'G17' => 'Vârstnic cu dizabilităţi',
+                'G18' => 'Vârstnic cu tulburări mintale şi de comportament',
+                'G19' => 'Vârstnic consumator de substanţe psihotrope',
+                'G20' => 'Adult cu tulburări mintale şi de comportament',
+                'G21' => 'Adult consumator de substanţe psihotrope',
+                'G22' => 'Mamă minoră',
+                'G23' => 'Lăuză',
+                'G24' => 'Adult (fără probleme medicosociale)',
+                'G25' => 'Anunţare pentru screening populaţional',
+                'G26' => 'Caz tratament paliativ (fază terminală)',
+                'G27' => 'Planificare familială',
+                'G28' => 'Consiliere preconcepţională',
+            ],
+        ],
     ],
 
     'action' => [

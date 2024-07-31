@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Query\JoinClause;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
@@ -181,10 +183,33 @@ class Beneficiary extends Model
 
     public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder
     {
-        return $query->whereHas('activities', function (Builder $query) use ($callback) {
-            $query
-                ->where('log_name', 'vulnerabilities')
-                ->tap($callback);
-        });
+        return $query
+            ->where('log_name', 'vulnerabilities')
+            ->tap($callback)
+            ->fromSub(function (QueryBuilder $query) {
+                $query
+                    ->select([
+                        'activity_log.subject_id',
+                        'activity_log.subject_type',
+                        'activity_log.log_name',
+                        'activity_log.properties',
+                        'activity_log.created_at',
+                        'beneficiaries.id',
+                        'beneficiaries.first_name',
+                        'beneficiaries.last_name',
+                        'beneficiaries.cnp',
+                        'beneficiaries.gender',
+                        'beneficiaries.date_of_birth',
+                        'beneficiaries.county_id',
+                        'beneficiaries.city_id',
+                        'beneficiaries.status',
+                        'beneficiaries.nurse_id',
+                    ])
+                    ->from('activity_log')
+                    ->leftJoin('beneficiaries', function (JoinClause $join) {
+                        $join->on('activity_log.subject_id', '=', 'beneficiaries.id')
+                            ->where('activity_log.subject_type', 'beneficiary');
+                    });
+            }, 'activity_log');
     }
 }
