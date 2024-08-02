@@ -7,7 +7,7 @@
             :heading="__('report.no-results.title')"
             :description="__('report.no-results.description')" />
     @elseif ($record->isList)
-        <x-reports.table.list :columns="$record->columns" :data="$record->data" :actions="$record->actions" />
+        <x-reports.table.list :columns="$record->columns" :data="$record->data" />
     @else
         <x-reports.table.statistic :columns="$record->columns" :data="$record->data" />
     @endif

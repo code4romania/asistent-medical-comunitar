@@ -14,6 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
+            $table->string('category')->nullable();
             $table->string('title');
             $table->renameColumn('segments', 'columns');
             $table->dropColumn('indicators');

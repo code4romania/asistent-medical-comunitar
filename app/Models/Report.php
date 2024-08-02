@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
+use Filament\Support\Exceptions\Halt;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -20,6 +22,7 @@ class Report extends Model
 
     protected $fillable = [
         'type',
+        'category',
         'title',
         'date_from',
         'date_until',
@@ -79,5 +82,21 @@ class Report extends Model
         return Attribute::make(
             fn () => $this->type->is(Type::STATISTIC),
         );
+    }
+
+    public static function generate(array $data): ?self
+    {
+        try {
+            $category = Category::from(data_get($data, 'category'));
+
+            $indicator = $category->indicators()::from(data_get($data, 'indicator'));
+
+            $data['category'] = $category->label();
+            $data['title'] = $indicator->label();
+
+            return $indicator->class()::make($data);
+        } catch (Halt $exception) {
+            return null;
+        }
     }
 }

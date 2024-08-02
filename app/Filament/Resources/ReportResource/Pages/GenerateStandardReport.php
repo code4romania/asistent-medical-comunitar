@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ReportResource\Pages;
 
 use App\Contracts\Pages\WithTabs;
-use App\Enums\Report\Standard\Category;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Filament\Resources\ReportResource\Concerns;
@@ -62,30 +61,13 @@ class GenerateStandardReport extends Page implements HasFormActions, WithTabs
         try {
             $data = $this->form->getState();
 
-            $this->record = $this->getReport($data);
+            $this->record = Report::generate($data);
 
             $this->form->model($this->record);
 
             $this->report->model($this->record);
         } catch (Halt $exception) {
             return;
-        }
-    }
-
-    protected function getReport(array $data): ?Report
-    {
-        try {
-            $category = Category::from(data_get($data, 'category'));
-
-            $indicator = $category->indicators()::from(data_get($data, 'indicator'));
-
-            $report = $indicator->class();
-
-            $data['title'] = $indicator->label();
-
-            return $report::make($data);
-        } catch (Halt $exception) {
-            return null;
         }
     }
 

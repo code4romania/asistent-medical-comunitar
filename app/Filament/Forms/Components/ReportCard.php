@@ -6,6 +6,7 @@ namespace App\Filament\Forms\Components;
 
 use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Models\Report;
+use Filament\Forms\Components\Grid;
 use Filament\Pages\Actions\Action;
 
 class ReportCard extends Card
@@ -29,7 +30,12 @@ class ReportCard extends Card
                 return null;
             }
 
-            return $record->title;
+            return collect([
+                $record->category,
+                $record->title,
+            ])
+                ->filter()
+                ->implode(' / ');
         });
 
         $this->headerActions(function (?Report $record) {
@@ -54,6 +60,25 @@ class ReportCard extends Card
         });
 
         $this->schema([
+            Grid::make(4)
+                ->schema([
+
+                    Value::make('category')
+                        ->label(__('report.column.category')),
+
+                    Value::make('title')
+                        ->label(__('report.column.title')),
+
+                    Value::make('type')
+                        ->label(__('report.column.type')),
+
+                    Value::make('created_at')
+                        ->label(__('report.column.created_at'))
+                        ->withTime(),
+
+                ])
+                ->visibleOn('view'),
+
             ReportTable::make(),
         ]);
     }

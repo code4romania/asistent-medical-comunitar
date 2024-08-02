@@ -8,6 +8,7 @@ use App\Enums\Report\Indicator;
 use App\Enums\Report\Segment;
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
+use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
@@ -21,7 +22,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Support\Str;
+use Filament\Tables\Filters\SelectFilter;
 
 class ReportResource extends Resource
 {
@@ -49,10 +50,11 @@ class ReportResource extends Resource
                     ->toggleable()
                     ->sortable(),
 
-                TextColumn::make('type')
-                    ->label(__('report.column.type'))
-                    ->enum(Type::options())
-                    ->toggleable(),
+                TextColumn::make('category')
+                    ->label(__('report.column.category'))
+                    ->wrap()
+                    ->toggleable()
+                    ->searchable(),
 
                 TextColumn::make('title')
                     ->label(__('report.column.title'))
@@ -60,26 +62,17 @@ class ReportResource extends Resource
                     ->toggleable()
                     ->searchable(),
 
-                TextColumn::make('indicators')
-                    ->label(__('report.column.indicators'))
-                    ->formatStateUsing(fn (Report $record) => Str::limit($record->indicators_list, 100, '...'))
-                    ->wrap()
-                    ->toggleable(),
-
-                TextColumn::make('segments.age')
-                    ->label(__('report.column.age'))
-                    ->formatStateUsing(fn ($state) => static::segmentsList('age', $state))
-                    ->wrap()
-                    ->toggleable(),
-
-                TextColumn::make('segments.gender')
-                    ->label(__('report.column.gender'))
-                    ->formatStateUsing(fn ($state) => static::segmentsList('gender', $state))
-                    ->wrap()
+                TextColumn::make('type')
+                    ->label(__('report.column.type'))
+                    ->enum(Type::options())
                     ->toggleable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->label(__('report.column.type'))
+                    ->options(Type::options()),
+
+                DateRangeFilter::make('date_between'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -92,7 +85,7 @@ class ReportResource extends Resource
     {
         return collect(explode(', ', $segments))
             ->filter()
-            ->map(fn (string $segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)))
+            ->map(fn (string $segment) => __(\sprintf('report.segment.value.%s.%s', $group, $segment)))
             ->join(', ');
     }
 

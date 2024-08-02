@@ -49,8 +49,8 @@ return [
     ],
 
     'type' => [
-        'list' => 'Liste',
-        'statistic' => 'Statistici',
+        'list' => 'Listă',
+        'statistic' => 'Statistic',
     ],
 
     'standard' => [

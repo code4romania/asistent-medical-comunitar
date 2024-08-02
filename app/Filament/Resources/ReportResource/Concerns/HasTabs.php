@@ -22,11 +22,11 @@ trait HasTabs
                 ->url(static::getResource()::getUrl('index'))
                 ->isActiveWhen(fn (): bool => static::class === Pages\GenerateStandardReport::class),
 
-            NavigationItem::make()
-                ->label(__('report.section.generator'))
-                ->icon('icon-none')
-                ->url(static::getResource()::getUrl('generate'))
-                ->isActiveWhen(fn (): bool => static::class === Pages\GenerateReport::class),
+            // NavigationItem::make()
+            //     ->label(__('report.section.generator'))
+            //     ->icon('icon-none')
+            //     ->url(static::getResource()::getUrl('generate'))
+            //     ->isActiveWhen(fn (): bool => static::class === Pages\GenerateReport::class),
 
             NavigationItem::make()
                 ->label(__('report.section.list'))
