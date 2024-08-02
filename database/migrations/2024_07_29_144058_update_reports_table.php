@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('title');
             $table->renameColumn('segments', 'columns');
             $table->dropColumn('indicators');
-
         });
     }
 };

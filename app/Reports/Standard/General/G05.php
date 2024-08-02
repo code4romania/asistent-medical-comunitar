@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class G05 extends GeneralReport
 {
+    /**
+     * Sum beneficiari with Violență în familie (VFV_03).
+     */
     public function query(): Builder
     {
         return Beneficiary::query()

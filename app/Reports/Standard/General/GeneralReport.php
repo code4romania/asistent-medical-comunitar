@@ -29,10 +29,10 @@ abstract class GeneralReport extends StandardReport
         ];
     }
 
-    public function getRecordActions(): array
+    public function getRecordActions(array $params = []): array
     {
         return [
-            BeneficiaryResource::getUrl('view', ['record' => 'RECORD']) => __('beneficiary.action.view_details'),
+            BeneficiaryResource::getUrl('view', $params, isAbsolute: false) => __('beneficiary.action.view_details'),
         ];
     }
 }

@@ -24,7 +24,11 @@ abstract class StandardReport
     {
         $this->report = Report::make($data);
 
-        $this->report->columns = collect($this->columns());
+        $this->report->columns = collect(
+            $this->report->isList
+                ? $this->columns()
+                : null
+        );
     }
 
     public static function make(array $data): Report
@@ -78,6 +82,14 @@ abstract class StandardReport
                             })
                     )
                     ->pluck(1, 0)
+                    ->put('actions', $this->getRecordActions([
+                        'record' => $record,
+                    ]))
             );
+    }
+
+    public function getRecordActions(array $params = []): array
+    {
+        return [];
     }
 }

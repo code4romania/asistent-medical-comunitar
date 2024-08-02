@@ -7,16 +7,18 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G02 extends GeneralReport
+class G24 extends GeneralReport
 {
     /**
-     * Sum beneficiari with Femeie care utilizează metode contraceptive (VGR_14).
+     * Sum beneficiari fără vulenrabilități; Adult 18-65 ani (VCV_05).
      */
     public function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VGR_14');
+                $query->whereJsonContains('properties', 'VCV_05')
+                    // TODO: don't count properties ending in 97, 98, 99
+                    ->whereJsonLength('properties', 1);
             });
     }
 }

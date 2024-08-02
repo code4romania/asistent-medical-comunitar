@@ -7,16 +7,16 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G02 extends GeneralReport
+class G21 extends GeneralReport
 {
     /**
-     * Sum beneficiari with Femeie care utilizează metode contraceptive (VGR_14).
+     * Sum beneficiari with Consumator de substanţe psihotrope (VCR_07); Adult 18-65 ani (VCV_05) .
      */
     public function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VGR_14');
+                $query->whereJsonContains('properties', ['VCR_07', 'VCV_05']);
             });
     }
 }

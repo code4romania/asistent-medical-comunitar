@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class G01 extends GeneralReport
 {
+    /**
+     * Sum beneficiari with Femeie de vârstă fertilă (VGR_10).
+     */
     public function query(): Builder
     {
         return Beneficiary::query()

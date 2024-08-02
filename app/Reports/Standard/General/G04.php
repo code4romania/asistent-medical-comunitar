@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class G04 extends GeneralReport
 {
+    /**
+     * Sum beneficiari with Neînscris la medic de familie (VSA_02).
+     */
     public function query(): Builder
     {
         return Beneficiary::query()

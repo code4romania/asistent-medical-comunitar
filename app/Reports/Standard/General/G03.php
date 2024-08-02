@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class G03 extends GeneralReport
 {
+    /**
+     * Sum beneficiari with Vârstnic peste 65 ani (VCV_06).
+     */
     public function query(): Builder
     {
         return Beneficiary::query()

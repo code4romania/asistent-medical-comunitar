@@ -182,6 +182,13 @@ class ReportResource extends Resource
                         fn (callable $get) => Category::tryFrom((string) $get('category'))
                             ?->indicators()::options()
                     )
+                    ->disableOptionWhen(function (callable $get, string $value) {
+                        $report = Category::tryFrom((string) $get('category'))
+                            ?->indicators()::tryFrom($value)
+                            ?->class();
+
+                        return \is_null($report) || ! class_exists($report);
+                    })
                     ->required(),
 
                 Select::make('type')
