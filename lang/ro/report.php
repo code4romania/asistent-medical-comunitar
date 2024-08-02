@@ -31,6 +31,11 @@ return [
         'create' => 'Generează primul raport',
     ],
 
+    'no-results' => [
+        'title' => 'Fără date',
+        'description' => 'Nu am găsit date pentru raportul și intervalul selectate.',
+    ],
+
     'column' => [
         'created_at' => 'Data generării raport',
         'type' => 'Tip raport',
@@ -40,6 +45,7 @@ return [
         'age' => 'Grupe de vârstă',
         'gender' => 'Genuri',
         'location' => 'Locații',
+        'category' => 'Categorie',
     ],
 
     'type' => [

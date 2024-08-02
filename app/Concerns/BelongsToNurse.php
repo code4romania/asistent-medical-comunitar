@@ -39,7 +39,7 @@ trait BelongsToNurse
 
     public function scopeForNurse(Builder $query, User $user): Builder
     {
-        return $query->whereBelongsTo($user, 'nurse');
+        return $query->where('nurse_id', $user->id);
     }
 
     public function scopeForNurseInCounty(Builder $query, int $county_id): Builder
