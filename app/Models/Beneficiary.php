@@ -200,16 +200,18 @@ class Beneficiary extends Model
                         'beneficiaries.cnp',
                         'beneficiaries.gender',
                         'beneficiaries.date_of_birth',
-                        'beneficiaries.county_id',
-                        'beneficiaries.city_id',
                         'beneficiaries.status',
                         'beneficiaries.nurse_id',
+                        'counties.name as county',
+                        'cities.name as city',
                     ])
                     ->from('activity_log')
                     ->leftJoin('beneficiaries', function (JoinClause $join) {
                         $join->on('activity_log.subject_id', '=', 'beneficiaries.id')
                             ->where('activity_log.subject_type', 'beneficiary');
-                    });
+                    })
+                    ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
+                    ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
             }, 'activity_log');
     }
 }

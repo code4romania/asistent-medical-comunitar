@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G09 extends GeneralReport
+class G09 extends Report
 {
     /**
      * Sum beneficiari with HIV (VSG_HIV); Adult 18-65 ani (VCV_05).

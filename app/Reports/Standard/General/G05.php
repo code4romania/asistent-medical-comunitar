@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G05 extends GeneralReport
+class G05 extends Report
 {
     /**
      * Sum beneficiari with Violență în familie (VFV_03).

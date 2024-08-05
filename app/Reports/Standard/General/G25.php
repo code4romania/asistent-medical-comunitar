@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\CommunityActivity;
 use Illuminate\Database\Eloquent\Builder;
 
-class G25 extends GeneralReport
+class G25 extends Report
 {
     /**
      * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.

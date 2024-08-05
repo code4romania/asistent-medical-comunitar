@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G23 extends GeneralReport
+class G23 extends Report
 {
     /**
      * Sum beneficiari with Lăuză adultă (VGR_08) + Minoră lăuză (VGR_02).

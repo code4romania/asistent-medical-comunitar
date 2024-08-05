@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G26 extends GeneralReport
+class G26 extends Report
 {
     /**
      * Sum beneficiari with Nevoie tratament paliativ (VNS_04).

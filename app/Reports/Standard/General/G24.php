@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G24 extends GeneralReport
+class G24 extends Report
 {
     /**
      * Sum beneficiari fără vulenrabilități; Adult 18-65 ani (VCV_05).

@@ -26,7 +26,12 @@ abstract class StandardReport
 
         $this->report->columns = collect(
             $this->report->isList
-                ? $this->columns()
+                ? collect($this->columns())
+                    ->map(fn (string $label, string $key) => [
+                        'name' => $key,
+                        'label' => $label,
+                    ])
+                    ->values()
                 : null
         );
     }
@@ -41,7 +46,7 @@ abstract class StandardReport
     final public function handle(): Report
     {
         $query = $this->query()
-            ->select($this->report->columns->keys()->all())
+            ->select($this->report->columns->pluck('name')->all())
             ->when(
                 $this->report->date_until,
                 fn (Builder $query) => $query
@@ -73,15 +78,13 @@ abstract class StandardReport
             ->get()
             ->map(
                 fn (Model $record) => $this->report->columns
-                    ->zip(
-                        $this->report->columns
-                            ->map(fn (string $label, string $key) => match ($key) {
-                                'date_of_birth' => $record->age,
-                                'gender', 'status' => $record->{$key}?->label(),
-                                default => $record->{$key},
-                            })
-                    )
-                    ->pluck(1, 0)
+                    ->mapWithKeys(fn (array $column) => [
+                        $column['name'] => match ($column['name']) {
+                            'date_of_birth' => $record->age,
+                            'gender', 'status' => $record->{$column['name']}?->label(),
+                            default => $record->{$column['name']},
+                        },
+                    ])
                     ->put('actions', $this->getRecordActions([
                         'record' => $record,
                     ]))

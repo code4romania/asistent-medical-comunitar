@@ -66,6 +66,10 @@ class ReportResource extends Resource
                     ->label(__('report.column.type'))
                     ->enum(Type::options())
                     ->toggleable(),
+
+                TextColumn::make('period')
+                    ->label(__('report.column.period'))
+                    ->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('type')

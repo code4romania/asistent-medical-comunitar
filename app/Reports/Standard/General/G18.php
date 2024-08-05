@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G18 extends GeneralReport
+class G18 extends Report
 {
     /**
      * Sum beneficiari with Tulburări mintale şi de comportament (VSG_TMC); Vârstnic peste 65 ani (VCV_06).

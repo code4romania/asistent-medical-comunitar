@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G08 extends GeneralReport
+class G08 extends Report
 {
     /**
      * Sum beneficiari with Tuberculoză (VSG_TB); Adult 18-65 ani (VCV_05).

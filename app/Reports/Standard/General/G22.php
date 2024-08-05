@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G22 extends GeneralReport
+class G22 extends Report
 {
     /**
      * Sum beneficiari with Mamă minoră (VGR_03).

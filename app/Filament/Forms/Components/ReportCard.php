@@ -6,7 +6,7 @@ namespace App\Filament\Forms\Components;
 
 use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Models\Report;
-use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Pages\Actions\Action;
 
 class ReportCard extends Card
@@ -60,7 +60,9 @@ class ReportCard extends Card
         });
 
         $this->schema([
-            Grid::make(4)
+            Group::make()
+                ->inlineLabel()
+                ->maxWidth('2xl')
                 ->schema([
 
                     Value::make('category')
@@ -71,6 +73,9 @@ class ReportCard extends Card
 
                     Value::make('type')
                         ->label(__('report.column.type')),
+
+                    Value::make('period')
+                        ->label(__('report.column.period')),
 
                     Value::make('created_at')
                         ->label(__('report.column.created_at'))

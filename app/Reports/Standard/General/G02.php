@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G02 extends GeneralReport
+class G02 extends Report
 {
     /**
      * Sum beneficiari with Femeie care utilizează metode contraceptive (VGR_14).

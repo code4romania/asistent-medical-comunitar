@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G19 extends GeneralReport
+class G19 extends Report
 {
     /**
      * Sum beneficiari with Consumator de substanţe psihotrope (VCR_07); Vârstnic peste 65 ani (VCV_06).

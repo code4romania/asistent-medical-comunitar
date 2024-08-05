@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G14 extends GeneralReport
+class G14 extends Report
 {
     /**
      * Sum beneficiari with Boală cronică (VSG_01); Adult 18-65 ani (VCV_05).

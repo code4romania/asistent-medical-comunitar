@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G07 extends GeneralReport
+class G07 extends Report
 {
     /**
      * Sum beneficiari with at least one vulnerability; Vârstnic peste 65 ani (VCV_06).

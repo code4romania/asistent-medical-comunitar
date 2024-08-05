@@ -30,7 +30,6 @@ class ViewReport extends ViewRecord implements WithTabs
                 ->context('view')
                 ->disabled()
                 ->model($this->getRecord())
-                ->schema(ReportResource::form(Form::make())->getSchema())
                 ->statePath('data'),
 
             'report' => $this->makeForm()

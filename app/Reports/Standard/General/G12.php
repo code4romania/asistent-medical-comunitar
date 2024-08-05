@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G12 extends GeneralReport
+class G12 extends Report
 {
     /*
      * Sum beneficiari with at least one vulnerability; Adult 18-65 ani (VCV_05)

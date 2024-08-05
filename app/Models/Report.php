@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
+use Carbon\Carbon;
 use Filament\Support\Exceptions\Halt;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -53,6 +54,17 @@ class Report extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getPeriodAttribute(): string
+    {
+        return collect([
+            $this->date_from,
+            $this->date_until,
+        ])
+            ->filter()
+            ->map(fn (Carbon $date) => $date->toFormattedDate())
+            ->implode(' - ');
     }
 
     public function getSegmentTuplesAttribute(): array

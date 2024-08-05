@@ -7,7 +7,7 @@ namespace App\Reports\Standard\General;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Reports\Standard\StandardReport;
 
-abstract class GeneralReport extends StandardReport
+abstract class Report extends StandardReport
 {
     public function dateColumn(): string
     {
@@ -23,8 +23,8 @@ abstract class GeneralReport extends StandardReport
             'cnp' => __('field.cnp'),
             'gender' => __('field.gender'),
             'date_of_birth' => __('field.age'),
-            'county_id' => __('field.county'),
-            'city_id' => __('field.city'),
+            'county' => __('field.county'),
+            'city' => __('field.city'),
             'status' => __('field.status'),
         ];
     }

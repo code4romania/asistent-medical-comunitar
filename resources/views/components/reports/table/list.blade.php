@@ -8,9 +8,9 @@
     @if (null !== $columns)
         <thead class="text-base bg-gray-500/5">
             <x-tables::row>
-                @foreach ($columns as $key => $label)
-                    <x-tables::header-cell :name="$key">
-                        {{ $label }}
+                @foreach ($columns as $column)
+                    <x-tables::header-cell :name="$column['name']">
+                        {{ $column['label'] }}
                     </x-tables::header-cell>
                 @endforeach
 
@@ -21,36 +21,40 @@
         </thead>
     @endif
 
-    <tbody class="text-sm divide-y border-y">
+    <tbody class="divide-y border-y">
         @foreach ($data as $row)
             <x-tables::row>
-                @foreach ($row as $key => $column)
-                    @if (is_array($column))
-                        @if ($key === 'actions')
-                            <x-tables::cell class="px-4 py-2">
-                                <div class="flex justify-end w-full gap-4">
-                                    @foreach ($column as $url => $label)
-                                        <x-tables::link :href="$url" target="_blank">
-                                            <span>{{ $label }}</span>
+                @foreach ($columns as $column)
+                    @php
+                        $cell = data_get($row, $column['name']);
+                    @endphp
 
-                                            <x-heroicon-s-external-link class="w-4 h-4" />
-                                        </x-tables::link>
-                                    @endforeach
-                                </div>
+                    @if (is_array($cell))
+                        @foreach ($cell as $d)
+                            <x-tables::cell class="px-4 py-2">
+                                {{ $d ?? '–' }}
                             </x-tables::cell>
-                        @else
-                            @foreach ($column as $d)
-                                <x-tables::cell class="px-4 py-2">
-                                    {{ $d ?? '–' }}
-                                </x-tables::cell>
-                            @endforeach
-                        @endif
+                        @endforeach
                     @else
                         <x-tables::cell class="px-4 py-2">
-                            {{ $column ?? '–' }}
+                            {{ $cell ?? '–' }}
                         </x-tables::cell>
                     @endif
                 @endforeach
+
+                @if (filled($actions = data_get($row, 'actions')))
+                    <x-tables::cell class="px-4 py-2">
+                        <div class="flex justify-end w-full gap-4">
+                            @foreach ($actions as $url => $label)
+                                <x-tables::link :href="$url" target="_blank">
+                                    <span>{{ $label }}</span>
+
+                                    <x-heroicon-s-external-link class="w-4 h-4" />
+                                </x-tables::link>
+                            @endforeach
+                        </div>
+                    </x-tables::cell>
+                @endif
             </x-tables::row>
         @endforeach
     </tbody>

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Reports\Standard\General;
+namespace App\Reports\Standard\Pregnant;
 
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
-class G04 extends Report
+class P06 extends Report
 {
     /**
-     * Sum beneficiari with Neînscris la medic de familie (VSA_02).
+     * Sum beneficiari with Naştere înregistrată la domiciliu (VGR_13).
      */
     public function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VSA_02');
+                $query->whereJsonContains('properties', 'VGR_13');
             });
     }
 }

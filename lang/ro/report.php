@@ -46,6 +46,7 @@ return [
         'gender' => 'Genuri',
         'location' => 'Locații',
         'category' => 'Categorie',
+        'period' => 'Perioada de raportare',
     ],
 
     'type' => [
@@ -91,6 +92,21 @@ return [
                 'G26' => 'Caz tratament paliativ (fază terminală)',
                 'G27' => 'Planificare familială',
                 'G28' => 'Consiliere preconcepțională',
+            ],
+
+            'pregnant' => [
+                'P01' => 'Gravidă cu probleme sociale',
+                'P02' => 'Gravidă cu probleme medicale (sarcină cu risc)',
+                'P03' => 'Gravidă care a efectuat consultaţii prenatale',
+                'P04' => 'Avort spontan',
+                'P05' => 'Avort medical',
+                'P06' => 'Naştere înregistrată la domiciliu',
+                'P07' => 'Gravidă minoră',
+                'P08' => 'Gravidă neînscrisă la medicul de familie',
+                'P09' => 'Gravidă înscrisă de asistentul medical comunitar/moaşă la medicul de familie',
+                'P10' => 'Gravidă consiliată',
+                'P11' => 'Diagnosticare precoce a sarcinii',
+                'P12' => 'Îngrijiri prescrise de medic',
             ],
         ],
     ],
