@@ -6,7 +6,9 @@ namespace App\Filament\Resources;
 
 use App\Enums\Report\Indicator;
 use App\Enums\Report\Segment;
+use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
+use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Forms\Components\ReportCard;
 use App\Filament\Resources\ReportResource\Pages;
 use App\Filament\Tables\Columns\TextColumn;
@@ -20,7 +22,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Support\Str;
+use Filament\Tables\Filters\SelectFilter;
 
 class ReportResource extends Resource
 {
@@ -48,10 +50,11 @@ class ReportResource extends Resource
                     ->toggleable()
                     ->sortable(),
 
-                TextColumn::make('type')
-                    ->label(__('report.column.type'))
-                    ->enum(Type::options())
-                    ->toggleable(),
+                TextColumn::make('category')
+                    ->label(__('report.column.category'))
+                    ->wrap()
+                    ->toggleable()
+                    ->searchable(),
 
                 TextColumn::make('title')
                     ->label(__('report.column.title'))
@@ -59,26 +62,21 @@ class ReportResource extends Resource
                     ->toggleable()
                     ->searchable(),
 
-                TextColumn::make('indicators')
-                    ->label(__('report.column.indicators'))
-                    ->formatStateUsing(fn (Report $record) => Str::limit($record->indicators_list, 100, '...'))
-                    ->wrap()
+                TextColumn::make('type')
+                    ->label(__('report.column.type'))
+                    ->enum(Type::options())
                     ->toggleable(),
 
-                TextColumn::make('segments.age')
-                    ->label(__('report.column.age'))
-                    ->formatStateUsing(fn ($state) => static::segmentsList('age', $state))
-                    ->wrap()
-                    ->toggleable(),
-
-                TextColumn::make('segments.gender')
-                    ->label(__('report.column.gender'))
-                    ->formatStateUsing(fn ($state) => static::segmentsList('gender', $state))
-                    ->wrap()
+                TextColumn::make('period')
+                    ->label(__('report.column.period'))
                     ->toggleable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->label(__('report.column.type'))
+                    ->options(Type::options()),
+
+                DateRangeFilter::make('date_between'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -91,17 +89,17 @@ class ReportResource extends Resource
     {
         return collect(explode(', ', $segments))
             ->filter()
-            ->map(fn (string $segment) => __(sprintf('report.segment.value.%s.%s', $group, $segment)))
+            ->map(fn (string $segment) => __(\sprintf('report.segment.value.%s.%s', $group, $segment)))
             ->join(', ');
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ComingSoon::route('/'),
-            // 'index' => Pages\GenerateReport::route('/generate'),
-            // 'saved' => Pages\ListReports::route('/'),
-            // 'view' => Pages\ViewReport::route('/{record}'),
+            'index' => Pages\GenerateStandardReport::route('/standard'),
+            'generate' => Pages\GenerateReport::route('/generate'),
+            'saved' => Pages\ListReports::route('/'),
+            'view' => Pages\ViewReport::route('/{record}'),
         ];
     }
 
@@ -158,6 +156,63 @@ class ReportResource extends Resource
                     ->options(Segment\Gender::options())
                     ->rule(new MultipleIn(Segment\Gender::values()))
                     ->multiple(),
+            ]);
+    }
+
+    public static function predefinedGenerator(Form $form): Form
+    {
+        return $form
+            ->columns(3)
+            ->schema([
+                Select::make('category')
+                    ->label(__('report.column.category'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->options(Category::options())
+                    ->enum(Category::class)
+                    ->required()
+                    ->reactive(),
+
+                Select::make('indicator')
+                    ->label(__('report.column.indicators'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->options(
+                        fn (callable $get) => Category::tryFrom((string) $get('category'))
+                            ?->indicators()::options()
+                    )
+                    ->disableOptionWhen(function (callable $get, string $value) {
+                        $report = Category::tryFrom((string) $get('category'))
+                            ?->indicators()::tryFrom($value)
+                            ?->class();
+
+                        return \is_null($report) || ! class_exists($report);
+                    })
+                    ->required(),
+
+                Select::make('type')
+                    ->label(__('report.column.type'))
+                    ->placeholder(__('placeholder.select_one'))
+                    ->options(Type::options())
+                    ->enum(Type::class)
+                    ->required(),
+
+                DatePicker::make('date_from')
+                    ->label(__('app.filter.date_from'))
+                    ->placeholder(
+                        fn (): string => today()
+                            ->subYear()
+                            ->toFormattedDate()
+                    )
+                    ->maxDate(today())
+                    ->required(),
+
+                DatePicker::make('date_until')
+                    ->label(__('app.filter.date_until'))
+                    ->placeholder(
+                        fn (): string => today()
+                            ->toFormattedDate()
+                    )
+                    ->afterOrEqual('date_from')
+                    ->maxDate(today()),
             ]);
     }
 

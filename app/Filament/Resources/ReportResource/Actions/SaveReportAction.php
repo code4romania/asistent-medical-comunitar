@@ -34,10 +34,13 @@ class SaveReportAction extends Action
             $data = $livewire->form->getState();
             $data['user_id'] = auth()->id();
 
-            $record = Report::create($data);
+            $record = Report::generate($data);
+
+            if (! $record->save()) {
+                $this->failure();
+            }
 
             $this->record($record);
-
             $this->success();
         });
     }

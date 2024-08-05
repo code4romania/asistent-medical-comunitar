@@ -12,11 +12,8 @@ enum Type: string
     use Concerns\Enums\Comparable;
     use Concerns\Enums\HasLabel;
 
-    case NURSE_ACTIVITY = 'nurse_activity';
-    case VULN_TOTAL = 'vuln_total';
-    case VULN_LIST = 'vuln_list';
-    case HEALTH_TOTAL = 'health_total';
-    case HEALTH_LIST = 'health_list';
+    case LIST = 'list';
+    case STATISTIC = 'statistic';
 
     protected function labelKeyPrefix(): ?string
     {

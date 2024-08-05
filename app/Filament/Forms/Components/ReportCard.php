@@ -6,6 +6,7 @@ namespace App\Filament\Forms\Components;
 
 use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Models\Report;
+use Filament\Forms\Components\Group;
 use Filament\Pages\Actions\Action;
 
 class ReportCard extends Card
@@ -22,14 +23,19 @@ class ReportCard extends Card
     {
         parent::setUp();
 
-        $this->hidden(fn (?Report $record) => null === $record?->type);
+        $this->hidden(fn (?Report $record) => \is_null($record));
 
         $this->header(function (?Report $record) {
             if ($this->isHidden()) {
                 return null;
             }
 
-            return $record->title;
+            return collect([
+                $record->category,
+                $record->title,
+            ])
+                ->filter()
+                ->implode(' / ');
         });
 
         $this->headerActions(function (?Report $record) {
@@ -54,6 +60,30 @@ class ReportCard extends Card
         });
 
         $this->schema([
+            Group::make()
+                ->inlineLabel()
+                ->maxWidth('2xl')
+                ->schema([
+
+                    Value::make('category')
+                        ->label(__('report.column.category')),
+
+                    Value::make('title')
+                        ->label(__('report.column.title')),
+
+                    Value::make('type')
+                        ->label(__('report.column.type')),
+
+                    Value::make('period')
+                        ->label(__('report.column.period')),
+
+                    Value::make('created_at')
+                        ->label(__('report.column.created_at'))
+                        ->withTime(),
+
+                ])
+                ->visibleOn('view'),
+
             ReportTable::make(),
         ]);
     }
