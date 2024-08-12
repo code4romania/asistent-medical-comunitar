@@ -36,6 +36,7 @@ return [
     'ethnicity' => [
         'romanian' => 'Română',
         'hungarian' => 'Maghiară',
+        'roma' => 'Romă',
         'ukrainian' => 'Ucraineană',
         'german' => 'Germană',
         'lipovan' => 'Ruso-lipoveană',
