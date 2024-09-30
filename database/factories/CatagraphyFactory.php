@@ -37,6 +37,8 @@ class CatagraphyFactory extends Factory
 
             'has_disabilities' => fake()->boolean(),
             'has_health_issues' => fake()->boolean(),
+            'is_social_case' => fake()->boolean(),
+            'is_vaccinated_on_schedule' => fake()->boolean(),
 
             'cat_age' => fake()->randomElement($this->vulnerabilities->get('AGE')->keys()),
             'cat_as' => fake()->randomElement($this->vulnerabilities->get('AS')->keys()),

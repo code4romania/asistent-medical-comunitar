@@ -49,6 +49,9 @@ class CatagraphyResource extends Resource
                                     ->label(__('field.evaluation_date'))
                                     ->required(),
 
+                                Checkbox::make('is_social_case')
+                                    ->label($categories->get('SOC'))
+                                    ->columnSpanFull(),
                             ]),
 
                         Subsection::make()
@@ -225,6 +228,10 @@ class CatagraphyResource extends Resource
                                     ->rule(new MultipleIn($vulnerabilities->get('NS')->keys()))
                                     ->multiple()
                                     ->searchable(),
+
+                                Checkbox::make('is_vaccinated_on_schedule')
+                                    ->label($categories->get('VCC'))
+                                    ->columnSpanFull(),
 
                                 Select::make('cat_ssa')
                                     ->label($categories->get('SSA'))
