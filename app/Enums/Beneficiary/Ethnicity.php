@@ -14,6 +14,7 @@ enum Ethnicity: string
 
     case ROMANIAN = 'romanian';
     case HUNGARIAN = 'hungarian';
+    case ROMA = 'roma';
     case UKRAINIAN = 'ukrainian';
     case GERMAN = 'german';
     case LIPOVAN = 'lipovan';
