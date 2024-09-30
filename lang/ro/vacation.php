@@ -17,6 +17,9 @@ return [
         'medical' => 'Medical',
         'rest' => 'Odihnă',
         'child' => 'Creștere copil',
+        'special' => 'Zile libere speciale (deces, căsătorie, naștere)',
+        'blood_donation' => 'Donare sânge',
+        'other' => 'Alt tip',
     ],
 
     'empty' => [

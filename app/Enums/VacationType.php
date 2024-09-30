@@ -15,6 +15,9 @@ enum VacationType: string
     case MEDICAL = 'medical';
     case REST = 'rest';
     case CHILD = 'child';
+    case special = 'special';
+    case BLOOD_DONATION = 'blood_donation';
+    case OTHER = 'other';
 
     protected function labelKeyPrefix(): ?string
     {
