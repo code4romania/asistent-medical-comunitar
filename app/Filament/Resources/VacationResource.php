@@ -174,7 +174,7 @@ class VacationResource extends Resource
 
                     DatePicker::make('end_date')
                         ->label(__('field.end_date'))
-                        ->after('start_date')
+                        ->afterOrEqual('start_date')
                         ->required(),
                 ])
                 ->columnSpanFull(),
