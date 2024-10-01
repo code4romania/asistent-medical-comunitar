@@ -45,7 +45,7 @@ return [
         'age' => 'Grupe de vârstă',
         'gender' => 'Genuri',
         'location' => 'Locații',
-        'category' => 'Categorie',
+        'category' => 'Fișă raportare',
         'period' => 'Perioada de raportare',
     ],
 

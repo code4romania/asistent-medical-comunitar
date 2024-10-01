@@ -164,36 +164,42 @@ class ReportResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Select::make('category')
-                    ->label(__('report.column.category'))
-                    ->placeholder(__('placeholder.select_one'))
-                    ->options(Category::options())
-                    ->enum(Category::class)
-                    ->required()
-                    ->reactive(),
+                Grid::make()
+                    ->columns(3)
+                    ->schema([
+                        Select::make('type')
+                            ->label(__('report.column.type'))
+                            ->placeholder(__('placeholder.select_one'))
+                            ->options(Type::options())
+                            ->enum(Type::class)
+                            ->reactive()
+                            ->required(),
 
-                Select::make('indicator')
-                    ->label(__('report.column.indicators'))
-                    ->placeholder(__('placeholder.select_one'))
-                    ->options(
-                        fn (callable $get) => Category::tryFrom((string) $get('category'))
-                            ?->indicators()::options()
-                    )
-                    ->disableOptionWhen(function (callable $get, string $value) {
-                        $report = Category::tryFrom((string) $get('category'))
-                            ?->indicators()::tryFrom($value)
-                            ?->class();
+                        Select::make('category')
+                            ->label(__('report.column.category'))
+                            ->placeholder(__('placeholder.select_one'))
+                            ->options(Category::options())
+                            ->enum(Category::class)
+                            ->reactive()
+                            ->required(),
 
-                        return \is_null($report) || ! class_exists($report);
-                    })
-                    ->required(),
+                        Select::make('indicator')
+                            ->label(__('report.column.indicators'))
+                            ->placeholder(__('placeholder.select_one'))
+                            ->options(
+                                fn (callable $get) => Category::tryFrom((string) $get('category'))
+                                    ?->indicators()::options()
+                            )
+                            ->disableOptionWhen(function (callable $get, string $value) {
+                                $report = Category::tryFrom((string) $get('category'))
+                                    ?->indicators()::tryFrom($value)
+                                    ?->class();
 
-                Select::make('type')
-                    ->label(__('report.column.type'))
-                    ->placeholder(__('placeholder.select_one'))
-                    ->options(Type::options())
-                    ->enum(Type::class)
-                    ->required(),
+                                return \is_null($report) || ! class_exists($report);
+                            })
+                            ->visible(fn (callable $get) => Type::LIST->is($get('type')))
+                            ->required(),
+                    ]),
 
                 DatePicker::make('date_from')
                     ->label(__('app.filter.date_from'))
