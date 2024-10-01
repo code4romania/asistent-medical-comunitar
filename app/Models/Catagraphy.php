@@ -45,6 +45,8 @@ class Catagraphy extends Model
         'has_health_issues',
         'cat_ssa',
         'cat_vif',
+        'is_social_case',
+        'is_vaccinated_on_schedule',
     ];
 
     protected $casts = [
@@ -66,6 +68,8 @@ class Catagraphy extends Model
         'cat_vif' => 'array',
         'has_disabilities' => 'boolean',
         'has_health_issues' => 'boolean',
+        'is_social_case' => 'boolean',
+        'is_vaccinated_on_schedule' => 'boolean',
     ];
 
     protected $with = [
@@ -136,6 +140,7 @@ class Catagraphy extends Model
     {
         return Attribute::make(
             get: fn () => $this->mapVulnerabilities([
+                $this->cat_soc,
                 $this->cat_id,
                 $this->cat_age,
                 $this->cat_inc,
@@ -171,6 +176,28 @@ class Catagraphy extends Model
                 false => 'VDH_99',
                 default => null,
             }
+        )->shouldCache();
+    }
+
+    public function catSoc(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->is_social_case) {
+                true => 'VCS_01',
+                false => 'VCS_99',
+                default => null,
+            },
+        )->shouldCache();
+    }
+
+    public function catVcc(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->is_vaccinated_on_schedule) {
+                true => 'VVC_01',
+                false => 'VVC_99',
+                default => null,
+            },
         )->shouldCache();
     }
 

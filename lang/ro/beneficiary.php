@@ -36,6 +36,7 @@ return [
     'ethnicity' => [
         'romanian' => 'Română',
         'hungarian' => 'Maghiară',
+        'roma' => 'Romă',
         'ukrainian' => 'Ucraineană',
         'german' => 'Germană',
         'lipovan' => 'Ruso-lipoveană',
@@ -49,6 +50,14 @@ return [
         'yes' => 'Da',
         'no' => 'Nu',
         'other' => 'Altă situație',
+    ],
+
+    'reason_removed' => [
+        'deceased_home' => 'Deces la domiciliu',
+        'deceased_hospital' => 'Deces la spital',
+        'relocated_city' => 'Relocare în altă localitate',
+        'relocated_abroad' => 'Relocare în străinătate',
+        'other' => 'Alt motiv',
     ],
 
     'id_type' => [

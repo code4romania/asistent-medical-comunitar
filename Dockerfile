@@ -56,7 +56,7 @@ RUN npm run build
 
 FROM vendor
 
-ARG S6_OVERLAY_VERSION=3.1.6.2
+ARG S6_OVERLAY_VERSION=3.2.0.0
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
@@ -77,30 +77,30 @@ ARG REVISION
 
 RUN echo "$VERSION (${REVISION:0:7})" > /var/www/.version
 
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
-ENV CACHE_DRIVER database
-ENV QUEUE_CONNECTION database
-ENV SESSION_DRIVER database
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+ENV LOG_CHANNEL=stderr
+ENV CACHE_DRIVER=database
+ENV QUEUE_CONNECTION=database
+ENV SESSION_DRIVER=database
 
 # The number of jobs to process before stopping
-ENV WORKER_MAX_JOBS 50
+ENV WORKER_MAX_JOBS=50
 
 # Number of seconds to sleep when no job is available
-ENV WORKER_SLEEP 30
+ENV WORKER_SLEEP=30
 
 # Number of seconds to rest between jobs
-ENV WORKER_REST 1
+ENV WORKER_REST=1
 
 # The number of seconds a child process can run
-ENV WORKER_TIMEOUT 600
+ENV WORKER_TIMEOUT=600
 
 # Number of times to attempt a job before logging it failed
-ENV WORKER_TRIES 3
+ENV WORKER_TRIES=3
 
-ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
+ENV SENTRY_SAMPLE_RATE=0
 
-ENV SENTRY_SAMPLE_RATE 0
+ENV PHP_PM_MAX_CHILDREN=64
 
 EXPOSE 80

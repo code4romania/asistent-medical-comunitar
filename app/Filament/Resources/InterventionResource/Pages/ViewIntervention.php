@@ -38,7 +38,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 
     public function getTitle(): string
     {
-        return sprintf(
+        return \sprintf(
             '%s: %s',
             $this->getRecord()->type,
             $this->getRecord()->name
@@ -158,15 +158,15 @@ class ViewIntervention extends ViewRecord implements WithSidebar
             Pages\Actions\EditAction::make()
                 ->label(__('intervention.action.edit'))
                 ->url(BeneficiaryResource::getUrl('interventions.edit', [
-                    $this->getBeneficiary(),
-                    $this->getRecord(),
+                    'beneficiary' => $this->getBeneficiary(),
+                    'record' => $this->getRecord(),
                 ]))
                 ->color('secondary'),
 
             Pages\Actions\DeleteAction::make()
                 ->label(__('intervention.action.delete'))
                 ->successRedirectUrl(BeneficiaryResource::getUrl('interventions.index', [
-                    $this->getBeneficiary(),
+                    'beneficiary' => $this->getBeneficiary(),
                 ])),
 
             // Action::make('export')

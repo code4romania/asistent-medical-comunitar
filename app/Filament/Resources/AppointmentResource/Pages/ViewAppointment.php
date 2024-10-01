@@ -23,7 +23,7 @@ class ViewAppointment extends ViewRecord
     protected function getTitle(): string
     {
         return __('appointment.header.view', [
-            'beneficiary' => $this->getRecord()->beneficiary->full_name,
+            'beneficiary' => $this->getRecord()->beneficiary?->full_name,
             'date' => $this->getRecord()->date->toFormattedDate(),
             'start_time' => $this->getRecord()->start_time,
         ]);

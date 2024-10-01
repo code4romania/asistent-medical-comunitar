@@ -14,6 +14,7 @@ enum CaseInitiator: string
 
     case NURSE = 'nurse';
     case GP = 'gp';
+    case SPECIALIST = 'specialist';
     case TEAM = 'team';
     case DPH = 'dph';
     case OTHER = 'other';

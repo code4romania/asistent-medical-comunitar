@@ -39,6 +39,8 @@ return [
         'local' => 'Campanie locală',
         'activity' => 'Activitate fizică și nutriție',
         'intervention' => 'Intervenție scurtă în comunitățile vulnerabile',
+        'screening' => 'Anunțare pentru screening populațional',
+        'epidem_triage' => 'Triaj epidemiologic',
     ],
 
     'administrative' => [

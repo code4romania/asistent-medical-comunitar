@@ -16,6 +16,8 @@ enum Campaign: string
     case LOCAL = 'local';
     case ACTIVITY = 'activity';
     case INTERVENTION = 'intervention';
+    case SCREENING = 'screening';
+    case EPIDEM_TRIAGE = 'epidem_triage';
 
     protected function labelKeyPrefix(): ?string
     {

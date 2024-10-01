@@ -10,6 +10,7 @@ use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
 use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
+use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
@@ -59,6 +60,7 @@ class Beneficiary extends Model
         'phone',
         'notes',
         'reason_removed',
+        'reason_removed_notes',
 
         'nurse_id',
         'family_id',
@@ -73,6 +75,7 @@ class Beneficiary extends Model
         'gender' => Gender::class,
         'ethnicity' => Ethnicity::class,
         'work_status' => WorkStatus::class,
+        'reason_removed' => ReasonRemoved::class,
         'integrated' => 'boolean',
         'date_of_birth' => 'date',
         'does_not_have_cnp' => 'boolean',

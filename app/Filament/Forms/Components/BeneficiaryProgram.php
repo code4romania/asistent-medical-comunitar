@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Forms\Components;
 
+use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Status;
 use App\Models\Beneficiary;
 use App\Models\User;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -41,6 +43,23 @@ class BeneficiaryProgram extends Card
 
             Value::make('status')
                 ->label(__('field.current_status')),
+
+            Value::make('reason_removed')
+                ->visible(fn (callable $get) => Status::REMOVED->is($get('status')))
+                ->label(__('field.reason_removed'))
+                ->content(function (Beneficiary $record) {
+                    $parts = [];
+
+                    if ($record->reason_removed instanceof ReasonRemoved) {
+                        $parts[] = $record->reason_removed->label();
+                    }
+
+                    if (filled($record->reason_removed_notes)) {
+                        $parts[] = "({$record->reason_removed_notes})";
+                    }
+
+                    return implode(' ', $parts);
+                }),
 
             Value::make('nurse')
                 ->label(__('field.allocated_nurse'))
@@ -87,11 +106,22 @@ class BeneficiaryProgram extends Card
                 ->reactive()
                 ->required(),
 
-            TextInput::make('reason_removed')
-                ->label(__('field.reason_removed'))
+            Grid::make('status_reason')
+                ->columns()
                 ->visible(fn (callable $get) => Status::REMOVED->is($get('status')))
-                ->maxLength(200)
-                ->required(),
+                ->schema([
+                    Select::make('reason_removed')
+                        ->label(__('field.reason_removed'))
+                        ->placeholder(__('placeholder.choose'))
+                        ->options(ReasonRemoved::options())
+                        ->reactive()
+                        ->required(),
+
+                    TextInput::make('reason_removed_notes')
+                        ->label(__('field.reason_removed_notes'))
+                        ->maxLength(200)
+                        ->required(fn (callable $get) => ReasonRemoved::OTHER->is($get('reason_removed'))),
+                ]),
 
         ];
     }
