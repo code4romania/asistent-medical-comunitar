@@ -81,6 +81,7 @@ return [
     'initiator' => [
         'nurse' => 'Inițiativă proprie',
         'gp' => 'Medicul de familie',
+        'specialist' => 'Medic specialist',
         'team' => 'Echipa comunitară',
         'dph' => 'DSP',
         'other' => 'Alta entitate sau organizație',

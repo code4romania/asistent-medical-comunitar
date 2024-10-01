@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
+use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Status;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
@@ -66,7 +67,8 @@ class BeneficiaryFactory extends Factory
 
                 return [
                     'status' => $status,
-                    'reason_removed' => Status::REMOVED->is($status) ? fake()->sentence() : null,
+                    'reason_removed' => Status::REMOVED->is($status) ? fake()->randomElement(ReasonRemoved::values()) : null,
+                    'reason_removed_notes' => Status::REMOVED->is($status) ? fake()->sentence() : null,
                 ];
             })
             ->afterCreating(function (Beneficiary $beneficiary) {

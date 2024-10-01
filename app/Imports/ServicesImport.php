@@ -18,23 +18,25 @@ class ServicesImport implements ToCollection, WithHeadingRow
     {
         $this->importCategories($rows);
 
-        Service::insert(
+        Service::upsert(
             $rows->map(fn (Collection $row) => [
                 'code' => $row['code'],
                 'name' => $row['name'],
                 'category_id' => $this->categories->get($row['category']),
-            ])->toArray()
+            ])->toArray(),
+            'id'
         );
     }
 
     private function importCategories(Collection $rows): void
     {
-        ServiceCategory::insert(
+        ServiceCategory::upsert(
             $rows->pluck('category')
                 ->unique()
                 ->map(fn (string $name) => ['name' => $name])
                 ->values()
-                ->all()
+                ->all(),
+            'id'
         );
 
         $this->categories = ServiceCategory::pluck('id', 'name');
