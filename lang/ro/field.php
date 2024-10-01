@@ -109,6 +109,7 @@ return [
     'performed_interventions_count' => 'Servicii efectuate',
     'phone' => 'Telefon',
     'reason_removed' => 'Motiv scoatere din evidență',
+    'reason_removed_notes' => 'Observații scoatere din evidență',
     'role' => 'Rol',
     'section_details' => ':section - detalii',
     'service_name' => 'Nume serviciu',

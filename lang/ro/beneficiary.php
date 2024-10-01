@@ -52,6 +52,14 @@ return [
         'other' => 'Altă situație',
     ],
 
+    'reason_removed' => [
+        'deceased_home' => 'Deces la domiciliu',
+        'deceased_hospital' => 'Deces la spital',
+        'relocated_city' => 'Relocare în altă localitate',
+        'relocated_abroad' => 'Relocare în străinătate',
+        'other' => 'Alt motiv',
+    ],
+
     'id_type' => [
         'birth_certificate' => 'Certificat de naștere',
         'id_card' => 'Carte de identitate',
