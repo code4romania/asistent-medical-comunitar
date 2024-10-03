@@ -63,6 +63,6 @@ enum RareDisease: string
 
     public function class(): string
     {
-        return "\\App\\Reports\\Standard\\RareDisease\\{$this->value}";
+        return "\\App\\Reports\\Queries\\RareDisease\\{$this->value}";
     }
 }

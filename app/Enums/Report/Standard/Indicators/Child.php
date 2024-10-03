@@ -51,6 +51,6 @@ enum Child: string
 
     public function class(): string
     {
-        return "\\App\\Reports\\Standard\\Child\\{$this->value}";
+        return "\\App\\Reports\\Queries\\Child\\{$this->value}";
     }
 }

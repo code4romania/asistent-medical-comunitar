@@ -32,6 +32,6 @@ enum Pregnant: string
 
     public function class(): string
     {
-        return "\\App\\Reports\\Standard\\Pregnant\\{$this->value}";
+        return "\\App\\Reports\\Queries\\Pregnant\\{$this->value}";
     }
 }
