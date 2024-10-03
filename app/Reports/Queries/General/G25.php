@@ -19,4 +19,16 @@ class G25 extends ReportQuery
         return CommunityActivity::query()
             ->onlyCampaigns();
     }
+
+    public static function dateColumn(): string
+    {
+        return 'activity_log.created_at';
+    }
+
+    public static function columns(): array
+    {
+        return [
+            //
+        ];
+    }
 }

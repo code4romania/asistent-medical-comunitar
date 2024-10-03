@@ -9,9 +9,9 @@ use App\Filament\Forms\Components\ReportContent;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\ReportResource;
 use Filament\Forms\Components\Group;
-use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
+use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
 
 class ViewReport extends ViewRecord
 {
@@ -20,7 +20,8 @@ class ViewReport extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Action::make('export')
+
+            ExportAction::make()
                 ->label(__('report.action.export'))
                 ->icon('heroicon-o-download')
                 ->color('secondary'),
