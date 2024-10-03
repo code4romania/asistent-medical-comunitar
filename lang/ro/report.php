@@ -31,15 +31,25 @@ return [
         'create' => 'Generează primul raport',
     ],
 
+    'processing' => [
+        'title' => 'Raportul este în curs de generare',
+        'description' => 'Vă rugăm să așteptați. Datele vor fi afișate automat după finalizare.',
+    ],
+
+    'failed' => [
+        'title' => 'Generarea raportului a eșuat',
+        'description' => 'Vă rugăm să încercați din nou mai târziu.',
+    ],
+
     'no-results' => [
         'title' => 'Fără date',
         'description' => 'Nu am găsit date pentru raportul și intervalul selectate.',
     ],
 
     'column' => [
-        'created_at' => 'Data generării raport',
-        'type' => 'Tip raport',
-        'title' => 'Nume raport',
+        'created_at' => 'Data generării',
+        'type' => 'Tip',
+        'title' => 'Nume',
         'indicators' => 'Indicatori',
         'segments' => 'Segmentare',
         'age' => 'Grupe de vârstă',
@@ -47,11 +57,18 @@ return [
         'location' => 'Locații',
         'category' => 'Fișă raportare',
         'period' => 'Perioada de raportare',
+        'status' => 'Stare',
     ],
 
     'type' => [
         'list' => 'Listă',
         'statistic' => 'Statistic',
+    ],
+
+    'status' => [
+        'finished' => 'Finalizat',
+        'failed' => 'Eșuat',
+        'pending' => 'În așteptare',
     ],
 
     'standard' => [

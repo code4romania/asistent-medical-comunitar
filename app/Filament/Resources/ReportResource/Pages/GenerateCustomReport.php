@@ -16,7 +16,7 @@ use Filament\Resources\Pages\Concerns\UsesResourceForm;
 use Filament\Resources\Pages\Page;
 use Filament\Support\Exceptions\Halt;
 
-class GenerateReport extends Page implements HasFormActions, WithTabs
+class GenerateCustomReport extends Page implements HasFormActions, WithTabs
 {
     use Concerns\HasTabs;
     use UsesResourceForm;

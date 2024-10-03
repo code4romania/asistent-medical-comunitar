@@ -4,106 +4,127 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ReportResource\Pages;
 
-use App\Contracts\Pages\WithTabs;
+use App\Enums\Report\Standard\Category;
+use App\Enums\Report\Status;
+use App\Enums\Report\Type;
+use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\ReportResource;
-use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
-use App\Filament\Resources\ReportResource\Concerns;
-use App\Models\Report;
+use App\Filament\Resources\ReportResource\Widgets\ReportTableWidget;
+use App\Jobs\GenerateStandardReportJob;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use Filament\Pages\Actions\Action;
-use Filament\Pages\Contracts\HasFormActions;
-use Filament\Resources\Form;
-use Filament\Resources\Pages\Concerns\UsesResourceForm;
-use Filament\Resources\Pages\Page;
-use Filament\Support\Exceptions\Halt;
+use Filament\Resources\Pages\CreateRecord;
 
-class GenerateStandardReport extends Page implements HasFormActions, WithTabs
+class GenerateStandardReport extends CreateRecord
 {
-    use Concerns\HasTabs;
-    use UsesResourceForm;
-
-    public $data;
-
-    public ?Report $record = null;
-
     protected static string $resource = ReportResource::class;
-
-    protected static string $view = 'filament.resources.report-resource.pages.generate';
 
     protected static bool $canCreateAnother = false;
 
-    public function mount(): void
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $this->authorizeAccess();
+        $data['user_id'] = auth()->id();
+        // $data['status'] = Status::PENDING;
 
-        $this->fillForm();
+        return $data;
     }
 
-    protected function authorizeAccess(): void
+    protected function afterCreate(): void
     {
-        static::authorizeResourceAccess();
-
-        abort_unless(static::getResource()::canCreate(), 403);
+        GenerateStandardReportJob::dispatch($this->record, $this->form->getState());
     }
 
-    protected function fillForm(): void
-    {
-        $this->callHook('beforeFill');
-
-        $this->form->fill();
-
-        $this->callHook('afterFill');
-    }
-
-    public function generate(): void
-    {
-        $this->authorizeAccess();
-
-        try {
-            $data = $this->form->getState();
-
-            $this->record = Report::generate($data);
-
-            $this->form->model($this->record);
-
-            $this->report->model($this->record);
-        } catch (Halt $exception) {
-            return;
-        }
-    }
-
-    protected function getForms(): array
+    protected function getFormSchema(): array
     {
         return [
-            'form' => $this->makeForm()
-                ->context('generate')
-                ->model($this->record)
-                ->schema(ReportResource::predefinedGenerator(Form::make())->getSchema())
-                ->statePath('data'),
+            Card::make()
+                ->columns(3)
+                ->footerActions([
+                    Action::make('cancel')
+                        ->label(__('report.action.cancel'))
+                        ->url($this->previousUrl ?? static::getResource()::getUrl())
+                        ->color('secondary'),
 
-            'report' => $this->makeForm()
-                ->context('generate')
-                ->model($this->record)
-                ->schema(ReportResource::report(Form::make())->getSchema())
-                ->statePath('data'),
+                    Action::make('create')
+                        ->label(__('report.action.generate'))
+                        ->submit('create')
+                        ->keyBindings(['mod+s'])
+                        ->color('warning'),
+                ])
+                ->schema([
+                    Grid::make()
+                        ->columns(3)
+                        ->schema([
+                            Select::make('type')
+                                ->label(__('report.column.type'))
+                                ->placeholder(__('placeholder.select_one'))
+                                ->options(Type::options())
+                                ->enum(Type::class)
+                                ->reactive()
+                                ->required(),
+
+                            Select::make('category')
+                                ->label(__('report.column.category'))
+                                ->placeholder(__('placeholder.select_one'))
+                                ->options(Category::options())
+                                ->enum(Category::class)
+                                ->reactive()
+                                ->required(),
+
+                            Select::make('indicators')
+                                ->label(__('report.column.indicators'))
+                                ->placeholder(__('placeholder.select_one'))
+                                ->options(
+                                    fn (callable $get) => Category::tryFrom((string) $get('category'))
+                                        ?->indicators()::options()
+                                )
+                                ->disableOptionWhen(function (callable $get, string $value) {
+                                    $report = Category::tryFrom((string) $get('category'))
+                                        ?->indicators()::tryFrom($value)
+                                        ?->class();
+
+                                    return \is_null($report) || ! class_exists($report);
+                                })
+                                ->visible(fn (callable $get) => Type::LIST->is($get('type')))
+                                ->multiple()
+                                ->required(),
+                        ]),
+
+                    DatePicker::make('date_from')
+                        ->label(__('app.filter.date_from'))
+                        ->placeholder(
+                            fn (): string => today()
+                                ->subYear()
+                                ->toFormattedDate()
+                        )
+                        ->maxDate(today())
+                        ->required(),
+
+                    DatePicker::make('date_until')
+                        ->label(__('app.filter.date_until'))
+                        ->placeholder(
+                            fn (): string => today()
+                                ->toFormattedDate()
+                        )
+                        ->afterOrEqual('date_from')
+                        ->maxDate(today()),
+                ]),
         ];
     }
 
     protected function getFormActions(): array
     {
         return [
-            Action::make('create')
-                ->label(__('report.action.generate'))
-                ->submit()
-                ->keyBindings(['mod+s'])
-                ->color('warning'),
+            //
+        ];
+    }
 
-            Action::make('cancel')
-                ->label(__('report.action.cancel'))
-                ->url($this->previousUrl ?? static::getResource()::getUrl())
-                ->color('secondary'),
-
-            SaveReportAction::make()
-                ->extraAttributes(['class' => 'hidden']),
+    protected function getFooterWidgets(): array
+    {
+        return [
+            ReportTableWidget::class,
         ];
     }
 }

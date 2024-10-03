@@ -36,7 +36,7 @@ enum General: string
     case G22 = 'G22';
     case G23 = 'G23';
     case G24 = 'G24';
-    case G25 = 'G25';
+    // case G25 = 'G25';
     case G26 = 'G26';
     case G27 = 'G27';
     case G28 = 'G28';
@@ -48,6 +48,6 @@ enum General: string
 
     public function class(): string
     {
-        return "\\App\\Reports\\Standard\\General\\{$this->value}";
+        return "\\App\\Reports\\Queries\\General\\{$this->value}";
     }
 }

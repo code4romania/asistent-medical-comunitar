@@ -44,7 +44,7 @@
     @endif
 
     @if (filled($actions = $getFooterActions()))
-        <div class="flex flex-wrap items-center gap-4 p-6 bg-gray-50">
+        <div class="relative flex flex-col-reverse justify-end gap-4 px-4 py-5 sm:flex-row sm:px-6 shrink-0">
             @foreach ($actions as $action)
                 {{ $action }}
             @endforeach

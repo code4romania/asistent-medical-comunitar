@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Report\Standard\Category;
+use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use Carbon\Carbon;
-use Filament\Support\Exceptions\Halt;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,21 +21,26 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
         'category',
+        'type',
+        'status',
         'title',
         'date_from',
         'date_until',
         'columns',
+        'indicators',
         'data',
         'user_id',
     ];
 
     protected $casts = [
+        'category' => Category::class,
         'type' => Type::class,
+        'status' => Status::class,
         'date_from' => 'date',
         'date_until' => 'date',
         'columns' => 'collection',
+        'indicators' => 'collection',
         'data' => 'collection',
     ];
 
@@ -82,33 +86,28 @@ class Report extends Model
         return Arr::crossJoin(...$segments);
     }
 
-    public function isList(): Attribute
+    public function isList(): bool
     {
-        return Attribute::make(
-            fn () => $this->type->is(Type::LIST),
-        );
+        return $this->type->is(Type::LIST);
     }
 
-    public function isStatistic(): Attribute
+    public function isStatistic(): bool
     {
-        return Attribute::make(
-            fn () => $this->type->is(Type::STATISTIC),
-        );
+        return $this->type->is(Type::STATISTIC);
     }
 
-    public static function generate(array $data): ?self
+    public function isFinished(): bool
     {
-        try {
-            $category = Category::from(data_get($data, 'category'));
+        return $this->status->is(Status::FINISHED);
+    }
 
-            $indicator = $category->indicators()::from(data_get($data, 'indicator'));
+    public function isPending(): bool
+    {
+        return $this->status->is(Status::PENDING);
+    }
 
-            $data['category'] = $category->label();
-            $data['title'] = $indicator->label();
-
-            return $indicator->class()::make($data);
-        } catch (Halt $exception) {
-            return null;
-        }
+    public function isFailed(): bool
+    {
+        return $this->status->is(Status::FAILED);
     }
 }
