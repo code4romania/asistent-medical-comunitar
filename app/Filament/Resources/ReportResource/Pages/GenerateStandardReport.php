@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ReportResource\Pages;
 
 use App\Enums\Report\Standard\Category;
-use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Widgets\ReportTableWidget;
 use App\Jobs\GenerateStandardReportJob;
+use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
@@ -26,7 +26,6 @@ class GenerateStandardReport extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = auth()->id();
-        // $data['status'] = Status::PENDING;
 
         return $data;
     }
@@ -71,26 +70,34 @@ class GenerateStandardReport extends CreateRecord
                                 ->options(Category::options())
                                 ->enum(Category::class)
                                 ->reactive()
-                                ->required(),
-
-                            Select::make('indicators')
-                                ->label(__('report.column.indicators'))
-                                ->placeholder(__('placeholder.select_one'))
-                                ->options(
-                                    fn (callable $get) => Category::tryFrom((string) $get('category'))
-                                        ?->indicators()::options()
-                                )
-                                ->disableOptionWhen(function (callable $get, string $value) {
-                                    $report = Category::tryFrom((string) $get('category'))
-                                        ?->indicators()::tryFrom($value)
-                                        ?->class();
-
-                                    return \is_null($report) || ! class_exists($report);
-                                })
-                                ->visible(fn (callable $get) => Type::LIST->is($get('type')))
-                                ->multiple()
-                                ->required(),
+                                ->required()
+                                ->afterStateUpdated(function (callable $set) {
+                                    $set('indicators', null);
+                                }),
                         ]),
+
+                    Select::make('indicators')
+                        ->columnSpanFull()
+                        ->label(__('report.column.indicators'))
+                        ->placeholder(__('placeholder.select_one'))
+                        ->options(
+                            fn (callable $get) => Category::tryFrom((string) $get('category'))
+                                ?->indicators()::options()
+                        )
+                        ->visible(fn (callable $get) => Category::tryFrom((string) $get('category')) !== null)
+                        ->hintAction(
+                            fn (Select $component, callable $get) => FormAction::make('select_all')
+                                ->view('components.actions.link-action')
+                                ->label(__('app.action.select_all'))
+                                ->action(
+                                    fn () => $component->state(
+                                        Category::tryFrom((string) $get('category'))
+                                            ?->indicators()::values()
+                                    )
+                                )
+                        )
+                        ->multiple()
+                        ->required(),
 
                     DatePicker::make('date_from')
                         ->label(__('app.filter.date_from'))

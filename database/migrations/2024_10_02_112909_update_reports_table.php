@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::table('reports', function (Blueprint $table) {
             $table->string('title')->nullable()->change();
             $table->string('status')->default(Status::PENDING);
-            $table->json('indicators')->nullable()->after('columns');
+            $table->renameColumn('columns', 'indicators');
         });
     }
 };

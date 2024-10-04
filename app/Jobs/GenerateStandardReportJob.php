@@ -125,7 +125,7 @@ class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
         $this->report->data = [
             [
                 'title' => $this->getCategory()->label(),
-                'data' => $this->getIndicators()
+                'data' => $this->report->indicators()
                     ->mapWithKeys(function (HasQuery $indicator) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
