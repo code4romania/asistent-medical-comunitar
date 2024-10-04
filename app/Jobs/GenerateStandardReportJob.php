@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Standard\Category;
-use App\Enums\Report\Standard\Indicators\General;
 use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use App\Models\Report;
@@ -79,14 +79,8 @@ class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
     protected function handleList(): void
     {
-        $indicators = $this->indicators
-            ->map(fn ($indicator) => $this->getCategory()->indicators()::from($indicator))
-            ->reject(fn (BackedEnum $indicator) => ! class_exists($indicator->class()));
-
-        $this->report->indicators = $indicators->map->label();
-
-        $this->report->data = $indicators
-            ->map(function (General $indicator) {
+        $this->report->data = $this->report->indicators()
+            ->map(function (HasQuery $indicator) {
                 /** @var ReportQuery $reportQuery */
                 $reportQuery = $indicator->class();
 
@@ -128,14 +122,11 @@ class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
     protected function handleStatistic(): void
     {
-        $indicators = collect($this->getCategory()->indicators()::cases())
-            ->reject(fn (BackedEnum $indicator) => ! class_exists($indicator->class()));
-
         $this->report->data = [
             [
                 'title' => $this->getCategory()->label(),
-                'data' => $indicators
-                    ->mapWithKeys(function (BackedEnum $indicator) {
+                'data' => $this->getIndicators()
+                    ->mapWithKeys(function (HasQuery $indicator) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 

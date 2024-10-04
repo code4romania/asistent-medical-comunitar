@@ -35,25 +35,26 @@ class ReportTableWidget extends BaseWidget
                 ->extraHeaderAttributes(['class' => 'w-1'])
                 ->sortable(),
 
+            BadgeColumn::make('status')
+                ->label(__('report.column.status'))
+                ->enum(Status::options())
+                ->colors(Status::flipColors())
+                ->extraHeaderAttributes(['class' => 'w-1']),
+
             TextColumn::make('type')
                 ->label(__('report.column.type'))
                 ->enum(Type::options())
                 ->extraHeaderAttributes(['class' => 'w-1']),
 
+            TextColumn::make('period')
+                ->label(__('report.column.period'))
+                ->extraHeaderAttributes(['class' => 'w-1']),
+
             TextColumn::make('category')
                 ->label(__('report.column.category'))
                 ->enum(Category::options())
-                ->description(function (Report $record) {
-                    // return $record->category->description;
-                }),
-
-            BadgeColumn::make('status')
-                ->label(__('report.column.status'))
-                ->enum(Status::options())
-                ->colors(Status::flipColors()),
-
-            TextColumn::make('period')
-                ->label(__('report.column.period')),
+                ->description(fn (Report $record) => $record->indicators()->map->label()->join(', '))
+                ->wrap(),
         ];
     }
 
@@ -63,6 +64,10 @@ class ReportTableWidget extends BaseWidget
             SelectFilter::make('type')
                 ->label(__('report.column.type'))
                 ->options(Type::options()),
+
+            SelectFilter::make('category')
+                ->label(__('report.column.category'))
+                ->options(Category::options()),
 
             DateRangeFilter::make('date_between'),
         ];
@@ -86,9 +91,4 @@ class ReportTableWidget extends BaseWidget
     {
         return 'desc';
     }
-
-    // protected function getTablePollingInterval(): ?string
-    // {
-    //     return '5s';
-    // }
 }

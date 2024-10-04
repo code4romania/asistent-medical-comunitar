@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Status;
 use App\Enums\Report\Type;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class Report extends Model
 {
@@ -109,5 +111,12 @@ class Report extends Model
     public function isFailed(): bool
     {
         return $this->status->is(Status::FAILED);
+    }
+
+    public function indicators(): Collection
+    {
+        return $this->indicators
+            ->map(fn (string $indicator) => $this->category->indicators()::from($indicator))
+            ->reject(fn (HasQuery $indicator) => ! class_exists($indicator->class()));
     }
 }

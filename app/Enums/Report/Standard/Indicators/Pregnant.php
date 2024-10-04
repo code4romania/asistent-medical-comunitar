@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Enums\Report\Standard\Indicators;
 
 use App\Concerns;
+use App\Contracts\Enums\HasQuery;
 
-enum Pregnant: string
+enum Pregnant: string implements HasQuery
 {
     use Concerns\Enums\Arrayable;
     use Concerns\Enums\Comparable;
