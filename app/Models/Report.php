@@ -55,6 +55,16 @@ class Report extends Model
 
             $builder->whereBelongsTo(auth()->user());
         });
+
+        static::creating(function (self $report) {
+            if (blank($report->type)) {
+                $report->type = Type::STATISTIC;
+            }
+
+            if (auth()->check()) {
+                $report->user_id = auth()->id();
+            }
+        });
     }
 
     public function user(): BelongsTo

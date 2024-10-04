@@ -7,15 +7,15 @@
     <table class="min-w-full border-collapse table-fixed text-start">
         @if (null !== $columns)
             <thead class="text-base bg-gray-500/5">
-                <tr>
+                <x-tables::row>
                     <th scope="col" class="sticky left-0 bg-white border-r"></th>
 
-                    @foreach ($columns as $key => $label)
-                        <th scope="col" class="px-2 py-3">
-                            {{ $label }}
-                        </th>
+                    @foreach ($columns as $column)
+                        <x-tables::header-cell :name="$column['name']">
+                            {{ $column['label'] }}
+                        </x-tables::header-cell>
                     @endforeach
-                </tr>
+                </x-tables::row>
             </thead>
         @endif
 

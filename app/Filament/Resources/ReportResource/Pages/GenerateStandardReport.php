@@ -23,16 +23,19 @@ class GenerateStandardReport extends CreateRecord
 
     protected static bool $canCreateAnother = false;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['user_id'] = auth()->id();
-
-        return $data;
-    }
-
     protected function afterCreate(): void
     {
-        GenerateStandardReportJob::dispatch($this->record, $this->form->getState());
+        $data = $this->form->getState();
+
+        $job = GenerateReport\Standard\GenerateStatisticJob::class;
+
+        if (auth()->user()->isNurse()) {
+            $job = match ($this->report->type) {
+                Type::LIST => GenerateReport\Standard\GenerateListJob::class,
+                Type::STATISTIC => GenerateReport\Standard\GenerateStatisticJob::class,
+            };
+        }
+        $job::dispatch($this->record, $data);
     }
 
     protected function getFormSchema(): array
@@ -59,10 +62,33 @@ class GenerateStandardReport extends CreateRecord
                             Select::make('type')
                                 ->label(__('report.column.type'))
                                 ->placeholder(__('placeholder.select_one'))
+                                ->visible(fn () => auth()->user()->isNurse())
                                 ->options(Type::options())
                                 ->enum(Type::class)
                                 ->reactive()
                                 ->required(),
+
+                            Select::make('nurses')
+                                ->label(__('report.column.nurses'))
+                                ->placeholder(__('placeholder.select_many'))
+                                ->visible(fn () => ! auth()->user()->isNurse())
+                                ->allowHtml()
+                                ->multiple()
+                                ->options(
+                                    fn () => User::query()
+                                        ->onlyNurses()
+                                        ->activatesInCounty(auth()->user()->county_id)
+                                        ->withActivityAreas()
+                                        ->get()
+                                        ->mapWithKeys(fn (User $nurse) => [
+                                            $nurse->getKey() => view('components.forms.option-label', [
+                                                'name' => $nurse->full_name,
+                                                'suffix' => $nurse->activityCities
+                                                    ->pluck('name')
+                                                    ->join(', '),
+                                            ])->render(),
+                                        ])
+                                ),
 
                             Select::make('category')
                                 ->label(__('report.column.category'))
@@ -79,7 +105,7 @@ class GenerateStandardReport extends CreateRecord
                     Select::make('indicators')
                         ->columnSpanFull()
                         ->label(__('report.column.indicators'))
-                        ->placeholder(__('placeholder.select_one'))
+                        ->placeholder(__('placeholder.select_many'))
                         ->options(
                             fn (callable $get) => Category::tryFrom((string) $get('category'))
                                 ?->indicators()::options()
