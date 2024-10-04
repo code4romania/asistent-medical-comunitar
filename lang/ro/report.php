@@ -57,7 +57,7 @@ return [
         'location' => 'Locații',
         'category' => 'Fișă raportare',
         'period' => 'Perioada de raportare',
-        'status' => 'Stare',
+        'status' => 'Status',
     ],
 
     'type' => [
