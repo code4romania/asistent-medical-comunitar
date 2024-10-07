@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs\GenerateReport;
+namespace App\Jobs\GenerateReport\Standard;
 
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Status;

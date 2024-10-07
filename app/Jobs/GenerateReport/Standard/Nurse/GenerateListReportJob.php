@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs\GenerateReport\Standard;
+namespace App\Jobs\GenerateReport\Standard\Nurse;
 
 use App\Contracts\Enums\HasQuery;
-use App\Jobs\GenerateReport\GenerateStandardReportJob;
+use App\Jobs\GenerateReport\Standard\GenerateStandardReportJob;
 use App\Reports\Queries\ReportQuery;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Model;
 
-class GenerateListJob extends GenerateStandardReportJob
+class GenerateListReportJob extends GenerateStandardReportJob
 {
     public function generate(): void
     {
@@ -23,12 +23,14 @@ class GenerateListJob extends GenerateStandardReportJob
 
                 return [
                     'title' => $indicator->label(),
+
                     'columns' => $columns
                         ->map(fn (string $label, string $name) => [
                             'name' => $name,
                             'label' => $label,
                         ])
                         ->values(),
+
                     'data' => $reportQuery::build($this->report)
                         ->get()
                         ->map(
@@ -46,12 +48,12 @@ class GenerateListJob extends GenerateStandardReportJob
 
                                     return $value;
                                 })
-
                                 ->put('actions', $reportQuery::getRecordActions([
                                     'record' => $record,
                                 ]))
                         ),
                 ];
-            });
+            })
+            ->values();
     }
 }

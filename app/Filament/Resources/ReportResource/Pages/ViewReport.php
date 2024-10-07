@@ -8,10 +8,10 @@ use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\ReportContent;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\ReportResource;
+use App\Filament\Resources\ReportResource\Actions\ExportAction;
 use Filament\Forms\Components\Group;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
-use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
 
 class ViewReport extends ViewRecord
 {
@@ -22,12 +22,15 @@ class ViewReport extends ViewRecord
         return [
 
             ExportAction::make()
-                ->label(__('report.action.export'))
-                ->icon('heroicon-o-download')
-                ->color('secondary'),
+                ->record($this->getRecord()),
 
             DeleteAction::make(),
         ];
+    }
+
+    protected function getTitle(): string
+    {
+        return $this->getRecord()->title;
     }
 
     protected function getFormSchema(): array

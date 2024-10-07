@@ -18,7 +18,6 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.10",
         "maatwebsite/excel": "^3.1",
-        "pxlrbt/filament-excel": "^1.1",
         "saade/filament-fullcalendar": "^1.9",
         "sentry/sentry-laravel": "^4.9",
         "spatie/laravel-activitylog": "^4.8",

@@ -7,13 +7,14 @@ namespace App\Filament\Resources\ReportResource\Pages;
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
 use App\Filament\Forms\Components\Card;
+use App\Filament\Forms\Components\Select;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Widgets\ReportTableWidget;
-use App\Jobs\GenerateStandardReportJob;
-use Filament\Forms\Components\Actions\Action as FormAction;
+use App\Jobs\GenerateReport;
+use App\Models\County;
+use App\Models\User;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -27,14 +28,21 @@ class GenerateStandardReport extends CreateRecord
     {
         $data = $this->form->getState();
 
-        $job = GenerateReport\Standard\GenerateStatisticJob::class;
-
         if (auth()->user()->isNurse()) {
-            $job = match ($this->report->type) {
-                Type::LIST => GenerateReport\Standard\GenerateListJob::class,
-                Type::STATISTIC => GenerateReport\Standard\GenerateStatisticJob::class,
+            $job = match ($this->record->type) {
+                Type::LIST => GenerateReport\Standard\Nurse\GenerateListReportJob::class,
+                Type::STATISTIC => GenerateReport\Standard\Nurse\GenerateStatisticReportJob::class,
             };
         }
+
+        if (auth()->user()->isCoordinator()) {
+            $job = GenerateReport\Standard\Coordinator\GenerateStatisticReportJob::class;
+        }
+
+        if (auth()->user()->isAdmin()) {
+            $job = GenerateReport\Standard\Admin\GenerateStatisticReportJob::class;
+        }
+
         $job::dispatch($this->record, $data);
     }
 
@@ -71,9 +79,10 @@ class GenerateStandardReport extends CreateRecord
                             Select::make('nurses')
                                 ->label(__('report.column.nurses'))
                                 ->placeholder(__('placeholder.select_many'))
-                                ->visible(fn () => ! auth()->user()->isNurse())
+                                ->visible(fn () => auth()->user()->isCoordinator())
                                 ->allowHtml()
                                 ->multiple()
+                                ->selectAll()
                                 ->options(
                                     fn () => User::query()
                                         ->onlyNurses()
@@ -89,6 +98,14 @@ class GenerateStandardReport extends CreateRecord
                                             ])->render(),
                                         ])
                                 ),
+
+                            Select::make('counties')
+                                ->label(__('report.column.counties'))
+                                ->placeholder(__('placeholder.select_many'))
+                                ->visible(fn () => auth()->user()->isAdmin())
+                                ->multiple()
+                                ->selectAll()
+                                ->options(fn () => County::pluck('name', 'id')),
 
                             Select::make('category')
                                 ->label(__('report.column.category'))
@@ -111,18 +128,8 @@ class GenerateStandardReport extends CreateRecord
                                 ?->indicators()::options()
                         )
                         ->visible(fn (callable $get) => Category::tryFrom((string) $get('category')) !== null)
-                        ->hintAction(
-                            fn (Select $component, callable $get) => FormAction::make('select_all')
-                                ->view('components.actions.link-action')
-                                ->label(__('app.action.select_all'))
-                                ->action(
-                                    fn () => $component->state(
-                                        Category::tryFrom((string) $get('category'))
-                                            ?->indicators()::values()
-                                    )
-                                )
-                        )
                         ->multiple()
+                        ->selectAll()
                         ->required(),
 
                     DatePicker::make('date_from')

@@ -10,12 +10,14 @@ use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class Report extends Model
 {
@@ -128,5 +130,17 @@ class Report extends Model
         return $this->indicators
             ->map(fn (string $indicator) => $this->category->indicators()::from($indicator))
             ->reject(fn (HasQuery $indicator) => ! class_exists($indicator->class()));
+    }
+
+    public function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => \sprintf(
+                'Raport %s %s %s',
+                Str::lower($this->type->label()),
+                $this->category->label(),
+                $this->period,
+            ),
+        );
     }
 }

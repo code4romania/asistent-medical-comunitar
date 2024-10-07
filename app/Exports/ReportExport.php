@@ -9,10 +9,13 @@ use App\Exports\Sheets\ReportCoverSheet;
 use App\Exports\Sheets\ReportListSheet;
 use App\Exports\Sheets\ReportStatisticSheet;
 use App\Models\Report;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class ReportExport implements WithMultipleSheets
 {
+    use Exportable;
+
     public readonly Report $report;
 
     public function __construct(Report $report)
