@@ -8,12 +8,34 @@
         @if (null !== $columns)
             <thead class="text-base bg-gray-500/5">
                 <x-tables::row>
-                    <th scope="col" class="sticky left-0 bg-white border-r"></th>
+                    <th scope="col" class="sticky left-0 bg-white border-r" rowspan="2"></th>
 
                     @foreach ($columns as $column)
-                        <x-tables::header-cell :name="$column['name']">
-                            {{ $column['label'] }}
+                        @php
+                            $suffix = data_get($column, 'suffix');
+                        @endphp
+
+                        <x-tables::header-cell
+                            :name="$column['name']"
+                            :rowspan="filled($suffix) ? 1 : 2"
+                            class="align-top"
+                            alignment="center">
+                            <span class="text-base font-bold text-gray-900">
+                                {{ $column['label'] }}
+                            </span>
                         </x-tables::header-cell>
+                    @endforeach
+                </x-tables::row>
+
+                <x-tables::row>
+                    @foreach ($columns as $column)
+                        @if (data_get($column, 'suffix'))
+                            <x-tables::header-cell>
+                                <span class="whitespace-normal">
+                                    {{ $column['suffix'] }}
+                                </span>
+                            </x-tables::header-cell>
+                        @endif
                     @endforeach
                 </x-tables::row>
             </thead>
