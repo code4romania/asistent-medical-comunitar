@@ -22,7 +22,7 @@ trait BelongsToNurse
                 return;
             }
 
-            return $builder->forUser(auth()->user());
+            $builder->forUser(auth()->user());
         });
     }
 

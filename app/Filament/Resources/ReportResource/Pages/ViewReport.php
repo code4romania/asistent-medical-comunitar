@@ -20,7 +20,6 @@ class ViewReport extends ViewRecord
     protected function getActions(): array
     {
         return [
-
             ExportAction::make()
                 ->record($this->getRecord()),
 

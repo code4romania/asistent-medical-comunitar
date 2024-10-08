@@ -213,6 +213,7 @@ return [
         'generate' => 'Generează raport',
         'export' => 'Exportă',
         'save' => 'Salvează raport',
+        'view_details' => 'Vezi detalii',
     ],
 
     'title' => [

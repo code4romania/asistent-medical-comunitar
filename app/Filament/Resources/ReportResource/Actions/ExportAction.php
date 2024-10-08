@@ -19,6 +19,8 @@ class ExportAction extends Action
     {
         parent::setUp();
 
+        $this->authorize('export');
+
         $this->label(__('report.action.export'));
 
         $this->icon('heroicon-o-download');

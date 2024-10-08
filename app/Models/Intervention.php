@@ -11,7 +11,6 @@ use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
-use App\Models\Vulnerability\Vulnerability;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,7 +61,7 @@ class Intervention extends Model
                 return;
             }
 
-            $builder->whereHas('beneficiary');
+            $builder->forUser(auth()->user());
         });
 
         static::creating(function (self $intervention) {
@@ -120,11 +119,6 @@ class Intervention extends Model
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function vulnerability(): BelongsTo
-    {
-        return $this->belongsTo(Vulnerability::class);
-    }
-
     public function interventions(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')
@@ -159,6 +153,19 @@ class Intervention extends Model
     public function scopeOnlyPlanned(Builder $query): Builder
     {
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
+    }
+
+    public function scopeForUser(Builder $query, User $user): Builder
+    {
+        if ($user->isNurse()) {
+            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
+        }
+
+        if ($user->isCoordinator()) {
+            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
+        }
+
+        return $query;
     }
 
     public function isCase(): bool
