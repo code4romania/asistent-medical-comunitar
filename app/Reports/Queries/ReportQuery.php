@@ -25,6 +25,7 @@ abstract class ReportQuery
     public static function build(Report $report): Builder
     {
         $query = static::query()
+            ->forUser($report->user)
             ->select(array_keys(static::columns()));
 
         if (! $report->date_until) {

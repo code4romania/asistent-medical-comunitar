@@ -33,7 +33,7 @@ class C24 extends ReportQuery
 
     public static function dateColumn(): string
     {
-        return 'activity_log.created_at';
+        return 'beneficiaries.created_at';
     }
 
     public static function columns(): array

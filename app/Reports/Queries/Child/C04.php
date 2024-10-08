@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Child;
 
+use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\BeneficiaryResource;
 
 class C04 extends ReportQuery
 {
@@ -29,7 +29,7 @@ class C04 extends ReportQuery
 
     public static function dateColumn(): string
     {
-        return 'activity_log.created_at';
+        return 'beneficiaries.created_at';
     }
 
     public static function columns(): array

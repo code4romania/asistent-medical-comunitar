@@ -18,8 +18,7 @@
                         <x-tables::header-cell
                             :name="$column['name']"
                             :rowspan="filled($suffix) ? 1 : 2"
-                            class="align-top"
-                            alignment="center">
+                            class="align-top">
                             <span class="text-base font-bold text-gray-900">
                                 {{ $column['label'] }}
                             </span>
@@ -30,7 +29,7 @@
                 <x-tables::row>
                     @foreach ($columns as $column)
                         @if (data_get($column, 'suffix'))
-                            <x-tables::header-cell>
+                            <x-tables::header-cell class="align-top">
                                 <span class="whitespace-normal">
                                     {{ $column['suffix'] }}
                                 </span>
@@ -55,12 +54,12 @@
                     @foreach ($columns as $data)
                         @if (is_array($data))
                             @foreach ($data as $d)
-                                <td class="p-4 text-center">
+                                <td class="p-4 text-right">
                                     {{ $d }}
                                 </td>
                             @endforeach
                         @else
-                            <td class="p-4 text-center">
+                            <td class="p-4 text-right">
                                 {{ $data }}
                             </td>
                         @endif

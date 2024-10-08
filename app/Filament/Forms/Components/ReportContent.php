@@ -53,7 +53,7 @@ class ReportContent extends Component
                                 View::make('vendor.tables.components.empty-state.index')
                                     ->visible(blank(data_get($table, 'data')))
                                     ->viewData([
-                                        'icon' => 'icon-clipboard',
+                                        'icon' => 'heroicon-o-x',
                                         'heading' => __('report.no-results.title'),
                                         'description' => __('report.no-results.description'),
                                     ]),

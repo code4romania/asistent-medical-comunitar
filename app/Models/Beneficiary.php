@@ -215,6 +215,6 @@ class Beneficiary extends Model
                     })
                     ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
                     ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
-            }, 'activity_log');
+            }, 'beneficiaries');
     }
 }
