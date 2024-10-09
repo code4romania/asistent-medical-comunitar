@@ -21,9 +21,10 @@ class ListNurses extends ListUsers
     {
         return parent::getTableQuery()
             ->onlyNurses()
-            ->when(auth()->user()->isCoordinator(), function (Builder $query) {
-                $query->whereRelation('activityCounty', 'counties.id', auth()->user()->county_id);
-            })
+            ->when(
+                auth()->user()->isCoordinator(),
+                fn (Builder $query) => $query->activatesInCounty(auth()->user()->county_id)
+            )
             ->with([
                 'activityCounty',
                 'activityCities',

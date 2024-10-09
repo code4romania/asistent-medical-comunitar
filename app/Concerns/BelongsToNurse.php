@@ -22,13 +22,7 @@ trait BelongsToNurse
                 return;
             }
 
-            if (auth()->user()->isNurse()) {
-                $builder->forNurse(auth()->user());
-            }
-
-            if (auth()->user()->isCoordinator()) {
-                $builder->forNurseInCounty(auth()->user()->county_id);
-            }
+            $builder->forUser(auth()->user());
         });
     }
 
@@ -37,15 +31,16 @@ trait BelongsToNurse
         return $this->belongsTo(User::class)->onlyNurses();
     }
 
-    public function scopeForNurse(Builder $query, User $user): Builder
+    public function scopeForUser(Builder $query, User $user): Builder
     {
-        return $query->whereBelongsTo($user, 'nurse');
-    }
+        if ($user->isNurse()) {
+            return $query->where('nurse_id', $user->id);
+        }
 
-    public function scopeForNurseInCounty(Builder $query, int $county_id): Builder
-    {
-        return $query->whereHas('nurse', function (Builder $query) use ($county_id) {
-            $query->activatesInCounty($county_id);
-        });
+        if ($user->isCoordinator()) {
+            return $query->whereRelation('nurse', 'activity_county_id', $user->county_id);
+        }
+
+        return $query;
     }
 }

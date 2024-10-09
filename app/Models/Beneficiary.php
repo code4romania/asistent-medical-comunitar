@@ -14,12 +14,14 @@ use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Query\JoinClause;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
@@ -180,5 +182,39 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->where('log_name', 'vulnerabilities')
+            ->tap($callback)
+            ->fromSub(function (QueryBuilder $query) {
+                $query
+                    ->select([
+                        'activity_log.subject_id',
+                        'activity_log.subject_type',
+                        'activity_log.log_name',
+                        'activity_log.properties',
+                        'activity_log.created_at',
+                        'beneficiaries.id',
+                        'beneficiaries.first_name',
+                        'beneficiaries.last_name',
+                        'beneficiaries.cnp',
+                        'beneficiaries.gender',
+                        'beneficiaries.date_of_birth',
+                        'beneficiaries.status',
+                        'beneficiaries.nurse_id',
+                        'counties.name as county',
+                        'cities.name as city',
+                    ])
+                    ->from('activity_log')
+                    ->leftJoin('beneficiaries', function (JoinClause $join) {
+                        $join->on('activity_log.subject_id', '=', 'beneficiaries.id')
+                            ->where('activity_log.subject_type', 'beneficiary');
+                    })
+                    ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
+                    ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
+            }, 'beneficiaries');
     }
 }

@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\Enums\HasQuery;
+use App\Enums\Report\Standard\Category;
+use App\Enums\Report\Status;
 use App\Enums\Report\Type;
-use App\Reports\NurseActivityReport;
-use App\Reports\ReportFactory;
-use Exception;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Throwable;
 
 class Report extends Model
 {
@@ -23,21 +25,26 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category',
         'type',
+        'status',
+        'title',
         'date_from',
         'date_until',
+        'columns',
         'indicators',
-        'segments',
         'data',
         'user_id',
     ];
 
     protected $casts = [
+        'category' => Category::class,
         'type' => Type::class,
+        'status' => Status::class,
         'date_from' => 'date',
         'date_until' => 'date',
+        'columns' => 'collection',
         'indicators' => 'collection',
-        'segments' => 'collection',
         'data' => 'collection',
     ];
 
@@ -50,6 +57,16 @@ class Report extends Model
 
             $builder->whereBelongsTo(auth()->user());
         });
+
+        static::creating(function (self $report) {
+            if (blank($report->type)) {
+                $report->type = Type::STATISTIC;
+            }
+
+            if (auth()->check()) {
+                $report->user_id = auth()->id();
+            }
+        });
     }
 
     public function user(): BelongsTo
@@ -57,65 +74,15 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function factory(): ?ReportFactory
+    public function getPeriodAttribute(): string
     {
-        try {
-            $report = match ($this->type) {
-                Type::NURSE_ACTIVITY => NurseActivityReport::class,
-                default => throw new Exception('Invalid report type'),
-            };
-        } catch (Throwable $th) {
-            return null;
-        }
-
-        return $report::make($this);
-    }
-
-    public function getTitleAttribute(): string
-    {
-        $title = [
-            $this->type->label(),
-        ];
-
-        $segments = $this->segments->filter();
-
-        if ($segments->isNotEmpty()) {
-            $title[] = __('report.title.segments', [
-                'segments' => $segments
-                    ->keys()
-                    ->map(fn (string $segment) => Str::lower(__("report.column.{$segment}")))
-                    ->implode(', '),
-            ]);
-        }
-
-        if ($this->date_until === null) {
-            $title[] = __('report.title.date', [
-                'date' => $this->date_from->toFormattedDate(),
-            ]);
-        } else {
-            $title[] = __('report.title.date_range', [
-                'from' => $this->date_from->toFormattedDate(),
-                'to' => $this->date_until->toFormattedDate(),
-            ]);
-        }
-
-        return implode(' ', $title);
-    }
-
-    public function getIndicatorsListAttribute(): ?string
-    {
-        if ($this->indicators === null) {
-            return null;
-        }
-
-        return $this->indicators
-            ->flatMap(
-                fn (array $indicators, string $group) => array_map(
-                    fn ($indicator) => __(sprintf('report.indicator.value.%s.%s', $group, $indicator)),
-                    $indicators
-                )
-            )
-            ->join(', ');
+        return collect([
+            $this->date_from,
+            $this->date_until,
+        ])
+            ->filter()
+            ->map(fn (Carbon $date) => $date->toFormattedDate())
+            ->implode(' - ');
     }
 
     public function getSegmentTuplesAttribute(): array
@@ -131,5 +98,49 @@ class Report extends Model
             ->all();
 
         return Arr::crossJoin(...$segments);
+    }
+
+    public function isList(): bool
+    {
+        return $this->type->is(Type::LIST);
+    }
+
+    public function isStatistic(): bool
+    {
+        return $this->type->is(Type::STATISTIC);
+    }
+
+    public function isFinished(): bool
+    {
+        return $this->status->is(Status::FINISHED);
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status->is(Status::PENDING);
+    }
+
+    public function isFailed(): bool
+    {
+        return $this->status->is(Status::FAILED);
+    }
+
+    public function indicators(): Collection
+    {
+        return $this->indicators
+            ->map(fn (string $indicator) => $this->category->indicator()::from($indicator))
+            ->reject(fn (HasQuery $indicator) => ! class_exists($indicator->class()));
+    }
+
+    public function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => \sprintf(
+                'Raport %s %s %s',
+                Str::lower($this->type->label()),
+                $this->category->label(),
+                $this->period,
+            ),
+        );
     }
 }

@@ -6,11 +6,13 @@ namespace Database\Factories;
 
 use App\Enums\Gender;
 use App\Enums\User\Role;
+use App\Models\City;
 use App\Models\CommunityActivity;
 use App\Models\County;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
+use App\Models\User;
 use App\Models\Vacation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -55,10 +57,20 @@ class UserFactory extends Factory
 
     public function nurse(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'role' => Role::NURSE,
-            'activity_county_id' => County::query()->inRandomOrder()->first()->id,
-        ]);
+        return $this
+            ->state(fn (array $attributes) => [
+                'role' => Role::NURSE,
+                'activity_county_id' => County::query()->inRandomOrder()->first()->id,
+            ])
+            ->afterCreating(function (User $user) {
+                $user->activityCities()->attach(
+                    City::query()
+                        ->where('county_id', $user->activity_county_id)
+                        ->inRandomOrder()
+                        ->limit(fake()->numberBetween(1, 3))
+                        ->pluck('id')
+                );
+            });
     }
 
     public function invited(): static

@@ -7,6 +7,7 @@ return [
     'action' => [
         'group' => 'Acțiuni rapide',
         'backHome' => 'Înapoi acasă',
+        'select_all' => 'Selectează tot',
     ],
 
     'filter' => [

@@ -3,6 +3,7 @@
     'description' => null,
     'heading',
     'icon',
+    'iconClass' => null,
 ])
 
 <div
@@ -11,7 +12,8 @@
         'dark:bg-gray-800' => config('tables.dark_mode'),
     ]) }}>
     <div @class([
-        'flex items-center justify-center w-28 h-28 text-primary-500',
+        'flex items-center justify-center w-28 h-28',
+        $iconClass ? $iconClass : 'text-primary-500',
     ])>
         <x-dynamic-component
             :component="$icon"
