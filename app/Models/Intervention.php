@@ -168,6 +168,19 @@ class Intervention extends Model
         return $query;
     }
 
+    public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string $code): Builder
+    {
+        return $query
+            ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
+            ->whereHasMorph(
+                'interventionable',
+                InterventionableIndividualService::class,
+                fn (Builder $query) => $query
+                    ->whereRelation('service', 'code', $code)
+                    ->where('status', Status::REALIZED)
+            );
+    }
+
     public function isCase(): bool
     {
         return $this->getActualClassNameForMorph($this->interventionable_type) === InterventionableCase::class;

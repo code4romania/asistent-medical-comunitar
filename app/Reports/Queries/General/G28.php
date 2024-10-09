@@ -7,21 +7,22 @@ namespace App\Reports\Queries\General;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention;
+use App\Models\Intervention\InterventionableIndividualService;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
-class G11 extends ReportQuery
+class G28 extends ReportQuery
 {
     /*
-     * Sum Servicii=Tratament medicamentos (STI_01); Status=realizat.
+     * Sum servicii=Educație - planificare familială (SES_12); Status=realizat.
      */
     public static function query(): Builder
     {
         return Intervention::query()
             ->without('appointment', 'interventionable')
-            ->whereRealizedIndividualServiceWithCode('STI_01');
+            ->whereRealizedIndividualServiceWithCode('SES_12')
     }
 
     public static function dateColumn(): string
