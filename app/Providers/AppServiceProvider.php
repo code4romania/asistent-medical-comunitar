@@ -11,6 +11,7 @@ use App\Filament\Resources\VacationResource;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Navigation\UserMenuItem;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Vite;
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerTelescope();
         $this->registerCarbonMacros();
+        $this->registerQueryMacros();
 
         Config::set('sentry.release', $this->getAppVersion());
     }
@@ -121,6 +123,16 @@ class AppServiceProvider extends ServiceProvider
         Carbon::macro('toFormattedDateTimeWithSeconds', fn () => $this->translatedFormat(config('forms.components.date_time_picker.display_formats.date_time_with_seconds')));
         Carbon::macro('toFormattedTime', fn () => $this->translatedFormat(config('forms.components.date_time_picker.display_formats.time')));
         Carbon::macro('toFormattedTimeWithSeconds', fn () => $this->translatedFormat(config('forms.components.date_time_picker.display_formats.time_with_seconds')));
+    }
+
+    protected function registerQueryMacros(): void
+    {
+        // TODO: remove this when migrating to Laravel 11.x
+        Builder::macro('whereJsonOverlaps', function (string $column, $value): Builder {
+            return $this->whereRaw('json_overlaps(`' . $column . '`, ?)', [
+                collect($value)->toJson(),
+            ]);
+        });
     }
 
     protected function enforceMorphMap(): void

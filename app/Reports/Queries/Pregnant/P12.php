@@ -12,16 +12,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
-class G28 extends ReportQuery
+class P12 extends ReportQuery
 {
     /*
-     * Sum servicii=Educație - planificare familială (SES_12); Status=realizat.
+     * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
      */
     public static function query(): Builder
     {
         return Intervention::query()
             ->without('appointment', 'interventionable')
-            ->whereRealizedIndividualServiceWithCode('SES_12');
+            ->whereRealizedIndividualServiceWithCode('STI_08');
     }
 
     public static function dateColumn(): string
