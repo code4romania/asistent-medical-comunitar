@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Builder;
 class C23 extends ReportQuery
 {
     /**
-     * Sum beneficiari with Copil cu un singur părinte acasă (VFC_01).
+     * Sum beneficiari with Copil din familie monoparentală (VFC_10).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VFC_01');
+                $query->whereJsonContains('properties', 'VFC_10');
             });
     }
 }

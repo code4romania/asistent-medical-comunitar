@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Reports\Queries\Pregnant;
+namespace App\Reports\Queries\Child;
 
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention;
@@ -11,16 +11,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
-class P12 extends ReportQuery
+class C21 extends ReportQuery
 {
-    /*
-     * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
+    /**
+     * Sum servicii=Anunț la vaccinare (SNF_11).
      */
     public static function query(): Builder
     {
         return Intervention::query()
             ->without('appointment', 'interventionable')
-            ->whereRealizedIndividualServiceWithCode('STI_08');
+            ->whereRealizedIndividualServiceWithCode('SNF_11');
     }
 
     public static function dateColumn(): string

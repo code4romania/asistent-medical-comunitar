@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Child;
 
 use App\Models\Beneficiary;
+use App\Models\Vulnerability\Vulnerability;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -18,13 +19,14 @@ class C27 extends ReportQuery
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query
-                    // TODO: don't count properties ending in 97, 98, 99
-                    ->whereJsonLength('properties', 1)
-                    ->where(function (Builder $query) {
-                        $query->whereJsonContains('properties', 'VCV_01')
-                            ->orWhereJsonContains('properties', 'VCV_02')
-                            ->orWhereJsonContains('properties', 'VCV_03');
-                    });
+                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03'])
+                    ->whereJsonDoesntOverlap(
+                        'properties',
+                        Vulnerability::query()
+                            ->whereIsValid()
+                            ->get()
+                            ->pluck('id')
+                    );
             });
     }
 }

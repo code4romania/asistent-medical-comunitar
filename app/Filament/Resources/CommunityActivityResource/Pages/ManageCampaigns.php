@@ -31,7 +31,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
     protected function getTableQuery(): Builder
     {
         return parent::getTableQuery()
-            ->onlyCampaigns()
+            ->whereCampaign()
             ->with('nurse.activityCities');
     }
 

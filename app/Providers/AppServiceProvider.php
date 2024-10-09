@@ -125,13 +125,19 @@ class AppServiceProvider extends ServiceProvider
         Carbon::macro('toFormattedTimeWithSeconds', fn () => $this->translatedFormat(config('forms.components.date_time_picker.display_formats.time_with_seconds')));
     }
 
+    // TODO: remove this when migrating to Laravel 11.x
     protected function registerQueryMacros(): void
     {
-        // TODO: remove this when migrating to Laravel 11.x
-        Builder::macro('whereJsonOverlaps', function (string $column, $value): Builder {
-            return $this->whereRaw('json_overlaps(`' . $column . '`, ?)', [
+        Builder::macro('whereJsonOverlaps', function (string $column, $value, bool $not = false): Builder {
+            $not = $not ? 'not ' : '';
+
+            return $this->whereRaw($not . 'json_overlaps(`' . $column . '`, ?)', [
                 collect($value)->toJson(),
             ]);
+        });
+
+        Builder::macro('whereJsonDoesntOverlap', function (string $column, $value): Builder {
+            return $this->whereJsonOverlaps($column, $value, true);
         });
     }
 

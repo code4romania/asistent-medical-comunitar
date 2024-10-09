@@ -15,7 +15,7 @@ enum Child: string implements HasQuery
 
     case C01 = 'C01';
     case C02 = 'C02';
-    case C03 = 'C03';
+    // case C03 = 'C03'; // not implemented
     case C04 = 'C04';
     case C05 = 'C05';
     case C06 = 'C06';

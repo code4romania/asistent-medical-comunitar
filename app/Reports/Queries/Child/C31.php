@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Reports\Queries\General;
+namespace App\Reports\Queries\Child;
 
 use App\Enums\CommunityActivity\Campaign;
 use App\Models\CommunityActivity;
@@ -10,16 +10,15 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class G25 extends ReportQuery
+class C31 extends ReportQuery
 {
     /**
-     * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
+     * Sum activități comunitare Campanii sănătate and tip=Triaj epidemiologic.
      */
     public static function query(): Builder
     {
         return CommunityActivity::query()
-            ->whereCampaign(Campaign::SCREENING)
-            ->whereCampaign();
+            ->whereCampaign(Campaign::EPIDEM_TRIAGE);
     }
 
     public static function dateColumn(): string

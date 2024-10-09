@@ -123,10 +123,17 @@ class GenerateStandardReport extends CreateRecord
                         ->columnSpanFull()
                         ->label(__('report.column.indicators'))
                         ->placeholder(__('placeholder.select_many'))
-                        ->options(
-                            fn (callable $get) => Category::tryFrom((string) $get('category'))
-                                ?->indicators()::options()
-                        )
+                        ->options(function (callable $get) {
+                            $indicator = Category::tryFrom((string) $get('category'))
+                                ?->indicator();
+
+                            return collect($indicator::options())
+                                ->reject(function (string $label, string $value) use ($indicator) {
+                                    $reportQuery = $indicator::tryFrom($value)?->class();
+
+                                    return \is_null($reportQuery) || ! class_exists($reportQuery);
+                                });
+                        })
                         ->visible(fn (callable $get) => Category::tryFrom((string) $get('category')) !== null)
                         ->multiple()
                         ->selectAll()

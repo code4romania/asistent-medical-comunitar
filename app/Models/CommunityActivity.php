@@ -73,14 +73,16 @@ class CommunityActivity extends Model implements HasMedia
             ->logOnlyDirty();
     }
 
-    public function scopeOnlyCampaigns(Builder $query): Builder
+    public function scopeWhereCampaign(Builder $query, ?Campaign $subtype = null): Builder
     {
-        return $query->where('type', Type::CAMPAIGN);
+        return $query->where('type', Type::CAMPAIGN)
+            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
     }
 
-    public function scopeOnlyAdministrativeActivities(Builder $query): Builder
+    public function scopeWhereAdministrativeActivity(Builder $query, ?Administrative $subtype = null): Builder
     {
-        return $query->where('type', Type::ADMINISTRATIVE);
+        return $query->where('type', Type::ADMINISTRATIVE)
+            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
     }
 
     public function getHourAttribute(): string

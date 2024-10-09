@@ -128,7 +128,7 @@ class Report extends Model
     public function indicators(): Collection
     {
         return $this->indicators
-            ->map(fn (string $indicator) => $this->category->indicators()::from($indicator))
+            ->map(fn (string $indicator) => $this->category->indicator()::from($indicator))
             ->reject(fn (HasQuery $indicator) => ! class_exists($indicator->class()));
     }
 

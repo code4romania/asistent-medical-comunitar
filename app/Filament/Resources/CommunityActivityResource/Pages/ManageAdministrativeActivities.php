@@ -31,7 +31,7 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
     protected function getTableQuery(): Builder
     {
         return parent::getTableQuery()
-            ->onlyAdministrativeActivities()
+            ->whereAdministrativeActivity()
             ->with('nurse.activityCities');
     }
 

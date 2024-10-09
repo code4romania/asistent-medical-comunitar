@@ -22,7 +22,7 @@ enum Category: string
         return 'report.standard.category';
     }
 
-    public function indicators(): string
+    public function indicator(): string
     {
         return match ($this) {
             self::GENERAL => Indicators\General::class,

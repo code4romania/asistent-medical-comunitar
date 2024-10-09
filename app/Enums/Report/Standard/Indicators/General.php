@@ -37,7 +37,7 @@ enum General: string implements HasQuery
     case G22 = 'G22';
     case G23 = 'G23';
     case G24 = 'G24';
-    // case G25 = 'G25';
+    case G25 = 'G25';
     case G26 = 'G26';
     case G27 = 'G27';
     case G28 = 'G28';

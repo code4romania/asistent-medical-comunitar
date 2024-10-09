@@ -18,11 +18,7 @@ class C25 extends ReportQuery
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonContains('properties', 'VSG_TMC')
-                    ->where(function (Builder $query) {
-                        $query->whereJsonContains('properties', 'VCV_01')
-                            ->orWhereJsonContains('properties', 'VCV_02')
-                            ->orWhereJsonContains('properties', 'VCV_03');
-                    });
+                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
             });
     }
 }
