@@ -69,7 +69,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
 
                         return [
                             $indicator->label() => $nurses
-                                ->mapWithKeys(function (User $nurse) use ($results, $total) {
+                                ->mapWithKeys(function (User $nurse) use ($results, &$total) {
                                     $value = $results->get($nurse->id, 0);
 
                                     $total += $value;

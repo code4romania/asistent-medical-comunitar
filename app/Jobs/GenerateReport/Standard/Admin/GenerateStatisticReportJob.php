@@ -29,6 +29,8 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
             ->whereIn('id', $this->counties)
             ->get();
 
+        $includeTotals = $counties->count() > 1;
+
         $this->report->data = [
             [
                 'title' => $this->getCategory()->label(),
@@ -38,10 +40,14 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                         'name' => "county-{$county->id}",
                         'label' => $county->name,
                     ])
+                    ->when($includeTotals, fn (Collection $columns) => $columns->push([
+                        'name' => 'total',
+                        'label' => __('report.column.total'),
+                    ]))
                     ->values(),
 
                 'data' => $this->report->indicators()
-                    ->mapWithKeys(function (HasQuery $indicator) use ($counties) {
+                    ->mapWithKeys(function (HasQuery $indicator) use ($counties, $includeTotals) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 
@@ -59,10 +65,20 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                             ->get()
                             ->pluck('count', 'county_id');
 
+                        $total = 0;
+
                         return [
-                            $indicator->label() => $counties->mapWithKeys(fn (County $county) => [
-                                "county-{$county->id}" => $results->get($county->id, 0),
-                            ]),
+                            $indicator->label() => $counties
+                                ->mapWithKeys(function (County $county) use ($results, &$total) {
+                                    $value = $results->get($county->id, 0);
+
+                                    $total += $value;
+
+                                    return [
+                                        "county-{$county->id}" => $value,
+                                    ];
+                                })
+                                ->when($includeTotals, fn (Collection $values) => $values->put('total', $total)),
                         ];
                     }),
             ],
