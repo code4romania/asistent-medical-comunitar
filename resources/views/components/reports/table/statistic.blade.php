@@ -6,9 +6,9 @@
 <div class="w-full overflow-x-scroll">
     <table class="min-w-full border-collapse table-fixed text-start">
         @if (null !== $columns)
-            <thead class="text-base bg-gray-500/5">
-                <x-tables::row>
-                    <th scope="col" class="sticky left-0 bg-white border-r" rowspan="2"></th>
+            <thead class="text-base bg-gray-50">
+                <x-tables::row class="divide-x divide-gray-200">
+                    <th scope="col" class="sticky left-0 bg-white"></th>
 
                     @foreach ($columns as $column)
                         @php
@@ -16,55 +16,47 @@
                         @endphp
 
                         <x-tables::header-cell
+                            scope="col"
                             :name="$column['name']"
-                            :rowspan="filled($suffix) ? 1 : 2"
+                            alignment="right"
                             class="align-top">
-                            <span class="text-base font-bold text-gray-900">
-                                {{ $column['label'] }}
-                            </span>
-                        </x-tables::header-cell>
-                    @endforeach
-                </x-tables::row>
-
-                <x-tables::row>
-                    @foreach ($columns as $column)
-                        @if (data_get($column, 'suffix'))
-                            <x-tables::header-cell class="align-top">
-                                <span class="whitespace-normal">
-                                    {{ $column['suffix'] }}
+                            <div class="text-right">
+                                <span class="block text-base font-bold text-gray-900">
+                                    {{ $column['label'] }}
                                 </span>
-                            </x-tables::header-cell>
-                        @endif
+
+                                @if (data_get($column, 'suffix'))
+                                    <span class="whitespace-normal">
+                                        {{ $column['suffix'] }}
+                                    </span>
+                                @endif
+                            </div>
+                        </x-tables::header-cell>
                     @endforeach
                 </x-tables::row>
             </thead>
         @endif
 
         <tbody class="divide-y border-y">
-            @foreach ($data as $label => $columns)
-                <tr>
+            @foreach ($data as $label => $values)
+                <x-tables::row class="divide-x divide-gray-200">
                     <th
-                        class="sticky left-0 px-4 py-3 text-left bg-gray-100 border-r"
+                        class="sticky left-0 px-4 py-3 text-left bg-gray-50"
                         scope="row">
                         <span class="block w-64">
                             {{ $label }}
                         </span>
                     </th>
 
-                    @foreach ($columns as $data)
-                        @if (is_array($data))
-                            @foreach ($data as $d)
-                                <td class="p-4 text-right">
-                                    {{ $d }}
-                                </td>
-                            @endforeach
-                        @else
-                            <td class="p-4 text-right">
-                                {{ $data }}
-                            </td>
-                        @endif
+                    @foreach ($columns as $column)
+                        <td @class([
+                            'p-4 text-right',
+                            'bg-gray-50 font-bold' => $column['name'] === 'total',
+                        ])>
+                            {{ data_get($values, $column['name']) }}
+                        </td>
                     @endforeach
-                </tr>
+                </x-tables::row>
             @endforeach
         </tbody>
     </table>
