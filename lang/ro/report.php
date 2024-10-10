@@ -60,6 +60,7 @@ return [
         'status' => 'Status',
         'nurses' => 'Asistenți medicali comunitari',
         'counties' => 'Județe',
+        'total' => 'Total',
     ],
 
     'type' => [
