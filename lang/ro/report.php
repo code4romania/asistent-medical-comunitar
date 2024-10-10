@@ -58,6 +58,7 @@ return [
         'category' => 'Fișă raportare',
         'period' => 'Perioada de raportare',
         'status' => 'Status',
+        'total' => 'Total',
     ],
 
     'type' => [
