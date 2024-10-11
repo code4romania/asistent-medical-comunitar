@@ -18,11 +18,11 @@ class C27 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query
-                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03'])
+                $query->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03'])
                     ->whereJsonDoesntOverlap(
                         'properties',
                         Vulnerability::query()
+                            ->whereNotIn('id', ['VCV_01', 'VCV_02', 'VCV_03'])
                             ->whereIsValid()
                             ->get()
                             ->pluck('id')

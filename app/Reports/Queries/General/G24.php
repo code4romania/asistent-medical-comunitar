@@ -23,6 +23,7 @@ class G24 extends ReportQuery
                         'properties',
                         Vulnerability::query()
                             ->whereIsValid()
+                            ->whereNot('id', 'VCV_05')
                             ->get()
                             ->pluck('id')
                     );

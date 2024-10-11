@@ -43,7 +43,10 @@ class C31 extends ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        return $query->addSelect(['type']);
+        return $query->addSelect([
+            'nurse_id',
+            'type',
+        ]);
     }
 
     /**
