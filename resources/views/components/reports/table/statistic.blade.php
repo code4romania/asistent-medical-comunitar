@@ -48,14 +48,22 @@
                         </span>
                     </th>
 
-                    @foreach ($columns as $column)
-                        <td @class([
-                            'p-4 text-right',
-                            'bg-gray-50 font-bold' => $column['name'] === 'total',
-                        ])>
-                            {{ data_get($values, $column['name']) }}
-                        </td>
-                    @endforeach
+                    @if (filled($columns))
+                        @foreach ($columns as $column)
+                            <td @class([
+                                'p-4 text-right',
+                                'bg-gray-50 font-bold' => $column['name'] === 'total',
+                            ])>
+                                {{ data_get($values, $column['name']) }}
+                            </td>
+                        @endforeach
+                    @else
+                        @foreach ($values as $value)
+                            <td class="p-4 text-right">
+                                {{ $value }}
+                            </td>
+                        @endforeach
+                    @endif
                 </x-tables::row>
             @endforeach
         </tbody>
