@@ -35,7 +35,9 @@ abstract class ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        return $query;
+        return $query->addSelect([
+            'beneficiaries.nurse_id',
+        ]);
     }
 
     public static function recordActionUrl(Model $record): ?string

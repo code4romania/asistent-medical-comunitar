@@ -50,6 +50,7 @@ class P12 extends ReportQuery
                 new Alias('interventionable_individual_services.status', 'status'),
                 new Alias('interventions.integrated', 'integrated'),
                 new Alias('beneficiaries.full_name', 'beneficiary'),
+                new Alias('beneficiaries.nurse_id', 'nurse_id'),
                 new Alias('interventionable_individual_services.outside_working_hours', 'outside_working_hours'),
                 new Alias('interventionable_individual_services.date', 'date'),
                 'interventions.beneficiary_id',
