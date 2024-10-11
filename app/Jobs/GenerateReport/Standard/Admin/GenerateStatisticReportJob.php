@@ -58,7 +58,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                                     ->join('users', 'users.activity_county_id', 'counties.id')
                                     ->whereColumn('users.id', 'nurse_id')
                                     ->take(1),
-                                new Alias(new Count('*'), 'count'),
+                                new Alias(new Count('id', distinct: true), 'count'),
                             ])
                             ->groupBy('county_id')
                             ->toBase()

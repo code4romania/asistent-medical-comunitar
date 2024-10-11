@@ -59,7 +59,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                         $reportQuery = $indicator->class();
 
                         $results = $reportQuery::build($this->report)
-                            ->select('nurse_id', new Alias(new Count('*'), 'count'))
+                            ->select('nurse_id', new Alias(new Count('id', distinct: true), 'count'))
                             ->groupBy('nurse_id')
                             ->toBase()
                             ->get()

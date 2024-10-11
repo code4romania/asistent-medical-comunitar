@@ -33,6 +33,7 @@ class GenerateListReportJob extends GenerateStandardReportJob
                         ->values(),
 
                     'data' => $reportQuery::build($this->report)
+                        ->distinct('id')
                         ->get()
                         ->map(
                             fn (Model $record) => $columns
