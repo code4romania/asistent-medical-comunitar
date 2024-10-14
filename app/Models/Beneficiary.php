@@ -221,14 +221,14 @@ class Beneficiary extends Model
             }, 'beneficiaries');
     }
 
-    public function scopeWhereHasCatagraphyRelation(Builder $query, string $model, callable $callback): Builder
+    public function scopeWhereHasCatagraphyRelation(Builder $query, string $model, ?callable $callback = null): Builder
     {
         return $query->whereExists(function (QueryBuilder $query) use ($model, $callback) {
             return $query->from('activity_log')
                 ->where('log_name', 'catagraphy')
                 ->where('subject_type', (new $model)->getMorphClass())
                 ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
-                ->tap($callback);
+                ->when($callback, fn ($query) => $query->tap($callback));
         });
     }
 
