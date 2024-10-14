@@ -231,4 +231,12 @@ class Beneficiary extends Model
                 ->tap($callback);
         });
     }
+
+    public function scopeWhereHasRareDisease(Builder $query, string $rareDisease): Builder
+    {
+        return $query->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) use ($rareDisease) {
+            return $query->where('properties->attributes->category', 'VSG_BR')
+                ->where('properties->attributes->rare_disease', $rareDisease);
+        });
+    }
 }
