@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Reports\Queries\General;
 
 use App\Models\Beneficiary;
+use App\Models\Disability;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -17,11 +18,8 @@ class G17 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VCV_06')
-                    ->where(function (Builder $query) {
-                        $query->whereJsonContains('properties', 'VDH_01')
-                            ->orWhereJsonContains('properties', 'VDH_02');
-                    });
-            });
+                $query->whereJsonContains('properties', 'VCV_06');
+            })
+            ->whereHasCatagraphyRelation(Disability::class);
     }
 }
