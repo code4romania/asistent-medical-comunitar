@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Child;
 
 use App\Models\Beneficiary;
+use App\Models\Disease;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class C09 extends ReportQuery
 {
@@ -17,8 +19,10 @@ class C09 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VSG_TB')
-                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
+                $query->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
+            })
+            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) {
+                $query->where('properties->attributes->category', 'VSG_TB');
             });
     }
 }
