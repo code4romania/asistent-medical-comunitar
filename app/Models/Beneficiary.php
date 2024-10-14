@@ -220,4 +220,15 @@ class Beneficiary extends Model
                     ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
             }, 'beneficiaries');
     }
+
+    public function scopeWhereHasCatagraphyRelation(Builder $query, string $model, callable $callback): Builder
+    {
+        return $query->whereExists(function (QueryBuilder $query) use ($model, $callback) {
+            return $query->from('activity_log')
+                ->where('log_name', 'catagraphy')
+                ->where('subject_type', (new $model)->getMorphClass())
+                ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
+                ->tap($callback);
+        });
+    }
 }

@@ -21,12 +21,8 @@ class G08 extends ReportQuery
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonContains('properties', 'VCV_05');
             })
-            ->whereExists(function (QueryBuilder $query) {
-                $query->from('activity_log')
-                    ->where('log_name', 'catagraphy')
-                    ->where('subject_type', (new Disease)->getMorphClass())
-                    ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
-                    ->where('properties->attributes->category', 'VSG_TB');
+            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) {
+                $query->where('properties->attributes->category', 'VSG_TB');
             });
     }
 }
