@@ -90,6 +90,9 @@ class Beneficiary extends Model
             ->logOnlyDirty();
     }
 
+    /**
+     * @deprecated use `activities` instead.
+     */
     public function activity()
     {
         return $this->morphMany(Activity::class, 'subject');

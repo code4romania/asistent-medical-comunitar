@@ -20,7 +20,7 @@ class C17 extends ReportQuery
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
             })
-            ->whereHas('activity', function (Builder $query) {
+            ->whereHas('activities', function (Builder $query) {
                 $query->where('properties->attributes->reason_removed', ReasonRemoved::DECEASED_HOME);
             });
     }
