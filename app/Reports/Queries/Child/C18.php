@@ -18,8 +18,10 @@ class C18 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->where('properties->attributes->reason_removed', ReasonRemoved::DECEASED_HOSPITAL)
-                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
+                $query->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
+            })
+            ->whereHas('activities', function (Builder $query) {
+                $query->where('properties->attributes->reason_removed', ReasonRemoved::DECEASED_HOSPITAL);
             });
     }
 }

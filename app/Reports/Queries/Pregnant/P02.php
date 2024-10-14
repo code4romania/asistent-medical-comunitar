@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Pregnant;
 
 use App\Models\Beneficiary;
+use App\Models\Disease;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class P02 extends ReportQuery
 {
@@ -17,11 +19,11 @@ class P02 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VGR_04')
-                    ->where(function (Builder $query) {
-                        $query->whereJsonContains('properties', 'VSG_01')
-                            ->orWhereJsonContains('properties', 'VSG_02');
-                    });
+                $query->whereJsonContains('properties', 'VGR_04');
+            })
+            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) {
+                $query->where('properties->attributes->type', 'VSG_01')
+                    ->orWhere('properties->attributes->type', 'VSG_02');
             });
     }
 }

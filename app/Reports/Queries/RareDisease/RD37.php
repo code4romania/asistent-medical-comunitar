@@ -16,8 +16,6 @@ class RD37 extends ReportQuery
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonContains('properties', 'VBR_SNP');
-            });
+            ->whereHasRareDisease('VBR_SNP');
     }
 }

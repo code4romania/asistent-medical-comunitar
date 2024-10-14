@@ -195,7 +195,7 @@ class Catagraphy extends Model
         return Attribute::make(
             get: fn () => match ($this->is_vaccinated_on_schedule) {
                 true => 'VVC_01',
-                false => 'VVC_99',
+                // false => 'VVC_99',
                 default => null,
             },
         )->shouldCache();

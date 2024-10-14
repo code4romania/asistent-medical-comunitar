@@ -90,6 +90,9 @@ class Beneficiary extends Model
             ->logOnlyDirty();
     }
 
+    /**
+     * @deprecated use `activities` instead.
+     */
     public function activity()
     {
         return $this->morphMany(Activity::class, 'subject');
@@ -216,5 +219,24 @@ class Beneficiary extends Model
                     ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
                     ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
             }, 'beneficiaries');
+    }
+
+    public function scopeWhereHasCatagraphyRelation(Builder $query, string $model, ?callable $callback = null): Builder
+    {
+        return $query->whereExists(function (QueryBuilder $query) use ($model, $callback) {
+            return $query->from('activity_log')
+                ->where('log_name', 'catagraphy')
+                ->where('subject_type', (new $model)->getMorphClass())
+                ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
+                ->when($callback, fn ($query) => $query->tap($callback));
+        });
+    }
+
+    public function scopeWhereHasRareDisease(Builder $query, string $rareDisease): Builder
+    {
+        return $query->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) use ($rareDisease) {
+            return $query->where('properties->attributes->category', 'VSG_BR')
+                ->where('properties->attributes->rare_disease', $rareDisease);
+        });
     }
 }
