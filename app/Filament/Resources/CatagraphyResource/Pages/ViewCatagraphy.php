@@ -123,10 +123,6 @@ class ViewCatagraphy extends ViewRecord
                                 VulnerabilityChips::make('cat_ns')
                                     ->label($categories->get('NS')),
 
-                                VulnerabilityChips::make('cat_vcc')
-                                    ->label($categories->get('VCC'))
-                                    ->columnSpanFull(),
-
                                 VulnerabilityChips::make('cat_ssa')
                                     ->label($categories->get('SSA')),
 
