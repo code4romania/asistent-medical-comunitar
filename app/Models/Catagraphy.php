@@ -98,7 +98,7 @@ class Catagraphy extends Model
             fn () => activity('vulnerabilities')
                 ->causedBy($activity->causer)
                 ->performedOn($beneficiary)
-                ->withProperties($this->all_valid_vulnerabilities->pluck('value'))
+                ->withProperties($this->all_vulnerabilities_items->pluck('value'))
                 ->event($eventName)
                 ->log($eventName)
         );
