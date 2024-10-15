@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Arr;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -168,7 +169,7 @@ class Intervention extends Model
         return $query;
     }
 
-    public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string $code): Builder
+    public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string|array $codes): Builder
     {
         return $query
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
@@ -176,7 +177,7 @@ class Intervention extends Model
                 'interventionable',
                 InterventionableIndividualService::class,
                 fn (Builder $query) => $query
-                    ->whereRelation('service', 'code', $code)
+                    ->whereHas('service', fn (Builder $query) => $query->whereIn('code', Arr::wrap($codes)))
                     ->where('status', Status::REALIZED)
             );
     }
