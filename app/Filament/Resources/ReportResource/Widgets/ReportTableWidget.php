@@ -26,6 +26,11 @@ class ReportTableWidget extends BaseWidget
         return ReportResource::getEloquentQuery();
     }
 
+    protected function getTableHeading(): string
+    {
+        return __('report.header.list');
+    }
+
     protected function getTableColumns(): array
     {
         return [
