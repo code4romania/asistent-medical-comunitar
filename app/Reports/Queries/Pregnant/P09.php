@@ -17,8 +17,10 @@ class P09 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01'])
-                    ->whereJsonOverlaps('properties', ['STR_02', 'SAI_02', 'SNF_02']);
+                $query->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
+            })
+            ->whereHas('interventions', function (Builder $query) {
+                $query->whereRealizedIndividualServiceWithCode(['STR_02', 'SAI_02', 'SNF_02']);
             });
     }
 }
