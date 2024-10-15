@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('catagraphies', function (Blueprint $table) {
             $table->boolean('is_social_case')->nullable()->after('evaluation_date');
-            $table->boolean('is_vaccinated_on_schedule')->nullable()->after('cat_ns');
         });
     }
 };

@@ -229,10 +229,6 @@ class CatagraphyResource extends Resource
                                     ->multiple()
                                     ->searchable(),
 
-                                Checkbox::make('is_vaccinated_on_schedule')
-                                    ->label($categories->get('VCC'))
-                                    ->columnSpanFull(),
-
                                 Select::make('cat_ssa')
                                     ->label($categories->get('SSA'))
                                     ->placeholder(__('placeholder.select_many'))
