@@ -46,6 +46,16 @@ class GenerateStandardReport extends CreateRecord
         $job::dispatch($this->record, $data);
     }
 
+    protected function getTitle(): string
+    {
+        return ucfirst(__('report.label.plural'));
+    }
+
+    protected function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
     protected function getFormSchema(): array
     {
         return [
@@ -159,6 +169,11 @@ class GenerateStandardReport extends CreateRecord
                         ->maxDate(today()),
                 ]),
         ];
+    }
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return null;
     }
 
     protected function getFormActions(): array

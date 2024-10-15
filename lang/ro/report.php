@@ -10,7 +10,7 @@ return [
     ],
 
     'header' => [
-        'list' => 'Rapoarte',
+        'list' => 'Toate rapoartele',
         'coming_soon' => 'Disponibile în curând.',
     ],
 
