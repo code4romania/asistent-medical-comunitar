@@ -46,7 +46,6 @@ class Catagraphy extends Model
         'cat_ssa',
         'cat_vif',
         'is_social_case',
-        'is_vaccinated_on_schedule',
     ];
 
     protected $casts = [
@@ -69,7 +68,6 @@ class Catagraphy extends Model
         'has_disabilities' => 'boolean',
         'has_health_issues' => 'boolean',
         'is_social_case' => 'boolean',
-        'is_vaccinated_on_schedule' => 'boolean',
     ];
 
     protected $with = [
@@ -185,17 +183,6 @@ class Catagraphy extends Model
             get: fn () => match ($this->is_social_case) {
                 true => 'VCS_01',
                 false => 'VCS_99',
-                default => null,
-            },
-        )->shouldCache();
-    }
-
-    public function catVcc(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => match ($this->is_vaccinated_on_schedule) {
-                true => 'VVC_01',
-                // false => 'VVC_99',
                 default => null,
             },
         )->shouldCache();
