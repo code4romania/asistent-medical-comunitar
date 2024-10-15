@@ -228,15 +228,27 @@ class Beneficiary extends Model
                 ->where('log_name', 'catagraphy')
                 ->where('subject_type', (new $model)->getMorphClass())
                 ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
-                ->when($callback, fn ($query) => $query->tap($callback));
+                ->when(\is_callable($callback), fn ($query) => $query->tap($callback));
         });
     }
 
     public function scopeWhereHasRareDisease(Builder $query, string $rareDisease): Builder
     {
-        return $query->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) use ($rareDisease) {
-            return $query->where('properties->attributes->category', 'VSG_BR')
-                ->where('properties->attributes->rare_disease', $rareDisease);
-        });
+        return $query
+            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) use ($rareDisease) {
+                return $query->where('properties->attributes->category', 'VSG_BR')
+                    ->where('properties->attributes->rare_disease', $rareDisease);
+            })
+            ->fromSub(function (QueryBuilder $query) {
+                $query
+                    ->select([
+                        'beneficiaries.*',
+                        'counties.name as county',
+                        'cities.name as city',
+                    ])
+                    ->from('beneficiaries')
+                    ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
+                    ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
+            }, 'beneficiaries');
     }
 }
