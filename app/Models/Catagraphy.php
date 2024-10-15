@@ -182,7 +182,6 @@ class Catagraphy extends Model
         return Attribute::make(
             get: fn () => match ($this->is_social_case) {
                 true => 'VCS_01',
-                false => 'VCS_99',
                 default => null,
             },
         )->shouldCache();
