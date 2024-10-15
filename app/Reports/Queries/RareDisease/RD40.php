@@ -8,14 +8,14 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class RD11 extends ReportQuery
+class RD40 extends ReportQuery
 {
     /**
-     * Sum beneficiari with AC-sindrom Rubinstein Taybi (VBR_RT).
+     * Sum beneficiari with G-sindrom Noonan-rasopatie (VBR_SNR).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_RT');
+            ->whereHasRareDisease('VBR_SNR');
     }
 }

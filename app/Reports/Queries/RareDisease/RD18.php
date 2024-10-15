@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD18 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-boala Pompe (VBR_BP).
+     * Sum beneficiari with G-boala Fabry (VBR_BF).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_BP');
+            ->whereHasRareDisease('VBR_BF');
     }
 }

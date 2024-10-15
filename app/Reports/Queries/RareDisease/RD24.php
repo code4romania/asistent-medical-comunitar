@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD24 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-sindrom de imunodeficienţă primară (VBR_SIP).
+     * Sum beneficiari with G-afibrinogenemie congenitală (VBR_AFC).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_SIP');
+            ->whereHasRareDisease('VBR_AFC');
     }
 }

@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD23 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-afibrinogenemie congenitală (VBR_AFC).
+     * Sum beneficiari with G-mucopolizaharidoză tip I (sindromul Hurler) (VBR_TTD).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_AFC');
+            ->whereHasRareDisease('VBR_TTD');
     }
 }

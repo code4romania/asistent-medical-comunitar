@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD02 extends ReportQuery
 {
     /**
-     * Sum beneficiari with AC-trisomie 18 (sindrom Edwards) (VBR_EW).
+     * Sum beneficiari with AC-trisomie 13 (sindrom Patau) (VBR_PT).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_EW');
+            ->whereHasRareDisease('VBR_PT');
     }
 }

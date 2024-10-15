@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD22 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-mucopolizaharidoză tip I (sindromul Hurler) (VBR_TTD).
+     * Sum beneficiari with G-mucopolizaharidoză tip II (sindromul Hunter) (VBR_TTU).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_TTD');
+            ->whereHasRareDisease('VBR_TTU');
     }
 }

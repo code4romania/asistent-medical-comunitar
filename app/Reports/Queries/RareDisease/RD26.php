@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD26 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-distrofie musculară Duchennesi Becker (VBR_FDT).
+     * Sum beneficiari with G-epidermoliză buloasă (VBR_EPB).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_FDT');
+            ->whereHasRareDisease('VBR_EPB');
     }
 }

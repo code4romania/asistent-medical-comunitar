@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD15 extends ReportQuery
 {
     /**
-     * Sum beneficiari with AC-alte anomalii cromozomiale (VBR_AAC).
+     * Sum beneficiari with AC-sindrom Beckwith Wiedemann (VBR_BW).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_AAC');
+            ->whereHasRareDisease('VBR_BW');
     }
 }

@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class RD27 extends ReportQuery
 {
     /**
-     * Sum beneficiari with G-scleroză tuberoasă (VBR_ST).
+     * Sum beneficiari with G-fenilcetonurie sau deficit de tetrahidrobiopterină (BH4) (VBR_FDT).
      */
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_ST');
+            ->whereHasRareDisease('VBR_FDT');
     }
 }
