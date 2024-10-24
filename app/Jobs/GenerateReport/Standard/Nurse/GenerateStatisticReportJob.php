@@ -22,9 +22,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
 
                         return [
                             $indicator->label() => [
-                                $reportQuery::build($this->report)
-                                    ->distinct('id')
-                                    ->count('id'),
+                                $reportQuery::aggregate($this->report),
                             ],
                         ];
                     }),
