@@ -18,6 +18,11 @@ abstract class ReportQuery
         return 'beneficiaries.created_at';
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'id';
+    }
+
     public static function columns(): array
     {
         return [
@@ -82,5 +87,12 @@ abstract class ReportQuery
         return $query
             ->whereDate(static::dateColumn(), '>=', $report->date_from)
             ->whereDate(static::dateColumn(), '<=', $report->date_until);
+    }
+
+    public static function aggregate(Report $report): int
+    {
+        return static::build($report)
+            ->distinct(static::aggregateByColumn())
+            ->count(static::aggregateByColumn());
     }
 }

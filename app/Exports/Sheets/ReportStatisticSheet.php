@@ -42,7 +42,7 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
             ->map(function (array $column) {
                 $label = $column['label'];
 
-                if (filled($column['suffix'])) {
+                if (filled(data_get($column, 'suffix'))) {
                     $label .= "\n({$column['suffix']})";
                 }
 

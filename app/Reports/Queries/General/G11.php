@@ -29,6 +29,11 @@ class G11 extends ReportQuery
         return 'interventionable_individual_services.date';
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'interventions.id';
+    }
+
     public static function columns(): array
     {
         return [
