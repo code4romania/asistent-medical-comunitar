@@ -1,5 +1,6 @@
 import.meta.glob([
-    '../images/**'
+    '../images/**',
+    '../svg/**',
 ]);
 
 window.setEventContents = ({ event, timeText }) => {
@@ -15,3 +16,4 @@ window.setEventContents = ({ event, timeText }) => {
 
     return { html };
 };
+
