@@ -14,7 +14,7 @@ class VulnerabilitiesImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows): void
     {
-        if ($rows->first()->count() === 2) {
+        if ($rows->first()?->count() === 2) {
             VulnerabilityCategory::upsert($rows->toArray(), 'id');
         } else {
             Vulnerability::upsert(

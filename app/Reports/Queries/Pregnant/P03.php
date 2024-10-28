@@ -13,7 +13,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 class P03 extends ReportQuery
 {
     /**
-     * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Femeie însărcinată care a efectuat consultaţii prenatale (VGR_98).
+     * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Femeie însărcinată care a efectuat consultaţii prenatale (VGR_96).
      */
     public static function query(): Builder
     {
@@ -22,7 +22,7 @@ class P03 extends ReportQuery
                 $query->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
             })
             ->whereHasCatagraphyRelation(Catagraphy::class, function (QueryBuilder $query) {
-                $query->whereJsonContains('properties->attributes->cat_preg', 'VGR_98');
+                $query->whereJsonContains('properties->attributes->cat_preg', 'VGR_96');
             });
     }
 }
