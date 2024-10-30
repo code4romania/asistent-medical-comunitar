@@ -10,6 +10,8 @@ use Filament\Forms\Components\Select as BaseSelect;
 
 class Select extends BaseSelect
 {
+    protected int | Closure $optionsLimit = 100;
+
     protected bool | Closure $canSelectAll = false;
 
     public function selectAll(bool | Closure $condition = true): static
