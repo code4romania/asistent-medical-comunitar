@@ -2,16 +2,19 @@ FROM code4romania/php:8.2 AS vendor
 
 WORKDIR /var/www
 
+COPY --chown=www-data:www-data . /var/www
+
 RUN set -ex; \
     install-php-extensions \
     sockets
 
-COPY --chown=www-data:www-data . /var/www
-
 RUN set -ex; \
     composer install \
+    --optimize-autoloader \
+    --no-interaction \
     --no-plugins \
-    --no-dev
+    --no-dev \
+    --prefer-dist
 
 FROM node:20-alpine AS assets
 
@@ -25,17 +28,23 @@ COPY \
     vite.config.js \
     ./
 
-RUN npm ci --no-audit --ignore-scripts
+RUN set -ex; \
+    npm ci --no-audit --ignore-scripts
 
 COPY --from=vendor /var/www /build
 
-RUN npm run build
+RUN set -ex; \
+    npm run build
 
 FROM vendor
 
+ARG VERSION
+ARG REVISION
+
+RUN echo "$VERSION (${REVISION:0:7})" > /var/www/.version
+
 COPY docker/s6-rc.d /etc/s6-overlay/s6-rc.d
 COPY --from=assets --chown=www-data:www-data /build/public/build /var/www/public/build
-
 
 ENV WORKER_ENABLED=true
 
