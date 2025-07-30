@@ -47,7 +47,7 @@ trait HasTabs
         return __('report.header.list');
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }

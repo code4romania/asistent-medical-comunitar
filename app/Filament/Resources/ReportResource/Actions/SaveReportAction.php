@@ -22,7 +22,7 @@ class SaveReportAction extends Action
 
         $this->label(__('report.action.save'));
 
-        $this->icon('heroicon-o-bookmark-alt');
+        $this->icon('heroicon-o-bookmark-square');
 
         $this->successNotificationTitle(__('filament-support::actions/create.single.messages.created'));
 

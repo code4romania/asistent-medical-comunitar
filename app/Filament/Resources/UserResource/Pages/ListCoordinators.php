@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Status;
-use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListCoordinators extends ListUsers
@@ -20,7 +19,7 @@ class ListCoordinators extends ListUsers
             ->onlyCoordinators();
     }
 
-    protected function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -53,10 +52,9 @@ class ListCoordinators extends ListUsers
                     ->label(__('field.county'))
                     ->toggleable(),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label(__('field.status'))
-                    ->enum(Status::options())
-                    ->colors(Status::flipColors()),
+                    ->badge(),
             ])
             ->filters([
                 SelectFilter::make('status')

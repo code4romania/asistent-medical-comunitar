@@ -34,7 +34,7 @@ class DeactivateUserAction extends Action
 
         $this->color('danger');
 
-        $this->icon('heroicon-s-ban');
+        $this->icon('heroicon-m-no-symbol');
 
         $this->modalHeading(__('user.action_deactivate_confirm.title'));
 

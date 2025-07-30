@@ -40,7 +40,7 @@ class PersonalDataWidget extends Widget implements HasForms
             Action::make('view')
                 ->label(__('beneficiary.action.view_details'))
                 ->url(BeneficiaryResource::getUrl('personal_data', $this->record))
-                ->color('secondary'),
+                ->color('gray'),
         ]);
     }
 

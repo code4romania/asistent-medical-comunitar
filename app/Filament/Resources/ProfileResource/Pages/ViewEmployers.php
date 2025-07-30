@@ -9,12 +9,12 @@ use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Models\Profile\Employer;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ViewEmployers extends ViewRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -29,7 +29,7 @@ class ViewEmployers extends ViewRecord
                 ->label(__('employer.label.plural'))
                 ->schema([
                     Subsection::make()
-                        ->icon('heroicon-o-office-building')
+                        ->icon('heroicon-o-building-office')
                         ->columns(2)
                         ->schema([
                             Value::make('name')
@@ -82,7 +82,7 @@ class ViewEmployers extends ViewRecord
         ];
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

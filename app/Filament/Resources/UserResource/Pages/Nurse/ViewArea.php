@@ -9,11 +9,11 @@ use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Models\City;
 use App\Models\User;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class ViewArea extends ViewRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -24,7 +24,7 @@ class ViewArea extends ViewRecord
     {
         return [
             Subsection::make()
-                ->icon('heroicon-o-location-marker')
+                ->icon('heroicon-o-map-pin')
                 ->columns()
                 ->schema([
                     Value::make('activity_county')
@@ -42,7 +42,7 @@ class ViewArea extends ViewRecord
         ];
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

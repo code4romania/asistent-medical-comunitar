@@ -61,7 +61,7 @@ class ListHistory extends ListRecords implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }

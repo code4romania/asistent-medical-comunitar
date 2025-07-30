@@ -9,13 +9,12 @@ use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Models\City;
 use App\Models\User;
-use Closure;
 use Filament\Forms\Components\Select;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class EditArea extends EditRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -26,7 +25,7 @@ class EditArea extends EditRecord
     {
         return [
             Subsection::make()
-                ->icon('heroicon-o-location-marker')
+                ->icon('heroicon-o-map-pin')
                 ->columns()
                 ->schema([
                     Value::make('activity_county')
@@ -42,7 +41,7 @@ class EditArea extends EditRecord
                         ->searchable()
                         ->required()
                         ->getSearchResultsUsing(
-                            fn (string $search, Closure $get) => City::query()
+                            fn (string $search, \Filament\Forms\Get $get) => City::query()
                                 ->where('county_id', $get('activity_county_id'))
                                 ->search($search)
                                 ->limit(100)

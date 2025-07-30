@@ -10,7 +10,7 @@ use App\Models\Beneficiary;
 
 trait HasRecordBreadcrumb
 {
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         /** @var Beneficiary */
         $beneficiary = $this->getBeneficiary();

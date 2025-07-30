@@ -17,19 +17,19 @@ class EditRecord extends BaseEditRecord implements WithTabs
 
     protected static string $resource = ProfileResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return $this->isOwnProfile
             ? __('user.profile.my_profile')
             : $this->getRecord()->full_name;
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [
             auth()->user()->getFilamentName(),
@@ -51,11 +51,11 @@ class EditRecord extends BaseEditRecord implements WithTabs
             Action::make('cancel')
                 ->label(__('filament::resources/pages/edit-record.form.actions.cancel.label'))
                 ->url($this->previousUrl ?? $this->getRedirectUrl())
-                ->color('secondary'),
+                ->color('gray'),
         ];
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

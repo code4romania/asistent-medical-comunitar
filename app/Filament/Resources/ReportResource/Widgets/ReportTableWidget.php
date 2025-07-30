@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ReportResource\Widgets;
 
 use App\Enums\Report\Standard\Category;
-use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\ReportResource;
-use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Report;
 use Filament\Tables\Actions\ViewAction;
@@ -40,15 +38,13 @@ class ReportTableWidget extends BaseWidget
                 ->extraHeaderAttributes(['class' => 'w-1'])
                 ->sortable(),
 
-            BadgeColumn::make('status')
+            TextColumn::make('status')
                 ->label(__('report.column.status'))
-                ->enum(Status::options())
-                ->colors(Status::flipColors())
+                ->badge()
                 ->extraHeaderAttributes(['class' => 'w-1']),
 
             TextColumn::make('type')
                 ->label(__('report.column.type'))
-                ->enum(Type::options())
                 ->extraHeaderAttributes(['class' => 'w-1']),
 
             TextColumn::make('period')
@@ -57,7 +53,6 @@ class ReportTableWidget extends BaseWidget
 
             TextColumn::make('category')
                 ->label(__('report.column.category'))
-                ->enum(Category::options())
                 ->description(fn (Report $record) => $record->indicators()->map->label()->join(', '))
                 ->wrap(),
         ];

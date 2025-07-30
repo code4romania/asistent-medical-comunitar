@@ -34,7 +34,7 @@ class ActivateUserAction extends Action
 
         $this->color('success');
 
-        $this->icon('heroicon-s-badge-check');
+        $this->icon('heroicon-m-check-badge');
 
         $this->modalHeading(__('user.action_activate_confirm.title'));
 

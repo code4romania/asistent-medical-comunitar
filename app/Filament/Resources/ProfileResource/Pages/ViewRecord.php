@@ -18,7 +18,7 @@ class ViewRecord extends BaseViewRecord implements WithTabs
 
     protected static string $resource = ProfileResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         $name = "{$this->getActiveTab()}.edit";
 
@@ -34,14 +34,14 @@ class ViewRecord extends BaseViewRecord implements WithTabs
         ];
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return $this->isOwnProfile
             ? __('user.profile.my_profile')
             : $this->getRecord()->full_name;
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [
             auth()->user()->getFilamentName(),

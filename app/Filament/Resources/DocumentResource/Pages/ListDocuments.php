@@ -19,11 +19,13 @@ use Illuminate\Database\Eloquent\Builder;
 class ListDocuments extends ListRecords implements WithSidebar
 {
     use HasConditionalTableEmptyState;
-    use HasRecordBreadcrumb;
     use Concerns\HasActions;
     use Concerns\HasSidebar;
     use Concerns\ListRecordsForBeneficiary;
     use InteractsWithBeneficiary;
+    use HasRecordBreadcrumb {
+        HasRecordBreadcrumb::getBreadcrumbs insteadof Concerns\ListRecordsForBeneficiary;
+    }
 
     protected static string $resource = DocumentResource::class;
 
@@ -52,7 +54,7 @@ class ListDocuments extends ListRecords implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             CreateDocumentAction::make(),
@@ -99,7 +101,7 @@ class ListDocuments extends ListRecords implements WithSidebar
                     return Document::create($data);
                 })
                 ->form(DocumentResource::getFormSchema())
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }

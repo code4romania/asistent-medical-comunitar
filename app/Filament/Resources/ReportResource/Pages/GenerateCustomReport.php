@@ -9,17 +9,18 @@ use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Actions\SaveReportAction;
 use App\Filament\Resources\ReportResource\Concerns;
 use App\Models\Report;
+use Filament\Forms\Form;
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Contracts\HasFormActions;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\Concerns\UsesResourceForm;
 use Filament\Resources\Pages\Page;
 use Filament\Support\Exceptions\Halt;
 
-class GenerateCustomReport extends Page implements HasFormActions, WithTabs
+// TODO: finish migration
+class GenerateCustomReport extends Page implements /* HasFormActions, */ WithTabs
 {
     use Concerns\HasTabs;
-    use UsesResourceForm;
+    // use UsesResourceForm;
 
     public $data;
 
@@ -100,7 +101,7 @@ class GenerateCustomReport extends Page implements HasFormActions, WithTabs
             Action::make('cancel')
                 ->label(__('report.action.cancel'))
                 ->url($this->previousUrl ?? static::getResource()::getUrl())
-                ->color('secondary'),
+                ->color('gray'),
 
             SaveReportAction::make()
                 ->extraAttributes(['class' => 'hidden']),

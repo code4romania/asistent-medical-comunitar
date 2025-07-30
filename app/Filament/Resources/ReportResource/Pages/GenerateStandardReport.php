@@ -46,12 +46,12 @@ class GenerateStandardReport extends CreateRecord
         $job::dispatch($this->record, $data);
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return ucfirst(__('report.label.plural'));
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }
@@ -65,7 +65,7 @@ class GenerateStandardReport extends CreateRecord
                     Action::make('cancel')
                         ->label(__('report.action.cancel'))
                         ->url($this->previousUrl ?? static::getResource()::getUrl())
-                        ->color('secondary'),
+                        ->color('gray'),
 
                     Action::make('create')
                         ->label(__('report.action.generate'))

@@ -11,7 +11,7 @@ use App\Filament\Resources\BeneficiaryResource\Concerns;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateBeneficiary extends CreateRecord
@@ -22,12 +22,12 @@ class CreateBeneficiary extends CreateRecord
 
     protected static bool $canCreateAnother = false;
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('beneficiary.header.create');
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -63,7 +63,7 @@ class CreateBeneficiary extends CreateRecord
         return $data;
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

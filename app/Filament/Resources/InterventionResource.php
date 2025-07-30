@@ -32,11 +32,11 @@ class InterventionResource extends Resource
 {
     protected static ?string $model = Intervention::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static string | array $middlewares = [
+    protected static string | array $routeMiddleware = [
         RedirectToDashboard::class,
     ];
 
@@ -88,7 +88,7 @@ class InterventionResource extends Resource
                         ->required(),
 
                     Hidden::make('vulnerability_label')
-                        ->afterStateHydrated(function (Closure $set, $state, $livewire) {
+                        ->afterStateHydrated(function (\Filament\Forms\Set $set, $state, $livewire) {
                             $vulnerability_id = static::getValidVulnerabilities($livewire->getBeneficiary())
                                 ->filter(fn (string $value) => $value === $state)
                                 ->keys()
@@ -105,7 +105,7 @@ class InterventionResource extends Resource
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->columnSpan([
                     'lg' => 1,
                 ])
@@ -117,7 +117,7 @@ class InterventionResource extends Resource
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-clipboard-check')
+                ->icon('heroicon-o-clipboard-document-check')
                 ->columnSpanFull()
                 ->schema([
                     Textarea::make('interventionable.recommendations')
@@ -154,7 +154,7 @@ class InterventionResource extends Resource
                         ->required(),
 
                     Hidden::make('vulnerability_label')
-                        ->afterStateHydrated(function (Closure $set, $state, $livewire) {
+                        ->afterStateHydrated(function (\Filament\Forms\Set $set, $state, $livewire) {
                             $vulnerability_id = static::getValidVulnerabilities($livewire->getBeneficiary())
                                 ->filter(fn (string $value) => $value === $state)
                                 ->keys()

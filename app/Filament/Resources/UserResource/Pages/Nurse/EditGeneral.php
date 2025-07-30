@@ -12,11 +12,11 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class EditGeneral extends EditRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -57,7 +57,7 @@ class EditGeneral extends EditRecord
                     ]),
 
                 Subsection::make()
-                    ->icon('heroicon-o-location-marker')
+                    ->icon('heroicon-o-map-pin')
                     ->columns(2)
                     ->schema([
                         Location::make(),

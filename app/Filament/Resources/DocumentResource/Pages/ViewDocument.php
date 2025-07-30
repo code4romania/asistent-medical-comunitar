@@ -16,8 +16,8 @@ use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Document;
+use Filament\Forms\Form;
 use Filament\Pages\Actions;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewDocument extends ViewRecord implements WithSidebar
@@ -28,7 +28,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
 
     protected static string $resource = DocumentResource::class;
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -42,7 +42,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                                 $this->getBeneficiary(),
                                 $this->getRecord(),
                             ]))
-                            ->color('secondary'),
+                            ->color('gray'),
                     ])
                     ->schema([
                         Subsection::make()
@@ -61,7 +61,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                             ]),
 
                         Subsection::make()
-                            ->icon('heroicon-o-annotation')
+                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->schema([
                                 Value::make('notes')
                                     ->label(__('field.notes')),
@@ -78,8 +78,8 @@ class ViewDocument extends ViewRecord implements WithSidebar
                             Actions\Action::make('download')
                                 ->label(__('document.action.download'))
                                 ->url($media?->getFullUrl())
-                                ->color('secondary')
-                                ->icon('heroicon-o-download')
+                                ->color('gray')
+                                ->icon('heroicon-o-arrow-down-tray')
                                 ->extraAttributes([
                                     'download' => $media?->original_file_name,
                                 ]),

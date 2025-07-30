@@ -23,8 +23,6 @@ class NurseStatsWidget extends BaseWidget
 
     protected static ?string $pollingInterval = null;
 
-    protected static string $view = 'filament.widgets.stats-overview-widget';
-
     public static function canView(): bool
     {
         return auth()->user()->isNurse();
@@ -78,7 +76,7 @@ class NurseStatsWidget extends BaseWidget
     private function getRealizedServicesCard(): Card
     {
         return Card::make(__('dashboard.stats.services'))
-            ->icon('heroicon-s-lightning-bolt')
+            ->icon('heroicon-m-bolt')
             ->trend(
                 Intervention::select(static::countsComparedBy('closed_at'))
                     ->onlyIndividualServices()

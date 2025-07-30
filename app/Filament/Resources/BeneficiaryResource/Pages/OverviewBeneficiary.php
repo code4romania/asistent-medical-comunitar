@@ -11,8 +11,8 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
+use Filament\Forms\Form;
 use Filament\Pages\Actions;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class OverviewBeneficiary extends ViewRecord implements WithSidebar
@@ -27,14 +27,14 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
     protected static string $resource = BeneficiaryResource::class;
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
         $this->resolveBeneficiary($record);
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         if ($this->getRecord()->isRegular()) {
             return $this->getActionsFromTrait();
@@ -59,7 +59,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         if ($this->getRecord()->isRegular()) {
             return $form;
@@ -73,7 +73,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
             ]);
     }
 
-    protected function getHeaderWidgetsColumns(): int
+    public function getHeaderWidgetsColumns(): int
     {
         return 3;
     }

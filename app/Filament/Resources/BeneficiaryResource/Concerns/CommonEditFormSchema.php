@@ -151,7 +151,7 @@ trait CommonEditFormSchema
             static::getLocationSubsection(),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     RichEditor::make('notes')
                         ->label(__('field.beneficiary_notes'))
@@ -251,7 +251,7 @@ trait CommonEditFormSchema
             static::getLocationSubsection(),
 
             Subsection::make()
-                ->icon('heroicon-o-lightning-bolt')
+                ->icon('heroicon-o-bolt')
                 ->schema([
                     Repeater::make('ocasionalInterventions')
                         ->relationship()
@@ -285,7 +285,7 @@ trait CommonEditFormSchema
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     RichEditor::make('notes')
                         ->label(__('field.beneficiary_notes'))
@@ -300,7 +300,7 @@ trait CommonEditFormSchema
     private static function getLocationSubsection(): Subsection
     {
         return Subsection::make()
-            ->icon('heroicon-o-location-marker')
+            ->icon('heroicon-o-map-pin')
             ->columns(2)
             ->schema([
                 Location::make(),

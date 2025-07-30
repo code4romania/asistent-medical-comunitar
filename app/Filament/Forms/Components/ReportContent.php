@@ -53,7 +53,7 @@ class ReportContent extends Component
                                 View::make('vendor.tables.components.empty-state.index')
                                     ->visible(blank(data_get($table, 'data')))
                                     ->viewData([
-                                        'icon' => 'heroicon-o-x',
+                                        'icon' => 'heroicon-o-x-mark',
                                         'heading' => __('report.no-results.title'),
                                         'description' => __('report.no-results.description'),
                                     ]),
@@ -87,7 +87,7 @@ class ReportContent extends Component
                 View::make('vendor.tables.components.empty-state.index')
                     ->visible(fn (Report $record) => $record->isFailed())
                     ->viewData([
-                        'icon' => 'heroicon-s-exclamation',
+                        'icon' => 'heroicon-m-exclamation-triangle',
                         'iconClass' => 'text-danger-600',
                         'heading' => __('report.failed.title'),
                         'description' => __('report.failed.description'),

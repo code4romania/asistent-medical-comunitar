@@ -17,7 +17,7 @@ class ManageVacations extends ManageRecords
 
     protected static string $resource = VacationResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Pages\Actions\CreateAction::make()
@@ -66,7 +66,7 @@ class ManageVacations extends ManageRecords
 
                     return Vacation::create($data);
                 })
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => $this->hasAlteredTableQuery() || ! static::getResource()::canCreate()),
         ];
     }

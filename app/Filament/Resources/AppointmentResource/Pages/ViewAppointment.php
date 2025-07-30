@@ -11,16 +11,16 @@ use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Appointment;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Form;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewAppointment extends ViewRecord
 {
     protected static string $resource = AppointmentResource::class;
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('appointment.header.view', [
             'beneficiary' => $this->getRecord()->beneficiary?->full_name,
@@ -29,7 +29,7 @@ class ViewAppointment extends ViewRecord
         ]);
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             EditAction::make(),
@@ -37,7 +37,7 @@ class ViewAppointment extends ViewRecord
         ];
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -87,7 +87,7 @@ class ViewAppointment extends ViewRecord
 
                         Subsection::make()
                             ->title(__('appointment.section.notes'))
-                            ->icon('heroicon-o-annotation')
+                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->schema([
                                 Value::make('notes')
                                     ->disableLabel(),

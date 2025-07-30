@@ -16,9 +16,9 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -142,7 +142,7 @@ class AppointmentResource extends Resource
 
             Subsection::make()
                 ->title(__('appointment.section.notes'))
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     RichEditor::make('notes')
                         ->disableLabel()

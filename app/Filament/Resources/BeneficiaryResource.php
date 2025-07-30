@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Enums\Beneficiary\Status;
-use App\Enums\Beneficiary\Type;
 use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Filament\Resources\DocumentResource\Pages as DocumentPages;
 use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
-use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 
@@ -98,16 +96,14 @@ class BeneficiaryResource extends Resource
                     ->toggleable()
                     ->default($default),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label(__('field.status'))
-                    ->enum(Status::options())
-                    ->colors(Status::flipColors())
+                    ->badge()
                     ->hidden(fn (Page $livewire) => $livewire instanceof Pages\ListOcasionalBeneficiaries),
 
-                BadgeColumn::make('type')
+                TextColumn::make('type')
                     ->label(__('field.beneficiary_type'))
-                    ->enum(Type::options())
-                    ->colors(Type::flipColors())
+                    ->badge()
                     ->default($default)
                     ->hidden(
                         fn (Page $livewire) => is_subclass_of($livewire, Pages\ListBeneficiaries::class)

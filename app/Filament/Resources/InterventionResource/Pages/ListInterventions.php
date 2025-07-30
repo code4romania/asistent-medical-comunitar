@@ -17,19 +17,21 @@ use App\Filament\Tables\Columns\InterventionsColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\Layout;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListInterventions extends ListRecords implements WithSidebar
 {
     use HasConditionalTableEmptyState;
-    use HasRecordBreadcrumb;
     use Concerns\HasActions;
     use Concerns\HasSidebar;
     use Concerns\ListRecordsForBeneficiary;
     use InteractsWithBeneficiary;
+    use HasRecordBreadcrumb {
+        HasRecordBreadcrumb::getBreadcrumbs insteadof Concerns\ListRecordsForBeneficiary;
+    }
 
     protected static string $resource = InterventionResource::class;
 
@@ -59,7 +61,7 @@ class ListInterventions extends ListRecords implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             CreateIndividualServiceAction::make(),
@@ -111,7 +113,7 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->label(__('catagraphy.vulnerability.empty.create'))
                 ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => $this->getBeneficiary()->hasCatagraphy()),
 
             Tables\Actions\CreateAction::make('create_individual_service')
@@ -121,7 +123,7 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->form(InterventionResource::getIndividualServiceFormSchema())
                 ->icon('heroicon-o-plus-circle')
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => ! $this->getBeneficiary()->hasCatagraphy() || $this->hasAlteredTableQuery()),
 
             Tables\Actions\CreateAction::make('create_case')
@@ -129,14 +131,14 @@ class ListInterventions extends ListRecords implements WithSidebar
                 ->modalHeading(__('intervention.action.open_case'))
                 ->using(fn (array $data, $livewire) => CreateCaseAction::create($data, $livewire))
                 ->form(InterventionResource::getCaseFormSchema())
-                ->icon('heroicon-o-folder-add')
+                ->icon('heroicon-o-folder-plus')
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => ! $this->getBeneficiary()->hasCatagraphy() || $this->hasAlteredTableQuery()),
         ];
     }
 
-    protected function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -163,7 +165,7 @@ class ListInterventions extends ListRecords implements WithSidebar
                         TextColumn::make('services_count')
                             ->description(__('field.services_realized'), position: 'above')
                             ->label(__('field.services_realized'))
-                            ->formatStateUsing(fn (Vulnerability $record) => sprintf(
+                            ->formatStateUsing(fn (Vulnerability $record) => \sprintf(
                                 '%s/%s',
                                 $record->interventions->sum('realized_services_count'),
                                 $record->interventions->sum('all_services_count')

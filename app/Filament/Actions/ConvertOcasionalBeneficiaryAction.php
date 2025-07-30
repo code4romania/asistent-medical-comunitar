@@ -36,7 +36,7 @@ class ConvertOcasionalBeneficiaryAction extends Action
         $this->modalWidth('md');
         $this->centerModal(false);
 
-        $this->color('secondary');
+        $this->color('gray');
 
         $this->action(function () {
             /** @var Beneficiary */

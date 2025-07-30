@@ -9,8 +9,8 @@ use App\Filament\Forms\Components\BeneficiaryProgram;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use Filament\Forms\Form;
 use Filament\Pages\Actions;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewPersonalData extends ViewRecord implements WithSidebar
@@ -22,7 +22,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
 
     protected static string $resource = BeneficiaryResource::class;
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
@@ -39,7 +39,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -58,7 +58,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
             ]);
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

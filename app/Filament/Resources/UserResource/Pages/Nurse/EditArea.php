@@ -7,13 +7,12 @@ namespace App\Filament\Resources\UserResource\Pages\Nurse;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Models\City;
-use Closure;
 use Filament\Forms\Components\Select;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class EditArea extends EditRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -24,7 +23,7 @@ class EditArea extends EditRecord
     {
         return [
             Subsection::make()
-                ->icon('heroicon-o-location-marker')
+                ->icon('heroicon-o-map-pin')
                 ->columns()
                 ->schema([
                     Select::make('activity_county_id')
@@ -35,7 +34,7 @@ class EditArea extends EditRecord
                         ->reactive()
                         ->preload()
                         ->required()
-                        ->afterStateUpdated(function (Closure $set) {
+                        ->afterStateUpdated(function (\Filament\Forms\Set $set) {
                             $set('activity_cities', null);
                         })
                         ->disabled(fn () => ! auth()->user()->isAdmin()),
@@ -49,7 +48,7 @@ class EditArea extends EditRecord
                         ->searchable()
                         ->required()
                         ->getSearchResultsUsing(
-                            fn (string $search, Closure $get) => City::query()
+                            fn (string $search, \Filament\Forms\Get $get) => City::query()
                                 ->where('county_id', $get('activity_county_id'))
                                 ->search($search)
                                 ->limit(100)

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Enums\CommunityActivity;
 
 use App\Concerns;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
 
 enum Administrative: string
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
+    use Arrayable;
+    use Comparable;
     use Concerns\Enums\HasLabel;
 
     case SOFTWARE = 'software';

@@ -15,14 +15,14 @@ class ManageRecommendations extends ManageRecords
 
     protected static string $resource = RecommendationResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),
         ];
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }

@@ -12,7 +12,7 @@ class CalendarWidget extends FullCalendarWidget
 {
     protected string $modalWidth = 'xl';
 
-    public function fetchEvents(array $fetchInfo)
+    public function fetchEvents(array $fetchInfo): array
     {
         return Appointment::query()
             ->with('beneficiary:id,full_name')
@@ -25,7 +25,7 @@ class CalendarWidget extends FullCalendarWidget
                 'end' => $appointment->end,
                 'displayEventEnd' => true,
                 'extendedProps' => [
-                    'description' => sprintf(
+                    'description' => \sprintf(
                         '#%d - %s',
                         $appointment->id,
                         $appointment->beneficiary->full_name
@@ -46,16 +46,20 @@ class CalendarWidget extends FullCalendarWidget
         ]));
     }
 
-    public function onEventDrop($event, $oldEvent, $relatedEvents): void
+    public function onEventDrop(array $event, array $oldEvent, array $relatedEvents, array $delta, ?array $oldResource, ?array $newResource): bool
     {
         $this->resolveEventRecord($oldEvent)
             ->updateDateTime($event['start'], $event['end']);
+
+        return false;
     }
 
-    public function onEventResize($event, $oldEvent, $relatedEvents): void
+    public function onEventResize(array $event, array $oldEvent, array $relatedEvents, array $startDelta, array $endDelta): bool
     {
         $this->resolveEventRecord($oldEvent)
             ->updateDateTime($event['start'], $event['end']);
+
+        return false;
     }
 
     protected function resolveEventRecord($event): Appointment

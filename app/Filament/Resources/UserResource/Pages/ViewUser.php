@@ -14,16 +14,16 @@ use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Models\User;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Form;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewUser extends ViewRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             ActionGroup::make([
@@ -46,7 +46,7 @@ class ViewUser extends ViewRecord
         ];
     }
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         static::authorizeResourceAccess();
 
@@ -59,7 +59,7 @@ class ViewUser extends ViewRecord
         }
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)

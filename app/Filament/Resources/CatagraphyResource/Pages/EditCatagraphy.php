@@ -20,7 +20,7 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
 
     protected static string $resource = CatagraphyResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
         ];
@@ -36,7 +36,7 @@ class EditCatagraphy extends EditRecord implements FixedActionBar
         return $this->getTitle();
     }
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 

@@ -6,12 +6,11 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Status;
 use App\Filament\Forms\Components\Location;
-use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\User;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 
@@ -32,7 +31,7 @@ class ListNurses extends ListUsers
             ]);
     }
 
-    protected function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -92,10 +91,9 @@ class ListNurses extends ListUsers
                 TextColumn::make('latestEmployer.name')
                     ->label(__('field.employer')),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label(__('field.status'))
-                    ->enum(Status::options())
-                    ->colors(Status::flipColors()),
+                    ->badge(),
             ])
             ->filters([
                 SelectFilter::make('status')

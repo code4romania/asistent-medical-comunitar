@@ -22,7 +22,7 @@ class ManageHouseholds extends ManageRecords implements WithTabs
 
     protected static string $resource = HouseholdResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Pages\Actions\CreateAction::make()
@@ -65,7 +65,7 @@ class ManageHouseholds extends ManageRecords implements WithTabs
                 ->label(__('household.empty.create'))
                 ->modalHeading(__('household.empty.create'))
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->disableCreateAnother()
                 ->form(HouseholdResource::getFormSchema())
                 ->using(fn (array $data) => Household::createForCurrentNurse($data))

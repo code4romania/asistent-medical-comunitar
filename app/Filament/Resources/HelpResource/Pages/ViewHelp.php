@@ -13,12 +13,12 @@ class ViewHelp extends Page
 
     protected static string $view = 'filament.resources.help-resource.pages.view-help';
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return 'Sistem de management de caz pentru asistența medicală comunitară';
     }

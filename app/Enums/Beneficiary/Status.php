@@ -6,11 +6,13 @@ namespace App\Enums\Beneficiary;
 
 use App\Concerns;
 use App\Contracts;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
 
 enum Status: string implements Contracts\Enums\HasColor
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
+    use Arrayable;
+    use Comparable;
     use Concerns\Enums\HasColor;
     use Concerns\Enums\HasLabel;
 

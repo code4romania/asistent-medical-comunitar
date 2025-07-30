@@ -17,7 +17,7 @@ class ProfileResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static bool $shouldIgnorePolicies = true;
+    protected static bool $shouldSkipAuthorization = true;
 
     public static function getRelations(): array
     {

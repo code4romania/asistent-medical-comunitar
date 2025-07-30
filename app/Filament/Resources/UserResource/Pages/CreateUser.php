@@ -11,10 +11,9 @@ use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\UserResource;
 use App\Models\City;
-use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateUser extends CreateRecord
@@ -23,7 +22,7 @@ class CreateUser extends CreateRecord
 
     protected static bool $canCreateAnother = false;
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -91,20 +90,20 @@ class CreateUser extends CreateRecord
                                 ->label(__('field.county'))
                                 ->withoutCity()
                                 ->required()
-                                ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::COORDINATOR))
+                                ->visible(fn (\Filament\Forms\Get $get) => Role::isValue($get('role'), Role::COORDINATOR))
                                 ->columnSpan(1),
                         ]),
                 ]),
 
             Card::make()
-                ->visible(fn (Closure $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
+                ->visible(fn (\Filament\Forms\Get $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
                 ->schema(Nurse\EditArea::getSchema()),
 
             Card::make()
                 ->visible(fn () => auth()->user()->isCoordinator())
                 ->schema([
                     Subsection::make()
-                        ->icon('heroicon-o-location-marker')
+                        ->icon('heroicon-o-map-pin')
                         ->columns()
                         ->schema([
                             Value::make('activity_county_id')
@@ -120,7 +119,7 @@ class CreateUser extends CreateRecord
                                 ->searchable()
                                 ->required()
                                 ->getSearchResultsUsing(
-                                    fn (string $search, Closure $get) => City::query()
+                                    fn (string $search, \Filament\Forms\Get $get) => City::query()
                                         ->where('county_id', auth()->user()->county_id)
                                         ->search($search)
                                         ->limit(100)

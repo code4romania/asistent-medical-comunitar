@@ -26,7 +26,7 @@ class CalendarAppointments extends ListRecords implements WithTabs
         ];
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),

@@ -24,7 +24,7 @@ class CreateCaseAction extends CreateAction
 
         $this->modalHeading(__('intervention.action.open_case'));
 
-        $this->icon('heroicon-o-folder-add');
+        $this->icon('heroicon-o-folder-plus');
 
         $this->groupedIcon(null);
 

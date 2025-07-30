@@ -68,7 +68,7 @@ trait HasEmptyState
                     return CommunityActivity::create($data);
                 })
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->authorize(CommunityActivityResource::canCreate())
                 ->hidden(fn () => $this->hasAlteredTableQuery())
                 ->disableCreateAnother(),

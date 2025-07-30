@@ -69,7 +69,7 @@ trait CommonViewFormSchema
             static::getLocationSubsection(),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     Value::make('notes')
                         ->label(__('field.beneficiary_notes'))
@@ -114,7 +114,7 @@ trait CommonViewFormSchema
             static::getLocationSubsection(),
 
             Subsection::make()
-                ->icon('heroicon-o-lightning-bolt')
+                ->icon('heroicon-o-bolt')
                 ->schema([
                     Repeater::make('ocasionalInterventions')
                         ->relationship(
@@ -136,7 +136,7 @@ trait CommonViewFormSchema
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     Value::make('notes')
                         ->label(__('field.beneficiary_notes'))
@@ -149,7 +149,7 @@ trait CommonViewFormSchema
     private static function getLocationSubsection(): Subsection
     {
         return Subsection::make()
-            ->icon('heroicon-o-location-marker')
+            ->icon('heroicon-o-map-pin')
             ->columns(2)
             ->schema([
                 Location::make(),

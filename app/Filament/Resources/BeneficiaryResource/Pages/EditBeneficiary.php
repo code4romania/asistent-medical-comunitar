@@ -10,7 +10,7 @@ use App\Filament\Forms\Components\BeneficiaryProgram;
 use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
 class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
@@ -22,7 +22,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
 
     protected static string $resource = BeneficiaryResource::class;
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
@@ -39,7 +39,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
         return $this->getTitle();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         if ($this->getRecord()->isRegular()) {
             return $form
@@ -62,12 +62,12 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
             ]);
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }

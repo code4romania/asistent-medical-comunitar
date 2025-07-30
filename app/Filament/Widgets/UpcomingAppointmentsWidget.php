@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Concerns\HasConditionalTableEmptyState;
-use App\Enums\Beneficiary\Status;
 use App\Filament\Resources\AppointmentResource;
-use App\Filament\Tables\Columns\BadgeColumn;
 use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Appointment;
 use Closure;
@@ -65,18 +63,17 @@ class UpcomingAppointmentsWidget extends TableWidget
                         'class' => 'font-semibold',
                     ]),
 
-                BadgeColumn::make('beneficiary.status')
+                TextColumn::make('beneficiary.status')
                     ->label(__('field.status'))
+                    ->badge()
                     ->size('sm')
-                    ->enum(Status::options())
-                    ->colors(Status::flipColors())
                     ->alignEnd(),
             ]),
 
             Stack::make([
                 TextColumn::make('interventions')
                     ->color('text-gray-400')
-                    ->icon('heroicon-s-lightning-bolt')
+                    ->icon('heroicon-m-bolt')
                     ->size('sm')
                     ->formatStateUsing(function (Collection $state) {
                         if ($state->count() === 1) {

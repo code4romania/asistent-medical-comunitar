@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
 class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
@@ -26,7 +26,7 @@ class EditUser extends EditRecord
         }
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)

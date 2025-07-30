@@ -14,9 +14,9 @@ use App\Filament\Tables\Columns\TextColumn;
 use App\Models\CommunityActivity;
 use App\Models\County;
 use Filament\Resources\Pages\ManageRecords;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
@@ -35,7 +35,7 @@ class ManageCampaigns extends ManageRecords implements WithTabs
             ->with('nurse.activityCities');
     }
 
-    protected function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -76,7 +76,6 @@ class ManageCampaigns extends ManageRecords implements WithTabs
 
                 TextColumn::make('subtype')
                     ->label(__('field.type'))
-                    ->enum(Campaign::options())
                     ->size('sm')
                     ->toggleable(),
 

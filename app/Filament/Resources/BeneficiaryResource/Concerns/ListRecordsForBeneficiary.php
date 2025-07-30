@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 trait ListRecordsForBeneficiary
 {
-    use InteractsWithRecord;
     use InteractsWithBeneficiary;
+    use InteractsWithRecord;
 
     protected function resolveRecord($key): Beneficiary
     {

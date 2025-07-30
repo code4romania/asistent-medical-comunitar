@@ -6,11 +6,13 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Concerns;
 use App\Contracts\Enums\HasQuery;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
 
 enum Pregnant: string implements HasQuery
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
+    use Arrayable;
+    use Comparable;
     use Concerns\Enums\HasLabel;
 
     case P01 = 'P01';

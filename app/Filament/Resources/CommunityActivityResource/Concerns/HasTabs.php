@@ -43,7 +43,7 @@ trait HasTabs
         return __('community_activity.header.list');
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }

@@ -20,7 +20,7 @@ class ListBeneficiaries extends ListRecords implements WithTabs
 
     protected static string $resource = BeneficiaryResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Pages\Actions\CreateAction::make(),
@@ -61,12 +61,12 @@ class ListBeneficiaries extends ListRecords implements WithTabs
                 ->label(__('beneficiary.empty.create'))
                 ->url(static::getResource()::getUrl('create'))
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

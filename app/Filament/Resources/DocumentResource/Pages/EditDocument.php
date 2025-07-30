@@ -12,11 +12,11 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Pages\Actions\DeleteAction;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
 class EditDocument extends EditRecord implements WithSidebar
@@ -53,7 +53,7 @@ class EditDocument extends EditRecord implements WithSidebar
         ]);
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -82,7 +82,7 @@ class EditDocument extends EditRecord implements WithSidebar
                             ]),
 
                         Subsection::make()
-                            ->icon('heroicon-o-annotation')
+                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->schema([
                                 Textarea::make('notes')
                                     ->label(__('field.notes'))

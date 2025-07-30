@@ -24,9 +24,9 @@ class ResendInvitationAction extends Action
 
         $this->label(__('user.action.resend_invitation'));
 
-        $this->color('secondary');
+        $this->color('gray');
 
-        $this->icon('heroicon-o-mail');
+        $this->icon('heroicon-o-envelope');
 
         $this->modalHeading(__('user.action_resend_invitation_confirm.title'));
 

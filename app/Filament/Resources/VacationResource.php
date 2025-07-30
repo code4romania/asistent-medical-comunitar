@@ -14,11 +14,11 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
@@ -28,9 +28,9 @@ class VacationResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return auth()->user()->isAdmin()
             || auth()->user()->isCoordinator();
@@ -80,7 +80,6 @@ class VacationResource extends Resource
                     ->label(__('field.type'))
                     ->size('sm')
                     ->limit(30)
-                    ->enum(VacationType::options())
                     ->sortable()
                     ->toggleable(),
 

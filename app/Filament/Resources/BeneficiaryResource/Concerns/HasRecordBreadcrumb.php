@@ -13,7 +13,7 @@ trait HasRecordBreadcrumb
 {
     use InteractsWithBeneficiary;
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         if ($this instanceof ListRecords) {
             return [];

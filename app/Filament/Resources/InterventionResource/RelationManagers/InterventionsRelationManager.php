@@ -16,10 +16,10 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -30,12 +30,12 @@ class InterventionsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function getTitle(): string
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
         return __('intervention.services');
     }
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         $services = Service::allAsFlatOptions();
 
@@ -85,7 +85,7 @@ class InterventionsRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -178,12 +178,12 @@ class InterventionsRelationManager extends RelationManager
             ->defaultSort('id', 'desc');
     }
 
-    public static function canViewForRecord(Model $ownerRecord): bool
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
     {
         if (! $ownerRecord->isCase()) {
             return false;
         }
 
-        return parent::canViewForRecord($ownerRecord);
+        return parent::canViewForRecord($ownerRecord, $pageClass);
     }
 }

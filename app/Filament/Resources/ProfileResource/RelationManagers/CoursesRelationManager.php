@@ -10,9 +10,9 @@ use App\Models\Profile\Course;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
@@ -22,7 +22,7 @@ class CoursesRelationManager extends RelationManager
 {
     protected static string $relationship = 'courses';
 
-    protected static function getModelLabel(): string
+    protected static function getModelLabel(): ?string
     {
         return __('course.label.singular');
     }
@@ -32,7 +32,7 @@ class CoursesRelationManager extends RelationManager
         return __('course.label.plural');
     }
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -82,7 +82,7 @@ class CoursesRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([

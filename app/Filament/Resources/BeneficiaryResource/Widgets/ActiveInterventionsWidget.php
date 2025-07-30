@@ -38,7 +38,7 @@ class ActiveInterventionsWidget extends BaseWidget
                 ->label(__('beneficiary.action.view_details'))
                 ->url(BeneficiaryResource::getUrl('interventions.index', ['beneficiary' => $this->record]))
                 ->button()
-                ->color('secondary'),
+                ->color('gray'),
         ];
     }
 
@@ -125,14 +125,14 @@ class ActiveInterventionsWidget extends BaseWidget
                 ->label(__('catagraphy.vulnerability.empty.create'))
                 ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->record]))
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->visible(fn () => ! $this->record->hasCatagraphy()),
 
             Action::make('create_intervention')
                 ->label(fn () => __('intervention.empty_active.create'))
                 ->url(BeneficiaryResource::getUrl('interventions.index', ['beneficiary' => $this->record]))
                 ->button()
-                ->color('secondary')
+                ->color('gray')
                 ->visible(fn () => $this->record->hasCatagraphy()),
         ];
     }

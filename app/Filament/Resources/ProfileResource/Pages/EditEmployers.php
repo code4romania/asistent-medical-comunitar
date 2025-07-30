@@ -15,11 +15,11 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class EditEmployers extends EditRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -36,7 +36,7 @@ class EditEmployers extends EditRecord
                 ->minItems(1)
                 ->schema([
                     Subsection::make()
-                        ->icon('heroicon-o-office-building')
+                        ->icon('heroicon-o-building-office')
                         ->columns(2)
                         ->schema([
                             TextInput::make('name')

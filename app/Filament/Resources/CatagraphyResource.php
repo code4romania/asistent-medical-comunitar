@@ -20,7 +20,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Livewire\Component;
 
@@ -149,7 +149,7 @@ class CatagraphyResource extends Resource
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
                                     ->reactive()
-                                    ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
+                                    ->afterStateUpdated(function ($state, \Filament\Forms\Get $get, Component $livewire) {
                                         $state = \boolval($state);
 
                                         if (! $state) {
@@ -167,7 +167,7 @@ class CatagraphyResource extends Resource
                                     ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
                                     ->columnSpanFull()
                                     ->pointer()
-                                    ->visible(fn (Closure $get) => \boolval($get('has_disabilities')))
+                                    ->visible(fn (\Filament\Forms\Get $get) => \boolval($get('has_disabilities')))
                                     ->schema([
                                         Repeater::make('disabilities')
                                             ->relationship()
@@ -247,7 +247,7 @@ class CatagraphyResource extends Resource
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
                                     ->reactive()
-                                    ->afterStateUpdated(function ($state, Closure $get, Component $livewire) {
+                                    ->afterStateUpdated(function ($state, \Filament\Forms\Get $get, Component $livewire) {
                                         $state = \boolval($state);
 
                                         if (! $state) {
@@ -265,7 +265,7 @@ class CatagraphyResource extends Resource
                                     ->header(__('field.section_details', ['section' => $categories->get('SS')]))
                                     ->columnSpanFull()
                                     ->pointer('right')
-                                    ->visible(fn (Closure $get) => \boolval($get('has_health_issues')))
+                                    ->visible(fn (\Filament\Forms\Get $get) => \boolval($get('has_health_issues')))
                                     ->schema([
                                         Repeater::make('diseases')
                                             ->relationship()
@@ -301,12 +301,12 @@ class CatagraphyResource extends Resource
                                                     ->options($vulnerabilities->get('SS_SL'))
                                                     ->in($vulnerabilities->get('SS_SL')->keys())
                                                     ->searchable()
-                                                    ->visible(fn (Closure $get) => $get('category') === 'VSG_BR')
+                                                    ->visible(fn (\Filament\Forms\Get $get) => $get('category') === 'VSG_BR')
                                                     ->columnSpanFull(),
 
                                                 OrphaDiagnosticSelect::make('orphaDiagnostic')
                                                     ->label(__('field.cat_ss_orph'))
-                                                    ->visible(fn (Closure $get) => $get('category') === 'VSG_BR')
+                                                    ->visible(fn (\Filament\Forms\Get $get) => $get('category') === 'VSG_BR')
                                                     ->columnSpanFull(),
 
                                                 YearPicker::make('start_year')
@@ -338,7 +338,7 @@ class CatagraphyResource extends Resource
                                     ->columns()
                                     ->columnSpanFull()
                                     ->pointer()
-                                    ->visible(fn (Closure $get) => Vulnerability::isPregnancy($get('cat_rep')))
+                                    ->visible(fn (\Filament\Forms\Get $get) => Vulnerability::isPregnancy($get('cat_rep')))
                                     ->schema([
                                         Select::make('cat_preg')
                                             ->label($categories->get('PREG'))
@@ -381,7 +381,7 @@ class CatagraphyResource extends Resource
                                             ->label($categories->get('SUS_BR_ES'))
                                             ->options($vulnerabilities->get('SUS_BR_ES'))
                                             ->rule(new MultipleIn($vulnerabilities->get('SUS_BR_ES')->keys()))
-                                            ->visible(fn (Closure $get) => $get('category') === 'VSP_01')
+                                            ->visible(fn (\Filament\Forms\Get $get) => $get('category') === 'VSP_01')
                                             ->columnSpanFull(),
 
                                         TextInput::make('notes')
@@ -394,7 +394,7 @@ class CatagraphyResource extends Resource
 
                         Subsection::make()
                             ->title(__('catagraphy.section.notes'))
-                            ->icon('heroicon-o-annotation')
+                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->schema([
                                 RichEditor::make('notes')
                                     ->disableLabel()

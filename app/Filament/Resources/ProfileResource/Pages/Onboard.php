@@ -9,7 +9,7 @@ use App\Filament\Resources\ProfileResource;
 use App\Filament\Resources\ProfileResource\Concerns;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Wizard;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
 class Onboard extends EditRecord
@@ -27,17 +27,17 @@ class Onboard extends EditRecord
         }
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('onboarding.step.profile');
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }
@@ -47,7 +47,7 @@ class Onboard extends EditRecord
         return Dashboard::getUrl();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -89,7 +89,7 @@ class Onboard extends EditRecord
         return [];
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

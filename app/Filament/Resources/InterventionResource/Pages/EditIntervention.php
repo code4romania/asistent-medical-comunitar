@@ -12,8 +12,8 @@ use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Models\Intervention;
+use Filament\Forms\Form;
 use Filament\Pages\Actions\Action;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -26,7 +26,7 @@ class EditIntervention extends EditRecord implements WithSidebar
 
     protected static string $resource = InterventionResource::class;
 
-    public function mount(...$args): void
+    public function mount(int | string ...$args): void
     {
         [$beneficiary, $intervention] = $args;
 
@@ -38,7 +38,7 @@ class EditIntervention extends EditRecord implements WithSidebar
     public function getTitle(): string
     {
         return __(
-            sprintf(
+            \sprintf(
                 'intervention.title.%s',
                 $this->getRecord()->interventionable_type
             ),
@@ -53,7 +53,7 @@ class EditIntervention extends EditRecord implements WithSidebar
         return $this->getTitle();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -89,7 +89,7 @@ class EditIntervention extends EditRecord implements WithSidebar
         return $record;
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [];
     }
@@ -99,7 +99,7 @@ class EditIntervention extends EditRecord implements WithSidebar
         return Action::make('cancel')
             ->label(__('filament::resources/pages/edit-record.form.actions.cancel.label'))
             ->url($this->previousUrl ?? $this->getRedirectUrl())
-            ->color('secondary');
+            ->color('gray');
     }
 
     protected function getRedirectUrl(): ?string

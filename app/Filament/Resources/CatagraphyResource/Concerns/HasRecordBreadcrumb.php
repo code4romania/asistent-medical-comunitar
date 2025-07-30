@@ -8,7 +8,7 @@ use App\Filament\Resources\BeneficiaryResource;
 
 trait HasRecordBreadcrumb
 {
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         $beneficiary = $this->getRecord()->beneficiary;
 

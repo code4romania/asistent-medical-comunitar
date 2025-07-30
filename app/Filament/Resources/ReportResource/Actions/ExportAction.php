@@ -23,9 +23,9 @@ class ExportAction extends Action
 
         $this->label(__('report.action.export'));
 
-        $this->icon('heroicon-o-download');
+        $this->icon('heroicon-o-arrow-down-tray');
 
-        $this->color('secondary');
+        $this->color('gray');
 
         $this->keyBindings(['mod+e']);
 

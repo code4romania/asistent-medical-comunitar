@@ -5,23 +5,25 @@ declare(strict_types=1);
 namespace App\Filament\Pages;
 
 use Filament\Forms\Components\TextInput;
-use JeffGreco13\FilamentBreezy\Pages\MyProfile;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
-class Settings extends MyProfile
+class Settings extends MyProfilePage
 {
     protected static ?string $slug = 'settings';
 
-    protected function getTitle(): string
+    protected static bool $isDiscovered = false;
+
+    public function getTitle(): string
     {
         return __('auth.settings');
     }
 
-    protected function getBreadcrumbs(): array
-    {
-        return [
-            //
-        ];
-    }
+    // public function getBreadcrumbs(): array
+    // {
+    //     return [
+    //         //
+    //     ];
+    // }
 
     protected function getUpdateProfileFormSchema(): array
     {

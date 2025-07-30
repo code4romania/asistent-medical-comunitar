@@ -12,7 +12,7 @@ class EditAppointment extends EditRecord implements FixedActionBar
 {
     protected static string $resource = AppointmentResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             //

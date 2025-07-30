@@ -17,7 +17,7 @@ abstract class ListUsers extends ListRecords implements WithTabs
 
     protected static string $resource = UserResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),

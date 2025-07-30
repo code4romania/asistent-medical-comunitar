@@ -13,8 +13,8 @@ use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Models\Catagraphy;
 use Filament\Forms\Components\View;
+use Filament\Forms\Form;
 use Filament\Pages\Actions\Action as PageAction;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Tables\Actions\Action as TableAction;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -38,7 +38,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         return $this->getTitle();
     }
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         static::authorizeResourceAccess();
 
@@ -53,7 +53,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         $this->fillForm();
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -69,7 +69,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                             PageAction::make('view')
                                 ->label(__('catagraphy.action.view'))
                                 ->url(static::getResource()::getUrl('catagraphy.view', $this->getBeneficiary()))
-                                ->color('secondary'),
+                                ->color('gray'),
                         ];
                     })
                     ->footer($this->getVulnerabilitiesFooter())
@@ -93,7 +93,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                                 ->label(__('catagraphy.vulnerability.empty.create'))
                                 ->url(static::getResource()::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
                                 ->button()
-                                ->color('secondary'),
+                                ->color('gray'),
                         ],
                     ]),
             ];
@@ -131,7 +131,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         ]);
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

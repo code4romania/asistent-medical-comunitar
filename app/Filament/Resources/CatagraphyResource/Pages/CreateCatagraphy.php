@@ -11,7 +11,7 @@ class CreateCatagraphy extends CreateRecord
 {
     protected static string $resource = CatagraphyResource::class;
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [];
     }

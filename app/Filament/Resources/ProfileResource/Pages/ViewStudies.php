@@ -8,12 +8,12 @@ use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ViewStudies extends ViewRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)

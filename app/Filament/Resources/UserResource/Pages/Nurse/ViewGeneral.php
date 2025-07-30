@@ -8,11 +8,11 @@ use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 
 class ViewGeneral extends ViewRecord
 {
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->columns(1)
@@ -38,7 +38,7 @@ class ViewGeneral extends ViewRecord
                     ]),
 
                 Subsection::make()
-                    ->icon('heroicon-o-location-marker')
+                    ->icon('heroicon-o-map-pin')
                     ->columns(2)
                     ->schema([
                         Location::make(),
@@ -67,7 +67,7 @@ class ViewGeneral extends ViewRecord
             ]);
     }
 
-    protected function getRelationManagers(): array
+    public function getRelationManagers(): array
     {
         return [];
     }

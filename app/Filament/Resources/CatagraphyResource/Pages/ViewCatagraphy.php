@@ -13,8 +13,8 @@ use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
+use Filament\Forms\Form;
 use Filament\Pages\Actions;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewCatagraphy extends ViewRecord
@@ -24,7 +24,7 @@ class ViewCatagraphy extends ViewRecord
 
     protected static string $resource = CatagraphyResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\EditAction::make()
@@ -42,7 +42,7 @@ class ViewCatagraphy extends ViewRecord
         return $this->getTitle();
     }
 
-    public function mount($record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
@@ -50,7 +50,7 @@ class ViewCatagraphy extends ViewRecord
         abort_unless($this->getRecord()->created_at, 404);
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         $categories = VulnerabilityCategory::cachedList();
 
@@ -153,7 +153,7 @@ class ViewCatagraphy extends ViewRecord
 
                         Subsection::make()
                             ->title(__('catagraphy.section.notes'))
-                            ->icon('heroicon-o-annotation')
+                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->schema([
                                 Value::make('notes')
                                     ->disableLabel()

@@ -17,7 +17,7 @@ class ViewReport extends ViewRecord
 {
     protected static string $resource = ReportResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             ExportAction::make()
@@ -27,7 +27,7 @@ class ViewReport extends ViewRecord
         ];
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return $this->getRecord()->title;
     }

@@ -19,7 +19,7 @@ class ListAppointments extends ListRecords implements WithTabs
 
     protected static string $resource = AppointmentResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Pages\Actions\CreateAction::make(),
@@ -59,7 +59,7 @@ class ListAppointments extends ListRecords implements WithTabs
             Tables\Actions\CreateAction::make()
                 ->label(__('appointment.action.create'))
                 ->url(static::getResource()::getUrl('create'))
-                ->color('secondary')
+                ->color('gray')
                 ->hidden(fn () => $this->hasAlteredTableQuery()),
         ];
     }

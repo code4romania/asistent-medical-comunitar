@@ -52,10 +52,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Filament::serving(function () {
-            Filament::registerViteTheme('resources/css/app.css');
-            Filament::registerScripts([
-                app(Vite::class)('resources/js/app.js'),
-            ]);
+            // Filament::registerViteTheme('resources/css/app.css');
+            // Filament::registerScripts([
+            //     app(Vite::class)('resources/js/app.js'),
+            // ]);
 
             $this->registerUserMenuItems();
         });
@@ -98,9 +98,9 @@ class AppServiceProvider extends ServiceProvider
             return static::passwordDefaults();
         });
 
-        FilamentBreezy::setPasswordRules([
-            static::passwordDefaults(),
-        ]);
+        // FilamentBreezy::setPasswordRules([
+        //     static::passwordDefaults(),
+        // ]);
     }
 
     protected function registerTelescope(): void
@@ -175,6 +175,8 @@ class AppServiceProvider extends ServiceProvider
         if (auth()->guest()) {
             return;
         }
+
+        return;
 
         $items = [
             'settings' => UserMenuItem::make()

@@ -15,8 +15,8 @@ use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Actions\ToggleCaseStatusAction;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Models\Intervention;
+use Filament\Forms\Form;
 use Filament\Pages;
-use Filament\Resources\Form;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewIntervention extends ViewRecord implements WithSidebar
@@ -27,7 +27,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
 
     protected static string $resource = InterventionResource::class;
 
-    public function mount(...$args): void
+    public function mount(int | string ...$args): void
     {
         [$beneficiary, $intervention] = $args;
 
@@ -57,7 +57,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
         }
     }
 
-    protected function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -97,14 +97,14 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     Value::make('notes')
                         ->label(__('field.notes')),
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-clipboard-check')
+                ->icon('heroicon-o-clipboard-document-check')
                 ->columnSpanFull()
                 ->schema([
                     Value::make('interventionable.recommendations')
@@ -143,7 +143,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                 ]),
 
             Subsection::make()
-                ->icon('heroicon-o-annotation')
+                ->icon('heroicon-o-chat-bubble-bottom-center-text')
                 ->schema([
                     Value::make('notes')
                         ->label(__('field.notes')),
@@ -151,7 +151,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
         ];
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
 
@@ -161,7 +161,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
                     'beneficiary' => $this->getBeneficiary(),
                     'record' => $this->getRecord(),
                 ]))
-                ->color('secondary'),
+                ->color('gray'),
 
             Pages\Actions\DeleteAction::make()
                 ->label(__('intervention.action.delete'))

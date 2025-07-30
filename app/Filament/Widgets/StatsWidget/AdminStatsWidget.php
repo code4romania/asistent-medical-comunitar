@@ -83,7 +83,7 @@ class AdminStatsWidget extends BaseWidget
     private function getRealizedServicesCard(): Card
     {
         return Card::make(__('dashboard.stats.services'))
-            ->icon('heroicon-s-lightning-bolt')
+            ->icon('heroicon-m-bolt')
             ->trend(
                 Intervention::select(static::countsComparedBy('closed_at'))
                     ->onlyIndividualServices()

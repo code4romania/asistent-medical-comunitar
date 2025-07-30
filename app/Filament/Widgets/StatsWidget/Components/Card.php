@@ -32,8 +32,8 @@ class Card extends BaseCard
         $this->description(number_format(abs($trend), $precision, ',', '.') . '%');
 
         $this->descriptionIcon(match (true) {
-            $trend > 0 => 'heroicon-s-trending-up',
-            $trend < 0 => 'heroicon-s-trending-down',
+            $trend > 0 => 'heroicon-m-arrow-trending-up',
+            $trend < 0 => 'heroicon-m-arrow-trending-down',
             default => null,
         });
 
