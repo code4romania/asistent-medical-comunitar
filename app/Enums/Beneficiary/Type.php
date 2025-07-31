@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns;
-use App\Contracts;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum Type: string implements Contracts\Enums\HasColor
+enum Type: string implements HasColor, HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasColor;
-    use Concerns\Enums\HasLabel;
 
     case REGULAR = 'regular';
     case OCASIONAL = 'ocasional';
@@ -22,6 +21,22 @@ enum Type: string implements Contracts\Enums\HasColor
     protected function labelKeyPrefix(): ?string
     {
         return 'beneficiary.type';
+    }
+
+    public function getLabel(): ?string
+    {
+        return match ($this) {
+            self::REGULAR => __('beneficiary.type.regular'),
+            self::OCASIONAL => __('beneficiary.type.ocasional'),
+        };
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::REGULAR => 'primary',
+            self::OCASIONAL => Color::Violet,
+        };
     }
 
     public static function colors(): array

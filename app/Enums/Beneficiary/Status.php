@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns;
-use App\Contracts;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum Status: string implements Contracts\Enums\HasColor
+enum Status: string implements HasColor, HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasColor;
-    use Concerns\Enums\HasLabel;
 
     case REGISTERED = 'registered';
     case CATAGRAPHED = 'catagraphed';
@@ -22,19 +21,25 @@ enum Status: string implements Contracts\Enums\HasColor
     case INACTIVE = 'inactive';
     case REMOVED = 'removed';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'beneficiary.status';
+        return match ($this) {
+            self::REGISTERED => __('beneficiary.status.registered'),
+            self::CATAGRAPHED => __('beneficiary.status.catagraphed'),
+            self::ACTIVE => __('beneficiary.status.active'),
+            self::INACTIVE => __('beneficiary.status.inactive'),
+            self::REMOVED => __('beneficiary.status.removed'),
+        };
     }
 
-    public static function colors(): array
+    public function getColor(): string|array|null
     {
-        return [
-            'registered' => 'bg-amber-100 text-amber-800',
-            'catagraphed' => 'bg-blue-100 text-blue-800',
-            'active' => 'bg-emerald-100 text-emerald-800',
-            'inactive' => 'bg-gray-100 text-gray-800',
-            'removed' => 'bg-pink-100 text-pink-800',
-        ];
+        return match ($this) {
+            self::REGISTERED => Color::Amber,
+            self::CATAGRAPHED => Color::Blue,
+            self::ACTIVE => Color::Emerald,
+            self::INACTIVE => Color::Gray,
+            self::REMOVED => Color::Pink,
+        };
     }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Enums\User;
 
-use App\Concerns;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum Status: string
+enum Status: string implements HasColor, HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasColor;
-    use Concerns\Enums\HasLabel;
 
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
@@ -24,12 +24,21 @@ enum Status: string
         return 'user.status';
     }
 
-    public static function colors(): array
+    public function getLabel(): ?string
     {
-        return [
-            'active' => 'success',
-            'inactive' => 'bg-gray-100 text-gray-800',
-            'invited' => 'warning',
-        ];
+        return match ($this) {
+            self::ACTIVE => __('user.status.active'),
+            self::INACTIVE => __('user.status.inactive'),
+            self::INVITED => __('user.status.invited'),
+        };
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::ACTIVE => Color::Green,
+            self::INACTIVE => Color::Gray,
+            self::INVITED => Color::Amber,
+        };
     }
 }

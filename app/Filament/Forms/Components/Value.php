@@ -143,7 +143,7 @@ class Value extends Component
             if (null !== ($url = $this->getUrl())) {
                 $content = Str::of($content)
                     ->wrap(
-                        sprintf(
+                        \sprintf(
                             '<a href="%s"%s class="filament-link inline-flex items-center justify-center gap-0.5 font-medium outline-none hover:underline focus:underline text-primary-600 hover:text-primary-500">',
                             $url,
                             $this->shouldOpenUrlInNewTab() ? ' target="_blank" rel="noopener"' : '',
@@ -190,10 +190,10 @@ class Value extends Component
 
     protected function getEnumLabel(BackedEnum $content): ?string
     {
-        if (! \in_array(\App\Concerns\Enums\HasLabel::class, class_uses_recursive($content))) {
+        if (! \in_array(\Filament\Support\Contracts\HasLabel::class, class_uses_recursive($content))) {
             return null;
         }
 
-        return $content?->label();
+        return $content?->getLabel();
     }
 }

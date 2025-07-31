@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace App\Enums\CommunityActivity;
 
-use App\Concerns;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum Type: string
+enum Type: string implements HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasLabel;
 
     case CAMPAIGN = 'campaign';
     case ADMINISTRATIVE = 'administrative';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'community_activity.type';
+        return match ($this) {
+            self::CAMPAIGN => __('community_activity.type.campaign'),
+            self::ADMINISTRATIVE => __('community_activity.type.administrative'),
+        };
     }
 }

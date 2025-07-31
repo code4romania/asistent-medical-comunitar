@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard\Indicators;
 
-use App\Concerns;
 use App\Contracts\Enums\HasQuery;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum RareDisease: string implements HasQuery
+enum RareDisease: string implements HasQuery, HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasLabel;
 
     case RD01 = 'RD01';
     case RD02 = 'RD02';
@@ -59,9 +58,53 @@ enum RareDisease: string implements HasQuery
     case RD42 = 'RD42';
     case RD43 = 'RD43';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'report.standard.indicator.rare_disease';
+        return match ($this) {
+            self::RD01 => __('report.standard.indicator.rare_disease.RD01'),
+            self::RD02 => __('report.standard.indicator.rare_disease.RD02'),
+            self::RD03 => __('report.standard.indicator.rare_disease.RD03'),
+            self::RD04 => __('report.standard.indicator.rare_disease.RD04'),
+            self::RD05 => __('report.standard.indicator.rare_disease.RD05'),
+            self::RD06 => __('report.standard.indicator.rare_disease.RD06'),
+            self::RD07 => __('report.standard.indicator.rare_disease.RD07'),
+            self::RD08 => __('report.standard.indicator.rare_disease.RD08'),
+            self::RD09 => __('report.standard.indicator.rare_disease.RD09'),
+            self::RD10 => __('report.standard.indicator.rare_disease.RD10'),
+            self::RD11 => __('report.standard.indicator.rare_disease.RD11'),
+            self::RD12 => __('report.standard.indicator.rare_disease.RD12'),
+            self::RD13 => __('report.standard.indicator.rare_disease.RD13'),
+            self::RD14 => __('report.standard.indicator.rare_disease.RD14'),
+            self::RD15 => __('report.standard.indicator.rare_disease.RD15'),
+            self::RD16 => __('report.standard.indicator.rare_disease.RD16'),
+            self::RD17 => __('report.standard.indicator.rare_disease.RD17'),
+            self::RD18 => __('report.standard.indicator.rare_disease.RD18'),
+            self::RD19 => __('report.standard.indicator.rare_disease.RD19'),
+            self::RD20 => __('report.standard.indicator.rare_disease.RD20'),
+            self::RD21 => __('report.standard.indicator.rare_disease.RD21'),
+            self::RD22 => __('report.standard.indicator.rare_disease.RD22'),
+            self::RD23 => __('report.standard.indicator.rare_disease.RD23'),
+            self::RD24 => __('report.standard.indicator.rare_disease.RD24'),
+            self::RD25 => __('report.standard.indicator.rare_disease.RD25'),
+            self::RD26 => __('report.standard.indicator.rare_disease.RD26'),
+            self::RD27 => __('report.standard.indicator.rare_disease.RD27'),
+            self::RD28 => __('report.standard.indicator.rare_disease.RD28'),
+            self::RD29 => __('report.standard.indicator.rare_disease.RD29'),
+            self::RD30 => __('report.standard.indicator.rare_disease.RD30'),
+            self::RD31 => __('report.standard.indicator.rare_disease.RD31'),
+            self::RD32 => __('report.standard.indicator.rare_disease.RD32'),
+            self::RD33 => __('report.standard.indicator.rare_disease.RD33'),
+            self::RD34 => __('report.standard.indicator.rare_disease.RD34'),
+            self::RD35 => __('report.standard.indicator.rare_disease.RD35'),
+            self::RD36 => __('report.standard.indicator.rare_disease.RD36'),
+            self::RD37 => __('report.standard.indicator.rare_disease.RD37'),
+            self::RD38 => __('report.standard.indicator.rare_disease.RD38'),
+            self::RD39 => __('report.standard.indicator.rare_disease.RD39'),
+            self::RD40 => __('report.standard.indicator.rare_disease.RD40'),
+            self::RD41 => __('report.standard.indicator.rare_disease.RD41'),
+            self::RD42 => __('report.standard.indicator.rare_disease.RD42'),
+            self::RD43 => __('report.standard.indicator.rare_disease.RD43'),
+        };
     }
 
     public function class(): string

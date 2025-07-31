@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum WorkStatus: string
+enum WorkStatus: string implements HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasLabel;
 
     case YES = 'yes';
     case NO = 'no';
     case OTHER = 'other';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'beneficiary.work_status';
+        return match ($this) {
+            self::YES => __('beneficiary.work_status.yes'),
+            self::NO => __('beneficiary.work_status.no'),
+            self::OTHER => __('beneficiary.work_status.other'),
+        };
     }
 }

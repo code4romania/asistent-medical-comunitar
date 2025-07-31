@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums\Beneficiary;
 
-use App\Concerns;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum ReasonRemoved: string
+enum ReasonRemoved: string implements HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasLabel;
 
     case DECEASED_HOME = 'deceased_home';
     case DECEASED_HOSPITAL = 'deceased_hospital';
@@ -20,8 +19,14 @@ enum ReasonRemoved: string
     case RELOCATED_ABROAD = 'relocated_abroad';
     case OTHER = 'other';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'beneficiary.reason_removed';
+        return match ($this) {
+            self::DECEASED_HOME => __('beneficiary.reason_removed.deceased_home'),
+            self::DECEASED_HOSPITAL => __('beneficiary.reason_removed.deceased_hospital'),
+            self::RELOCATED_CITY => __('beneficiary.reason_removed.relocated_city'),
+            self::RELOCATED_ABROAD => __('beneficiary.reason_removed.relocated_abroad'),
+            self::OTHER => __('beneficiary.reason_removed.other'),
+        };
     }
 }

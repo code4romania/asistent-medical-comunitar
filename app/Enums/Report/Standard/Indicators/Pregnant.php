@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard\Indicators;
 
-use App\Concerns;
 use App\Contracts\Enums\HasQuery;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum Pregnant: string implements HasQuery
+enum Pregnant: string implements HasQuery, HasLabel
 {
     use Arrayable;
     use Comparable;
-    use Concerns\Enums\HasLabel;
 
     case P01 = 'P01';
     case P02 = 'P02';
@@ -28,9 +27,22 @@ enum Pregnant: string implements HasQuery
     case P11 = 'P11';
     case P12 = 'P12';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'report.standard.indicator.pregnant';
+        return match ($this) {
+            self::P01 => __('report.standard.indicator.pregnant.P01'),
+            self::P02 => __('report.standard.indicator.pregnant.P02'),
+            self::P03 => __('report.standard.indicator.pregnant.P03'),
+            self::P04 => __('report.standard.indicator.pregnant.P04'),
+            self::P05 => __('report.standard.indicator.pregnant.P05'),
+            self::P06 => __('report.standard.indicator.pregnant.P06'),
+            self::P07 => __('report.standard.indicator.pregnant.P07'),
+            self::P08 => __('report.standard.indicator.pregnant.P08'),
+            self::P09 => __('report.standard.indicator.pregnant.P09'),
+            self::P10 => __('report.standard.indicator.pregnant.P10'),
+            self::P11 => __('report.standard.indicator.pregnant.P11'),
+            self::P12 => __('report.standard.indicator.pregnant.P12'),
+        };
     }
 
     public function class(): string
