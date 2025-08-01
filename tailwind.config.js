@@ -1,24 +1,13 @@
-const colors = require('tailwindcss/colors')
+import preset from './vendor/filament/filament/tailwind.config.preset';
 
+/** @type {import('tailwindcss').Config} */
 export default {
+    presets: [preset],
     content: [
-        'app/**/*.php',
-        './resources/**/*.blade.php',
+        './app/Filament/Admin/**/*.php',
+        './resources/views/filament/**/*.blade.php',
+        './resources/views/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
-    ],
-    darkMode: 'class',
-    theme: {
-        extend: {
-            colors: {
-                danger: colors.rose,
-                primary: colors.cyan,
-                success: colors.emerald,
-                warning: colors.amber,
-            },
-        },
-    },
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
+        './vendor/awcodes/filament-table-repeater/resources/**/*.blade.php',
     ],
 }
