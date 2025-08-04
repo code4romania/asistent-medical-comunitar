@@ -6,11 +6,11 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Actions\ConvertOcasionalBeneficiaryAction;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
@@ -67,7 +67,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
 
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);

@@ -9,11 +9,12 @@ use App\Enums\Beneficiary\Status;
 use App\Models\Beneficiary;
 use App\Models\User;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
-class BeneficiaryProgram extends Card
+class BeneficiaryProgram extends Section
 {
     protected function setUp(): void
     {

@@ -8,8 +8,9 @@ use App\Filament\Resources\RecommendationResource;
 use Closure;
 use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Section;
 
-class RecommendationCard extends Card
+class RecommendationCard extends Section
 {
     protected string $view = 'components.forms.recommendation-card';
 

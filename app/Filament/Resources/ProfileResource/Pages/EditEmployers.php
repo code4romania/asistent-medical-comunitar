@@ -6,13 +6,13 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Enums\Employer\Funding;
 use App\Enums\Employer\Type;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Repeater;
 use App\Filament\Forms\Components\Subsection;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -69,7 +69,7 @@ class EditEmployers extends EditRecord
                                         }),
                                 ]),
 
-                            Card::make()
+                            Section::make()
                                 ->columnSpanFull()
                                 ->pointer('right')
                                 ->hidden(fn (callable $get) => $get('is_project_based') === false)
@@ -135,7 +135,7 @@ class EditEmployers extends EditRecord
                                     $set('end_date', null);
                                 }),
 
-                            Card::make()
+                            Section::make()
                                 ->columnSpanFull()
                                 ->hidden(fn (callable $get) => $get('has_gp_agreement') === false)
                                 ->columns()

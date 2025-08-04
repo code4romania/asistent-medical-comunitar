@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Forms\Components\VulnerabilityChips;
@@ -13,6 +12,7 @@ use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
@@ -57,7 +57,7 @@ class ViewCatagraphy extends ViewRecord
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Subsection::make()
                             ->title(__('catagraphy.section.general'))

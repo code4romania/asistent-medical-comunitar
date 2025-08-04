@@ -6,12 +6,12 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Concerns\InteractsWithCatagraphy;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\RecommendationsSection;
 use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Models\Catagraphy;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\View;
 use Filament\Forms\Form;
 use Filament\Pages\Actions\Action as PageAction;
@@ -58,7 +58,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('catagraphy.header.vulnerabilities'))
                     ->headerActions(function (Catagraphy $record) {
                         if (! $record->created_at) {

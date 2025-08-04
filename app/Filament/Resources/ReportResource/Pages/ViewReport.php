@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ReportResource\Pages;
 
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\ReportContent;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Actions\ExportAction;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -35,7 +35,7 @@ class ViewReport extends ViewRecord
     protected function getFormSchema(): array
     {
         return [
-            Card::make()
+            Section::make()
                 ->schema([
                     Group::make()
                         ->inlineLabel()

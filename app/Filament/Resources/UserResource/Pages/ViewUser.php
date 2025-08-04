@@ -13,7 +13,7 @@ use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Models\User;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
@@ -64,7 +64,7 @@ class ViewUser extends ViewRecord
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Subsection::make()
                             ->icon('heroicon-o-user')

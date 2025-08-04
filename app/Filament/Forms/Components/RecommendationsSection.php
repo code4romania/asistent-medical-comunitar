@@ -7,11 +7,12 @@ namespace App\Filament\Forms\Components;
 use App\Models\Catagraphy;
 use App\Models\Recommendation;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class RecommendationsSection extends Card
+class RecommendationsSection extends Section
 {
     protected function setUp(): void
     {

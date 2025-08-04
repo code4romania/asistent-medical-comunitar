@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Role;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\UserResource;
 use App\Models\City;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -46,7 +46,7 @@ class CreateUser extends CreateRecord
     public static function getSchema(): array
     {
         return [
-            Card::make()
+            Section::make()
                 ->schema([
                     Subsection::make()
                         ->icon('heroicon-o-user')
@@ -95,11 +95,11 @@ class CreateUser extends CreateRecord
                         ]),
                 ]),
 
-            Card::make()
+            Section::make()
                 ->visible(fn (\Filament\Forms\Get $get) => Role::isValue($get('role'), Role::NURSE) && auth()->user()->isAdmin())
                 ->schema(Nurse\EditArea::getSchema()),
 
-            Card::make()
+            Section::make()
                 ->visible(fn () => auth()->user()->isCoordinator())
                 ->schema([
                     Subsection::make()

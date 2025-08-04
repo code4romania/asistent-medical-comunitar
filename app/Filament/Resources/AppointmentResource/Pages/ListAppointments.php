@@ -12,9 +12,9 @@ use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 
-class ListAppointments extends ListRecords implements WithTabs
+class ListAppointments extends ListRecords /* implements WithTabs */
 {
-    use Concerns\HasTabs;
+    // use Concerns\HasTabs;
     use HasConditionalTableEmptyState;
 
     protected static string $resource = AppointmentResource::class;

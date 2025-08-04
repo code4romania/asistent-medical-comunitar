@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\AppointmentResource\Pages;
 
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Appointment;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
@@ -42,7 +42,7 @@ class ViewAppointment extends ViewRecord
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Subsection::make()
                             ->title(__('appointment.section.mandatory'))

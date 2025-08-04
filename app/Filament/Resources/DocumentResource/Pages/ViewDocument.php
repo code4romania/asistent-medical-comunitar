@@ -6,7 +6,6 @@ namespace App\Filament\Resources\DocumentResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\DocumentPreview;
 use App\Filament\Forms\Components\FileList;
 use App\Filament\Forms\Components\Subsection;
@@ -16,6 +15,7 @@ use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use App\Models\Document;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
@@ -32,7 +32,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('document.summary'))
                     ->columns()
                     ->headerActions(fn (Document $record) => [
@@ -68,7 +68,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
                             ]),
                     ]),
 
-                Card::make()
+                Section::make()
                     ->visible(fn (Document $record) => $record->hasMedia('default'))
                     ->header(__('document.preview'))
                     ->headerActions(function (Document $record) {

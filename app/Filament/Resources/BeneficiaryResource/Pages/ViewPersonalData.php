@@ -6,9 +6,9 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Forms\Components\BeneficiaryProgram;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
@@ -46,7 +46,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
             ->schema([
                 BeneficiaryProgram::make(),
 
-                Card::make()
+                Section::make()
                     ->header(__('beneficiary.header.id'))
                     ->headerActions(fn ($record) => [
                         Actions\Action::make('view')

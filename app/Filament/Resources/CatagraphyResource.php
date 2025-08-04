@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\ICD10AMDiagnosticSelect;
 use App\Filament\Forms\Components\OrphaDiagnosticSelect;
 use App\Filament\Forms\Components\Repeater;
@@ -14,10 +13,10 @@ use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use App\Rules\MultipleIn;
-use Closure;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -38,7 +37,7 @@ class CatagraphyResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Subsection::make()
                             ->title(__('catagraphy.section.general'))
@@ -163,7 +162,7 @@ class CatagraphyResource extends Resource
                                         $livewire->dispatchFormEvent('repeater::createItem', 'data.disabilities');
                                     }),
 
-                                Card::make()
+                                Section::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
                                     ->columnSpanFull()
                                     ->pointer()
@@ -261,7 +260,7 @@ class CatagraphyResource extends Resource
                                         $livewire->dispatchFormEvent('repeater::createItem', 'data.diseases');
                                     }),
 
-                                Card::make()
+                                Section::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('SS')]))
                                     ->columnSpanFull()
                                     ->pointer('right')
@@ -333,7 +332,7 @@ class CatagraphyResource extends Resource
                                     ->reactive()
                                     ->searchable(),
 
-                                Card::make()
+                                Section::make()
                                     ->header(__('field.section_details', ['section' => $categories->get('PREG')]))
                                     ->columns()
                                     ->columnSpanFull()

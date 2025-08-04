@@ -24,6 +24,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -52,6 +53,16 @@ class AdminPanelProvider extends PanelProvider
                 // BreezyCore::make()
                 //     ->myProfile()
                 //     ->customMyProfilePage(Settings::class),
+
+                FilamentFullCalendarPlugin::make()
+                    ->editable()
+                    ->config([
+                        'headerToolbar' => [
+                            'left' => 'prev,next',
+                            'center' => 'title',
+                            'right' => 'dayGridMonth,timeGridWeek',
+                        ],
+                    ]),
             ])
 
             ->widgets([

@@ -6,7 +6,6 @@ namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\BeneficiaryResource;
@@ -15,6 +14,7 @@ use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Actions\ToggleCaseStatusAction;
 use App\Filament\Resources\InterventionResource\Concerns;
 use App\Models\Intervention;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages;
 use Filament\Resources\Pages\ViewRecord;
@@ -61,7 +61,7 @@ class ViewIntervention extends ViewRecord implements WithSidebar
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('intervention.summary'))
                     ->columns(3)
                     ->schema(

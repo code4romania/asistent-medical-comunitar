@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Enums\Beneficiary\Type;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\CreateRecord;
@@ -32,7 +32,7 @@ class CreateBeneficiary extends CreateRecord
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Grid::make(['md' => 3])
                             ->schema([

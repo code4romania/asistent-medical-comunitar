@@ -8,18 +8,18 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\AppointmentResource\Concerns;
 use App\Filament\Resources\AppointmentResource\Widgets\CalendarWidget;
-use Filament\Pages\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class CalendarAppointments extends ListRecords implements WithTabs
+class CalendarAppointments extends ListRecords /* implements WithTabs */
 {
-    use Concerns\HasTabs;
+    // use Concerns\HasTabs;
 
     protected static string $resource = AppointmentResource::class;
 
     protected static string $view = 'filament.resources.appointment-resource.pages.calendar-appointments';
 
-    protected function calendar(): array
+    protected function getHeaderWidgets(): array
     {
         return [
             CalendarWidget::class,
@@ -29,7 +29,7 @@ class CalendarAppointments extends ListRecords implements WithTabs
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

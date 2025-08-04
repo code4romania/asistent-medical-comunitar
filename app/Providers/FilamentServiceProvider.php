@@ -54,9 +54,9 @@ class FilamentServiceProvider extends ServiceProvider
         Forms\Components\DateTimePicker::$defaultTimeDisplayFormat = static::$defaultTimeDisplayFormat;
         Forms\Components\DateTimePicker::$defaultTimeWithSecondsDisplayFormat = static::$defaultTimeWithSecondsDisplayFormat;
 
-        Carbon::macro('toFormattedDate', fn () => $this->translatedFormat(static::$defaultDateDisplayFormat));
-        Carbon::macro('toFormattedDateTime', fn () => $this->translatedFormat(static::$defaultDateTimeDisplayFormat));
-        Carbon::macro('toFormattedDateTimeWithSeconds', fn () => $this->translatedFormat(static::$defaultDateTimeWithSecondsDisplayFormat));
-        Carbon::macro('toFormattedTime', fn () => $this->translatedFormat(static::$defaultTimeDisplayFormat));
+        Carbon::macro('toFormattedDate', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateDisplayFormat));
+        Carbon::macro('toFormattedDateTime', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateTimeDisplayFormat));
+        Carbon::macro('toFormattedDateTimeWithSeconds', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateTimeWithSecondsDisplayFormat));
+        Carbon::macro('toFormattedTime', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultTimeDisplayFormat));
     }
 }

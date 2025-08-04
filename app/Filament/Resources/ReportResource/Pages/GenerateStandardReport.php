@@ -6,7 +6,6 @@ namespace App\Filament\Resources\ReportResource\Pages;
 
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Type;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Select;
 use App\Filament\Resources\ReportResource;
 use App\Filament\Resources\ReportResource\Widgets\ReportTableWidget;
@@ -15,6 +14,7 @@ use App\Models\County;
 use App\Models\User;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -59,7 +59,7 @@ class GenerateStandardReport extends CreateRecord
     protected function getFormSchema(): array
     {
         return [
-            Card::make()
+            Section::make()
                 ->columns(3)
                 ->footerActions([
                     Action::make('cancel')

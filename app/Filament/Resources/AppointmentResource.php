@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\RelationManagers\ServicesRelationManager;
@@ -14,13 +13,15 @@ use Carbon\CarbonImmutable;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class AppointmentResource extends Resource
@@ -44,9 +45,14 @@ class AppointmentResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema(static::getAppointmentFormSchema()),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist;
     }
 
     public static function getAppointmentFormSchema(): array

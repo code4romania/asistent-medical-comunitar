@@ -7,6 +7,7 @@ namespace App\Filament\Forms\Components;
 use App\Models\Report;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\View;
 
 class ReportContent extends Component
@@ -47,7 +48,7 @@ class ReportContent extends Component
 
                 return collect($record->data)
                     ->map(
-                        fn (array $table) => Card::make()
+                        fn (array $table) => Section::make()
                             ->header(data_get($table, 'title'))
                             ->schema([
                                 View::make('vendor.tables.components.empty-state.index')
@@ -72,7 +73,7 @@ class ReportContent extends Component
 
     protected function emptyState(): Card
     {
-        return Card::make()
+        return Section::make()
             ->hidden(fn (Report $record) => $record->isFinished() && $record->data->isNotEmpty())
             ->schema([
                 View::make('vendor.tables.components.empty-state.index')

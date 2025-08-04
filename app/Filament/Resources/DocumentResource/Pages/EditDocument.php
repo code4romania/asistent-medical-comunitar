@@ -6,13 +6,13 @@ namespace App\Filament\Resources\DocumentResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Forms\Components\Subsection;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
 use Filament\Actions\DeleteAction;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -57,7 +57,7 @@ class EditDocument extends EditRecord implements WithSidebar
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('document.summary'))
                     ->columns()
                     ->schema([

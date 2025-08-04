@@ -7,9 +7,9 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Contracts\Forms\FixedActionBar;
 use App\Contracts\Pages\WithSidebar;
 use App\Filament\Forms\Components\BeneficiaryProgram;
-use App\Filament\Forms\Components\Card;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
@@ -47,7 +47,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
                 ->schema([
                     BeneficiaryProgram::make(),
 
-                    Card::make()
+                    Section::make()
                         ->header(__('beneficiary.section.personal_data'))
                         ->schema(static::getRegularBeneficiaryFormSchema()),
                 ]);
@@ -56,7 +56,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
         return $form
             ->columns(1)
             ->schema([
-                Card::make()
+                Section::make()
                     ->header(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
