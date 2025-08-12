@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Enums\User\Status;
-use App\Filament\Tables\Columns\TextColumn;
+use App\Tables\Columns\TextColumn;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;

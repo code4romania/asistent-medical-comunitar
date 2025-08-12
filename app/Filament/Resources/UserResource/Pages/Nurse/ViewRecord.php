@@ -12,8 +12,8 @@ use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Filament\Resources\UserResource\Concerns;
-use Filament\Pages\Actions\DeleteAction;
-use Filament\Pages\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 
 class ViewRecord extends BaseViewRecord implements WithTabs

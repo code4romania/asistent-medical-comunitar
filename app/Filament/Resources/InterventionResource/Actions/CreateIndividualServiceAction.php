@@ -7,7 +7,7 @@ namespace App\Filament\Resources\InterventionResource\Actions;
 use App\Filament\Resources\InterventionResource;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
-use Filament\Pages\Actions\CreateAction;
+use Filament\Actions\CreateAction;
 
 class CreateIndividualServiceAction extends CreateAction
 {

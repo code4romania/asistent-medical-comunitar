@@ -6,9 +6,9 @@ namespace App\Filament\Resources;
 
 use App\Enums\CommunityActivity\Administrative;
 use App\Enums\CommunityActivity\Campaign;
-use App\Filament\Forms\Components\FileList;
-use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\CommunityActivityResource\Pages;
+use App\Forms\Components\FileList;
+use App\Forms\Components\Value;
 use App\Models\CommunityActivity;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -25,6 +25,8 @@ class CommunityActivityResource extends Resource
     protected static ?string $model = CommunityActivity::class;
 
     protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationIcon = 'heroicon-m-megaphone';
 
     protected static ?string $slug = 'community';
 

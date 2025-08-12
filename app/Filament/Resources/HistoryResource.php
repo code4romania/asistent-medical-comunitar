@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Activity;
+use App\Tables\Columns\TextColumn;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class HistoryResource extends Resource

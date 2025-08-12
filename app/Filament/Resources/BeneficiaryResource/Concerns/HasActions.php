@@ -8,7 +8,7 @@ use App\Filament\Actions\ActionGroup;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\InterventionResource\Actions\CreateCaseAction;
 use App\Filament\Resources\InterventionResource\Actions\CreateIndividualServiceAction;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 
 trait HasActions
 {

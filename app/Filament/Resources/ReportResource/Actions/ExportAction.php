@@ -6,7 +6,7 @@ namespace App\Filament\Resources\ReportResource\Actions;
 
 use App\Exports\ReportExport;
 use App\Models\Report;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 
 class ExportAction extends Action
 {

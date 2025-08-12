@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CatagraphyResource\Pages;
 
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
-use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\CatagraphyResource;
 use App\Filament\Resources\CatagraphyResource\Concerns;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
+use App\Forms\Components\VulnerabilityChips;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Filament\Forms\Components\Section;

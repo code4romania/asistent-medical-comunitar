@@ -6,15 +6,15 @@ namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Concerns\InteractsWithCatagraphy;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\RecommendationsSection;
-use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use App\Forms\Components\RecommendationsSection;
+use App\Forms\Components\VulnerabilityChips;
 use App\Models\Catagraphy;
+use Filament\Actions\Action as PageAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\View;
 use Filament\Forms\Form;
-use Filament\Pages\Actions\Action as PageAction;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Tables\Actions\Action as TableAction;
 use Illuminate\Contracts\View\View as ViewContract;

@@ -6,7 +6,7 @@ namespace App\Filament\Resources\InterventionResource\Actions;
 
 use App\Filament\Resources\BeneficiaryResource;
 use App\Models\Intervention;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 
 class ToggleCaseStatusAction extends Action
 {

@@ -82,12 +82,14 @@ class Appointment extends Model
 
     public function getLabelAttribute(): string
     {
-        return sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
+        return \sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
     }
 
     public function getUrlAttribute(): string
     {
-        return AppointmentResource::getUrl('view', $this);
+        return AppointmentResource::getUrl('view', [
+            'record' => $this,
+        ]);
     }
 
     public function getStartAttribute(): DateTime

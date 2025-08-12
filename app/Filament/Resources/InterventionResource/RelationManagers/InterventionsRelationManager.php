@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Filament\Resources\InterventionResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
-use App\Filament\Forms\Components\Radio;
 use App\Filament\Resources\InterventionResource;
-use App\Filament\Tables\Columns\TextColumn;
+use App\Forms\Components\Radio;
 use App\Models\Appointment;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Service\Service;
+use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -28,7 +28,7 @@ class InterventionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'interventions';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    // protected static ?string $recordTitleAttribute = 'name';
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {

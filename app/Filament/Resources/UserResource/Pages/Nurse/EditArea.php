@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\UserResource\Pages\Nurse;
 
-use App\Filament\Forms\Components\Location;
-use App\Filament\Forms\Components\Subsection;
+use App\Forms\Components\Location;
+use App\Forms\Components\Subsection;
 use App\Models\City;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;

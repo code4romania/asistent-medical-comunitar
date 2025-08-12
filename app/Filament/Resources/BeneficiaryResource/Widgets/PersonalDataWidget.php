@@ -6,14 +6,14 @@ namespace App\Filament\Resources\BeneficiaryResource\Widgets;
 
 use App\Concerns\Forms\HasComponentActions;
 use App\Enums\Beneficiary\Status;
-use App\Filament\Forms\Components\Badge;
-use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\BeneficiaryResource;
+use App\Forms\Components\Badge;
+use App\Forms\Components\Value;
 use App\Models\Beneficiary;
+use Filament\Actions\Action;
 use Filament\Forms\ComponentContainer;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Pages\Actions\Action;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Widgets\Widget;
 

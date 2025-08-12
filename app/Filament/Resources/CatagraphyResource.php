@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\ICD10AMDiagnosticSelect;
-use App\Filament\Forms\Components\OrphaDiagnosticSelect;
-use App\Filament\Forms\Components\Repeater;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\YearPicker;
+use App\Forms\Components\ICD10AMDiagnosticSelect;
+use App\Forms\Components\OrphaDiagnosticSelect;
+use App\Forms\Components\Repeater;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\YearPicker;
 use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;

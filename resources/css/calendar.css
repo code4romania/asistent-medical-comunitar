@@ -1,81 +1,145 @@
-:root {
-    --fc-event-text-color: theme(colors.black);
-    --fc-small-font-size: theme(fontSize.xs);
-    --fc-event-bg-color: theme(colors.gray.50);
+.filament-fullcalendar {
+    --fc-small-font-size: 0.85em;
+    --fc-page-bg-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+    --fc-neutral-bg-color: rgba(var(--gray-50), var(--tw-bg-opacity));
+    --fc-neutral-text-color: #808080;
+    --fc-border-color: rgba(var(--gray-200));
+
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: rgba(var(--primary-600));
+    --fc-button-border-color: rgba(var(--primary-600));
+    --fc-button-hover-bg-color: rgba(var(--primary-500));
+    --fc-button-hover-border-color: rgba(var(--primary-500));
+    --fc-button-active-bg-color: rgba(var(--primary-500));
+    --fc-button-active-border-color: rgba(var(--primary-500));
+
+    --fc-event-bg-color: rgba(var(--primary-600));
+    --fc-event-border-color: rgba(var(--primary-600));
+    --fc-event-text-color: rgba(var(--gray-950));
+    --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+
+    --fc-more-link-bg-color: #d0d0d0;
+    --fc-more-link-text-color: inherit;
+
+    --fc-event-resizer-thickness: 8px;
+    --fc-event-resizer-dot-total-width: 8px;
+    --fc-event-resizer-dot-border-width: 1px;
+
+    --fc-non-business-color: rgba(215, 215, 215, 0.3);
+    --fc-bg-event-color: rgb(143, 223, 130);
+    --fc-bg-event-opacity: 0.3;
+    --fc-highlight-color: rgba(var(--primary-500), 0.1);
+    --fc-today-bg-color: rgba(var(--primary-500), 0.2);
+
+    --fc-list-event-hover-bg-color: rgba(var(--gray-50), var(--tw-bg-opacity));
+
+
+    .fc-toolbar-title {
+        @apply !text-lg leading-5 md:!text-3xl;
+    }
+
+    .fc-button {
+        @apply transition-colors outline-none rounded-lg font-medium text-sm text-white min-h-[2.25rem] px-[6px] md:px-4 py-1 shadow;
+    }
+
+    .fc-button-primary {
+        @apply bg-primary-600 border-primary-600;
+    }
+
+    .fc-daygrid-day-top {
+        @apply pt-px pr-px mt-px mr-px;
+    }
+
+    .fc-daygrid-day-number {
+        @apply inline-flex items-center justify-center w-6 h-6 p-0 text-sm rounded-full;
+    }
+
+    .fc-button-primary:hover {
+        @apply bg-primary-500 border-primary-600;
+    }
+
+    .fc-button-primary:disabled {
+        @apply bg-primary-600 opacity-70 border-primary-600;
+    }
+
+    .fc-button-primary:not(:disabled).fc-button-active, .fc-button-primary:not(:disabled):active {
+        @apply shadow-none bg-primary-500 border-primary-600;
+    }
+
+    .fc-button-primary:focus, .fc-button-primary:not(:disabled):focus, .fc-button-primary:not(:disabled).fc-button-active:focus, .fc-button-primary:not(:disabled):active:focus {
+        @apply shadow-none outline-none bg-primary-700 ring-2 ring-inset ring-offset-2 ring-offset-primary-700 ring-white;
+    }
+
+    .fc-daygrid-day.fc-day-today {
+        @apply bg-inherit;
+
+        .fc-daygrid-day-number {
+            @apply font-bold text-white bg-primary-700;
+        }
+    }
+
+    .fc-highlight {
+        @apply bg-primary-100/25;
+    }
+
+    .fc-event {
+        @apply border-0 border-l-4 border-primary-600;
+        @apply rounded-none px-1 py-1.5;
+        @apply bg-gray-50 dark:bg-gray-800;
+
+        .fc-event-content {
+            @apply overflow-hidden;
+        }
+    }
+
+    .fc-event-past {
+        .fc-event-content {
+            @apply opacity-50;
+
+            &:hover {
+                @apply opacity-100;
+            }
+        }
+    }
+
+    .fc-daygrid-more-link {
+        @apply flex items-center justify-center w-full;
+        @apply text-xs font-bold text-primary-700;
+    }
+
+    .fc-daygrid-day-frame {
+        @apply overflow-hidden;
+    }
+
+    .fc-daygrid-day-events, .fc-popover-body {
+        @apply flex flex-col gap-1;
+    }
+
+    .fc-popover {
+        @apply !z-10 rounded-lg overflow-hidden;
+    }
+
+    .fc-popover-header {
+        @apply !bg-gray-700 leading-5 !text-white !px-2 !py-1.5 text-sm;
+    }
+
 }
 
-.fc-toolbar-chunk {
-    @apply space-y-1;
-}
+html.dark .filament-fullcalendar {
+    --fc-page-bg-color: rgba(var(--gray-900), var(--tw-bg-opacity, 1));
+    --fc-neutral-bg-color: rgba(var(--gray-800), 0.8);
+    --fc-border-color: rgba(var(--gray-700), 0.5);
 
-.fc-toolbar-title {
-    @apply !text-lg leading-5 md:!text-3xl;
-}
+    --fc-button-bg-color: rgba(var(--primary-500));
+    --fc-button-border-color: rgba(var(--primary-600));
+    --fc-button-hover-bg-color: rgba(var(--primary-400));
+    --fc-button-hover-border-color: rgba(var(--primary-500));
+    --fc-button-active-bg-color: rgba(var(--primary-400));
+    --fc-button-active-border-color: rgba(var(--primary-500));
 
-.filament-fullcalendar--calendar.fc .fc-button {
-    @apply transition-colors outline-none rounded-lg font-medium text-sm text-white min-h-[2.25rem] px-[6px] md:px-4 py-1 shadow;
-}
+    --fc-event-bg-color: rgba(var(--primary-500));
+    --fc-event-border-color: rgba(var(--primary-600));
+    --fc-event-text-color: #FFF;
 
-.filament-fullcalendar--calendar.fc .fc-button-primary {
-    @apply bg-primary-600 border-primary-600;
-}
-.filament-fullcalendar--calendar.fc .fc-daygrid-day-top {
-    @apply pt-px pr-px mt-px mr-px;
-}
-
-.filament-fullcalendar--calendar.fc .fc-daygrid-day-number {
-    @apply inline-flex items-center justify-center w-6 h-6 p-0 text-sm rounded-full;
-}
-
-.filament-fullcalendar--calendar.fc .fc-button-primary:hover {
-    @apply bg-primary-500 border-primary-600;
-}
-
-.filament-fullcalendar--calendar.fc .fc-button-primary:disabled {
-    @apply bg-primary-600 opacity-70 border-primary-600;
-}
-
-.filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled).fc-button-active, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):active {
-    @apply shadow-none bg-primary-500 border-primary-600;
-}
-
-.filament-fullcalendar--calendar.fc .fc-button-primary:focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled).fc-button-active:focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):active:focus {
-    @apply shadow-none outline-none bg-primary-700 ring-2 ring-inset ring-offset-2 ring-offset-primary-700 ring-white;
-}
-
-.filament-fullcalendar--calendar.fc .fc-daygrid-day.fc-day-today {
-    @apply bg-inherit;
-}
-
-.filament-fullcalendar--calendar.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-    @apply font-bold text-white bg-primary-700;
-}
-
-.filament-fullcalendar--calendar.fc .fc-highlight {
-    @apply bg-primary-100/25;
-}
-
-.fc-event {
-    @apply !border-0 !border-l-4 !rounded-none !px-1 !py-1.5;
-}
-
-.fc-daygrid-more-link {
-    @apply flex items-center justify-center w-full;
-    @apply text-xs font-bold text-primary-700;
-}
-
-.fc-daygrid-day-frame {
-    @apply overflow-hidden;
-}
-
-.fc-daygrid-day-events, .fc-popover-body {
-    @apply flex flex-col gap-1;
-}
-
-.fc-popover {
-    @apply !z-10 rounded-lg overflow-hidden;
-}
-
-.fc-popover-header {
-    @apply !bg-gray-700 leading-5 !text-white !px-2 !py-1.5 text-sm;
+    --fc-list-event-hover-bg-color: rgba(var(--gray-800), 0.8);
 }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Enums\StudyType;
-use App\Filament\Forms\Components\Location;
-use App\Filament\Forms\Components\Repeater;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\YearPicker;
+use App\Forms\Components\Location;
+use App\Forms\Components\Repeater;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\YearPicker;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

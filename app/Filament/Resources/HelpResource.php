@@ -9,7 +9,7 @@ use Filament\Resources\Resource;
 
 class HelpResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-question-mark-circle';
 
     protected static ?int $navigationSort = 9;
 

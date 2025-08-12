@@ -6,13 +6,13 @@ namespace App\Filament\Resources\InterventionResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\InterventionResource;
 use App\Filament\Resources\InterventionResource\Actions\ToggleCaseStatusAction;
 use App\Filament\Resources\InterventionResource\Concerns;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Models\Intervention;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;

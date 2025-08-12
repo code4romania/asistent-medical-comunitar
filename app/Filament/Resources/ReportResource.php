@@ -15,6 +15,8 @@ class ReportResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
+    protected static ?string $navigationIcon = 'heroicon-m-presentation-chart-line';
+
     public static function getModelLabel(): string
     {
         return __('report.label.singular');

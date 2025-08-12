@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Actions\ActionGroup;
-use App\Filament\Forms\Components\Location;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
+use App\Forms\Components\Location;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Models\User;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Pages\Actions\DeleteAction;
-use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewUser extends ViewRecord

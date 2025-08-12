@@ -7,6 +7,9 @@ namespace App\Providers;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Infolists;
+use Filament\Pages\BasePage;
+use Filament\Pages\Page;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Tables;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +31,8 @@ class FilamentServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->setDateTimeDisplayFormats();
+
+        $this->configurePages();
     }
 
     /**
@@ -36,6 +41,14 @@ class FilamentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    protected function configurePages(): void
+    {
+        Page::alignFormActionsEnd();
+        BasePage::stickyFormActions();
+
+        CreateRecord::disableCreateAnother();
     }
 
     protected function setDateTimeDisplayFormats(): void

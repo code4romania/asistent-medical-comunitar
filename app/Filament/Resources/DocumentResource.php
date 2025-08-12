@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Document;
+use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class DocumentResource extends Resource
 {

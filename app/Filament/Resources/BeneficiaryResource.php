@@ -11,8 +11,8 @@ use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
 use App\Filament\Resources\CatagraphyResource\Pages as CatagraphyPages;
 use App\Filament\Resources\DocumentResource\Pages as DocumentPages;
 use App\Filament\Resources\InterventionResource\Pages as InterventionPages;
-use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Beneficiary;
+use App\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,7 +27,7 @@ class BeneficiaryResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $recordTitleAttribute = 'full_name';
+    protected static ?string $navigationIcon = 'heroicon-m-user-group';
 
     public static function getModelLabel(): string
     {

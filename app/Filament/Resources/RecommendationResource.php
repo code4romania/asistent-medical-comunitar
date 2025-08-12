@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\ServiceList;
-use App\Filament\Forms\Components\Value;
-use App\Filament\Forms\Components\VulnerabilityChips;
 use App\Filament\Resources\RecommendationResource\Pages;
-use App\Filament\Tables\Columns\TextColumn;
+use App\Forms\Components\ServiceList;
+use App\Forms\Components\Value;
+use App\Forms\Components\VulnerabilityChips;
 use App\Models\Recommendation;
 use App\Models\Vulnerability\Vulnerability;
+use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class RecommendationResource extends Resource

@@ -6,14 +6,14 @@ namespace App\Filament\Resources\DocumentResource\Pages;
 
 use App\Concerns\InteractsWithBeneficiary;
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\DocumentPreview;
-use App\Filament\Forms\Components\FileList;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns\HasSidebar;
 use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentResource\Concerns\HasRecordBreadcrumb;
+use App\Forms\Components\DocumentPreview;
+use App\Forms\Components\FileList;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use App\Models\Document;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;

@@ -8,7 +8,7 @@ use App\Enums\CommunityActivity\Type;
 use App\Filament\Actions\ActionGroup;
 use App\Filament\Resources\CommunityActivityResource;
 use App\Models\CommunityActivity;
-use Filament\Pages\Actions\CreateAction;
+use Filament\Actions\CreateAction;
 
 trait HasActions
 {

@@ -8,7 +8,7 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\ProfileResource\Concerns\HasTabs;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Concerns;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 
 class EditRecord extends BaseEditRecord implements WithTabs

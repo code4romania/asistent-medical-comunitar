@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Actions;
 
-use Filament\Pages\Actions\ActionGroup as BaseActionGroup;
+use Filament\Actions\ActionGroup as BaseActionGroup;
 
 class ActionGroup extends BaseActionGroup
 {

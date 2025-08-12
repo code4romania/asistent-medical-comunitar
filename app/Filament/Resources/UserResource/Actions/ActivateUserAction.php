@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\UserResource\Actions;
 
 use App\Models\User;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 
 class ActivateUserAction extends Action
 {

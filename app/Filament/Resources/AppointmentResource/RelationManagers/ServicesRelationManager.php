@@ -6,14 +6,16 @@ namespace App\Filament\Resources\AppointmentResource\RelationManagers;
 
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Appointment;
 use App\Models\Intervention;
-use Filament\Forms;
+use App\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
+use Filament\Tables\Actions\AssociateAction;
+use Filament\Tables\Actions\DissociateAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,8 +24,6 @@ use Illuminate\Database\Eloquent\Model;
 class ServicesRelationManager extends RelationManager
 {
     protected static string $relationship = 'interventions';
-
-    protected static ?string $recordTitleAttribute = 'service_name';
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
@@ -34,21 +34,18 @@ class ServicesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(200),
             ]);
     }
 
-    protected function getTableQuery(): Builder
-    {
-        return parent::getTableQuery()
-            ->with(['vulnerability', 'parent']);
-    }
-
     public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('service_name')
+            ->inverseRelationship('appointment')
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['vulnerability', 'parent']))
             ->columns([
                 TextColumn::make('id')
                     ->label(__('field.id'))
@@ -78,7 +75,7 @@ class ServicesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AssociateAction::make()
+                AssociateAction::make()
                     ->label(__('intervention.action.add_service'))
                     ->modalHeading(__('intervention.action.add_service'))
                     ->icon('heroicon-o-plus-circle')
@@ -113,24 +110,19 @@ class ServicesRelationManager extends RelationManager
                                 'services.name as service_name',
                             ]);
                     })
-                    ->inverseRelationshipName('appointment')
                     ->preloadRecordSelect(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
+                ViewAction::make()
                     ->url(fn (self $livewire, Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
                         'beneficiary' => $livewire->getOwnerRecord()->beneficiary,
                         'record' => $record,
                     ]))
                     ->iconButton(),
 
-                Tables\Actions\DissociateAction::make()
+                DissociateAction::make()
                     ->modalHeading(__('intervention.action.dissociate_service'))
-                    ->inverseRelationshipName('appointment')
                     ->iconButton(),
-            ])
-            ->bulkActions([
-                //
             ])
             ->defaultSort('id', 'desc');
     }

@@ -6,7 +6,7 @@ namespace App\Filament\Resources\DocumentResource\Actions;
 
 use App\Filament\Resources\DocumentResource;
 use App\Models\Document;
-use Filament\Pages\Actions\CreateAction;
+use Filament\Actions\CreateAction;
 
 class CreateDocumentAction extends CreateAction
 {

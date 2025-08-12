@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Filament\Forms\Components\FileList;
-use App\Filament\Forms\Components\Location;
-use App\Filament\Forms\Components\Subsection;
-use App\Filament\Forms\Components\Value;
+use App\Forms\Components\FileList;
+use App\Forms\Components\Location;
+use App\Forms\Components\Subsection;
+use App\Forms\Components\Value;
 use Filament\Forms\Form;
 
 class ViewGeneral extends ViewRecord

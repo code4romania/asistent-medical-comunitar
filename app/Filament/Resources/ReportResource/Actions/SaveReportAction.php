@@ -6,7 +6,7 @@ namespace App\Filament\Resources\ReportResource\Actions;
 
 use App\Filament\Resources\ReportResource;
 use App\Models\Report;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Pages\Page;
 
 class SaveReportAction extends Action

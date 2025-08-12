@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Pages\WithSidebar;
-use App\Filament\Forms\Components\BeneficiaryProgram;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
+use App\Forms\Components\BeneficiaryProgram;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Actions;

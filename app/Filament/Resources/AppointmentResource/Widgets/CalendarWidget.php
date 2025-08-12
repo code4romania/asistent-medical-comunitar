@@ -69,4 +69,25 @@ class CalendarWidget extends FullCalendarWidget
 
         return false;
     }
+
+    public function eventContent(): string
+    {
+        return <<<'JS'
+            function({ event, timeText }) {
+                const html = `
+                    <div class="fc-event-content">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-bold fc-event-time">${timeText}</span>
+                        </div>
+
+                        <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+                            ${event.extendedProps.description}
+                        </div>
+                    </div>
+                `;
+
+                return { html };
+            }
+        JS;
+    }
 }

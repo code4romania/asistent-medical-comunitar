@@ -6,15 +6,14 @@ namespace App\Filament\Widgets;
 
 use App\Concerns\HasConditionalTableEmptyState;
 use App\Filament\Resources\AppointmentResource;
-use App\Filament\Tables\Columns\TextColumn;
 use App\Models\Appointment;
+use App\Tables\Columns\TextColumn;
 use Closure;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Widgets\TableWidget;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 class UpcomingAppointmentsWidget extends TableWidget
 {
@@ -71,17 +70,14 @@ class UpcomingAppointmentsWidget extends TableWidget
             ]),
 
             Stack::make([
-                TextColumn::make('interventions')
+                TextColumn::make('interventions_count')
+                    ->counts('interventions')
                     ->color('text-gray-400')
                     ->icon('heroicon-m-bolt')
                     ->size('sm')
-                    ->formatStateUsing(function (Collection $state) {
-                        if ($state->count() === 1) {
-                            return $state->first()->interventionable->service->name;
-                        }
-
-                        return trans_choice('intervention.services_count', $state->count());
-                    }),
+                    ->formatStateUsing(
+                        fn (int $state) => trans_choice('intervention.services_count', $state)
+                    ),
 
                 TextColumn::make('date')
                     ->label(__('field.date'))

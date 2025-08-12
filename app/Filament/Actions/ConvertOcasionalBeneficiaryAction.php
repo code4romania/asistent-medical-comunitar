@@ -13,7 +13,7 @@ use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\Service\Service;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 
 class ConvertOcasionalBeneficiaryAction extends Action
 {
