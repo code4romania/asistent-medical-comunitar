@@ -20,6 +20,7 @@ use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 class ServicesRelationManager extends RelationManager
 {
@@ -81,14 +82,14 @@ class ServicesRelationManager extends RelationManager
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
                     ->recordTitle(
-                        fn (Intervention $record, Appointment $ownerRecord) => view('components.forms.appointment-intervention-item', [
+                        fn (Intervention $record, Appointment $ownerRecord) => view('forms.components.appointment-intervention-item', [
                             'appointment' => $ownerRecord,
                             'intervention' => $record,
                         ])
                     )
                     ->recordSelect(
                         fn (Select $select) => $select
-                            ->helperText(__('appointment.service_already_associated'))
+                            ->helperText(new HtmlString(__('appointment.service_already_associated')))
                             ->allowHtml()
                     )
                     ->recordSelectSearchColumns([

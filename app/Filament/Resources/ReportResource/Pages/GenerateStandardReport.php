@@ -100,7 +100,7 @@ class GenerateStandardReport extends CreateRecord
                                         ->withActivityAreas()
                                         ->get()
                                         ->mapWithKeys(fn (User $nurse) => [
-                                            $nurse->getKey() => view('components.forms.option-label', [
+                                            $nurse->getKey() => view('forms.components.option-label', [
                                                 'name' => $nurse->full_name,
                                                 'suffix' => $nurse->activityCities
                                                     ->pluck('name')

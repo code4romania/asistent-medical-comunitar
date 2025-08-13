@@ -123,7 +123,7 @@ class Location extends Grid
             return null;
         }
 
-        return view('components.forms.option-label', [
+        return view('forms.components.option-label', [
             'name' => $model->name,
             'suffix' => $model->parent_name,
         ])->render();

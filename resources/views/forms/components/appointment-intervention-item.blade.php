@@ -6,6 +6,6 @@
     </div>
 
     @if ($intervention->appointment_id !== null && $intervention->appointment_id !== $appointment->id)
-        <x-heroicon-o-exclamation class="w-6 h-6 text-warning-500" />
+        <x-heroicon-o-exclamation-triangle class="w-6 h-6 text-warning-500" />
     @endif
 </div>
