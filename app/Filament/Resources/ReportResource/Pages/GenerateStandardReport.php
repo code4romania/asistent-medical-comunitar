@@ -83,7 +83,7 @@ class GenerateStandardReport extends CreateRecord
                                 ->visible(fn () => auth()->user()->isNurse())
                                 ->options(Type::options())
                                 ->enum(Type::class)
-                                ->reactive()
+                                ->live()
                                 ->required(),
 
                             Select::make('nurses')
@@ -122,7 +122,7 @@ class GenerateStandardReport extends CreateRecord
                                 ->placeholder(__('placeholder.select_one'))
                                 ->options(Category::options())
                                 ->enum(Category::class)
-                                ->reactive()
+                                ->live()
                                 ->required()
                                 ->afterStateUpdated(function (callable $set) {
                                     $set('indicators', null);

@@ -31,7 +31,7 @@ class EditArea extends EditRecord
                         ->placeholder(__('placeholder.county'))
                         ->relationship('activityCounty', 'name')
                         ->searchable()
-                        ->reactive()
+                        ->live()
                         ->preload()
                         ->required()
                         ->afterStateUpdated(function (\Filament\Forms\Set $set) {

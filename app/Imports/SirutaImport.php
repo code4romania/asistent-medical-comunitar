@@ -18,7 +18,7 @@ class SirutaImport implements ToModel, WithBatchInserts, WithHeadingRow
     /**
      * @param array $row
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
     public function model(array $row): ?Model
     {

@@ -147,7 +147,7 @@ class CatagraphyResource extends Resource
                                         placeholder: __('placeholder.select_one'),
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
-                                    ->reactive()
+                                    ->live()
                                     ->afterStateUpdated(function ($state, \Filament\Forms\Get $get, Component $livewire) {
                                         $state = \boolval($state);
 
@@ -245,7 +245,7 @@ class CatagraphyResource extends Resource
                                         placeholder: __('placeholder.select_one'),
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
-                                    ->reactive()
+                                    ->live()
                                     ->afterStateUpdated(function ($state, \Filament\Forms\Get $get, Component $livewire) {
                                         $state = \boolval($state);
 
@@ -287,7 +287,7 @@ class CatagraphyResource extends Resource
                                                     ->placeholder(__('placeholder.select_one'))
                                                     ->options($vulnerabilities->get('SS_B'))
                                                     ->in($vulnerabilities->get('SS_B')->keys())
-                                                    ->reactive()
+                                                    ->live()
                                                     ->searchable(),
 
                                                 ICD10AMDiagnosticSelect::make('diagnostic')
@@ -329,7 +329,7 @@ class CatagraphyResource extends Resource
                                     ->placeholder(__('placeholder.select_one'))
                                     ->options($vulnerabilities->get('REP'))
                                     ->in($vulnerabilities->get('REP')->keys())
-                                    ->reactive()
+                                    ->live()
                                     ->searchable(),
 
                                 Section::make()
@@ -371,7 +371,7 @@ class CatagraphyResource extends Resource
                                             ->options($vulnerabilities->get('SUS_CS'))
                                             ->in($vulnerabilities->get('SUS_CS')->keys())
                                             ->required()
-                                            ->reactive(),
+                                            ->live(),
 
                                         Select::make('elements')
                                             ->label(__('field.suspicion_elements'))

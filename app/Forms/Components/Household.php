@@ -73,7 +73,7 @@ class Household extends Group
                     );
                 })
                 ->searchable()
-                ->reactive()
+                ->live()
                 ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
                 ->createOptionModalHeading(__('household.action.create'))
                 ->createOptionForm([

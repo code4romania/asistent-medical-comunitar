@@ -72,7 +72,7 @@ trait CommonEditFormSchema
                             Checkbox::make('does_not_have_cnp')
                                 ->label(__('field.does_not_have_cnp'))
                                 ->default(false)
-                                ->reactive()
+                                ->live()
                                 ->afterStateUpdated(function (callable $set) {
                                     $set('cnp', null);
                                     $set('does_not_provide_cnp', false);
@@ -81,7 +81,7 @@ trait CommonEditFormSchema
                             Checkbox::make('does_not_provide_cnp')
                                 ->label(__('field.does_not_provide_cnp'))
                                 ->default(false)
-                                ->reactive()
+                                ->live()
                                 ->afterStateUpdated(function (callable $set) {
                                     $set('cnp', null);
                                     $set('does_not_have_cnp', false);
@@ -93,7 +93,7 @@ trait CommonEditFormSchema
                         ->placeholder(__('placeholder.id_type'))
                         ->options(IDType::options())
                         ->enum(IDType::class)
-                        ->reactive()
+                        ->live()
                         ->afterStateUpdated(function (callable $set, $state) {
                             if (! $state || IDType::tryFrom($state)?->is(IDType::NONE)) {
                                 $set('id_serial', null);
@@ -175,7 +175,7 @@ trait CommonEditFormSchema
                         ->label(__('field.has_unknown_identity'))
                         ->default(false)
                         ->columnSpanFull()
-                        ->reactive()
+                        ->live()
                         ->afterStateUpdated(function (callable $set) {
                             $set('first_name', null);
                             $set('last_name', null);
@@ -228,7 +228,7 @@ trait CommonEditFormSchema
                                     Checkbox::make('does_not_have_cnp')
                                         ->label(__('field.does_not_have_cnp'))
                                         ->default(false)
-                                        ->reactive()
+                                        ->live()
                                         ->afterStateUpdated(function (callable $set) {
                                             $set('cnp', null);
                                             $set('does_not_provide_cnp', false);
@@ -237,7 +237,7 @@ trait CommonEditFormSchema
                                     Checkbox::make('does_not_provide_cnp')
                                         ->label(__('field.does_not_provide_cnp'))
                                         ->default(false)
-                                        ->reactive()
+                                        ->live()
                                         ->afterStateUpdated(function (callable $set) {
                                             $set('cnp', null);
                                             $set('does_not_have_cnp', false);

@@ -15,6 +15,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
+/**
+ * @deprecated Use infolists instead. If not possible, use `\Filament\Forms\Components\Placeholder`.
+ */
 class Value extends Component
 {
     use Concerns\HasHelperText;

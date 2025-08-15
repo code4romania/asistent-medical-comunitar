@@ -82,7 +82,7 @@ class CreateUser extends CreateRecord
                                 ->label(__('field.role'))
                                 ->options(Role::options())
                                 ->enum(Role::class)
-                                ->reactive()
+                                ->live()
                                 ->required()
                                 ->visible(fn () => auth()->user()->isAdmin()),
 

@@ -83,7 +83,7 @@ class InterventionResource extends Resource
                         ->options(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary()))
                         ->in(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary())?->keys())
                         ->searchable()
-                        ->reactive()
+                        ->live()
                         ->required(),
 
                     Hidden::make('vulnerability_label')
@@ -149,7 +149,7 @@ class InterventionResource extends Resource
                         ->options(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary()))
                         ->in(fn ($livewire) => static::getValidVulnerabilities($livewire->getBeneficiary())?->keys())
                         ->searchable()
-                        ->reactive()
+                        ->live()
                         ->required(),
 
                     Hidden::make('vulnerability_label')

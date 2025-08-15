@@ -6,11 +6,12 @@ namespace App\Filament\Resources\ProfileResource\Pages;
 
 use App\Forms\Components\Location;
 use App\Forms\Components\Subsection;
-use App\Forms\Components\Value;
 use App\Models\City;
 use App\Models\User;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 
 class EditArea extends EditRecord
 {
@@ -28,7 +29,7 @@ class EditArea extends EditRecord
                 ->icon('heroicon-o-map-pin')
                 ->columns()
                 ->schema([
-                    Value::make('activity_county')
+                    Placeholder::make('activity_county')
                         ->label(__('field.county'))
                         ->content(fn (?User $record) => $record?->activityCounty?->name),
 
@@ -41,7 +42,7 @@ class EditArea extends EditRecord
                         ->searchable()
                         ->required()
                         ->getSearchResultsUsing(
-                            fn (string $search, \Filament\Forms\Get $get) => City::query()
+                            fn (string $search, Get $get) => City::query()
                                 ->where('county_id', $get('activity_county_id'))
                                 ->search($search)
                                 ->limit(100)

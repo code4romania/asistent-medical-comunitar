@@ -63,7 +63,7 @@ class EditEmployers extends EditRecord
                                 ->schema([
                                     Checkbox::make('is_project_based')
                                         ->label(__('field.employer_project_based'))
-                                        ->reactive()
+                                        ->live()
                                         ->afterStateUpdated(function (callable $set) {
                                             $set('project', null);
                                         }),
@@ -77,7 +77,7 @@ class EditEmployers extends EditRecord
                                     TextInput::make('project')
                                         ->label(__('field.employer_project'))
                                         ->placeholder(__('placeholder.employer_project'))
-                                        ->reactive()
+                                        ->live()
                                         ->maxLength(200)
                                         ->afterStateHydrated(function (callable $set, $state) {
                                             $set('is_project_based', $state !== null);
@@ -121,7 +121,7 @@ class EditEmployers extends EditRecord
                                         ->schema([
                                             Checkbox::make('is_ongoing')
                                                 ->label(__('field.employer_ongoing'))
-                                                ->reactive()
+                                                ->live()
                                                 ->afterStateUpdated(function (callable $set) {
                                                     $set('end_date', null);
                                                 }),
@@ -130,7 +130,7 @@ class EditEmployers extends EditRecord
 
                             Checkbox::make('has_gp_agreement')
                                 ->label(__('field.has_gp_agreement'))
-                                ->reactive()
+                                ->live()
                                 ->afterStateUpdated(function (callable $set) {
                                     $set('end_date', null);
                                 }),

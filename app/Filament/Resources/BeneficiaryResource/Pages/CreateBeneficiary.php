@@ -41,7 +41,7 @@ class CreateBeneficiary extends CreateRecord
                                     ->options(Type::options())
                                     ->default(Type::REGULAR->value)
                                     ->disablePlaceholderSelection()
-                                    ->reactive()
+                                    ->live()
                                     ->required(),
                             ]),
 

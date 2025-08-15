@@ -104,7 +104,7 @@ class BeneficiaryProgram extends Section
                 ->placeholder(__('placeholder.choose'))
                 ->options(Status::options())
                 ->enum(Status::class)
-                ->reactive()
+                ->live()
                 ->required(),
 
             Grid::make('status_reason')
@@ -115,7 +115,7 @@ class BeneficiaryProgram extends Section
                         ->label(__('field.reason_removed'))
                         ->placeholder(__('placeholder.choose'))
                         ->options(ReasonRemoved::options())
-                        ->reactive()
+                        ->live()
                         ->required(),
 
                     TextInput::make('reason_removed_notes')

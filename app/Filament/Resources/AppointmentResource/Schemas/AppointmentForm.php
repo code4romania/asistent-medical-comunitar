@@ -47,7 +47,7 @@ class AppointmentForm
                                         ->label(__('field.start_time'))
                                         ->type('time')
                                         ->rule('date_format:H:i')
-                                        ->reactive()
+                                        ->live()
                                         ->required()
                                         ->afterStateUpdated(function ($old, $state, Get $get, Set $set) {
                                             if (blank($state)) {
