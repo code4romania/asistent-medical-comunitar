@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\VacationType;
 use App\Filament\Resources\VacationResource\Pages;
-use App\Forms\Components\Value;
+use App\Filament\Resources\VacationResource\Schemas\VacationForm;
+use App\Filament\Resources\VacationResource\Schemas\VacationInfolist;
 use App\Models\County;
 use App\Models\Vacation;
 use App\Tables\Columns\TextColumn;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -49,7 +46,13 @@ class VacationResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(static::getEditFormSchema());
+            ->schema(VacationForm::getSchema());
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema(VacationInfolist::getSchema());
     }
 
     public static function table(Table $table): Table
@@ -126,89 +129,21 @@ class VacationResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->form(static::getViewFormSchema())
                     ->iconButton(),
 
                 Tables\Actions\EditAction::make()
-                    ->form(static::getEditFormSchema())
                     ->iconButton(),
 
                 Tables\Actions\DeleteAction::make()
                     ->iconButton(),
             ])
-            ->bulkActions([
-                //
-            ])
             ->defaultSort('id', 'desc');
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageVacations::route('/'),
-        ];
-    }
-
-    public static function getEditFormSchema(): array
-    {
-        return [
-            Select::make('type')
-                ->label(__('field.type'))
-                ->options(VacationType::options())
-                ->enum(VacationType::class)
-                ->required(),
-
-            Grid::make()
-                ->schema([
-                    DatePicker::make('start_date')
-                        ->label(__('field.start_date'))
-                        ->required(),
-
-                    DatePicker::make('end_date')
-                        ->label(__('field.end_date'))
-                        ->afterOrEqual('start_date')
-                        ->required(),
-                ])
-                ->columnSpanFull(),
-
-            Textarea::make('notes')
-                ->label(__('field.notes'))
-                ->autosize(false)
-                ->rows(4)
-                ->columnSpanFull()
-                ->extraInputAttributes([
-                    'class' => 'resize-none',
-                ])
-                ->columnSpanFull(),
-        ];
-    }
-
-    public static function getViewFormSchema(): array
-    {
-        return [
-            Value::make('type')
-                ->label(__('field.type')),
-
-            Grid::make()
-                ->schema([
-                    Value::make('start_date')
-                        ->label(__('field.start_date')),
-
-                    Value::make('end_date')
-                        ->label(__('field.end_date')),
-                ])
-                ->columnSpanFull(),
-
-            Value::make('notes')
-                ->label(__('field.notes'))
-                ->columnSpanFull(),
         ];
     }
 }

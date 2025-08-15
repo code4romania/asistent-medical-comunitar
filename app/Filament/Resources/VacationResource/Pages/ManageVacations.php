@@ -7,7 +7,7 @@ namespace App\Filament\Resources\VacationResource\Pages;
 use App\Concerns\HasConditionalTableEmptyState;
 use App\Filament\Resources\VacationResource;
 use App\Models\Vacation;
-use Filament\Pages;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables;
 
@@ -20,7 +20,7 @@ class ManageVacations extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Pages\Actions\CreateAction::make()
+            CreateAction::make()
                 ->using(function (array $data) {
                     $data['nurse_id'] = auth()->id();
 
@@ -60,7 +60,6 @@ class ManageVacations extends ManageRecords
     {
         return [
             Tables\Actions\CreateAction::make()
-                ->form(VacationResource::getEditFormSchema())
                 ->using(function (array $data) {
                     $data['nurse_id'] = auth()->id();
 
