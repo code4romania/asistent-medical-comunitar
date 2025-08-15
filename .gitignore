@@ -27,6 +27,7 @@ docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
+phpstan.neon
 phpunit.xml
 yarn-error.log
 .DS_Store

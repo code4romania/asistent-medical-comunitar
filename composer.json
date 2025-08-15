@@ -35,12 +35,13 @@
         "barryvdh/laravel-debugbar": "^3.16",
         "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.24",
-        "friendsofphp/php-cs-fixer": "^3.85",
+        "friendsofphp/php-cs-fixer": "^3.86",
         "itsgoingd/clockwork": "^5.3",
+        "larastan/larastan": "^3.0",
         "laravel/sail": "^1.44",
         "laravel/telescope": "^5.11",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
+        "nunomaduro/collision": "^8.5",
         "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.9"
     },
@@ -73,6 +74,12 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "analyse": [
+            "./vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php artisan test"
         ]
     },
     "extra": {

@@ -14,7 +14,6 @@ use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Foundation\Vite;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -52,11 +51,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Filament::serving(function () {
-            // Filament::registerViteTheme('resources/css/app.css');
-            // Filament::registerScripts([
-            //     app(Vite::class)('resources/js/app.js'),
-            // ]);
-
             $this->registerUserMenuItems();
         });
 
@@ -176,13 +170,13 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
-        return;
+        // return;
 
         $items = [
-            'settings' => UserMenuItem::make()
-                ->url(Settings::getUrl())
-                ->label(__('auth.settings'))
-                ->icon('heroicon-o-cog'),
+            // 'settings' => UserMenuItem::make()
+            //     ->url(Settings::getUrl())
+            //     ->label(__('auth.settings'))
+            //     ->icon('heroicon-o-cog'),
         ];
 
         if (auth()->user()->isNurse()) {
