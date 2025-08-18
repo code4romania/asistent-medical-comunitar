@@ -10,7 +10,7 @@ use App\Filament\Resources\ProfileResource\Concerns;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 
-class EditRecord extends BaseEditRecord implements WithTabs
+abstract class EditRecord extends BaseEditRecord implements WithTabs
 {
     use Concerns\HasTabs;
     use Concerns\ResolvesRecord;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Repeater as BaseRepeater;
-use Illuminate\Support\Str;
 
 class Repeater extends BaseRepeater
 {
@@ -13,13 +13,25 @@ class Repeater extends BaseRepeater
     {
         parent::setUp();
 
-        $this->disableItemDeletion(function (?array $state) {
+        $this->deletable(function (?array $state) {
             if ($this->getMinItems() === null) {
-                return false;
+                return true;
             }
 
-            return collect($state)->count() <= $this->getMinItems();
+            return collect($state)->count() > $this->getMinItems();
         });
+
+        $this->addAction(
+            fn (Action $action) => $action
+                ->icon('heroicon-s-plus')
+                ->color('primary')
+                ->link()
+        );
+
+        $this->deleteAction(
+            fn (Action $action) => $action
+                ->requiresConfirmation()
+        );
     }
 
     public function fillFromRelationship(): void
@@ -31,25 +43,36 @@ class Repeater extends BaseRepeater
 
     public function ensureMinItems(): void
     {
-        $count = $this->getMinItems()
-            ? collect($this->getState())->count()
-            : 1;
+        $count = collect($this->getState())->count();
 
-        while ($count < $this->getMinItems()) {
+        $minItems = $this->getMinItems();
+
+        if ($minItems === null) {
+            return;
+        }
+
+        while ($count < $minItems) {
             $this->createItem();
 
             $count++;
         }
     }
 
-    private function createItem(): void
+    protected function createItem(): void
     {
-        $newUuid = (string) Str::uuid();
-        $livewire = $this->getLivewire();
+        $newUuid = $this->generateUuid();
 
-        data_set($livewire, "{$this->getStatePath()}.{$newUuid}", []);
+        $items = $this->getState();
 
-        $this->getChildComponentContainers()[$newUuid]->fill();
+        if ($newUuid) {
+            $items[$newUuid] = [];
+        } else {
+            $items[] = [];
+        }
+
+        $this->state($items);
+
+        $this->getChildComponentContainer($newUuid ?? array_key_last($items))->fill();
 
         $this->collapsed(false, shouldMakeComponentCollapsible: false);
     }

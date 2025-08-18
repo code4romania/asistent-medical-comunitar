@@ -55,8 +55,8 @@ trait HasTabs
     private function isActiveWhen(string $page): bool
     {
         return request()->routeIs([
-            "filament.resources.profile.$page.*",
-            "filament.resources.users.$page.*",
+            "filament.admin.resources.profile.$page.*",
+            "filament.admin.resources.users.$page.*",
         ]);
     }
 }

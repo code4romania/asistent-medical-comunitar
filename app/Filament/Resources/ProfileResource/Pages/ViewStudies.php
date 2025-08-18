@@ -4,68 +4,22 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProfileResource\Pages;
 
-use App\Forms\Components\Location;
-use App\Forms\Components\Repeater;
-use App\Forms\Components\Subsection;
-use App\Forms\Components\Value;
-use Filament\Forms\Form;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Filament\Resources\ProfileResource\Schemas\StudiesInfolist;
+use Filament\Infolists\Infolist;
 
 class ViewStudies extends ViewRecord
 {
-    public function form(Form $form): Form
+    public function infolist(Infolist $infolist): Infolist
     {
-        return $form
-            ->columns(1)
-            ->schema(static::getSchema());
+        return $infolist
+            ->schema(StudiesInfolist::getSchema());
     }
 
-    public static function getSchema(): array
+    protected function beforeFill(): void
     {
-        return [
-            Repeater::make('studies')
-                ->relationship(callback: fn (Builder $query) => $query->withLocation())
-                ->label(__('user.profile.section.studies'))
-                ->schema([
-                    Subsection::make()
-                        ->icon('heroicon-o-academic-cap')
-                        ->columns(2)
-                        ->schema([
-                            Value::make('name')
-                                ->label(__('field.study_name')),
-
-                            Value::make('type')
-                                ->label(__('field.study_type')),
-
-                            Value::make('institution')
-                                ->label(__('field.study_institution')),
-
-                            Value::make('duration')
-                                ->label(__('field.study_duration')),
-
-                            Location::make(),
-
-                            Value::make('start_year')
-                                ->label(__('field.start_year')),
-
-                            Value::make('end_year')
-                                ->label(__('field.end_year')),
-                        ]),
-                ]),
-
-            Subsection::make()
-                ->title(__('study.specialization_section'))
-                ->icon('heroicon-o-document-text')
-                ->columns(2)
-                ->schema([
-                    Value::make('has_participated_specialization')
-                        ->label(__('field.has_participated_specialization'))
-                        ->boolean(),
-
-                    Value::make('has_graduated_specialization')
-                        ->label(__('field.has_graduated_specialization'))
-                        ->boolean(),
-                ]),
-        ];
+        $this->getRecord()->loadMissing([
+            'studies.county',
+            'studies.city',
+        ]);
     }
 }

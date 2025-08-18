@@ -7,8 +7,10 @@ namespace App\Forms\Components;
 use Closure;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns;
-use Illuminate\Support\Collection;
 
+/**
+ * @deprecated Use `App\Infolists\Components\FileList` instead.
+ */
 class FileList extends Component
 {
     use Concerns\HasHelperText;
@@ -42,7 +44,7 @@ class FileList extends Component
         return $this;
     }
 
-    public function getCollection(): string
+    public function getCollection(): string | null
     {
         return $this->evaluate($this->collection);
     }
@@ -52,9 +54,10 @@ class FileList extends Component
         return (bool) $this->evaluate($this->shouldOpenUrlInNewTab);
     }
 
-    public function getFiles(): Collection
+    public function getState(): array
     {
         return $this->getRecord()
-            ->getMedia($this->getCollection());
+            ->getMedia($this->getCollection())
+            ->all();
     }
 }

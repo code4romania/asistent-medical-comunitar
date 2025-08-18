@@ -52,6 +52,7 @@ class CoursesRelationManager extends RelationManager
                     ->label(__('field.course_type'))
                     ->placeholder(__('placeholder.choose'))
                     ->options(CourseType::options())
+                    ->enum(CourseType::class)
                     ->required(),
 
                 TextInput::make('credits')
@@ -85,6 +86,7 @@ class CoursesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('end_date')
                     ->label(__('field.year'))
@@ -101,8 +103,7 @@ class CoursesRelationManager extends RelationManager
                     ->sortable(),
 
                 TextColumn::make('type')
-                    ->label(__('field.course_type'))
-                    ->formatStateUsing(fn (Course $record) => __($record->type?->label())),
+                    ->label(__('field.course_type')),
 
                 TextColumn::make('credits')
                     ->label(__('field.course_credits'))

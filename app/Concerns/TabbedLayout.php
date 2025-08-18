@@ -19,7 +19,7 @@ trait TabbedLayout
             return;
         }
 
-        if (! Str::startsWith(static::$view, 'filament::resources.pages')) {
+        if (! Str::startsWith(static::$view, 'filament-panels::resources.pages')) {
             return;
         }
 

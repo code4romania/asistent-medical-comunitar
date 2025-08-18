@@ -1,35 +1,51 @@
-<x-filament::page
-    :widget-data="['record' => $record]"
-    :class="\Illuminate\Support\Arr::toCssClasses([
-        'filament-resources-edit-record-page',
-        'filament-resources-' . str_replace('/', '-', $this->getResource()::getSlug()),
-        'filament-resources-record-' . $record->getKey(),
-    ])"
->
+<x-filament-panels::page
+    @class([
+        'fi-resource-edit-record-page',
+        'fi-resource-' . str_replace('/', '-', $this->getResource()::getSlug()),
+        'fi-resource-record-' . $record->getKey(),
+    ])>
+    @capture($form)
+        <x-filament-panels::form
+            id="form"
+            :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
+            wire:submit="save">
+            {{ $this->form }}
+
+            <x-filament-panels::form.actions
+                :actions="$this->getCachedFormActions()"
+                :full-width="$this->hasFullWidthFormActions()" />
+        </x-filament-panels::form>
+    @endcapture
+
     @php
         $relationManagers = $this->getRelationManagers();
+        $hasCombinedRelationManagerTabsWithContent = $this->hasCombinedRelationManagerTabsWithContent();
     @endphp
 
     <x-tabs :tabs="$this->getTabs()">
-        <x-filament::form wire:submit.prevent="save">
-            {{ $this->form }}
-
-            <x-filament::form.actions
-                :actions="$this->getCachedFormActions()"
-                :full-width="$this->hasFullWidthFormActions()"
-            />
-        </x-filament::form>
+        @if (!$hasCombinedRelationManagerTabsWithContent || !count($relationManagers))
+            {{ $form() }}
+        @endif
     </x-tabs>
 
     @if (count($relationManagers))
-        <x-filament::hr />
-
-        <x-filament::resources.relation-managers
-            :active-manager="$activeRelationManager"
-            :form-tab-label="$this->getFormTabLabel()"
+        <x-filament-panels::resources.relation-managers
+            :active-locale="isset($activeLocale) ? $activeLocale : null"
+            :active-manager="$this->activeRelationManager ??
+                ($hasCombinedRelationManagerTabsWithContent ? null : array_key_first($relationManagers))"
+            :content-tab-label="$this->getContentTabLabel()"
+            :content-tab-icon="$this->getContentTabIcon()"
+            :content-tab-position="$this->getContentTabPosition()"
             :managers="$relationManagers"
             :owner-record="$record"
-            :page-class="static::class"
-        />
+            :page-class="static::class">
+            @if ($hasCombinedRelationManagerTabsWithContent)
+                <x-slot name="content">
+                    {{ $form() }}
+                </x-slot>
+            @endif
+        </x-filament-panels::resources.relation-managers>
     @endif
-</x-filament::page>
+
+    <x-filament-panels::page.unsaved-data-changes-alert />
+</x-filament-panels::page>

@@ -11,7 +11,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 
-class ViewRecord extends BaseViewRecord implements WithTabs
+abstract class ViewRecord extends BaseViewRecord implements WithTabs
 {
     use Concerns\HasTabs;
     use Concerns\ResolvesRecord;

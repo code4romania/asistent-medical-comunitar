@@ -13,7 +13,6 @@ use Filament\Forms\Components\Concerns\EntanglesStateWithSingularRelationship;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class Location extends Component
@@ -27,7 +26,7 @@ class Location extends Component
 
     protected string | null $countyLabel = null;
 
-    protected bool $hasCity = false;
+    protected bool $hasCity = true;
 
     protected string | Closure | null $cityField = null;
 
@@ -53,6 +52,58 @@ class Location extends Component
         $this->columnSpan('full');
 
         $this->columns();
+
+        $this->schema(fn () => [
+            Select::make($this->getCountyField())
+                ->label($this->getCountyLabel())
+                ->placeholder(__('placeholder.county'))
+                ->options(
+                    fn () => Cache::driver('array')
+                        ->rememberForever(
+                            'counties',
+                            fn () => County::pluck('name', 'id')
+                        )
+                )
+                ->searchable()
+                ->preload()
+                ->live()
+                ->required($this->isRequired())
+                ->afterStateUpdated(function (Set $set) {
+                    if (! $this->hasCity()) {
+                        return;
+                    }
+
+                    $set($this->getCityField(), null);
+                })
+                ->when(! $this->hasCity(), fn (Select $component) => $component->columnSpanFull()),
+
+            Select::make($this->getCityField())
+                ->label($this->getCityLabel())
+                ->placeholder(__('placeholder.city'))
+                ->allowHtml()
+                ->searchable()
+                ->required($this->isRequired())
+                ->getSearchResultsUsing(function (string $search, Get $get) {
+                    $countyId = (int) $get($this->getCountyField());
+
+                    if (! $countyId) {
+                        return [];
+                    }
+
+                    return City::query()
+                        ->where('county_id', $countyId)
+                        ->search($search)
+                        ->limit(50)
+                        ->get()
+                        ->mapWithKeys(fn (City $city) => [
+                            $city->getKey() => static::getRenderedOptionLabel($city),
+                        ]);
+                })
+                ->visible(fn () => $this->hasCity())
+                ->getOptionLabelUsing(
+                    fn (int $value) => static::getRenderedOptionLabel(City::find($value))
+                ),
+        ]);
     }
 
     public function getCountyField(): string
@@ -99,7 +150,7 @@ class Location extends Component
 
     public function getCityLabel(): string
     {
-        return  $this->cityLabel ?? __('field.' . collect([
+        return $this->cityLabel ?? __('field.' . collect([
             $this->getId(),
             'city',
         ])
@@ -117,82 +168,7 @@ class Location extends Component
         return $this;
     }
 
-    protected function setUp2(): void
-    {
-        $this->schema([
-            Select::make($this->getCountyField())
-                ->label($this->getCountyLabel())
-                ->placeholder(__('placeholder.county'))
-                ->options(
-                    fn () => Cache::driver('array')
-                        ->rememberForever(
-                            'counties',
-                            fn () => County::pluck('name', 'id')
-                        )
-                )
-                ->searchable()
-                ->preload()
-                ->live()
-                ->required($this->isRequired())
-                ->afterStateUpdated(function (Set $set) {
-                    if (! $this->hasCity()) {
-                        return;
-                    }
-
-                    $set($this->getCityField(), null);
-                })
-                ->when(! $this->hasCity(), fn (Select $component) => $component->columnSpanFull()),
-
-            Select::make($this->getCityField())
-                ->label($this->getCityLabel())
-                ->placeholder(__('placeholder.city'))
-                ->allowHtml()
-                ->searchable()
-                ->required($this->isRequired())
-                ->getSearchResultsUsing(function (string $search, Get $get) {
-                    $countyId = (int) $get($this->getCountyField());
-
-                    if (! $countyId) {
-                        return [];
-                    }
-
-                    return City::query()
-                        ->where('county_id', $countyId)
-                        ->search($search)
-                        ->limit(50)
-                        ->get()
-                        ->mapWithKeys(fn (City $city) => [
-                            $city->getKey() => static::getRenderedOptionLabel($city),
-                        ]);
-                })
-                ->getOptionLabelUsing(
-                    fn (int $value) => static::getRenderedOptionLabel(City::find($value))
-                ),
-        ]);
-    }
-
-    protected function getViewComponents(): array
-    {
-        $county = Value::make('county')
-            ->label(__('field.county'))
-            ->content(fn ($record) => $record->county?->name);
-
-        $components = [
-            ! $this->withCity
-                ? $county->columnSpanFull()
-                : $county,
-        ];
-
-        if ($this->withCity) {
-            $components[] = Value::make('city')
-                ->label(__('field.city'))
-                ->content(fn ($record) => static::getRenderedOptionLabel($record->city));
-        }
-
-        return $components;
-    }
-
-    public static function getRenderedOptionLabel(?Model $model): ?string
+    public static function getRenderedOptionLabel(?City $model): ?string
     {
         if (\is_null($model)) {
             return null;
