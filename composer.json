@@ -13,7 +13,7 @@
         "commitglobal/enum-utils": "^v1.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "guzzlehttp/guzzle": "^7.9",
+        "guzzlehttp/guzzle": "^7.10",
         "jeffgreco13/filament-breezy": "^2.6",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^11.45",
@@ -42,7 +42,9 @@
         "laravel/telescope": "^5.11",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.5",
-        "phpunit/phpunit": "^10.5",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest-plugin-livewire": "^4.0",
         "spatie/laravel-ignition": "^2.9"
     },
     "autoload": {
@@ -92,7 +94,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

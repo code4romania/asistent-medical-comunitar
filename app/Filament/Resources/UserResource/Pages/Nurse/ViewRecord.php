@@ -12,11 +12,12 @@ use App\Filament\Resources\UserResource\Actions\ActivateUserAction;
 use App\Filament\Resources\UserResource\Actions\DeactivateUserAction;
 use App\Filament\Resources\UserResource\Actions\ResendInvitationAction;
 use App\Filament\Resources\UserResource\Concerns;
+use App\Models\User;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 
-class ViewRecord extends BaseViewRecord implements WithTabs
+abstract class ViewRecord extends BaseViewRecord implements WithTabs
 {
     use HasTabs;
     use Concerns\ResolvesRecord;
@@ -34,8 +35,8 @@ class ViewRecord extends BaseViewRecord implements WithTabs
 
                 EditAction::make()
                     ->icon('heroicon-s-pencil')
-                    ->url(fn ($record) => UserResource::getUrl($name, $record))
-                    ->visible(fn ($record) => auth()->user()->can('update', $record)),
+                    ->url(fn (User $record) => UserResource::getUrl($name, ['record' => $record]))
+                    ->visible(fn (User $record) => auth()->user()->can('update', $record)),
 
                 ActivateUserAction::make()
                     ->record($this->getRecord()),

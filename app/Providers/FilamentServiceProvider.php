@@ -32,6 +32,7 @@ class FilamentServiceProvider extends ServiceProvider
     {
         $this->setDateTimeDisplayFormats();
 
+        $this->configureInfolistComponents();
         $this->configurePages();
     }
 
@@ -41,6 +42,13 @@ class FilamentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    protected function configureInfolistComponents(): void
+    {
+        Infolists\Components\TextEntry::configureUsing(function (Infolists\Components\TextEntry $entry) {
+            // return $entry->default('—');
+        });
     }
 
     protected function configurePages(): void

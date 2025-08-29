@@ -12,6 +12,8 @@ trait ResolvesRecord
 
     public function getPageUrl(string $name): string
     {
-        return UserResource::getUrl($name, $this->getRecord());
+        return UserResource::getUrl($name, [
+            'record' => $this->getRecord(),
+        ]);
     }
 }

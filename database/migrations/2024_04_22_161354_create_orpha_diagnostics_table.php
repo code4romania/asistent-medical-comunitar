@@ -31,12 +31,12 @@ return new class extends Migration
                 ->constrained('orpha_classification_levels');
         });
 
-        Schema::withoutForeignKeyConstraints(function () {
-            Excel::import(new OrphaDiagnosticsImport, database_path('data/orpha.xlsx'));
-        });
+        // Schema::withoutForeignKeyConstraints(function () {
+        //     Excel::import(new OrphaDiagnosticsImport, database_path('data/orpha.xlsx'));
+        // });
 
-        // DB::unprepared(
-        //     File::get(database_path('data/orpha.sql'))
-        // );
+        DB::unprepared(
+            File::get(database_path('data/orpha.sql'))
+        );
     }
 };
