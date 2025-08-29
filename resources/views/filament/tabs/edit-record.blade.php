@@ -22,7 +22,7 @@
         $hasCombinedRelationManagerTabsWithContent = $this->hasCombinedRelationManagerTabsWithContent();
     @endphp
 
-    <x-tabs :tabs="$this->getTabs()">
+    <x-tabs :tabs="$this->getTabsNavigation()">
         @if (!$hasCombinedRelationManagerTabsWithContent || !count($relationManagers))
             {{ $form() }}
         @endif

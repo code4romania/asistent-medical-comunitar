@@ -12,7 +12,7 @@ trait HasTabs
 {
     use TabbedLayout;
 
-    public function getTabs(): array
+    public function getTabsNavigation(): array
     {
         return [
 

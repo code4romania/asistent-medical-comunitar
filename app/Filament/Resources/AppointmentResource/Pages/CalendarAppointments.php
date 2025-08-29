@@ -9,11 +9,11 @@ use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\AppointmentResource\Concerns;
 use App\Filament\Resources\AppointmentResource\Widgets\CalendarWidget;
 use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\Page;
 
-class CalendarAppointments extends ListRecords /* implements WithTabs */
+class CalendarAppointments extends Page implements WithTabs
 {
-    // use Concerns\HasTabs;
+    use Concerns\HasTabs;
 
     protected static string $resource = AppointmentResource::class;
 

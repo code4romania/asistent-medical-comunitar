@@ -4,7 +4,7 @@
         'fi-resource-' . str_replace('/', '-', $this->getResource()::getSlug()),
     ])>
 
-    <x-tabs :tabs="$this->getTabs()">
+    <x-tabs :tabs="$this->getTabsNavigation()">
         <x-filament-panels::form
             id="form"
             :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
