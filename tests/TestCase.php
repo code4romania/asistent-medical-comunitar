@@ -10,13 +10,10 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    /**
-     * @before
-     */
-    public function boot(): void
+    protected function setUp(): void
     {
-        $this->afterApplicationCreated(function () {
-            $this->withoutVite();
-        });
+        parent::setUp();
+
+        $this->withoutVite();
     }
 }
