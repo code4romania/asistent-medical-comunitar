@@ -28,7 +28,7 @@ trait HasActions
                     ->modalHeading(__('community_activity.action.create_campaign'))
                     ->groupedIcon(null)
                     ->authorize(CommunityActivityResource::canCreate())
-                    ->disableCreateAnother(),
+                    ->createAnother(false),
 
                 CreateAction::make('admin')
                     ->form(CommunityActivityResource::getAdministrativeEditFormSchema())
@@ -41,7 +41,7 @@ trait HasActions
                     ->modalHeading(__('community_activity.action.create_administrative'))
                     ->groupedIcon(null)
                     ->authorize(CommunityActivityResource::canCreate())
-                    ->disableCreateAnother(),
+                    ->createAnother(false),
 
             ]),
         ];

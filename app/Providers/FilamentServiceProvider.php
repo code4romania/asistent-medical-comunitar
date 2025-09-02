@@ -34,6 +34,7 @@ class FilamentServiceProvider extends ServiceProvider
 
         $this->configureInfolistComponents();
         $this->configurePages();
+        $this->configureTables();
     }
 
     /**
@@ -57,6 +58,13 @@ class FilamentServiceProvider extends ServiceProvider
         BasePage::stickyFormActions();
 
         CreateRecord::disableCreateAnother();
+    }
+
+    protected function configureTables(): void
+    {
+        Tables\Table::configureUsing(function (Tables\Table $table) {
+            // TODO: configure conditional empty state
+        });
     }
 
     protected function setDateTimeDisplayFormats(): void

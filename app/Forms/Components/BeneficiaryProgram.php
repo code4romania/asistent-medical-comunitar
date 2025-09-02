@@ -20,7 +20,7 @@ class BeneficiaryProgram extends Section
     {
         parent::setUp();
 
-        $this->header(__('beneficiary.section.program'))
+        $this->heading(__('beneficiary.section.program'))
             ->columns(2);
     }
 

@@ -27,7 +27,7 @@ class CreateDocumentAction extends CreateAction
 
         $this->groupedIcon(null);
 
-        $this->disableCreateAnother();
+        $this->createAnother(false);
 
         $this->using(function (array $data, $livewire) {
             $data['beneficiary_id'] = $livewire->getBeneficiary()?->id;

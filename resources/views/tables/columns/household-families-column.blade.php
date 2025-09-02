@@ -6,39 +6,39 @@
     <table class="min-w-full text-sm divide-y table-fixed bg-gray-50 filament-tables-table text-start">
         <thead>
             <tr class="bg-gray-500/5">
-                <x-tables::header-cell>
+                <x-filament-tables::header-cell>
                     @lang('field.family')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell class="w-24">
+                <x-filament-tables::header-cell class="w-24">
                     @lang('field.id')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell>
+                <x-filament-tables::header-cell>
                     @lang('field.last_name')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell>
+                <x-filament-tables::header-cell>
                     @lang('field.first_name')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell>
+                <x-filament-tables::header-cell>
                     @lang('field.status')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell>
+                <x-filament-tables::header-cell>
                     @lang('field.cnp')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell class="w-24">
+                <x-filament-tables::header-cell class="w-24">
                     @lang('field.age')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell class="w-24">
+                <x-filament-tables::header-cell class="w-24">
                     @lang('field.vulnerabilities')
-                </x-tables::header-cell>
+                </x-filament-tables::header-cell>
 
-                <x-tables::header-cell />
+                <x-filament-tables::header-cell />
             </tr>
         </thead>
 
@@ -72,9 +72,10 @@
 
                         <td class="px-4 py-3">
                             @if ($beneficiary->status !== null)
-                                <x-badge :color="$beneficiary->status->color()">
-                                    {{ $beneficiary->status->label() }}
-                                </x-badge>
+                                <x-filament::badge
+                                    :color="$beneficiary->status->getColor()">
+                                    {{ $beneficiary->status->getLabel() }}
+                                </x-filament::badge>
                             @endif
                         </td>
 
@@ -91,7 +92,7 @@
                         </td>
 
                         <td class="relative px-4 py-3">
-                            <x-tables::actions
+                            <x-filament-tables::actions
                                 :actions="$getActions($beneficiary)"
                                 :record="$beneficiary"
                                 wrap="-md" />

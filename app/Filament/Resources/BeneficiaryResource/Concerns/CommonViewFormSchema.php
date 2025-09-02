@@ -118,7 +118,7 @@ trait CommonViewFormSchema
                 ->schema([
                     Repeater::make('ocasionalInterventions')
                         ->relationship(
-                            callback: fn (Builder $query) => $query->with('services')
+                            modifyQueryUsing: fn (Builder $query) => $query->with('services')
                         )
                         ->label(__('intervention.label.plural'))
                         ->columns(2)

@@ -158,7 +158,7 @@ class ManageAdministrativeActivities extends ManageRecords implements WithTabs
                     ->label(__('community_activity.action.create_administrative'))
                     ->modalHeading(__('community_activity.action.create_administrative'))
                     ->authorize(CommunityActivityResource::canCreate())
-                    ->disableCreateAnother(),
+                    ->createAnother(false),
             ])
             ->defaultSort('id', 'desc');
     }

@@ -59,7 +59,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
             ->columns(1)
             ->schema([
                 Section::make()
-                    ->header(__('catagraphy.header.vulnerabilities'))
+                    ->heading(__('catagraphy.header.vulnerabilities'))
                     ->headerActions(function (Catagraphy $record) {
                         if (! $record->created_at) {
                             return false;

@@ -55,8 +55,8 @@ class HouseholdResource extends Resource
 
             Repeater::make('families')
                 ->label(__('family.label.plural'))
-                ->createItemButtonLabel(__('family.action.create'))
-                ->relationship(callback: function (Builder $query) {
+                ->addActionLabel(__('family.action.create'))
+                ->relationship(modifyQueryUsing: function (Builder $query) {
                     $query->with('beneficiaries');
                 })
                 ->minItems(1)
@@ -102,6 +102,36 @@ class HouseholdResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->with([
+                    'families.beneficiaries.catagraphy' => function ($query) {
+                        $query
+                            ->with(['disabilities', 'diseases'])
+                            ->select([
+                                'id',
+                                'cat_age',
+                                'cat_as',
+                                'cat_cr',
+                                'has_disabilities',
+                                'cat_edu',
+                                'cat_fam',
+                                'cat_id',
+                                'cat_inc',
+                                'cat_liv',
+                                'cat_mf',
+                                'cat_ns',
+                                'cat_pov',
+                                'cat_preg',
+                                'cat_rep',
+                                'has_health_issues',
+                                'is_social_case',
+                                'cat_ssa',
+                                'cat_vif',
+                                'beneficiary_id',
+                            ]);
+                    },
+                ]);
+            })
             ->columns([
                 Grid::make(3)
                     ->schema([
@@ -142,9 +172,7 @@ class HouseholdResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->iconButton(),
             ])
-            ->bulkActions([
-                //
-            ]);
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getPages(): array

@@ -49,7 +49,7 @@ class ReportContent extends Component
                 return collect($record->data)
                     ->map(
                         fn (array $table) => Section::make()
-                            ->header(data_get($table, 'title'))
+                            ->heading(data_get($table, 'title'))
                             ->schema([
                                 View::make('vendor.tables.components.empty-state.index')
                                     ->visible(blank(data_get($table, 'data')))

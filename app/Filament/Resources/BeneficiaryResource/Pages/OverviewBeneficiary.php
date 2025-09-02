@@ -68,7 +68,7 @@ class OverviewBeneficiary extends ViewRecord implements WithSidebar
         return $form
             ->schema([
                 Section::make()
-                    ->header(__('beneficiary.section.personal_data'))
+                    ->heading(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }

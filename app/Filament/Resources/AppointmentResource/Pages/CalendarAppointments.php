@@ -32,4 +32,12 @@ class CalendarAppointments extends Page implements WithTabs
             CreateAction::make(),
         ];
     }
+
+    /**
+     * Hack to show widget inside tab content.
+     */
+    public function getVisibleHeaderWidgets(): array
+    {
+        return [];
+    }
 }

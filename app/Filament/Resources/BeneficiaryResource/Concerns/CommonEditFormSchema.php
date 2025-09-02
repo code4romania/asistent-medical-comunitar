@@ -256,7 +256,7 @@ trait CommonEditFormSchema
                     Repeater::make('ocasionalInterventions')
                         ->relationship()
                         ->label(__('intervention.label.plural'))
-                        ->createItemButtonLabel(__('intervention.action.create'))
+                        ->addActionLabel(__('intervention.action.create'))
                         ->minItems(1)
                         ->columns(2)
                         ->schema([

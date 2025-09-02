@@ -4,7 +4,7 @@
 ])
 
 <div class="fi-tabs-component">
-    <nav class="fi-tabs-component-header shadow flex gap-x-[2px] overflow-y-auto">
+    <nav class="flex overflow-y-auto fi-tabs-component-header gap-x-[2px]">
         @foreach ($tabs as $tab)
             @if ($tab->isHidden())
                 @continue

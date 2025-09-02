@@ -33,7 +33,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
         return $form
             ->schema([
                 Section::make()
-                    ->header(__('document.summary'))
+                    ->heading(__('document.summary'))
                     ->columns()
                     ->headerActions(fn (Document $record) => [
                         Actions\Action::make('edit')
@@ -70,7 +70,7 @@ class ViewDocument extends ViewRecord implements WithSidebar
 
                 Section::make()
                     ->visible(fn (Document $record) => $record->hasMedia('default'))
-                    ->header(__('document.preview'))
+                    ->heading(__('document.preview'))
                     ->headerActions(function (Document $record) {
                         $media = $record->getFirstMedia('default');
 

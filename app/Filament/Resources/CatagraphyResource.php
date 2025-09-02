@@ -163,14 +163,14 @@ class CatagraphyResource extends Resource
                                     }),
 
                                 Section::make()
-                                    ->header(__('field.section_details', ['section' => $categories->get('DIZ')]))
+                                    ->heading(__('field.section_details', ['section' => $categories->get('DIZ')]))
                                     ->columnSpanFull()
                                     ->pointer()
                                     ->visible(fn (\Filament\Forms\Get $get) => \boolval($get('has_disabilities')))
                                     ->schema([
                                         Repeater::make('disabilities')
                                             ->relationship()
-                                            ->createItemButtonLabel(__('catagraphy.action.add_disability'))
+                                            ->addActionLabel(__('catagraphy.action.add_disability'))
                                             ->disableItemMovement()
                                             ->disableLabel()
                                             ->columns()
@@ -261,14 +261,14 @@ class CatagraphyResource extends Resource
                                     }),
 
                                 Section::make()
-                                    ->header(__('field.section_details', ['section' => $categories->get('SS')]))
+                                    ->heading(__('field.section_details', ['section' => $categories->get('SS')]))
                                     ->columnSpanFull()
                                     ->pointer('right')
                                     ->visible(fn (\Filament\Forms\Get $get) => \boolval($get('has_health_issues')))
                                     ->schema([
                                         Repeater::make('diseases')
                                             ->relationship()
-                                            ->createItemButtonLabel(__('catagraphy.action.add_disease'))
+                                            ->addActionLabel(__('catagraphy.action.add_disease'))
                                             ->disableItemMovement()
                                             ->disableLabel()
                                             ->columns()
@@ -333,7 +333,7 @@ class CatagraphyResource extends Resource
                                     ->searchable(),
 
                                 Section::make()
-                                    ->header(__('field.section_details', ['section' => $categories->get('PREG')]))
+                                    ->heading(__('field.section_details', ['section' => $categories->get('PREG')]))
                                     ->columns()
                                     ->columnSpanFull()
                                     ->pointer()
@@ -355,7 +355,7 @@ class CatagraphyResource extends Resource
                             ->schema([
                                 Repeater::make('suspicions')
                                     ->relationship()
-                                    ->createItemButtonLabel(__('catagraphy.action.add_suspicion'))
+                                    ->addActionLabel(__('catagraphy.action.add_suspicion'))
                                     ->disableItemMovement()
                                     ->disableLabel()
                                     ->columns()

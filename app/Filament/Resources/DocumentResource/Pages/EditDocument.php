@@ -58,7 +58,7 @@ class EditDocument extends EditRecord implements WithSidebar
         return $form
             ->schema([
                 Section::make()
-                    ->header(__('document.summary'))
+                    ->heading(__('document.summary'))
                     ->columns()
                     ->schema([
                         Subsection::make()

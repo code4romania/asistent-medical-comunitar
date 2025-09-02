@@ -18,7 +18,7 @@ class RecommendationsSection extends Section
     {
         parent::setUp();
 
-        $this->header(__('catagraphy.header.recommendations'));
+        $this->heading(__('catagraphy.header.recommendations'));
 
         $this->schema(function (Catagraphy $record) {
             return Cache::driver('array')

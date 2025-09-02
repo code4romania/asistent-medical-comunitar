@@ -47,7 +47,7 @@ class ViewPersonalData extends ViewRecord implements WithSidebar
                 BeneficiaryProgram::make(),
 
                 Section::make()
-                    ->header(__('beneficiary.header.id'))
+                    ->heading(__('beneficiary.header.id'))
                     ->headerActions(fn ($record) => [
                         Actions\Action::make('view')
                             ->label(__('filament-support::actions/edit.single.label'))

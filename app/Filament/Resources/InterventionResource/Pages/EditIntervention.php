@@ -58,7 +58,7 @@ class EditIntervention extends EditRecord implements WithSidebar
         return $form
             ->schema([
                 Section::make()
-                    ->header(__('intervention.summary'))
+                    ->heading(__('intervention.summary'))
                     ->columns(3)
                     ->schema(
                         fn (Intervention $record) => $record->isCase()

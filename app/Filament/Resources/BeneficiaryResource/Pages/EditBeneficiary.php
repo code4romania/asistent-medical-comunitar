@@ -48,7 +48,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
                     BeneficiaryProgram::make(),
 
                     Section::make()
-                        ->header(__('beneficiary.section.personal_data'))
+                        ->heading(__('beneficiary.section.personal_data'))
                         ->schema(static::getRegularBeneficiaryFormSchema()),
                 ]);
         }
@@ -57,7 +57,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
             ->columns(1)
             ->schema([
                 Section::make()
-                    ->header(__('beneficiary.section.personal_data'))
+                    ->heading(__('beneficiary.section.personal_data'))
                     ->schema(static::getOcasionalBeneficiaryFormSchema()),
             ]);
     }

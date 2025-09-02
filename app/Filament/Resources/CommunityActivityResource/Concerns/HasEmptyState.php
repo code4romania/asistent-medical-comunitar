@@ -71,7 +71,7 @@ trait HasEmptyState
                 ->color('gray')
                 ->authorize(CommunityActivityResource::canCreate())
                 ->hidden(fn () => $this->hasAlteredTableQuery())
-                ->disableCreateAnother(),
+                ->createAnother(false),
         ];
     }
 }

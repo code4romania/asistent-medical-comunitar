@@ -6,6 +6,7 @@ namespace App\Filament\Resources\BeneficiaryResource\Concerns;
 
 use App\Filament\Actions\ActionGroup;
 use App\Filament\Resources\AppointmentResource;
+use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\InterventionResource\Actions\CreateCaseAction;
 use App\Filament\Resources\InterventionResource\Actions\CreateIndividualServiceAction;
 use Filament\Actions\Action;
@@ -18,7 +19,9 @@ trait HasActions
             ActionGroup::make([
                 Action::make('catagraphy')
                     ->label(__('catagraphy.action.update'))
-                    ->url(static::getResource()::getUrl('catagraphy.edit', $this->getBeneficiary())),
+                    ->url(BeneficiaryResource::getUrl('catagraphy.edit', [
+                        'record' => $this->getBeneficiary(),
+                    ])),
 
                 CreateCaseAction::make()
                     ->after(fn () => $this->emit('updateInterventionsWidget'))
@@ -30,7 +33,9 @@ trait HasActions
 
                 Action::make('appointment')
                     ->label(__('appointment.action.create'))
-                    ->url(AppointmentResource::getUrl('create', $this->getBeneficiary())),
+                    ->url(AppointmentResource::getUrl('create', [
+                        'beneficiary' => $this->getBeneficiary(),
+                    ])),
             ]),
         ];
     }

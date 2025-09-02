@@ -34,8 +34,6 @@ class PersonalDataWidget extends Widget implements HasForms
 
     public function __construct($id = null)
     {
-        parent::__construct($id);
-
         $this->headerActions(fn () => [
             Action::make('view')
                 ->label(__('beneficiary.action.view_details'))

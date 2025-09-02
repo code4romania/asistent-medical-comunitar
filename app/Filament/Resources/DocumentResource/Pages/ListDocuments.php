@@ -94,7 +94,7 @@ class ListDocuments extends ListRecords implements WithSidebar
             Tables\Actions\CreateAction::make()
                 ->label(__('document.action.create'))
                 ->modalHeading(__('document.action.create'))
-                ->disableCreateAnother()
+                ->createAnother(false)
                 ->using(function (array $data, $livewire) {
                     $data['beneficiary_id'] = $livewire->getBeneficiary()?->id;
 

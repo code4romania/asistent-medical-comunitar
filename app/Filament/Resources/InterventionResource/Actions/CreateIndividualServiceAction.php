@@ -28,7 +28,7 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->groupedIcon(null);
 
-        $this->disableCreateAnother();
+        $this->createAnother(false);
 
         $this->using(fn (array $data, $livewire) => static::create($data, $livewire));
 
