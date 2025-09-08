@@ -7,7 +7,7 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Concerns;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 

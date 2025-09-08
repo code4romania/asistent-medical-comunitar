@@ -15,9 +15,9 @@ use App\Forms\Components\FileList;
 use App\Forms\Components\Subsection;
 use App\Forms\Components\Value;
 use App\Models\Document;
+use Filament\Actions;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewDocument extends ViewRecord implements WithSidebar

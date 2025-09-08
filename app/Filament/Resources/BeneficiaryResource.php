@@ -158,4 +158,16 @@ class BeneficiaryResource extends Resource
             ActiveInterventionsWidget::class,
         ];
     }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\OverviewBeneficiary::class,
+            Pages\ViewPersonalData::class,
+            Pages\CatagraphySummary::class,
+            // InterventionPages\ListInterventions::class,
+            // DocumentPages\ListDocuments::class,
+            // Pages\ListHistory::class,
+        ]);
+    }
 }

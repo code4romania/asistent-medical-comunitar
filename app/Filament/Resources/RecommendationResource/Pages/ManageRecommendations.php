@@ -6,7 +6,7 @@ namespace App\Filament\Resources\RecommendationResource\Pages;
 
 use App\Concerns\HasConditionalTableEmptyState;
 use App\Filament\Resources\RecommendationResource;
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
 class ManageRecommendations extends ManageRecords

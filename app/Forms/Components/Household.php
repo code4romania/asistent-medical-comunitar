@@ -6,130 +6,104 @@ namespace App\Forms\Components;
 
 use App\Models\Family;
 use App\Models\Household as HouseholdModel;
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class Household extends Group
+class Household extends Component
 {
-    protected bool $withoutSubsection = false;
+    protected string $view = 'filament-infolists::components.group';
 
-    public function withoutSubsection()
+    final public static function make(): static
     {
-        $this->withoutSubsection = true;
+        $static = app(static::class);
+        $static->configure();
 
-        return $this;
+        return $static;
     }
 
-    public function getChildComponents(): array
+    protected function setUp(): void
     {
-        if ($this->withoutSubsection) {
-            return $this->getSchema();
-        }
+        parent::setUp();
 
-        return [
+        $this->schema([
             Subsection::make()
                 ->icon('heroicon-o-user-group')
-                ->columns(2)
-                ->schema($this->getSchema()),
-        ];
-    }
+                ->columns()
+                ->schema([
+                    Select::make('household_id')
+                        ->label(__('field.household'))
+                        ->placeholder(__('placeholder.household'))
+                        ->options($this->getHouseholds())
+                        ->loadStateFromRelationshipsUsing(function (Select $component) {
+                            $component->state(
+                                $component->getModelInstance()->family?->household?->id
+                            );
+                        })
+                        ->searchable()
+                        ->live()
+                        ->afterStateUpdated(fn (Set $set) => $set('family_id', null))
+                        ->createOptionModalHeading(__('household.action.create'))
+                        ->createOptionForm([
+                            Grid::make()
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->label(__('field.household_name'))
+                                        ->maxLength(200)
+                                        ->required(),
+                                ]),
+                        ])
+                        ->createOptionUsing(fn (array $data) => HouseholdModel::createForCurrentNurse($data)->getKey()),
 
-    protected function getSchema(): array
-    {
-        return match ($this->getContainer()->getContext()) {
-            'view' => $this->getViewComponents(),
-            default => $this->getEditComponents(),
-        };
-    }
+                    Select::make('family_id')
+                        ->label(__('field.family'))
+                        ->placeholder(__('placeholder.family'))
+                        ->searchable()
+                        ->requiredWith('household_id')
+                        ->relationship(
+                            'family',
+                            'name',
+                            fn (Builder $query, Get $get) => $query
+                                ->where('household_id', $get('household_id'))
+                                ->limit(100)
+                        )
+                        ->preload()
+                        ->createOptionModalHeading(__('family.action.create'))
+                        ->createOptionForm(function (Get $get) {
+                            if (! $get('household_id')) {
+                                return null;
+                            }
 
-    protected function getViewComponents(): array
-    {
-        return [
-            Value::make('household')
-                ->label(__('field.household'))
-                ->content(fn ($record) => $record->household?->name),
+                            return [
+                                Grid::make()
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->label(__('field.family_name'))
+                                            ->maxLength(200)
+                                            ->required(),
+                                    ]),
+                            ];
+                        })
+                        ->createOptionUsing(function (array $data, Get $get) {
+                            $data['household_id'] = $get('household_id');
 
-            Value::make('family')
-                ->label(__('field.family'))
-                ->content(fn ($record) => $record->family?->name),
-        ];
-    }
+                            if (! $data['household_id']) {
+                                return null;
+                            }
 
-    protected function getEditComponents(): array
-    {
-        return [
-            Select::make('household_id')
-                ->label(__('field.household'))
-                ->placeholder(__('placeholder.household'))
-                ->options($this->getHouseholds())
-                ->loadStateFromRelationshipsUsing(function ($component) {
-                    $component->state(
-                        $component->getModelInstance()->family?->household?->id
-                    );
-                })
-                ->searchable()
-                ->live()
-                ->afterStateUpdated(fn (callable $set) => $set('family_id', null))
-                ->createOptionModalHeading(__('household.action.create'))
-                ->createOptionForm([
-                    Grid::make()
-                        ->schema([
-                            TextInput::make('name')
-                                ->label(__('field.household_name'))
-                                ->maxLength(200)
-                                ->required(),
-                        ]),
-                ])
-                ->createOptionUsing(fn (array $data) => HouseholdModel::createForCurrentNurse($data)->getKey()),
+                            $family = Family::create($data);
 
-            Select::make('family_id')
-                ->label(__('field.family'))
-                ->placeholder(__('placeholder.family'))
-                ->allowHtml()
-                ->searchable()
-                ->requiredWith('household_id')
-                ->relationship(
-                    'family',
-                    'name',
-                    fn (Builder $query, callable $get) => $query
-                        ->where('household_id', $get('household_id'))
-                        ->limit(100)
-                )
-                ->preload()
-                ->createOptionModalHeading(__('family.action.create'))
-                ->createOptionForm(function (callable $get) {
-                    if (! $get('household_id')) {
-                        return null;
-                    }
+                            return $family->getKey();
+                        }),
 
-                    return [
-                        Grid::make()
-                            ->schema([
-                                TextInput::make('name')
-                                    ->label(__('field.family_name'))
-                                    ->maxLength(200)
-                                    ->required(),
-                            ]),
-                    ];
-                })
-                ->createOptionUsing(function (array $data, callable $get) {
-                    $data['household_id'] = $get('household_id');
-
-                    if (! $data['household_id']) {
-                        return null;
-                    }
-
-                    $family = Family::create($data);
-
-                    return $family->getKey();
-                }),
-
-        ];
+                ]),
+        ]);
     }
 
     protected function getHouseholds(): Collection

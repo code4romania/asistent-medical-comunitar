@@ -12,9 +12,9 @@ use App\Forms\Components\Value;
 use App\Forms\Components\VulnerabilityChips;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
+use Filament\Actions;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewCatagraphy extends ViewRecord
@@ -28,7 +28,9 @@ class ViewCatagraphy extends ViewRecord
     {
         return [
             Actions\EditAction::make()
-                ->url(BeneficiaryResource::getUrl('catagraphy.edit', $this->getBeneficiary())),
+                ->url(BeneficiaryResource::getUrl('catagraphy.edit', [
+                    'record' => $this->getBeneficiary(),
+                ])),
         ];
     }
 

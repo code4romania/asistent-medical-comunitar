@@ -12,6 +12,8 @@ use App\Models\Appointment;
 use App\Tables\Columns\TextColumn;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
+use Filament\Pages\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -24,6 +26,17 @@ class AppointmentResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationIcon = 'heroicon-m-calendar-date-range';
+
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Start;
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            // ...
+            Pages\ViewAppointment::class,
+            Pages\EditAppointment::class,
+        ]);
+    }
 
     public static function getModelLabel(): string
     {

@@ -7,20 +7,23 @@ namespace App\Filament\Resources\BeneficiaryResource\Widgets;
 use App\Concerns\Forms\HasComponentActions;
 use App\Enums\Beneficiary\Status;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Forms\Components\Badge;
-use App\Forms\Components\Value;
+use App\Infolists\Components\BooleanEntry;
 use App\Models\Beneficiary;
 use Filament\Actions\Action;
-use Filament\Forms\ComponentContainer;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Concerns\InteractsWithInfolists;
+use Filament\Infolists\Contracts\HasInfolists;
+use Filament\Infolists\Infolist;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Widgets\Widget;
 
-class PersonalDataWidget extends Widget implements HasForms
+class PersonalDataWidget extends Widget implements HasForms, HasInfolists
 {
     use EvaluatesClosures;
     use InteractsWithForms;
+    use InteractsWithInfolists;
     use HasComponentActions;
 
     protected static string $view = 'filament.resources.beneficiary-resource.widgets.personal-data';
@@ -29,7 +32,7 @@ class PersonalDataWidget extends Widget implements HasForms
 
     protected int | string | array $columnSpan = [
         'default' => 'full',
-        'xl' => 1,
+        '2xl' => 1,
     ];
 
     public function __construct($id = null)
@@ -37,7 +40,7 @@ class PersonalDataWidget extends Widget implements HasForms
         $this->headerActions(fn () => [
             Action::make('view')
                 ->label(__('beneficiary.action.view_details'))
-                ->url(BeneficiaryResource::getUrl('personal_data', $this->record))
+                ->url(BeneficiaryResource::getUrl('personal_data', ['record' => $this->record]))
                 ->color('gray'),
         ]);
     }
@@ -47,56 +50,47 @@ class PersonalDataWidget extends Widget implements HasForms
         return __('beneficiary.section.personal_data');
     }
 
-    protected function getFormSchema(): array
+    protected function infolist(Infolist $infolist): Infolist
     {
-        return [
-            Badge::make('status')
-                ->content(fn (Beneficiary $record) => $record->status?->label())
-                ->color(fn (Beneficiary $record) => $record->status?->color())
-                ->columnSpanFull(),
+        return $infolist
+            ->record($this->record)
+            ->columns()
+            ->schema([
+                TextEntry::make('status')
+                    ->hiddenLabel()
+                    ->badge()
+                    ->columnSpanFull(),
 
-            Value::make('reason_removed')
-                ->label(__('field.reason_removed'))
-                ->visible(fn (Beneficiary $record) => $record->status->is(Status::REMOVED))
-                ->columnSpanFull(),
+                TextEntry::make('reason_removed')
+                    ->label(__('field.reason_removed'))
+                    ->visible(fn (Beneficiary $record) => $record->status->is(Status::REMOVED))
+                    ->columnSpanFull(),
 
-            Value::make('id')
-                ->label(__('field.beneficiary_id')),
+                TextEntry::make('id')
+                    ->label(__('field.beneficiary_id')),
 
-            Value::make('integrated')
-                ->label(__('field.integrated'))
-                ->boolean(),
+                BooleanEntry::make('integrated')
+                    ->label(__('field.integrated')),
 
-            Value::make('household.name')
-                ->label(__('field.household')),
+                TextEntry::make('household.name')
+                    ->label(__('field.household')),
 
-            Value::make('family.name')
-                ->label(__('field.family')),
+                TextEntry::make('family.name')
+                    ->label(__('field.family')),
 
-            Value::make('age')
-                ->label(__('field.age')),
+                TextEntry::make('age')
+                    ->label(__('field.age')),
 
-            Value::make('gender')
-                ->label(__('field.gender')),
+                TextEntry::make('gender')
+                    ->label(__('field.gender')),
 
-            Value::make('full_address')
-                ->label(__('field.address'))
-                ->columnSpanFull(),
+                TextEntry::make('full_address')
+                    ->label(__('field.address'))
+                    ->columnSpanFull(),
 
-            Value::make('phone')
-                ->label(__('field.phone'))
-                ->columnSpanFull(),
-        ];
-    }
-
-    protected function makeForm(): ComponentContainer
-    {
-        return ComponentContainer::make($this)
-            ->columns(2);
-    }
-
-    protected function getFormModel(): Beneficiary
-    {
-        return $this->record;
+                TextEntry::make('phone')
+                    ->label(__('field.phone'))
+                    ->columnSpanFull(),
+            ]);
     }
 }

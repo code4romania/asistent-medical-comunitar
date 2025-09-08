@@ -5,20 +5,28 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Contracts\Forms\FixedActionBar;
-use App\Contracts\Pages\WithSidebar;
+use App\Enums\Beneficiary\ReasonRemoved;
+use App\Enums\Beneficiary\Status;
+use App\Filament\Resources\AppointmentResource\Schemas\OcasionalBeneficiaryForm;
+use App\Filament\Resources\AppointmentResource\Schemas\RegularBeneficiaryForm;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\BeneficiaryProgram;
+use App\Forms\Components\Select;
+use App\Models\User;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Builder;
 
-class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
+class EditBeneficiary extends EditRecord implements FixedActionBar
 {
-    use Concerns\CommonEditFormSchema;
     use Concerns\HasActions;
     use Concerns\HasRecordBreadcrumb;
-    use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 
@@ -45,11 +53,62 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
             return $form
                 ->columns(1)
                 ->schema([
-                    BeneficiaryProgram::make(),
+                    Section::make()
+                        ->heading(__('beneficiary.section.program'))
+                        ->schema([
+                            Placeholder::make('id')
+                                ->label(__('field.beneficiary_id')),
+
+                            Placeholder::make('type')
+                                ->label(__('field.beneficiary_type')),
+
+                            Select::make('nurse_id')
+                                ->label(__('field.allocated_nurse'))
+                                ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
+                                ->getOptionLabelFromRecordUsing(fn (User $record) => "#{$record->id} {$record->full_name}")
+                                ->disabled()
+                                ->searchable()
+                                ->preload(),
+
+                            Select::make('integrated')
+                                ->label(__('field.integrated'))
+                                ->boolean(
+                                    trueLabel: __('beneficiary.integrated.yes'),
+                                    falseLabel: __('beneficiary.integrated.no'),
+                                )
+                                ->formatStateUsing(fn (bool $state) => (int) $state)
+                                ->required(),
+
+                            Select::make('status')
+                                ->label(__('field.current_status'))
+                                ->placeholder(__('placeholder.choose'))
+                                ->options(Status::options())
+                                ->enum(Status::class)
+                                ->live()
+                                ->required(),
+
+                            Grid::make('status_reason')
+                                ->columns()
+                                ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
+                                ->schema([
+                                    Select::make('reason_removed')
+                                        ->label(__('field.reason_removed'))
+                                        ->placeholder(__('placeholder.choose'))
+                                        ->options(ReasonRemoved::options())
+                                        ->live()
+                                        ->required(),
+
+                                    TextInput::make('reason_removed_notes')
+                                        ->label(__('field.reason_removed_notes'))
+                                        ->maxLength(200)
+                                        ->required(fn (Get $get) => ReasonRemoved::OTHER->is($get('reason_removed'))),
+                                ]),
+                        ]),
+                    // BeneficiaryProgram::make(),
 
                     Section::make()
                         ->heading(__('beneficiary.section.personal_data'))
-                        ->schema(static::getRegularBeneficiaryFormSchema()),
+                        ->schema(RegularBeneficiaryForm::getSchema()),
                 ]);
         }
 
@@ -58,7 +117,7 @@ class EditBeneficiary extends EditRecord implements WithSidebar, FixedActionBar
             ->schema([
                 Section::make()
                     ->heading(__('beneficiary.section.personal_data'))
-                    ->schema(static::getOcasionalBeneficiaryFormSchema()),
+                    ->schema(OcasionalBeneficiaryForm::getSchema()),
             ]);
     }
 

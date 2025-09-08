@@ -4,26 +4,23 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
-use App\Contracts\Pages\WithSidebar;
 use App\Filament\Actions\ConvertOcasionalBeneficiaryAction;
 use App\Filament\Resources\BeneficiaryResource;
 use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Filament\Resources\BeneficiaryResource\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\BeneficiaryResource\Widgets\PersonalDataWidget;
+use Filament\Actions;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
-class OverviewBeneficiary extends ViewRecord implements WithSidebar
+class OverviewBeneficiary extends ViewRecord
 {
-    use Concerns\CommonViewFormSchema;
     use Concerns\HasActions {
         getActions as getActionsFromTrait;
     }
 
     use Concerns\HasRecordBreadcrumb;
-    use Concerns\HasSidebar;
 
     protected static string $resource = BeneficiaryResource::class;
 

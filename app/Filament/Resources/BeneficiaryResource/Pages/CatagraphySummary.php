@@ -11,7 +11,7 @@ use App\Filament\Resources\BeneficiaryResource\Concerns;
 use App\Forms\Components\RecommendationsSection;
 use App\Forms\Components\VulnerabilityChips;
 use App\Models\Catagraphy;
-use Filament\Actions\Action as PageAction;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\View;
 use Filament\Forms\Form;
@@ -46,7 +46,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
 
         $this->record = $this->beneficiary->catagraphy;
 
-        abort_unless(static::getResource()::canView($this->getRecord()), 403);
+        abort_unless(BeneficiaryResource::canView($this->getRecord()), 403);
 
         abort_unless($this->getBeneficiary()->isRegular(), 404);
 
@@ -56,23 +56,19 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
     public function form(Form $form): Form
     {
         return $form
-            ->columns(1)
             ->schema([
                 Section::make()
                     ->heading(__('catagraphy.header.vulnerabilities'))
-                    ->headerActions(function (Catagraphy $record) {
-                        if (! $record->created_at) {
-                            return false;
-                        }
-
-                        return [
-                            PageAction::make('view')
-                                ->label(__('catagraphy.action.view'))
-                                ->url(static::getResource()::getUrl('catagraphy.view', $this->getBeneficiary()))
-                                ->color('gray'),
-                        ];
-                    })
-                    ->footer($this->getVulnerabilitiesFooter())
+                    ->headerActions([
+                        Action::make('view')
+                            ->label(__('catagraphy.action.view'))
+                            ->visible(fn (Catagraphy $record) => filled($record->created_at))
+                            ->url(BeneficiaryResource::getUrl('catagraphy.view', [
+                                'record' => $this->getBeneficiary(),
+                            ]))
+                            ->color('gray'),
+                    ])
+                    // ->footer($this->getVulnerabilitiesFooter())
                     ->schema($this->getVulnerabilitiesFormSchema()),
 
                 RecommendationsSection::make(),
@@ -91,7 +87,7 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
                         'actions' => [
                             TableAction::make('create')
                                 ->label(__('catagraphy.vulnerability.empty.create'))
-                                ->url(static::getResource()::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
+                                ->url(BeneficiaryResource::getUrl('catagraphy.edit', ['record' => $this->getBeneficiary()]))
                                 ->button()
                                 ->color('gray'),
                         ],
@@ -127,7 +123,9 @@ class CatagraphySummary extends ViewRecord implements WithSidebar
             'created_at' => $catagraphy->created_at->toFormattedDateTime(),
             'updated_at' => $catagraphy->updated_at->toFormattedDateTime(),
             'name' => $catagraphy->nurse->full_name,
-            'history_url' => static::getResource()::getUrl('history', $this->getBeneficiary()),
+            'history_url' => BeneficiaryResource::getUrl('history', [
+                'record' => $this->getBeneficiary(),
+            ]),
         ]);
     }
 

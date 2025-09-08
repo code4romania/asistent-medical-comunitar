@@ -19,7 +19,7 @@ class ActiveInterventionsWidget extends BaseWidget
 
     protected int | string | array $columnSpan = [
         'default' => 'full',
-        'xl' => 2,
+        '2xl' => 2,
     ];
 
     protected $listeners = [

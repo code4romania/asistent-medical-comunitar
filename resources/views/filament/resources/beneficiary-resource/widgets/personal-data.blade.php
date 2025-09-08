@@ -13,7 +13,7 @@
         </div>
 
         <div class="px-4 py-5 sm:px-6">
-            {{ $this->form }}
+            {{ $this->infolist }}
         </div>
     </div>
 </x-filament::widget>

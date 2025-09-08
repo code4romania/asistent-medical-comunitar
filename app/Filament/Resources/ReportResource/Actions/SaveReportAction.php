@@ -24,7 +24,7 @@ class SaveReportAction extends Action
 
         $this->icon('heroicon-o-bookmark-square');
 
-        $this->successNotificationTitle(__('filament-support::actions/create.single.messages.created'));
+        $this->successNotificationTitle(__('filament-actions::create.single.messages.created'));
 
         $this->successRedirectUrl(function (Report $record) {
             return ReportResource::getUrl('view', $record);

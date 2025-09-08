@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BeneficiaryResource\Pages;
 
 use App\Enums\Beneficiary\Type;
+use App\Filament\Resources\AppointmentResource\Schemas\OcasionalBeneficiaryForm;
+use App\Filament\Resources\AppointmentResource\Schemas\RegularBeneficiaryForm;
 use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Resources\BeneficiaryResource\Concerns;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateBeneficiary extends CreateRecord
 {
-    use Concerns\CommonEditFormSchema;
-
     protected static string $resource = BeneficiaryResource::class;
 
     protected static bool $canCreateAnother = false;
@@ -46,12 +46,12 @@ class CreateBeneficiary extends CreateRecord
                             ]),
 
                         Group::make()
-                            ->visible(fn (callable $get) => Type::REGULAR->is($get('type')))
-                            ->schema(static::getRegularBeneficiaryFormSchema()),
+                            ->visible(fn (Get $get) => Type::REGULAR->is($get('type')))
+                            ->schema(RegularBeneficiaryForm::getSchema()),
 
                         Group::make()
-                            ->visible(fn (callable $get) => Type::OCASIONAL->is($get('type')))
-                            ->schema(static::getOcasionalBeneficiaryFormSchema()),
+                            ->visible(fn (Get $get) => Type::OCASIONAL->is($get('type')))
+                            ->schema(OcasionalBeneficiaryForm::getSchema()),
                     ]),
             ]);
     }

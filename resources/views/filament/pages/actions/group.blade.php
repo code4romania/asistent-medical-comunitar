@@ -3,7 +3,7 @@
     $color = $getColor();
     $darkMode = config('filament.dark_mode');
     $icon = $getIcon() ?? 'heroicon-o-dots-vertical';
-    $label = $getLabel() ?? __('filament-support::actions/group.trigger.label');
+    $label = $getLabel() ?? __('filament-actions::group.trigger.label');
     $size = $getSize();
     $tooltip = $getTooltip();
 @endphp
@@ -12,8 +12,7 @@
     :dark-mode="$darkMode"
     placement="bottom-end"
     teleport
-    {{ $attributes }}
->
+    {{ $attributes }}>
     <x-slot name="trigger">
         <x-filament-support::button
             :color="$color"
@@ -21,8 +20,7 @@
             :icon="$icon"
             :size="$size"
             :tooltip="$tooltip"
-            icon-position="after"
-        >
+            icon-position="after">
             {{ $label }}
         </x-filament-support::button>
     </x-slot>

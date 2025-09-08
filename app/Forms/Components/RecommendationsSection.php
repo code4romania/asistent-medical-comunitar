@@ -41,7 +41,7 @@ class RecommendationsSection extends Section
                 );
         });
 
-        $this->footer(''); // Used for padding
+        // $this->footer(''); // Used for padding
     }
 
     protected function getRecommendationCards(Collection $recommendations): array
