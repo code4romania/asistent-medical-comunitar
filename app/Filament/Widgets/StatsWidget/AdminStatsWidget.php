@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidget;
 
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Filament\Widgets\StatsWidget\Components\Card;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
@@ -21,9 +21,9 @@ class AdminStatsWidget extends BaseWidget
 {
     protected static ?int $sort = 0;
 
-    protected static ?string $pollingInterval = null;
+    protected ?string $pollingInterval = null;
 
-    protected static string $view = 'filament.widgets.stats-overview-widget';
+    protected string $view = 'filament.widgets.stats-overview-widget';
 
     public static function canView(): bool
     {

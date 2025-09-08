@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
+use Filament\Schemas\Components\Component;
 use App\Models\City;
 use Closure;
-use Filament\Infolists\Components\Component;
 use Filament\Infolists\Components\TextEntry;
 use Illuminate\View\View;
 
 class Location extends Component
 {
-    protected string $view = 'filament-infolists::components.grid';
+    protected string $view = 'filament-schemas::components.grid';
 
     protected string | Closure | null $countyField = null;
 

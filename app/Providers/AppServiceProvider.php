@@ -4,13 +4,36 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Appointment;
+use App\Models\Beneficiary;
+use App\Models\Intervention\InterventionableCase;
+use App\Models\Catagraphy;
+use App\Models\CommunityActivity;
+use App\Models\City;
+use App\Models\County;
+use App\Models\Disability;
+use App\Models\Disease;
+use App\Models\Document;
+use App\Models\Family;
+use App\Models\Household;
+use App\Models\Intervention\InterventionableIndividualService;
+use App\Models\Intervention;
+use App\Models\Intervention\OcasionalIntervention;
+use App\Models\Profile\Course;
+use App\Models\Profile\Employer;
+use App\Models\Profile\Study;
+use App\Models\Suspicion;
+use App\Models\User;
+use App\Models\Vulnerability\Vulnerability;
+use App\Models\Vulnerability\VulnerabilityCategory;
+use App\Models\Vacation;
+use Filament\Navigation\MenuItem;
 use Aedart\Antivirus\Validation\Rules\InfectionFreeFile;
 use App\Filament\Pages\Settings;
-use App\Filament\Resources\ProfileResource;
-use App\Filament\Resources\VacationResource;
+use App\Filament\Resources\Profiles\ProfileResource;
+use App\Filament\Resources\Vacations\VacationResource;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Navigation\UserMenuItem;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -138,29 +161,29 @@ class AppServiceProvider extends ServiceProvider
     protected function enforceMorphMap(): void
     {
         Relation::enforceMorphMap([
-            'appointment' => \App\Models\Appointment::class,
-            'beneficiary' => \App\Models\Beneficiary::class,
-            'case' => \App\Models\Intervention\InterventionableCase::class,
-            'catagraphy' => \App\Models\Catagraphy::class,
-            'community_activity' => \App\Models\CommunityActivity::class,
-            'city' => \App\Models\City::class,
-            'county' => \App\Models\County::class,
-            'disability' => \App\Models\Disability::class,
-            'disease' => \App\Models\Disease::class,
-            'document' => \App\Models\Document::class,
-            'family' => \App\Models\Family::class,
-            'household' => \App\Models\Household::class,
-            'individual_service' => \App\Models\Intervention\InterventionableIndividualService::class,
-            'intervention' => \App\Models\Intervention::class,
-            'ocasional_intervention' => \App\Models\Intervention\OcasionalIntervention::class,
-            'profile_course' => \App\Models\Profile\Course::class,
-            'profile_employer' => \App\Models\Profile\Employer::class,
-            'profile_study' => \App\Models\Profile\Study::class,
-            'suspicion' => \App\Models\Suspicion::class,
-            'user' => \App\Models\User::class,
-            'vulnerability' => \App\Models\Vulnerability\Vulnerability::class,
-            'vulnerability_category' => \App\Models\Vulnerability\VulnerabilityCategory::class,
-            'vacation' => \App\Models\Vacation::class,
+            'appointment' => Appointment::class,
+            'beneficiary' => Beneficiary::class,
+            'case' => InterventionableCase::class,
+            'catagraphy' => Catagraphy::class,
+            'community_activity' => CommunityActivity::class,
+            'city' => City::class,
+            'county' => County::class,
+            'disability' => Disability::class,
+            'disease' => Disease::class,
+            'document' => Document::class,
+            'family' => Family::class,
+            'household' => Household::class,
+            'individual_service' => InterventionableIndividualService::class,
+            'intervention' => Intervention::class,
+            'ocasional_intervention' => OcasionalIntervention::class,
+            'profile_course' => Course::class,
+            'profile_employer' => Employer::class,
+            'profile_study' => Study::class,
+            'suspicion' => Suspicion::class,
+            'user' => User::class,
+            'vulnerability' => Vulnerability::class,
+            'vulnerability_category' => VulnerabilityCategory::class,
+            'vacation' => Vacation::class,
         ]);
     }
 
@@ -180,12 +203,12 @@ class AppServiceProvider extends ServiceProvider
         ];
 
         if (auth()->user()->isNurse()) {
-            $items['profile'] = UserMenuItem::make()
+            $items['profile'] = MenuItem::make()
                 ->url(ProfileResource::getUrl('general.view'))
                 ->label(__('auth.profile'))
                 ->icon('heroicon-o-user');
 
-            $items['vacations'] = UserMenuItem::make()
+            $items['vacations'] = MenuItem::make()
                 ->url(VacationResource::getUrl('index'))
                 ->label(__('vacation.label.plural'))
                 ->icon('heroicon-o-calendar');

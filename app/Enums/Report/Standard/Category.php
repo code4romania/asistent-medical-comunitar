@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard;
 
+use App\Enums\Report\Standard\Indicators\General;
+use App\Enums\Report\Standard\Indicators\Pregnant;
+use App\Enums\Report\Standard\Indicators\Child;
+use App\Enums\Report\Standard\Indicators\RareDisease;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
@@ -31,10 +35,10 @@ enum Category: string implements HasLabel
     public function indicator(): string
     {
         return match ($this) {
-            self::GENERAL => Indicators\General::class,
-            self::PREGNANT => Indicators\Pregnant::class,
-            self::CHILD => Indicators\Child::class,
-            self::RARE_DISEASE => Indicators\RareDisease::class,
+            self::GENERAL => General::class,
+            self::PREGNANT => Pregnant::class,
+            self::CHILD => Child::class,
+            self::RARE_DISEASE => RareDisease::class,
         };
     }
 }

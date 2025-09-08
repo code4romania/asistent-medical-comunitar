@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use App\Filament\Resources\RecommendationResource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+use App\Filament\Resources\Recommendations\RecommendationResource;
 use Closure;
-use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Section;
 
 class RecommendationCard extends Section
 {
@@ -28,9 +28,9 @@ class RecommendationCard extends Section
         return $this->evaluate($this->modalChildComponents);
     }
 
-    public function getModalChildComponentContainer(): ComponentContainer
+    public function getModalChildComponentContainer(): Schema
     {
-        return ComponentContainer::make($this->getLivewire())
+        return Schema::make($this->getLivewire())
             ->parentComponent($this)
             ->components($this->getModalChildComponents());
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Forms\Components\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Repeater as BaseRepeater;
 
 class Repeater extends BaseRepeater

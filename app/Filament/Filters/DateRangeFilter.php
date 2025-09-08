@@ -18,7 +18,7 @@ class DateRangeFilter extends Filter
     {
         parent::setUp();
 
-        $this->form([
+        $this->schema([
             DatePicker::make('date_from')
                 ->label(__('app.filter.date_from'))
                 ->placeholder(

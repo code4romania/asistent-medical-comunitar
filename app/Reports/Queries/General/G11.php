@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Reports\Queries\General;
 
 use App\Enums\Intervention\Status;
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;

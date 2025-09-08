@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 
 class Subsection extends Section
 {

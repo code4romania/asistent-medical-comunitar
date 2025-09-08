@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries;
 
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

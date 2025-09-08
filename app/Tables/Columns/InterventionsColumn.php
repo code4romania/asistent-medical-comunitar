@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tables\Columns;
 
-use App\Filament\Resources\BeneficiaryResource;
+use Filament\Actions\ViewAction;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\Column;
 use Illuminate\Support\Arr;
 

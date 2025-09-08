@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Utilities\Get;
 use App\Models\Family;
 use App\Models\Household as HouseholdModel;
-use Filament\Forms\Components\Component;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class Household extends Component
 {
-    protected string $view = 'filament-infolists::components.group';
+    protected string $view = 'filament-schemas::components.grid';
 
     final public static function make(): static
     {

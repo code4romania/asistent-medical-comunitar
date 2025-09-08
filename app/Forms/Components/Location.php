@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\Concerns\EntanglesStateWithSingularRelationship;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Utilities\Get;
 use App\Models\City;
 use App\Models\County;
 use Closure;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns\CanBeValidated;
-use Filament\Forms\Components\Concerns\EntanglesStateWithSingularRelationship;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Support\Facades\Cache;
 
 class Location extends Component
@@ -20,7 +20,7 @@ class Location extends Component
     use EntanglesStateWithSingularRelationship;
     use CanBeValidated;
 
-    protected string $view = 'filament-forms::components.grid';
+    protected string $view = 'filament-schemas::components.grid';
 
     protected string | Closure | null $countyField = null;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Filament\Resources\AppointmentResource;
-use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Resources\ProfileResource;
+use App\Filament\Resources\Appointments\AppointmentResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Profiles\ProfileResource;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;

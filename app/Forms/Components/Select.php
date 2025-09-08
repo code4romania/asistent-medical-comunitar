@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Filament\Actions\Action;
 use Closure;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Select as BaseSelect;
 
 class Select extends BaseSelect

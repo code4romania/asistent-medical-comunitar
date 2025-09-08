@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Carbon\Carbon;
-use Filament\Forms;
-use Filament\Infolists;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\BasePage;
 use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider
@@ -47,7 +48,7 @@ class FilamentServiceProvider extends ServiceProvider
 
     protected function configureInfolistComponents(): void
     {
-        Infolists\Components\TextEntry::configureUsing(function (Infolists\Components\TextEntry $entry) {
+        TextEntry::configureUsing(function (TextEntry $entry) {
             // return $entry->default('—');
         });
     }
@@ -62,26 +63,26 @@ class FilamentServiceProvider extends ServiceProvider
 
     protected function configureTables(): void
     {
-        Tables\Table::configureUsing(function (Tables\Table $table) {
+        Table::configureUsing(function (Table $table) {
             // TODO: configure conditional empty state
         });
     }
 
     protected function setDateTimeDisplayFormats(): void
     {
-        Tables\Table::$defaultDateDisplayFormat = static::$defaultDateDisplayFormat;
-        Tables\Table::$defaultDateTimeDisplayFormat = static::$defaultDateTimeDisplayFormat;
-        Tables\Table::$defaultTimeDisplayFormat = static::$defaultTimeDisplayFormat;
+        Table::configureUsing(fn (Table $table) => $table->defaultDateDisplayFormat(static::$defaultDateDisplayFormat));
+        Table::configureUsing(fn (Table $table) => $table->defaultDateTimeDisplayFormat(static::$defaultDateTimeDisplayFormat));
+        Table::configureUsing(fn (Table $table) => $table->defaultTimeDisplayFormat(static::$defaultTimeDisplayFormat));
 
-        Infolists\Infolist::$defaultDateDisplayFormat = static::$defaultDateDisplayFormat;
-        Infolists\Infolist::$defaultDateTimeDisplayFormat = static::$defaultDateTimeDisplayFormat;
-        Infolists\Infolist::$defaultTimeDisplayFormat = static::$defaultTimeDisplayFormat;
+        Schema::configureUsing(fn (Schema $schema) => $schema->defaultDateDisplayFormat(static::$defaultDateDisplayFormat));
+        Schema::configureUsing(fn (Schema $schema) => $schema->defaultDateTimeDisplayFormat(static::$defaultDateTimeDisplayFormat));
+        Schema::configureUsing(fn (Schema $schema) => $schema->defaultTimeDisplayFormat(static::$defaultTimeDisplayFormat));
 
-        Forms\Components\DateTimePicker::$defaultDateDisplayFormat = static::$defaultDateDisplayFormat;
-        Forms\Components\DateTimePicker::$defaultDateTimeDisplayFormat = static::$defaultDateTimeDisplayFormat;
-        Forms\Components\DateTimePicker::$defaultDateTimeWithSecondsDisplayFormat = static::$defaultDateTimeWithSecondsDisplayFormat;
-        Forms\Components\DateTimePicker::$defaultTimeDisplayFormat = static::$defaultTimeDisplayFormat;
-        Forms\Components\DateTimePicker::$defaultTimeWithSecondsDisplayFormat = static::$defaultTimeWithSecondsDisplayFormat;
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateDisplayFormat(static::$defaultDateDisplayFormat));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeDisplayFormat(static::$defaultDateTimeDisplayFormat));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeWithSecondsDisplayFormat(static::$defaultDateTimeWithSecondsDisplayFormat));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultTimeDisplayFormat(static::$defaultTimeDisplayFormat));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultTimeWithSecondsDisplayFormat(static::$defaultTimeWithSecondsDisplayFormat));
 
         Carbon::macro('toFormattedDate', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateDisplayFormat));
         Carbon::macro('toFormattedDateTime', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateTimeDisplayFormat));

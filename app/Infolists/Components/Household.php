@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
-use Filament\Infolists\Components\Component;
+use Filament\Schemas\Components\Component;
 use Filament\Infolists\Components\TextEntry;
 
 class Household extends Component
 {
-    protected string $view = 'filament-infolists::components.group';
+    protected string $view = 'filament-schemas::components.grid';
 
     final public static function make(): static
     {

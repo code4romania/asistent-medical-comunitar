@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use Filament\Support\Enums\Width;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Settings;
@@ -14,7 +15,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\MaxWidth;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -22,7 +22,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -38,7 +37,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'warning' => Color::Amber,
             ])
-            ->maxContentWidth(MaxWidth::Full)
+            ->maxContentWidth(Width::Full)
             ->viteTheme('resources/css/app.css')
             ->brandLogo(fn () => view('filament.brand'))
             ->brandLogoHeight('3rem')
@@ -54,16 +53,6 @@ class AdminPanelProvider extends PanelProvider
                 //     ->myProfile()
                 //     ->customMyProfilePage(Settings::class),
 
-                FilamentFullCalendarPlugin::make()
-                    ->editable()
-                    ->config([
-                        'dayMaxEvents' => true,
-                        'headerToolbar' => [
-                            'left' => 'prev,next,today',
-                            'center' => 'title',
-                            'right' => 'dayGridMonth,timeGridWeek',
-                        ],
-                    ]),
             ])
             ->widgets([
                 //

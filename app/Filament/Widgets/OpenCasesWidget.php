@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Filament\Actions\Action;
 use App\Concerns\HasConditionalTableEmptyState;
-use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Resources\InterventionResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Interventions\InterventionResource;
 use App\Models\Intervention;
 use App\Tables\Columns\TextColumn;
 use Closure;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Concerns\CanPaginateRecords;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;

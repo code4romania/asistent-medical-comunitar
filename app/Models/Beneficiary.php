@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Intervention\OcasionalIntervention;
 use App\Concerns\BelongsToNurse;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
@@ -100,7 +101,7 @@ class Beneficiary extends Model
 
     public function ocasionalInterventions(): HasMany
     {
-        return $this->hasMany(Intervention\OcasionalIntervention::class);
+        return $this->hasMany(OcasionalIntervention::class);
     }
 
     public function catagraphy(): HasOne

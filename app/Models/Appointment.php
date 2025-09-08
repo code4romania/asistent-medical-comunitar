@@ -7,7 +7,7 @@ namespace App\Models;
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
-use App\Filament\Resources\AppointmentResource;
+use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
 use DateTime;

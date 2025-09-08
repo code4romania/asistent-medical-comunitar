@@ -12,7 +12,7 @@ class OnboardingWidget extends Widget
 
     protected int | string | array $columnSpan = 'full';
 
-    protected static string $view = 'filament.widgets.onboarding-widget';
+    protected string $view = 'filament.widgets.onboarding-widget';
 
     public static function canView(): bool
     {

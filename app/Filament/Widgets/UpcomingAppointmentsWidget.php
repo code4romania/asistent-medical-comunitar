@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Concerns\HasConditionalTableEmptyState;
-use App\Filament\Resources\AppointmentResource;
+use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Models\Appointment;
 use App\Tables\Columns\TextColumn;
 use Closure;

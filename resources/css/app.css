@@ -1,16 +1,5 @@
 @import '../../vendor/filament/filament/resources/css/theme.css';
-@import './calendar.css';
 
-@config '../../tailwind.config.js';
-
-
-/* .fi-topbar {
-    nav {
-        @apply !text-white !bg-primary-900;
-
-
-        .fi-topbar-item-label {
-            @apply text-white;
-        }
-    }
-} */
+@source '../../app/Filament';
+@source '../../resources/views/filament';
+@source '../../resources/views/';

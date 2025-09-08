@@ -8,7 +8,7 @@ use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToVulnerability;
 use App\Enums\Intervention\Status;
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use Illuminate\Database\Eloquent\Builder;

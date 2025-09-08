@@ -7,7 +7,7 @@ namespace App\Filament\Actions;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Beneficiary;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;

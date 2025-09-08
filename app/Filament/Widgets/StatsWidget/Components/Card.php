@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidget\Components;
 
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Exception;
-use Filament\Widgets\StatsOverviewWidget\Card as BaseCard;
 use Illuminate\Contracts\Support\Htmlable;
 
-class Card extends BaseCard
+class Card extends Stat
 {
     public static function make(string | Htmlable $label, $value = null): static
     {

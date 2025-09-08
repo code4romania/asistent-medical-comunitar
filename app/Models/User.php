@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Filament\Panel;
 use App\Concerns\HasActivityAreas;
 use App\Concerns\HasLocation;
 use App\Concerns\HasUuid;
@@ -93,7 +94,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
             ->singleFile();
     }
 
-    public function canAccessPanel(\Filament\Panel $panel): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return true;
     }

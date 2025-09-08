@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Resources\Appointments\Pages;
+
+use App\Contracts\Forms\FixedActionBar;
+use App\Filament\Resources\Appointments\AppointmentResource;
+use Filament\Resources\Pages\EditRecord;
+
+class EditAppointment extends EditRecord implements FixedActionBar
+{
+    protected static string $resource = AppointmentResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('view', $this->getRecord());
+    }
+}

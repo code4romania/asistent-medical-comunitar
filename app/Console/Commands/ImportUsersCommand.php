@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use Throwable;
 use App\Enums\User\Role;
 use App\Imports\AdminsImport;
 use App\Imports\CoordinatorsImport;
@@ -52,7 +53,7 @@ class ImportUsersCommand extends Command
             (new $importer)->import($file, 'local');
 
             Storage::disk('local')->delete($file);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->error($th->getMessage());
 
             return self::FAILURE;

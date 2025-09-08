@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use Filament\Schemas\Components\Component;
+use Filament\Forms\Components\Concerns\HasHelperText;
+use Filament\Forms\Components\Concerns\HasHint;
+use Filament\Forms\Components\Concerns\HasName;
+use Filament\Support\Contracts\HasLabel;
 use App\Contracts\Stringable;
 use BackedEnum;
 use Carbon\Carbon;
 use Closure;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
@@ -20,9 +24,9 @@ use Illuminate\Support\Str;
  */
 class Value extends Component
 {
-    use Concerns\HasHelperText;
-    use Concerns\HasHint;
-    use Concerns\HasName;
+    use HasHelperText;
+    use HasHint;
+    use HasName;
 
     protected string $view = 'forms.components.value';
 
@@ -193,7 +197,7 @@ class Value extends Component
 
     protected function getEnumLabel(BackedEnum $content): ?string
     {
-        if (! \in_array(\Filament\Support\Contracts\HasLabel::class, class_uses_recursive($content))) {
+        if (! \in_array(HasLabel::class, class_uses_recursive($content))) {
             return null;
         }
 

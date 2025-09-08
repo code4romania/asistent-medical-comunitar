@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidget;
 
-use App\Filament\Resources\AppointmentResource;
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Appointments\AppointmentResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Widgets\StatsWidget\Components\Card;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
@@ -21,7 +21,7 @@ class NurseStatsWidget extends BaseWidget
 {
     protected static ?int $sort = 0;
 
-    protected static ?string $pollingInterval = null;
+    protected ?string $pollingInterval = null;
 
     public static function canView(): bool
     {
