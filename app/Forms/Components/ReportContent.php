@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
+use App\Models\Report;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\View;
-use App\Models\Report;
 
 class ReportContent extends Component
 {

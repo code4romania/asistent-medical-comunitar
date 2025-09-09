@@ -16,6 +16,8 @@ class OnboardingServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        return; // TODO: enable onboarding
+
         Filament::serving(function () {
             $this->setupNurseOnboarding();
         });

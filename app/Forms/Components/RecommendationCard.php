@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
 use App\Filament\Resources\Recommendations\RecommendationResource;
 use Closure;
 use Filament\Forms\Components\Hidden;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 
 class RecommendationCard extends Section
 {

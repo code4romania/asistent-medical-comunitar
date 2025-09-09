@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use Illuminate\Translation\PotentiallyTranslatedString;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Arr;
+use Illuminate\Translation\PotentiallyTranslatedString;
 use Illuminate\Validation\Rules\Enum;
 
 class EnumCollection implements ValidationRule

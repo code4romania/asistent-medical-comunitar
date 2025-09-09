@@ -10,8 +10,8 @@ use Filament\Forms\Components\Placeholder;
 
 class Badge extends Placeholder
 {
-    use HasColor;
-    use HasSize;
+    // use HasColor;
+    // use HasSize;
 
     protected string $view = 'forms.components.badge';
 }

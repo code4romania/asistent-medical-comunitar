@@ -4,32 +4,30 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Vacations\Schemas;
 
-use Filament\Schemas\Components\Grid;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 
 class VacationInfolist
 {
-    public static function getSchema(): array
+    public static function configure(Schema $schema): Schema
     {
-        return [
-            TextEntry::make('type')
-                ->label(__('field.type')),
+        return $schema
+            ->components([
+                TextEntry::make('type')
+                    ->label(__('field.type'))
+                    ->columnSpanFull(),
 
-            Grid::make()
-                ->columnSpanFull()
-                ->schema([
-                    TextEntry::make('start_date')
-                        ->label(__('field.start_date'))
-                        ->date(),
+                TextEntry::make('start_date')
+                    ->label(__('field.start_date'))
+                    ->date(),
 
-                    TextEntry::make('end_date')
-                        ->label(__('field.end_date'))
-                        ->date(),
-                ]),
+                TextEntry::make('end_date')
+                    ->label(__('field.end_date'))
+                    ->date(),
 
-            TextEntry::make('notes')
-                ->label(__('field.notes'))
-                ->columnSpanFull(),
-        ];
+                TextEntry::make('notes')
+                    ->label(__('field.notes'))
+                    ->columnSpanFull(),
+            ]);
     }
 }

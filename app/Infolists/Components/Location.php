@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
-use Filament\Schemas\Components\Component;
 use App\Models\City;
 use Closure;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Component;
 use Illuminate\View\View;
 
 class Location extends Component

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Schemas\Components\Component;
-use Filament\Forms\Components\Concerns\HasHelperText;
-use Filament\Forms\Components\Concerns\HasHint;
-use Filament\Forms\Components\Concerns\HasName;
-use Filament\Support\Contracts\HasLabel;
 use App\Contracts\Stringable;
 use BackedEnum;
 use Carbon\Carbon;
 use Closure;
-use Filament\Forms\Components\Concerns;
+use Filament\Forms\Components\Concerns\HasHelperText;
+use Filament\Forms\Components\Concerns\HasHint;
+use Filament\Forms\Components\Concerns\HasName;
+use Filament\Schemas\Components\Component;
+use Filament\Support\Contracts\HasLabel;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -26,7 +25,7 @@ class Value extends Component
 {
     use HasHelperText;
     use HasHint;
-    use HasName;
+    // use HasName;
 
     protected string $view = 'forms.components.value';
 

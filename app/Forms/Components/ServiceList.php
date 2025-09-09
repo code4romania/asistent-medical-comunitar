@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Schemas\Components\Component;
 use Filament\Forms\Components\Concerns\HasHelperText;
 use Filament\Forms\Components\Concerns\HasHint;
 use Filament\Forms\Components\Concerns\HasName;
-use Filament\Forms\Components\Concerns;
+use Filament\Schemas\Components\Component;
 
 class ServiceList extends Component
 {
     use HasHelperText;
     use HasHint;
-    use HasName;
+    // use HasName;
 
     protected string $view = 'forms.components.service-list';
 

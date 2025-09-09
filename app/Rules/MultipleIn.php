@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use Illuminate\Translation\PotentiallyTranslatedString;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Translation\PotentiallyTranslatedString;
 
 class MultipleIn implements ValidationRule
 {

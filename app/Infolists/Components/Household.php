@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
-use Filament\Schemas\Components\Component;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Component;
 
 class Household extends Component
 {

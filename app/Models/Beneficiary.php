@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Intervention\OcasionalIntervention;
 use App\Concerns\BelongsToNurse;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
@@ -15,6 +14,7 @@ use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
+use App\Models\Intervention\OcasionalIntervention;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

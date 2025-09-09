@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Schemas\Components\Component;
+use Closure;
 use Filament\Forms\Components\Concerns\HasHelperText;
 use Filament\Forms\Components\Concerns\HasHint;
 use Filament\Forms\Components\Concerns\HasName;
-use Closure;
-use Filament\Forms\Components\Concerns;
+use Filament\Schemas\Components\Component;
 
 /**
  * @deprecated Use `App\Infolists\Components\FileList` instead.
@@ -18,7 +17,7 @@ class FileList extends Component
 {
     use HasHelperText;
     use HasHint;
-    use HasName;
+    // use HasName;
 
     protected string $view = 'forms.components.file-list';
 

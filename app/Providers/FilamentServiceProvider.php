@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Aedart\Antivirus\Validation\Rules\InfectionFreeFile;
 use Carbon\Carbon;
+use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\BasePage;
 use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,7 +38,9 @@ class FilamentServiceProvider extends ServiceProvider
     {
         $this->setDateTimeDisplayFormats();
 
-        $this->configureInfolistComponents();
+        $this->configureActions();
+        $this->configureForms();
+        $this->configureInfolists();
         $this->configurePages();
         $this->configureTables();
     }
@@ -43,10 +50,28 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Filament::registerRenderHook('head.end', fn () => view('components.favicons'));
     }
 
-    protected function configureInfolistComponents(): void
+    protected function configureActions(): void
+    {
+        Action::configureUsing(function (Action $action) {
+            if (! $action->isConfirmationRequired()) {
+                return $action->modalFooterActionsAlignment(Alignment::End);
+            }
+
+            return $action;
+        }, isImportant: true);
+    }
+
+    protected function configureForms(): void
+    {
+        SpatieMediaLibraryFileUpload::configureUsing(function (SpatieMediaLibraryFileUpload $component) {
+            $component->rule(new InfectionFreeFile);
+        });
+    }
+
+    protected function configureInfolists(): void
     {
         TextEntry::configureUsing(function (TextEntry $entry) {
             // return $entry->default('—');
@@ -63,8 +88,8 @@ class FilamentServiceProvider extends ServiceProvider
 
     protected function configureTables(): void
     {
-        Table::configureUsing(function (Table $table) {
-            // TODO: configure conditional empty state
+        Table::macro('hasAlteredQuery', function (): bool {
+            return $this->hasSearch() || $this->isFiltered();
         });
     }
 
@@ -88,5 +113,6 @@ class FilamentServiceProvider extends ServiceProvider
         Carbon::macro('toFormattedDateTime', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateTimeDisplayFormat));
         Carbon::macro('toFormattedDateTimeWithSeconds', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultDateTimeWithSecondsDisplayFormat));
         Carbon::macro('toFormattedTime', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultTimeDisplayFormat));
+        Carbon::macro('toFormattedTimeWithSeconds', fn () => $this->translatedFormat(FilamentServiceProvider::$defaultTimeWithSecondsDisplayFormat));
     }
 }

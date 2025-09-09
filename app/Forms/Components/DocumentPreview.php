@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Forms\Components;
 
-use Filament\Schemas\Components\Component;
 use App\Models\Media;
 use Closure;
+use Filament\Schemas\Components\Component;
 
 class DocumentPreview extends Component
 {

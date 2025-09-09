@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Filament\Panel;
 use App\Concerns\HasActivityAreas;
 use App\Concerns\HasLocation;
 use App\Concerns\HasUuid;
@@ -18,6 +17,7 @@ use App\Models\Profile\Employer;
 use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;

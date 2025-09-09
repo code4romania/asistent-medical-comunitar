@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard;
 
+use App\Enums\Report\Standard\Indicators\Child;
 use App\Enums\Report\Standard\Indicators\General;
 use App\Enums\Report\Standard\Indicators\Pregnant;
-use App\Enums\Report\Standard\Indicators\Child;
 use App\Enums\Report\Standard\Indicators\RareDisease;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;

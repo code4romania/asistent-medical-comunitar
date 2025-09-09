@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Throwable;
 use App\Enums\User\Role;
 use App\Imports\AdminsImport;
 use App\Imports\CoordinatorsImport;
@@ -12,6 +11,7 @@ use App\Imports\NursesImport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 class ImportUsersCommand extends Command
 {

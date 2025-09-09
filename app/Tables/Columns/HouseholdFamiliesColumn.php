@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tables\Columns;
 
-use Filament\Actions\ViewAction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Beneficiary;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ViewColumn;
 
 class HouseholdFamiliesColumn extends ViewColumn
