@@ -1,14 +1,14 @@
-@props([
-    'icon' => null,
-    'heading' => null,
-])
+@php
+    $icon = $getIcon();
+    $heading = $getHeading();
+@endphp
 
 <div {{ $attributes->class('grid gap-3') }}>
 
     @if ($heading)
         <x-filament::section.heading>
             {{ $heading }}
-        </x-filament::section.heading>
+        </x-filament::section.heading>      
     @endif
 
     <div
@@ -26,7 +26,7 @@
         </div>
 
         <div class="flex-1 p-3 sm:p-6">
-            {{ $slot }}
+            {{ $getChildComponentContainer() }}
         </div>
     </div>
 </div>

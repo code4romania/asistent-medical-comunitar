@@ -11,6 +11,8 @@ use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
 use DateTime;
+use Guava\Calendar\Contracts\Eventable;
+use Guava\Calendar\ValueObjects\CalendarEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Appointment extends Model
+class Appointment extends Model implements Eventable
 {
     use BelongsToBeneficiary;
     use BelongsToNurse;
@@ -104,16 +106,19 @@ class Appointment extends Model
             ->setTimeFrom($this->end_time);
     }
 
-    public function updateDateTime(string $start, string $end)
+    public function updateDateTime(Carbon $start, Carbon $end): bool
     {
-        $start = Carbon::createFromTimeString($start);
-        $end = Carbon::createFromTimeString($end);
+        if ($start->isAfter($end)) {
+            return false;
+        }
 
         $this->update([
             'date' => $start->format('Y-m-d'),
             'start_time' => $start->format('H:i:s'),
             'end_time' => $end->format('H:i:s'),
         ]);
+
+        return true;
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -122,5 +127,15 @@ class Appointment extends Model
             ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    public function toCalendarEvent(): CalendarEvent
+    {
+        return CalendarEvent::make($this)
+            ->resourceId('appointments')
+            ->title($this->type)
+            ->start($this->start)
+            ->end($this->end)
+            ->extendedProp('description', \sprintf('#%d - %s', $this->id, $this->beneficiary->full_name));
     }
 }

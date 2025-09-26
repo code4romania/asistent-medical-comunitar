@@ -1,5 +1,9 @@
 @import '../../vendor/filament/filament/resources/css/theme.css';
+@import '../../vendor/guava/calendar/resources/css/theme.css';
 
+
+@source '../../vendor/commitglobal/app-version/resources/views';
+@source '../../vendor/guava/calendar/resources/**/*';
 @source '../../app/Filament';
 @source '../../resources/views/filament';
 @source '../../resources/views';

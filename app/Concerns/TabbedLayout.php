@@ -9,7 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ViewRecord;
-use Illuminate\Support\Str;
 
 trait TabbedLayout
 {
@@ -19,15 +18,12 @@ trait TabbedLayout
             return;
         }
 
-        if (! Str::startsWith(static::$view, 'filament-panels::resources.pages')) {
-            return;
-        }
-
-        static::$view = match (true) {
+        $this->view = match (true) {
             $this instanceof ListRecords => 'filament.tabs.list-records',
             $this instanceof CreateRecord => 'filament.tabs.create-record',
             $this instanceof ViewRecord => 'filament.tabs.view-record',
             $this instanceof EditRecord => 'filament.tabs.edit-record',
+            default => $this->view,
         };
     }
 }
