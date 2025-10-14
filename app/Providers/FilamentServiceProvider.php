@@ -16,6 +16,7 @@ use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
+use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,6 +38,22 @@ class FilamentServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->setDateTimeDisplayFormats();
+
+        FilamentColor::register([
+            'primary' => [
+                50 => 'oklch(0.955 0.022 234.95)',
+                100 => 'oklch(0.91 0.046 235.11)',
+                200 => 'oklch(0.822 0.1 229.95)',
+                300 => 'oklch(0.733 0.123 227.95)',
+                400 => 'oklch(0.648 0.108 227.64)',
+                500 => 'oklch(0.563 0.093 227.13)',
+                600 => 'oklch(0.486 0.081 227.41)',
+                700 => 'oklch(0.398 0.066 227.38)',
+                800 => 'oklch(0.306 0.052 228.99)',
+                900 => 'oklch(0.221 0.036 227.7)',
+                950 => 'oklch(0.175 0.029 225.09)',
+            ],
+        ]);
 
         $this->configureActions();
         $this->configureForms();

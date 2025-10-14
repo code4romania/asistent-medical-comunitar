@@ -24,7 +24,7 @@
     </nav>
 
     <div
-        class="p-6 bg-white rounded-lg rounded-tl-none shadow dark:bg-gray-900 fi-tabs-component-tab focus:outline-none">
+        class="fi-tabs-component-tab focus:outline-none dark:bg-gray-900">
         @if (null !== $actions)
             <div class="flex flex-wrap items-center justify-end gap-4 pb-5">
                 @foreach ($actions as $action)

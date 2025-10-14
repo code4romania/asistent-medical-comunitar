@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Concerns\Forms;
 
 use Closure;
-use Filament\Support\Actions\ActionGroup;
+use Filament\Actions\ActionGroup;
 use Illuminate\Support\Arr;
 
 trait HasComponentActions

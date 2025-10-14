@@ -30,3 +30,4 @@ npm-debug.log
 phpstan.neon
 yarn-error.log
 .DS_Store
+laradumps.yaml

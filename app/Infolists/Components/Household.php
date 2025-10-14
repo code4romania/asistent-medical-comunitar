@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
+use App\Filament\Schemas\Components\Subsection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Component;
 

@@ -34,8 +34,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->login(Login::class)
+            ->profile()
+            // ->strictAuthorization()
             ->colors([
-                'primary' => Color::Cyan,
                 'success' => Color::Emerald,
                 'danger' => Color::Rose,
                 'warning' => Color::Amber,
@@ -51,6 +52,11 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->userMenuItems([
+                'profile' => fn (Action $action) => $action
+                    // ->url(ProfileResource::getUrl('general.view'))
+                    ->label(__('auth.profile'))
+                    ->icon('heroicon-o-user')
+                    ->visible(fn () => auth()->user()->isNurse()),
                 Action::make('vacations')
                     ->label(__('vacation.label.plural'))
                     ->url(fn () => VacationResource::getUrl('index'))

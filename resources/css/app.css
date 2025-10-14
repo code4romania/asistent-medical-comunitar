@@ -13,4 +13,10 @@
     .fi-wi-stats-overview-stat {
         @apply h-full;
     }
+
+    .fi-tabs-component-tab {
+        .fi-ta-ctn {
+            @apply rounded-tl-none;
+        }
+    }
 }

@@ -243,7 +243,7 @@ class Intervention extends Model
         return __('intervention.type.individual');
     }
 
-    public function getStatusAttribute(): ?string
+    public function getStatusAttribute(): string|Status|null
     {
         if ($this->interventionable instanceof InterventionableCase) {
             return $this->isOpen()
@@ -251,7 +251,7 @@ class Intervention extends Model
                 : __('intervention.status.closed');
         }
 
-        return $this->interventionable->status?->label();
+        return $this->interventionable->status;
     }
 
     public function getServicesAttribute(): string

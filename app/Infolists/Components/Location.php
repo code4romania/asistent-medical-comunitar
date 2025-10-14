@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infolists\Components;
 
+use App\Filament\Schemas\Components\Subsection;
 use App\Models\City;
 use Closure;
 use Filament\Infolists\Components\TextEntry;
@@ -41,19 +42,20 @@ class Location extends Component
     {
         parent::setUp();
 
-        $this->columnSpan('full');
-
-        $this->columns();
-
         $this->schema(fn () => [
-            TextEntry::make($this->getCountyField())
-                ->label($this->getCountyLabel())
-                ->when(! $this->hasCity(), fn (TextEntry $component) => $component->columnSpanFull()),
+            Subsection::make()
+                ->icon('heroicon-o-map-pin')
+                ->columns()
+                ->schema([
+                    TextEntry::make($this->getCountyField())
+                        ->label($this->getCountyLabel())
+                        ->when(! $this->hasCity(), fn (TextEntry $component) => $component->columnSpanFull()),
 
-            TextEntry::make($this->getCityField())
-                ->label($this->getCityLabel())
-                ->visible($this->hasCity())
-                ->formatStateUsing(fn (City | string | null $state) => static::getRenderedOptionLabel($state) ?? $state),
+                    TextEntry::make($this->getCityField())
+                        ->label($this->getCityLabel())
+                        ->visible($this->hasCity())
+                        ->formatStateUsing(fn (City | string | null $state) => static::getRenderedOptionLabel($state) ?? $state),
+                ]),
         ]);
     }
 

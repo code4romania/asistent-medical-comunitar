@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
@@ -168,6 +169,23 @@ class Beneficiary extends Model
             ->isEmpty();
     }
 
+    public function getCnpWithFallbackAttribute(): string | HtmlString
+    {
+        if ($this->does_not_provide_cnp) {
+            return __('field.does_not_provide_cnp');
+        }
+
+        if ($this->does_not_have_cnp) {
+            return __('field.does_not_have_cnp');
+        }
+
+        if (filled($this->cnp)) {
+            return $this->cnp;
+        }
+
+        return new HtmlString('&mdash;');
+    }
+
     public function isRegular(): bool
     {
         return $this->type === Type::REGULAR;
@@ -186,6 +204,11 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder

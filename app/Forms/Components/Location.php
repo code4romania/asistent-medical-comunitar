@@ -49,7 +49,7 @@ class Location extends Component
     {
         parent::setUp();
 
-        $this->columnSpan('full');
+        $this->columnSpanFull();
 
         $this->columns();
 
