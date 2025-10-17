@@ -17,9 +17,7 @@ class MediaController extends Controller
 {
     public function __invoke(Request $request, Media $media): StreamedResponse
     {
-        if (\is_null($media->model)) {
-            abort(Response::HTTP_NOT_FOUND);
-        }
+        abort_unless($media->model, Response::HTTP_NOT_FOUND);
 
         $authorized = match ($media->model_type) {
             'community_activity' => $this->authorizeMediaAccessForCommunityActivity($media->model),

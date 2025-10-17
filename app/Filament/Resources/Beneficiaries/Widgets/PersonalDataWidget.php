@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Widgets;
 
 use App\Enums\Beneficiary\Status;
+use App\Filament\Infolists\Components\BooleanEntry;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
-use App\Infolists\Components\BooleanEntry;
 use App\Models\Beneficiary;
 use Filament\Actions\Action;
 use Filament\Forms\Concerns\InteractsWithForms;

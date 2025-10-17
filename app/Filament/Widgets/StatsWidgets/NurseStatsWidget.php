@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidgets;
 
+use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
@@ -39,21 +40,15 @@ class NurseStatsWidget extends StatsOverviewWidget
         ];
     }
 
-    /**
-     * @TODO: implement url
-     */
     private function getAllBeneficiariesStat(): Stat
     {
         $value = Beneficiary::count();
 
         return Stat::make(__('dashboard.stats.beneficiaries_total'), $value)
-            ->icon(Heroicon::UserGroup);
-        // ->url(BeneficiaryResource::getUrl('index'));
+            ->icon(Heroicon::UserGroup)
+            ->url(BeneficiaryResource::getUrl('index'));
     }
 
-    /**
-     * @TODO: implement url
-     */
     private function getActiveBeneficiariesStat(): Stat
     {
         $value = Beneficiary::query()
@@ -61,18 +56,18 @@ class NurseStatsWidget extends StatsOverviewWidget
             ->count();
 
         return Stat::make(__('dashboard.stats.beneficiaries_active'), $value)
-            ->icon(Heroicon::UserGroup);
-        // ->url(
-        //     BeneficiaryResource::getUrl('index', [
-        //         'tableFilters' => [
-        //             'status' => [
-        //                 'values' => [
-        //                     'active',
-        //                 ],
-        //             ],
-        //         ],
-        //     ])
-        // );
+            ->icon(Heroicon::UserGroup)
+            ->url(
+                BeneficiaryResource::getUrl('index', [
+                    'filters' => [
+                        'status' => [
+                            'values' => [
+                                'active',
+                            ],
+                        ],
+                    ],
+                ])
+            );
     }
 
     /**
@@ -92,7 +87,6 @@ class NurseStatsWidget extends StatsOverviewWidget
 
     /**
      * @TODO: implement trend
-     * @TODO: implement url
      */
     private function getAppointmentsStat(): Stat
     {
@@ -101,7 +95,7 @@ class NurseStatsWidget extends StatsOverviewWidget
             ->first();
 
         return Stat::make(__('dashboard.stats.appointments'), data_get($value, 'current'))
-            ->icon(Heroicon::Calendar);
-        // ->url(AppointmentResource::getUrl('index'))
+            ->icon(Heroicon::Calendar)
+            ->url(AppointmentResource::getUrl('index'));
     }
 }

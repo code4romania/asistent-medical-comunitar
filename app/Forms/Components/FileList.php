@@ -11,7 +11,7 @@ use Filament\Forms\Components\Concerns\HasName;
 use Filament\Schemas\Components\Component;
 
 /**
- * @deprecated Use `App\Infolists\Components\FileList` instead.
+ * @deprecated Use `App\Filament\Infolists\Components\FileList` instead.
  */
 class FileList extends Component
 {

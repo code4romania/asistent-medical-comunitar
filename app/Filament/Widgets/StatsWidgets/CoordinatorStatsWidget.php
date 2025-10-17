@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidgets;
 
+use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Filament\Widgets\Components\Stat;
 use App\Models\Appointment;
@@ -51,7 +52,6 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
 
     /**
      * @TODO: implement trend
-     * @TODO: implement url
      */
     private function getAppointmentsStat(): Stat
     {
@@ -63,8 +63,8 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
 
         return Stat::make(__('dashboard.stats.appointments'))
             ->icon(Heroicon::Calendar)
-            ->trend($value);
-        // ->url(AppointmentResource::getUrl('index'))
+            ->trend($value)
+            ->url(AppointmentResource::getUrl('index'));
     }
 
     /**

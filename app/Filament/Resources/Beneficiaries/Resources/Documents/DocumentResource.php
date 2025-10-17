@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Resources\Documents;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
-use App\Filament\Resources\Beneficiaries\Resources\Documents\Pages\CreateDocument;
+use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Pages\EditDocument;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Pages\ViewDocument;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Schemas\DocumentForm;
@@ -13,6 +13,7 @@ use App\Filament\Resources\Beneficiaries\Resources\Documents\Schemas\DocumentInf
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Tables\DocumentsTable;
 use App\Models\Document;
 use BackedEnum;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,6 +21,8 @@ use Filament\Tables\Table;
 
 class DocumentResource extends Resource
 {
+    use HasBreadcrumbs;
+
     protected static ?string $model = Document::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
@@ -53,17 +56,14 @@ class DocumentResource extends Resource
         return DocumentsTable::configure($table);
     }
 
-    public static function getRelations(): array
+    public static function getRecordSubNavigation(Page $page): array
     {
-        return [
-            //
-        ];
+        return BeneficiaryResource::getRecordSubNavigation($page);
     }
 
     public static function getPages(): array
     {
         return [
-            // 'create' => CreateDocument::route('/create'),
             'view' => ViewDocument::route('/{record}'),
             'edit' => EditDocument::route('/{record}/edit'),
         ];

@@ -5,13 +5,19 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Pages;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
+use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\DocumentResource;
 use Filament\Actions\CreateAction;
+use Filament\Panel;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Support\Icons\Heroicon;
 
 class ListDocuments extends ManageRelatedRecords
 {
+    use UsesParentRecordSubNavigation;
+    use HasBreadcrumbs;
+
     protected static string $resource = BeneficiaryResource::class;
 
     protected static string $relationship = 'documents';
@@ -20,7 +26,7 @@ class ListDocuments extends ManageRelatedRecords
 
     public function getTitle(): string
     {
-        return __('beneficiary.section.documents');
+        return static::getNavigationLabel();
     }
 
     public function getBreadcrumb(): string
@@ -47,5 +53,10 @@ class ListDocuments extends ManageRelatedRecords
                     return $data;
                 }),
         ];
+    }
+
+    public static function getRouteName(?Panel $panel = null): string
+    {
+        return parent::getRouteName() . '*';
     }
 }

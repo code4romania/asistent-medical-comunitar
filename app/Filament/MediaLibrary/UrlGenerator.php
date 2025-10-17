@@ -10,6 +10,6 @@ class UrlGenerator extends DefaultUrlGenerator
 {
     public function getUrl(): string
     {
-        return $this->versionUrl(route('filament.media', $this->media));
+        return $this->versionUrl(route('filament.admin.media', $this->media));
     }
 }

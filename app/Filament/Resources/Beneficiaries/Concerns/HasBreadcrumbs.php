@@ -14,6 +14,7 @@ trait HasBreadcrumbs
 {
     public function getBreadcrumbs(): array
     {
+        // No breadcrumbs for the list page
         if ($this instanceof ListRecords) {
             return [];
         }
@@ -30,7 +31,9 @@ trait HasBreadcrumbs
             ! $this instanceof EditBeneficiary &&
             $beneficiary?->exists
         ) {
-            $breadcrumbs[BeneficiaryResource::getUrl('view')] = BeneficiaryResource::getRecordTitle($beneficiary);
+            $breadcrumbs[
+                BeneficiaryResource::getUrl('view', ['record' => $beneficiary])
+            ] = BeneficiaryResource::getRecordTitle($beneficiary);
         }
 
         $breadcrumbs[] = $this->getBreadcrumb();

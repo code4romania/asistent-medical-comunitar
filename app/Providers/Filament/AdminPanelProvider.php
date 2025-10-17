@@ -23,6 +23,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 
@@ -51,6 +52,8 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->resourceEditPageRedirect('view')
+            ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->userMenuItems([
                 'profile' => fn (Action $action) => $action
                     // ->url(ProfileResource::getUrl('general.view'))
@@ -73,6 +76,12 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 //
             ])
+            ->routes(function () {
+                Route::get('/welcome/{user:uuid}', \App\Http\Livewire\Welcome::class)->name('auth.welcome');
+            })
+            ->authenticatedRoutes(function () {
+                Route::get('/media/{media:uuid}', \App\Http\Controllers\MediaController::class)->name('media');
+            })
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

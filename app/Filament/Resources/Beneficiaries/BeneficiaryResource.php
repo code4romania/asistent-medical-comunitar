@@ -27,7 +27,7 @@ class BeneficiaryResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static string | BackedEnum|null $navigationIcon = Heroicon::UserGroup;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $recordTitleAttribute = 'full_name';
 
@@ -78,7 +78,7 @@ class BeneficiaryResource extends Resource
     public static function getRecordSubNavigation(Page $page): array
     {
         /** @var Beneficiary */
-        $beneficiary = $page->getRecord();
+        $beneficiary = $page->getParentRecord() ?? $page->getRecord();
 
         if ($beneficiary->isOcasional()) {
             return [

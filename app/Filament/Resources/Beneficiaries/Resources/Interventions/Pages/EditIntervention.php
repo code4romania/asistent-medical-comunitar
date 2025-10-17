@@ -4,20 +4,66 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Pages;
 
+use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas\CaseForm;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas\IndividualServiceForm;
+use App\Models\Intervention;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class EditIntervention extends EditRecord
 {
+    use HasBreadcrumbs;
+    use UsesParentRecordSubNavigation;
+
     protected static string $resource = InterventionResource::class;
 
-    protected function getHeaderActions(): array
+    public function getTitle(): string
+    {
+        return $this->getRecordTitle();
+    }
+
+    public function form(Schema $schema): Schema
+    {
+        /** @var Intervention */
+        $intervention = $this->getRecord();
+
+        if ($intervention->isCase()) {
+            return CaseForm::configure($schema);
+        }
+
+        return IndividualServiceForm::configure($schema);
+    }
+
+    public function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['interventionable'] = $this->getRecord()->interventionable->attributesToArray();
+
+        return $data;
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        $record->interventionable->update(Arr::pull($data, 'interventionable'));
+
+        $record->setVulnerability($data['vulnerability_id']);
+
+        unset($data['vulnerability_id']);
+        unset($data['vulnerability_label']);
+
+        $record->update($data);
+
+        return $record;
+    }
+
+    public function getRelationManagers(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            //
         ];
     }
 }

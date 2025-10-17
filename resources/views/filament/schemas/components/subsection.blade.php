@@ -3,12 +3,12 @@
     $heading = $getHeading();
 @endphp
 
-<div {{ $attributes->class('grid gap-3') }}>
+<div {{ $attributes->class('grid gap-3 h-full') }}>
 
     @if ($heading)
         <x-filament::section.heading>
             {{ $heading }}
-        </x-filament::section.heading>      
+        </x-filament::section.heading>
     @endif
 
     <div
@@ -19,7 +19,10 @@
         ])>
         <div @class(['p-3 sm:pt-6 shrink-0', 'bg-gray-200 dark:bg-gray-700'])>
             @if ($icon)
-                <x-dynamic-component :component="$icon" class="w-6 h-6" />
+                {{ \Filament\Support\generate_icon_html(
+                    $icon,
+                    attributes: new \Illuminate\View\ComponentAttributeBag()->class(['w-6 h-6']),
+                ) }}
             @else
                 <div class="w-6 h-6"></div>
             @endif

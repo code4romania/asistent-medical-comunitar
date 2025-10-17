@@ -8,6 +8,7 @@ use App\Filament\Resources\Beneficiaries\Actions\ConvertOcasionalBeneficiaryActi
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Concerns\HasRegularBeneficiaryActions;
+use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Schemas\OcasionalBeneficiaryInfolist;
 use App\Filament\Resources\Beneficiaries\Widgets\ActiveInterventionsWidget;
 use App\Filament\Resources\Beneficiaries\Widgets\PersonalDataWidget;
@@ -23,13 +24,14 @@ class ViewBeneficiary extends ViewRecord
     use HasRegularBeneficiaryActions {
         getHeaderActions as getRegularBeneficiaryActions;
     }
+    use UsesParentRecordSubNavigation;
 
     protected static string $resource = BeneficiaryResource::class;
 
-    // public function getTitle(): string
-    // {
-    //     return $this->getRecord()->full_name ?? __('field.has_unknown_identity');
-    // }
+    public function getTitle(): string
+    {
+        return $this->getRecordTitle();
+    }
 
     public function getBreadcrumb(): string
     {

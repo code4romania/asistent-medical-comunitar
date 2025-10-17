@@ -10,6 +10,7 @@ use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\BasePage;
 use Filament\Pages\Page;
@@ -17,6 +18,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
@@ -86,6 +88,10 @@ class FilamentServiceProvider extends ServiceProvider
         SpatieMediaLibraryFileUpload::configureUsing(function (SpatieMediaLibraryFileUpload $component) {
             $component->rule(new InfectionFreeFile);
         });
+
+        Textarea::configureUsing(function (Textarea $component) {
+            $component->autosize();
+        });
     }
 
     protected function configureInfolists(): void
@@ -107,6 +113,25 @@ class FilamentServiceProvider extends ServiceProvider
     {
         Table::macro('hasAlteredQuery', function (): bool {
             return $this->hasSearch() || $this->isFiltered();
+        });
+
+        Table::configureUsing(function (Table $table) {
+            $table
+                ->emptyStateIcon(function (Table $table) {
+                    if (! $table->hasAlteredQuery()) {
+                        return Heroicon::OutlinedClipboardDocument;
+                    }
+                })
+                ->emptyStateHeading(function (Table $table) {
+                    if (! $table->hasAlteredQuery()) {
+                        return __($table->getModelLabel() . '.empty.title');
+                    }
+                })
+                ->emptyStateDescription(function (Table $table) {
+                    if (! $table->hasAlteredQuery()) {
+                        return __($table->getModelLabel() . '.empty.description');
+                    }
+                });
         });
     }
 

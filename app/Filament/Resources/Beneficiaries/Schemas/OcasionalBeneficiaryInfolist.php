@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
+use App\Filament\Infolists\Components\Household;
+use App\Filament\Infolists\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
-use App\Infolists\Components\Household;
-use App\Infolists\Components\Location;
 use App\Models\Beneficiary;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;

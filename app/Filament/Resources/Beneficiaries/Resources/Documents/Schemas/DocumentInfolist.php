@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Resources\Documents\Schemas;
 
+use App\Filament\Infolists\Components\DocumentPreview;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\DocumentResource;
 use App\Filament\Schemas\Components\Subsection;
-use App\Forms\Components\DocumentPreview;
 use App\Models\Document;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -33,11 +33,11 @@ class DocumentInfolist
                             ]))
                             ->color('gray'),
                     ])
-                    ->schema([
+                    ->components([
                         Subsection::make()
                             ->icon('heroicon-o-document-text')
                             ->columns()
-                            ->schema([
+                            ->components([
                                 TextEntry::make('title')
                                     ->label(__('field.document_title')),
 
@@ -52,7 +52,7 @@ class DocumentInfolist
 
                         Subsection::make()
                             ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                            ->schema([
+                            ->components([
                                 TextEntry::make('notes')
                                     ->label(__('field.notes')),
                             ]),
@@ -71,8 +71,7 @@ class DocumentInfolist
                                 'download' => $record->getFirstMedia('default')?->original_file_name,
                             ]),
                     ])
-
-                    ->schema([
+                    ->components([
                         DocumentPreview::make(),
                     ]),
             ]);
