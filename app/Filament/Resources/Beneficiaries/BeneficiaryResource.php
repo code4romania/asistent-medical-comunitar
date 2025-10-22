@@ -13,6 +13,7 @@ use App\Filament\Resources\Beneficiaries\Pages\ListInterventions;
 use App\Filament\Resources\Beneficiaries\Pages\ListOcasionalBeneficiaries;
 use App\Filament\Resources\Beneficiaries\Pages\ListRegularBeneficiaries;
 use App\Filament\Resources\Beneficiaries\Pages\ViewBeneficiary;
+use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Pages\SummaryCatagraphy;
 use App\Filament\Resources\Beneficiaries\Tables\BeneficiariesTable;
 use App\Models\Beneficiary;
 use BackedEnum;
@@ -89,6 +90,7 @@ class BeneficiaryResource extends Resource
 
         return $page->generateNavigationItems([
             ViewBeneficiary::class,
+            SummaryCatagraphy::class,
             ListInterventions::class,
             ListDocuments::class,
             ListActivities::class,

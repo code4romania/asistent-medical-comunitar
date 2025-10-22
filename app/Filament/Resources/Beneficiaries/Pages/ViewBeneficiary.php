@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Beneficiaries\Pages;
 
 use App\Filament\Resources\Beneficiaries\Actions\ConvertOcasionalBeneficiaryAction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\Concerns\DisableNavigationIcon;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Concerns\HasRegularBeneficiaryActions;
 use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
@@ -20,6 +21,7 @@ use Filament\Support\Icons\Heroicon;
 
 class ViewBeneficiary extends ViewRecord
 {
+    use DisableNavigationIcon;
     use HasBreadcrumbs;
     use HasRegularBeneficiaryActions {
         getHeaderActions as getRegularBeneficiaryActions;

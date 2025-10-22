@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
 use App\Enums\Gender;
+use App\Filament\Forms\Components\Household;
+use App\Filament\Forms\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
-use App\Forms\Components\Household;
-use App\Forms\Components\Location;
 use App\Forms\Components\Repeater;
 use App\Models\Service\Service;
 use App\Rules\MultipleIn;

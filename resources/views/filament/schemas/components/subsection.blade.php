@@ -6,7 +6,7 @@
 <div {{ $attributes->class('grid gap-3 h-full') }}>
 
     @if ($heading)
-        <x-filament::section.heading>
+        <x-filament::section.heading class="text-lg font-semibold">
             {{ $heading }}
         </x-filament::section.heading>
     @endif

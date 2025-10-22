@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Forms\Components;
+namespace App\Filament\Forms\Components;
 
-use App\Models\ICD10AM\ICD10AMDiagnostic;
+use App\Models\Orpha\OrphaDiagnostic;
 use Filament\Forms\Components\Select;
 
-class ICD10AMDiagnosticSelect extends Select
+class OrphaDiagnosticSelect extends Select
 {
     protected function setUp(): void
     {
@@ -15,32 +15,32 @@ class ICD10AMDiagnosticSelect extends Select
 
         $this->searchable();
 
-        $this->relationship('diagnostic', 'name');
+        $this->relationship('orphaDiagnostic', 'name');
 
         $this->getSearchResultsUsing(function (string $search) {
-            return ICD10AMDiagnostic::query()
+            return OrphaDiagnostic::query()
                 ->where('name', 'like', "%{$search}%")
-                ->orWhere('id', 'like', "%{$search}%")
+                ->orWhere('code', 'like', "%{$search}%")
                 ->limit($this->getOptionsLimit())
                 ->get()
-                ->mapWithKeys(fn (ICD10AMDiagnostic $diagnostic) => [
+                ->mapWithKeys(fn (OrphaDiagnostic $diagnostic) => [
                     $diagnostic->getKey() => static::getRenderedOptionLabel($diagnostic),
                 ]);
         });
 
         $this->getOptionLabelUsing(
-            fn ($value) => static::getRenderedOptionLabel(ICD10AMDiagnostic::find($value))
+            fn ($value) => static::getRenderedOptionLabel(OrphaDiagnostic::find($value))
         );
 
         $this->helperText(__('field.optional'));
     }
 
-    public static function getRenderedOptionLabel(?ICD10AMDiagnostic $model): ?string
+    public static function getRenderedOptionLabel(?OrphaDiagnostic $model): ?string
     {
         if (\is_null($model)) {
             return null;
         }
 
-        return $model->id . ' - ' . $model->name;
+        return $model->code . ' - ' . $model->name;
     }
 }

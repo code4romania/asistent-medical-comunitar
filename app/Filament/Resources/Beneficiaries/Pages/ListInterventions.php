@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Pages;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\Concerns\DisableNavigationIcon;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
@@ -15,6 +16,7 @@ use Filament\Tables\Table;
 
 class ListInterventions extends ManageRelatedRecords
 {
+    use DisableNavigationIcon;
     use UsesParentRecordSubNavigation;
     use HasBreadcrumbs;
 

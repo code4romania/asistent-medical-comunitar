@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Forms\Components;
+namespace App\Filament\Forms\Components;
 
 use App\Filament\Schemas\Components\Subsection;
 use App\Models\Family;
@@ -13,6 +13,7 @@ use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -35,7 +36,7 @@ class Household extends Component
 
         $this->schema([
             Subsection::make()
-                ->icon('heroicon-o-user-group')
+                ->icon(Heroicon::OutlinedUserGroup)
                 ->columns()
                 ->schema([
                     Select::make('household_id')

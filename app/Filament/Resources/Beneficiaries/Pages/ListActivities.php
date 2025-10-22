@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Pages;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\Concerns\DisableNavigationIcon;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Resources\Activities\ActivityResource;
@@ -13,6 +14,7 @@ use Filament\Resources\Pages\ManageRelatedRecords;
 
 class ListActivities extends ManageRelatedRecords
 {
+    use DisableNavigationIcon;
     use UsesParentRecordSubNavigation;
     use HasBreadcrumbs;
 

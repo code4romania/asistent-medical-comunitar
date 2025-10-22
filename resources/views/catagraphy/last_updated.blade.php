@@ -13,8 +13,7 @@
 
     <a
         href="{{ $history_url }}"
-        class="font-semibold underline text-primary-700 hover:no-underline"
-    >
+        class="fi-color fi-color-primary fi-text-color-600 dark:fi-text-color-300 fi-link fi-size-md fi-ac-link-action">
         {{ __('catagraphy.footer.action') }}
     </a>
 </div>

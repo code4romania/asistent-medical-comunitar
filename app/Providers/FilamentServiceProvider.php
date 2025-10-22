@@ -21,6 +21,7 @@ use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Table;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider
@@ -70,7 +71,7 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::registerRenderHook('head.end', fn () => view('components.favicons'));
+        Filament::registerRenderHook(PanelsRenderHook::HEAD_START, fn () => view('components.favicons'));
     }
 
     protected function configureActions(): void
