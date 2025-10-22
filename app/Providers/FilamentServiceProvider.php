@@ -19,6 +19,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\Column;
 use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
 
@@ -97,7 +98,7 @@ class FilamentServiceProvider extends ServiceProvider
     protected function configureInfolists(): void
     {
         TextEntry::configureUsing(function (TextEntry $entry) {
-            // return $entry->default('—');
+            return $entry->placeholder('—');
         });
     }
 
@@ -111,6 +112,10 @@ class FilamentServiceProvider extends ServiceProvider
 
     protected function configureTables(): void
     {
+        Column::configureUsing(function (Column $column) {
+            return $column->placeholder('—');
+        });
+
         Table::macro('hasAlteredQuery', function (): bool {
             return $this->hasSearch() || $this->isFiltered();
         });
