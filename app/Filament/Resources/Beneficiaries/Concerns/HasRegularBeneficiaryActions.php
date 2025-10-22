@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Concerns;
 
 use App\Filament\Resources\Appointments\AppointmentResource;
-use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
-use App\Filament\Resources\Interventions\Actions\CreateCaseAction;
-use App\Filament\Resources\Interventions\Actions\CreateIndividualServiceAction;
+use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\CatagraphyResource;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateCaseAction;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateIndividualServiceAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Support\Enums\IconPosition;
@@ -27,23 +27,23 @@ trait HasRegularBeneficiaryActions
                 ->actions([
                     Action::make('catagraphy')
                         ->label(__('catagraphy.action.update'))
-                    // ->url(BeneficiaryResource::getUrl('catagraphy.edit', [
-                    //     'record' => $this->getRecord(),
-                    // ])),
-                    ,
-                    // CreateCaseAction::make()
-                    //     ->after(fn () => $this->emit('updateInterventionsWidget'))
-                    //     ->icon(null),
+                        ->url(CatagraphyResource::getUrl('edit', [
+                            'beneficiary' => $this->getRecord(),
+                        ])),
 
-                    // CreateIndividualServiceAction::make()
-                    //     ->after(fn () => $this->emit('updateInterventionsWidget'))
-                    //     ->icon(null),
+                    CreateCaseAction::make()
+                        ->after(fn () => $this->emit('updateInterventionsWidget'))
+                        ->icon(null),
+
+                    CreateIndividualServiceAction::make()
+                        ->after(fn () => $this->emit('updateInterventionsWidget'))
+                        ->icon(null),
 
                     Action::make('appointment')
-                        ->label(__('appointment.action.create')),
-                    // ->url(AppointmentResource::getUrl('create', [
-                    //     'beneficiary' => $this->getBeneficiary(),
-                    // ])),
+                        ->label(__('appointment.action.create'))
+                        ->url(AppointmentResource::getUrl('create', [
+                            'beneficiary' => $this->getRecord(),
+                        ])),
                 ]),
         ];
     }

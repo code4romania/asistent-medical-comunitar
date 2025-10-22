@@ -13,7 +13,6 @@ use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
-use App\Models\Service\Service;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -32,15 +31,14 @@ class RegularBeneficiaryForm
 {
     public static function configure(Schema $schema, bool $includeProgram = false): Schema
     {
-        $services = Service::allAsFlatOptions();
-
         return $schema
             ->columns(1)
             ->components([
                 Section::make()
                     ->heading(__('beneficiary.section.program'))
                     ->visible($includeProgram)
-                    ->schema([
+                    ->columns()
+                    ->components([
                         TextEntry::make('id')
                             ->label(__('field.beneficiary_id')),
 
@@ -68,7 +66,7 @@ class RegularBeneficiaryForm
 
                         Grid::make()
                             ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
-                            ->schema([
+                            ->components([
                                 Select::make('reason_removed')
                                     ->label(__('field.reason_removed'))
                                     ->placeholder(__('placeholder.choose'))
@@ -85,11 +83,11 @@ class RegularBeneficiaryForm
 
                 Section::make()
                     ->heading(__('beneficiary.section.personal_data'))
-                    ->schema([
+                    ->components([
                         Subsection::make()
                             ->icon('heroicon-o-user')
                             ->columns()
-                            ->schema([
+                            ->components([
                                 TextInput::make('first_name')
                                     ->label(__('field.first_name'))
                                     ->placeholder(__('placeholder.first_name'))
@@ -105,7 +103,7 @@ class RegularBeneficiaryForm
                                     ->required(),
 
                                 Group::make()
-                                    ->schema([
+                                    ->components([
                                         TextInput::make('cnp')
                                             ->label(__('field.cnp'))
                                             ->placeholder(__('placeholder.cnp'))
@@ -158,7 +156,7 @@ class RegularBeneficiaryForm
                                     ->columns()
                                     ->columnSpanFull()
                                     ->disabled(fn (Get $get) => blank($get('id_type')) || IDType::NONE->is($get('id_type')))
-                                    ->schema([
+                                    ->components([
                                         TextInput::make('id_serial')
                                             ->label(__('field.id_serial'))
                                             ->placeholder(__('placeholder.id_serial'))
@@ -198,7 +196,7 @@ class RegularBeneficiaryForm
                         Subsection::make()
                             ->icon('heroicon-o-map-pin')
                             ->columns()
-                            ->schema([
+                            ->components([
                                 Location::make(),
 
                                 TextInput::make('address')
@@ -215,7 +213,7 @@ class RegularBeneficiaryForm
 
                         Subsection::make()
                             ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                            ->schema([
+                            ->components([
                                 RichEditor::make('notes')
                                     ->label(__('field.beneficiary_notes'))
                                     ->toolbarButtons(['bold', 'italic', 'strike', 'bulletList', 'orderedList', 'redo', 'undo'])

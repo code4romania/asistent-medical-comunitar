@@ -7,13 +7,13 @@ namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas;
 use App\Enums\Intervention\CaseInitiator;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\Beneficiary;
+use App\Models\Intervention;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Pages\Page;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -23,79 +23,70 @@ class CaseForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-            ->columns(1)
             ->components([
-                Section::make()
-                    ->heading(__('intervention.summary'))
+                Subsection::make()
+                    ->icon(Heroicon::OutlinedDocumentText)
+                    ->columns(2)
                     ->components([
-                        Subsection::make()
-                            ->icon(Heroicon::OutlinedDocumentText)
-                            ->columns(2)
-                            ->maxWidth(null)
-                            ->components([
-                                TextInput::make('interventionable.name')
-                                    ->label(__('field.intervention_name'))
-                                    ->required()
-                                    ->maxLength(200)
-                                    ->columnSpanFull(),
+                        TextInput::make('interventionable.name')
+                            ->label(__('field.intervention_name'))
+                            ->required()
+                            ->maxLength(200)
+                            ->columnSpanFull(),
 
-                                Select::make('interventionable.initiator')
-                                    ->label(__('field.initiator'))
-                                    ->placeholder(__('placeholder.choose'))
-                                    ->options(CaseInitiator::class)
-                                    ->default(CaseInitiator::NURSE)
-                                    ->required(),
+                        Select::make('interventionable.initiator')
+                            ->label(__('field.initiator'))
+                            ->placeholder(__('placeholder.choose'))
+                            ->options(CaseInitiator::class)
+                            ->default(CaseInitiator::NURSE)
+                            ->required(),
 
-                                Select::make('vulnerability_id')
-                                    ->label(__('field.addressed_vulnerability'))
-                                    ->placeholder(__('placeholder.select_one'))
-                                    ->options(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getParentRecord()))
-                                    ->in(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getParentRecord())?->keys())
-                                    ->searchable()
-                                    ->live()
-                                    ->required(),
+                        Select::make('vulnerability_id')
+                            ->label(__('field.addressed_vulnerability'))
+                            ->placeholder(__('placeholder.select_one'))
+                            ->options(fn (Beneficiary|Intervention $record) => InterventionResource::getValidVulnerabilities($record))
+                            ->in(fn (Beneficiary|Intervention $record) => InterventionResource::getValidVulnerabilities($record)?->keys())
+                            ->searchable()
+                            ->live()
+                            ->required(),
 
-                                Hidden::make('vulnerability_label')
-                                    ->afterStateHydrated(function (Set $set, $state, Page $livewire) {
-                                        $vulnerability_id = InterventionResource::getValidVulnerabilities($livewire->getParentRecord())
-                                            ->filter(fn (string $value) => $value === $state)
-                                            ->keys()
-                                            ->first();
+                        Hidden::make('vulnerability_label')
+                            ->afterStateHydrated(function (Set $set, $state, Beneficiary|Intervention $record) {
+                                $vulnerability_id = InterventionResource::getValidVulnerabilities($record)
+                                    ->filter(fn (string $value) => $value === $state)
+                                    ->keys()
+                                    ->first();
 
-                                        $set('vulnerability_id', $vulnerability_id);
-                                    }),
+                                $set('vulnerability_id', $vulnerability_id);
+                            }),
 
-                                Radio::make('integrated')
-                                    ->label(__('field.integrated'))
-                                    ->inline()
-                                    ->boolean()
-                                    ->default(0),
-                            ]),
+                        Radio::make('integrated')
+                            ->label(__('field.integrated'))
+                            ->inline()
+                            ->boolean()
+                            ->default(0),
+                    ]),
 
-                        Subsection::make()
-                            ->icon(Heroicon::OutlinedChatBubbleBottomCenterText)
+                Subsection::make()
+                    ->icon(Heroicon::OutlinedChatBubbleBottomCenterText)
+                    ->schema([
+                        Textarea::make('notes')
+                            ->label(__('field.notes'))
+                            ->maxLength(65535)
+                            ->nullable()
+                            ->autosize()
+                            ->rows(4),
+                    ]),
 
-                            ->maxWidth(null)
-                            ->schema([
-                                Textarea::make('notes')
-                                    ->label(__('field.notes'))
-                                    ->maxLength(65535)
-                                    ->nullable()
-                                    ->autosize()
-                                    ->rows(4),
-                            ]),
-
-                        Subsection::make()
-                            ->icon(Heroicon::OutlinedClipboardDocumentCheck)
-                            ->maxWidth(null)
-                            ->schema([
-                                Textarea::make('interventionable.recommendations')
-                                    ->label(__('field.monitoring_recommendations'))
-                                    ->maxLength(65535)
-                                    ->nullable()
-                                    ->autosize()
-                                    ->rows(4),
-                            ]),
+                Subsection::make()
+                    ->icon(Heroicon::OutlinedClipboardDocumentCheck)
+                    ->schema([
+                        Textarea::make('interventionable.recommendations')
+                            ->label(__('field.monitoring_recommendations'))
+                            ->maxLength(65535)
+                            ->nullable()
+                            ->autosize()
+                            ->rows(4),
                     ]),
             ]);
     }

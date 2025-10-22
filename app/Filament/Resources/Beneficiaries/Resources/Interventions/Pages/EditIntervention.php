@@ -11,6 +11,7 @@ use App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas\CaseFor
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas\IndividualServiceForm;
 use App\Models\Intervention;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -32,11 +33,17 @@ class EditIntervention extends EditRecord
         /** @var Intervention */
         $intervention = $this->getRecord();
 
-        if ($intervention->isCase()) {
-            return CaseForm::configure($schema);
-        }
-
-        return IndividualServiceForm::configure($schema);
+        return $schema
+            ->columns(1)
+            ->components([
+                Section::make()
+                    ->heading(__('intervention.summary'))
+                    ->components(
+                        fn (Schema $schema) => $intervention->isCase()
+                            ? CaseForm::configure($schema)
+                            : IndividualServiceForm::configure($schema)
+                    ),
+            ]);
     }
 
     public function mutateFormDataBeforeFill(array $data): array

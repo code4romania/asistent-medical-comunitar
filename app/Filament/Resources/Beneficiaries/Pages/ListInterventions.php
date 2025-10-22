@@ -8,11 +8,11 @@ use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Resources\Beneficiaries\Concerns\DisableNavigationIcon;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateCaseAction;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
-use Filament\Actions\CreateAction;
 use Filament\Panel;
 use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables\Table;
 
 class ListInterventions extends ManageRelatedRecords
 {
@@ -41,12 +41,12 @@ class ListInterventions extends ManageRelatedRecords
         return __('intervention.label.plural');
     }
 
-    public function table(Table $table): Table
+    protected function getHeaderActions(): array
     {
-        return $table
-            ->headerActions([
-                CreateAction::make(),
-            ]);
+        return [
+            CreateIndividualServiceAction::make(),
+            CreateCaseAction::make(),
+        ];
     }
 
     public static function getRouteName(?Panel $panel = null): string

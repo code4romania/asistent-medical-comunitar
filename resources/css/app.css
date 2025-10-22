@@ -20,4 +20,8 @@
             @apply rounded-tl-none;
         }
     }
+
+    .fi-page-sub-navigation-sidebar-ctn {
+        @apply w-56;
+    }
 }

@@ -47,7 +47,6 @@ class InterventionsTable
                 TextColumn::make('services')
                     ->label(__('field.services_realized'))
                     ->alignEnd(),
-
             ])
             ->filters([
                 SelectFilter::make('type')

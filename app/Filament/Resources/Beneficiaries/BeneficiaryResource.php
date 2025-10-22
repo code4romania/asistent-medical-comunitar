@@ -13,6 +13,7 @@ use App\Filament\Resources\Beneficiaries\Pages\ListInterventions;
 use App\Filament\Resources\Beneficiaries\Pages\ListOcasionalBeneficiaries;
 use App\Filament\Resources\Beneficiaries\Pages\ListRegularBeneficiaries;
 use App\Filament\Resources\Beneficiaries\Pages\ViewBeneficiary;
+use App\Filament\Resources\Beneficiaries\Pages\ViewBeneficiaryDetails;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Pages\SummaryCatagraphy;
 use App\Filament\Resources\Beneficiaries\Tables\BeneficiariesTable;
 use App\Models\Beneficiary;
@@ -69,6 +70,7 @@ class BeneficiaryResource extends Resource
 
             'create' => CreateBeneficiary::route('/create'),
             'view' => ViewBeneficiary::route('/{record}'),
+            'details' => ViewBeneficiaryDetails::route('/{record}/details'),
             'edit' => EditBeneficiary::route('/{record}/edit'),
 
             'interventions' => ListInterventions::route('/{record}/interventions'),
@@ -90,6 +92,7 @@ class BeneficiaryResource extends Resource
 
         return $page->generateNavigationItems([
             ViewBeneficiary::class,
+            ViewBeneficiaryDetails::class,
             SummaryCatagraphy::class,
             ListInterventions::class,
             ListDocuments::class,

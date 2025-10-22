@@ -165,7 +165,6 @@ class CatagraphyForm
                                     ->visible(fn (Get $get) => \boolval($get('has_disabilities')))
                                     ->schema([
                                         Repeater::make('disabilities')
-
                                             ->relationship()
                                             ->addActionLabel(__('catagraphy.action.add_disability'))
                                             ->reorderable(false)
