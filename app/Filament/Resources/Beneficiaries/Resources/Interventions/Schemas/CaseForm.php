@@ -7,13 +7,12 @@ namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas;
 use App\Enums\Intervention\CaseInitiator;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Filament\Schemas\Components\Subsection;
-use App\Models\Beneficiary;
-use App\Models\Intervention;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\Page;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -44,16 +43,16 @@ class CaseForm
                         Select::make('vulnerability_id')
                             ->label(__('field.addressed_vulnerability'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->options(fn (Beneficiary|Intervention $record) => InterventionResource::getValidVulnerabilities($record))
-                            ->in(fn (Beneficiary|Intervention $record) => InterventionResource::getValidVulnerabilities($record)?->keys())
+                            ->options(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord()))
+                            ->in(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord())?->keys())
                             ->searchable()
                             ->live()
                             ->required(),
 
                         Hidden::make('vulnerability_label')
-                            ->afterStateHydrated(function (Set $set, $state, Beneficiary|Intervention $record) {
-                                $vulnerability_id = InterventionResource::getValidVulnerabilities($record)
-                                    ->filter(fn (string $value) => $value === $state)
+                            ->afterStateHydrated(function (Set $set, $state, Page $livewire) {
+                                $vulnerability_id = InterventionResource::getValidVulnerabilities($livewire->getRecord())
+                                    ?->filter(fn (string $value) => $value === $state)
                                     ->keys()
                                     ->first();
 

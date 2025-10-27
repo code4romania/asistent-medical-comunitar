@@ -10,6 +10,7 @@ use App\Models\Beneficiary;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableCase;
 use Filament\Actions\CreateAction;
+use Filament\Resources\Pages\Page;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
@@ -38,11 +39,17 @@ class CreateCaseAction extends CreateAction
 
         $this->createAnother(false);
 
-        $this->using(function (array $data, Beneficiary $record): Intervention {
+        $this->using(function (array $data, Page $livewire): Intervention {
+            /** @var Beneficiary|Intervention */
+            $record = $livewire->getRecord();
+
+            /** @var Beneficiary */
+            $beneficiary = $record instanceof Beneficiary ? $record : $record->beneficiary;
+
             $interventionable = InterventionableCase::create($data['interventionable']);
 
             $intervention = $interventionable->intervention()->create([
-                'beneficiary_id' => $record?->id,
+                'beneficiary_id' => $beneficiary->id,
                 'integrated' => $data['integrated'],
                 'notes' => $data['notes'],
             ]);
@@ -54,9 +61,15 @@ class CreateCaseAction extends CreateAction
             return $intervention;
         });
 
+        $this->successRedirectUrl(
+            fn (Intervention $record): string => InterventionResource::getUrl('view', [
+                'beneficiary' => $record->beneficiary_id,
+                'record' => $record,
+            ])
+        );
+
         $this->schema(fn (Schema $schema) => CaseForm::configure($schema));
 
-        // TODO: fix
-        // $this->disabled(fn (Beneficiary $record) => ! InterventionResource::hasValidVulnerabilities($record));
+        $this->disabled(fn (Page $livewire) => ! InterventionResource::hasValidVulnerabilities($livewire->getRecord()));
     }
 }

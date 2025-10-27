@@ -72,8 +72,11 @@ class InterventionResource extends Resource
         ];
     }
 
-    public static function getValidVulnerabilities(Beneficiary $beneficiary): ?Collection
+    public static function getValidVulnerabilities(Beneficiary|Intervention $record): ?Collection
     {
+        /** @var Beneficiary */
+        $beneficiary = $record instanceof Beneficiary ? $record : $record->beneficiary;
+
         return Cache::driver('array')
             ->remember(
                 "valid-vulnerabilities-beneficiary-{$beneficiary->id}",
@@ -85,9 +88,12 @@ class InterventionResource extends Resource
             );
     }
 
-    public static function hasValidVulnerabilities($livewire): bool
+    public static function hasValidVulnerabilities(Beneficiary|Intervention $record): bool
     {
-        return static::getValidVulnerabilities($livewire->getBeneficiary())
+        /** @var Beneficiary */
+        $beneficiary = $record instanceof Beneficiary ? $record : $record->beneficiary;
+
+        return static::getValidVulnerabilities($beneficiary)
             ?->isNotEmpty() ?? false;
     }
 
