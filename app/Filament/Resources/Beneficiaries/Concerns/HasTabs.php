@@ -39,11 +39,11 @@ trait HasTabs
                 ->url(BeneficiaryResource::getUrl('ocasional'))
                 ->isActiveWhen(fn () => static::class === ListOcasionalBeneficiaries::class),
 
-            // NavigationItem::make()
-            //     ->label(__('beneficiary.section.households'))
-            //     ->icon('icon-none')
-            //     ->url(HouseholdResource::getUrl('index'))
-            //     ->isActiveWhen(fn () => static::class === ManageHouseholds::class),
+            NavigationItem::make()
+                ->label(__('beneficiary.section.households'))
+                ->icon('icon-none')
+                ->url(HouseholdResource::getUrl('index'))
+                ->isActiveWhen(fn () => static::class === ManageHouseholds::class),
 
         ];
     }
