@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Concerns\BelongsToNurse;
 use App\Enums\CommunityActivity\Administrative;
 use App\Enums\CommunityActivity\Campaign;
+use App\Enums\CommunityActivity\OutsideWorkingHours;
 use App\Enums\CommunityActivity\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,7 +39,7 @@ class CommunityActivity extends Model implements HasMedia
 
     protected $casts = [
         'type' => Type::class,
-        'outside_working_hours' => 'boolean',
+        'outside_working_hours' => OutsideWorkingHours::class,
         'participants' => 'integer',
         'roma_participants' => 'integer',
         'date' => 'date',
@@ -83,13 +84,6 @@ class CommunityActivity extends Model implements HasMedia
     {
         return $query->where('type', Type::ADMINISTRATIVE)
             ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
-    }
-
-    public function getHourAttribute(): string
-    {
-        return $this->outside_working_hours
-            ? __('community_activity.hour.outside_working_hours')
-            : __('community_activity.hour.within_working_hours');
     }
 
     public function getTitleAttribute(): string

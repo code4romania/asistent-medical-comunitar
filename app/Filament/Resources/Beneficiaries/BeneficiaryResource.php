@@ -17,10 +17,8 @@ use App\Filament\Resources\Beneficiaries\Pages\ViewBeneficiaryDetails;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Pages\SummaryCatagraphy;
 use App\Filament\Resources\Beneficiaries\Tables\BeneficiariesTable;
 use App\Models\Beneficiary;
-use BackedEnum;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,8 +27,6 @@ class BeneficiaryResource extends Resource
     protected static ?string $model = Beneficiary::class;
 
     protected static ?int $navigationSort = 1;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $recordTitleAttribute = 'full_name';
 

@@ -13,7 +13,6 @@ use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Concerns\EntanglesStateWithSingularRelationship;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
-use Illuminate\Support\Facades\Cache;
 
 class Location extends Component
 {
@@ -57,13 +56,7 @@ class Location extends Component
             Select::make($this->getCountyField())
                 ->label($this->getCountyLabel())
                 ->placeholder(__('placeholder.county'))
-                ->options(
-                    fn () => Cache::driver('array')
-                        ->rememberForever(
-                            'counties',
-                            fn () => County::pluck('name', 'id')
-                        )
-                )
+                ->options(County::cachedList())
                 ->searchable()
                 ->preload()
                 ->live()

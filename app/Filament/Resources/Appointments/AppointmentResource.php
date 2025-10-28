@@ -14,10 +14,8 @@ use App\Filament\Resources\Appointments\Schemas\AppointmentForm;
 use App\Filament\Resources\Appointments\Schemas\AppointmentInfolist;
 use App\Filament\Resources\Appointments\Tables\AppointmentsTable;
 use App\Models\Appointment;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class AppointmentResource extends Resource
@@ -25,8 +23,6 @@ class AppointmentResource extends Resource
     protected static ?string $model = Appointment::class;
 
     protected static ?int $navigationSort = 3;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::CalendarDateRange;
 
     public static function getModelLabel(): string
     {

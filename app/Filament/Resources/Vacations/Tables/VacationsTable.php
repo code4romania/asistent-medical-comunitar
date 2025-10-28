@@ -12,7 +12,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Cache;
 
 class VacationsTable
 {
@@ -63,13 +62,7 @@ class VacationsTable
             ->filters([
                 SelectFilter::make('county')
                     ->label(__('field.county'))
-                    ->options(
-                        fn () => Cache::driver('array')
-                            ->rememberForever(
-                                'counties',
-                                fn () => County::pluck('name', 'id')
-                            )
-                    )
+                    ->options(County::cachedList())
                     ->query(function (Builder $query, array $data) {
                         if (blank($data['value'])) {
                             return $query;
