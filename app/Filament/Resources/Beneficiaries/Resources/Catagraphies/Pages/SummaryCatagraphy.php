@@ -48,4 +48,14 @@ class SummaryCatagraphy extends ViewRecord
     {
         return SummaryInfolist::configure($schema);
     }
+
+    /**
+     * This page does not need the 'record' parameter.
+     */
+    public static function getNavigationUrl(array $parameters = []): string
+    {
+        unset($parameters['record']);
+
+        return parent::getNavigationUrl($parameters);
+    }
 }

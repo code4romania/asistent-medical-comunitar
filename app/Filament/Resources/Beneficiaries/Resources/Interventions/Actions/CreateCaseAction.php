@@ -72,4 +72,12 @@ class CreateCaseAction extends CreateAction
 
         $this->disabled(fn (Page $livewire) => ! InterventionResource::hasValidVulnerabilities($livewire->getRecord()));
     }
+
+    /**
+     * Workaround to force modal opening on beneficiary pages.
+     */
+    public function getUrl(): ?string
+    {
+        return null;
+    }
 }
