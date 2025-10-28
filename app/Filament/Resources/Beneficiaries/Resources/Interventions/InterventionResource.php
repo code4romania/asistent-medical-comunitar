@@ -28,8 +28,6 @@ class InterventionResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'name';
-
     protected static ?string $parentResource = BeneficiaryResource::class;
 
     public static function getModelLabel(): string

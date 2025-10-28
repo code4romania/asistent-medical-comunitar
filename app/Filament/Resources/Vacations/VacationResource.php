@@ -9,10 +9,8 @@ use App\Filament\Resources\Vacations\Schemas\VacationForm;
 use App\Filament\Resources\Vacations\Schemas\VacationInfolist;
 use App\Filament\Resources\Vacations\Tables\VacationsTable;
 use App\Models\Vacation;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class VacationResource extends Resource
@@ -20,8 +18,6 @@ class VacationResource extends Resource
     protected static ?string $model = Vacation::class;
 
     protected static ?int $navigationSort = 6;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::CalendarDateRange;
 
     public static function shouldRegisterNavigation(): bool
     {

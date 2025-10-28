@@ -23,8 +23,6 @@ class HouseholdResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static ?string $recordTitleAttribute = 'name';
-
     public static function getModelLabel(): string
     {
         return __('household.label.singular');

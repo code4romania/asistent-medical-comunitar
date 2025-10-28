@@ -29,8 +29,6 @@ class DocumentResource extends Resource
 
     protected static ?string $parentResource = BeneficiaryResource::class;
 
-    protected static ?string $recordTitleAttribute = 'title';
-
     public static function getModelLabel(): string
     {
         return __('document.label.singular');
