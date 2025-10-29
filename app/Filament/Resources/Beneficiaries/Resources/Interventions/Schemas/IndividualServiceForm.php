@@ -18,6 +18,7 @@ use Filament\Resources\Pages\Page;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Livewire\Component;
 
 class IndividualServiceForm
 {
@@ -43,14 +44,14 @@ class IndividualServiceForm
                         Select::make('vulnerability_id')
                             ->label(__('field.addressed_vulnerability'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->options(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord()))
+                            ->options(fn (Component $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord()))
                             ->in(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord())?->keys())
                             ->searchable()
                             ->live()
                             ->required(),
 
                         Hidden::make('vulnerability_label')
-                            ->afterStateHydrated(function (Set $set, $state, Page $livewire) {
+                            ->afterStateHydrated(function (Set $set, $state, Component $livewire) {
                                 $vulnerability_id = InterventionResource::getValidVulnerabilities($livewire->getRecord())
                                     ->filter(fn (string $value) => $value === $state)
                                     ->keys()

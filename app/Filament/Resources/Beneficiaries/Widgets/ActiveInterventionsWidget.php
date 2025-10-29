@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Widgets;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateCaseAction;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateIndividualServiceAction;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
@@ -73,6 +75,20 @@ class ActiveInterventionsWidget extends TableWidget
                     'record' => $record,
                 ]),
             )
+            ->emptyStateActions([
+                CreateIndividualServiceAction::make()
+                    ->hidden(fn (self $livewire) => ! $livewire->getRecord()->hasCatagraphy())
+                    ->color('gray'),
+
+                CreateCaseAction::make()
+                    ->hidden(fn (self $livewire) => ! $livewire->getRecord()->hasCatagraphy())
+                    ->color('gray'),
+            ])
             ->paginated([5]);
+    }
+
+    public function getRecord(): Beneficiary
+    {
+        return $this->record;
     }
 }

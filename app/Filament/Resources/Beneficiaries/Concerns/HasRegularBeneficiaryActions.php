@@ -8,6 +8,7 @@ use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\CatagraphyResource;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateCaseAction;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateIndividualServiceAction;
+use App\Models\Beneficiary;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Support\Enums\IconPosition;
@@ -17,6 +18,9 @@ trait HasRegularBeneficiaryActions
 {
     protected function getHeaderActions(): array
     {
+        /** @var Beneficiary */
+        $beneficiary = $this->getParentRecord() ?? $this->getRecord();
+
         return [
             ActionGroup::make([])
                 ->label(__('app.action.group'))
@@ -28,21 +32,19 @@ trait HasRegularBeneficiaryActions
                     Action::make('catagraphy')
                         ->label(__('catagraphy.action.update'))
                         ->url(CatagraphyResource::getUrl('edit', [
-                            'beneficiary' => $this->getRecord(),
+                            'beneficiary' => $beneficiary,
                         ])),
 
                     CreateCaseAction::make()
-                        ->after(fn () => $this->emit('updateInterventionsWidget'))
                         ->icon(null),
 
                     CreateIndividualServiceAction::make()
-                        ->after(fn () => $this->emit('updateInterventionsWidget'))
                         ->icon(null),
 
                     Action::make('appointment')
                         ->label(__('appointment.action.create'))
                         ->url(AppointmentResource::getUrl('create', [
-                            'beneficiary' => $this->getRecord(),
+                            'beneficiary' => $beneficiary,
                         ])),
                 ]),
         ];

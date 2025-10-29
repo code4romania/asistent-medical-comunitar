@@ -23,6 +23,7 @@ use Filament\Tables\Columns\Column;
 use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
+use function Filament\Support\get_model_label;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -130,12 +131,12 @@ class FilamentServiceProvider extends ServiceProvider
                 })
                 ->emptyStateHeading(function (Table $table) {
                     if (! $table->hasAlteredQuery()) {
-                        return __($table->getModelLabel() . '.empty.title');
+                        return __(get_model_label($table->getModel()) . '.empty.title');
                     }
                 })
                 ->emptyStateDescription(function (Table $table) {
                     if (! $table->hasAlteredQuery()) {
-                        return __($table->getModelLabel() . '.empty.description');
+                        return __(get_model_label($table->getModel()) . '.empty.description');
                     }
                 });
         });

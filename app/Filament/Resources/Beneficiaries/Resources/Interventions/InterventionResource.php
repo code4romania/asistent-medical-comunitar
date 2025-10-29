@@ -70,7 +70,7 @@ class InterventionResource extends Resource
         ];
     }
 
-    public static function getValidVulnerabilities(Beneficiary|Intervention $record): ?Collection
+    public static function getValidVulnerabilities(Beneficiary|Catagraphy|Intervention $record): ?Collection
     {
         /** @var Beneficiary */
         $beneficiary = $record instanceof Beneficiary ? $record : $record->beneficiary;
@@ -86,7 +86,7 @@ class InterventionResource extends Resource
             );
     }
 
-    public static function hasValidVulnerabilities(Beneficiary|Intervention $record): bool
+    public static function hasValidVulnerabilities(Beneficiary|Catagraphy|Intervention $record): bool
     {
         /** @var Beneficiary */
         $beneficiary = $record instanceof Beneficiary ? $record : $record->beneficiary;

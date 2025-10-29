@@ -26,6 +26,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 
 class RegularBeneficiaryForm
 {
@@ -37,47 +38,51 @@ class RegularBeneficiaryForm
                 Section::make()
                     ->heading(__('beneficiary.section.program'))
                     ->visible($includeProgram)
-                    ->columns()
                     ->components([
-                        TextEntry::make('id')
-                            ->label(__('field.beneficiary_id')),
-
-                        TextEntry::make('type')
-                            ->label(__('field.beneficiary_type')),
-
-                        TextEntry::make('nurse.full_name')
-                            ->label(__('field.allocated_nurse')),
-
-                        Select::make('integrated')
-                            ->label(__('field.integrated'))
-                            ->boolean(
-                                trueLabel: __('beneficiary.integrated.yes'),
-                                falseLabel: __('beneficiary.integrated.no'),
-                            )
-                            ->formatStateUsing(fn (?bool $state) => (int) $state)
-                            ->required(),
-
-                        Select::make('status')
-                            ->label(__('field.current_status'))
-                            ->placeholder(__('placeholder.choose'))
-                            ->options(Status::class)
-                            ->live()
-                            ->required(),
-
                         Grid::make()
-                            ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
+                            ->columns()
+                            ->maxWidth(Width::FiveExtraLarge)
                             ->components([
-                                Select::make('reason_removed')
-                                    ->label(__('field.reason_removed'))
+                                TextEntry::make('id')
+                                    ->label(__('field.beneficiary_id')),
+
+                                TextEntry::make('type')
+                                    ->label(__('field.beneficiary_type')),
+
+                                TextEntry::make('nurse.full_name')
+                                    ->label(__('field.allocated_nurse')),
+
+                                Select::make('integrated')
+                                    ->label(__('field.integrated'))
+                                    ->boolean(
+                                        trueLabel: __('beneficiary.integrated.yes'),
+                                        falseLabel: __('beneficiary.integrated.no'),
+                                    )
+                                    ->formatStateUsing(fn (?bool $state) => (int) $state)
+                                    ->required(),
+
+                                Select::make('status')
+                                    ->label(__('field.current_status'))
                                     ->placeholder(__('placeholder.choose'))
-                                    ->options(ReasonRemoved::class)
+                                    ->options(Status::class)
                                     ->live()
                                     ->required(),
 
-                                TextInput::make('reason_removed_notes')
-                                    ->label(__('field.reason_removed_notes'))
-                                    ->maxLength(200)
-                                    ->required(fn (Get $get) => ReasonRemoved::OTHER->is($get('reason_removed'))),
+                                Grid::make()
+                                    ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
+                                    ->components([
+                                        Select::make('reason_removed')
+                                            ->label(__('field.reason_removed'))
+                                            ->placeholder(__('placeholder.choose'))
+                                            ->options(ReasonRemoved::class)
+                                            ->live()
+                                            ->required(),
+
+                                        TextInput::make('reason_removed_notes')
+                                            ->label(__('field.reason_removed_notes'))
+                                            ->maxLength(200)
+                                            ->required(fn (Get $get) => ReasonRemoved::OTHER->is($get('reason_removed'))),
+                                    ]),
                             ]),
                     ]),
 

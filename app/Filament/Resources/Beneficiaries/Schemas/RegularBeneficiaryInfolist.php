@@ -14,10 +14,12 @@ use App\Filament\Schemas\Components\Subsection;
 use App\Models\Beneficiary;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 
 class RegularBeneficiaryInfolist
@@ -29,40 +31,43 @@ class RegularBeneficiaryInfolist
             ->components([
                 Section::make()
                     ->heading(__('beneficiary.section.program'))
-                    ->columns()
                     ->components([
-                        TextEntry::make('id')
-                            ->label(__('field.beneficiary_id')),
+                        Grid::make()
+                            ->columns()
+                            ->maxWidth(Width::FiveExtraLarge)
+                            ->components([
+                                TextEntry::make('id')
+                                    ->label(__('field.beneficiary_id')),
 
-                        TextEntry::make('type')
-                            ->label(__('field.beneficiary_type')),
+                                TextEntry::make('type')
+                                    ->label(__('field.beneficiary_type')),
 
-                        TextEntry::make('status')
-                            ->label(__('field.current_status')),
+                                TextEntry::make('status')
+                                    ->label(__('field.current_status')),
 
-                        TextEntry::make('reason_removed')
-                            ->label(__('field.reason_removed'))
-                            ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
-                            ->formatStateUsing(function (Beneficiary $record) {
-                                $parts = [];
+                                TextEntry::make('reason_removed')
+                                    ->label(__('field.reason_removed'))
+                                    ->visible(fn (Get $get) => Status::REMOVED->is($get('status')))
+                                    ->formatStateUsing(function (Beneficiary $record) {
+                                        $parts = [];
 
-                                if ($record->reason_removed instanceof ReasonRemoved) {
-                                    $parts[] = $record->reason_removed->getLabel();
-                                }
+                                        if ($record->reason_removed instanceof ReasonRemoved) {
+                                            $parts[] = $record->reason_removed->getLabel();
+                                        }
 
-                                if (filled($record->reason_removed_notes)) {
-                                    $parts[] = "({$record->reason_removed_notes})";
-                                }
+                                        if (filled($record->reason_removed_notes)) {
+                                            $parts[] = "({$record->reason_removed_notes})";
+                                        }
 
-                                return implode(' ', $parts);
-                            }),
+                                        return implode(' ', $parts);
+                                    }),
 
-                        TextEntry::make('nurse.full_name')
-                            ->label(__('field.allocated_nurse')),
+                                TextEntry::make('nurse.full_name')
+                                    ->label(__('field.allocated_nurse')),
 
-                        BooleanEntry::make('integrated')
-                            ->label(__('field.integrated')),
-
+                                BooleanEntry::make('integrated')
+                                    ->label(__('field.integrated')),
+                            ]),
                     ]),
 
                 Section::make()

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Pages;
 
 use App\Filament\Resources\Beneficiaries\Concerns\DisableNavigationIcon;
+use App\Filament\Resources\Beneficiaries\Concerns\HasRegularBeneficiaryActions;
 use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\CatagraphyResource;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Concerns\GetRecordFromParentRecord;
@@ -21,6 +22,7 @@ class SummaryCatagraphy extends ViewRecord
     use HasBreadcrumbs;
     use GetRecordFromParentRecord;
     use UsesParentRecordSubNavigation;
+    use HasRegularBeneficiaryActions;
 
     protected static string $resource = CatagraphyResource::class;
 

@@ -10,9 +10,9 @@ use App\Models\Beneficiary;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableCase;
 use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\Page;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Livewire\Component;
 
 class CreateCaseAction extends CreateAction
 {
@@ -39,7 +39,7 @@ class CreateCaseAction extends CreateAction
 
         $this->createAnother(false);
 
-        $this->using(function (array $data, Page $livewire): Intervention {
+        $this->using(function (array $data, Component $livewire): Intervention {
             /** @var Beneficiary|Intervention */
             $record = $livewire->getRecord();
 
@@ -70,7 +70,7 @@ class CreateCaseAction extends CreateAction
 
         $this->schema(fn (Schema $schema) => CaseForm::configure($schema));
 
-        $this->disabled(fn (Page $livewire) => ! InterventionResource::hasValidVulnerabilities($livewire->getRecord()));
+        $this->disabled(fn (Component $livewire) => ! InterventionResource::hasValidVulnerabilities($livewire->getRecord()));
     }
 
     /**

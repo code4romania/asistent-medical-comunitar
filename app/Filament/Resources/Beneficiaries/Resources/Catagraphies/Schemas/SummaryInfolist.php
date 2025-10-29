@@ -52,7 +52,7 @@ class SummaryInfolist
                         EmptyState::make(__('catagraphy.vulnerability.empty.title'))
                             ->description(__('catagraphy.vulnerability.empty.description'))
                             ->icon('icon-empty-state')
-                            ->action(
+                            ->footer([
                                 Action::make('create')
                                     ->label(__('catagraphy.vulnerability.empty.create'))
                                     ->url(CatagraphyResource::getUrl('edit', [
@@ -60,7 +60,7 @@ class SummaryInfolist
                                     ]))
                                     ->button()
                                     ->color('gray'),
-                            ),
+                            ]),
                     ];
                 }
 

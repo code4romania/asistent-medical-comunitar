@@ -13,8 +13,8 @@
 
     <div
         @class([
-            'flex flex-col items-stretch min-h-full rounded-xl sm:flex-row',
-            'shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10',
+            'flex flex-col items-stretch min-h-full sm:flex-row',
+            'ring-1 ring-gray-950/5 dark:ring-white/10',
             'bg-gray-50 dark:bg-gray-800',
         ])>
         <div @class(['p-3 sm:pt-6 shrink-0', 'bg-gray-200 dark:bg-gray-700'])>
