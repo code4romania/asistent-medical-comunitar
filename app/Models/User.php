@@ -48,7 +48,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     use LogsActivity;
     use MustSetInitialPassword;
     use Notifiable;
-    // use TwoFactorAuthenticatable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.

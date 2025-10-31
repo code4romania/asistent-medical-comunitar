@@ -4,6 +4,7 @@
 
 @source '../../vendor/commitglobal/app-version/resources/views';
 @source '../../vendor/guava/calendar/resources/views';
+@source '../../vendor/jeffgreco13/filament-breezy/resources';
 @source '../../vendor/malzariey/filament-daterangepicker-filter/resources';
 @source '../../resources/views';
 @source '../../app/Filament';
@@ -29,13 +30,13 @@
         @apply bg-primary-700 dark:bg-gray-950;
 
         .fi-logo {
-            @apply fill-primary-50;
+            @apply text-primary-50;
         }
     }
 
     .fi-sidebar {
         .fi-logo {
-            @apply fill-primary-900 dark:fill-primary-50;
+            @apply text-primary-900 dark:text-primary-50;
         }
     }
 

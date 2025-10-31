@@ -7,6 +7,8 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Settings;
+use App\Filament\Pages\Settings\PersonalInfo;
+use App\Filament\Resources\Profiles\ProfileResource;
 use App\Filament\Resources\Vacations\VacationResource;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
@@ -35,8 +37,6 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->login(Login::class)
-            ->profile()
-            // ->strictAuthorization()
             ->colors([
                 'success' => Color::Emerald,
                 'danger' => Color::Rose,
@@ -56,23 +56,33 @@ class AdminPanelProvider extends PanelProvider
             ->resourceEditPageRedirect('view')
             ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->userMenuItems([
-                'profile' => fn (Action $action) => $action
-                    // ->url(ProfileResource::getUrl('general.view'))
-                    ->label(__('auth.profile'))
-                    ->icon('heroicon-o-user')
-                    ->visible(fn () => auth()->user()->isNurse()),
                 Action::make('vacations')
                     ->label(__('vacation.label.plural'))
                     ->url(fn () => VacationResource::getUrl('index'))
                     ->icon(Heroicon::CalendarDateRange)
                     ->visible(fn () => auth()->user()->isNurse()),
+
+                Action::make('nurse_profile')
+                    ->label(__('auth.profile'))
+                    // ->url(fn () => ProfileResource::getUrl('general.view'))
+                    ->icon(Heroicon::User)
+                    ->visible(fn () => auth()->user()->isNurse()),
+
+                Action::make('settings')
+                    ->label(__('auth.settings'))
+                    ->url(fn () => Settings::getUrl())
+                    ->icon(Heroicon::Cog),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->plugins([
-                // BreezyCore::make()
-                //     ->myProfile()
-                //     ->customMyProfilePage(Settings::class),
-
+                BreezyCore::make()
+                    ->customMyProfilePage(Settings::class)
+                    ->enableTwoFactorAuthentication()
+                    // ->enableBrowserSessions()
+                    ->myProfile(slug: 'settings', shouldRegisterUserMenu: false)
+                    ->myProfileComponents([
+                        'personal_info' => PersonalInfo::class,
+                    ]),
             ])
             ->widgets([
                 //
