@@ -5,25 +5,60 @@ declare(strict_types=1);
 namespace App\Concerns;
 
 use App\Contracts\Pages\WithTabs;
+use App\Filament\Schemas\Components\Tabs;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ViewRecord;
+use Filament\Schemas\Components\EmbeddedTable;
+use Filament\Schemas\Components\RenderHook;
+use Filament\Schemas\Schema;
+use Filament\View\PanelsRenderHook;
 
 trait TabbedLayout
 {
-    public function bootedTabbedLayout(): void
+    public function content(Schema $schema): Schema
     {
         if (! $this instanceof WithTabs) {
-            return;
+            return parent::content($schema);
         }
 
-        $this->view = match (true) {
-            $this instanceof ListRecords => 'filament.tabs.list-records',
-            $this instanceof CreateRecord => 'filament.tabs.create-record',
-            $this instanceof ViewRecord => 'filament.tabs.view-record',
-            $this instanceof EditRecord => 'filament.tabs.edit-record',
-            default => $this->view,
-        };
+        $components = [
+            Tabs::make()
+                ->tabs($this->getTabsNavigation())
+                ->components(function (Schema $schema): array {
+                    if ($this instanceof ListRecords) {
+                        return [
+                            RenderHook::make(PanelsRenderHook::RESOURCE_PAGES_LIST_RECORDS_TABLE_BEFORE),
+                            EmbeddedTable::make(),
+                            RenderHook::make(PanelsRenderHook::RESOURCE_PAGES_LIST_RECORDS_TABLE_AFTER),
+                        ];
+                    }
+
+                    if ($this instanceof ViewRecord) {
+                        if ($this->hasInfolist()) {
+                            return [$this->getInfolistContentComponent()];
+                        }
+
+                        return [$this->getFormContentComponent()];
+                    }
+
+                    if (
+                        $this instanceof CreateRecord ||
+                        $this instanceof EditRecord
+                    ) {
+                        return [$this->getFormContentComponent()];
+                    }
+
+                    return parent::content($schema);
+                }),
+        ];
+
+        if (method_exists($this, 'getRelationManagersContentComponent')) {
+            $components[] = $this->getRelationManagersContentComponent();
+        }
+
+        return $schema
+            ->components($components);
     }
 }
