@@ -9,10 +9,14 @@ use App\Models\City;
 use Closure;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Component;
-use Illuminate\View\View;
+use Filament\Schemas\Components\Grid;
+use Filament\Support\Concerns\CanBeContained;
+use Filament\Support\Icons\Heroicon;
 
 class Location extends Component
 {
+    use CanBeContained;
+
     protected string $view = 'filament-schemas::components.grid';
 
     protected string | Closure | null $countyField = null;
@@ -40,23 +44,35 @@ class Location extends Component
 
     protected function setUp(): void
     {
-        parent::setUp();
+        $this->columnSpanFull();
 
-        $this->schema(fn () => [
-            Subsection::make()
-                ->icon('heroicon-o-map-pin')
-                ->columns()
-                ->schema([
-                    TextEntry::make($this->getCountyField())
-                        ->label($this->getCountyLabel())
-                        ->when(! $this->hasCity(), fn (TextEntry $component) => $component->columnSpanFull()),
+        $this->schema(function () {
+            $components = [
+                TextEntry::make($this->getCountyField())
+                    ->label($this->getCountyLabel())
+                    ->when(! $this->hasCity(), fn (TextEntry $component) => $component->columnSpanFull()),
 
-                    TextEntry::make($this->getCityField())
-                        ->label($this->getCityLabel())
-                        ->visible($this->hasCity())
-                        ->formatStateUsing(fn (City | string | null $state) => static::getRenderedOptionLabel($state) ?? $state),
-                ]),
-        ]);
+                TextEntry::make($this->getCityField())
+                    ->label($this->getCityLabel())
+                    ->visible($this->hasCity())
+                    ->formatStateUsing(fn (?City $state) => $state?->formatted_name)
+                    ->html(),
+            ];
+
+            if (! $this->isContained()) {
+                return [
+                    Grid::make()
+                        ->components($components),
+                ];
+            }
+
+            return [
+                Subsection::make()
+                    ->icon(Heroicon::OutlinedMapPin)
+                    ->columns()
+                    ->components($components),
+            ];
+        });
     }
 
     public function getCountyField(): string
@@ -109,17 +125,5 @@ class Location extends Component
         ])
             ->filter()
             ->join('_'));
-    }
-
-    public static function getRenderedOptionLabel(?City $model): ?View
-    {
-        if (blank($model?->name)) {
-            return null;
-        }
-
-        return view('forms.components.option-label', [
-            'name' => $model->name,
-            'suffix' => $model->parent_name,
-        ]);
     }
 }

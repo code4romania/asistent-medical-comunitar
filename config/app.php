@@ -201,7 +201,6 @@ return [
         App\Providers\FilamentServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\OnboardingServiceProvider::class,
 
     ],
 

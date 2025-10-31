@@ -1,5 +1,6 @@
 @props([
     'tabs' => [],
+    'contained' => true,
     'actions' => null,
 ])
 
@@ -24,7 +25,10 @@
     </nav>
 
     <div
-        class="fi-tabs-component-tab focus:outline-none dark:bg-gray-900">
+        @class([
+            'fi-tabs-component-tab bg-white dark:bg-gray-900 focus:outline-none',
+            'p-6' => $contained,
+        ])>
         @if (null !== $actions)
             <div class="flex flex-wrap items-center justify-end gap-4 pb-5">
                 @foreach ($actions as $action)

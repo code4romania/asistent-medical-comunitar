@@ -26,6 +26,7 @@ trait TabbedLayout
         $components = [
             Tabs::make()
                 ->tabs($this->getTabsNavigation())
+                ->contained(! $this instanceof ListRecords)
                 ->components(function (Schema $schema): array {
                     if ($this instanceof ListRecords) {
                         return [

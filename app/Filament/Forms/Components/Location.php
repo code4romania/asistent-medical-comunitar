@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Forms\Components;
 
+use App\Filament\Schemas\Components\Subsection;
 use App\Models\City;
 use App\Models\County;
 use Closure;
@@ -11,13 +12,18 @@ use Filament\Forms\Components\Concerns\CanBeValidated;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Concerns\EntanglesStateWithSingularRelationship;
+use Filament\Schemas\Components\Contracts\CanEntangleWithSingularRelationships;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Support\Concerns\CanBeContained;
+use Filament\Support\Icons\Heroicon;
 
-class Location extends Component
+class Location extends Component implements CanEntangleWithSingularRelationships
 {
     use EntanglesStateWithSingularRelationship;
     use CanBeValidated;
+    use CanBeContained;
 
     protected string $view = 'filament-schemas::components.grid';
 
@@ -46,57 +52,67 @@ class Location extends Component
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->columnSpanFull();
 
-        $this->columns();
+        $this->schema(function () {
+            $components = [
+                Select::make($this->getCountyField())
+                    ->label($this->getCountyLabel())
+                    ->placeholder(__('placeholder.county'))
+                    ->options(County::cachedList())
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->required($this->isRequired())
+                    ->afterStateUpdated(function (Set $set) {
+                        if (! $this->hasCity()) {
+                            return;
+                        }
 
-        $this->schema(fn () => [
-            Select::make($this->getCountyField())
-                ->label($this->getCountyLabel())
-                ->placeholder(__('placeholder.county'))
-                ->options(County::cachedList())
-                ->searchable()
-                ->preload()
-                ->live()
-                ->required($this->isRequired())
-                ->afterStateUpdated(function (Set $set) {
-                    if (! $this->hasCity()) {
-                        return;
-                    }
+                        $set($this->getCityField(), null);
+                    })
+                    ->when(! $this->hasCity(), fn (Select $component) => $component->columnSpanFull()),
 
-                    $set($this->getCityField(), null);
-                })
-                ->when(! $this->hasCity(), fn (Select $component) => $component->columnSpanFull()),
+                Select::make($this->getCityField())
+                    ->label($this->getCityLabel())
+                    ->placeholder(__('placeholder.city'))
+                    ->allowHtml()
+                    ->searchable()
+                    ->required($this->isRequired())
+                    ->getSearchResultsUsing(function (string $search, Get $get) {
+                        $countyId = (int) $get($this->getCountyField());
 
-            Select::make($this->getCityField())
-                ->label($this->getCityLabel())
-                ->placeholder(__('placeholder.city'))
-                ->allowHtml()
-                ->searchable()
-                ->required($this->isRequired())
-                ->getSearchResultsUsing(function (string $search, Get $get) {
-                    $countyId = (int) $get($this->getCountyField());
+                        if (! $countyId) {
+                            return [];
+                        }
 
-                    if (! $countyId) {
-                        return [];
-                    }
+                        return City::query()
+                            ->where('county_id', $countyId)
+                            ->search($search)
+                            ->limit(50)
+                            ->get()
+                            ->mapWithKeys(fn (City $city) => [
+                                $city->getKey() => $city->formatted_name,
+                            ]);
+                    })
+                    ->visible(fn () => $this->hasCity())
+                    ->getOptionLabelUsing(fn (int $value) => City::find($value)->formatted_name),
+            ];
 
-                    return City::query()
-                        ->where('county_id', $countyId)
-                        ->search($search)
-                        ->limit(50)
-                        ->get()
-                        ->mapWithKeys(fn (City $city) => [
-                            $city->getKey() => static::getRenderedOptionLabel($city),
-                        ]);
-                })
-                ->visible(fn () => $this->hasCity())
-                ->getOptionLabelUsing(
-                    fn (int $value) => static::getRenderedOptionLabel(City::find($value))
-                ),
-        ]);
+            if (! $this->isContained()) {
+                return [
+                    Grid::make()
+                        ->components($components),
+                ];
+            }
+
+            return [
+                Subsection::make()
+                    ->icon(Heroicon::OutlinedMapPin)
+                    ->columns()
+                    ->components($components),
+            ];
+        });
     }
 
     public function getCountyField(): string
@@ -149,27 +165,5 @@ class Location extends Component
         ])
             ->filter()
             ->join('_'));
-    }
-
-    //////////////////////////////////////////////////////
-
-    /** @deprecated Use `city()` instead. */
-    public function withoutCity(): self
-    {
-        $this->city(false);
-
-        return $this;
-    }
-
-    public static function getRenderedOptionLabel(?City $model): ?string
-    {
-        if (\is_null($model)) {
-            return null;
-        }
-
-        return view('forms.components.option-label', [
-            'name' => $model->name,
-            'suffix' => $model->parent_name,
-        ])->render();
     }
 }

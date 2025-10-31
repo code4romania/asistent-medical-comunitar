@@ -6,9 +6,12 @@ namespace App\Filament\Schemas\Components;
 
 use Closure;
 use Filament\Schemas\Components\Component;
+use Filament\Support\Concerns\CanBeContained;
 
 class Tabs extends Component
 {
+    use CanBeContained;
+
     protected string $view = 'filament.schemas.components.tabs';
 
     protected array | Closure $tabs = [];
