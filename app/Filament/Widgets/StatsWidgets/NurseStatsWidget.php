@@ -6,13 +6,13 @@ namespace App\Filament\Widgets\StatsWidgets;
 
 use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Widgets\Components\Stat;
 use App\Models\Appointment;
 use App\Models\Beneficiary;
 use App\Models\Intervention;
 use App\Services\StatCount;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class NurseStatsWidget extends StatsOverviewWidget
 {
@@ -44,9 +44,12 @@ class NurseStatsWidget extends StatsOverviewWidget
     {
         $value = Beneficiary::count();
 
-        return Stat::make(__('dashboard.stats.beneficiaries_total'), $value)
+        $url = BeneficiaryResource::getUrl('index');
+
+        return Stat::make(__('dashboard.stats.beneficiaries_total'))
             ->icon(Heroicon::UserGroup)
-            ->url(BeneficiaryResource::getUrl('index'));
+            ->value($value)
+            ->url($url);
     }
 
     private function getActiveBeneficiariesStat(): Stat
@@ -55,24 +58,22 @@ class NurseStatsWidget extends StatsOverviewWidget
             ->onlyActive()
             ->count();
 
-        return Stat::make(__('dashboard.stats.beneficiaries_active'), $value)
-            ->icon(Heroicon::UserGroup)
-            ->url(
-                BeneficiaryResource::getUrl('index', [
-                    'filters' => [
-                        'status' => [
-                            'values' => [
-                                'active',
-                            ],
-                        ],
+        $url = BeneficiaryResource::getUrl('index', [
+            'filters' => [
+                'status' => [
+                    'values' => [
+                        'active',
                     ],
-                ])
-            );
+                ],
+            ],
+        ]);
+
+        return Stat::make(__('dashboard.stats.beneficiaries_active'), $value)
+            ->icon(Heroicon::Users)
+            ->value($value)
+            ->url($url);
     }
 
-    /**
-     * @TODO: implement trend
-     */
     private function getRealizedServicesStat(): Stat
     {
         $value = Intervention::select(StatCount::comparedBy('closed_at'))
@@ -81,21 +82,22 @@ class NurseStatsWidget extends StatsOverviewWidget
             ->toBase()
             ->first();
 
-        return Stat::make(__('dashboard.stats.services'), data_get($value, 'current'))
-            ->icon(Heroicon::Bolt);
+        return Stat::make(__('dashboard.stats.services'))
+            ->icon(Heroicon::Bolt)
+            ->trend($value);
     }
 
-    /**
-     * @TODO: implement trend
-     */
     private function getAppointmentsStat(): Stat
     {
         $value = Appointment::select(StatCount::comparedBy('date'))
             ->toBase()
             ->first();
 
+        $url = AppointmentResource::getUrl('index');
+
         return Stat::make(__('dashboard.stats.appointments'), data_get($value, 'current'))
-            ->icon(Heroicon::Calendar)
-            ->url(AppointmentResource::getUrl('index'));
+            ->icon(Heroicon::CalendarDays)
+            ->trend($value)
+            ->url($url);
     }
 }

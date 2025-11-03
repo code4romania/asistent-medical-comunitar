@@ -50,26 +50,20 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
         ];
     }
 
-    /**
-     * @TODO: implement trend
-     */
     private function getAppointmentsStat(): Stat
     {
         $value = Appointment::select(StatCount::comparedBy('date'))
             ->toBase()
             ->first();
 
-        data_set($value, 'previous', 5);
+        $url = AppointmentResource::getUrl('index');
 
         return Stat::make(__('dashboard.stats.appointments'))
             ->icon(Heroicon::Calendar)
             ->trend($value)
-            ->url(AppointmentResource::getUrl('index'));
+            ->url($url);
     }
 
-    /**
-     * @TODO: implement url
-     */
     private function getAllNursesStat(): Stat
     {
         $value = User::query()
@@ -77,17 +71,21 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
             ->activatesInCounty(auth()->user()->county_id)
             ->count();
 
-        return Stat::make(__('dashboard.stats.nurses_total'), $value)
-            ->icon(Heroicon::UserGroup);
-        // ->url(UserResource::getUrl('index'));
+        $url = UserResource::getUrl('index');
+
+        return Stat::make(__('dashboard.stats.nurses_total'))
+            ->icon(Heroicon::UserGroup)
+            ->value($value)
+            ->url($url);
     }
 
     private function getAllBeneficiariesStat(): Stat
     {
         $value = Beneficiary::count();
 
-        return Stat::make(__('dashboard.stats.beneficiaries_total'), $value)
-            ->icon(Heroicon::UserGroup);
+        return Stat::make(__('dashboard.stats.beneficiaries_total'))
+            ->icon(Heroicon::UserGroup)
+            ->value($value);
     }
 
     private function getActiveBeneficiariesStat(): Stat
@@ -96,13 +94,11 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
             ->onlyActive()
             ->count();
 
-        return Stat::make(__('dashboard.stats.beneficiaries_active'), $value)
-            ->icon(Heroicon::UserGroup);
+        return Stat::make(__('dashboard.stats.beneficiaries_active'))
+            ->icon(Heroicon::Users)
+            ->value($value);
     }
 
-    /**
-     * @TODO: implement trend
-     */
     private function getRealizedServicesStat(): Stat
     {
         $value = Intervention::select(StatCount::comparedBy('closed_at'))
@@ -111,7 +107,8 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
             ->toBase()
             ->first();
 
-        return Stat::make(__('dashboard.stats.services'), data_get($value, 'current'))
-            ->icon(Heroicon::Bolt);
+        return Stat::make(__('dashboard.stats.services'))
+            ->icon(Heroicon::Bolt)
+            ->trend($value);
     }
 }

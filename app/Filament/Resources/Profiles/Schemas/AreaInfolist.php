@@ -17,7 +17,7 @@ class AreaInfolist
             ->columns(1)
             ->components([
                 Subsection::make()
-                    ->icon(Heroicon::MapPin)
+                    ->icon(Heroicon::OutlinedMapPin)
                     ->columns()
                     ->components([
                         TextEntry::make('activityCounty.name')

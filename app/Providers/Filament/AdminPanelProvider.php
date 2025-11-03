@@ -48,7 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->maxContentWidth(Width::Full)
             ->viteTheme('resources/css/app.css')
-            ->brandLogo(fn () => view('filament.brand'))
+            ->brandLogo(fn () => view('components.brand'))
             ->brandLogoHeight('3rem')
             ->topNavigation()
             ->globalSearch(false)
