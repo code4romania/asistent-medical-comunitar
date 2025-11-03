@@ -6,11 +6,11 @@ return [
 
     'single' => [
 
-        'label' => 'Atașează',
+        'label' => 'Asociază',
 
         'modal' => [
 
-            'heading' => 'Atașează :label',
+            'heading' => 'Asociază :label',
 
             'fields' => [
 
@@ -22,12 +22,12 @@ return [
 
             'actions' => [
 
-                'attach' => [
-                    'label' => 'Atașează',
+                'associate' => [
+                    'label' => 'Asociază',
                 ],
 
-                'attach_another' => [
-                    'label' => 'Atașați și atașați altul',
+                'associate_another' => [
+                    'label' => 'Asociază și asociază altul',
                 ],
 
             ],
@@ -35,7 +35,7 @@ return [
         ],
 
         'messages' => [
-            'attached' => 'Atașat cu succes',
+            'associated' => 'Asociat cu succes',
         ],
 
     ],

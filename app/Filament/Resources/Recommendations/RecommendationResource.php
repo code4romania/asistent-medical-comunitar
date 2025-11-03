@@ -18,7 +18,19 @@ class RecommendationResource extends Resource
 {
     protected static ?string $model = Recommendation::class;
 
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $recordTitleAttribute = 'title';
+
+    public static function getModelLabel(): string
+    {
+        return __('recommendation.label.singular');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('recommendation.label.plural');
+    }
 
     public static function getEloquentQuery(): Builder
     {

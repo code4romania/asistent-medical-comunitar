@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Replicare',
+        'label' => 'Duplică',
 
         'modal' => [
 
-            'heading' => 'Replicare :label',
+            'heading' => 'Duplică :label',
 
             'actions' => [
 
                 'replicate' => [
-                    'label' => 'Replicare',
+                    'label' => 'Duplică',
                 ],
 
             ],
@@ -21,7 +23,7 @@ return [
         ],
 
         'messages' => [
-            'replicated' => 'Replicat cu succes',
+            'replicated' => 'Duplicat cu succes',
         ],
 
     ],

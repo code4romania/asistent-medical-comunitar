@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'single' => [
 
-        'label' => 'Ștergerea forțată',
+        'label' => 'Șterge forțat',
 
         'modal' => [
 
-            'heading' => 'Ștergere forțată :label',
+            'heading' => 'Șterge forțat :label',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Ștergere',
+                    'label' => 'Șterge forțat',
                 ],
 
             ],
@@ -28,16 +30,16 @@ return [
 
     'multiple' => [
 
-        'label' => 'Ștergere forțată înregistrările selectate',
+        'label' => 'Șterge forțat înregistrările selectate',
 
         'modal' => [
 
-            'heading' => 'Ștergere forțată :label selectate',
+            'heading' => 'Șterge forțat :label selectate',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Ștergere',
+                    'label' => 'Șterge forțat',
                 ],
 
             ],
