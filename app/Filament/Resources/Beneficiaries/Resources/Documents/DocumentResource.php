@@ -12,11 +12,9 @@ use App\Filament\Resources\Beneficiaries\Resources\Documents\Schemas\DocumentFor
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Schemas\DocumentInfolist;
 use App\Filament\Resources\Beneficiaries\Resources\Documents\Tables\DocumentsTable;
 use App\Models\Document;
-use BackedEnum;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class DocumentResource extends Resource
@@ -24,8 +22,6 @@ class DocumentResource extends Resource
     use HasBreadcrumbs;
 
     protected static ?string $model = Document::class;
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $parentResource = BeneficiaryResource::class;
 

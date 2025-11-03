@@ -52,10 +52,14 @@
         @apply justify-center flex-1;
     }
 
-    .fi-topbar-item .fi-active .fi-topbar-item-label,
-    .fi-topbar-item-btn:hover .fi-topbar-item-label,
-    .fi-topbar-item-btn:focus .fi-topbar-item-label {
-        @apply text-primary-700;
+    .fi-topbar-item .fi-active,
+    .fi-topbar-item-btn:hover,
+    .fi-topbar-item-btn:focus {
+        @apply bg-gray-50;
+
+        .fi-topbar-item-label {
+            @apply text-primary-700;
+        }
     }
 
     .fi-topbar-item-label {

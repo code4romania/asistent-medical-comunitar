@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Profiles\Pages;
+namespace App\Filament\Resources\Users\Pages\Nurse;
 
 use App\Contracts\Pages\WithTabs;
-use App\Filament\Resources\Profiles\Concerns\HasTabs;
-use App\Filament\Resources\Profiles\Concerns\ResolvesRecord;
-use App\Filament\Resources\Profiles\ProfileResource;
+use App\Filament\Resources\Users\Concerns\HasTabs;
+use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord as BaseEditRecord;
 use Filament\Support\Icons\Heroicon;
@@ -15,20 +14,19 @@ use Filament\Support\Icons\Heroicon;
 abstract class EditRecord extends BaseEditRecord implements WithTabs
 {
     use HasTabs;
-    use ResolvesRecord;
 
-    protected static string $resource = ProfileResource::class;
+    protected static string $resource = UserResource::class;
 
-    protected function getHeaderActions(): array
+    protected function authorizeAccess(): void
     {
-        return [];
+        parent::authorizeAccess();
+
+        abort_unless($this->getRecord()->isNurse(), 403);
     }
 
     public function getTitle(): string
     {
-        return $this->isOwnProfile
-            ? __('user.profile.my_profile')
-            : $this->getRecord()->full_name;
+        return $this->getRecord()->full_name;
     }
 
     public function getBreadcrumbs(): array
@@ -47,10 +45,5 @@ abstract class EditRecord extends BaseEditRecord implements WithTabs
     {
         return parent::getSaveFormAction()
             ->icon(Heroicon::OutlinedCheck);
-    }
-
-    public function getRelationManagers(): array
-    {
-        return [];
     }
 }

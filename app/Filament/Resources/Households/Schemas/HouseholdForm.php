@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Households\Schemas;
 
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -19,6 +20,10 @@ class HouseholdForm
                 TextInput::make('name')
                     ->label(__('field.household_name'))
                     ->maxLength(200)
+                    ->required(),
+
+                Hidden::make('nurse_id')
+                    ->default(fn () => auth()->id())
                     ->required(),
 
                 Repeater::make('families')

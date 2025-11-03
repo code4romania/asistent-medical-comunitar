@@ -26,8 +26,8 @@ class UpcomingAppointmentsWidget extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(
-                fn (): Builder => Appointment::query()
+            ->query(function (): Builder {
+                return Appointment::query()
                     ->with([
                         'interventions' => fn (HasMany $query) => $query
                             ->select([
@@ -38,8 +38,8 @@ class UpcomingAppointmentsWidget extends TableWidget
                                 'interventions.parent_id',
                             ]),
                     ])
-                    ->upcoming()
-            )
+                    ->upcoming();
+            })
             ->heading(__('appointment.label.plural'))
             ->columns([
                 Split::make([

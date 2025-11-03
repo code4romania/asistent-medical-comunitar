@@ -48,11 +48,6 @@ trait HasTabs
         ];
     }
 
-    public function isTableSelectionEnabled(): bool
-    {
-        return false;
-    }
-
     public function getHeading(): string
     {
         return __('beneficiary.header.list');

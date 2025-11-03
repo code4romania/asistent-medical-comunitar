@@ -95,7 +95,7 @@ class NurseStatsWidget extends StatsOverviewWidget
 
         $url = AppointmentResource::getUrl('index');
 
-        return Stat::make(__('dashboard.stats.appointments'), data_get($value, 'current'))
+        return Stat::make(__('dashboard.stats.appointments'))
             ->icon(Heroicon::CalendarDays)
             ->trend($value)
             ->url($url);

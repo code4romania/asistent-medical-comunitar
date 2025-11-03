@@ -9,17 +9,13 @@ use App\Filament\Resources\Households\Schemas\HouseholdForm;
 use App\Filament\Resources\Households\Schemas\HouseholdInfolist;
 use App\Filament\Resources\Households\Tables\HouseholdsTable;
 use App\Models\Household;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class HouseholdResource extends Resource
 {
     protected static ?string $model = Household::class;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static bool $shouldRegisterNavigation = false;
 

@@ -7,8 +7,8 @@ namespace App\Listeners\Sentry;
 use App\Models\User;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Login;
-use function Sentry\configureScope;
 use Sentry\State\Scope;
+use function Sentry\configureScope;
 
 class SetUserContext
 {

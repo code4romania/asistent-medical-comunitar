@@ -12,11 +12,9 @@ use App\Filament\Resources\Beneficiaries\Resources\Interventions\Tables\Interven
 use App\Models\Beneficiary;
 use App\Models\Catagraphy;
 use App\Models\Intervention;
-use BackedEnum;
 use Carbon\Carbon;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -25,8 +23,6 @@ use Illuminate\Support\Facades\Cache;
 class InterventionResource extends Resource
 {
     protected static ?string $model = Intervention::class;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $parentResource = BeneficiaryResource::class;
 

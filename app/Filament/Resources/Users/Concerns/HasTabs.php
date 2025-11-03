@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Profiles\Concerns;
+namespace App\Filament\Resources\Users\Concerns;
 
 use App\Concerns\TabbedLayout;
-use App\Filament\Resources\Profiles\ProfileResource;
+use App\Filament\Resources\Users\UserResource;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Support\Str;
 
@@ -46,7 +46,9 @@ trait HasTabs
 
     public function getPageUrl(string $name): string
     {
-        return ProfileResource::getUrl($name);
+        return UserResource::getUrl($name, [
+            'record' => $this->getRecord(),
+        ]);
     }
 
     public function getActiveTab(): string
@@ -61,7 +63,7 @@ trait HasTabs
     private function isActiveWhen(string $page): bool
     {
         return request()->routeIs([
-            "filament.admin.resources.profile.$page.*",
+            "filament.admin.resources.users.$page.*",
         ]);
     }
 }

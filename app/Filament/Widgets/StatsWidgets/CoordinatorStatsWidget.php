@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets\StatsWidgets;
 
-use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Filament\Widgets\Components\Stat;
 use App\Models\Appointment;
@@ -56,12 +55,9 @@ class CoordinatorStatsWidget extends StatsOverviewWidget
             ->toBase()
             ->first();
 
-        $url = AppointmentResource::getUrl('index');
-
         return Stat::make(__('dashboard.stats.appointments'))
             ->icon(Heroicon::Calendar)
-            ->trend($value)
-            ->url($url);
+            ->trend($value);
     }
 
     private function getAllNursesStat(): Stat

@@ -11,17 +11,13 @@ use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Pages\ViewCatagr
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Schemas\CatagraphyForm;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Schemas\CatagraphyInfolist;
 use App\Models\Catagraphy;
-use BackedEnum;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 
 class CatagraphyResource extends Resource
 {
     protected static ?string $model = Catagraphy::class;
-
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $parentResource = BeneficiaryResource::class;
 

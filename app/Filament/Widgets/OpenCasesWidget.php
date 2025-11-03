@@ -27,15 +27,15 @@ class OpenCasesWidget extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(
-                fn (): Builder => Intervention::query()
+            ->query(function (): Builder {
+                return Intervention::query()
                     ->onlyCases()
                     ->onlyOpen()
                     ->withCount([
                         'appointments' => fn (Builder $query) => $query->countUnique(),
                         'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
-                    ])
-            )
+                    ]);
+            })
             ->heading(__('intervention.title.open_cases_widget'))
             ->columns([
                 TextColumn::make('id')

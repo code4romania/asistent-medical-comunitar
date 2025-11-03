@@ -8,9 +8,8 @@ use App\Contracts\Pages\WithTabs;
 use App\Filament\Resources\Profiles\Concerns\HasTabs;
 use App\Filament\Resources\Profiles\Concerns\ResolvesRecord;
 use App\Filament\Resources\Profiles\ProfileResource;
-use App\Filament\Resources\Users\UserResource;
-use App\Models\User;
 use Filament\Actions\EditAction;
+use Filament\Facades\Filament;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 use Filament\Support\Icons\Heroicon;
 
@@ -28,26 +27,19 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
         return [
             EditAction::make()
                 ->icon(Heroicon::Pencil)
-                ->url(
-                    fn (User $record) => auth()->user()->is($record)
-                        ? ProfileResource::getUrl($name)
-                        : UserResource::getUrl($name, ['record' => $record])
-                )
-                ->visible(fn (User $record) => auth()->user()->can('update', $record)),
+                ->url(ProfileResource::getUrl($name)),
         ];
     }
 
     public function getTitle(): string
     {
-        return $this->isOwnProfile
-            ? __('user.profile.my_profile')
-            : $this->getRecord()->full_name;
+        return __('user.profile.my_profile');
     }
 
     public function getBreadcrumbs(): array
     {
         return [
-            auth()->user()->getFilamentName(),
+            Filament::auth()->user()->getFilamentName(),
         ];
     }
 }

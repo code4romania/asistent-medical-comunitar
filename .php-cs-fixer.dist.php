@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $rules = [
     'align_multiline_comment' => true,
@@ -195,6 +196,7 @@ $finder = Finder::create()
     ->ignoreVCS(true);
 
 return (new Config())
+    ->setParallelConfig(ParallelConfigFactory::detect())
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
