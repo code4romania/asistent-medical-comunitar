@@ -11,6 +11,9 @@ use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Resources\Profiles\ProfileResource;
 use App\Filament\Resources\Vacations\VacationResource;
+use App\Http\Middleware\EnsureUserHasCompletedProfile;
+use App\Http\Middleware\EnsureUserIsActive;
+use App\Http\Middleware\FixMissingPasswordSetAtAttribute;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
@@ -114,6 +117,9 @@ class AdminPanelProvider extends PanelProvider
             })
             ->authMiddleware([
                 Authenticate::class,
+                EnsureUserIsActive::class,
+                EnsureUserHasCompletedProfile::class,
+                FixMissingPasswordSetAtAttribute::class,
             ]);
     }
 

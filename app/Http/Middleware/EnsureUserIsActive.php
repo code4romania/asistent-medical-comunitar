@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
+use Filament\Facades\Filament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class EnsureUserIsActive
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('filament.auth.login')
+        return redirect()->to(Filament::getLoginUrl())
             ->with('error', __('user.inactive_error'));
     }
 }

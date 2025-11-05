@@ -14,6 +14,10 @@ trait ResolvesRecord
             $this->authorizeAccess();
         }
 
-        $this->callHook('beforeFill');
+        if (! method_exists($this, 'hasInfolist') || ! $this->hasInfolist()) {
+            $this->fillForm();
+        } else {
+            $this->callHook('beforeFill');
+        }
     }
 }
