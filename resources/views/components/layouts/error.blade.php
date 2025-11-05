@@ -1,21 +1,26 @@
-@props(['showBackButton' => true])
+@props([
+    'showBackButton' => true,
+    'code',
+    'title',
+    'message',
+])
 
 @php
     $homeUrl = filament()->getHomeUrl();
 @endphp
 
-<x-layouts.minimal>
+<x-layouts.minimal :$title>
     <p
         class="text-2xl font-extrabold text-primary-600 dark:text-primary-300">
-        @yield('code')
+        {{ $code }}
     </p>
 
     <h1 class="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-        @yield('title')
+        {{ $title }}
     </h1>
 
     <p class="text-lg leading-7 text-gray-600 dark:text-gray-400">
-        @yield('message')
+        {{ $message }}
     </p>
 
     @if ($showBackButton)

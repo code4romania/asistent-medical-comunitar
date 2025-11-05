@@ -113,4 +113,11 @@ class Welcome extends SimplePage
                     ]),
             ]);
     }
+
+    protected function getLayoutData(): array
+    {
+        return [
+            'title' => $this->getTitle(),
+        ];
+    }
 }

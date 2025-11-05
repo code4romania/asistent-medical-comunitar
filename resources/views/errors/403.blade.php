@@ -1,5 +1,4 @@
-@extends('errors::minimal')
-
-@section('title', __('error.403.title'))
-@section('code', '403')
-@section('message', __($exception->getMessage() ?: 'error.403.message'))
+<x-layouts.error
+    :title="__('error.403.title')"
+    :code="403"
+    :message="__($exception->getMessage() ?: 'error.403.message')" />
