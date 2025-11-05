@@ -75,7 +75,7 @@ class UserForm
 
                 Section::make()
                     ->visible(fn (Get $get) => auth()->user()->isAdmin() && Role::NURSE->is($get('role')))
-                    ->components(fn (Schema $schema) => AreaForm::configure($schema)),
+                    ->components(fn (Schema $schema) => AreaForm::configure($schema, canEditCounty: true)),
 
                 Section::make()
                     ->visible(fn () => auth()->user()->isCoordinator())

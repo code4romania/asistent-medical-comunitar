@@ -9,12 +9,13 @@ use App\Models\City;
 use Filament\Forms\Components\Select;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
 class AreaForm
 {
-    public static function configure(Schema $schema): Schema
+    public static function configure(Schema $schema, bool $canEditCounty = false): Schema
     {
         return $schema
             ->columns(1)
@@ -24,7 +25,21 @@ class AreaForm
                     ->columns()
                     ->schema([
                         TextEntry::make('activityCounty.name')
-                            ->label(__('field.county')),
+                            ->label(__('field.county'))
+                            ->hidden($canEditCounty),
+
+                        Select::make('activity_county_id')
+                            ->label(__('field.county'))
+                            ->placeholder(__('placeholder.county'))
+                            ->relationship('activityCounty', 'name')
+                            ->searchable()
+                            ->reactive()
+                            ->preload()
+                            ->required()
+                            ->afterStateUpdated(function (Set $set) {
+                                $set('activity_cities', null);
+                            })
+                            ->visible($canEditCounty),
 
                         Select::make('activity_cities')
                             ->label(__('field.cities'))

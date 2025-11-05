@@ -26,9 +26,7 @@ abstract class EditRecord extends BaseEditRecord implements WithTabs
 
     public function getTitle(): string
     {
-        return $this->isOwnProfile
-            ? __('user.profile.my_profile')
-            : $this->getRecord()->full_name;
+        return __('user.profile.my_profile');
     }
 
     public function getBreadcrumbs(): array

@@ -56,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->resourceEditPageRedirect('view')
             ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
+            ->passwordReset()
             ->userMenuItems([
                 Action::make('vacations')
                     ->label(__('vacation.label.plural'))
