@@ -93,7 +93,7 @@ class AdminPanelProvider extends PanelProvider
                 //
             ])
             ->routes(function () {
-                Route::get('/welcome/{user:uuid}', \App\Http\Livewire\Welcome::class)->name('auth.welcome');
+                Route::get('/welcome/{user:uuid}', \App\Livewire\Welcome::class)->name('auth.welcome');
             })
             ->authenticatedRoutes(function () {
                 Route::get('/media/{media:uuid}', \App\Http\Controllers\MediaController::class)->name('media');

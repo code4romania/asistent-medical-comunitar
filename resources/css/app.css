@@ -2,6 +2,8 @@
 @import '../../vendor/malzariey/filament-daterangepicker-filter/resources/css/filament-daterangepicker.css';
 @import './calendar.css';
 
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
 
 @source '../../vendor/commitglobal/app-version/resources/views';
 @source '../../vendor/saade/filament-fullcalendar/resources/views';
