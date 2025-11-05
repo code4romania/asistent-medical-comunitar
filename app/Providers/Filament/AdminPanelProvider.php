@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
-use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Settings;
 use App\Filament\Pages\Settings\PersonalInfo;
 use App\Filament\Resources\Appointments\AppointmentResource;
@@ -31,6 +30,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 use Spatie\Onboard\Facades\Onboard;
 
 class AdminPanelProvider extends PanelProvider
@@ -54,9 +54,6 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearch(false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Dashboard::class,
-            ])
             ->resourceEditPageRedirect('view')
             ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->userMenuItems([
@@ -87,6 +84,9 @@ class AdminPanelProvider extends PanelProvider
                     ->myProfileComponents([
                         'personal_info' => PersonalInfo::class,
                     ]),
+
+                FilamentFullCalendarPlugin::make()
+                    ->editable(),
             ])
             ->widgets([
                 //

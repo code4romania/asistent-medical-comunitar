@@ -5,78 +5,88 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Appointments\Widgets;
 
 use App\Models\Appointment;
-use Filament\Actions\Action;
-use Guava\Calendar\Enums\CalendarViewType;
-use Guava\Calendar\Filament\CalendarWidget as Widget;
-use Guava\Calendar\ValueObjects\CalendarResource;
-use Guava\Calendar\ValueObjects\EventDropInfo;
-use Guava\Calendar\ValueObjects\EventResizeInfo;
-use Guava\Calendar\ValueObjects\FetchInfo;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Illuminate\Support\HtmlString;
+use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
 
-class CalendarWidget extends Widget
+class CalendarWidget extends FullCalendarWidget
 {
-    protected CalendarViewType $calendarView = CalendarViewType::ResourceTimeGridWeek;
+    public Model | string | null $model = Appointment::class;
 
-    protected bool $eventResizeEnabled = true;
+    protected string $modalWidth = 'xl';
 
-    protected bool $eventDragEnabled = true;
+    protected function headerActions(): array
+    {
+        return [
+            //
+        ];
+    }
 
-    protected bool $eventClickEnabled = true;
+    public function config(): array
+    {
+        return [
+            'firstDay' => 1,
+            'headerToolbar' => [
+                'left' => 'prev,next today',
+                'center' => 'title',
+                'right' => 'dayGridMonth,timeGridWeek',
+            ],
+            'eventTimeFormat' => [
+                'hour' => '2-digit',
+                'minute' => '2-digit',
+                'omitZeroMinute' => false,
+            ],
+            'aspectRatio' => 1.35,
+            'dayMaxEvents' => true,
 
-    protected bool $dayMaxEvents = true;
+        ];
+    }
 
-    protected function getEvents(FetchInfo $info): Builder
+    public function fetchEvents(array $fetchInfo): array
     {
         return Appointment::query()
             ->with('beneficiary:id,full_name')
-            ->betweenDates($info->start, $info->end);
+            ->betweenDates($fetchInfo['start'], $fetchInfo['end'])
+            ->get()
+            ->map->toEventData()
+            ->toArray();
     }
 
-    protected function getResources(): Collection|array|Builder
+    public function onEventDrop(array $event, array $oldEvent, array $relatedEvents, array $delta, ?array $oldResource, ?array $newResource): bool
     {
-        return [
-            CalendarResource::make('appointments')
-                ->title(''),
-
-        ];
+        return $this->update($event);
     }
 
-    public function getOptions(): array
+    public function onEventResize(array $event, array $oldEvent, array $relatedEvents, array $startDelta, array $endDelta): bool
     {
-        return [
-            'buttonText' => [
-                'today' => __('calendar.button.today'),
-            ],
-        ];
+        return $this->update($event);
     }
 
-    public function getHeaderActions(): array
+    private function update(array $event): bool
     {
-        return [
-            Action::make('month')
-                ->label(__('calendar.view.month'))
-                ->action(fn () => $this->setOption('view', CalendarViewType::DayGridMonth))
-            // ->color($this->getView() === 'dayGridMonth' ? 'primary' : 'secondary')
-            ,
-        ];
+        $this->resolveRecord($event['id'])
+            ->updateDateTime($event['start'], $event['end']);
+
+        return false;
     }
 
-    protected function eventContent(): HtmlString|string
+    public function eventContent(): string
     {
-        return view('components.calendar-event')->render();
-    }
+        return <<<'JS'
+            function({ event, timeText }) {
+                const html = `
+                    <div class="fc-event-content">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-bold fc-event-time">${timeText}</span>
+                        </div>
 
-    public function onEventResize(EventResizeInfo $info, Model $event): bool
-    {
-        return $event->updateDateTime($info->event->getStart(), $info->event->getEnd());
-    }
+                        <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+                            ${event.extendedProps.description}
+                        </div>
+                    </div>
+                `;
 
-    protected function onEventDrop(EventDropInfo $info, Model $event): bool
-    {
-        return $event->updateDateTime($info->event->getStart(), $info->event->getEnd());
+                return { html };
+            }
+        JS;
     }
 }

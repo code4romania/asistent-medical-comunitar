@@ -23,7 +23,7 @@ use Filament\Tables\Columns\Column;
 use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
-use function Filament\Support\get_model_label;
+use Illuminate\Support\Str;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -123,20 +123,28 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         Table::configureUsing(function (Table $table) {
+            $format = function (string $class): string {
+                return Str::of($class)
+                    ->classBasename()
+                    ->kebab()
+                    ->replace('-', '_')
+                    ->toString();
+            };
+
             $table
                 ->emptyStateIcon(function (Table $table) {
                     if (! $table->hasAlteredQuery()) {
                         return Heroicon::OutlinedClipboardDocument;
                     }
                 })
-                ->emptyStateHeading(function (Table $table) {
+                ->emptyStateHeading(function (Table $table) use ($format) {
                     if (! $table->hasAlteredQuery()) {
-                        return __(get_model_label($table->getModel()) . '.empty.title');
+                        return __($format($table->getModel()) . '.empty.title');
                     }
                 })
-                ->emptyStateDescription(function (Table $table) {
+                ->emptyStateDescription(function (Table $table) use ($format) {
                     if (! $table->hasAlteredQuery()) {
-                        return __(get_model_label($table->getModel()) . '.empty.description');
+                        return __($format($table->getModel()) . '.empty.description');
                     }
                 });
         });

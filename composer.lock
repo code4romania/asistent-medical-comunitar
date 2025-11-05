@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b4f038280c947c30a3745952647e572",
+    "content-hash": "41b1a66df36e53f9d65adc3e0e1cebc9",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -2577,86 +2577,6 @@
             "time": "2024-07-20T21:45:45+00:00"
         },
         {
-            "name": "guava/calendar",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/GuavaCZ/calendar.git",
-                "reference": "5e01802f406ddebeb2bdd739fc43adbe5060d719"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/GuavaCZ/calendar/zipball/5e01802f406ddebeb2bdd739fc43adbe5060d719",
-                "reference": "5e01802f406ddebeb2bdd739fc43adbe5060d719",
-                "shasum": ""
-            },
-            "require": {
-                "filament/filament": "^4.0-beta",
-                "illuminate/contracts": "^11.0|^12.0",
-                "php": "^8.1|^8.2",
-                "spatie/laravel-package-tools": "^1.14.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^7.8|^8.0",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^9.0|^10.0",
-                "pestphp/pest": "^2.36",
-                "pestphp/pest-plugin": "^2.1.1",
-                "pestphp/pest-plugin-arch": "^2.0",
-                "pestphp/pest-plugin-laravel": "^2.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Guava\\Calendar\\CalendarServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Guava\\Calendar\\": "src/",
-                    "Guava\\Calendar\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukas Frey",
-                    "email": "lukas.frey@guava.cz",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Adds support for vkurko/calendar to Filament PHP.",
-            "homepage": "https://github.com/GuavaCZ/calendar",
-            "keywords": [
-                "Guava",
-                "calendar",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/GuavaCZ/calendar/issues",
-                "source": "https://github.com/GuavaCZ/calendar/tree/2.0.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GuavaCZ",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-08-18T17:02:56+00:00"
-        },
-        {
             "name": "guzzlehttp/guzzle",
             "version": "7.10.0",
             "source": {
@@ -3516,16 +3436,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.36.1",
+            "version": "v12.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cad110d7685fbab990a6bb8184d0cfd847d7c4d8"
+                "reference": "3c3c4ad30f5b528b164a7c09aa4ad03118c4c125"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cad110d7685fbab990a6bb8184d0cfd847d7c4d8",
-                "reference": "cad110d7685fbab990a6bb8184d0cfd847d7c4d8",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3c3c4ad30f5b528b164a7c09aa4ad03118c4c125",
+                "reference": "3c3c4ad30f5b528b164a7c09aa4ad03118c4c125",
                 "shasum": ""
             },
             "require": {
@@ -3731,7 +3651,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-10-29T14:20:57+00:00"
+            "time": "2025-11-04T15:39:33+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -7213,6 +7133,80 @@
             "time": "2025-02-25T09:09:36+00:00"
         },
         {
+            "name": "saade/filament-fullcalendar",
+            "version": "v4.0.0-beta2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saade/filament-fullcalendar.git",
+                "reference": "947cea66dfff65eb2af752949ee6e661cfc06b62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/947cea66dfff65eb2af752949ee6e661cfc06b62",
+                "reference": "947cea66dfff65eb2af752949ee6e661cfc06b62",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "illuminate/contracts": "^10.0|^11.0|^12.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.92.7"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^7.0|^8.0",
+                "nunomaduro/larastan": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Saade\\FilamentFullCalendar\\FilamentFullCalendarServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Saade\\FilamentFullCalendar\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saade",
+                    "email": "saade@outlook.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The Most Popular JavaScript Calendar integrated with Filament 💛",
+            "homepage": "https://github.com/saade/filament-fullcalendar",
+            "keywords": [
+                "filament-fullcalendar",
+                "laravel",
+                "saade"
+            ],
+            "support": {
+                "issues": "https://github.com/saade/filament-fullcalendar/issues",
+                "source": "https://github.com/saade/filament-fullcalendar/tree/v4.0.0-beta2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/saade",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-02T15:17:34+00:00"
+        },
+        {
             "name": "scrivo/highlight.php",
             "version": "v9.18.1.10",
             "source": {
@@ -7832,16 +7826,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "11.17.2",
+            "version": "11.17.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "3e535836da341776b1616002eb9e2a5776fa9a4d"
+                "reference": "0a19683edb482622a672913ed96de4095f7cd5d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/3e535836da341776b1616002eb9e2a5776fa9a4d",
-                "reference": "3e535836da341776b1616002eb9e2a5776fa9a4d",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/0a19683edb482622a672913ed96de4095f7cd5d1",
+                "reference": "0a19683edb482622a672913ed96de4095f7cd5d1",
                 "shasum": ""
             },
             "require": {
@@ -7926,7 +7920,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.17.2"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.17.3"
             },
             "funding": [
                 {
@@ -7938,7 +7932,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-03T08:29:05+00:00"
+            "time": "2025-11-04T10:15:46+00:00"
         },
         {
             "name": "spatie/laravel-onboard",
@@ -16833,7 +16827,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -1,9 +1,10 @@
 @import '../../vendor/filament/filament/resources/css/theme.css';
-@import '../../vendor/guava/calendar/resources/css/theme.css';
 @import '../../vendor/malzariey/filament-daterangepicker-filter/resources/css/filament-daterangepicker.css';
+@import './calendar.css';
+
 
 @source '../../vendor/commitglobal/app-version/resources/views';
-@source '../../vendor/guava/calendar/resources/views';
+@source '../../vendor/saade/filament-fullcalendar/resources/views';
 @source '../../vendor/jeffgreco13/filament-breezy/resources';
 @source '../../vendor/malzariey/filament-daterangepicker-filter/resources';
 @source '../../resources/views';
