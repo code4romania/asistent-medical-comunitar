@@ -1,5 +1,6 @@
 <x-filament::page>
     <x-tabs :tabs="$this->getTabs()">
+        {{--
         <x-filament::form wire:submit.prevent="generate">
             {{ $this->form }}
 
@@ -8,6 +9,7 @@
                 :full-width="$this->hasFullWidthFormActions()"
             />
         </x-filament::form>
+        --}}
     </x-tabs>
 
     {{ $this->report }}

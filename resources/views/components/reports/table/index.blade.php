@@ -2,7 +2,7 @@
 
 <div class="w-full overflow-x-auto">
     @if (blank($record->data))
-        <x-tables::empty-state
+        <x-filament::empty-state
             icon="icon-clipboard"
             :heading="__('report.no-results.title')"
             :description="__('report.no-results.description')" />

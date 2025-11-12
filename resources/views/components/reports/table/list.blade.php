@@ -6,6 +6,7 @@
 
 <div class="w-full overflow-x-scroll">
     <table class="min-w-full border-collapse table-fixed text-start">
+        {{--
         @if (null !== $columns)
             <thead class="text-base bg-gray-500/5">
                 <x-tables::row>
@@ -59,5 +60,6 @@
                 </x-tables::row>
             @endforeach
         </tbody>
+        --}}
     </table>
 </div>
