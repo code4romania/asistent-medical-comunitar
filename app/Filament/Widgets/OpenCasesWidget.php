@@ -4,24 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use App\Concerns\HasConditionalTableEmptyState;
-use App\Filament\Resources\BeneficiaryResource;
-use App\Filament\Resources\InterventionResource;
-use App\Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Models\Intervention;
-use Closure;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Concerns\CanPaginateRecords;
-use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
 
-class OpenCasesWidget extends BaseWidget
+class OpenCasesWidget extends TableWidget
 {
-    use HasConditionalTableEmptyState;
-    use CanPaginateRecords {
-        paginateTableQuery as protected;
-    }
-
     protected static ?int $sort = 1;
 
     protected int | string | array $columnSpan = [
@@ -33,92 +24,51 @@ class OpenCasesWidget extends BaseWidget
         return InterventionResource::canViewAny();
     }
 
-    protected function getTableHeading(): string
+    public function table(Table $table): Table
     {
-        return __('intervention.title.open_cases_widget');
-    }
+        return $table
+            ->query(function (): Builder {
+                return Intervention::query()
+                    ->onlyCases()
+                    ->onlyOpen()
+                    ->withCount([
+                        'appointments' => fn (Builder $query) => $query->countUnique(),
+                        'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
+                    ]);
+            })
+            ->heading(__('intervention.title.open_cases_widget'))
+            ->columns([
+                TextColumn::make('id')
+                    ->label(__('field.id'))
+                    ->prefix('#')
+                    ->sortable(),
 
-    protected function getTableQuery(): Builder
-    {
-        return Intervention::query()
-            ->onlyCases()
-            ->onlyOpen()
-            ->withCount([
-                'appointments' => fn (Builder $query) => $query->countUnique(),
-                'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
-            ]);
-    }
+                TextColumn::make('beneficiary.full_name')
+                    ->label(__('field.beneficiary'))
+                    ->sortable(),
 
-    protected function getTableQueryStringIdentifier(): ?string
-    {
-        return 'cases';
-    }
+                TextColumn::make('name')
+                    ->label(__('field.intervention_name')),
 
-    protected function getDefaultTableSortColumn(): ?string
-    {
-        return 'id';
-    }
+                TextColumn::make('realized_interventions_count')
+                    ->label(__('field.services_realized'))
+                    ->alignRight()
+                    ->sortable(),
 
-    protected function getDefaultTableSortDirection(): ?string
-    {
-        return 'desc';
-    }
-
-    protected function getTableColumns(): array
-    {
-        return [
-            TextColumn::make('id')
-                ->label(__('field.id'))
-                ->prefix('#')
-                ->size('sm')
-                ->sortable(),
-
-            TextColumn::make('beneficiary.full_name')
-                ->label(__('field.beneficiary'))
-                ->size('sm')
-                ->sortable(),
-
-            TextColumn::make('name')
-                ->label(__('field.intervention_name'))
-                ->size('sm'),
-
-            TextColumn::make('realized_interventions_count')
-                ->label(__('field.services_realized'))
-                ->sortable(),
-
-            TextColumn::make('appointments_count')
-                ->counts('appointment')
-                ->label(__('field.appointments'))
-                ->sortable(),
-        ];
-    }
-
-    protected function getTableRecordUrlUsing(): ?Closure
-    {
-        return fn (Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
-            'beneficiary' => $record->beneficiary_id,
-            'record' => $record,
-        ]);
-    }
-
-    protected function getTableActions(): array
-    {
-        return [
-            Action::make('view')
-                ->label(__('intervention.action.view_case'))
-                ->url($this->getTableRecordUrlUsing())
-                ->size('sm')
-                ->icon(null),
-        ];
-    }
-
-    protected function getTableEmptyStateIcon(): ?string
-    {
-        return 'icon-empty-state';
-    }
-
-    protected function getTableEmptyStateHeading(): ?string
-    {
-        return __('intervention.empty.title');
+                TextColumn::make('appointments_count')
+                    ->counts('appointment')
+                    ->label(__('field.appointments'))
+                    ->alignRight()
+                    ->sortable(),
+            ])
+            ->recordUrl(
+                fn (Intervention $record) => InterventionResource::getUrl('view', [
+                    'beneficiary' => $record->beneficiary_id,
+                    'record' => $record,
+                ])
+            )
+            ->defaultSort('id', 'desc')
+            ->queryStringIdentifier('cases')
+            ->paginated([10]);
     }
 }

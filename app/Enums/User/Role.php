@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace App\Enums\User;
 
-use App\Concerns;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum Role: string
+enum Role: string implements HasLabel
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasLabel;
+    use Arrayable;
+    use Comparable;
 
     case ADMIN = 'admin';
     case COORDINATOR = 'coordinator';
     case NURSE = 'nurse';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'user.role';
+        return match ($this) {
+            self::ADMIN => __('user.role.admin'),
+            self::COORDINATOR => __('user.role.coordinator'),
+            self::NURSE => __('user.role.nurse'),
+        };
     }
 }

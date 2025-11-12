@@ -1,81 +1,195 @@
-:root {
-    --fc-event-text-color: theme(colors.black);
-    --fc-small-font-size: theme(fontSize.xs);
-    --fc-event-bg-color: theme(colors.gray.50);
+/* @import '../../vendor/saade/filament-fullcalendar/resources/css/filament-fullcalendar.css'; */
+
+.filament-fullcalendar {
+    /* UI */
+    --fc-small-font-size: var(--text-sm);
+
+    --fc-border-color: color-mix(in oklab,
+            var(--color-gray-950) 10%,
+            transparent);
+
+    --fc-highlight-color: color-mix(in oklab,
+            var(--primary-600) 5%,
+            transparent);
+
+    --fc-today-bg-color: color-mix(in oklab,
+            var(--primary-600) 5%,
+            transparent);
+
+    /* Buttons */
+    --fc-button-text-color: var(--color-white);
+    --fc-button-bg-color: var(--primary-600);
+    --fc-button-border-color: transparent;
+    --fc-button-hover-bg-color: var(--primary-500);
+    --fc-button-hover-border-color: transparent;
+    --fc-button-active-bg-color: var(--primary-500);
+    --fc-button-active-border-color: transparent;
+
+    /* Events */
+    --fc-event-bg-color: var(--primary-400);
+    --fc-event-border-color: var(--primary-400);
+    --fc-event-text-color: var(--primary-900);
+
+    html.dark & {
+        /* UI */
+        --fc-border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --fc-page-bg-color: var(--color-gray-950);
+        --fc-neutral-bg-color: var(--color-gray-800);
+
+        /* Buttons */
+        --fc-button-text-color: var(--color-white);
+        --fc-button-bg-color: var(--primary-700);
+        --fc-button-border-color: transparent;
+        --fc-button-hover-bg-color: var(--primary-500);
+        --fc-button-hover-border-color: transparent;
+        --fc-button-active-bg-color: var(--primary-500);
+        --fc-button-active-border-color: transparent;
+
+        /* Events */
+        --fc-event-bg-color: var(--primary-600);
+        --fc-event-border-color: var(--primary-600);
+        --fc-event-text-color: var(--color-white);
+    }
+
+    .fc-button {
+        @apply rounded-lg px-3 py-2 text-sm font-medium !outline-none !shadow-none;
+
+        &:not([disabled]) {
+            @apply focus-visible:ring-2 focus-visible:ring-primary-500/50 dark:focus-visible:ring-primary-400/50;
+        }
+
+        &[disabled] {
+            @apply cursor-default opacity-70;
+        }
+    }
+
+    .fc-view table,
+    .fc-view:not(.fc-list) table th,
+    .fc-list {
+        @apply rounded-t-xl;
+    }
+
+    .fc-list {
+        @apply overflow-hidden;
+
+        .fc-list-event-title a {
+            @apply cursor-pointer;
+        }
+
+        .fc-list-sticky .fc-list-day th {
+            @apply bg-inherit;
+        }
+    }
+
+    .fc-event {
+        @apply border-0 border-l-4 border-primary-500;
+        @apply rounded-none px-1 py-1.5;
+        @apply bg-gray-50 dark:bg-gray-800;
+        @apply text-sm;
+
+        .fc-event-content {
+            @apply overflow-hidden;
+        }
+    }
+
+    .fc-timegrid-event-harness-inset .fc-timegrid-event,
+    .fc-timegrid-event.fc-event-mirror,
+    .fc-timegrid-more-link {
+        @apply shadow-none;
+    }
 }
 
-.fc-toolbar-chunk {
-    @apply space-y-1;
-}
 
-.fc-toolbar-title {
-    @apply !text-lg leading-5 md:!text-3xl;
-}
 
-.filament-fullcalendar--calendar.fc .fc-button {
-    @apply transition-colors outline-none rounded-lg font-medium text-sm text-white min-h-[2.25rem] px-[6px] md:px-4 py-1 shadow;
-}
+/* /////////////////??????????????????????????????????????????????///////////////////// */
 
-.filament-fullcalendar--calendar.fc .fc-button-primary {
-    @apply bg-primary-600 border-primary-600;
-}
-.filament-fullcalendar--calendar.fc .fc-daygrid-day-top {
-    @apply pt-px pr-px mt-px mr-px;
-}
 
-.filament-fullcalendar--calendar.fc .fc-daygrid-day-number {
-    @apply inline-flex items-center justify-center w-6 h-6 p-0 text-sm rounded-full;
-}
 
-.filament-fullcalendar--calendar.fc .fc-button-primary:hover {
-    @apply bg-primary-500 border-primary-600;
-}
+/* .fc-toolbar-title {
+        @apply !text-lg leading-5 md:!text-3xl;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-button-primary:disabled {
-    @apply bg-primary-600 opacity-70 border-primary-600;
-}
+    .fc-button {
+        @apply transition-colors outline-none rounded-lg font-medium text-sm text-white min-h-[2.25rem] px-[6px] md:px-4 py-1 shadow;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled).fc-button-active, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):active {
-    @apply shadow-none bg-primary-500 border-primary-600;
-}
+    .fc-button-primary {
+        @apply bg-primary-600 border-primary-600;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-button-primary:focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled).fc-button-active:focus, .filament-fullcalendar--calendar.fc .fc-button-primary:not(:disabled):active:focus {
-    @apply shadow-none outline-none bg-primary-700 ring-2 ring-inset ring-offset-2 ring-offset-primary-700 ring-white;
-}
+    .fc-daygrid-day-top {
+        @apply pt-px pr-px mt-px mr-px;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-daygrid-day.fc-day-today {
-    @apply bg-inherit;
-}
+    .fc-daygrid-day-number {
+        @apply inline-flex items-center justify-center w-6 h-6 p-0 text-sm rounded-full;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-    @apply font-bold text-white bg-primary-700;
-}
+    .fc-button-primary:hover {
+        @apply bg-primary-500 border-primary-600;
+    }
 
-.filament-fullcalendar--calendar.fc .fc-highlight {
-    @apply bg-primary-100/25;
-}
+    .fc-button-primary:disabled {
+        @apply bg-primary-600 opacity-70 border-primary-600;
+    }
 
-.fc-event {
-    @apply !border-0 !border-l-4 !rounded-none !px-1 !py-1.5;
-}
+    .fc-button-primary:not(:disabled).fc-button-active, .fc-button-primary:not(:disabled):active {
+        @apply shadow-none bg-primary-500 border-primary-600;
+    }
 
-.fc-daygrid-more-link {
-    @apply flex items-center justify-center w-full;
-    @apply text-xs font-bold text-primary-700;
-}
+    .fc-button-primary:focus, .fc-button-primary:not(:disabled):focus, .fc-button-primary:not(:disabled).fc-button-active:focus, .fc-button-primary:not(:disabled):active:focus {
+        @apply shadow-none outline-none bg-primary-700 ring-2 ring-inset ring-offset-2 ring-offset-primary-700 ring-white;
+    }
 
-.fc-daygrid-day-frame {
-    @apply overflow-hidden;
-}
+    .fc-daygrid-day.fc-day-today {
+        @apply bg-inherit;
 
-.fc-daygrid-day-events, .fc-popover-body {
-    @apply flex flex-col gap-1;
-}
+        .fc-daygrid-day-number {
+            @apply font-bold text-white bg-primary-700;
+        }
+    }
 
-.fc-popover {
-    @apply !z-10 rounded-lg overflow-hidden;
-}
+    .fc-highlight {
+        @apply bg-primary-100/25;
+    }
 
-.fc-popover-header {
-    @apply !bg-gray-700 leading-5 !text-white !px-2 !py-1.5 text-sm;
-}
+    .fc-v-event {
+        @apply border-0 border-l-4 border-primary-600;
+        @apply rounded-none px-1 py-1.5;
+        @apply bg-gray-50 dark:bg-gray-800;
+
+        .fc-event-content {
+            @apply overflow-hidden;
+        }
+    }
+
+    .fc-event-past {
+        .fc-event-content {
+            @apply opacity-50;
+
+            &:hover {
+                @apply opacity-100;
+            }
+        }
+    }
+
+    .fc-daygrid-more-link {
+        @apply flex items-center justify-center w-full;
+        @apply text-xs font-bold text-primary-700;
+    }
+
+    .fc-daygrid-day-frame {
+        @apply overflow-hidden;
+    }
+
+    .fc-daygrid-day-events, .fc-popover-body {
+        @apply flex flex-col gap-1;
+    }
+
+    .fc-popover {
+        @apply !z-10 rounded-lg overflow-hidden;
+    }
+
+    .fc-popover-header {
+        @apply !bg-gray-700 leading-5 !text-white !px-2 !py-1.5 text-sm;
+    } */

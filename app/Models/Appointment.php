@@ -7,7 +7,7 @@ namespace App\Models;
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurse;
-use App\Filament\Resources\AppointmentResource;
+use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
 use DateTime;
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Saade\FilamentFullCalendar\Data\EventData;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -82,12 +83,14 @@ class Appointment extends Model
 
     public function getLabelAttribute(): string
     {
-        return sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
+        return \sprintf('#%d / %s', $this->id, $this->date->toFormattedDate());
     }
 
     public function getUrlAttribute(): string
     {
-        return AppointmentResource::getUrl('view', $this);
+        return AppointmentResource::getUrl('view', [
+            'record' => $this,
+        ]);
     }
 
     public function getStartAttribute(): DateTime
@@ -102,16 +105,27 @@ class Appointment extends Model
             ->setTimeFrom($this->end_time);
     }
 
-    public function updateDateTime(string $start, string $end)
+    public function updateDateTime(Carbon | string $start, Carbon | string $end): bool
     {
-        $start = Carbon::createFromTimeString($start);
-        $end = Carbon::createFromTimeString($end);
+        if (\is_string($start)) {
+            $start = Carbon::parse($start);
+        }
+
+        if (\is_string($end)) {
+            $end = Carbon::parse($end);
+        }
+
+        if ($start->isAfter($end)) {
+            return false;
+        }
 
         $this->update([
             'date' => $start->format('Y-m-d'),
             'start_time' => $start->format('H:i:s'),
             'end_time' => $end->format('H:i:s'),
         ]);
+
+        return true;
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -120,5 +134,18 @@ class Appointment extends Model
             ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    public function toEventData(): EventData
+    {
+        return EventData::make()
+            ->id($this->id)
+            ->title($this->type)
+            ->start($this->start)
+            ->end($this->end)
+            ->url(AppointmentResource::getUrl('view', ['record' => $this]))
+            ->extendedProps([
+                'description' => "#{$this->id} - {$this->beneficiary->full_name}",
+            ]);
     }
 }

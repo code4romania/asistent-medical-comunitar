@@ -1,5 +1,4 @@
-@extends('errors::minimal')
-
-@section('title', __('error.419.title'))
-@section('code', '419')
-@section('message', __('error.419.message'))
+<x-layouts.error
+    :title="__('error.419.title')"
+    :code="419"
+    :message="__('error.419.message')" />

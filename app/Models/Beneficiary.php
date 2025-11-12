@@ -14,6 +14,7 @@ use App\Enums\Beneficiary\ReasonRemoved;
 use App\Enums\Beneficiary\Type;
 use App\Enums\Beneficiary\WorkStatus;
 use App\Enums\Gender;
+use App\Models\Intervention\OcasionalIntervention;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Znck\Eloquent\Relations\BelongsToThrough;
@@ -100,7 +102,7 @@ class Beneficiary extends Model
 
     public function ocasionalInterventions(): HasMany
     {
-        return $this->hasMany(Intervention\OcasionalIntervention::class);
+        return $this->hasMany(OcasionalIntervention::class);
     }
 
     public function catagraphy(): HasOne
@@ -167,6 +169,23 @@ class Beneficiary extends Model
             ->isEmpty();
     }
 
+    public function getCnpWithFallbackAttribute(): string | HtmlString
+    {
+        if ($this->does_not_provide_cnp) {
+            return __('field.does_not_provide_cnp');
+        }
+
+        if ($this->does_not_have_cnp) {
+            return __('field.does_not_have_cnp');
+        }
+
+        if (filled($this->cnp)) {
+            return $this->cnp;
+        }
+
+        return new HtmlString('&mdash;');
+    }
+
     public function isRegular(): bool
     {
         return $this->type === Type::REGULAR;
@@ -185,6 +204,11 @@ class Beneficiary extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder

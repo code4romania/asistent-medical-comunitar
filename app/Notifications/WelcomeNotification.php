@@ -37,7 +37,7 @@ class WelcomeNotification extends Notification
             ->line(__('welcome.email.steps.intro'))
             ->line(__('welcome.email.steps.set_password'))
             ->action(__('welcome.email.submit'), URL::signedRoute(
-                'filament.auth.welcome',
+                'filament.admin.auth.welcome',
                 ['user' => $notifiable]
             ))
             ->line(__('welcome.email.steps.login'))

@@ -11,6 +11,7 @@ use App\Imports\NursesImport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 class ImportUsersCommand extends Command
 {
@@ -52,7 +53,7 @@ class ImportUsersCommand extends Command
             (new $importer)->import($file, 'local');
 
             Storage::disk('local')->delete($file);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->error($th->getMessage());
 
             return self::FAILURE;

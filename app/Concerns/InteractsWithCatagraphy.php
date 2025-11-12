@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Concerns;
 
-use App\Filament\Resources\CatagraphyResource;
+use App\Filament\Resources\Catagraphies\CatagraphyResource;
 use App\Models\Catagraphy;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

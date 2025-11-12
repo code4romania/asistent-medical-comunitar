@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums\CommunityActivity;
 
-use App\Concerns;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum Administrative: string
+enum Administrative: string implements HasLabel
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasLabel;
+    use Arrayable;
+    use Comparable;
 
     case SOFTWARE = 'software';
     case MEETING = 'meeting';
@@ -18,8 +19,14 @@ enum Administrative: string
     case PLANNING = 'planning';
     case OTHER = 'other';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'community_activity.administrative';
+        return match ($this) {
+            self::SOFTWARE => __('community_activity.administrative.software'),
+            self::MEETING => __('community_activity.administrative.meeting'),
+            self::TRAINING => __('community_activity.administrative.training'),
+            self::PLANNING => __('community_activity.administrative.planning'),
+            self::OTHER => __('community_activity.administrative.other'),
+        };
     }
 }

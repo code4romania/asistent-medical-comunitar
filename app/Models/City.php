@@ -68,4 +68,12 @@ class City extends Model
 
         return null;
     }
+
+    public function getFormattedNameAttribute(): string
+    {
+        return view('forms.components.option-label', [
+            'name' => $this->name,
+            'suffix' => $this->parent_name,
+        ])->render();
+    }
 }

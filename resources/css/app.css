@@ -1,2 +1,75 @@
-@import '../../vendor/filament/filament/resources/css/app.css';
+@import '../../vendor/filament/filament/resources/css/theme.css';
+@import '../../vendor/malzariey/filament-daterangepicker-filter/resources/css/filament-daterangepicker.css';
 @import './calendar.css';
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@source '../../vendor/commitglobal/app-version/resources/views';
+@source '../../vendor/saade/filament-fullcalendar/resources/views';
+@source '../../vendor/jeffgreco13/filament-breezy/resources';
+@source '../../vendor/malzariey/filament-daterangepicker-filter/resources';
+@source '../../resources/views';
+@source '../../app/Filament';
+@source '../../app';
+
+
+@layer components {
+    .fi-wi-stats-overview-stat {
+        @apply h-full;
+    }
+
+    .fi-tabs-component-tab {
+        .fi-ta-ctn {
+            @apply rounded-tl-none;
+        }
+    }
+
+    .fi-page-sub-navigation-sidebar-ctn {
+        @apply w-56;
+    }
+
+    .fi-topbar {
+        @apply bg-primary-700 dark:bg-gray-950;
+
+        .fi-logo {
+            @apply text-primary-50;
+        }
+    }
+
+    .fi-sidebar {
+        .fi-logo {
+            @apply text-primary-900 dark:text-primary-50;
+        }
+    }
+
+    .fi-topbar-open-sidebar-btn {
+        @apply !text-primary-50;
+
+        &:hover, &:focus {
+            @apply !text-primary-100;
+        }
+    }
+
+    .fi-topbar-nav-groups {
+        @apply justify-center flex-1;
+    }
+
+    .fi-topbar-item .fi-active,
+    .fi-topbar-item-btn:hover,
+    .fi-topbar-item-btn:focus {
+        @apply bg-gray-50;
+
+        .fi-topbar-item-label {
+            @apply text-primary-700;
+        }
+    }
+
+    .fi-topbar-item-label {
+        @apply font-semibold text-primary-50;
+    }
+
+    .fi-empty-state {
+        @apply shadow-none ring-0;
+    }
+}

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Listeners\Sentry;
 
 use App\Listeners\Auth\Logout;
-use function Sentry\configureScope;
 use Sentry\State\Scope;
+use function Sentry\configureScope;
 
 class RemoveUserContext
 {

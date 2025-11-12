@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Segment;
 
-use App\Concerns;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum Age: string
+enum Age: string implements HasLabel
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasLabel;
+    use Arrayable;
+    use Comparable;
 
     case VCV_01 = 'VCV_01';
     case VCV_02 = 'VCV_02';
@@ -20,8 +21,16 @@ enum Age: string
     case VCV_06 = 'VCV_06';
     case TOTAL = 'total';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'report.segment.value.age';
+        return match ($this) {
+            self::VCV_01 => __('report.segment.value.age.VCV_01'),
+            self::VCV_02 => __('report.segment.value.age.VCV_02'),
+            self::VCV_03 => __('report.segment.value.age.VCV_03'),
+            self::VCV_04 => __('report.segment.value.age.VCV_04'),
+            self::VCV_05 => __('report.segment.value.age.VCV_05'),
+            self::VCV_06 => __('report.segment.value.age.VCV_06'),
+            self::TOTAL => __('report.segment.value.age.total'),
+        };
     }
 }

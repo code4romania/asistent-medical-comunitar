@@ -4,31 +4,36 @@ declare(strict_types=1);
 
 namespace App\Enums\Report;
 
-use App\Concerns;
-use App\Contracts;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum Status: string implements Contracts\Enums\HasColor
+enum Status: string implements HasColor, HasLabel
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasColor;
-    use Concerns\Enums\HasLabel;
+    use Arrayable;
+    use Comparable;
 
     case PENDING = 'pending';
     case FINISHED = 'finished';
     case FAILED = 'failed';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'report.status';
+        return match ($this) {
+            self::PENDING => __('report.status.pending'),
+            self::FINISHED => __('report.status.finished'),
+            self::FAILED => __('report.status.failed'),
+        };
     }
 
-    public static function colors(): array
+    public function getColor(): string|array|null
     {
-        return [
-            'pending' => 'bg-blue-100 text-blue-800',
-            'finished' => 'bg-success-100 text-success-800',
-            'failed' => 'bg-danger-100 text-danger-800',
-        ];
+        return match ($this) {
+            self::PENDING => Color::Blue,
+            self::FINISHED => 'Color::Green',
+            self::FAILED => Color::Red,
+        };
     }
 }

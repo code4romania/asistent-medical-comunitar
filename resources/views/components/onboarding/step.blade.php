@@ -11,10 +11,10 @@
         <div
             @class([
                 'relative z-10 flex items-center justify-center w-8 h-8 rounded-full',
-                'ring-white ring-0 sm:ring-8 border-current border-2',
-                'text-primary-100 bg-primary-600 border-transparent group-hover:bg-primary-800' => $completed,
-                'text-primary-600 bg-white' => $current,
-                'text-gray-300 bg-white group-hover:text-gray-400' => $next,
+                'ring-white border-current border-2',
+                'text-primary-100 bg-primary-600 border-transparent' => $completed,
+                'text-primary-600 bg-white dark:text-primary-400 dark:bg-gray-900' => $current,
+                'text-gray-300 bg-white dark:bg-gray-900 group-hover:text-gray-400' => $next,
             ])>
 
             @if ($completed)
@@ -34,8 +34,8 @@
 
     <div @class([
         'text-sm font-medium lg:text-center',
-        'text-gray-900' => $completed,
-        'text-primary-700' => $current,
+        'text-gray-900 dark:text-gray-400' => $completed,
+        'text-primary-600 dark:text-primary-400' => $current,
         'text-gray-500' => $next,
     ])>
         <span class="inline-block lg:max-w-28">{{ $step->title }}</span>

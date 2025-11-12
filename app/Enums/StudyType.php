@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Concerns;
+use CommitGlobal\Enums\Concerns\Arrayable;
+use CommitGlobal\Enums\Concerns\Comparable;
+use Filament\Support\Contracts\HasLabel;
 
-enum StudyType: string
+enum StudyType: string implements HasLabel
 {
-    use Concerns\Enums\Arrayable;
-    use Concerns\Enums\Comparable;
-    use Concerns\Enums\HasLabel;
+    use Arrayable;
+    use Comparable;
 
     case SECONDARY = 'secondary';
     case POSTSECONDARY = 'postsecondary';
@@ -18,8 +19,14 @@ enum StudyType: string
     case POSTGRADUATE = 'postgraduate';
     case OTHER = 'other';
 
-    protected function labelKeyPrefix(): ?string
+    public function getLabel(): ?string
     {
-        return 'study.type';
+        return match ($this) {
+            self::SECONDARY => __('study.type.secondary'),
+            self::POSTSECONDARY => __('study.type.postsecondary'),
+            self::UNIVERSITY => __('study.type.university'),
+            self::POSTGRADUATE => __('study.type.postgraduate'),
+            self::OTHER => __('study.type.other'),
+        };
     }
 }

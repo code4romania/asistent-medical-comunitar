@@ -10,6 +10,10 @@ class Failed
 {
     public function handle(Event $event): void
     {
+        if (blank($event->user)) {
+            return;
+        }
+
         activity('auth')
             ->performedOn($event->user)
             ->event('failed')

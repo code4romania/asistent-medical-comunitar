@@ -87,6 +87,7 @@ class Catagraphy extends Model
 
     public function tapActivity(Activity $activity, string $eventName)
     {
+        /** @var Beneficiary */
         $beneficiary = $activity->subject->beneficiary;
 
         $activity->properties = $activity->properties

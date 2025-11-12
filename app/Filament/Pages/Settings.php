@@ -4,33 +4,23 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Filament\Forms\Components\TextInput;
-use JeffGreco13\FilamentBreezy\Pages\MyProfile;
+use Illuminate\Contracts\Support\Htmlable;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
-class Settings extends MyProfile
+class Settings extends MyProfilePage
 {
-    protected static ?string $slug = 'settings';
-
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('auth.settings');
     }
 
-    protected function getBreadcrumbs(): array
+    public function getHeading(): string|Htmlable
     {
-        return [
-            //
-        ];
+        return $this->getTitle();
     }
 
-    protected function getUpdateProfileFormSchema(): array
+    public function getSubheading(): string|Htmlable|null
     {
-        return [
-            TextInput::make($this->loginColumn)
-                ->required()
-                ->email(fn () => $this->loginColumn === 'email')
-                ->unique(config('filament-breezy.user_model'), ignorable: $this->user)
-                ->label(__('filament-breezy::default.fields.email')),
-        ];
+        return null;
     }
 }

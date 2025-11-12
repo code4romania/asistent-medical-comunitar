@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $rules = [
     'align_multiline_comment' => true,
@@ -160,6 +161,9 @@ $rules = [
         'single_line' => true,
     ],
     'ordered_imports' => [
+        'imports_order' => [
+            'class', 'function', 'const',
+        ],
         'sort_algorithm' => 'alpha',
     ],
 
@@ -192,6 +196,7 @@ $finder = Finder::create()
     ->ignoreVCS(true);
 
 return (new Config())
+    ->setParallelConfig(ParallelConfigFactory::detect())
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Concerns;
 
-use App\Filament\Resources\BeneficiaryResource;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

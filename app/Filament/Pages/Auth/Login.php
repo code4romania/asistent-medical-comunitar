@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
-use JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login as BaseLogin;
+use Filament\Auth\Pages\Login as BaseLogin;
 
 class Login extends BaseLogin
 {
@@ -12,15 +12,20 @@ class Login extends BaseLogin
     {
         parent::mount();
 
+        $this->fillTestCredentials();
+    }
+
+    /**
+     * When `APP_ENV` is set to `local`, fill the login form with test credentials.
+     *
+     * @return void
+     */
+    private function fillTestCredentials(): void
+    {
         if (! app()->isLocal()) {
             return;
         }
 
-        $this->loginAsNurse();
-    }
-
-    private function loginAsNurse(): void
-    {
         $this->form->fill([
             'email' => 'nurse@example.com',
             'password' => 'password',

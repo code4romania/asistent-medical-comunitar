@@ -10,8 +10,6 @@ return [
     ],
 
     'title' => [
-        'case' => 'Management de caz: :name',
-        'individual_service' => 'Serviciu individual: :name',
         'open_cases_widget' => 'Management de caz: Cazuri deschise',
     ],
 

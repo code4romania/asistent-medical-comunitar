@@ -1,10 +1,11 @@
 @props([
     'tabs' => [],
+    'contained' => true,
     'actions' => null,
 ])
 
-<div class="filament-forms-tabs-component">
-    <nav class="filament-forms-tabs-component-header flex gap-x-[2px] overflow-y-auto">
+<div class="fi-tabs-component">
+    <nav class="flex overflow-y-auto fi-tabs-component-header gap-x-0.5">
         @foreach ($tabs as $tab)
             @if ($tab->isHidden())
                 @continue
@@ -13,17 +14,21 @@
             <a
                 href="{{ $tab->getUrl() }}"
                 @class([
-                    'flex items-center gap-2 py-3 text-sm font-semibold border-t-2 filament-forms-tabs-component-button shrink-0 px-9 md:text-base',
+                    'flex items-center gap-2 py-3 text-sm font-semibold border-t-2 fi-tabs-component-button shrink-0 px-9 md:text-base focus:outline-none',
                     $tab->isActive()
-                        ? 'filament-forms-tabs-component-button-active bg-white text-primary-700 border-current'
-                        : 'text-white bg-primary-700 border-transparent',
+                        ? 'fi-tabs-component-button-active bg-white border-current dark:bg-gray-900 text-primary-600 ring-primary-600 dark:text-primary-50 dark:ring-primary-700'
+                        : 'text-white bg-primary-600 border-transparent hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-500',
                 ])>
                 {{ $tab->getLabel() }}
             </a>
         @endforeach
     </nav>
 
-    <div class="p-6 bg-white rounded-lg rounded-tl-none shadow filament-forms-tabs-component-tab focus:outline-none">
+    <div
+        @class([
+            'fi-tabs-component-tab bg-white dark:bg-gray-900 focus:outline-none',
+            'p-6' => $contained,
+        ])>
         @if (null !== $actions)
             <div class="flex flex-wrap items-center justify-end gap-4 pb-5">
                 @foreach ($actions as $action)
