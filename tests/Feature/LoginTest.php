@@ -6,6 +6,7 @@ use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Models\User;
 use Filament\Facades\Filament;
+use Illuminate\Support\Str;
 use function Pest\Livewire\livewire;
 
 it('can render the login page', function () {
@@ -72,7 +73,8 @@ it('can throttle authentication attempts', function () {
         ->nurse()
         ->create();
 
-    collect(range(1, 5))
+    collect()
+        ->range(1, 5)
         ->each(function () use ($user) {
             livewire(Login::class)
                 ->fillForm([
