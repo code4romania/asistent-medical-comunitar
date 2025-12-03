@@ -19,10 +19,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Illuminate\Support\Str;
 
 class CatagraphyForm
 {
@@ -143,20 +141,7 @@ class CatagraphyForm
                                         placeholder: __('placeholder.select_one'),
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
-                                    ->live()
-                                    ->afterStateUpdated(function ($state, Get $get, Set $set) {
-                                        $state = \boolval($state);
-
-                                        if (! $state) {
-                                            return;
-                                        }
-
-                                        if (collect($get('disabilities'))->isNotEmpty()) {
-                                            return;
-                                        }
-
-                                        $set('disabilities', [[(string) Str::uuid() => []]]);
-                                    }),
+                                    ->live(),
 
                                 Section::make()
                                     ->heading(__('field.section_details', ['section' => $categories->get('DIZ')]))
@@ -241,20 +226,7 @@ class CatagraphyForm
                                         placeholder: __('placeholder.select_one'),
                                     )
                                     ->formatStateUsing(fn (?bool $state) => ! \is_null($state) ? (int) $state : $state)
-                                    ->live()
-                                    ->afterStateUpdated(function ($state, Get $get, Set $set) {
-                                        $state = \boolval($state);
-
-                                        if (! $state) {
-                                            return;
-                                        }
-
-                                        if (collect($get('diseases'))->isNotEmpty()) {
-                                            return;
-                                        }
-
-                                        $set('diseases', [[(string) Str::uuid() => []]]);
-                                    }),
+                                    ->live(),
 
                                 Section::make()
                                     ->heading(__('field.section_details', ['section' => $categories->get('SS')]))

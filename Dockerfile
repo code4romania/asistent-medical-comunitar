@@ -47,11 +47,8 @@ ARG REVISION
 
 RUN echo "$VERSION (${REVISION:0:7})" > /var/www/.version
 
-# COPY --chmod=755 docker/ /
 COPY --from=assets --chown=www-data:www-data /build/public/build /var/www/html/public/build
 
 ENV WORKER_ENABLED=true
 
 ENV PHP_PM_MAX_CHILDREN=64
-
-EXPOSE 80
