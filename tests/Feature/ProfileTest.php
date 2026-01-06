@@ -15,7 +15,6 @@ use App\Models\User;
 beforeEach(function () {
     $this->actingAs(
         User::factory()
-            ->nurse()
             ->withProfile()
             ->create()
             ->refresh() // required for virtual full_name attribute
