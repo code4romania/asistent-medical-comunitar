@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "843333652907e3851d8ef0c954fd3457",
+    "content-hash": "2ea06e77312a87cbb8fb6855f8913418",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -12597,34 +12597,34 @@
         },
         {
             "name": "laradumps/laradumps",
-            "version": "v4.6.1",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laradumps/laradumps.git",
-                "reference": "7f299b4c91d7f970e52147ee2ed46e8744fca24b"
+                "reference": "7bfb9b888ce351ca151e29cacf2e2e74c7b62f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laradumps/laradumps/zipball/7f299b4c91d7f970e52147ee2ed46e8744fca24b",
-                "reference": "7f299b4c91d7f970e52147ee2ed46e8744fca24b",
+                "url": "https://api.github.com/repos/laradumps/laradumps/zipball/7bfb9b888ce351ca151e29cacf2e2e74c7b62f72",
+                "reference": "7bfb9b888ce351ca151e29cacf2e2e74c7b62f72",
                 "shasum": ""
             },
             "require": {
-                "illuminate/mail": "^10.0|^11.0|^12.0",
-                "illuminate/support": "^10.0|^11.0|^12.0",
-                "laradumps/laradumps-core": "^3.2.2",
-                "nunomaduro/termwind": "^1.15.1|^2.0.1",
-                "php": "^8.1"
+                "illuminate/mail": "^11.0|^12.0",
+                "illuminate/support": "^11.0|^12.0",
+                "laradumps/laradumps-core": "^4.0.0",
+                "nunomaduro/termwind": "^2.3.3",
+                "php": "^8.2"
             },
             "require-dev": {
-                "larastan/larastan": "^2.0|^3.0",
-                "laravel/framework": "^10.0|^11.0|^12.0",
-                "laravel/pint": "^1.17.2",
-                "livewire/livewire": "^3.5.6",
+                "larastan/larastan": "^3.8",
+                "laravel/framework": "^11.0|^12.0",
+                "laravel/pint": "^1.26.0",
+                "livewire/livewire": "^3.7.1|^4.0",
                 "mockery/mockery": "^1.6.12",
-                "orchestra/testbench-core": "^8.0|^9.4|^10.0",
-                "pestphp/pest": "^4.0.0|^3.7.0|^2.35.1",
-                "symfony/var-dumper": "^6.4.0|^7.1.3"
+                "orchestra/testbench-core": "^9.4|^10.0",
+                "pestphp/pest": "^3.7.0|^4.0.0",
+                "symfony/var-dumper": "^7.1.3|^8.0"
             },
             "type": "library",
             "extra": {
@@ -12657,7 +12657,7 @@
             "homepage": "https://github.com/laradumps/laradumps",
             "support": {
                 "issues": "https://github.com/laradumps/laradumps/issues",
-                "source": "https://github.com/laradumps/laradumps/tree/v4.6.1"
+                "source": "https://github.com/laradumps/laradumps/tree/v5.0.0"
             },
             "funding": [
                 {
@@ -12665,38 +12665,38 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-02T14:09:49+00:00"
+            "time": "2025-12-13T12:44:16+00:00"
         },
         {
             "name": "laradumps/laradumps-core",
-            "version": "v3.2.10",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laradumps/laradumps-core.git",
-                "reference": "adfd62ca7328d971af618fbf83e89f61f7188748"
+                "reference": "bb57c8fccb785777020b85592d718e8ff0c9a23a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laradumps/laradumps-core/zipball/adfd62ca7328d971af618fbf83e89f61f7188748",
-                "reference": "adfd62ca7328d971af618fbf83e89f61f7188748",
+                "url": "https://api.github.com/repos/laradumps/laradumps-core/zipball/bb57c8fccb785777020b85592d718e8ff0c9a23a",
+                "reference": "bb57c8fccb785777020b85592d718e8ff0c9a23a",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "nunomaduro/termwind": "^1.15|^2.0",
-                "php": "^8.1",
-                "ramsey/uuid": "^4.7.5",
+                "nunomaduro/termwind": "^2.0",
+                "php": "^8.2",
+                "ramsey/uuid": "^4.9.1",
                 "spatie/backtrace": "^1.5",
-                "symfony/console": "^5.4|^6.4|^7.0",
-                "symfony/finder": "^5.4|^6.4|^7.0",
-                "symfony/process": "^5.4|^6.4|^7.0",
-                "symfony/var-dumper": "^5.4|^6.4|^7.0",
-                "symfony/yaml": "^5.4|^6.4|^7.0"
+                "symfony/console": "^6.4|^7.0|^8.0",
+                "symfony/finder": "^6.4|^7.0|^8.0",
+                "symfony/process": "^6.4|^7.0|^8.0",
+                "symfony/var-dumper": "^6.4|^7.0|^8.0",
+                "symfony/yaml": "^6.4|^7.0|^8.0"
             },
             "require-dev": {
                 "illuminate/support": "^10.46",
-                "laravel/pint": "^1.13.7",
-                "pestphp/pest": "^2.0|^3.0",
+                "laravel/pint": "^1.26.0",
+                "pestphp/pest": "^3.0|^4.0",
                 "phpstan/phpstan": "^1.10.50"
             },
             "bin": [
@@ -12726,7 +12726,7 @@
             "homepage": "https://github.com/laradumps/laradumps-core",
             "support": {
                 "issues": "https://github.com/laradumps/laradumps-core/issues",
-                "source": "https://github.com/laradumps/laradumps-core/tree/v3.2.10"
+                "source": "https://github.com/laradumps/laradumps-core/tree/v4.0.0"
             },
             "funding": [
                 {
@@ -12734,7 +12734,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-25T15:35:01+00:00"
+            "time": "2025-12-12T22:10:38+00:00"
         },
         {
             "name": "larastan/larastan",
@@ -16623,16 +16623,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.0",
+            "version": "v7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "6c84a4b55aee4cd02034d1c528e83f69ddf63810"
+                "reference": "24dd4de28d2e3988b311751ac49e684d783e2345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/6c84a4b55aee4cd02034d1c528e83f69ddf63810",
-                "reference": "6c84a4b55aee4cd02034d1c528e83f69ddf63810",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/24dd4de28d2e3988b311751ac49e684d783e2345",
+                "reference": "24dd4de28d2e3988b311751ac49e684d783e2345",
                 "shasum": ""
             },
             "require": {
@@ -16675,7 +16675,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.0"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.1"
             },
             "funding": [
                 {
@@ -16695,7 +16695,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-16T10:14:42+00:00"
+            "time": "2025-12-04T18:11:45+00:00"
         },
         {
             "name": "ta-tikoma/phpunit-architecture-test",
