@@ -12,9 +12,8 @@ updates:
     schedule:
       interval: "monthly"
     versioning-strategy: increase
-    # This option has no impact on security updates, which have a separate,
-    # internal limit of ten open pull requests.
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 20
+    rebase-strategy: "disabled"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -22,6 +21,5 @@ updates:
     schedule:
       interval: "monthly"
     versioning-strategy: increase
-    # This option has no impact on security updates, which have a separate,
-    # internal limit of ten open pull requests.
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 20
+    rebase-strategy: "disabled"
