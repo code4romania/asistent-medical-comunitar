@@ -12,6 +12,8 @@ use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class EditCatagraphy extends EditRecord
 {
@@ -74,5 +76,15 @@ class EditCatagraphy extends EditRecord
         }
 
         return $record;
+    }
+
+    protected function beforeSave(): void
+    {
+        LogBatch::setBatch(Str::uuid7()->toString());
+    }
+
+    protected function afterSave(): void
+    {
+        LogBatch::endBatch();
     }
 }
