@@ -20,7 +20,7 @@ class G28 extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->without('appointment')
             ->whereRealizedIndividualServiceWithCode('SES_12');
     }
 
@@ -32,6 +32,16 @@ class G28 extends ReportQuery
     public static function aggregateByColumn(): string
     {
         return 'interventions.id';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
+    }
+
+    public static function selectColumns(): array
+    {
+        return array_keys(static::columns());
     }
 
     public static function columns(): array
@@ -73,12 +83,12 @@ class G28 extends ReportQuery
     public static function recordActionUrl(Model $record): ?string
     {
         return BeneficiaryResource::getUrl(
-            name: 'interventions.view',
-            params: [
+            'interventions.view',
+            [
                 'beneficiary' => $record->beneficiary_id,
                 'record' => $record,
             ],
-            isAbsolute: false
+            false
         );
     }
 }

@@ -18,13 +18,22 @@ class G25 extends ReportQuery
     public static function query(): Builder
     {
         return CommunityActivity::query()
-            ->whereCampaign(Campaign::SCREENING)
-            ->whereCampaign();
+            ->whereCampaign(Campaign::SCREENING);
     }
 
     public static function dateColumn(): string
     {
         return 'created_at';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
+    }
+
+    public static function selectColumns(): array
+    {
+        return array_keys(static::columns());
     }
 
     public static function columns(): array

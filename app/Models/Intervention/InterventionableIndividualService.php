@@ -36,7 +36,7 @@ class InterventionableIndividualService extends Model
     ];
 
     protected $with = [
-        'service',
+        // 'service',
     ];
 
     protected static function booted(): void

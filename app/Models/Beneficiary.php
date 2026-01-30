@@ -242,16 +242,7 @@ class Beneficiary extends Model
                 return $query->where('properties->attributes->category', 'VSG_BR')
                     ->where('properties->attributes->rare_disease', $rareDisease);
             })
-            ->fromSub(function (QueryBuilder $query) {
-                $query
-                    ->select([
-                        'beneficiaries.*',
-                        'counties.name as county',
-                        'cities.name as city',
-                    ])
-                    ->from('beneficiaries')
-                    ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
-                    ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
-            }, 'beneficiaries');
+            ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
+            ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
     }
 }
