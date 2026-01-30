@@ -31,11 +31,11 @@ class ReportCoverSheet implements FromCollection, ShouldAutoSize, WithTitle, Wit
         return collect([
             [
                 __('report.column.category'),
-                $this->report->category->label(),
+                $this->report->category->getLabel(),
             ],
             [
                 __('report.column.type'),
-                $this->report->type->label(),
+                $this->report->type->getLabel(),
             ],
             [
                 __('report.column.period'),
