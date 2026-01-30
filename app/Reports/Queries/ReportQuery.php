@@ -15,12 +15,32 @@ abstract class ReportQuery
 
     public static function dateColumn(): string
     {
-        return 'beneficiaries.created_at';
+        return 'activity_log.created_at';
     }
 
     public static function aggregateByColumn(): string
     {
         return 'id';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return true;
+    }
+
+    public static function selectColumns(): array
+    {
+        return [
+            'beneficiaries.id',
+            'beneficiaries.first_name',
+            'beneficiaries.last_name',
+            'beneficiaries.cnp',
+            'beneficiaries.gender',
+            'beneficiaries.date_of_birth',
+            'beneficiaries.status',
+            'counties.name as county',
+            'cities.name as city',
+        ];
     }
 
     public static function columns(): array
@@ -48,9 +68,9 @@ abstract class ReportQuery
     public static function recordActionUrl(Model $record): ?string
     {
         return BeneficiaryResource::getUrl(
-            name: 'view',
-            params: ['record' => $record],
-            isAbsolute: false
+            'view',
+            ['record' => $record],
+            false
         );
     }
 
@@ -77,16 +97,24 @@ abstract class ReportQuery
     {
         $query = static::query()
             ->forUser($report->user)
-            ->select(array_keys(static::columns()))
+            ->select(static::selectColumns())
             ->tap([static::class, 'tapQuery']);
 
         if (! $report->date_until) {
             return $query->whereDate(static::dateColumn(), '=', $report->date_from);
         }
 
+        if (static::includeLatestBeforeRange()) {
+            $union = $query->clone()
+                ->whereDate(static::dateColumn(), '<', $report->date_from)
+                ->latest(static::dateColumn())
+                ->limit(1);
+        }
+
         return $query
             ->whereDate(static::dateColumn(), '>=', $report->date_from)
-            ->whereDate(static::dateColumn(), '<=', $report->date_until);
+            ->whereDate(static::dateColumn(), '<=', $report->date_until)
+            ->when(isset($union), fn (Builder $q) => $q->union($union));
     }
 
     public static function aggregate(Report $report): int

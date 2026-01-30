@@ -24,6 +24,7 @@ use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -95,6 +96,11 @@ class FilamentServiceProvider extends ServiceProvider
         Textarea::configureUsing(function (Textarea $component) {
             $component->autosize();
         });
+
+        DateRangePicker::configureUsing(function (DateRangePicker $component) {
+            $component->format(static::$defaultDateDisplayFormat)
+                ->displayFormat('DD.MM.YYYY');
+        });
     }
 
     protected function configureInfolists(): void
@@ -123,6 +129,10 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         Table::configureUsing(function (Table $table) {
+            if (! $table->getModel()) {
+                return;
+            }
+
             $format = function (string $class): string {
                 return Str::of($class)
                     ->classBasename()

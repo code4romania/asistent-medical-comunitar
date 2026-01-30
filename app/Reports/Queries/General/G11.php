@@ -34,6 +34,16 @@ class G11 extends ReportQuery
         return 'interventions.id';
     }
 
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
+    }
+
+    public static function selectColumns(): array
+    {
+        return array_keys(static::columns());
+    }
+
     public static function columns(): array
     {
         return [
@@ -73,12 +83,12 @@ class G11 extends ReportQuery
     public static function recordActionUrl(Model $record): ?string
     {
         return BeneficiaryResource::getUrl(
-            name: 'interventions.view',
-            params: [
+            'interventions.view',
+            [
                 'beneficiary' => $record->beneficiary_id,
                 'record' => $record,
             ],
-            isAbsolute: false
+            false
         );
     }
 }

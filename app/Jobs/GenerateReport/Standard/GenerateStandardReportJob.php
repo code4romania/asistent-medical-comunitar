@@ -14,7 +14,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Throwable;
 
 abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 {
@@ -32,7 +31,7 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
     public Report $report;
 
-    public ?string $category;
+    public Category $category;
 
     public Collection $indicators;
 
@@ -61,15 +60,10 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
             $this->generate();
 
             $this->report->status = Status::FINISHED;
-        }, function (Throwable $e) {
+        }, function () {
             $this->report->status = Status::FAILED;
         });
 
         $this->report->save();
-    }
-
-    protected function getCategory(): Category
-    {
-        return Category::from($this->category);
     }
 }

@@ -32,7 +32,7 @@ enum Status: string implements HasColor, HasLabel
     {
         return match ($this) {
             self::PENDING => Color::Blue,
-            self::FINISHED => 'Color::Green',
+            self::FINISHED => Color::Green,
             self::FAILED => Color::Red,
         };
     }

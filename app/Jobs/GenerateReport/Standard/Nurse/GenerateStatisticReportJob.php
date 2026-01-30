@@ -14,14 +14,14 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
     {
         $this->report->data = [
             [
-                'title' => $this->getCategory()->label(),
+                'title' => $this->category->getLabel(),
                 'data' => $this->report->indicators()
                     ->mapWithKeys(function (HasQuery $indicator) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 
                         return [
-                            $indicator->label() => [
+                            $indicator->getLabel() => [
                                 $reportQuery::aggregate($this->report),
                             ],
                         ];

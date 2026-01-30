@@ -27,12 +27,11 @@ use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use JeffGreco13\FilamentBreezy\FilamentBreezy;
+use Jeffgreco13\FilamentBreezy\FilamentBreezy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,7 +43,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerTelescope();
-        $this->registerQueryMacros();
     }
 
     /**
@@ -85,29 +83,13 @@ class AppServiceProvider extends ServiceProvider
     {
         if (
             ! $this->app->environment('local') ||
-            ! class_exists(\Laravel\Telescope\TelescopeServiceProvider::class, false)
+            ! class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)
         ) {
             return;
         }
 
         $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
         $this->app->register(TelescopeServiceProvider::class);
-    }
-
-    // TODO: remove this when migrating to Laravel 11.x
-    protected function registerQueryMacros(): void
-    {
-        Builder::macro('whereJsonOverlaps', function (string $column, $value, bool $not = false): Builder {
-            $not = $not ? 'not ' : '';
-
-            return $this->whereRaw($not . 'json_overlaps(`' . $column . '`, ?)', [
-                collect($value)->toJson(),
-            ]);
-        });
-
-        Builder::macro('whereJsonDoesntOverlap', function (string $column, $value): Builder {
-            return $this->whereJsonOverlaps($column, $value, true);
-        });
     }
 
     protected function enforceMorphMap(): void

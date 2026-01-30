@@ -137,8 +137,8 @@ class Report extends Model
         return Attribute::make(
             get: fn () => \sprintf(
                 'Raport %s %s %s',
-                Str::lower($this->type->label()),
-                $this->category->label(),
+                Str::lower($this->type->getLabel()),
+                $this->category->getLabel(),
                 $this->period,
             ),
         );
