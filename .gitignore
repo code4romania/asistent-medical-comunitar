@@ -31,3 +31,9 @@ phpstan.neon
 yarn-error.log
 .DS_Store
 laradumps.yaml
+.mcp.json
+CLAUDE.md
+GEMINI.md
+AGENTS.md
+boost.json
+/.github/copilot-instructions.md

@@ -6,25 +6,25 @@
     "license": "MPL-2.0",
     "require": {
         "php": "^8.4",
-        "aedart/athenaeum-antivirus": "^9.21",
+        "aedart/athenaeum-antivirus": "^9.22",
         "alcea/cnp": "^3.0",
         "blade-ui-kit/blade-heroicons": "^2.6",
         "commitglobal/app-version": "^v1.0",
         "commitglobal/enum-utils": "^v1.0",
-        "filament/filament": "^4.4",
-        "filament/spatie-laravel-media-library-plugin": "^4.4",
+        "filament/filament": "^4.5",
+        "filament/spatie-laravel-media-library-plugin": "^4.5",
         "guzzlehttp/guzzle": "^7.10",
         "jeffgreco13/filament-breezy": "^3.1",
         "kalnoy/nestedset": "^6.0",
-        "laravel/framework": "^12.47",
-        "laravel/sanctum": "^4.2",
+        "laravel/framework": "^12.49",
+        "laravel/sanctum": "^4.3",
         "laravel/tinker": "^2.11",
         "maatwebsite/excel": "^3.1",
         "malzariey/filament-daterangepicker-filter": "^4.0",
         "saade/filament-fullcalendar": "^4.0",
         "sentry/sentry-laravel": "^4.20",
         "spatie/laravel-activitylog": "^4.10",
-        "spatie/laravel-csp": "^3.21",
+        "spatie/laravel-csp": "^3.22",
         "spatie/laravel-onboard": "^2.6",
         "spatie/once": "^3.1",
         "staudenmeir/belongs-to-through": "^2.16",
@@ -33,13 +33,14 @@
         "tpetry/laravel-query-expressions": "^1.5"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.16",
+        "barryvdh/laravel-debugbar": "^4.0",
         "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.24",
-        "friendsofphp/php-cs-fixer": "^3.92",
+        "friendsofphp/php-cs-fixer": "^3.93",
         "itsgoingd/clockwork": "^5.3",
         "laradumps/laradumps": "^5.0",
         "larastan/larastan": "^3.9",
+        "laravel/boost": "^2.0",
         "laravel/sail": "^1.51",
         "laravel/telescope": "^5.16",
         "mockery/mockery": "^1.6",
@@ -47,7 +48,7 @@
         "pestphp/pest": "^4.3",
         "pestphp/pest-plugin-laravel": "^4.0",
         "pestphp/pest-plugin-livewire": "^4.1",
-        "spatie/laravel-ignition": "^2.9"
+        "spatie/laravel-ignition": "^2.10"
     },
     "autoload": {
         "psr-4": {
@@ -69,6 +70,7 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan filament:upgrade",
+            "@php artisan boost:update --ansi",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models --nowrite"
