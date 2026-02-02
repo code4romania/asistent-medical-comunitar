@@ -230,7 +230,7 @@ class Beneficiary extends Model
             return $query->from('activity_log')
                 ->where('log_name', 'catagraphy')
                 ->where('subject_type', (new $model)->getMorphClass())
-                ->whereColumn('properties->beneficiary_id', 'beneficiaries.id')
+                ->where('beneficiary_id', 'beneficiaries.id')
                 ->when(\is_callable($callback), fn ($query) => $query->tap($callback));
         });
     }
