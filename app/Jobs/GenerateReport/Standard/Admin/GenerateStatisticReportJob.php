@@ -34,7 +34,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
 
         $this->report->data = [
             [
-                'title' => $this->getCategory()->label(),
+                'title' => $this->category->getLabel(),
 
                 'columns' => $counties
                     ->map(fn (County $county) => [
@@ -69,7 +69,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                         $total = 0;
 
                         return [
-                            $indicator->label() => $counties
+                            $indicator->getLabel() => $counties
                                 ->mapWithKeys(function (County $county) use ($results, &$total) {
                                     $value = $results->get($county->id, 0);
 
