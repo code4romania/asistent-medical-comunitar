@@ -16,6 +16,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Livewire\Component;
 
 class ReportTable extends Component implements HasActions, HasForms, HasTable
@@ -34,23 +36,48 @@ class ReportTable extends Component implements HasActions, HasForms, HasTable
 
     public function getColumns(): array
     {
-        if ($this->type->is(Type::LIST)) {
+        if (filled($this->columns)) {
             return collect($this->columns)
-                ->map(
-                    fn (array $column) => TextColumn::make($column['name'])
-                        ->label($column['label'])
+                ->when(
+                    $this->type->is(Type::STATISTIC),
+                    fn (Collection $columns) => $columns
+                        ->prepend([
+                            'name' => 'indicator',
+                            'label' => 'Indicator',
+                        ])
+                )
+                ->map(function (array $column) {
+                    $label = data_get($column, 'label');
+                    $suffix = data_get($column, 'suffix');
+
+                    if (filled($suffix)) {
+                        $label .= '<small class="block">(' . $suffix . ')</small>';
+                    }
+
+                    return TextColumn::make($column['name'])
+                        ->label(new HtmlString($label))
                         ->alignment(match ($column['name']) {
                             'id' => Alignment::End,
                             default => Alignment::Start,
                         })
-                        ->wrap()
-                )
+                        ->wrap();
+                })
                 ->all();
         }
 
-        return collect(['Indicator', 'Valoare'])
+        return collect([
+            [
+                'name' => 'indicator',
+                'label' => 'Indicator',
+            ],
+            [
+                'name' => '0',
+                'label' => 'Valoare',
+            ],
+        ])
             ->map(
-                fn (string $column) => TextColumn::make($column)
+                fn (array $column) => TextColumn::make($column['name'])
+                    ->label(ucfirst($column['label']))
                     ->wrap()
             )
             ->all();
@@ -64,8 +91,8 @@ class ReportTable extends Component implements HasActions, HasForms, HasTable
 
         return collect($this->data)
             ->map(fn (array $values, string $indicator) => [
-                'Indicator' => $indicator,
-                'Valoare' => $values[0],
+                'indicator' => $indicator,
+                ...$values,
             ])
             ->values()
             ->all();
