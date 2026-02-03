@@ -23,7 +23,7 @@ class GenerateListReportJob extends GenerateStandardReportJob
                 $columns = collect($reportQuery::columns());
 
                 return [
-                    'title' => $indicator->label(),
+                    'title' => $indicator->getLabel(),
 
                     'columns' => $columns
                         ->map(fn (string $label, string $name) => [
@@ -33,7 +33,6 @@ class GenerateListReportJob extends GenerateStandardReportJob
                         ->values(),
 
                     'data' => $reportQuery::build($this->report)
-                        ->distinct('id')
                         ->get()
                         ->map(
                             fn (Model $record) => $columns
@@ -54,7 +53,7 @@ class GenerateListReportJob extends GenerateStandardReportJob
         }
 
         if ($value instanceof BackedEnum) {
-            $value = $value->label();
+            $value = $value->getLabel();
         }
 
         if ($value instanceof Carbon) {
@@ -63,8 +62,8 @@ class GenerateListReportJob extends GenerateStandardReportJob
 
         if (\is_bool($value)) {
             $value = match ($value) {
-                true => __('forms::components.select.boolean.true'),
-                false => __('forms::components.select.boolean.false'),
+                true => __('filament-forms::components.select.boolean.true'),
+                false => __('filament-forms::components.select.boolean.false'),
             };
         }
 

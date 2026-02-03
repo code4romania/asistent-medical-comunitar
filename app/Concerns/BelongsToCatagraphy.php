@@ -45,8 +45,9 @@ trait BelongsToCatagraphy
 
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $activity->properties = $activity->properties
-            ->put('beneficiary_id', $this->getBeneficiaryIdFrom($activity->subject->catagraphy_id));
+        $beneficiary_id = $this->getBeneficiaryIdFrom($activity->subject->catagraphy_id);
+
+        $activity->beneficiary()->associate($beneficiary_id);
     }
 
     public function getBeneficiaryIdFrom(int $catagraphy_id): ?int

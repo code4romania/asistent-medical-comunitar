@@ -90,8 +90,7 @@ class Catagraphy extends Model
         /** @var Beneficiary */
         $beneficiary = $activity->subject->beneficiary;
 
-        $activity->properties = $activity->properties
-            ->put('beneficiary_id', $beneficiary->id);
+        $activity->beneficiary()->associate($beneficiary);
 
         once(
             fn () => activity('vulnerabilities')
@@ -99,6 +98,9 @@ class Catagraphy extends Model
                 ->performedOn($beneficiary)
                 ->withProperties($this->all_vulnerabilities_items->pluck('value'))
                 ->event($eventName)
+                ->tap(function (Activity $activity) use ($beneficiary) {
+                    $activity->beneficiary()->associate($beneficiary);
+                })
                 ->log($eventName)
         );
     }

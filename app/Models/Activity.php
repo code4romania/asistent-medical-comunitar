@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\Models\Activity as BaseActivity;
 
 class Activity extends BaseActivity
@@ -19,6 +20,11 @@ class Activity extends BaseActivity
     protected $with = [
         'causer', 'subject',
     ];
+
+    public function beneficiary(): BelongsTo
+    {
+        return $this->belongsTo(Beneficiary::class);
+    }
 
     /**
      * The "booted" method of the model.
