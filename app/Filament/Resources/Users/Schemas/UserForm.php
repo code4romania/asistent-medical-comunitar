@@ -65,7 +65,6 @@ class UserForm
                                     ->default(Role::NURSE),
 
                                 Location::make()
-                                    ->contained(false)
                                     ->city(false)
                                     ->required()
                                     ->visible(fn (Get $get) => Role::COORDINATOR->is($get('role')))

@@ -52,6 +52,7 @@ class SummaryInfolist
                         EmptyState::make(__('catagraphy.vulnerability.empty.title'))
                             ->description(__('catagraphy.vulnerability.empty.description'))
                             ->icon('icon-empty-state')
+                            ->contained(false)
                             ->footer([
                                 Action::make('create')
                                     ->label(__('catagraphy.vulnerability.empty.create'))
@@ -108,7 +109,8 @@ class SummaryInfolist
                     return [
                         EmptyState::make(__('catagraphy.recommendation.empty.title'))
                             ->description(__('catagraphy.recommendation.empty.description'))
-                            ->icon('icon-clipboard'),
+                            ->icon('icon-clipboard')
+                            ->contained(false),
                     ];
                 }
 

@@ -35,6 +35,7 @@ class CreateBeneficiary extends CreateRecord
             ->columns(1)
             ->components([
                 Section::make()
+                    ->contained(false)
                     ->components([
                         Select::make('type')
                             ->label(__('field.beneficiary_type'))
