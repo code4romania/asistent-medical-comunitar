@@ -91,18 +91,6 @@ class Catagraphy extends Model
         $beneficiary = $activity->subject->beneficiary;
 
         $activity->beneficiary()->associate($beneficiary);
-
-        once(
-            fn () => activity('vulnerabilities')
-                ->causedBy($activity->causer)
-                ->performedOn($beneficiary)
-                ->withProperties($this->all_vulnerabilities_items->pluck('value'))
-                ->event($eventName)
-                ->tap(function (Activity $activity) use ($beneficiary) {
-                    $activity->beneficiary()->associate($beneficiary);
-                })
-                ->log($eventName)
-        );
     }
 
     public function nurse(): BelongsTo

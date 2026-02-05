@@ -110,6 +110,7 @@ class Disease extends Model implements HasVulnerabilityData
         return new VulnerabilityListItem(
             label: "{$vulnerability->name}: {$category?->name}",
             value: $vulnerability->id,
+            category: $category?->id,
             type: $this->getMorphClass(),
             valid: true
         );
