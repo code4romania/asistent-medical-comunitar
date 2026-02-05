@@ -81,8 +81,7 @@ class EmployersForm
                                             }),
                                     ]),
 
-                                Location::make()
-                                    ->contained(false),
+                                Location::make(),
 
                                 TextInput::make('email')
                                     ->label(__('field.employer_email'))

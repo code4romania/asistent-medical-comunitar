@@ -60,8 +60,7 @@ class GeneralForm
                     ->icon(Heroicon::OutlinedMapPin)
                     ->columns()
                     ->schema([
-                        Location::make()
-                            ->contained(false),
+                        Location::make(),
 
                         TextInput::make('email')
                             ->label(__('field.email'))
