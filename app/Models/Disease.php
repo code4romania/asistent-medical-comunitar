@@ -112,6 +112,9 @@ class Disease extends Model implements HasVulnerabilityData
             value: $vulnerability->id,
             category: $category?->id,
             type: $this->getMorphClass(),
+            otherLogItems: [
+                $this->rare_disease,
+            ],
             valid: true
         );
     }

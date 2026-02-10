@@ -98,6 +98,9 @@ class Disability extends Model implements HasVulnerabilityData
             value: $vulnerability->id,
             category: $type?->id,
             type: $this->getMorphClass(),
+            otherLogItems: [
+                $this->degree,
+            ],
             valid: true
         );
     }
