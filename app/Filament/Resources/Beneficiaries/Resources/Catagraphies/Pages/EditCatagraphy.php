@@ -84,10 +84,9 @@ class EditCatagraphy extends EditRecord
     {
         $catagraphy = $this->getRecord();
 
-        $allVulnerabilities = $catagraphy->all_vulnerabilities_items;
-
-        $properties = collect($allVulnerabilities->pluck('value'))
-            ->concat($allVulnerabilities->pluck('category'))
+        $properties = $catagraphy->all_vulnerabilities_items
+            ->map->toArray()
+            ->flatten()
             ->filter()
             ->unique()
             ->sort()
