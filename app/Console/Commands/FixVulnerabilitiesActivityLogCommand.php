@@ -74,16 +74,22 @@ class FixVulnerabilitiesActivityLogCommand extends Command implements PromptsFor
                     $currentCreatedAt = null;
                     $relatedActivities = [];
                     $vulnerabilitiesActivity = null;
+                    $currentBeneficiaryId = null;
 
                     foreach ($user->actions as $activity) {
                         $currentCreatedAt ??= $activity->created_at;
+                        $currentBeneficiaryId ??= $activity->beneficiary_id;
 
-                        if ($activity->created_at->diffInSeconds($currentCreatedAt, true) > 2) {
+                        if (
+                            $activity->created_at->diffInSeconds($currentCreatedAt, true) > 2 ||
+                            $activity->beneficiary_id !== $currentBeneficiaryId
+                        ) {
                             $this->addToBuffer($relatedActivities, $vulnerabilitiesActivity);
 
                             $this->total++;
 
                             $currentCreatedAt = $activity->created_at;
+                            $currentBeneficiaryId = $activity->beneficiary_id;
                             $relatedActivities = [];
                             $vulnerabilitiesActivity = null;
                         }
