@@ -15,7 +15,7 @@ class GenerateListReportJob extends GenerateStandardReportJob
 {
     public function generate(): void
     {
-        $this->report->data = $this->report->indicators()
+        $this->report->data = $this->report->getIndicators()
             ->map(function (HasQuery $indicator) {
                 /** @var ReportQuery $reportQuery */
                 $reportQuery = $indicator->class();

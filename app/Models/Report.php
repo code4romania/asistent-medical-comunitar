@@ -125,11 +125,12 @@ class Report extends Model
         return $this->status->is(Status::FAILED);
     }
 
-    public function indicators(): Collection
+    public function getIndicators(): Collection
     {
         return $this->indicators
-            ->map(fn (string $indicator) => $this->category->indicator()::from($indicator))
-            ->reject(fn (HasQuery $indicator) => ! class_exists($indicator->class()));
+            ->keys()
+            ->map(fn (string $indicator): ?HasQuery => $this->category->indicator()::from($indicator))
+            ->reject(fn (?HasQuery $indicator) => blank($indicator) || ! class_exists($indicator->class()));
     }
 
     public function title(): Attribute

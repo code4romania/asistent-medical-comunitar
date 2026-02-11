@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Reports\Pages;
 
+use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Type;
 use App\Filament\Resources\Reports\ReportResource;
 use App\Filament\Resources\Reports\Widgets\ReportsTableWidget;
@@ -59,6 +60,16 @@ class GenerateStandardReport extends CreateRecord
         $data['date_until'] = $dateRange[1];
 
         unset($data['date']);
+
+        $category = data_get($data, 'category');
+
+        $data['indicators'] = collect($data['indicators'])
+            ->map(fn (string $indicator) => $category->indicator()::from($indicator))
+            ->reject(fn (?HasQuery $indicator) => blank($indicator) || ! class_exists($indicator->class()))
+            ->mapWithKeys(fn (HasQuery $indicator) => [
+                $indicator->value => $indicator->getLabel(),
+            ])
+            ->toArray();
 
         return $data;
     }
