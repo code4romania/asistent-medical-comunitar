@@ -45,7 +45,7 @@ class ReportsTableWidget extends TableWidget
 
                 TextColumn::make('category')
                     ->label(__('report.column.category'))
-                    ->description(fn (Report $record) => $record->indicators()->map->getLabel()->join(', '))
+                    ->description(fn (Report $record): string => $record->indicators->join(', '))
                     ->wrap(),
             ])
             ->filters([

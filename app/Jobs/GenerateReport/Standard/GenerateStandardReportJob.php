@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Jobs\GenerateReport\Standard;
 
-use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Status;
 use App\Models\Report;
 use Illuminate\Bus\Queueable;
@@ -13,7 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Collection;
 
 abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 {
@@ -31,10 +29,6 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
     public Report $report;
 
-    public Category $category;
-
-    public Collection $indicators;
-
     public function uniqueId(): string
     {
         return "generate-report:{$this->report->id}";
@@ -46,10 +40,6 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
     public function __construct(Report $report, array $data)
     {
         $this->report = $report;
-
-        $this->category = data_get($data, 'category');
-
-        $this->indicators = collect(data_get($data, 'indicators'));
     }
 
     abstract public function generate(): void;

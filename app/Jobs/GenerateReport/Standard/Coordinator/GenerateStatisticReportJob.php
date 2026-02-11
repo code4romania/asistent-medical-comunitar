@@ -38,7 +38,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
 
         $this->report->data = [
             [
-                'title' => $this->category->getLabel(),
+                'title' => $this->report->category->getLabel(),
 
                 'columns' => $nurses
                     ->map(fn (User $nurse) => [
@@ -54,7 +54,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                     ]))
                     ->values(),
 
-                'data' => $this->report->indicators()
+                'data' => $this->report->getIndicators()
                     ->mapWithKeys(function (HasQuery $indicator) use ($nurses, $includeTotals) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
