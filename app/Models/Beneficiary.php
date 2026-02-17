@@ -92,12 +92,9 @@ class Beneficiary extends Model
             ->logOnlyDirty();
     }
 
-    /**
-     * @deprecated use `activities` instead.
-     */
-    public function activity()
+    public function relatedActivities(): HasMany
     {
-        return $this->morphMany(Activity::class, 'subject');
+        return $this->hasMany(Activity::class, 'beneficiary_id');
     }
 
     public function ocasionalInterventions(): HasMany
