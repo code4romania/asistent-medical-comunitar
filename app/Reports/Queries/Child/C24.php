@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Child;
 
 use App\Models\Beneficiary;
-use App\Models\Disability;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -18,8 +17,9 @@ class C24 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
-            })
-            ->whereHasCatagraphyRelation(Disability::class);
+                $query
+                    ->whereJsonOverlaps('properties', ['VDH_01', 'VDH_02'])
+                    ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
+            });
     }
 }
