@@ -105,6 +105,7 @@ class ConsolidatePreviousVulnerabilitiesJob implements ShouldQueue
 
             if ($relatedActivity->subject_type === 'disease') {
                 $vulnIds->push(data_get($relatedActivity->properties, 'attributes.category'));
+                $vulnIds->push(data_get($relatedActivity->properties, 'attributes.rare_disease'));
             }
 
             if ($relatedActivity->subject_type === 'disability') {
