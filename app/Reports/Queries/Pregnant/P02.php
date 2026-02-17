@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Pregnant;
 
 use App\Models\Beneficiary;
-use App\Models\Disease;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class P02 extends ReportQuery
 {
@@ -19,11 +17,9 @@ class P02 extends ReportQuery
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
-                $query->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
-            })
-            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) {
-                $query->where('properties->attributes->type', 'VSG_01')
-                    ->orWhere('properties->attributes->type', 'VSG_02');
+                $query
+                    ->whereJsonOverlaps('properties', ['VSG_01', 'VSG_02'])
+                    ->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
             });
     }
 }
