@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
@@ -219,27 +218,5 @@ class Beneficiary extends Model
             ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id')
             ->where('activity_log.log_name', 'vulnerabilities')
             ->tap($callback);
-    }
-
-    public function scopeWhereHasCatagraphyRelation(Builder $query, string $model, ?callable $callback = null): Builder
-    {
-        return $query->whereExists(function (QueryBuilder $query) use ($model, $callback) {
-            return $query->from('activity_log')
-                ->where('log_name', 'catagraphy')
-                ->where('subject_type', (new $model)->getMorphClass())
-                ->where('beneficiary_id', 'beneficiaries.id')
-                ->when(\is_callable($callback), fn ($query) => $query->tap($callback));
-        });
-    }
-
-    public function scopeWhereHasRareDisease(Builder $query, string $rareDisease): Builder
-    {
-        return $query
-            ->whereHasCatagraphyRelation(Disease::class, function (QueryBuilder $query) use ($rareDisease) {
-                return $query->where('properties->attributes->category', 'VSG_BR')
-                    ->where('properties->attributes->rare_disease', $rareDisease);
-            })
-            ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
-            ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
     }
 }
