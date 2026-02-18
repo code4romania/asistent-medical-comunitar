@@ -16,6 +16,8 @@ class RD05 extends ReportQuery
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->whereHasRareDisease('VBR_AY');
+            ->whereHasVulnerabilities(function (Builder $query) {
+                $query->whereJsonContains('properties', 'VBR_AY');
+            });
     }
 }

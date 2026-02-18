@@ -15,7 +15,7 @@ class GenerateListReportJob extends GenerateStandardReportJob
 {
     public function generate(): void
     {
-        $this->report->data = $this->report->indicators()
+        $this->report->data = $this->report->getIndicators()
             ->map(function (HasQuery $indicator) {
                 /** @var ReportQuery $reportQuery */
                 $reportQuery = $indicator->class();
@@ -62,8 +62,8 @@ class GenerateListReportJob extends GenerateStandardReportJob
 
         if (\is_bool($value)) {
             $value = match ($value) {
-                true => __('forms::components.select.boolean.true'),
-                false => __('forms::components.select.boolean.false'),
+                true => __('filament-forms::components.select.boolean.true'),
+                false => __('filament-forms::components.select.boolean.false'),
             };
         }
 

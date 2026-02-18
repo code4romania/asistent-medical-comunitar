@@ -75,8 +75,8 @@ class Disability extends Model implements HasVulnerabilityData
                 new VulnerabilityEntry(
                     label: __('field.cat_diz_iph'),
                     value: $this->has_certificate
-                        ? __('forms::components.select.boolean.true')
-                        : __('forms::components.select.boolean.false'),
+                        ? __('filament-forms::components.select.boolean.true')
+                        : __('filament-forms::components.select.boolean.false'),
                 ),
                 new VulnerabilityEntry(
                     label: __('field.cat_diz_deb'),
@@ -96,7 +96,11 @@ class Disability extends Model implements HasVulnerabilityData
         return new VulnerabilityListItem(
             label: "{$type->name}: {$vulnerability->name}",
             value: $vulnerability->id,
+            category: $type?->id,
             type: $this->getMorphClass(),
+            otherLogItems: [
+                $this->degree,
+            ],
             valid: true
         );
     }

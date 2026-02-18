@@ -14,8 +14,8 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
     {
         $this->report->data = [
             [
-                'title' => $this->category->getLabel(),
-                'data' => $this->report->indicators()
+                'title' => $this->report->category->getLabel(),
+                'data' => $this->report->getIndicators()
                     ->mapWithKeys(function (HasQuery $indicator) {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();

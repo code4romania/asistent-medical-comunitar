@@ -49,7 +49,7 @@ class EditCatagraphy extends EditRecord
     {
         $data['nurse_id'] = auth()->id();
         $data['beneficiary_id'] = $this->getParentRecord()->id;
-        // dd($data);
+
         // Handle pregnancy data
         if (! Vulnerability::isPregnancy($data['cat_rep'])) {
             $data['cat_preg'] = null;
@@ -75,6 +75,10 @@ class EditCatagraphy extends EditRecord
             $record->diseases->each->delete();
         }
 
+        // Fix issues with inconsistent calling of $this->record
+        // and $this->getRecord() in the parent class.
+        $this->record = $record;
+
         return $record;
     }
 
@@ -85,6 +89,23 @@ class EditCatagraphy extends EditRecord
 
     protected function afterSave(): void
     {
+        $catagraphy = $this->getRecord();
+
+        $properties = $catagraphy->all_vulnerabilities_items
+            ->map->toArray()
+            ->flatten()
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+
+        activity('vulnerabilities')
+            ->causedBy(auth()->user())
+            ->performedOn($catagraphy->beneficiary)
+            ->withProperties($properties)
+            ->event('updated')
+            ->log('updated');
+
         LogBatch::endBatch();
     }
 }

@@ -58,8 +58,7 @@ class StudiesForm
                                     ->maxValue(100)
                                     ->nullable(),
 
-                                Location::make()
-                                    ->contained(false),
+                                Location::make(),
 
                                 YearPicker::make('start_year')
                                     ->label(__('field.start_year'))

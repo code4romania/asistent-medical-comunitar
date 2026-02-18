@@ -55,6 +55,7 @@ class ReportForm
                             ->label(__('report.column.nurses'))
                             ->placeholder(__('placeholder.select_many'))
                             ->visible(fn () => auth()->user()->isCoordinator())
+                            ->minItems(1)
                             ->allowHtml()
                             ->multiple()
                             ->selectAll()

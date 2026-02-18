@@ -107,7 +107,7 @@ abstract class ReportQuery
         if (static::includeLatestBeforeRange()) {
             $union = $query->clone()
                 ->whereDate(static::dateColumn(), '<', $report->date_from)
-                ->latest('activity_log.created_at')
+                ->latest(static::dateColumn())
                 ->limit(1);
         }
 
