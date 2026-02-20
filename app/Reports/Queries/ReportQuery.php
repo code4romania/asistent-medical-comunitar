@@ -15,7 +15,7 @@ abstract class ReportQuery
 
     public static function dateColumn(): string
     {
-        return 'activity_log.created_at';
+        return 'vulnerability_entries.created_at';
     }
 
     public static function aggregateByColumn(): string

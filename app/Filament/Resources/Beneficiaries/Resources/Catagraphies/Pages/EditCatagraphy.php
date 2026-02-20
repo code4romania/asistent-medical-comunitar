@@ -8,10 +8,13 @@ use App\Filament\Resources\Beneficiaries\Concerns\UsesParentRecordSubNavigation;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\CatagraphyResource;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Concerns\GetRecordFromParentRecord;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\Concerns\HasBreadcrumbs;
+use App\Models\Activity;
 use App\Models\Catagraphy;
 use App\Models\Vulnerability\Vulnerability;
+use App\Models\Vulnerability\VulnerabilityEntry;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class EditCatagraphy extends EditRecord
 {
@@ -84,19 +87,26 @@ class EditCatagraphy extends EditRecord
     {
         $catagraphy = $this->getRecord();
 
+        /** @var Collection */
         $properties = $catagraphy->all_vulnerabilities_items
             ->map->toArray()
             ->flatten()
             ->filter()
-            ->unique()
             ->sort()
             ->values();
 
+        // deprecated
         activity('vulnerabilities')
             ->causedBy(auth()->user())
             ->performedOn($catagraphy->beneficiary)
             ->withProperties($properties)
             ->event('updated')
+            ->tap(fn (Activity $activity) => $activity->beneficiary()->associate($catagraphy->beneficiary_id))
             ->log('updated');
+
+        VulnerabilityEntry::create([
+            'beneficiary_id' => $catagraphy->beneficiary_id,
+            'map' => $properties->countBy(),
+        ]);
     }
 }
