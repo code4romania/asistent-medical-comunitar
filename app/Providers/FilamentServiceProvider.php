@@ -74,6 +74,7 @@ class FilamentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Filament::registerRenderHook(PanelsRenderHook::HEAD_START, fn () => view('components.favicons'));
+        Filament::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn () => view('components.old-url'));
     }
 
     protected function configureActions(): void
