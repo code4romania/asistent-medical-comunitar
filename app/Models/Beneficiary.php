@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -210,13 +209,9 @@ class Beneficiary extends Model
     public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder
     {
         return $query
-            ->rightJoin('activity_log', function (JoinClause $join) {
-                $join->on('activity_log.subject_id', '=', 'beneficiaries.id')
-                    ->where('activity_log.subject_type', '=', 'beneficiary');
-            })
+            ->rightJoin('vulnerability_entries', 'vulnerability_entries.beneficiary_id', '=', 'beneficiaries.id')
             ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
             ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id')
-            ->where('activity_log.log_name', 'vulnerabilities')
             ->tap($callback);
     }
 }
