@@ -140,7 +140,7 @@ class Appointment extends Model
     {
         return EventData::make()
             ->id($this->id)
-            ->title($this->type)
+            ->title((string) $this->type)
             ->start($this->start)
             ->end($this->end)
             ->url(AppointmentResource::getUrl('view', ['record' => $this]))
