@@ -7,7 +7,6 @@ namespace App\Filament\Resources\Appointments\RelationManagers;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Appointments\InterventionResource;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
-use App\Models\Appointment;
 use App\Models\Intervention;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\DissociateAction;
@@ -79,8 +78,8 @@ class InterventionsRelationManager extends RelationManager
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
                     ->recordTitle(
-                        fn (Intervention $record, Appointment $ownerRecord) => view('forms.components.appointment-intervention-item', [
-                            'appointment' => $ownerRecord,
+                        fn (Intervention $record, self $livewire) => view('forms.components.appointment-intervention-item', [
+                            'appointment' => $livewire->getOwnerRecord(),
                             'intervention' => $record,
                         ])
                     )
@@ -112,10 +111,10 @@ class InterventionsRelationManager extends RelationManager
             ])
             ->recordActions([
                 ViewAction::make()
-                    // ->url(fn (self $livewire, Intervention $record) => BeneficiaryResource::getUrl('interventions.view', [
-                    //     'beneficiary' => $livewire->getOwnerRecord()->beneficiary,
-                    //     'record' => $record,
-                    // ]))
+                    ->url(fn (Intervention $record, self $livewire) => BeneficiaryResource::getUrl('interventions.view', [
+                        'beneficiary' => $livewire->getOwnerRecord()->beneficiary,
+                        'record' => $record,
+                    ]))
                     ->iconButton(),
 
                 DissociateAction::make()

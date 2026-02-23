@@ -2,7 +2,7 @@
     <div class="flex gap-1 truncate">
         <span>#{{ $intervention->id }}</span>
         <span>-</span>
-        <span class="truncate">{{ $intervention->service_name }}</span>
+        <span class="truncate">{{ $intervention->name }}</span>
     </div>
 
     @if ($intervention->appointment_id !== null && $intervention->appointment_id !== $appointment->id)
