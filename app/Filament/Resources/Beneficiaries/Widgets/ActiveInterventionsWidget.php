@@ -67,14 +67,10 @@ class ActiveInterventionsWidget extends TableWidget
             ])
             ->recordActions([
                 ViewAction::make()
-                    ->iconButton(),
+                    ->iconButton()
+                    ->url(fn (Intervention $record): string => $this->getViewUrl($record)),
             ])
-            ->recordUrl(
-                fn (Intervention $record): string => InterventionResource::getUrl('view', [
-                    'beneficiary' => $record->beneficiary_id,
-                    'record' => $record,
-                ]),
-            )
+            ->recordUrl(fn (Intervention $record): string => $this->getViewUrl($record))
             ->emptyStateActions([
                 CreateIndividualServiceAction::make()
                     ->hidden(fn (self $livewire) => ! $livewire->getRecord()->hasCatagraphy())
@@ -90,5 +86,13 @@ class ActiveInterventionsWidget extends TableWidget
     public function getRecord(): Beneficiary
     {
         return $this->record;
+    }
+
+    protected function getViewUrl(Intervention $record): string
+    {
+        return InterventionResource::getUrl('view', [
+            'beneficiary' => $record->beneficiary_id,
+            'record' => $record,
+        ]);
     }
 }
