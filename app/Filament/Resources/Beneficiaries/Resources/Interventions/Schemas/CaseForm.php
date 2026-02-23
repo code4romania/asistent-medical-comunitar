@@ -12,7 +12,6 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Pages\Page;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -45,7 +44,7 @@ class CaseForm
                             ->label(__('field.addressed_vulnerability'))
                             ->placeholder(__('placeholder.select_one'))
                             ->options(fn (Component $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord()))
-                            ->in(fn (Page $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord())?->keys())
+                            ->in(fn (Component $livewire) => InterventionResource::getValidVulnerabilities($livewire->getRecord())?->keys())
                             ->searchable()
                             ->live()
                             ->required(),
