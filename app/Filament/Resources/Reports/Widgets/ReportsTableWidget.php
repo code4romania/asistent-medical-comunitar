@@ -61,7 +61,8 @@ class ReportsTableWidget extends TableWidget
                     ->label(__('report.column.status'))
                     ->options(Status::class),
 
-                DateRangeFilter::make('date_between'),
+                DateRangeFilter::make('created_at')
+                    ->label(__('report.column.created_at')),
             ])
             ->headerActions([
                 //
