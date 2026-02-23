@@ -18,24 +18,17 @@ class HouseholdsTable
             ->columns([
                 TextColumn::make('name')
                     ->label(__('field.household'))
-                    // ->description(__('field.household'), position: 'above')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('families.name')
                     ->label(__('field.families_count'))
-                    // ->description(__('field.families_count'), position: 'above')
-                    // ->counts('families')
                     ->searchable()
-                    ->sortable()
                     ->wrap(),
 
                 TextColumn::make('beneficiaries.full_name')
                     ->label(__('field.beneficiaries_count'))
-                    // ->description(__('field.beneficiaries_count'), position: 'above')
-                    // ->counts('beneficiaries')
                     ->searchable()
-                    ->sortable()
                     ->wrap(),
             ])
             ->filters([
