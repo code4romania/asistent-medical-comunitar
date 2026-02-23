@@ -15,7 +15,6 @@ class VacationForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-
             ->components([
                 Select::make('type')
                     ->label(__('field.type'))
