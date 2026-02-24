@@ -62,7 +62,8 @@ class ReportsTableWidget extends TableWidget
                     ->options(Status::class),
 
                 DateRangeFilter::make('created_at')
-                    ->label(__('report.column.created_at')),
+                    ->label(__('report.column.created_at'))
+                    ->maxDate(today()),
             ])
             ->headerActions([
                 //
