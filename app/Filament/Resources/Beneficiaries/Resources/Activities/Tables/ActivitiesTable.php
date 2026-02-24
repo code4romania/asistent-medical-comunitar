@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Resources\Activities\Tables;
 
-use App\Enums\Activity\Event;
 use App\Models\Activity;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -81,7 +80,6 @@ class ActivitiesTable
 
                 SelectFilter::make('event')
                     ->label(__('activity.column.event'))
-                    ->options(Event::class)
                     ->multiple()
                     ->options([
                         'created' => __('activity.filter.event_created'),
@@ -90,7 +88,8 @@ class ActivitiesTable
                     ]),
 
                 DateRangeFilter::make('created_at')
-                    ->label(__('activity.column.created_at')),
+                    ->label(__('activity.column.created_at'))
+                    ->maxDate(today()),
             ])
             ->recordActions([
                 ViewAction::make(),
