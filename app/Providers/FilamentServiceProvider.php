@@ -25,6 +25,7 @@ use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -63,6 +64,7 @@ class FilamentServiceProvider extends ServiceProvider
 
         $this->configureActions();
         $this->configureForms();
+        $this->configureFilters();
         $this->configureInfolists();
         $this->configurePages();
         $this->configureTables();
@@ -99,8 +101,22 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         DateRangePicker::configureUsing(function (DateRangePicker $component) {
-            $component->format(static::$defaultDateDisplayFormat)
-                ->displayFormat('DD.MM.YYYY');
+            $component
+                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
+                ->format(static::$defaultDateDisplayFormat)
+                ->displayFormat('DD.MM.YYYY')
+                ->autoApply();
+        });
+    }
+
+    protected function configureFilters(): void
+    {
+        DateRangeFilter::configureUsing(function (DateRangeFilter $filter) {
+            return $filter
+                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
+                ->format(static::$defaultDateDisplayFormat)
+                ->displayFormat('DD.MM.YYYY')
+                ->autoApply();
         });
     }
 
