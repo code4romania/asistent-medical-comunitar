@@ -49,9 +49,7 @@ class InterventionPolicy
      */
     public function delete(User $user, Intervention $intervention): bool
     {
-        return $user->isNurse()
-            && $user->beneficiaries->contains('id', $intervention->beneficiary_id)
-            && $intervention->isOpen();
+        return $this->update($user, $intervention);
     }
 
     /**

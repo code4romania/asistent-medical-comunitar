@@ -12,6 +12,7 @@ use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Service\Service;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Checkbox;
@@ -180,8 +181,10 @@ class InterventionsRelationManager extends RelationManager
                         $record->interventionable->update(Arr::pull($data, 'interventionable'));
 
                         $record->update($data);
-                    })
-                    ->visible(Auth::user()->can('update', $this->getOwnerRecord())),
+                    }),
+
+                DeleteAction::make()
+                    ->iconButton(),
 
             ])
             ->defaultSort('id', 'desc')
