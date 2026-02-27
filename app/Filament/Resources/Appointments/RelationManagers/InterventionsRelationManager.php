@@ -75,6 +75,7 @@ class InterventionsRelationManager extends RelationManager
                 AssociateAction::make()
                     ->label(__('intervention.action.add_service'))
                     ->modalHeading(__('intervention.action.add_service'))
+                    ->modalSubmitActionLabel(__('intervention.action.add_service'))
                     ->icon('heroicon-o-plus-circle')
                     ->color('primary')
                     ->recordTitle(
@@ -119,6 +120,7 @@ class InterventionsRelationManager extends RelationManager
 
                 DissociateAction::make()
                     ->modalHeading(__('intervention.action.dissociate_service'))
+                    ->modalSubmitActionLabel(__('intervention.action.dissociate_service'))
                     ->iconButton(),
             ])
             ->defaultSort('id', 'desc');
