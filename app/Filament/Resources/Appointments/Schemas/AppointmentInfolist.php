@@ -34,10 +34,13 @@ class AppointmentInfolist
                                             ->prefix('#'),
 
                                         TextEntry::make('beneficiary.full_name')
-                                            ->label(__('field.beneficiary')),
-                                        // ->url(fn (Appointment $record) => BeneficiaryResource::geturl('view', [
-                                        //     'record' => $record->beneficiary,
-                                        // ])),
+                                            ->label(__('field.beneficiary'))
+                                            ->url(fn (Appointment $record) => BeneficiaryResource::geturl('view', [
+                                                'record' => $record->beneficiary,
+                                            ]))
+                                            ->extraAttributes([
+                                                'class' => 'font-medium outline-none hover:underline focus:underline text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300',
+                                            ]),
 
                                         TextEntry::make('date')
                                             ->label(__('field.date'))
