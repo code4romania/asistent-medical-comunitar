@@ -42,8 +42,7 @@ class PersonalDataWidget extends Widget implements HasForms, HasInfolists
         return [
             Action::make('view')
                 ->label(__('beneficiary.action.view_details'))
-                ->url('#')
-                // ->url(BeneficiaryResource::getUrl('personal_data', ['record' => $this->record]))
+                ->url(BeneficiaryResource::getUrl('details', ['record' => $this->record]))
                 ->color('gray'),
         ];
     }
