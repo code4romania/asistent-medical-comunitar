@@ -8031,31 +8031,31 @@
         },
         {
             "name": "spatie/laravel-onboard",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-onboard.git",
-                "reference": "3ce6cd9a88068719f823788856ff17155c6c1d54"
+                "reference": "6c077c4931e862d93755fe103784a0c2c1390d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-onboard/zipball/3ce6cd9a88068719f823788856ff17155c6c1d54",
-                "reference": "3ce6cd9a88068719f823788856ff17155c6c1d54",
+                "url": "https://api.github.com/repos/spatie/laravel-onboard/zipball/6c077c4931e862d93755fe103784a0c2c1390d73",
+                "reference": "6c077c4931e862d93755fe103784a0c2c1390d73",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^9.0|^10.0|^11.0|^12.0",
+                "illuminate/contracts": "^9.0|^10.0|^11.0|^12.0|^13.0",
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9.2",
                 "spatie/once": "^3.1"
             },
             "require-dev": {
-                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
-                "pestphp/pest": "^1.21|^2.0|^3.0",
-                "pestphp/pest-plugin-laravel": "^1.1|^2.0|^3.0",
+                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "pestphp/pest": "^1.21|^2.0|^3.0|^4.4",
+                "pestphp/pest-plugin-laravel": "^1.1|^2.0|^3.0|^4.1",
                 "phpstan/extension-installer": "^1.1|^2.0",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
                 "spatie/laravel-ray": "^1.26"
             },
             "type": "library",
@@ -8095,9 +8095,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-onboard/issues",
-                "source": "https://github.com/spatie/laravel-onboard/tree/2.6.2"
+                "source": "https://github.com/spatie/laravel-onboard/tree/2.6.3"
             },
-            "time": "2025-03-21T08:27:17+00:00"
+            "time": "2026-02-26T22:50:00+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
