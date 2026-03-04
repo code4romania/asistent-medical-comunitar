@@ -104,8 +104,10 @@ class CampaignsTable
 
                 SelectFilter::make('nurse')
                     ->label(__('field.nurse'))
-                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
+                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->forUser(auth()->user()))
+                    ->searchable()
                     ->multiple()
+                    ->preload()
                     ->hidden(fn () => auth()->user()->isNurse()),
 
                 SelectFilter::make('county')

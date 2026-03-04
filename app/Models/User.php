@@ -18,6 +18,7 @@ use App\Models\Profile\Study;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -155,5 +156,14 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
             ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    public function scopeForUser(Builder $query, self $user): Builder
+    {
+        if ($user->isCoordinator()) {
+            return $query->where('activity_county_id', $user->county_id);
+        }
+
+        return $query;
     }
 }
