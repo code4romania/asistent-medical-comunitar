@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac621c5ebcd3528a2283e73f52a8586e",
+    "content-hash": "b0786bd7da2f65366bc67889898d0de2",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -7377,16 +7377,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.20.0",
+            "version": "4.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "d7264b972e5f87110492376ade1cc20cbc049345"
+                "reference": "2bf405fc4d38f00073a7d023cf321e59f614d54c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/d7264b972e5f87110492376ade1cc20cbc049345",
-                "reference": "d7264b972e5f87110492376ade1cc20cbc049345",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/2bf405fc4d38f00073a7d023cf321e59f614d54c",
+                "reference": "2bf405fc4d38f00073a7d023cf321e59f614d54c",
                 "shasum": ""
             },
             "require": {
@@ -7407,9 +7407,12 @@
                 "guzzlehttp/promises": "^2.0.3",
                 "guzzlehttp/psr7": "^1.8.4|^2.1.1",
                 "monolog/monolog": "^1.6|^2.0|^3.0",
+                "nyholm/psr7": "^1.8",
                 "phpbench/phpbench": "^1.0",
                 "phpstan/phpstan": "^1.3",
                 "phpunit/phpunit": "^8.5.52|^9.6.34",
+                "spiral/roadrunner-http": "^3.6",
+                "spiral/roadrunner-worker": "^3.6",
                 "vimeo/psalm": "^4.17"
             },
             "suggest": {
@@ -7449,7 +7452,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.20.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.21.0"
             },
             "funding": [
                 {
@@ -7461,27 +7464,27 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-02-16T13:47:54+00:00"
+            "time": "2026-02-24T15:32:51+00:00"
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "4.20.1",
+            "version": "4.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "503853fa7ee74b34b64e76f1373db86cd11afe72"
+                "reference": "4b939116c2d3c5de328f23a5f1dfb97b40e0c17b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/503853fa7ee74b34b64e76f1373db86cd11afe72",
-                "reference": "503853fa7ee74b34b64e76f1373db86cd11afe72",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/4b939116c2d3c5de328f23a5f1dfb97b40e0c17b",
+                "reference": "4b939116c2d3c5de328f23a5f1dfb97b40e0c17b",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0 | ^12.0",
                 "nyholm/psr7": "^1.0",
                 "php": "^7.2 | ^8.0",
-                "sentry/sentry": "^4.19.0",
+                "sentry/sentry": "^4.21.0",
                 "symfony/psr-http-message-bridge": "^1.0 | ^2.0 | ^6.0 | ^7.0 | ^8.0"
             },
             "require-dev": {
@@ -7494,7 +7497,7 @@
                 "mockery/mockery": "^1.3",
                 "orchestra/testbench": "^4.7 | ^5.1 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0",
                 "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^8.4 | ^9.3 | ^10.4 | ^11.5"
+                "phpunit/phpunit": "^8.5 | ^9.6 | ^10.4 | ^11.5"
             },
             "type": "library",
             "extra": {
@@ -7539,7 +7542,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/4.20.1"
+                "source": "https://github.com/getsentry/sentry-laravel/tree/4.21.0"
             },
             "funding": [
                 {
@@ -7551,7 +7554,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-01-07T08:53:19+00:00"
+            "time": "2026-02-26T16:08:52+00:00"
         },
         {
             "name": "spatie/image",
@@ -13168,24 +13171,24 @@
         },
         {
             "name": "fruitcake/laravel-debugbar",
-            "version": "v4.0.9",
+            "version": "v4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/laravel-debugbar.git",
-                "reference": "4eee2f032172fd6548028395d7a1adbd8eae2ba0"
+                "reference": "96afd5efc93c2cb3140df356893381296259695b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/4eee2f032172fd6548028395d7a1adbd8eae2ba0",
-                "reference": "4eee2f032172fd6548028395d7a1adbd8eae2ba0",
+                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/96afd5efc93c2cb3140df356893381296259695b",
+                "reference": "96afd5efc93c2cb3140df356893381296259695b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/routing": "^11|^12",
-                "illuminate/session": "^11|^12",
-                "illuminate/support": "^11|^12",
+                "illuminate/routing": "^11|^12|^13.0",
+                "illuminate/session": "^11|^12|^13.0",
+                "illuminate/support": "^11|^12|^13.0",
                 "php": "^8.2",
-                "php-debugbar/php-debugbar": "^3.1",
+                "php-debugbar/php-debugbar": "^3.3.1",
                 "php-debugbar/symfony-bridge": "^1.1"
             },
             "replace": {
@@ -13254,7 +13257,7 @@
             ],
             "support": {
                 "issues": "https://github.com/fruitcake/laravel-debugbar/issues",
-                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.0.9"
+                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.0.10"
             },
             "funding": [
                 {
@@ -13266,7 +13269,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-17T08:14:13+00:00"
+            "time": "2026-02-26T11:45:48+00:00"
         },
         {
             "name": "iamcal/sql-parser",
@@ -13387,40 +13390,40 @@
         },
         {
             "name": "larastan/larastan",
-            "version": "v3.9.2",
+            "version": "v3.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larastan/larastan.git",
-                "reference": "2e9ed291bdc1969e7f270fb33c9cdf3c912daeb2"
+                "reference": "64a52bcc5347c89fdf131cb59f96ebfbc8d1ad65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larastan/larastan/zipball/2e9ed291bdc1969e7f270fb33c9cdf3c912daeb2",
-                "reference": "2e9ed291bdc1969e7f270fb33c9cdf3c912daeb2",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/64a52bcc5347c89fdf131cb59f96ebfbc8d1ad65",
+                "reference": "64a52bcc5347c89fdf131cb59f96ebfbc8d1ad65",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "iamcal/sql-parser": "^0.7.0",
-                "illuminate/console": "^11.44.2 || ^12.4.1",
-                "illuminate/container": "^11.44.2 || ^12.4.1",
-                "illuminate/contracts": "^11.44.2 || ^12.4.1",
-                "illuminate/database": "^11.44.2 || ^12.4.1",
-                "illuminate/http": "^11.44.2 || ^12.4.1",
-                "illuminate/pipeline": "^11.44.2 || ^12.4.1",
-                "illuminate/support": "^11.44.2 || ^12.4.1",
+                "illuminate/console": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/container": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/contracts": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/database": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/http": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/pipeline": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/support": "^11.44.2 || ^12.4.1 || ^13",
                 "php": "^8.2",
                 "phpstan/phpstan": "^2.1.32"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^13",
-                "laravel/framework": "^11.44.2 || ^12.7.2",
+                "laravel/framework": "^11.44.2 || ^12.7.2 || ^13",
                 "mockery/mockery": "^1.6.12",
                 "nikic/php-parser": "^5.4",
-                "orchestra/canvas": "^v9.2.2 || ^10.0.1",
-                "orchestra/testbench-core": "^9.12.0 || ^10.1",
+                "orchestra/canvas": "^v9.2.2 || ^10.0.1 || ^11",
+                "orchestra/testbench-core": "^9.12.0 || ^10.1 || ^11",
                 "phpstan/phpstan-deprecation-rules": "^2.0.1",
-                "phpunit/phpunit": "^10.5.35 || ^11.5.15"
+                "phpunit/phpunit": "^10.5.35 || ^11.5.15 || ^12.5.8"
             },
             "suggest": {
                 "orchestra/testbench": "Using Larastan for analysing a package needs Testbench",
@@ -13465,7 +13468,7 @@
             ],
             "support": {
                 "issues": "https://github.com/larastan/larastan/issues",
-                "source": "https://github.com/larastan/larastan/tree/v3.9.2"
+                "source": "https://github.com/larastan/larastan/tree/v3.9.3"
             },
             "funding": [
                 {
@@ -13473,20 +13476,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-30T15:16:32+00:00"
+            "time": "2026-02-20T12:07:12+00:00"
         },
         {
             "name": "laravel/boost",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/boost.git",
-                "reference": "b4c5bed7b45e9cd9f705ef3ab1157d437376323c"
+                "reference": "e27f1616177377fef95296620530c44a7dda4df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/boost/zipball/b4c5bed7b45e9cd9f705ef3ab1157d437376323c",
-                "reference": "b4c5bed7b45e9cd9f705ef3ab1157d437376323c",
+                "url": "https://api.github.com/repos/laravel/boost/zipball/e27f1616177377fef95296620530c44a7dda4df9",
+                "reference": "e27f1616177377fef95296620530c44a7dda4df9",
                 "shasum": ""
             },
             "require": {
@@ -13539,7 +13542,7 @@
                 "issues": "https://github.com/laravel/boost/issues",
                 "source": "https://github.com/laravel/boost"
             },
-            "time": "2026-02-20T14:45:22+00:00"
+            "time": "2026-02-25T16:07:36+00:00"
         },
         {
             "name": "laravel/mcp",
@@ -14670,16 +14673,16 @@
         },
         {
             "name": "php-debugbar/php-debugbar",
-            "version": "v3.4.0",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-debugbar/php-debugbar.git",
-                "reference": "e50d470344b62a033a76d3d10a803b04c8e3be69"
+                "reference": "ee9c718797a4c1fdf6c4d980cb3edcc1eeeddcc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/e50d470344b62a033a76d3d10a803b04c8e3be69",
-                "reference": "e50d470344b62a033a76d3d10a803b04c8e3be69",
+                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/ee9c718797a4c1fdf6c4d980cb3edcc1eeeddcc7",
+                "reference": "ee9c718797a4c1fdf6c4d980cb3edcc1eeeddcc7",
                 "shasum": ""
             },
             "require": {
@@ -14756,7 +14759,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-debugbar/php-debugbar/issues",
-                "source": "https://github.com/php-debugbar/php-debugbar/tree/v3.4.0"
+                "source": "https://github.com/php-debugbar/php-debugbar/tree/v3.4.1"
             },
             "funding": [
                 {
@@ -14768,7 +14771,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-14T14:10:26+00:00"
+            "time": "2026-02-26T11:40:30+00:00"
         },
         {
             "name": "php-debugbar/symfony-bridge",
@@ -17416,16 +17419,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v8.0.1",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "7a1a90ba1df6e821a6b53c4cabdc32a56cabfb14"
+                "reference": "5f006c50a981e1630bbb70ad409c5d85f9a716e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/7a1a90ba1df6e821a6b53c4cabdc32a56cabfb14",
-                "reference": "7a1a90ba1df6e821a6b53c4cabdc32a56cabfb14",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/5f006c50a981e1630bbb70ad409c5d85f9a716e0",
+                "reference": "5f006c50a981e1630bbb70ad409c5d85f9a716e0",
                 "shasum": ""
             },
             "require": {
@@ -17467,7 +17470,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v8.0.1"
+                "source": "https://github.com/symfony/yaml/tree/v8.0.6"
             },
             "funding": [
                 {
@@ -17487,7 +17490,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-04T18:17:06+00:00"
+            "time": "2026-02-09T10:14:57+00:00"
         },
         {
             "name": "ta-tikoma/phpunit-architecture-test",
