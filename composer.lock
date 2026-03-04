@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2eb2c144e399b4794965291b455faa0b",
+    "content-hash": "b0786bd7da2f65366bc67889898d0de2",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
