@@ -29,7 +29,7 @@
         "staudenmeir/belongs-to-through": "^2.16",
         "staudenmeir/laravel-merged-relations": "^1.9",
         "stevegrunwell/time-constants": "^1.2",
-        "tpetry/laravel-query-expressions": "^1.5"
+        "tpetry/laravel-query-expressions": "^1.6"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",
