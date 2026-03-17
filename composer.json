@@ -32,7 +32,7 @@
         "tpetry/laravel-query-expressions": "^1.5"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^3.6",
+        "barryvdh/laravel-ide-helper": "^3.7",
         "fakerphp/faker": "^1.24",
         "friendsofphp/php-cs-fixer": "^3.94",
         "fruitcake/laravel-debugbar": "^4.0",
