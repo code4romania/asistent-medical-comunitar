@@ -40,7 +40,7 @@
         "larastan/larastan": "^3.9",
         "laravel/boost": "^2.3",
         "laravel/sail": "^1.54",
-        "laravel/telescope": "^5.18",
+        "laravel/telescope": "^5.19",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9",
         "pestphp/pest": "^4.4",
