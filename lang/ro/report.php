@@ -80,6 +80,12 @@ return [
             'pregnant' => 'Gravidă (fișă raportare)',
             'child' => 'Copil (fișă raportare)',
             'rare_disease' => 'Asistent medical comunitar (fișă raportare boli rare)',
+            'users' => 'Statistici utilizatori AMC/MSR și concedii',
+            'activity' => 'Activitate AMC/MSR - statistici generale',
+            'interventions' => 'Intervenții AMC/MSR',
+            'services_health' => 'Distribuția serviciilor AMC-MSR pe indicatori de sănătate',
+            'cases_health' => 'Distribuția managementului de caz pe indicatori de sănătate',
+            'community_activities' => 'Activități comunitare',
         ],
 
         'indicator' => [

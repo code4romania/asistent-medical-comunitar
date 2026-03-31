@@ -86,7 +86,7 @@ class ReportForm
                         Select::make('category')
                             ->label(__('report.column.category'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->options(Category::class)
+                            ->filteredEnum(Category::class)
                             ->live()
                             ->required()
                             ->afterStateUpdated(function (Set $set) {
