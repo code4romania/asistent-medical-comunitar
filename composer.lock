@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f8118da80d23596dc6857b1a5c16fc6",
+    "content-hash": "85666736a75429b3a9d5f74f80d50d02",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -1029,25 +1029,25 @@
         },
         {
             "name": "commitglobal/app-version",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commitglobal/php-app-version.git",
-                "reference": "b13632a4450c1984709463cd166c866904a64a92"
+                "reference": "2fabf47f0b8b9b3407b9a1057e5ca37a849e8dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commitglobal/php-app-version/zipball/b13632a4450c1984709463cd166c866904a64a92",
-                "reference": "b13632a4450c1984709463cd166c866904a64a92",
+                "url": "https://api.github.com/repos/commitglobal/php-app-version/zipball/2fabf47f0b8b9b3407b9a1057e5ca37a849e8dad",
+                "reference": "2fabf47f0b8b9b3407b9a1057e5ca37a849e8dad",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^10.0|^11.0|^12.0",
-                "php": "^8.1"
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.2"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.84",
-                "orchestra/testbench": "^8.0|^9.0|^10.0"
+                "friendsofphp/php-cs-fixer": "^3.94",
+                "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0"
             },
             "type": "library",
             "extra": {
@@ -1069,9 +1069,9 @@
             "description": "Lightweight package that enables easy display and management of your application's version information.",
             "support": {
                 "issues": "https://github.com/commitglobal/php-app-version/issues",
-                "source": "https://github.com/commitglobal/php-app-version/tree/1.0.0"
+                "source": "https://github.com/commitglobal/php-app-version/tree/1.1.0"
             },
-            "time": "2025-08-01T13:20:29+00:00"
+            "time": "2026-04-01T12:17:38+00:00"
         },
         {
             "name": "commitglobal/enum-utils",

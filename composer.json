@@ -9,7 +9,7 @@
         "aedart/athenaeum-antivirus": "^9.25",
         "alcea/cnp": "^3.0",
         "blade-ui-kit/blade-heroicons": "^2.7",
-        "commitglobal/app-version": "^v1.0",
+        "commitglobal/app-version": "^v1.1",
         "commitglobal/enum-utils": "^v1.1",
         "filament/filament": "^5.4",
         "filament/spatie-laravel-media-library-plugin": "^5.4",
