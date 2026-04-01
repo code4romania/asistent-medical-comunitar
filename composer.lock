@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7f5b598262389f15656b866f0e237c3",
+    "content-hash": "2f8118da80d23596dc6857b1a5c16fc6",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -1075,25 +1075,25 @@
         },
         {
             "name": "commitglobal/enum-utils",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commitglobal/php-enum-utils.git",
-                "reference": "bee37d1470799d8aea9a655b369fa788b20bfea5"
+                "reference": "f5453262454085a442047fc9dbc82b66949a7354"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commitglobal/php-enum-utils/zipball/bee37d1470799d8aea9a655b369fa788b20bfea5",
-                "reference": "bee37d1470799d8aea9a655b369fa788b20bfea5",
+                "url": "https://api.github.com/repos/commitglobal/php-enum-utils/zipball/f5453262454085a442047fc9dbc82b66949a7354",
+                "reference": "f5453262454085a442047fc9dbc82b66949a7354",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^10.0|^11.0|^12.0",
-                "php": "^8.1"
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.2"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.84",
-                "orchestra/testbench": "^8.0|^9.0|^10.0"
+                "friendsofphp/php-cs-fixer": "^3.94",
+                "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0"
             },
             "type": "library",
             "autoload": {
@@ -1108,9 +1108,9 @@
             "description": "Collection of PHP utilities for working with enums",
             "support": {
                 "issues": "https://github.com/commitglobal/php-enum-utils/issues",
-                "source": "https://github.com/commitglobal/php-enum-utils/tree/1.0.0"
+                "source": "https://github.com/commitglobal/php-enum-utils/tree/1.1.0"
             },
-            "time": "2025-07-31T11:55:38+00:00"
+            "time": "2026-04-01T12:14:16+00:00"
         },
         {
             "name": "composer/pcre",
