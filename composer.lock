@@ -3166,26 +3166,26 @@
         },
         {
             "name": "kalnoy/nestedset",
-            "version": "v6.0.6",
+            "version": "v6.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lazychaser/laravel-nestedset.git",
-                "reference": "3cfc56a9759fb592bc903056166bfc0867f9e679"
+                "reference": "2a4a39285723b463dfa033817677658365a635c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/3cfc56a9759fb592bc903056166bfc0867f9e679",
-                "reference": "3cfc56a9759fb592bc903056166bfc0867f9e679",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/2a4a39285723b463dfa033817677658365a635c5",
+                "reference": "2a4a39285723b463dfa033817677658365a635c5",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "illuminate/events": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/database": ">=7.0",
+                "illuminate/events": ">=7.0",
+                "illuminate/support": ">=7.0",
                 "php": "^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "7.*|8.*|9.*|^10.5"
+                "phpunit/phpunit": ">=7.0"
             },
             "type": "library",
             "extra": {
@@ -3223,9 +3223,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lazychaser/laravel-nestedset/issues",
-                "source": "https://github.com/lazychaser/laravel-nestedset/tree/v6.0.6"
+                "source": "https://github.com/lazychaser/laravel-nestedset/tree/v6.0.7"
             },
-            "time": "2025-04-22T19:38:02+00:00"
+            "time": "2026-03-30T13:24:30+00:00"
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",
