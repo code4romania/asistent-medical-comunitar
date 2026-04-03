@@ -48,4 +48,9 @@ class Activity extends BaseActivity
                 $query->whereDate('created_at', '<=', $date);
             });
     }
+
+    public function scopeForSubjectType(Builder $query, string $model): Builder
+    {
+        return $query->where('subject_type', app($model)->getMorphClass());
+    }
 }

@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
@@ -165,5 +166,15 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         }
 
         return $query;
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'users.id')
+                    ->where('activity_log.subject_type', '=', 'user');
+            })
+            ->tap($callback);
     }
 }
