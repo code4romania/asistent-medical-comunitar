@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasTypes;
+use App\Enums\Report\Type;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Pregnant: string implements HasQuery, HasLabel
+enum Pregnant: string implements HasQuery, HasLabel, HasTypes
 {
     use Arrayable;
     use Comparable;
@@ -48,5 +50,13 @@ enum Pregnant: string implements HasQuery, HasLabel
     public function class(): string
     {
         return "\\App\\Reports\\Queries\\Pregnant\\{$this->value}";
+    }
+
+    public static function types(): array
+    {
+        return [
+            Type::LIST,
+            Type::STATISTIC,
+        ];
     }
 }

@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Enums\Report\Standard;
 
 use App\Contracts\Enums\CanBeFiltered;
-use App\Enums\Report\Standard\Indicators\Child;
-use App\Enums\Report\Standard\Indicators\General;
-use App\Enums\Report\Standard\Indicators\Pregnant;
-use App\Enums\Report\Standard\Indicators\RareDisease;
+use App\Enums\Report\Type;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
@@ -50,15 +47,29 @@ enum Category: string implements HasLabel, CanBeFiltered
     public function indicator(): string
     {
         return match ($this) {
-            self::GENERAL => General::class,
-            self::PREGNANT => Pregnant::class,
-            self::CHILD => Child::class,
-            self::RARE_DISEASE => RareDisease::class,
+            self::GENERAL => Indicators\General::class,
+            self::PREGNANT => Indicators\Pregnant::class,
+            self::CHILD => Indicators\Child::class,
+            self::RARE_DISEASE => Indicators\RareDisease::class,
+
+            self::USERS => Indicators\Users::class,
+            self::ACTIVITY => Indicators\Activity::class,
+            self::INTERVENTIONS => Indicators\Interventions::class,
+            self::SERVICES_HEALTH => Indicators\ServicesHealth::class,
+            self::CASES_HEALTH => Indicators\CasesHealth::class,
+            self::COMMUNITY_ACTIVITIES => Indicators\CommunityActivities::class,
         };
     }
 
-    public function isVisible(): bool
+    public function isVisible(?Type $type = null): bool
     {
+        if (
+            filled($type) &&
+            ! \in_array($type, $this->indicator()::types(), true)
+        ) {
+            return false;
+        }
+
         // TODO: check for mediator
         return match ($this) {
             self::USERS => auth()->user()->isAdmin() || auth()->user()->isCoordinator(),

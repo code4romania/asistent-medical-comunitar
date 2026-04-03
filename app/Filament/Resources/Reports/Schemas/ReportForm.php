@@ -86,7 +86,17 @@ class ReportForm
                         Select::make('category')
                             ->label(__('report.column.category'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->filteredEnum(Category::class)
+                            ->enum(Category::class)
+                            ->options(
+                                fn (Select $component, Get $get): array => collect(Category::cases())
+                                    ->filter(fn (Category $case): bool => $case->isVisible($get('type')))
+                                    ->reduce(function (array $carry, Category $case): array {
+                                        $carry[$case->value ?? $case->name] = $case->getLabel() ?? $case->name;
+
+                                        return $carry;
+                                    }, [])
+                            )
+
                             ->live()
                             ->required()
                             ->afterStateUpdated(function (Set $set) {
