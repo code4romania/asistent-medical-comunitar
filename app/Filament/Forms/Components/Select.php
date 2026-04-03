@@ -52,8 +52,8 @@ class Select extends BaseSelect
         $this->options(
             fn (self $component): array => collect($enum::cases())
                 ->filter(fn (CanBeFiltered $case): bool => $case->isVisible())
-                ->reduce(function (array $carry, CanBeFiltered $enum): array {
-                    $carry[$enum->value ?? $enum->name] = $enum->getLabel() ?? $enum->name;
+                ->reduce(function (array $carry, CanBeFiltered $case): array {
+                    $carry[$case->value ?? $case->name] = $case->getLabel() ?? $case->name;
 
                     return $carry;
                 }, [])
