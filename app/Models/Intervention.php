@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Concerns\BelongsToVulnerability;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
@@ -26,6 +27,7 @@ class Intervention extends Model
 {
     use BelongsToAppointment;
     use BelongsToBeneficiary;
+    use BelongsToNurseThroughBeneficiary;
     use BelongsToVulnerability;
     use HasFactory;
     use LogsActivity;
@@ -53,18 +55,6 @@ class Intervention extends Model
 
     public static function booted(): void
     {
-        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
-            if (! auth()->check()) {
-                return;
-            }
-
-            if (auth()->user()->isAdmin()) {
-                return;
-            }
-
-            $builder->forUser(auth()->user());
-        });
-
         static::creating(function (self $intervention) {
             if (! $intervention->isIndividualService()) {
                 return;
@@ -154,19 +144,6 @@ class Intervention extends Model
     public function scopeOnlyPlanned(Builder $query): Builder
     {
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
-    }
-
-    public function scopeForUser(Builder $query, User $user): Builder
-    {
-        if ($user->isNurse()) {
-            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
-        }
-
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
-        }
-
-        return $query;
     }
 
     public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string|array $codes): Builder

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries;
 
+use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class ReportQuery
 {
+    public static AggregateFunction $aggregateFunction = AggregateFunction::COUNT;
+
     abstract public static function query(): Builder;
 
     public static function dateColumn(): string
@@ -117,10 +120,12 @@ abstract class ReportQuery
             ->when(isset($union), fn (Builder $q) => $q->union($union));
     }
 
-    public static function aggregate(Report $report): int
+    public static function aggregate(Report $report): int|float
     {
+        $method = static::$aggregateFunction->value;
+
         return static::build($report)
             ->distinct(static::aggregateByColumn())
-            ->count(static::aggregateByColumn());
+            ->$method(static::aggregateByColumn()) ?? 0;
     }
 }
