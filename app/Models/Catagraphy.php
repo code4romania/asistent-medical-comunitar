@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
@@ -22,6 +23,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Catagraphy extends Model
 {
     use BelongsToBeneficiary;
+    use BelongsToNurseThroughBeneficiary;
     use HasFactory;
     use LogsActivity;
 
