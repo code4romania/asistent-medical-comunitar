@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "139354a925c2108c230fea9f0b94d8d2",
+    "content-hash": "78f94ce5cc83e21cef0268a37facab3b",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -4735,22 +4735,27 @@
         },
         {
             "name": "malzariey/filament-daterangepicker-filter",
-            "version": "4.0.9",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/malzariey/filament-daterangepicker-filter.git",
-                "reference": "2d75b5a5b0e98cfb38861b7a5ce8ebbfc178c522"
+                "reference": "6d2b2c427ad7050bd58065d45d977faeca41c692"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/malzariey/filament-daterangepicker-filter/zipball/2d75b5a5b0e98cfb38861b7a5ce8ebbfc178c522",
-                "reference": "2d75b5a5b0e98cfb38861b7a5ce8ebbfc178c522",
+                "url": "https://api.github.com/repos/malzariey/filament-daterangepicker-filter/zipball/6d2b2c427ad7050bd58065d45d977faeca41c692",
+                "reference": "6d2b2c427ad7050bd58065d45d977faeca41c692",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^4.0|^5.0",
-                "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0|^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
                 "spatie/laravel-package-tools": "^1.16.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^10.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0"
             },
             "type": "library",
             "extra": {
@@ -4788,7 +4793,7 @@
             ],
             "support": {
                 "issues": "https://github.com/malzariey/filament-daterangepicker-filter/issues",
-                "source": "https://github.com/malzariey/filament-daterangepicker-filter/tree/4.0.9"
+                "source": "https://github.com/malzariey/filament-daterangepicker-filter/tree/5.0.1"
             },
             "funding": [
                 {
@@ -4796,7 +4801,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-22T20:37:45+00:00"
+            "time": "2026-04-02T09:28:37+00:00"
         },
         {
             "name": "markbaker/complex",

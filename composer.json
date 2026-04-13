@@ -20,7 +20,7 @@
         "laravel/sanctum": "^4.3",
         "laravel/tinker": "^3.0",
         "maatwebsite/excel": "^3.1",
-        "malzariey/filament-daterangepicker-filter": "^4.0",
+        "malzariey/filament-daterangepicker-filter": "^5.0",
         "saade/filament-fullcalendar": "^4.0",
         "sentry/sentry-laravel": "^4.25",
         "spatie/laravel-activitylog": "^4.12",
