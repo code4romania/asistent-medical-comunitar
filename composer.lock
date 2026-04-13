@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8243fad8b9d4987ef40cb830cc95c3e",
+    "content-hash": "139354a925c2108c230fea9f0b94d8d2",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -3166,16 +3166,16 @@
         },
         {
             "name": "kalnoy/nestedset",
-            "version": "v6.0.7",
+            "version": "v7.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lazychaser/laravel-nestedset.git",
-                "reference": "2a4a39285723b463dfa033817677658365a635c5"
+                "reference": "53c75a1b19b7b1e3b71d1ee18c7f8dd67dd77bb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/2a4a39285723b463dfa033817677658365a635c5",
-                "reference": "2a4a39285723b463dfa033817677658365a635c5",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/53c75a1b19b7b1e3b71d1ee18c7f8dd67dd77bb4",
+                "reference": "53c75a1b19b7b1e3b71d1ee18c7f8dd67dd77bb4",
                 "shasum": ""
             },
             "require": {
@@ -3223,9 +3223,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lazychaser/laravel-nestedset/issues",
-                "source": "https://github.com/lazychaser/laravel-nestedset/tree/v6.0.7"
+                "source": "https://github.com/lazychaser/laravel-nestedset/tree/v7.0.1"
             },
-            "time": "2026-03-30T13:24:30+00:00"
+            "time": "2026-04-11T13:11:34+00:00"
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",
