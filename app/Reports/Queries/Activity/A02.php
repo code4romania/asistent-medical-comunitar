@@ -25,7 +25,7 @@ class A02 extends ReportQuery
             });
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'beneficiaries.created_at';
     }

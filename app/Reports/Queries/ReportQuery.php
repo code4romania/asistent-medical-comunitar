@@ -16,7 +16,7 @@ abstract class ReportQuery
 
     abstract public static function query(): Builder;
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'vulnerability_entries.created_at';
     }
@@ -104,19 +104,19 @@ abstract class ReportQuery
             ->tap([static::class, 'tapQuery']);
 
         if (! $report->date_until) {
-            return $query->whereDate(static::dateColumn(), '=', $report->date_from);
+            return $query->whereDate(static::dateColumn('start'), '=', $report->date_from);
         }
 
         if (static::includeLatestBeforeRange()) {
             $union = $query->clone()
-                ->whereDate(static::dateColumn(), '<', $report->date_from)
-                ->latest(static::dateColumn())
+                ->whereDate(static::dateColumn('start'), '<', $report->date_from)
+                ->latest(static::dateColumn('start'))
                 ->limit(1);
         }
 
         return $query
-            ->whereDate(static::dateColumn(), '>=', $report->date_from)
-            ->whereDate(static::dateColumn(), '<=', $report->date_until)
+            ->whereDate(static::dateColumn('start'), '>=', $report->date_from)
+            ->whereDate(static::dateColumn('end'), '<=', $report->date_until)
             ->when(isset($union), fn (Builder $q) => $q->union($union));
     }
 

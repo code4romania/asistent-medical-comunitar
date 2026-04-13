@@ -23,7 +23,7 @@ class A06 extends ReportQuery
             });
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'activity_log.created_at';
     }

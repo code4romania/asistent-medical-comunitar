@@ -18,7 +18,7 @@ class A15 extends ReportQuery
         return CommunityActivity::query();
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'date';
     }

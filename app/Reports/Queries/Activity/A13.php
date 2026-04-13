@@ -18,7 +18,7 @@ class A13 extends ReportQuery
         return Appointment::query();
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'date';
     }

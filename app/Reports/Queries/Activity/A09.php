@@ -21,18 +21,18 @@ class A09 extends ReportQuery
             ->onlyRealized();
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 
     public static function aggregateByColumn(): string
     {
         return 'interventions.id';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
     }
 }

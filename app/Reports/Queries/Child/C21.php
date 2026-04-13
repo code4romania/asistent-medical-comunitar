@@ -23,7 +23,7 @@ class C21 extends ReportQuery
             ->whereRealizedIndividualServiceWithCode('SNF_11');
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
     }

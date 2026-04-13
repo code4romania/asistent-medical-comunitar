@@ -54,7 +54,7 @@ class A08 extends ReportQuery
             ->groupBy('beneficiary_id');
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'created_at';
     }

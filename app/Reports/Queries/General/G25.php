@@ -21,7 +21,7 @@ class G25 extends ReportQuery
             ->whereCampaign(Campaign::SCREENING);
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'created_at';
     }

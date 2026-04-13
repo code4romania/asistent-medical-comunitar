@@ -24,7 +24,7 @@ class A11 extends ReportQuery
             ->where('interventionable_individual_services.status', '=', Status::REALIZED);
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
     }
