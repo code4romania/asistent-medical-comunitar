@@ -12,13 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class ReportQuery
 {
-    public static AggregateFunction $aggregateFunction = AggregateFunction::COUNT;
-
     abstract public static function query(): Builder;
 
     public static function dateColumn(string $type): string
     {
         return 'vulnerability_entries.created_at';
+    }
+
+    public static function aggregateFunction(): AggregateFunction
+    {
+        return AggregateFunction::COUNT;
     }
 
     public static function aggregateByColumn(): string
@@ -120,9 +123,9 @@ abstract class ReportQuery
             ->when(isset($union), fn (Builder $q) => $q->union($union));
     }
 
-    public static function aggregate(Report $report): int|float
+    public static function aggregate(Report $report): int|float|string
     {
-        $method = static::$aggregateFunction->value;
+        $method = static::aggregateFunction()->value;
 
         return static::build($report)
             ->distinct(static::aggregateByColumn())
