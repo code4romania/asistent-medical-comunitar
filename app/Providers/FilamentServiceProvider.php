@@ -104,7 +104,6 @@ class FilamentServiceProvider extends ServiceProvider
             $component
                 ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
-                ->displayFormat('DD.MM.YYYY')
                 ->autoApply();
         });
     }
@@ -115,7 +114,6 @@ class FilamentServiceProvider extends ServiceProvider
             return $filter
                 ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
-                ->displayFormat('DD.MM.YYYY')
                 ->autoApply();
         });
     }
