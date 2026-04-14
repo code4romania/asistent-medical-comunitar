@@ -34,6 +34,14 @@ abstract class ReportQuery
         return true;
     }
 
+    public static function distinct(): bool
+    {
+        return match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => true,
+            default => false,
+        };
+    }
+
     public static function endDateNullable(): bool
     {
         return false;
@@ -143,7 +151,7 @@ abstract class ReportQuery
         $method = static::aggregateFunction()->value;
 
         return static::build($report)
-            ->distinct(static::aggregateByColumn())
+            ->when(static::distinct(), fn (Builder $query) => $query->distinct(static::aggregateByColumn()))
             ->$method(static::aggregateByColumn()) ?? 0;
     }
 }
