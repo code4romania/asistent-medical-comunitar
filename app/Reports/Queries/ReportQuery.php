@@ -34,6 +34,11 @@ abstract class ReportQuery
         return true;
     }
 
+    public static function endDateNullable(): bool
+    {
+        return false;
+    }
+
     public static function selectColumns(): array
     {
         return [
@@ -119,7 +124,17 @@ abstract class ReportQuery
 
         return $query
             ->whereDate(static::dateColumn('start'), '>=', $report->date_from)
-            ->whereDate(static::dateColumn('end'), '<=', $report->date_until)
+            ->when(
+                ! static::endDateNullable(),
+                fn (Builder $query) => $query
+                    ->whereDate(static::dateColumn('end'), '<=', $report->date_until),
+                fn (Builder $query) => $query
+                    ->where(function (Builder $query) use ($report) {
+                        $query
+                            ->whereDate(static::dateColumn('end'), '<=', $report->date_until)
+                            ->orWhereNull(static::dateColumn('end'));
+                    }),
+            )
             ->when(isset($union), fn (Builder $q) => $q->union($union));
     }
 

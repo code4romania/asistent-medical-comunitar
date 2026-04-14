@@ -8,6 +8,7 @@ use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
 use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Concerns\BelongsToVulnerability;
+use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Arr;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -146,6 +148,11 @@ class Intervention extends Model
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
     }
 
+    public function scopeWhereInitiatedBy(Builder $query, CaseInitiator $initiator): Builder
+    {
+        return $query->whereMorphRelation('interventionable', InterventionableCase::class, 'initiator', $initiator);
+    }
+
     public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string|array $codes): Builder
     {
         return $query
@@ -157,6 +164,15 @@ class Intervention extends Model
                     ->whereHas('service', fn (Builder $query) => $query->whereIn('code', Arr::wrap($codes)))
                     ->where('status', Status::REALIZED)
             );
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'interventions.id')
+                    ->where('activity_log.subject_type', '=', 'intervention');
+            });
     }
 
     public function isCase(): bool
