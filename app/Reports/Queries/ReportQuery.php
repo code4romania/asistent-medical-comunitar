@@ -7,6 +7,7 @@ namespace App\Reports\Queries;
 use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,6 +41,11 @@ abstract class ReportQuery
             AggregateFunction::COUNT => true,
             default => false,
         };
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return false;
     }
 
     public static function endDateNullable(): bool
@@ -84,6 +90,11 @@ abstract class ReportQuery
         ]);
     }
 
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query;
+    }
+
     public static function recordActionUrl(Model $record): ?string
     {
         return BeneficiaryResource::getUrl(
@@ -112,12 +123,23 @@ abstract class ReportQuery
         ];
     }
 
-    public static function build(Report $report): Builder
+    public static function build(Report $report, bool $aggregate = false): Builder
     {
+        /** @var Builder */
         $query = static::query()
-            ->forUser($report->user)
-            ->select(static::selectColumns())
-            ->tap([static::class, 'tapQuery']);
+            ->forUser($report->user);
+
+        if ($aggregate) {
+            $query->select(static::aggregateByColumn());
+
+            if (static::distinct()) {
+                $query->distinct();
+            }
+        } else {
+            $query
+                ->select(static::selectColumns())
+                ->tap([static::class, 'tapQuery']);
+        }
 
         if (! $report->date_until) {
             return $query->whereDate(static::dateColumn('start'), '=', $report->date_from);
@@ -130,28 +152,46 @@ abstract class ReportQuery
                 ->limit(1);
         }
 
-        return $query
-            ->whereDate(static::dateColumn('start'), '>=', $report->date_from)
-            ->when(
-                ! static::endDateNullable(),
-                fn (Builder $query) => $query
-                    ->whereDate(static::dateColumn('end'), '<=', $report->date_until),
-                fn (Builder $query) => $query
-                    ->where(function (Builder $query) use ($report) {
-                        $query
-                            ->whereDate(static::dateColumn('end'), '<=', $report->date_until)
-                            ->orWhereNull(static::dateColumn('end'));
-                    }),
-            )
-            ->when(isset($union), fn (Builder $q) => $q->union($union));
+        static::where($query, $report);
+        static::whereDate($query, 'start', $report->date_from);
+        static::whereDate($query, 'end', $report->date_until);
+
+        if (isset($union)) {
+            $query->union($union);
+        }
+
+        return $query;
     }
 
     public static function aggregate(Report $report): int|float|string
     {
         $method = static::aggregateFunction()->value;
 
-        return static::build($report)
-            ->when(static::distinct(), fn (Builder $query) => $query->distinct(static::aggregateByColumn()))
+        return static::build($report, true)
+            ->when(static::distinct(), fn (Builder $query) => $query->distinct())
             ->$method(static::aggregateByColumn()) ?? 0;
+    }
+
+    public static function whereDate(Builder $query, string $column, ?Carbon $date): Builder
+    {
+        $condition = match ($column) {
+            'start' => static::startDateNullable(),
+            'end' => static::endDateNullable(),
+        };
+
+        $operator = match ($column) {
+            'start' => '>=' ,
+            'end' => '<=' ,
+        };
+
+        if (! $condition) {
+            return $query->whereDate(static::dateColumn($column), $operator, $date);
+        }
+
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereDate(static::dateColumn($column), $operator, $date)
+                ->orWhereNull(static::dateColumn($column))
+        );
     }
 }
