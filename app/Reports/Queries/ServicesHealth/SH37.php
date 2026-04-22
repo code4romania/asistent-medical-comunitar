@@ -9,5 +9,5 @@ namespace App\Reports\Queries\ServicesHealth;
  */
 class SH37 extends ServicesHealthQuery
 {
-    public static string $secondaryVulnerability = 'VSG_BR';
+    public static array|string $secondaryVulnerability = 'VSG_BR';
 }

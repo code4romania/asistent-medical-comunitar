@@ -14,18 +14,20 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Tpetry\QueryExpressions\Function\Aggregate\Count;
 use Tpetry\QueryExpressions\Function\Aggregate\CountFilter;
-use Tpetry\QueryExpressions\Function\Comparison\StrListContains;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
+use Tpetry\QueryExpressions\Operator\Comparison\Equal;
 use Tpetry\QueryExpressions\Value\Value;
 
 abstract class ServicesHealthQuery extends ReportQuery
 {
-    public static string $vulnerability;
+    public static array|string $vulnerability;
 
-    public static string $secondaryVulnerability;
+    public static array|string $secondaryVulnerability;
 
     public static bool $countBeneficiaries = false;
+
+    private static Collection $serviceCategories;
 
     public static function query(): Builder
     {
@@ -35,7 +37,8 @@ abstract class ServicesHealthQuery extends ReportQuery
             ->when(isset(static::$secondaryVulnerability), fn (Builder $query) => $query->whereSecondaryVulnerability(static::$secondaryVulnerability))
             ->onlyRealized()
             ->leftJoin('interventionable_individual_services', 'interventionable_individual_services.id', 'interventions.interventionable_id')
-            ->leftJoin('services', 'interventionable_individual_services.service_id', 'services.id');
+            ->leftJoin('services', 'interventionable_individual_services.service_id', 'services.id')
+            ->leftJoin('service_categories', 'services.category_id', 'service_categories.id');
     }
 
     public static function dateColumn(string $type): string
@@ -55,59 +58,48 @@ abstract class ServicesHealthQuery extends ReportQuery
 
     public static function aggregate(Report $report): mixed
     {
-        $categories = ServiceCategory::query()
-            ->with('services:id,category_id')
+        static::$serviceCategories = ServiceCategory::query()
             ->get()
             ->mapWithKeys(fn (ServiceCategory $category): array => [
-                Str::slug($category->name) => $category
-                    ->services
-                    ->pluck('id')
-                    ->join(','),
+                Str::slug($category->name) => $category->id,
             ]);
+
+        if (static::$countBeneficiaries) {
+            // TODO: get total count, ungrouped by category_id
+            return static::build($report, true)
+                ->select([
+                    new Alias(new Count('beneficiary_id', true), 'total'),
+                    'category_id',
+                ])
+                ->groupBy('category_id')
+                ->get()
+                // TODO: rotate matrix, replace category_ids with slugs, coalesce missing values to 0
+                ->toArray();
+        }
 
         return static::build($report, true)
             ->select([
-                static::countTotal(),
-                static::countFilterCategory('educatie-pentru-sanatate', $categories),
-                static::countFilterCategory('trimitere-referire', $categories),
-                static::countFilterCategory('notificare-apelare-programare', $categories),
-                static::countFilterCategory('insotire', $categories),
-                static::countFilterCategory('tratament-ingrijiri', $categories),
-                static::countFilterCategory('monitorizare-testare', $categories),
-                static::countFilterCategory('sprijin', $categories),
-                static::countFilterCategory('activitati-nespecifice-amc', $categories),
+                new Alias(new Count('*'), 'total'),
+                static::countFilter('educatie-pentru-sanatate'),
+                static::countFilter('trimitere-referire'),
+                static::countFilter('notificare-apelare-programare'),
+                static::countFilter('insotire'),
+                static::countFilter('tratament-ingrijiri'),
+                static::countFilter('monitorizare-testare'),
+                static::countFilter('sprijin'),
+                static::countFilter('activitati-nespecifice-amc'),
             ])
             ->first()
             ->toArray();
     }
 
-    protected static function countTotal(): Expression
+    protected static function countFilter(string $name): Expression
     {
-        $expression = static::$countBeneficiaries
-            ? new Count('DISTINCT beneficiary_id')
-            : new Count('*');
-
-        return new Alias(
-            $expression,
-            'total',
-        );
-    }
-
-    protected static function countFilterCategory(string $name, Collection $categories): Expression
-    {
-        $expression = static::$countBeneficiaries
-            ? new CountFilter(
-                new StrListContains(new Value($categories->get($name)), 'interventionable_individual_services.service_id'),
-                distinct: true,
-                column: 'beneficiary_id',
-            )
-            : new CountFilter(
-                new StrListContains(new Value($categories->get($name)), 'interventionable_individual_services.service_id')
-            );
-
         return new Alias(
             new Coalesce([
-                $expression,
+                new CountFilter(
+                    new Equal('service_categories.id', new Value(static::$serviceCategories->get($name)))
+                ),
                 new Value(0),
             ]),
             $name,
