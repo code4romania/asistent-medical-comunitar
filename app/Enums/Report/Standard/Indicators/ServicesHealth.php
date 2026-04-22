@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard\Indicators;
 
+use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
+use App\Enums\User\Role;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum ServicesHealth: string implements HasQuery, HasLabel, HasTypes
+enum ServicesHealth: string implements HasQuery, HasLabel, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -201,5 +203,58 @@ enum ServicesHealth: string implements HasQuery, HasLabel, HasTypes
         return [
             Type::STATISTIC,
         ];
+    }
+
+    public static function columns(Type $type, Role $role): array
+    {
+        return match ($type) {
+            Type::STATISTIC => [
+                [
+                    'name' => 'total',
+                    'label' => __('report.standard.column.services_health.total'),
+                ],
+                [
+                    'name' => 'educatie-pentru-sanatate',
+                    'label' => __('report.standard.column.services_health.educatie-pentru-sanatate'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'trimitere-referire',
+                    'label' => __('report.standard.column.services_health.trimitere-referire'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'notificare-apelare-programare',
+                    'label' => __('report.standard.column.services_health.notificare-apelare-programare'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'insotire',
+                    'label' => __('report.standard.column.services_health.insotire'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'tratament-ingrijiri',
+                    'label' => __('report.standard.column.services_health.tratament-ingrijiri'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'monitorizare-testare',
+                    'label' => __('report.standard.column.services_health.monitorizare-testare'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'sprijin',
+                    'label' => __('report.standard.column.services_health.sprijin'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+                [
+                    'name' => 'activitati-nespecifice-amc',
+                    'label' => __('report.standard.column.services_health.activitati-nespecifice-amc'),
+                    'suffix' => __('report.standard.column.services_health.services_count'),
+                ],
+            ],
+            default => [],
+        };
     }
 }

@@ -163,7 +163,7 @@ abstract class ReportQuery
         return $query;
     }
 
-    public static function aggregate(Report $report): int|float|string
+    public static function aggregate(Report $report): mixed
     {
         $method = static::aggregateFunction()->value;
 

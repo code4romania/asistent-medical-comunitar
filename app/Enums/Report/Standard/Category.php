@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard;
 
 use App\Contracts\Enums\CanBeFiltered;
 use App\Enums\Report\Type;
+use App\Enums\User\Role;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
@@ -59,6 +60,23 @@ enum Category: string implements HasLabel, CanBeFiltered
             self::CASES_HEALTH => Indicators\CasesHealth::class,
             self::COMMUNITY_ACTIVITIES => Indicators\CommunityActivities::class,
         };
+    }
+
+    public function getColumns(Type $type, Role $role): array
+    {
+        return collect($this->indicator()::columns($type, $role))
+            ->map(function (array|string $label, string $name): array {
+                if (\is_array($label)) {
+                    return $label;
+                }
+
+                return [
+                    'name' => $name,
+                    'label' => $label,
+                ];
+            })
+            ->values()
+            ->toArray();
     }
 
     public function isVisible(?Type $type = null): bool

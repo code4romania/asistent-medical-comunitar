@@ -64,7 +64,7 @@ class A08 extends ReportQuery
         return false;
     }
 
-    public static function aggregate(Report $report): int|float|string
+    public static function aggregate(Report $report): mixed
     {
         $avg = static::build($report)
             ->select([

@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Enums\Report\Standard\Indicators;
 
+use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
+use App\Enums\User\Role;
 use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Pregnant: string implements HasQuery, HasLabel, HasTypes
+enum Pregnant: string implements HasQuery, HasLabel, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -58,5 +60,10 @@ enum Pregnant: string implements HasQuery, HasLabel, HasTypes
             Type::LIST,
             Type::STATISTIC,
         ];
+    }
+
+    public static function columns(Type $type, Role $role): array
+    {
+        return [];
     }
 }
