@@ -30,10 +30,10 @@ abstract class ServicesHealthQuery extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->when(isset(static::$vulnerability), fn (Builder $query) => $query->whereVulnerability(static::$vulnerability))
             ->when(isset(static::$secondaryVulnerability), fn (Builder $query) => $query->whereSecondaryVulnerability(static::$secondaryVulnerability))
-            ->onlyIndividualServices()
+            ->onlyRealized()
             ->leftJoin('interventionable_individual_services', 'interventionable_individual_services.id', 'interventions.interventionable_id')
             ->leftJoin('services', 'interventionable_individual_services.service_id', 'services.id');
     }
