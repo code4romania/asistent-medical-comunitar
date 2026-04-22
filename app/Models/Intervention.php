@@ -13,6 +13,7 @@ use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
+use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +42,7 @@ class Intervention extends Model
         'beneficiary_id',
         'parent_id',
         'vulnerability_id',
+        'vulnerability_category_id',
         'vulnerability_label',
         'closed_at',
     ];
@@ -116,6 +118,11 @@ class Intervention extends Model
     {
         return $this->hasMany(self::class, 'parent_id')
             ->onlyIndividualServices();
+    }
+
+    public function vulnerabilityCategory(): BelongsTo
+    {
+        return $this->belongsTo(VulnerabilityCategory::class, 'vulnerability_category_id');
     }
 
     public function scopeWhereRoot(Builder $query): Builder
@@ -283,7 +290,7 @@ class Intervention extends Model
         return $this->attributes['vulnerability_label'] ?? $this->vulnerability?->name;
     }
 
-    public function setVulnerability($index)
+    public function setVulnerability($index): self
     {
         $vulnerability = $this->beneficiary
             ->catagraphy
@@ -292,6 +299,7 @@ class Intervention extends Model
 
         return $this->fill([
             'vulnerability_id' => $vulnerability?->value,
+            'vulnerability_category_id' => $vulnerability?->category,
             'vulnerability_label' => $vulnerability?->label,
         ]);
     }
