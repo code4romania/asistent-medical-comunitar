@@ -20,4 +20,9 @@ class G08 extends ReportQuery
                 $query->whereJsonContains('properties', ['VCV_05', 'VSG_TB']);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

@@ -149,6 +149,7 @@ abstract class ReportQuery
             $union = $query->clone()
                 ->whereDate(static::dateColumn('start'), '<', $report->date_from)
                 ->latest(static::dateColumn('start'))
+                ->distinct(false)
                 ->limit(1);
         }
 

@@ -22,4 +22,9 @@ class P03 extends ReportQuery
                     ->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

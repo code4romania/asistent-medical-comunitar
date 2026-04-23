@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH93 extends ReportQuery
+class CH93 extends CasesHealthQuery
 {
     /**
      * Total management de caz create (nou inițiate) pentru Nou-născut.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VCV_00')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VCV_00');
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'created_at';
+        return 'interventions.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool

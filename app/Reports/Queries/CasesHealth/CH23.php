@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH23 extends ReportQuery
+class CH23 extends CasesHealthQuery
 {
     /**
      * Total management de caz închise pentru Insuficiență cardiacă.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VSG_IC')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VSG_IC');
     }
 
     public static function dateColumn(string $type): string

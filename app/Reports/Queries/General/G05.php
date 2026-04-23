@@ -20,4 +20,9 @@ class G05 extends ReportQuery
                 $query->whereJsonContains('properties', 'VFV_03');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

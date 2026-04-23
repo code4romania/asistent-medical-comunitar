@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
 use App\Models\Report;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH115 extends ReportQuery
+class CH115 extends CasesHealthQuery
 {
     /**
      * Total management de caz active pentru Copil în plasament sau asistență maternală în condiții de risc.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VFC_05')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VFC_05');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('created_at', '<=', $report->date_until);
+        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
     }
 
     public static function dateColumn(string $type): string

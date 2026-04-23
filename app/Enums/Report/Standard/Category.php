@@ -91,6 +91,7 @@ enum Category: string implements HasLabel, CanBeFiltered
         // TODO: check for mediator
         return match ($this) {
             self::USERS => auth()->user()->isAdmin() || auth()->user()->isCoordinator(),
+            self::SERVICES_HEALTH => auth()->user()->isNurse(), // TODO: remove when the report will be available for all roles
             default => true,
         };
     }

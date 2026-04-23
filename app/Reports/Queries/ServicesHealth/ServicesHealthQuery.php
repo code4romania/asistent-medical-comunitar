@@ -62,19 +62,51 @@ abstract class ServicesHealthQuery extends ReportQuery
             ->get()
             ->mapWithKeys(fn (ServiceCategory $category): array => [
                 Str::slug($category->name) => $category->id,
-            ]);
+            ])
+            ->filter(fn (int $id, string $slug) => \in_array($slug, [
+                'educatie-pentru-sanatate',
+                'trimitere-referire',
+                'notificare-apelare-programare',
+                'insotire',
+                'tratament-ingrijiri',
+                'monitorizare-testare',
+                'sprijin',
+                'activitati-nespecifice-amc',
+            ]));
 
         if (static::$countBeneficiaries) {
-            // TODO: get total count, ungrouped by category_id
-            return static::build($report, true)
+            $total = [
+                'total' => static::build($report, true)
+                    ->select([
+                        new Alias(new Count('beneficiary_id', true), 'total'),
+                    ])
+                    ->first()
+                    ->total,
+            ];
+
+            $result = static::build($report, true)
                 ->select([
                     new Alias(new Count('beneficiary_id', true), 'total'),
                     'category_id',
                 ])
                 ->groupBy('category_id')
                 ->get()
-                // TODO: rotate matrix, replace category_ids with slugs, coalesce missing values to 0
+                ->mapWithKeys(function (Intervention $intervention) {
+                    $category = static::$serviceCategories->search($intervention->category_id);
+
+                    return [$category => $intervention->total];
+                })
                 ->toArray();
+
+            $defaults = static::$serviceCategories->keys()
+                ->mapWithKeys(fn (string $name) => [$name => 0])
+                ->toArray();
+
+            return array_merge(
+                $total,
+                $defaults,
+                $result
+            );
         }
 
         return static::build($report, true)

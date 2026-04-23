@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
 use App\Models\Report;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH13 extends ReportQuery
+class CH13 extends CasesHealthQuery
 {
     /**
      * Total management de caz active pentru Hepatite cronice virale.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VSG_HEP')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VSG_HEP');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('created_at', '<=', $report->date_until);
+        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
     }
 
     public static function dateColumn(string $type): string

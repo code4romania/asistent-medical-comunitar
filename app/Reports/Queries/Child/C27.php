@@ -29,4 +29,9 @@ class C27 extends ReportQuery
                     );
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

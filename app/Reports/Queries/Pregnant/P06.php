@@ -20,4 +20,9 @@ class P06 extends ReportQuery
                 $query->whereJsonContains('properties', 'VGR_13');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

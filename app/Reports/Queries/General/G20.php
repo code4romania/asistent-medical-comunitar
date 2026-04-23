@@ -20,4 +20,9 @@ class G20 extends ReportQuery
                 $query->whereJsonContains('properties', ['VCV_05', 'VSG_TMC']);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

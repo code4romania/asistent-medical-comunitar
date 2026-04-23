@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
 use App\Models\Report;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH37 extends ReportQuery
+class CH37 extends CasesHealthQuery
 {
     /**
      * Total management de caz active pentru Boală pulmonară cronică constructivă.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VSG_BPOC')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VSG_BPOC');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('created_at', '<=', $report->date_until);
+        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
     }
 
     public static function dateColumn(string $type): string

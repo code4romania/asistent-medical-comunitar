@@ -20,4 +20,9 @@ class C23 extends ReportQuery
                 $query->whereJsonContains('properties', 'VFC_10');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

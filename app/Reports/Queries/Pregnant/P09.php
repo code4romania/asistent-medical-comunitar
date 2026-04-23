@@ -23,4 +23,9 @@ class P09 extends ReportQuery
                 $query->whereRealizedIndividualServiceWithCode(['STR_02', 'SAI_02', 'SNF_02']);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

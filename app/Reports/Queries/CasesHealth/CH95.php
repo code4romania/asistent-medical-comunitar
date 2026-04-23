@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH95 extends ReportQuery
+class CH95 extends CasesHealthQuery
 {
     /**
      * Total management de caz închise pentru Copil 0-1 ani.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VCV_01')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VCV_01');
     }
 
     public static function dateColumn(string $type): string

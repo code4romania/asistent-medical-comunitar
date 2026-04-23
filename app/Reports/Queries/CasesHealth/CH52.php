@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
 use App\Models\Report;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class CH52 extends ReportQuery
+class CH52 extends CasesHealthQuery
 {
     /**
      * Total management de caz active pentru Alergii.
      */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
-            ->whereVulnerability('VSG_AL')
-            ->onlyCases();
+        return parent::query()
+            ->whereVulnerability('VSG_AL');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('created_at', '<=', $report->date_until);
+        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
     }
 
     public static function dateColumn(string $type): string
