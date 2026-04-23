@@ -32,7 +32,7 @@ class A02 extends ReportQuery
 
     public static function aggregateByColumn(): string
     {
-        return 'beneficiaries.id';
+        return 'beneficiary_id';
     }
 
     public static function includeLatestBeforeRange(): bool

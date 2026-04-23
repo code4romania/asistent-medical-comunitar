@@ -29,4 +29,9 @@ class A05 extends ReportQuery
     {
         return 'beneficiaries.created_at';
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }
