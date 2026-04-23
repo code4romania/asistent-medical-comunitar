@@ -21,4 +21,9 @@ class G23 extends ReportQuery
                     ->orWhereJsonContains('properties', 'VGR_02');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

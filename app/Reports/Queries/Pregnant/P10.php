@@ -23,4 +23,9 @@ class P10 extends ReportQuery
                 $query->whereRealizedIndividualServiceWithCode('SES_13');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

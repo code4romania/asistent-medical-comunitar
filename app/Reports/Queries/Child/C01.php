@@ -20,4 +20,9 @@ class C01 extends ReportQuery
                 $query->whereJsonContains('properties', 'VCV_00');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

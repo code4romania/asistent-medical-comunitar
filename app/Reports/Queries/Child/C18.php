@@ -24,4 +24,9 @@ class C18 extends ReportQuery
                 $query->where('properties->attributes->reason_removed', ReasonRemoved::DECEASED_HOSPITAL);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

@@ -24,7 +24,7 @@ class G11 extends ReportQuery
             ->whereRealizedIndividualServiceWithCode('STI_01');
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
     }

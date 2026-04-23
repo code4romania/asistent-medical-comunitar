@@ -24,4 +24,9 @@ class C17 extends ReportQuery
                 $query->where('properties->attributes->reason_removed', ReasonRemoved::DECEASED_HOME);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

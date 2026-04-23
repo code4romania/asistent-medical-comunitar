@@ -21,4 +21,9 @@ class P08 extends ReportQuery
                     ->whereJsonContains('properties', 'VSA_02');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

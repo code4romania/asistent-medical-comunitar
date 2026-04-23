@@ -22,4 +22,9 @@ class G10 extends ReportQuery
                     ->whereJsonContains('properties', 'VCV_05');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries;
 
+use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +15,14 @@ abstract class ReportQuery
 {
     abstract public static function query(): Builder;
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'vulnerability_entries.created_at';
+    }
+
+    public static function aggregateFunction(): AggregateFunction
+    {
+        return AggregateFunction::COUNT;
     }
 
     public static function aggregateByColumn(): string
@@ -26,6 +33,24 @@ abstract class ReportQuery
     public static function includeLatestBeforeRange(): bool
     {
         return true;
+    }
+
+    public static function distinct(): bool
+    {
+        return match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => true,
+            default => false,
+        };
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return false;
+    }
+
+    public static function endDateNullable(): bool
+    {
+        return false;
     }
 
     public static function selectColumns(): array
@@ -65,6 +90,11 @@ abstract class ReportQuery
         ]);
     }
 
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query;
+    }
+
     public static function recordActionUrl(Model $record): ?string
     {
         return BeneficiaryResource::getUrl(
@@ -93,34 +123,76 @@ abstract class ReportQuery
         ];
     }
 
-    public static function build(Report $report): Builder
+    public static function build(Report $report, bool $aggregate = false): Builder
     {
+        /** @var Builder */
         $query = static::query()
-            ->forUser($report->user)
-            ->select(static::selectColumns())
-            ->tap([static::class, 'tapQuery']);
+            ->forUser($report->user);
+
+        if ($aggregate) {
+            $query->select(static::aggregateByColumn());
+
+            if (static::distinct()) {
+                $query->distinct();
+            }
+        } else {
+            $query
+                ->select(static::selectColumns())
+                ->tap([static::class, 'tapQuery']);
+        }
 
         if (! $report->date_until) {
-            return $query->whereDate(static::dateColumn(), '=', $report->date_from);
+            return $query->whereDate(static::dateColumn('start'), '=', $report->date_from);
         }
 
         if (static::includeLatestBeforeRange()) {
             $union = $query->clone()
-                ->whereDate(static::dateColumn(), '<', $report->date_from)
-                ->latest(static::dateColumn())
+                ->whereDate(static::dateColumn('start'), '<', $report->date_from)
+                ->latest(static::dateColumn('start'))
+                ->distinct(false)
                 ->limit(1);
         }
 
-        return $query
-            ->whereDate(static::dateColumn(), '>=', $report->date_from)
-            ->whereDate(static::dateColumn(), '<=', $report->date_until)
-            ->when(isset($union), fn (Builder $q) => $q->union($union));
+        static::where($query, $report);
+        static::whereDate($query, 'start', $report->date_from);
+        static::whereDate($query, 'end', $report->date_until);
+
+        if (isset($union)) {
+            $query->union($union);
+        }
+
+        return $query;
     }
 
-    public static function aggregate(Report $report): int
+    public static function aggregate(Report $report): mixed
     {
-        return static::build($report)
-            ->distinct(static::aggregateByColumn())
-            ->count(static::aggregateByColumn());
+        $method = static::aggregateFunction()->value;
+
+        return static::build($report, true)
+            ->when(static::distinct(), fn (Builder $query) => $query->distinct())
+            ->$method(static::aggregateByColumn()) ?? 0;
+    }
+
+    public static function whereDate(Builder $query, string $column, ?Carbon $date): Builder
+    {
+        $condition = match ($column) {
+            'start' => static::startDateNullable(),
+            'end' => static::endDateNullable(),
+        };
+
+        $operator = match ($column) {
+            'start' => '>=' ,
+            'end' => '<=' ,
+        };
+
+        if (! $condition) {
+            return $query->whereDate(static::dateColumn($column), $operator, $date);
+        }
+
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereDate(static::dateColumn($column), $operator, $date)
+                ->orWhereNull(static::dateColumn($column))
+        );
     }
 }

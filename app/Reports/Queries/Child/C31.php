@@ -21,7 +21,7 @@ class C31 extends ReportQuery
             ->whereCampaign(Campaign::EPIDEM_TRIAGE);
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'created_at';
     }

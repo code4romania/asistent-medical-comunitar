@@ -6,12 +6,13 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Concerns\BelongsToVulnerability;
+use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
-use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Arr;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -27,6 +29,7 @@ class Intervention extends Model
 {
     use BelongsToAppointment;
     use BelongsToBeneficiary;
+    use BelongsToNurseThroughBeneficiary;
     use BelongsToVulnerability;
     use HasFactory;
     use LogsActivity;
@@ -37,8 +40,6 @@ class Intervention extends Model
         'appointment_id',
         'beneficiary_id',
         'parent_id',
-        'vulnerability_id',
-        'vulnerability_category_id',
         'vulnerability_label',
         'closed_at',
     ];
@@ -55,18 +56,6 @@ class Intervention extends Model
 
     public static function booted(): void
     {
-        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
-            if (! auth()->check()) {
-                return;
-            }
-
-            if (auth()->user()->isAdmin()) {
-                return;
-            }
-
-            $builder->forUser(auth()->user());
-        });
-
         static::creating(function (self $intervention) {
             if (! $intervention->isIndividualService()) {
                 return;
@@ -128,11 +117,6 @@ class Intervention extends Model
             ->onlyIndividualServices();
     }
 
-    public function vulnerabilityCategory(): BelongsTo
-    {
-        return $this->belongsTo(VulnerabilityCategory::class, 'vulnerability_category_id');
-    }
-
     public function scopeWhereRoot(Builder $query): Builder
     {
         return $query->whereNull('parent_id');
@@ -163,17 +147,9 @@ class Intervention extends Model
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
     }
 
-    public function scopeForUser(Builder $query, User $user): Builder
+    public function scopeWhereInitiatedBy(Builder $query, CaseInitiator $initiator): Builder
     {
-        if ($user->isNurse()) {
-            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
-        }
-
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
-        }
-
-        return $query;
+        return $query->whereMorphRelation('interventionable', InterventionableCase::class, 'initiator', $initiator);
     }
 
     public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string|array $codes): Builder
@@ -187,6 +163,15 @@ class Intervention extends Model
                     ->whereHas('service', fn (Builder $query) => $query->whereIn('code', Arr::wrap($codes)))
                     ->where('status', Status::REALIZED)
             );
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'interventions.id')
+                    ->where('activity_log.subject_type', '=', 'intervention');
+            });
     }
 
     public function isCase(): bool
@@ -306,7 +291,7 @@ class Intervention extends Model
 
         return $this->fill([
             'vulnerability_id' => $vulnerability?->value,
-            'vulnerability_category_id' => $vulnerability?->category,
+            'secondary_vulnerability_id' => $vulnerability?->category,
             'vulnerability_label' => $vulnerability?->label,
         ]);
     }

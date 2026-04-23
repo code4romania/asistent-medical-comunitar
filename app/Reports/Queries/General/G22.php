@@ -20,4 +20,9 @@ class G22 extends ReportQuery
                 $query->whereJsonContains('properties', 'VGR_03');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

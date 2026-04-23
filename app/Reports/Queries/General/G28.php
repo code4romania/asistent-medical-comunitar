@@ -24,7 +24,7 @@ class G28 extends ReportQuery
             ->whereRealizedIndividualServiceWithCode('SES_12');
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
     }

@@ -23,7 +23,7 @@ class P12 extends ReportQuery
             ->whereRealizedIndividualServiceWithCode('STI_08');
     }
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'interventionable_individual_services.date';
     }

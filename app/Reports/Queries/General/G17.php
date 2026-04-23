@@ -22,4 +22,9 @@ class G17 extends ReportQuery
                     ->whereJsonContains('properties', 'VCV_06');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Forms\Components;
 
+use App\Contracts\Enums\CanBeFiltered;
 use Closure;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select as BaseSelect;
@@ -42,5 +43,22 @@ class Select extends BaseSelect
                     array_keys($component->getOptions())
                 ));
         });
+    }
+
+    public function filteredEnum(string $enum): self
+    {
+        $this->enum($enum);
+
+        $this->options(
+            fn (self $component): array => collect($enum::cases())
+                ->filter(fn (CanBeFiltered $case): bool => $case->isVisible())
+                ->reduce(function (array $carry, CanBeFiltered $case): array {
+                    $carry[$case->value ?? $case->name] = $case->getLabel() ?? $case->name;
+
+                    return $carry;
+                }, [])
+        );
+
+        return $this;
     }
 }

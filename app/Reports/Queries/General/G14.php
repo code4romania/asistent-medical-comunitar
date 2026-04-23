@@ -20,4 +20,9 @@ class G14 extends ReportQuery
                 $query->whereJsonContains('properties', ['VSG_01', 'VCV_05']);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

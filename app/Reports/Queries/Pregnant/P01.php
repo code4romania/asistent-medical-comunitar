@@ -31,4 +31,9 @@ class P01 extends ReportQuery
                     });
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

@@ -20,4 +20,9 @@ class G26 extends ReportQuery
                 $query->whereJsonContains('properties', 'VNS_04');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

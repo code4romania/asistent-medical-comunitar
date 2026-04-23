@@ -22,4 +22,9 @@ class C04 extends ReportQuery
                     ->whereJsonContains('properties', 'VSG_BI');
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

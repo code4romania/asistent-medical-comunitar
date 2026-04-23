@@ -21,4 +21,9 @@ class G12 extends ReportQuery
                     ->whereJsonLength('properties', '>', 1);
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

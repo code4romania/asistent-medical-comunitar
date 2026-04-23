@@ -29,4 +29,9 @@ class G24 extends ReportQuery
                     );
             });
     }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
+    }
 }

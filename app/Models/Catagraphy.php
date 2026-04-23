@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Contracts\HasVulnerabilityData;
 use App\DataTransferObjects\VulnerabilityListItem;
 use App\Models\Vulnerability\Vulnerability;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -20,6 +23,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Catagraphy extends Model
 {
     use BelongsToBeneficiary;
+    use BelongsToNurseThroughBeneficiary;
     use HasFactory;
     use LogsActivity;
 
@@ -229,5 +233,15 @@ class Catagraphy extends Model
                 ->filter(fn (VulnerabilityListItem $vulnerability) => $vulnerability->valid)
                 ->values()
         )->shouldCache();
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'catagraphies.id')
+                    ->where('activity_log.subject_type', '=', 'catagraphy');
+            })
+            ->tap($callback);
     }
 }
