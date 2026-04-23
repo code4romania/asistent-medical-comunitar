@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78f94ce5cc83e21cef0268a37facab3b",
+    "content-hash": "27c1559fcff07765fc4accef2de109a7",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
-            "version": "10.0.0",
+            "version": "10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-antivirus.git",
-                "reference": "dec3d7a288b516f807fe969c4a6ea3045aa2f556"
+                "reference": "a2cba91d2ec3892c1ebc0e73bf028e500b1f855f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/dec3d7a288b516f807fe969c4a6ea3045aa2f556",
-                "reference": "dec3d7a288b516f807fe969c4a6ea3045aa2f556",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/a2cba91d2ec3892c1ebc0e73bf028e500b1f855f",
+                "reference": "a2cba91d2ec3892c1ebc0e73bf028e500b1f855f",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
-                "aedart/athenaeum-streams": "^10.0",
-                "aedart/athenaeum-support": "^10.0",
-                "aedart/athenaeum-validation": "^10.0",
+                "aedart/athenaeum-contracts": "^10.2",
+                "aedart/athenaeum-streams": "^10.2",
+                "aedart/athenaeum-support": "^10.2",
+                "aedart/athenaeum-validation": "^10.2",
                 "ext-sockets": "*",
-                "illuminate/events": "^v13.2.0",
+                "illuminate/events": "^v13.3.0",
                 "php": "^8.4",
                 "xenolope/quahog": "^3.0"
             },
@@ -59,26 +59,26 @@
                 "clamav"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.2.0"
             },
-            "time": "2026-03-30T11:08:30+00:00"
+            "time": "2026-04-08T08:10:33+00:00"
         },
         {
             "name": "aedart/athenaeum-contracts",
-            "version": "10.0.0",
+            "version": "10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-contracts.git",
-                "reference": "520a0b67e589d297a0bff617968e5121e14e3fb1"
+                "reference": "dc5560544484fd5c6e686672f0ac6c8ff314ec39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/520a0b67e589d297a0bff617968e5121e14e3fb1",
-                "reference": "520a0b67e589d297a0bff617968e5121e14e3fb1",
+                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/dc5560544484fd5c6e686672f0ac6c8ff314ec39",
+                "reference": "dc5560544484fd5c6e686672f0ac6c8ff314ec39",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^v13.2.0",
+                "illuminate/contracts": "^v13.5.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -110,27 +110,27 @@
                 "interfaces"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.3.0"
             },
-            "time": "2026-03-30T11:08:27+00:00"
+            "time": "2026-04-17T10:38:07+00:00"
         },
         {
             "name": "aedart/athenaeum-mime-types",
-            "version": "10.0.0",
+            "version": "10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-mime-types.git",
-                "reference": "c56180ecc96cb1d8a8fb19c2f99b798efaebb33f"
+                "reference": "34641b530253359e884a13edd58319bfe7987315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/c56180ecc96cb1d8a8fb19c2f99b798efaebb33f",
-                "reference": "c56180ecc96cb1d8a8fb19c2f99b798efaebb33f",
+                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/34641b530253359e884a13edd58319bfe7987315",
+                "reference": "34641b530253359e884a13edd58319bfe7987315",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
-                "aedart/athenaeum-support": "^10.0",
+                "aedart/athenaeum-contracts": "^10.2",
+                "aedart/athenaeum-support": "^10.2",
                 "ext-fileinfo": "*",
                 "php": "^8.4"
             },
@@ -163,28 +163,28 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.2.0"
             },
-            "time": "2026-03-30T11:08:29+00:00"
+            "time": "2026-04-08T08:11:03+00:00"
         },
         {
             "name": "aedart/athenaeum-streams",
-            "version": "10.0.0",
+            "version": "10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-streams.git",
-                "reference": "fcde43a55e24d7e00848fe0c46668e731fc9add0"
+                "reference": "74a4e1561d67e1588a45ec46e2aff43fc02dd0a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/fcde43a55e24d7e00848fe0c46668e731fc9add0",
-                "reference": "fcde43a55e24d7e00848fe0c46668e731fc9add0",
+                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/74a4e1561d67e1588a45ec46e2aff43fc02dd0a2",
+                "reference": "74a4e1561d67e1588a45ec46e2aff43fc02dd0a2",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
-                "aedart/athenaeum-mime-types": "^10.0",
-                "aedart/athenaeum-support": "^10.0",
+                "aedart/athenaeum-contracts": "^10.2",
+                "aedart/athenaeum-mime-types": "^10.2",
+                "aedart/athenaeum-support": "^10.2",
                 "php": "^8.4",
                 "psr/http-message": "^2.0"
             },
@@ -218,34 +218,34 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-streams/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-streams/tree/10.2.0"
             },
-            "time": "2026-03-30T11:08:36+00:00"
+            "time": "2026-04-08T08:10:48+00:00"
         },
         {
             "name": "aedart/athenaeum-support",
-            "version": "10.0.0",
+            "version": "10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-support.git",
-                "reference": "818fa4d19df3db293a94a71f03a7bfa7c094e4bb"
+                "reference": "96ac2b019e85f43fd8cc16c661f7017d27913c31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/818fa4d19df3db293a94a71f03a7bfa7c094e4bb",
-                "reference": "818fa4d19df3db293a94a71f03a7bfa7c094e4bb",
+                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/96ac2b019e85f43fd8cc16c661f7017d27913c31",
+                "reference": "96ac2b019e85f43fd8cc16c661f7017d27913c31",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
-                "aedart/athenaeum-utils": "^10.0",
-                "illuminate/config": "^v13.2.0",
-                "illuminate/support": "^v13.2.0",
+                "aedart/athenaeum-contracts": "^10.3",
+                "aedart/athenaeum-utils": "^10.3",
+                "illuminate/config": "^v13.5.0",
+                "illuminate/support": "^v13.5.0",
                 "php": "^8.4"
             },
             "require-dev": {
                 "predis/predis": "^2.4.1",
-                "symfony/console": "^v8.0.7",
+                "symfony/console": "^v8.0.8",
                 "twig/twig": "^3.24.0"
             },
             "suggest": {
@@ -288,28 +288,28 @@
                 "utils"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-support/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-support/tree/10.3.0"
             },
-            "time": "2026-03-30T11:08:29+00:00"
+            "time": "2026-04-17T10:38:09+00:00"
         },
         {
             "name": "aedart/athenaeum-utils",
-            "version": "10.0.0",
+            "version": "10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-utils.git",
-                "reference": "e981fa58e55836c1864fef90eebcfd38e75de17e"
+                "reference": "5cf624a5e2916dda6bf070d5c3476b286e0a124c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/e981fa58e55836c1864fef90eebcfd38e75de17e",
-                "reference": "e981fa58e55836c1864fef90eebcfd38e75de17e",
+                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/5cf624a5e2916dda6bf070d5c3476b286e0a124c",
+                "reference": "5cf624a5e2916dda6bf070d5c3476b286e0a124c",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
+                "aedart/athenaeum-contracts": "^10.3",
                 "composer-runtime-api": "^2.2.2",
-                "illuminate/support": "^v13.2.0",
+                "illuminate/support": "^v13.5.0",
                 "mockery/mockery": "1.6.*",
                 "php": "^8.4"
             },
@@ -349,29 +349,29 @@
                 "version"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-utils/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-utils/tree/10.3.0"
             },
-            "time": "2026-03-30T11:08:59+00:00"
+            "time": "2026-04-17T10:38:08+00:00"
         },
         {
             "name": "aedart/athenaeum-validation",
-            "version": "10.0.0",
+            "version": "10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-validation.git",
-                "reference": "d74f3a1f83045172e1132db311e389633f203c89"
+                "reference": "abc57cbcfdd0e95f0180ab58a7089db21bfe3569"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/d74f3a1f83045172e1132db311e389633f203c89",
-                "reference": "d74f3a1f83045172e1132db311e389633f203c89",
+                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/abc57cbcfdd0e95f0180ab58a7089db21bfe3569",
+                "reference": "abc57cbcfdd0e95f0180ab58a7089db21bfe3569",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.0",
-                "aedart/athenaeum-support": "^10.0",
-                "aedart/athenaeum-utils": "^10.0",
-                "illuminate/validation": "^v13.2.0",
+                "aedart/athenaeum-contracts": "^10.3",
+                "aedart/athenaeum-support": "^10.3",
+                "aedart/athenaeum-utils": "^10.3",
+                "illuminate/validation": "^v13.5.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -402,9 +402,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-validation/tree/10.0.0"
+                "source": "https://github.com/aedart/athenaeum-validation/tree/10.3.0"
             },
-            "time": "2026-03-30T11:08:44+00:00"
+            "time": "2026-04-17T10:37:54+00:00"
         },
         {
             "name": "alcea/cnp",
@@ -3292,16 +3292,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.4.0",
+            "version": "v13.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "912de244f88a69742b76e8a2807f6765947776da"
+                "reference": "416a93ea9c53161e0d4b8a44045f447b65a7d2f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/912de244f88a69742b76e8a2807f6765947776da",
-                "reference": "912de244f88a69742b76e8a2807f6765947776da",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/416a93ea9c53161e0d4b8a44045f447b65a7d2f1",
+                "reference": "416a93ea9c53161e0d4b8a44045f447b65a7d2f1",
                 "shasum": ""
             },
             "require": {
@@ -3455,6 +3455,7 @@
                 "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^6.0 || ^7.0).",
                 "resend/resend-php": "Required to enable support for the Resend mail transport (^0.10.0 || ^1.0).",
+                "spatie/fork": "Required to use the 'fork' concurrency driver (^1.2).",
                 "symfony/cache": "Required to PSR-6 cache bridge (^7.4 || ^8.0).",
                 "symfony/filesystem": "Required to enable support for relative symbolic links (^7.4 || ^8.0).",
                 "symfony/http-client": "Required to enable support for the Symfony API mail transports (^7.4 || ^8.0).",
@@ -3510,20 +3511,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-04-07T13:38:26+00:00"
+            "time": "2026-04-21T13:32:11+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.16",
+            "version": "v0.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "11e7d5f93803a2190b00e145142cb00a33d17ad2"
+                "reference": "6a82ac19a28b916ae0885828795dbd4c59d9a818"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/11e7d5f93803a2190b00e145142cb00a33d17ad2",
-                "reference": "11e7d5f93803a2190b00e145142cb00a33d17ad2",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/6a82ac19a28b916ae0885828795dbd4c59d9a818",
+                "reference": "6a82ac19a28b916ae0885828795dbd4c59d9a818",
                 "shasum": ""
             },
             "require": {
@@ -3567,9 +3568,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.16"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.17"
             },
-            "time": "2026-03-23T14:35:33+00:00"
+            "time": "2026-04-20T16:07:33+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3636,16 +3637,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.11",
+            "version": "v2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "d1af40ac4a6ccc12bd062a7184f63c9995a63bdd"
+                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/d1af40ac4a6ccc12bd062a7184f63c9995a63bdd",
-                "reference": "d1af40ac4a6ccc12bd062a7184f63c9995a63bdd",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
+                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
                 "shasum": ""
             },
             "require": {
@@ -3693,7 +3694,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-04-07T13:32:18+00:00"
+            "time": "2026-04-14T13:33:34+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -9688,7 +9689,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -9747,7 +9748,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -9771,7 +9772,7 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
@@ -9829,7 +9830,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -9853,7 +9854,7 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
@@ -9916,7 +9917,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -9940,7 +9941,7 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -10001,7 +10002,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10025,7 +10026,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -10086,7 +10087,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10110,7 +10111,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -10170,7 +10171,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10194,7 +10195,7 @@
         },
         {
             "name": "symfony/polyfill-php84",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php84.git",
@@ -10250,7 +10251,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php84/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php84/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10274,7 +10275,7 @@
         },
         {
             "name": "symfony/polyfill-php85",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php85.git",
@@ -10330,7 +10331,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php85/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10354,7 +10355,7 @@
         },
         {
             "name": "symfony/polyfill-uuid",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-uuid.git",
@@ -10413,7 +10414,7 @@
                 "uuid"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -11796,23 +11797,23 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "2.0.3",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d"
+                "reference": "d870a33f0f79d2b4579740b0620200221ee44aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
-                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/d870a33f0f79d2b4579740b0620200221ee44aeb",
+                "reference": "d870a33f0f79d2b4579740b0620200221ee44aeb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+                "phpunit/phpunit": "~8.5 || ~9.6 || ~10.5 || ~11.5"
             },
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
@@ -11842,7 +11843,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/2.0.3"
+                "source": "https://github.com/voku/portable-ascii/tree/2.1.0"
             },
             "funding": [
                 {
@@ -11866,7 +11867,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-21T01:49:47+00:00"
+            "time": "2026-04-16T23:10:39+00:00"
         },
         {
             "name": "web-auth/cose-lib",
@@ -17078,7 +17079,7 @@
         },
         {
             "name": "symfony/polyfill-php81",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
@@ -17134,7 +17135,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.36.0"
             },
             "funding": [
                 {
