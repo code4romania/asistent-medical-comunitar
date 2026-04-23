@@ -79,6 +79,6 @@ class A08 extends ReportQuery
             ->map->sum('avg_vulnerabilities')
             ->avg();
 
-        return Number::format($avg, 3);
+        return Number::format((float) $avg, 3);
     }
 }
