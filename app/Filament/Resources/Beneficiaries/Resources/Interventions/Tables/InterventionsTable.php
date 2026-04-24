@@ -8,6 +8,7 @@ use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\Resources\Catagraphies\CatagraphyResource;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateCaseAction;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\Actions\CreateIndividualServiceAction;
+use App\Models\Intervention;
 use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\Page;
@@ -38,8 +39,9 @@ class InterventionsTable
                     ->label(__('field.service_name'))
                     ->wrap(),
 
-                TextColumn::make('vulnerability_label')
+                TextColumn::make('vulnerability.name')
                     ->label(__('field.vulnerability'))
+                    ->formatStateUsing(fn (Intervention $record): ?string => $record->vulnerability_label)
                     ->toggleable()
                     ->wrap(),
 
