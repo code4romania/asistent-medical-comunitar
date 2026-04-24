@@ -156,11 +156,19 @@ class InterventionsRelationManager extends RelationManager
                     ->label(__('intervention.action.add_service'))
                     ->modalHeading(__('intervention.action.add_service'))
                     ->visible(fn (self $livewire) => Auth::user()->can('update', $livewire->getOwnerRecord()))
-                    ->using(function (array $data, $livewire) {
+                    ->using(function (array $data, $livewire): Intervention {
+                        /** @var Intervention */
+                        $case = $livewire->getOwnerRecord();
+
                         $interventionable = InterventionableIndividualService::create(Arr::pull($data, 'interventionable'));
 
-                        $data['parent_id'] = $livewire->getOwnerRecord()->id;
-                        $data['beneficiary_id'] = $livewire->getOwnerRecord()->beneficiary_id;
+                        $data = array_merge($data, [
+                            'parent_id' => $case->id,
+                            'beneficiary_id' => $case->beneficiary_id,
+                            'vulnerability_id' => $case->vulnerability_id,
+                            'secondary_vulnerability_id' => $case->secondary_vulnerability_id,
+                            'vulnerability_label' => $case->vulnerability_label,
+                        ]);
 
                         return $interventionable->intervention()->create($data);
                     }),
