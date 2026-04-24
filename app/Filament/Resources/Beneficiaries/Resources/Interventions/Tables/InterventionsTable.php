@@ -38,7 +38,7 @@ class InterventionsTable
                     ->label(__('field.service_name'))
                     ->wrap(),
 
-                TextColumn::make('vulnerability.name')
+                TextColumn::make('vulnerability_label')
                     ->label(__('field.vulnerability'))
                     ->toggleable()
                     ->wrap(),
