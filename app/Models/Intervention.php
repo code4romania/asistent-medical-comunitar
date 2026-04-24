@@ -73,6 +73,16 @@ class Intervention extends Model
                 $intervention->beneficiary->markAsActive();
             }
         });
+
+        static::updated(function (self $intervention) {
+            $attributes = ['vulnerability_id', 'secondary_vulnerability_id', 'vulnerability_label'];
+
+            if ($intervention->isCase() && $intervention->isDirty($attributes)) {
+                $intervention->interventions()->update(
+                    $intervention->only($attributes)
+                );
+            }
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
