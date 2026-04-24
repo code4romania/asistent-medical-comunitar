@@ -29,6 +29,7 @@ use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Jeffgreco13\FilamentBreezy\FilamentBreezy;
@@ -58,6 +59,8 @@ class AppServiceProvider extends ServiceProvider
             Model::preventLazyLoading($shouldBeEnabled);
             Model::preventAccessingMissingAttributes($shouldBeEnabled);
         });
+
+        Number::useLocale(app()->getLocale());
 
         $this->setPasswordDefaults();
     }
