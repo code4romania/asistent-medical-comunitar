@@ -215,6 +215,25 @@ return [
                 'RD43' => 'G-alte boli genetice',
             ],
 
+            'users' => [
+                'U01' => 'Total utilizatori existenți în platformă',
+                'U02' => 'Total utilizatori cu status Activ',
+                'U03' => 'Total utilizatori cu status Inactiv',
+                'U04' => 'Total utilizatori cu status Invitat',
+                'U05' => 'Total utilizatori cu program de specializare parcurs',
+                'U06' => 'Total utilizatori angajați pe proiect',
+                'U07' => 'Total utilizatori angajați din buget de stat',
+                'U08' => 'Total utilizatori angajați din buget local',
+                'U09' => 'Total utilizatori angajați pe post cu finanțare din proiect cu fonduri',
+                'U10' => 'Total utilizatori cu acrod de parteneriat între angajator și medicul de familie',
+                'U11' => 'Total zile de concediu de odihnă înregistrate',
+                'U12' => 'Total zile de concediu medical înregistrate',
+                'U13' => 'Total zile de concediu pentru creșterea copilului înregistrate',
+                'U14' => 'Total zile libere speciale (deces, căsătorie, naștere) înregistrate',
+                'U15' => 'Total zile libere pentru donare de sânge înregistrate',
+                'U16' => 'Total zile de concediu de alt tip înregistrate',
+            ],
+
             'activity' => [
                 'A01' => 'Total beneficiari (proprii) nou-adăugați',
                 'A02' => 'Total beneficiari ocazionali nou-adăugați',
