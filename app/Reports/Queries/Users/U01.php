@@ -18,4 +18,14 @@ class U01 extends ReportQuery
         return User::query()
             ->onlyNurses();
     }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'created_at';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
+    }
 }
