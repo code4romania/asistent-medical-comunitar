@@ -9,17 +9,17 @@ use App\Models\User;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total utilizatori angajați din buget local.
+ */
 class U07 extends ReportQuery
 {
-    /**
-     * Total utilizatori angajați din buget de stat.
-     */
     public static function query(): Builder
     {
         return User::query()
             ->onlyNurses()
             ->leftJoin('profile_employers', 'profile_employers.user_id', 'users.id')
-            ->where('funding', Funding::STATE);
+            ->where('funding', Funding::LOCAL);
     }
 
     public static function aggregateByColumn(): string

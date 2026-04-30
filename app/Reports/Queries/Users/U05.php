@@ -9,16 +9,16 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total utilizatori cu acrod de parteneriat între angajator și medicul de familie în perioada de referință.
+ * Total utilizatori angajați pe proiect în perioada de referință.
  */
-class U09 extends ReportQuery
+class U05 extends ReportQuery
 {
     public static function query(): Builder
     {
         return User::query()
             ->onlyNurses()
             ->leftJoin('profile_employers', 'profile_employers.user_id', 'users.id')
-            ->where('has_gp_agreement', true);
+            ->whereNotNull('project');
     }
 
     public static function aggregateByColumn(): string

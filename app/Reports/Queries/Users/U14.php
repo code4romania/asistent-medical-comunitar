@@ -8,15 +8,15 @@ use App\Models\Vacation;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total zile libere pentru donare de sânge înregistrate în perioada de referință.
+ */
 class U14 extends ReportQuery
 {
-    /**
-     * Total zile libere speciale (deces, căsătorie, naștere) înregistrate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Vacation::query()
-            ->whereSpecial();
+            ->whereBloodDonation();
     }
 
     public static function dateColumn(string $type): string

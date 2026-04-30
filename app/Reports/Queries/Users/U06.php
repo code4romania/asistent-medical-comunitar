@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Users;
 
+use App\Enums\Employer\Funding;
 use App\Models\User;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total utilizatori angajați din buget de stat.
+ */
 class U06 extends ReportQuery
 {
-    /**
-     * Total utilizatori angajați pe proiect în perioada de referință.
-     */
     public static function query(): Builder
     {
         return User::query()
             ->onlyNurses()
             ->leftJoin('profile_employers', 'profile_employers.user_id', 'users.id')
-            ->whereNotNull('project');
+            ->where('funding', Funding::STATE);
     }
 
     public static function aggregateByColumn(): string

@@ -8,15 +8,15 @@ use App\Models\Vacation;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total zile libere speciale (deces, căsătorie, naștere) înregistrate în perioada de referință.
+ */
 class U13 extends ReportQuery
 {
-    /**
-     * Total zile de concediu pentru creșterea copilului înregistrate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Vacation::query()
-            ->whereChild();
+            ->whereSpecial();
     }
 
     public static function dateColumn(string $type): string

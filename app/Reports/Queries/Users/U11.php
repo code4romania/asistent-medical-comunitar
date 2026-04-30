@@ -8,15 +8,15 @@ use App\Models\Vacation;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total zile de concediu medical înregistrate în perioada de referință.
+ */
 class U11 extends ReportQuery
 {
-    /**
-     * Total zile de concediu de odihnă înregistrate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Vacation::query()
-            ->whereRest();
+            ->whereMedical();
     }
 
     public static function dateColumn(string $type): string
