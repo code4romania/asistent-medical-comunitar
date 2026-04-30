@@ -18,9 +18,6 @@ use Tpetry\QueryExpressions\Value\Value;
 
 abstract class UserStatusQuery extends ReportQuery
 {
-    /**
-     * Total utilizatori cu status Activ în perioada de referință.
-     */
     public static function query(): Builder
     {
         return User::query()

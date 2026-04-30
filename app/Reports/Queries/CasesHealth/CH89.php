@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Femeie însărcinată care nu a făcut controale prenatale.
+ */
 class CH89 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Femeie însărcinată care nu a făcut controale prenatale.
-     */
     public static function query(): Builder
     {
         return parent::query()

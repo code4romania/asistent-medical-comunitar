@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-sindrom Williams (VBR_WL).
+ */
 class RD10 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-sindrom Williams (VBR_WL).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

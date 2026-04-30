@@ -9,11 +9,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total activități de tip Altă activitate administrativă.
+ */
 class CA23 extends ReportQuery
 {
-    /**
-     * Total activități de tip Altă activitate administrativă.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

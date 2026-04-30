@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Boală infecțioasă.
+ */
 class CH59 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Boală infecțioasă.
-     */
     public static function query(): Builder
     {
         return parent::query()

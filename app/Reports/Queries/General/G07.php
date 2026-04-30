@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with at least one vulnerability; Vârstnic peste 65 ani (VCV_06).
+ */
 class G07 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with at least one vulnerability; Vârstnic peste 65 ani (VCV_06).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

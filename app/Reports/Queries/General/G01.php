@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Femeie de vârstă fertilă (VGR_10).
+ */
 class G01 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Femeie de vârstă fertilă (VGR_10).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

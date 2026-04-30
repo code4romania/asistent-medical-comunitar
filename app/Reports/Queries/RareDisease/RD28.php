@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-scleroză tuberoasă (VBR_ST).
+ */
 class RD28 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-scleroză tuberoasă (VBR_ST).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

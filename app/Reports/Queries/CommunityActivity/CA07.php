@@ -9,11 +9,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total activități de tip Activitate fizică și nutriție.
+ */
 class CA07 extends ReportQuery
 {
-    /**
-     * Total activități de tip Activitate fizică și nutriție.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

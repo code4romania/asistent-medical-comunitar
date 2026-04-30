@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Mamă (sau lăuză) minoră.
+ */
 class CH72 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Mamă (sau lăuză) minoră.
-     */
     public static function query(): Builder
     {
         return parent::query()

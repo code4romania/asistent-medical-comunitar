@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-sindrom Wolf Hirschhorn (VBR_WH).
+ */
 class RD07 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-sindrom Wolf Hirschhorn (VBR_WH).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

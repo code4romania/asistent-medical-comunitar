@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-trisomie 18 (sindrom Edwards) (VBR_EW).
+ */
 class RD03 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-trisomie 18 (sindrom Edwards) (VBR_EW).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

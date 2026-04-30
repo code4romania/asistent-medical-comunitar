@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru Afecțiuni oncologice.
+ */
 class CH49 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru Afecțiuni oncologice.
-     */
     public static function query(): Builder
     {
         return parent::query()

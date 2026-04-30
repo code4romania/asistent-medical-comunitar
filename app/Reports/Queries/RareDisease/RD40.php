@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-sindrom Noonan-rasopatie (VBR_SNR).
+ */
 class RD40 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-sindrom Noonan-rasopatie (VBR_SNR).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

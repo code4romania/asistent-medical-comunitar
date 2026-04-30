@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate pentru vulnerabilități legate de Grad de saracie.
+ */
 class I11 extends ReportQuery
 {
-    /**
-     * Total servicii realizate pentru vulnerabilități legate de Grad de saracie.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

@@ -8,11 +8,11 @@ use App\Models\Appointment;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total programări în perioada de referință.
+ */
 class A13 extends ReportQuery
 {
-    /**
-     * Total programări în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Appointment::query();

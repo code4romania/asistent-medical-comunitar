@@ -9,11 +9,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total beneficiari (proprii) nou-adăugați în perioada de referință.
+ */
 class A01 extends ReportQuery
 {
-    /**
-     * Total beneficiari (proprii) nou-adăugați în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

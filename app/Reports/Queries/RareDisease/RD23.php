@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-mucopolizaharidoză tip I (sindromul Hurler) (VBR_TTD).
+ */
 class RD23 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-mucopolizaharidoză tip I (sindromul Hurler) (VBR_TTD).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

@@ -18,11 +18,11 @@ use Tpetry\QueryExpressions\Language\Cast;
 use Tpetry\QueryExpressions\Operator\Arithmetic\Add;
 use Tpetry\QueryExpressions\Value\Value;
 
+/**
+ * Număr mediu vulnerabilități per beneficiar în perioada de referință.
+ */
 class A08 extends ReportQuery
 {
-    /**
-     * Număr mediu vulnerabilități per beneficiar în perioada de referință.
-     */
     public static function query(): Builder
     {
         $sumExpression = new Alias(

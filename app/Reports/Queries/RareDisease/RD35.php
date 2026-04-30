@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-boala Wilson (VBR_BWL).
+ */
 class RD35 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-boala Wilson (VBR_BWL).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

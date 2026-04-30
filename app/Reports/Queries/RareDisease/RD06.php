@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-sindrom Lejeune (cri du chat) (VBR_LJ).
+ */
 class RD06 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-sindrom Lejeune (cri du chat) (VBR_LJ).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

@@ -9,11 +9,11 @@ use App\Models\Appointment;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Număr mediu de servicii per programare în perioada de referință.
+ */
 class A14 extends ReportQuery
 {
-    /**
-     * Număr mediu de servicii per programare în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Appointment::query()

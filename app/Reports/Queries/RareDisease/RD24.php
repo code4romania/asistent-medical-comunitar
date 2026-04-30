@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-afibrinogenemie congenitală (VBR_AFC).
+ */
 class RD24 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-afibrinogenemie congenitală (VBR_AFC).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

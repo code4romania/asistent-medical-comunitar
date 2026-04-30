@@ -10,11 +10,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total beneficiari deserviți prin activități de tip Anunțare pentru screening populațional.
+ */
 class CA14 extends ReportQuery
 {
-    /**
-     * Total beneficiari deserviți prin activități de tip Anunțare pentru screening populațional.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

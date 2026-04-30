@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate în perioada de referință.
+ */
 class I09 extends ReportQuery
 {
-    /**
-     * Total servicii realizate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

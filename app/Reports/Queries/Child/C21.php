@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
+/**
+ * Sum servicii=Anunț la vaccinare (SNF_11).
+ */
 class C21 extends ReportQuery
 {
-    /**
-     * Sum servicii=Anunț la vaccinare (SNF_11).
-     */
     public static function query(): Builder
     {
         return Intervention::query()

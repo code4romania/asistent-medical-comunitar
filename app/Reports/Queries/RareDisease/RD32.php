@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-angioedem ereditar (VBR_AE).
+ */
 class RD32 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-angioedem ereditar (VBR_AE).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

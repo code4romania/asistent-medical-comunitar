@@ -9,11 +9,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total activități de tip Activitate de pregătire profesională.
+ */
 class CA21 extends ReportQuery
 {
-    /**
-     * Total activități de tip Activitate de pregătire profesională.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

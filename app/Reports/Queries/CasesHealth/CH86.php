@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Femeie însărcinată care nu este în evidența medicului de familie.
+ */
 class CH86 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Femeie însărcinată care nu este în evidența medicului de familie.
-     */
     public static function query(): Builder
     {
         return parent::query()

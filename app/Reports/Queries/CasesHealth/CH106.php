@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru Copil care nu este în conformitate cu standardele de dezvoltare.
+ */
 class CH106 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru Copil care nu este în conformitate cu standardele de dezvoltare.
-     */
     public static function query(): Builder
     {
         return parent::query()

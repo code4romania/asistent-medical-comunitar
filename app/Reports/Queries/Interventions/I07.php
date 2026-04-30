@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management caz integrate active.
+ */
 class I07 extends ReportQuery
 {
-    /**
-     * Total management caz integrate active.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

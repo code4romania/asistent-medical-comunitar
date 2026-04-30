@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Copil abandonat.
+ */
 class CH111 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Copil abandonat.
-     */
     public static function query(): Builder
     {
         return parent::query()

@@ -10,11 +10,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total femei cărora li s-au oferit servicii în perioada de referință.
+ */
 class A11 extends ReportQuery
 {
-    /**
-     * Total femei cărora li s-au oferit servicii în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

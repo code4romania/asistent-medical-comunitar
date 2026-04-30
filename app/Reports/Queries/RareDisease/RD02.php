@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-trisomie 13 (sindrom Patau) (VBR_PT).
+ */
 class RD02 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-trisomie 13 (sindrom Patau) (VBR_PT).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

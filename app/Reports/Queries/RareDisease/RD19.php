@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-boala Pompe (VBR_BP).
+ */
 class RD19 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-boala Pompe (VBR_BP).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

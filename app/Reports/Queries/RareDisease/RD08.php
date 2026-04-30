@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-sindrom Prader Willi (VBR_PW).
+ */
 class RD08 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-sindrom Prader Willi (VBR_PW).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

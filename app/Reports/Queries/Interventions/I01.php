@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total intervenții de tip serviciu individual realizate.
+ */
 class I01 extends ReportQuery
 {
-    /**
-     * Total intervenții de tip serviciu individual realizate.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

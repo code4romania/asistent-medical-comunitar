@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate pentru vulnerabilități legate de Situația familială.
+ */
 class I13 extends ReportQuery
 {
-    /**
-     * Total servicii realizate pentru vulnerabilități legate de Situația familială.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

@@ -10,11 +10,11 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Sum activități comunitare Campanii sănătate and tip=Triaj epidemiologic.
+ */
 class C31 extends ReportQuery
 {
-    /**
-     * Sum activități comunitare Campanii sănătate and tip=Triaj epidemiologic.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

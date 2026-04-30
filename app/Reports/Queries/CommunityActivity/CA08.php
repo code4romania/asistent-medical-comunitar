@@ -10,11 +10,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total beneficiari deserviți prin activități de tip Activitate fizică și nutriție.
+ */
 class CA08 extends ReportQuery
 {
-    /**
-     * Total beneficiari deserviți prin activități de tip Activitate fizică și nutriție.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

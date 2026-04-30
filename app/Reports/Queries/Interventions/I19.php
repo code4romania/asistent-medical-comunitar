@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate pentru vulnerabilități legate de Comportamente la risc.
+ */
 class I19 extends ReportQuery
 {
-    /**
-     * Total servicii realizate pentru vulnerabilități legate de Comportamente la risc.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

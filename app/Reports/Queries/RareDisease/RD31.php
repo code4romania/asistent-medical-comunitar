@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-distrofie musculară Duchennesi Becker (VBR_DB).
+ */
 class RD31 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-distrofie musculară Duchennesi Becker (VBR_DB).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

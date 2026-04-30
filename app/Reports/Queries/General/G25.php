@@ -10,11 +10,11 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
+ */
 class G25 extends ReportQuery
 {
-    /**
-     * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

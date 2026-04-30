@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Educație - consiliere gravidă (SES_13).
+ */
 class P10 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Educație - consiliere gravidă (SES_13).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

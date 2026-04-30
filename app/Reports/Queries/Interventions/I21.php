@@ -8,11 +8,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate pentru vulnerabilități legate de Riscuri de sănătate copil.
+ */
 class I21 extends ReportQuery
 {
-    /**
-     * Total servicii realizate pentru vulnerabilități legate de Riscuri de sănătate copil.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

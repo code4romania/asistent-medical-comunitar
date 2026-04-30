@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-thalassemia (VBR_TH).
+ */
 class RD34 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-thalassemia (VBR_TH).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

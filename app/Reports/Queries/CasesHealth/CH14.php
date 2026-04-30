@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Hepatite cronice virale.
+ */
 class CH14 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Hepatite cronice virale.
-     */
     public static function query(): Builder
     {
         return parent::query()

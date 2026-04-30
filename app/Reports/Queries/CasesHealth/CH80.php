@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Femeie post-avort.
+ */
 class CH80 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Femeie post-avort.
-     */
     public static function query(): Builder
     {
         return parent::query()

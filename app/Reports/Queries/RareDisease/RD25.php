@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-sindrom de imunodeficienţă primară (VBR_SIP).
+ */
 class RD25 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-sindrom de imunodeficienţă primară (VBR_SIP).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

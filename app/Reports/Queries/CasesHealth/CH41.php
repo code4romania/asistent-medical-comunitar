@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Depresie.
+ */
 class CH41 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Depresie.
-     */
     public static function query(): Builder
     {
         return parent::query()

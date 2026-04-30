@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Avort medical (VGR_12).
+ */
 class P05 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Avort medical (VGR_12).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

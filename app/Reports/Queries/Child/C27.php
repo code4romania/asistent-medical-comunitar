@@ -9,11 +9,11 @@ use App\Models\Vulnerability\Vulnerability;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari fără vulnerabilități; Copil 0-1 ani (VCV_01) OR Copil 1-5 ani (VCV_02) OR Copil 5-14 ani (VCV_03).
+ */
 class C27 extends ReportQuery
 {
-    /**
-     * Sum beneficiari fără vulnerabilități; Copil 0-1 ani (VCV_01) OR Copil 1-5 ani (VCV_02) OR Copil 5-14 ani (VCV_03).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru HIV.
+ */
 class CH07 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru HIV.
-     */
     public static function query(): Builder
     {
         return parent::query()

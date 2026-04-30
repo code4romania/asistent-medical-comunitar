@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Femeie însărcinată care nu a făcut controale prenatale.
+ */
 class CH90 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Femeie însărcinată care nu a făcut controale prenatale.
-     */
     public static function query(): Builder
     {
         return parent::query()

@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru Copil născut prematur.
+ */
 class CH100 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru Copil născut prematur.
-     */
     public static function query(): Builder
     {
         return parent::query()

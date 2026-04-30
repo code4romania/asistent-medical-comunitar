@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-sindrom Rubinstein Taybi (VBR_RT).
+ */
 class RD11 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-sindrom Rubinstein Taybi (VBR_RT).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

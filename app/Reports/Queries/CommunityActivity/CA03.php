@@ -10,11 +10,11 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total beneficiari de etnie romă deserviți prin activități de tip Campanie națională .
+ */
 class CA03 extends ReportQuery
 {
-    /**
-     * Total beneficiari de etnie romă deserviți prin activități de tip Campanie națională .
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()

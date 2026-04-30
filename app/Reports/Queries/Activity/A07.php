@@ -8,11 +8,11 @@ use App\Models\Catagraphy;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total catagrafii actualizate în perioada de referință.
+ */
 class A07 extends ReportQuery
 {
-    /**
-     * Total catagrafii actualizate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Catagraphy::query()

@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-sindrom Niemann Pick (VBR_SNP).
+ */
 class RD38 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-sindrom Niemann Pick (VBR_SNP).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

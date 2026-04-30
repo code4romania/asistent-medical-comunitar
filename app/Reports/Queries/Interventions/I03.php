@@ -9,11 +9,11 @@ use App\Models\Intervention;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total intervenții de tip Management de caz active deschise la inițiativa proprie.
+ */
 class I03 extends ReportQuery
 {
-    /**
-     * Total intervenții de tip Management de caz active deschise la inițiativa proprie.
-     */
     public static function query(): Builder
     {
         return Intervention::query()

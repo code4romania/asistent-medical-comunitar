@@ -10,11 +10,11 @@ use App\Models\Intervention\InterventionableIndividualService;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total servicii realizate în afara programului de lucru (în perioada de referință).
+ */
 class A12 extends ReportQuery
 {
-    /**
-     * Total servicii realizate în afara programului de lucru (în perioada de referință).
-     */
     public static function query(): Builder
     {
         return Intervention::query()

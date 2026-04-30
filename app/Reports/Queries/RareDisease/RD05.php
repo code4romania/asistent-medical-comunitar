@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with AC-anomalii ale cromozomului Y (VBR_AY).
+ */
 class RD05 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with AC-anomalii ale cromozomului Y (VBR_AY).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

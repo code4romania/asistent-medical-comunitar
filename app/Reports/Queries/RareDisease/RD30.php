@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with G-mucoviscidoză (VBR_MC).
+ */
 class RD30 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with G-mucoviscidoză (VBR_MC).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

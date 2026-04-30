@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Copil cu greutate scăzută la naștere.
+ */
 class CH99 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Copil cu greutate scăzută la naștere.
-     */
     public static function query(): Builder
     {
         return parent::query()

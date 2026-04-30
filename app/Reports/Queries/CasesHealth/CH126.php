@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Persoană cu dizabilitate (cu sau fără certificat).
+ */
 class CH126 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Persoană cu dizabilitate (cu sau fără certificat).
-     */
     public static function query(): Builder
     {
         return parent::query()
