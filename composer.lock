@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a667d6ec7717579a687cd328240056c4",
+    "content-hash": "a4f6fccfd0e5cf0cbe23bc0cd2f02ae3",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-antivirus.git",
-                "reference": "3f21794db2607fd7e0a19d6b2b48bfa74e888eb3"
+                "reference": "14d9c62453a9e152fa12240afe76e186e4c3d714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/3f21794db2607fd7e0a19d6b2b48bfa74e888eb3",
-                "reference": "3f21794db2607fd7e0a19d6b2b48bfa74e888eb3",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/14d9c62453a9e152fa12240afe76e186e4c3d714",
+                "reference": "14d9c62453a9e152fa12240afe76e186e4c3d714",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
-                "aedart/athenaeum-streams": "^10.3",
-                "aedart/athenaeum-support": "^10.3",
-                "aedart/athenaeum-validation": "^10.3",
+                "aedart/athenaeum-contracts": "^10.4",
+                "aedart/athenaeum-streams": "^10.4",
+                "aedart/athenaeum-support": "^10.4",
+                "aedart/athenaeum-validation": "^10.4",
                 "ext-sockets": "*",
-                "illuminate/events": "^v13.5.0",
+                "illuminate/events": "^v13.6.0",
                 "php": "^8.4",
                 "xenolope/quahog": "^3.0"
             },
@@ -59,26 +59,26 @@
                 "clamav"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.4.0"
             },
-            "time": "2026-04-17T10:37:53+00:00"
+            "time": "2026-04-27T07:30:24+00:00"
         },
         {
             "name": "aedart/athenaeum-contracts",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-contracts.git",
-                "reference": "dc5560544484fd5c6e686672f0ac6c8ff314ec39"
+                "reference": "870f9bfc84f25e0137f55e9e8d30bd8e71602b92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/dc5560544484fd5c6e686672f0ac6c8ff314ec39",
-                "reference": "dc5560544484fd5c6e686672f0ac6c8ff314ec39",
+                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/870f9bfc84f25e0137f55e9e8d30bd8e71602b92",
+                "reference": "870f9bfc84f25e0137f55e9e8d30bd8e71602b92",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^v13.5.0",
+                "illuminate/contracts": "^v13.6.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -110,27 +110,27 @@
                 "interfaces"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.4.0"
             },
-            "time": "2026-04-17T10:38:07+00:00"
+            "time": "2026-04-27T07:30:18+00:00"
         },
         {
             "name": "aedart/athenaeum-mime-types",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-mime-types.git",
-                "reference": "155342ff189e4f84bb3fe5c0f00225300eb7ac3f"
+                "reference": "7e9de28987a20cae0bc23950a48c21de13a27175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/155342ff189e4f84bb3fe5c0f00225300eb7ac3f",
-                "reference": "155342ff189e4f84bb3fe5c0f00225300eb7ac3f",
+                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/7e9de28987a20cae0bc23950a48c21de13a27175",
+                "reference": "7e9de28987a20cae0bc23950a48c21de13a27175",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
-                "aedart/athenaeum-support": "^10.3",
+                "aedart/athenaeum-contracts": "^10.4",
+                "aedart/athenaeum-support": "^10.4",
                 "ext-fileinfo": "*",
                 "php": "^8.4"
             },
@@ -163,28 +163,28 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.4.0"
             },
-            "time": "2026-04-13T12:22:14+00:00"
+            "time": "2026-04-17T10:38:56+00:00"
         },
         {
             "name": "aedart/athenaeum-streams",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-streams.git",
-                "reference": "01e383245965bef1ba838d4807348cd0ec01c2ef"
+                "reference": "4bd7ecc676b2f8bec64d2419cc284f9d4c3ed229"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/01e383245965bef1ba838d4807348cd0ec01c2ef",
-                "reference": "01e383245965bef1ba838d4807348cd0ec01c2ef",
+                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/4bd7ecc676b2f8bec64d2419cc284f9d4c3ed229",
+                "reference": "4bd7ecc676b2f8bec64d2419cc284f9d4c3ed229",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
-                "aedart/athenaeum-mime-types": "^10.3",
-                "aedart/athenaeum-support": "^10.3",
+                "aedart/athenaeum-contracts": "^10.4",
+                "aedart/athenaeum-mime-types": "^10.4",
+                "aedart/athenaeum-support": "^10.4",
                 "php": "^8.4",
                 "psr/http-message": "^2.0"
             },
@@ -218,29 +218,29 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-streams/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-streams/tree/10.4.0"
             },
-            "time": "2026-04-13T12:22:45+00:00"
+            "time": "2026-04-17T10:38:46+00:00"
         },
         {
             "name": "aedart/athenaeum-support",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-support.git",
-                "reference": "96ac2b019e85f43fd8cc16c661f7017d27913c31"
+                "reference": "3630b20dd6663c9a509b940f578aa4e17dd238bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/96ac2b019e85f43fd8cc16c661f7017d27913c31",
-                "reference": "96ac2b019e85f43fd8cc16c661f7017d27913c31",
+                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/3630b20dd6663c9a509b940f578aa4e17dd238bd",
+                "reference": "3630b20dd6663c9a509b940f578aa4e17dd238bd",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
-                "aedart/athenaeum-utils": "^10.3",
-                "illuminate/config": "^v13.5.0",
-                "illuminate/support": "^v13.5.0",
+                "aedart/athenaeum-contracts": "^10.4",
+                "aedart/athenaeum-utils": "^10.4",
+                "illuminate/config": "^v13.6.0",
+                "illuminate/support": "^v13.6.0",
                 "php": "^8.4"
             },
             "require-dev": {
@@ -288,28 +288,28 @@
                 "utils"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-support/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-support/tree/10.4.0"
             },
-            "time": "2026-04-17T10:38:09+00:00"
+            "time": "2026-04-27T07:30:47+00:00"
         },
         {
             "name": "aedart/athenaeum-utils",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-utils.git",
-                "reference": "5cf624a5e2916dda6bf070d5c3476b286e0a124c"
+                "reference": "ad2363bab541645f739bbde72ac252776d3d0d03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/5cf624a5e2916dda6bf070d5c3476b286e0a124c",
-                "reference": "5cf624a5e2916dda6bf070d5c3476b286e0a124c",
+                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/ad2363bab541645f739bbde72ac252776d3d0d03",
+                "reference": "ad2363bab541645f739bbde72ac252776d3d0d03",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
+                "aedart/athenaeum-contracts": "^10.4",
                 "composer-runtime-api": "^2.2.2",
-                "illuminate/support": "^v13.5.0",
+                "illuminate/support": "^v13.6.0",
                 "mockery/mockery": "1.6.*",
                 "php": "^8.4"
             },
@@ -349,29 +349,29 @@
                 "version"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-utils/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-utils/tree/10.4.0"
             },
-            "time": "2026-04-17T10:38:08+00:00"
+            "time": "2026-04-27T07:30:49+00:00"
         },
         {
             "name": "aedart/athenaeum-validation",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-validation.git",
-                "reference": "abc57cbcfdd0e95f0180ab58a7089db21bfe3569"
+                "reference": "0868ead1b6592d593266e2a7b71bd1c2f25f6aa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/abc57cbcfdd0e95f0180ab58a7089db21bfe3569",
-                "reference": "abc57cbcfdd0e95f0180ab58a7089db21bfe3569",
+                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/0868ead1b6592d593266e2a7b71bd1c2f25f6aa0",
+                "reference": "0868ead1b6592d593266e2a7b71bd1c2f25f6aa0",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.3",
-                "aedart/athenaeum-support": "^10.3",
-                "aedart/athenaeum-utils": "^10.3",
-                "illuminate/validation": "^v13.5.0",
+                "aedart/athenaeum-contracts": "^10.4",
+                "aedart/athenaeum-support": "^10.4",
+                "aedart/athenaeum-utils": "^10.4",
+                "illuminate/validation": "^v13.6.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -402,9 +402,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-validation/tree/10.3.0"
+                "source": "https://github.com/aedart/athenaeum-validation/tree/10.4.0"
             },
-            "time": "2026-04-17T10:37:54+00:00"
+            "time": "2026-04-27T07:30:51+00:00"
         },
         {
             "name": "alcea/cnp",
