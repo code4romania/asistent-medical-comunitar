@@ -34,10 +34,14 @@ abstract class UserStatusQuery extends ReportQuery
                     ])
                     ->whereHasActivity(function (Builder $query) {
                         $query
-                            ->whereJsonContainsKey('properties->attributes->deactivated_at')
-                            ->orWhere(function (Builder $query): void {
-                                $query->whereJsonContainsKey('properties->old->password')
-                                    ->whereNull('properties->old->password');
+                            ->where('log_name', 'default')
+                            ->where(function (Builder $query): void {
+                                $query
+                                    ->whereJsonContainsKey('properties->attributes->deactivated_at')
+                                    ->orWhere(function (Builder $query): void {
+                                        $query->whereJsonContainsKey('properties->old->password')
+                                            ->whereNull('properties->old->password');
+                                    });
                             });
                     }),
                 'users'
@@ -47,11 +51,6 @@ abstract class UserStatusQuery extends ReportQuery
     public static function dateColumn(string $type): string
     {
         return 'created_at';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 
     private static function userStatus(): Alias
