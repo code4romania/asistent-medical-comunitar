@@ -7,7 +7,6 @@ namespace App\Reports\Queries\Activity;
 use App\Models\Report;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityEntry;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Number;
@@ -20,8 +19,10 @@ use Tpetry\QueryExpressions\Value\Value;
 
 /**
  * Număr mediu vulnerabilități per beneficiar în perioada de referință.
+ *
+ * TODO: fix for coordinators and admins
  */
-class A08 extends ReportQuery
+class A08 extends ActivityQuery
 {
     public static function query(): Builder
     {

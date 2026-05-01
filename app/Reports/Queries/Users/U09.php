@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use App\Models\User;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total utilizatori cu acrod de parteneriat între angajator și medicul de familie în perioada de referință.
  */
-class U09 extends ReportQuery
+class U09 extends UsersQuery
 {
     public static function query(): Builder
     {
@@ -37,10 +36,5 @@ class U09 extends ReportQuery
     public static function startDateNullable(): bool
     {
         return true;
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 }

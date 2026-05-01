@@ -19,7 +19,7 @@ class P12 extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->whereRealizedIndividualServiceWithCode('STI_08');
     }
 

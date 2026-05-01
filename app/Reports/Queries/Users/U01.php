@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use App\Models\User;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total utilizatori existenți în platformă în perioada de referință.
  */
-class U01 extends ReportQuery
+class U01 extends UsersQuery
 {
     public static function query(): Builder
     {
@@ -24,8 +23,12 @@ class U01 extends ReportQuery
         return 'created_at';
     }
 
-    public static function includeLatestBeforeRange(): bool
+    public static function selectColumns(): array
     {
-        return false;
+        return [
+            'id',
+            'created_at',
+            'activity_county_id',
+        ];
     }
 }

@@ -6,7 +6,6 @@ namespace App\Reports\Queries\Users;
 
 use App\Enums\User\Status;
 use App\Models\User;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Language\Alias;
 use Tpetry\QueryExpressions\Language\CaseGroup;
@@ -16,7 +15,7 @@ use Tpetry\QueryExpressions\Operator\Comparison\NotEqual;
 use Tpetry\QueryExpressions\Operator\Logical\CondOr;
 use Tpetry\QueryExpressions\Value\Value;
 
-abstract class UserStatusQuery extends ReportQuery
+abstract class UserStatusQuery extends UsersQuery
 {
     public static function query(): Builder
     {
@@ -27,6 +26,7 @@ abstract class UserStatusQuery extends ReportQuery
                     ->select([
                         'users.id',
                         'activity_log.created_at',
+                        'activity_county_id',
                         static::userStatus(),
                     ])
                     ->whereHasActivity(function (Builder $query) {
@@ -48,6 +48,20 @@ abstract class UserStatusQuery extends ReportQuery
     public static function dateColumn(string $type): string
     {
         return 'created_at';
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return true;
+    }
+
+    public static function selectColumns(): array
+    {
+        return [
+            'id',
+            'created_at',
+            'activity_county_id',
+        ];
     }
 
     private static function userStatus(): Alias

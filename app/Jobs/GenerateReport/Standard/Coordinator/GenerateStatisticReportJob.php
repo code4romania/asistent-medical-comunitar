@@ -10,9 +10,6 @@ use App\Models\Report;
 use App\Models\User;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Tpetry\QueryExpressions\Function\Aggregate\Count;
-use Tpetry\QueryExpressions\Language\Alias;
 
 class GenerateStatisticReportJob extends GenerateStandardReportJob
 {
@@ -59,12 +56,10 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 
-                        $results = DB::query()
-                            ->from($reportQuery::build($this->report))
-                            ->select('nurse_id', new Alias(new Count('id', distinct: true), 'count'))
-                            ->groupBy('nurse_id')
-                            ->get()
-                            ->pluck('count', 'nurse_id');
+                        $results = $reportQuery::groupedAggregate(
+                            $this->report,
+                            'nurse_id',
+                        );
 
                         $total = 0;
 

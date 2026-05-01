@@ -9,9 +9,6 @@ use App\Jobs\GenerateReport\Standard\GenerateStandardReportJob;
 use App\Models\County;
 use App\Models\Report;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Tpetry\QueryExpressions\Function\Aggregate\Count;
-use Tpetry\QueryExpressions\Language\Alias;
 
 class GenerateStatisticReportJob extends GenerateStandardReportJob
 {
@@ -52,19 +49,15 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 
-                        $results = DB::query()
-                            ->from($reportQuery::build($this->report))
-                            ->select([
-                                'county_id' => County::query()
-                                    ->select('counties.id')
-                                    ->join('users', 'users.activity_county_id', 'counties.id')
-                                    ->whereColumn('users.id', 'nurse_id')
-                                    ->take(1),
-                                new Alias(new Count('id', distinct: true), 'count'),
-                            ])
-                            ->groupBy('county_id')
-                            ->get()
-                            ->pluck('count', 'county_id');
+                        $results = $reportQuery::groupedAggregate(
+                            $this->report,
+                            'county_id',
+                            County::query()
+                                ->select('counties.id')
+                                ->join('users', 'users.activity_county_id', 'counties.id')
+                                ->whereColumn('users.id', 'nurse_id')
+                                ->take(1)
+                        );
 
                         $total = 0;
 

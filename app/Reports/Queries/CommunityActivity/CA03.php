@@ -6,29 +6,17 @@ namespace App\Reports\Queries\CommunityActivity;
 
 use App\Enums\AggregateFunction;
 use App\Enums\CommunityActivity\Campaign;
-use App\Models\CommunityActivity;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total beneficiari de etnie romă deserviți prin activități de tip Campanie națională .
  */
-class CA03 extends ReportQuery
+class CA03 extends CommunityActivityQuery
 {
     public static function query(): Builder
     {
-        return CommunityActivity::query()
+        return parent::query()
             ->whereCampaign(Campaign::NATIONAL);
-    }
-
-    public static function dateColumn(string $type): string
-    {
-        return 'date';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 
     public static function aggregateFunction(): AggregateFunction

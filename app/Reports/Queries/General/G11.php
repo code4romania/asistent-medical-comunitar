@@ -20,7 +20,7 @@ class G11 extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->whereRealizedIndividualServiceWithCode('STI_01');
     }
 

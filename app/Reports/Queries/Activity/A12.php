@@ -7,19 +7,19 @@ namespace App\Reports\Queries\Activity;
 use App\Enums\Intervention\Status;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableIndividualService;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total servicii realizate în afara programului de lucru (în perioada de referință).
  */
-class A12 extends ReportQuery
+class A12 extends ActivityQuery
 {
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
+            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id')
             ->whereHasMorph('interventionable', InterventionableIndividualService::class, function (Builder $query): void {
                 $query
                     ->where('status', Status::REALIZED)

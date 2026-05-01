@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Catagraphy;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total catagrafii nou-create în perioada de referință.
  */
-class A06 extends ReportQuery
+class A06 extends ActivityQuery
 {
     public static function query(): Builder
     {
@@ -21,6 +20,13 @@ class A06 extends ReportQuery
                     ->where('subject_type', 'catagraphy')
                     ->where('event', 'created');
             });
+    }
+
+    public static function tapQuery(Builder $query): Builder
+    {
+        return $query->addSelect([
+            'catagraphies.nurse_id',
+        ]);
     }
 
     public static function dateColumn(string $type): string

@@ -10,6 +10,13 @@ use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Tpetry\QueryExpressions\Function\Aggregate\Avg;
+use Tpetry\QueryExpressions\Function\Aggregate\Count;
+use Tpetry\QueryExpressions\Function\Aggregate\Max;
+use Tpetry\QueryExpressions\Function\Aggregate\Min;
+use Tpetry\QueryExpressions\Function\Aggregate\Sum;
+use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class ReportQuery
 {
@@ -171,6 +178,33 @@ abstract class ReportQuery
         return static::build($report, true)
             ->when(static::distinct(), fn (Builder $query) => $query->distinct())
             ->$method(static::aggregateByColumn()) ?? 0;
+    }
+
+    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    {
+        $aggregateExpression = match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => new Count($column),
+            AggregateFunction::SUM => new Sum($column),
+            AggregateFunction::AVG => new Avg($column),
+            AggregateFunction::MIN => new Min($column),
+            AggregateFunction::MAX => new Max($column),
+        };
+
+        $columns = [
+            new Alias($aggregateExpression, 'aggregate'),
+        ];
+
+        if (\is_null($query)) {
+            $columns[] = $column;
+        } else {
+            $columns[$column] = $query;
+        }
+
+        return DB::query()
+            ->from(static::build($report), 'base')
+            ->select($columns)
+            ->groupBy($column)
+            ->pluck('aggregate', $column);
     }
 
     public static function whereDate(Builder $query, string $column, ?Carbon $date): Builder

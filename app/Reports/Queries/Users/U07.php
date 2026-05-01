@@ -6,13 +6,12 @@ namespace App\Reports\Queries\Users;
 
 use App\Enums\Employer\Funding;
 use App\Models\User;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total utilizatori angajați din buget local.
  */
-class U07 extends ReportQuery
+class U07 extends UsersQuery
 {
     public static function query(): Builder
     {
@@ -38,10 +37,5 @@ class U07 extends ReportQuery
     public static function startDateNullable(): bool
     {
         return true;
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 }

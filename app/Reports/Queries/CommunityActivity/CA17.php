@@ -6,29 +6,17 @@ namespace App\Reports\Queries\CommunityActivity;
 
 use App\Enums\AggregateFunction;
 use App\Enums\CommunityActivity\Campaign;
-use App\Models\CommunityActivity;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total beneficiari deserviți prin activități de tip Triaj epidemiologic.
  */
-class CA17 extends ReportQuery
+class CA17 extends CommunityActivityQuery
 {
     public static function query(): Builder
     {
-        return CommunityActivity::query()
+        return parent::query()
             ->whereCampaign(Campaign::EPIDEM_TRIAGE);
-    }
-
-    public static function dateColumn(string $type): string
-    {
-        return 'date';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 
     public static function aggregateFunction(): AggregateFunction

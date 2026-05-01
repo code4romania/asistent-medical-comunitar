@@ -19,7 +19,7 @@ class C21 extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->whereRealizedIndividualServiceWithCode('SNF_11');
     }
 

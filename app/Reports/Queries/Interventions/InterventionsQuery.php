@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Reports\Queries\Activity;
+namespace App\Reports\Queries\Interventions;
 
 use App\Models\Intervention;
+use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Total servicii realizate în perioada de referință.
- */
-class A09 extends ActivityQuery
+abstract class InterventionsQuery extends ReportQuery
 {
     public static function query(): Builder
     {
         return Intervention::query()
             ->withoutEagerLoads()
-            ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
-            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id')
-            ->onlyRealized();
+            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id');
+    }
+
+    public static function selectColumns(): array
+    {
+        return [
+            'interventions.id',
+            'interventions.created_at',
+        ];
     }
 
     public static function dateColumn(string $type): string

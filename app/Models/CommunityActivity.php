@@ -76,14 +76,18 @@ class CommunityActivity extends Model implements HasMedia
 
     public function scopeWhereCampaign(Builder $query, ?Campaign $subtype = null): Builder
     {
-        return $query->where('type', Type::CAMPAIGN)
-            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
+        $table = $this->getTable();
+
+        return $query->where("$table.type", Type::CAMPAIGN)
+            ->when($subtype, fn (Builder $query) => $query->where("$table.subtype", $subtype));
     }
 
     public function scopeWhereAdministrativeActivity(Builder $query, ?Administrative $subtype = null): Builder
     {
-        return $query->where('type', Type::ADMINISTRATIVE)
-            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
+        $table = $this->getTable();
+
+        return $query->where("$table.type", Type::ADMINISTRATIVE)
+            ->when($subtype, fn (Builder $query) => $query->where("$table.subtype", $subtype));
     }
 
     public function getTitleAttribute(): string

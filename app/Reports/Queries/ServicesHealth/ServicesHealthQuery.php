@@ -41,6 +41,14 @@ abstract class ServicesHealthQuery extends ReportQuery
             ->leftJoin('service_categories', 'services.category_id', 'service_categories.id');
     }
 
+    public static function selectColumns(): array
+    {
+        return [
+            'interventions.id',
+            'interventions.created_at',
+        ];
+    }
+
     public static function dateColumn(string $type): string
     {
         return 'interventions.created_at';

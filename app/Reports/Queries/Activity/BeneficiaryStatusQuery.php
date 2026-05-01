@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Language\Alias;
 
-abstract class BeneficiaryStatusQuery extends ReportQuery
+abstract class BeneficiaryStatusQuery extends ActivityQuery
 {
     public static function query(): Builder
     {

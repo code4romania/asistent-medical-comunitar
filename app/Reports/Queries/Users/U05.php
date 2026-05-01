@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use App\Models\User;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total utilizatori angajați pe proiect în perioada de referință.
  */
-class U05 extends ReportQuery
+class U05 extends UsersQuery
 {
     public static function query(): Builder
     {
@@ -37,10 +36,5 @@ class U05 extends ReportQuery
     public static function startDateNullable(): bool
     {
         return true;
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 }

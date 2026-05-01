@@ -7,13 +7,12 @@ namespace App\Reports\Queries\Activity;
 use App\Enums\Gender;
 use App\Enums\Intervention\Status;
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total femei cărora li s-au oferit servicii în perioada de referință.
  */
-class A11 extends ReportQuery
+class A11 extends ActivityQuery
 {
     public static function query(): Builder
     {
