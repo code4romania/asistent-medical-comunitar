@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Number;
 
 abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 {
@@ -55,5 +56,14 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
         });
 
         $this->report->save();
+    }
+
+    protected function addToTotal(int|float &$total, mixed $value): void
+    {
+        if (\is_string($value)) {
+            $value = Number::parseFloat($value);
+        }
+
+        $total += $value;
     }
 }

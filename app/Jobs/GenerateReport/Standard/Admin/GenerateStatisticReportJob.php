@@ -8,6 +8,7 @@ use App\Contracts\Enums\HasQuery;
 use App\Jobs\GenerateReport\Standard\GenerateStandardReportJob;
 use App\Models\County;
 use App\Models\Report;
+use App\Reports\Queries\ReportQuery;
 use Illuminate\Support\Collection;
 
 class GenerateStatisticReportJob extends GenerateStandardReportJob
@@ -66,13 +67,19 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                                 ->mapWithKeys(function (County $county) use ($results, &$total) {
                                     $value = $results->get($county->id, 0);
 
-                                    $total += $value;
+                                    $this->addToTotal($total, $value);
 
                                     return [
                                         "county-{$county->id}" => $value,
                                     ];
                                 })
-                                ->when($includeTotals, fn (Collection $values) => $values->put('total', $total)),
+                                ->when($includeTotals, fn (Collection $values) => $values->put(
+                                    'total',
+                                    $reportQuery::computeTotal(
+                                        $total,
+                                        $counties->count()
+                                    )
+                                )),
                         ];
                     }),
             ],

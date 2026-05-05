@@ -68,13 +68,19 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
                                 ->mapWithKeys(function (User $nurse) use ($results, &$total) {
                                     $value = $results->get($nurse->id, 0);
 
-                                    $total += $value;
+                                    $this->addToTotal($total, $value);
 
                                     return [
                                         "nurse-{$nurse->id}" => $value,
                                     ];
                                 })
-                                ->when($includeTotals, fn (Collection $values) => $values->put('total', $total)),
+                                ->when($includeTotals, fn (Collection $values) => $values->put(
+                                    'total',
+                                    $reportQuery::computeTotal(
+                                        $total,
+                                        $nurses->count()
+                                    )
+                                )),
                         ];
                     }),
             ],

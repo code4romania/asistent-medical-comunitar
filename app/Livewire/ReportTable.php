@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use App\Enums\Report\Type;
+use App\Filament\Tables\Columns\ReportTableColumn;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Support\Enums\Alignment;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
@@ -54,13 +53,8 @@ class ReportTable extends Component implements HasActions, HasForms, HasTable
                         $label .= '<small class="block">(' . $suffix . ')</small>';
                     }
 
-                    return TextColumn::make($column['name'])
-                        ->label(new HtmlString($label))
-                        ->alignment(match ($column['name']) {
-                            'id' => Alignment::End,
-                            default => Alignment::Start,
-                        })
-                        ->wrap();
+                    return ReportTableColumn::make($column['name'])
+                        ->label(new HtmlString($label));
                 })
                 ->all();
         }
@@ -76,9 +70,8 @@ class ReportTable extends Component implements HasActions, HasForms, HasTable
             ],
         ])
             ->map(
-                fn (array $column) => TextColumn::make($column['name'])
+                fn (array $column) => ReportTableColumn::make($column['name'])
                     ->label(ucfirst($column['label']))
-                    ->wrap()
             )
             ->all();
     }
