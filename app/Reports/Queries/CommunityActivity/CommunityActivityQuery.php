@@ -26,6 +26,11 @@ abstract class CommunityActivityQuery extends ReportQuery
         ];
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'community_activities.id';
+    }
+
     public static function dateColumn(string $type): string
     {
         return 'community_activities.date';
