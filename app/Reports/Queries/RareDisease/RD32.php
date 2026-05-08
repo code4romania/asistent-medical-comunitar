@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\RareDisease;
 
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Sum beneficiari with G-angioedem ereditar (VBR_AE).
  */
-class RD32 extends ReportQuery
+class RD32 extends RareDiseaseQuery
 {
     public static function query(): Builder
     {

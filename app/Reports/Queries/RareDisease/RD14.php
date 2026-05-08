@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Reports\Queries\RareDisease;
 
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Sum beneficiari with AC-nefroblastom (VBR_NFB).
  */
-class RD14 extends ReportQuery
+class RD14 extends RareDiseaseQuery
 {
     public static function query(): Builder
     {
