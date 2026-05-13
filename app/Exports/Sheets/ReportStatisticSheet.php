@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -38,7 +39,7 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
 
     public function headings(): array
     {
-        return $this->columns
+        $columnHeadings = $this->columns
             ->map(function (array $column) {
                 $label = $column['label'];
 
@@ -50,6 +51,12 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
             })
             ->prepend('')
             ->all();
+
+        return [
+            [$this->title],
+            [], // empty row
+            $columnHeadings,
+        ];
     }
 
     public function collection(): Collection
@@ -71,8 +78,17 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
 
     public function styles(Worksheet $sheet)
     {
+        $lastCol = Coordinate::stringFromColumnIndex($this->columns->count() + 1);
+        $sheet->mergeCells("A1:{$lastCol}1");
+
         return [
             1 => [
+                'font' => [
+                    'bold' => true,
+                    'size' => 14,
+                ],
+            ],
+            3 => [
                 'font' => [
                     'bold' => true,
                 ],
