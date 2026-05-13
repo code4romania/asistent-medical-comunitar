@@ -6,22 +6,30 @@ namespace App\Reports\Queries\Activity;
 
 use App\Enums\AggregateFunction;
 use App\Models\Appointment;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A14 extends ReportQuery
+/**
+ * Număr mediu de servicii per programare în perioada de referință.
+ */
+class A14 extends ActivityQuery
 {
-    /**
-     * Număr mediu de servicii per programare în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Appointment::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'appointments.beneficiary_id')
             ->fromSub(
                 Appointment::query()
                     ->withCount('interventions'),
                 'appointments'
             );
+    }
+
+    public static function tapQuery(Builder $query): Builder
+    {
+        return $query->addSelect([
+            'appointments.nurse_id',
+            'beneficiaries.county_id',
+        ]);
     }
 
     public static function dateColumn(string $type): string

@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Vârstnic peste 65 ani (VCV_06).
+ */
 class G03 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Vârstnic peste 65 ani (VCV_06).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

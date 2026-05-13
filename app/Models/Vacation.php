@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Concerns\BelongsToNurse;
 use App\Enums\VacationType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
@@ -36,5 +37,35 @@ class Vacation extends Model
             ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    public function scopeWhereMedical(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::MEDICAL);
+    }
+
+    public function scopeWhereRest(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::REST);
+    }
+
+    public function scopeWhereChild(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::CHILD);
+    }
+
+    public function scopeWhereSpecial(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::SPECIAL);
+    }
+
+    public function scopeWhereBloodDonation(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::BLOOD_DONATION);
+    }
+
+    public function scopeWhereOther(Builder $query): Builder
+    {
+        return $query->where('type', VacationType::OTHER);
     }
 }

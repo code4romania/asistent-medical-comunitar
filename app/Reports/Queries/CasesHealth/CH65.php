@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Alt tip de afecțiune.
+ */
 class CH65 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Alt tip de afecțiune.
-     */
     public static function query(): Builder
     {
         return parent::query()

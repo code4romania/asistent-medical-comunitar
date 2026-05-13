@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Femeie care utilizează metode contraceptive (VGR_14).
+ */
 class G02 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Femeie care utilizează metode contraceptive (VGR_14).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

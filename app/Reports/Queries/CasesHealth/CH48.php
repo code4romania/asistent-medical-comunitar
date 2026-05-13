@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Adicții / dependențe.
+ */
 class CH48 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Adicții / dependențe.
-     */
     public static function query(): Builder
     {
         return parent::query()

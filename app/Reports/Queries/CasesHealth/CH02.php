@@ -7,16 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz deschise.
+ */
 class CH02 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz deschise.
-     */
-    public static function query(): Builder
-    {
-        return parent::query();
-    }
-
     public static function where(Builder $query, Report $report): Builder
     {
         return $query->whereDate('interventions.created_at', '<=', $report->date_until);

@@ -83,7 +83,6 @@ enum Interventions: string implements HasQuery, HasLabel, HasTypes, HasColumns
     public static function types(): array
     {
         return [
-            Type::LIST,
             Type::STATISTIC,
         ];
     }

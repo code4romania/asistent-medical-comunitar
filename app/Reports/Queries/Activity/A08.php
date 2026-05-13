@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Activity;
 
+use App\Enums\AggregateFunction;
 use App\Models\Report;
 use App\Models\Vulnerability\Vulnerability;
 use App\Models\Vulnerability\VulnerabilityEntry;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Number;
+use Illuminate\Support\Facades\DB;
 use Tpetry\QueryExpressions\Function\Aggregate\Avg;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
@@ -18,11 +18,11 @@ use Tpetry\QueryExpressions\Language\Cast;
 use Tpetry\QueryExpressions\Operator\Arithmetic\Add;
 use Tpetry\QueryExpressions\Value\Value;
 
-class A08 extends ReportQuery
+/**
+ * Număr mediu vulnerabilități per beneficiar în perioada de referință.
+ */
+class A08 extends ActivityQuery
 {
-    /**
-     * Număr mediu vulnerabilități per beneficiar în perioada de referință.
-     */
     public static function query(): Builder
     {
         $sumExpression = new Alias(
@@ -51,12 +51,29 @@ class A08 extends ReportQuery
                     ]),
                 'vulnerability_entries'
             )
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'beneficiary_id')
             ->groupBy('beneficiary_id');
+    }
+
+    public static function selectColumns(): array
+    {
+        return [
+            'beneficiary_id',
+            new Alias(
+                new Cast(new Avg('vulnerabilities_count'), 'float'),
+                'avg_vulnerabilities'
+            ),
+        ];
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'created_at';
+        return 'vulnerability_entries.created_at';
+    }
+
+    public static function aggregateFunction(): AggregateFunction
+    {
+        return AggregateFunction::AVG;
     }
 
     public static function includeLatestBeforeRange(): bool
@@ -66,19 +83,21 @@ class A08 extends ReportQuery
 
     public static function aggregate(Report $report): mixed
     {
-        $avg = static::build($report)
-            ->select([
-                'beneficiary_id',
-                new Alias(
-                    new Cast(new Avg('vulnerabilities_count'), 'float'),
-                    'avg_vulnerabilities'
-                ),
-            ])
-            ->get()
-            ->groupBy('beneficiary_id')
-            ->map->sum('avg_vulnerabilities')
-            ->avg();
+        $aggregate = DB::query()
+            ->from(static::build($report), 'base')
+            ->avg('avg_vulnerabilities');
 
-        return Number::format((float) $avg, 1);
+        return static::numberPrecision($aggregate);
+    }
+
+    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    {
+        return parent::groupedAggregate($report, $column, $query)
+            ->map(fn (mixed $aggregate): float => static::numberPrecision($aggregate));
+    }
+
+    public static function groupedAggregateColumnExpression(string $column): Expression
+    {
+        return new Cast(new Avg('avg_vulnerabilities'), 'float');
     }
 }

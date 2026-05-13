@@ -9,21 +9,23 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Tpetry\QueryExpressions\Language\Alias;
 
+/**
+ * Sum activități comunitare Campanii sănătate and tip=Triaj epidemiologic.
+ */
 class C31 extends ReportQuery
 {
-    /**
-     * Sum activități comunitare Campanii sănătate and tip=Triaj epidemiologic.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()
+            ->leftJoin('users', 'community_activities.nurse_id', '=', 'users.id')
             ->whereCampaign(Campaign::EPIDEM_TRIAGE);
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'created_at';
+        return 'community_activities.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
@@ -33,7 +35,13 @@ class C31 extends ReportQuery
 
     public static function selectColumns(): array
     {
-        return array_keys(static::columns());
+        return collect(static::columns())
+            ->keys()
+            ->map(fn (string $key) => match ($key) {
+                'id' => 'community_activities.id',
+                default => $key,
+            })
+            ->all();
     }
 
     public static function columns(): array
@@ -56,6 +64,7 @@ class C31 extends ReportQuery
         return $query->addSelect([
             'nurse_id',
             'type',
+            new Alias('activity_county_id', 'county_id'),
         ]);
     }
 

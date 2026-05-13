@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Interventions;
 
 use App\Enums\Intervention\CaseInitiator;
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class I06 extends ReportQuery
+/**
+ * Total intervenții de tip Management de caz active deschise la inițiativa altei entități.
+ */
+class I06 extends InterventionsQuery
 {
-    /**
-     * Total intervenții de tip Management de caz active deschise la inițiativa altei entități.
-     */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->without('appointment', 'interventionable')
+        return parent::query()
             ->whereInitiatedBy(CaseInitiator::OTHER)
             ->onlyCases();
     }
@@ -25,19 +22,9 @@ class I06 extends ReportQuery
     public static function dateColumn(string $type): string
     {
         return match ($type) {
-            'start' => 'created_at',
-            'end' => 'closed_at',
+            'start' => 'interventions.created_at',
+            'end' => 'interventions.closed_at',
         };
-    }
-
-    public static function aggregateByColumn(): string
-    {
-        return 'interventions.id';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 
     public static function endDateNullable(): bool

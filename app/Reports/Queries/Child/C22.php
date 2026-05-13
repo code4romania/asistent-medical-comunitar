@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Copil contact TBC (VSC_09).
+ */
 class C22 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Copil contact TBC (VSC_09).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

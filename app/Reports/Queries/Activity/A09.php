@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A09 extends ReportQuery
+/**
+ * Total servicii realizate în perioada de referință.
+ */
+class A09 extends ActivityQuery
 {
-    /**
-     * Total servicii realizate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
+            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id')
             ->onlyRealized();
     }
 

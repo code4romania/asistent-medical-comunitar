@@ -6,14 +6,13 @@ namespace App\Reports\Queries\Activity;
 
 use App\Enums\Beneficiary\Type;
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A02 extends ReportQuery
+/**
+ * Total beneficiari ocazionali nou-adăugați în perioada de referință.
+ */
+class A02 extends ActivityQuery
 {
-    /**
-     * Total beneficiari ocazionali nou-adăugați în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

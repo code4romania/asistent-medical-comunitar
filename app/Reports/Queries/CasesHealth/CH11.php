@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Infecții cu transmitere sexuală.
+ */
 class CH11 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Infecții cu transmitere sexuală.
-     */
     public static function query(): Builder
     {
         return parent::query()

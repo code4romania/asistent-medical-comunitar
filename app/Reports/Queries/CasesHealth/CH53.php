@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Alergii.
+ */
 class CH53 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Alergii.
-     */
     public static function query(): Builder
     {
         return parent::query()

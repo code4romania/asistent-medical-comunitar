@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Boală cronică (VSG_01); Adult 18-65 ani (VCV_05).
+ */
 class G14 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Boală cronică (VSG_01); Adult 18-65 ani (VCV_05).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

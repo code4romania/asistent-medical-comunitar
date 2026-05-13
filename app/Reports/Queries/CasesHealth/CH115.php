@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru Copil în plasament sau asistență maternală în condiții de risc.
+ */
 class CH115 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru Copil în plasament sau asistență maternală în condiții de risc.
-     */
     public static function query(): Builder
     {
         return parent::query()

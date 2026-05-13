@@ -19,7 +19,7 @@ class P12 extends ReportQuery
     public static function query(): Builder
     {
         return Intervention::query()
-            ->without('appointment', 'interventionable')
+            ->withoutEagerLoads()
             ->whereRealizedIndividualServiceWithCode('STI_08');
     }
 
@@ -60,12 +60,14 @@ class P12 extends ReportQuery
     {
         return $query
             ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id')
+            ->leftJoin('users', 'beneficiaries.nurse_id', '=', 'users.id')
             ->select([
                 new Alias('interventions.id', 'id'),
                 new Alias('interventionable_individual_services.status', 'status'),
                 new Alias('interventions.integrated', 'integrated'),
                 new Alias('beneficiaries.full_name', 'beneficiary'),
                 new Alias('beneficiaries.nurse_id', 'nurse_id'),
+                new Alias('users.activity_county_id', 'county_id'),
                 new Alias('interventionable_individual_services.outside_working_hours', 'outside_working_hours'),
                 new Alias('interventionable_individual_services.date', 'date'),
                 'interventions.beneficiary_id',

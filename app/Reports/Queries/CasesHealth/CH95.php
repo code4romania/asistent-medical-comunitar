@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Copil 0-1 ani.
+ */
 class CH95 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Copil 0-1 ani.
-     */
     public static function query(): Builder
     {
         return parent::query()

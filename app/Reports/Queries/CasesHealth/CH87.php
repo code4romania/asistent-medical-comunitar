@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Femeie însărcinată care nu este în evidența medicului de familie.
+ */
 class CH87 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Femeie însărcinată care nu este în evidența medicului de familie.
-     */
     public static function query(): Builder
     {
         return parent::query()

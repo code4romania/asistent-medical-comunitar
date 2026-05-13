@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Nevoie tratament paliativ (VNS_04).
+ */
 class G26 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Nevoie tratament paliativ (VNS_04).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

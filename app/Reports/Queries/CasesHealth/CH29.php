@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Atac vascular cerebral.
+ */
 class CH29 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Atac vascular cerebral.
-     */
     public static function query(): Builder
     {
         return parent::query()

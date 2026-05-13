@@ -5,17 +5,25 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Appointment;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A13 extends ReportQuery
+/**
+ * Total programări în perioada de referință.
+ */
+class A13 extends ActivityQuery
 {
-    /**
-     * Total programări în perioada de referință.
-     */
     public static function query(): Builder
     {
-        return Appointment::query();
+        return Appointment::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'appointments.beneficiary_id');
+    }
+
+    public static function tapQuery(Builder $query): Builder
+    {
+        return $query->addSelect([
+            'appointments.nurse_id',
+            'beneficiaries.county_id',
+        ]);
     }
 
     public static function dateColumn(string $type): string
@@ -23,17 +31,13 @@ class A13 extends ReportQuery
         return 'date';
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'appointments.id';
+    }
+
     public static function includeLatestBeforeRange(): bool
     {
         return false;
-    }
-
-    public static function selectColumns(): array
-    {
-        return [
-            'id',
-            'date',
-            'beneficiary_id',
-        ];
     }
 }

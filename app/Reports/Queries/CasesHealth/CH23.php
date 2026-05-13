@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz închise pentru Insuficiență cardiacă.
+ */
 class CH23 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz închise pentru Insuficiență cardiacă.
-     */
     public static function query(): Builder
     {
         return parent::query()

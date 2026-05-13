@@ -6,14 +6,13 @@ namespace App\Reports\Queries\Activity;
 
 use App\Enums\Intervention\Status;
 use App\Models\Beneficiary;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A10 extends ReportQuery
+/**
+ * Total beneficiari cărora li s-au oferit servicii în perioada de referință.
+ */
+class A10 extends ActivityQuery
 {
-    /**
-     * Total beneficiari cărora li s-au oferit servicii în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

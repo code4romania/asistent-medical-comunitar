@@ -5,22 +5,30 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Catagraphy;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-class A07 extends ReportQuery
+/**
+ * Total catagrafii actualizate în perioada de referință.
+ */
+class A07 extends ActivityQuery
 {
-    /**
-     * Total catagrafii actualizate în perioada de referință.
-     */
     public static function query(): Builder
     {
         return Catagraphy::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'catagraphies.beneficiary_id')
             ->whereHasActivity(function (Builder $query) {
                 $query
                     ->where('subject_type', 'catagraphy')
                     ->where('event', 'updated');
             });
+    }
+
+    public static function tapQuery(Builder $query): Builder
+    {
+        return $query->addSelect([
+            'catagraphies.nurse_id',
+            'beneficiaries.county_id',
+        ]);
     }
 
     public static function dateColumn(string $type): string

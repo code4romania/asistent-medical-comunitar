@@ -8,8 +8,16 @@ use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Tpetry\QueryExpressions\Function\Aggregate\Avg;
+use Tpetry\QueryExpressions\Function\Aggregate\Count;
+use Tpetry\QueryExpressions\Function\Aggregate\Max;
+use Tpetry\QueryExpressions\Function\Aggregate\Min;
+use Tpetry\QueryExpressions\Function\Aggregate\Sum;
+use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class ReportQuery
 {
@@ -87,6 +95,7 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
+            'beneficiaries.county_id',
         ]);
     }
 
@@ -173,6 +182,44 @@ abstract class ReportQuery
             ->$method(static::aggregateByColumn()) ?? 0;
     }
 
+    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    {
+        return DB::query()
+            ->from(static::build($report), 'base')
+            ->select(static::groupedAggregateColumns($column, $query))
+            ->groupBy($column)
+            ->pluck('aggregate', $column);
+    }
+
+    public static function groupedAggregateColumnExpression(string $column): Expression
+    {
+        return match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => new Count($column),
+            AggregateFunction::SUM => new Sum($column),
+            AggregateFunction::AVG => new Avg($column),
+            AggregateFunction::MIN => new Min($column),
+            AggregateFunction::MAX => new Max($column),
+        };
+    }
+
+    public static function groupedAggregateColumns(string $column, ?Builder $query = null): array
+    {
+        $columns = [
+            new Alias(
+                static::groupedAggregateColumnExpression($column),
+                'aggregate'
+            ),
+        ];
+
+        if (\is_null($query)) {
+            $columns[] = $column;
+        } else {
+            $columns[$column] = $query;
+        }
+
+        return $columns;
+    }
+
     public static function whereDate(Builder $query, string $column, ?Carbon $date): Builder
     {
         $condition = match ($column) {
@@ -194,5 +241,24 @@ abstract class ReportQuery
                 ->whereDate(static::dateColumn($column), $operator, $date)
                 ->orWhereNull(static::dateColumn($column))
         );
+    }
+
+    public static function computeTotal(int|float $total, int $count): int|float
+    {
+        if (static::aggregateFunction()->is(AggregateFunction::AVG)) {
+            return static::numberPrecision($total / $count);
+        }
+
+        return $total;
+    }
+
+    /**
+     * Limit the number of decimals when storing in the database.
+     */
+    public static function numberPrecision(mixed $value, int $precision = 3): float
+    {
+        $coefficient = 10 ** $precision;
+
+        return floor($value * $coefficient) / $coefficient;
     }
 }

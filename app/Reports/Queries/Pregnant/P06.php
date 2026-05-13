@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Naştere înregistrată la domiciliu (VGR_13).
+ */
 class P06 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Naştere înregistrată la domiciliu (VGR_13).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

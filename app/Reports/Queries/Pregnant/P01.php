@@ -9,11 +9,11 @@ use App\Models\Vulnerability\Vulnerability;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); At least one vulnerabilty from Vulnerbailități socio-economice section.
+ */
 class P01 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); At least one vulnerabilty from Vulnerbailități socio-economice section.
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

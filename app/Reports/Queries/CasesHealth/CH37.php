@@ -7,11 +7,11 @@ namespace App\Reports\Queries\CasesHealth;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz active pentru Boală pulmonară cronică constructivă.
+ */
 class CH37 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz active pentru Boală pulmonară cronică constructivă.
-     */
     public static function query(): Builder
     {
         return parent::query()

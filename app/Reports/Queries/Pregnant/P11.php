@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Diagnosticare precoce a sarcinii (VGR_15).
+ */
 class P11 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Diagnosticare precoce a sarcinii (VGR_15).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()

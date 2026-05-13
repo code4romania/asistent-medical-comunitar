@@ -16,7 +16,7 @@ enum VacationType: string implements HasLabel
     case MEDICAL = 'medical';
     case REST = 'rest';
     case CHILD = 'child';
-    case special = 'special';
+    case SPECIAL = 'special';
     case BLOOD_DONATION = 'blood_donation';
     case OTHER = 'other';
 
@@ -26,7 +26,7 @@ enum VacationType: string implements HasLabel
             self::MEDICAL => __('vacation.type.medical'),
             self::REST => __('vacation.type.rest'),
             self::CHILD => __('vacation.type.child'),
-            self::special => __('vacation.type.special'),
+            self::SPECIAL => __('vacation.type.special'),
             self::BLOOD_DONATION => __('vacation.type.blood_donation'),
             self::OTHER => __('vacation.type.other'),
         };

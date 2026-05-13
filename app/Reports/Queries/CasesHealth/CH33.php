@@ -6,11 +6,11 @@ namespace App\Reports\Queries\CasesHealth;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Total management de caz create (nou inițiate) pentru Steato-hepatite.
+ */
 class CH33 extends CasesHealthQuery
 {
-    /**
-     * Total management de caz create (nou inițiate) pentru Steato-hepatite.
-     */
     public static function query(): Builder
     {
         return parent::query()
