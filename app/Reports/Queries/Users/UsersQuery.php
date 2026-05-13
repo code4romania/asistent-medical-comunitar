@@ -6,6 +6,7 @@ namespace App\Reports\Queries\Users;
 
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class UsersQuery extends ReportQuery
 {
@@ -29,6 +30,7 @@ abstract class UsersQuery extends ReportQuery
         return [
             'users.id',
             'activity_county_id',
+            new Alias('activity_county_id', 'county_id'),
         ];
     }
 

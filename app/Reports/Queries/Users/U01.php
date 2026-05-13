@@ -22,13 +22,4 @@ class U01 extends UsersQuery
     {
         return 'created_at';
     }
-
-    public static function selectColumns(): array
-    {
-        return [
-            'id',
-            'created_at',
-            'activity_county_id',
-        ];
-    }
 }

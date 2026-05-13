@@ -15,6 +15,7 @@ class A06 extends ActivityQuery
     public static function query(): Builder
     {
         return Catagraphy::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'catagraphies.beneficiary_id')
             ->whereHasActivity(function (Builder $query) {
                 $query
                     ->where('subject_type', 'catagraphy')
@@ -26,6 +27,7 @@ class A06 extends ActivityQuery
     {
         return $query->addSelect([
             'catagraphies.nurse_id',
+            'beneficiaries.county_id',
         ]);
     }
 

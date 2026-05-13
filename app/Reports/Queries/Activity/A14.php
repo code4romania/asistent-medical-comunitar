@@ -16,6 +16,7 @@ class A14 extends ActivityQuery
     public static function query(): Builder
     {
         return Appointment::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'appointments.beneficiary_id')
             ->fromSub(
                 Appointment::query()
                     ->withCount('interventions'),
@@ -27,6 +28,7 @@ class A14 extends ActivityQuery
     {
         return $query->addSelect([
             'appointments.nurse_id',
+            'beneficiaries.county_id',
         ]);
     }
 

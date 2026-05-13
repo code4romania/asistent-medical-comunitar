@@ -95,6 +95,7 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
+            'beneficiaries.county_id',
         ]);
     }
 

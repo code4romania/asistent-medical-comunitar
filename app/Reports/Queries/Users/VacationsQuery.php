@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class VacationsQuery extends UsersQuery
 {
@@ -20,13 +21,14 @@ abstract class VacationsQuery extends UsersQuery
     {
         return [
             'vacations.id',
-            'vacations.created_at',
+            new Alias('activity_county_id', 'county_id'),
         ];
     }
 
     public static function tapQuery(Builder $query): Builder
     {
         return $query
+            ->leftJoin('users', 'users.id', 'vacations.nurse_id')
             ->addSelect('vacations.nurse_id');
     }
 }

@@ -7,7 +7,9 @@ namespace App\Jobs\GenerateReport\Standard\Admin;
 use App\Jobs\GenerateReport\Standard\GenerateStandardReportJob;
 use App\Models\County;
 use App\Models\Report;
+use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class GenerateStatisticReportJob extends GenerateStandardReportJob
 {
@@ -34,11 +36,10 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
             ],
             'county',
             'county_id',
-            County::query()
-                ->select('counties.id')
-                ->join('users', 'users.activity_county_id', 'counties.id')
-                ->whereColumn('users.id', 'nurse_id')
-                ->take(1)
+            User::query()
+                ->select('activity_county_id as county_id')
+                ->whereColumn('users.id', DB::raw('ANY_VALUE(nurse_id)'))
+                ->take(1),
         );
     }
 }

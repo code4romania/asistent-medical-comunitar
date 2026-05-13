@@ -14,19 +14,26 @@ class A13 extends ActivityQuery
 {
     public static function query(): Builder
     {
-        return Appointment::query();
+        return Appointment::query()
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'appointments.beneficiary_id');
     }
 
     public static function tapQuery(Builder $query): Builder
     {
         return $query->addSelect([
             'appointments.nurse_id',
+            'beneficiaries.county_id',
         ]);
     }
 
     public static function dateColumn(string $type): string
     {
         return 'date';
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'appointments.id';
     }
 
     public static function includeLatestBeforeRange(): bool

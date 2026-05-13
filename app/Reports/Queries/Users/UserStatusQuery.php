@@ -27,6 +27,7 @@ abstract class UserStatusQuery extends UsersQuery
                         'users.id',
                         'activity_log.created_at',
                         'activity_county_id',
+                        'county_id',
                         static::userStatus(),
                     ])
                     ->whereHasActivity(function (Builder $query) {
@@ -59,8 +60,8 @@ abstract class UserStatusQuery extends UsersQuery
     {
         return [
             'id',
-            'created_at',
             'activity_county_id',
+            new Alias('activity_county_id', 'county_id'),
         ];
     }
 

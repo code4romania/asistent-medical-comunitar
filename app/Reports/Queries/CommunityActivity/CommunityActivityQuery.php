@@ -7,6 +7,7 @@ namespace App\Reports\Queries\CommunityActivity;
 use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total activități de tip Campanie națională.
@@ -23,6 +24,7 @@ abstract class CommunityActivityQuery extends ReportQuery
     {
         return [
             'community_activities.id',
+            new Alias('users.activity_county_id', 'county_id'),
         ];
     }
 
