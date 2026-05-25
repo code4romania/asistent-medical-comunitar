@@ -23,6 +23,7 @@ return [
 
     'section' => [
         'nurses' => 'Asistenți medicali comunitari',
+        'mediators' => 'Mediatori sanitari',
         'coordinators' => 'Coordonatori județeni',
         'admins' => 'Admin MS',
     ],
@@ -31,6 +32,7 @@ return [
         'admin' => 'Admin MS',
         'coordinator' => 'Coordonator județean',
         'nurse' => 'Asistent medical comunitar',
+        'mediator' => 'Mediator sanitar',
     ],
 
     'status' => [

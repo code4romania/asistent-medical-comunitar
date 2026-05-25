@@ -40,6 +40,13 @@ abstract class ListUsers extends ListRecords implements WithTabs
                 ->visible(fn () => true),
 
             NavigationItem::make()
+                ->label(__('user.section.mediators'))
+                ->icon('icon-none')
+                ->url(UserResource::getUrl('mediators'))
+                ->isActiveWhen(fn () => static::class === ListMediators::class)
+                ->visible(fn () => true),
+
+            NavigationItem::make()
                 ->label(__('user.section.coordinators'))
                 ->icon('icon-none')
                 ->url(UserResource::getUrl('coordinators'))

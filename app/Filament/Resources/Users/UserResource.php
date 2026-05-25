@@ -42,6 +42,7 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListNurses::route('/'),
+            'mediators' => Pages\ListMediators::route('/mediators'),
             'coordinators' => Pages\ListCoordinators::route('/coordinators'),
             'admins' => Pages\ListAdmins::route('/admins'),
 

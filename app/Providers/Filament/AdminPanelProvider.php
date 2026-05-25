@@ -65,13 +65,13 @@ class AdminPanelProvider extends PanelProvider
                     ->label(__('vacation.label.plural'))
                     ->url(fn () => VacationResource::getUrl('index'))
                     ->icon(Heroicon::CalendarDateRange)
-                    ->visible(fn () => auth()->user()->isNurse()),
+                    ->visible(fn (): bool => auth()->user()->isNurse() || auth()->user()->isMediator()),
 
                 Action::make('nurse_profile')
                     ->label(__('auth.profile'))
                     ->url(fn () => ProfileResource::getUrl('index'))
                     ->icon(Heroicon::User)
-                    ->visible(fn () => auth()->user()->isNurse()),
+                    ->visible(fn (): bool => auth()->user()->isNurse() || auth()->user()->isMediator()),
 
                 Action::make('settings')
                     ->label(__('auth.settings'))
