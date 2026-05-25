@@ -79,8 +79,10 @@ enum Category: string implements HasLabel, CanBeFiltered
             ->toArray();
     }
 
-    public function isVisible(?Type $type = null): bool
+    public function isVisible(): bool
     {
+        $type = func_get_arg(0);
+
         if (
             filled($type) &&
             ! \in_array($type, $this->indicator()::types(), true)
