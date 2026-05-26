@@ -14,7 +14,7 @@ class AppointmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isNurse();
+        return $user->isNurse() || $user->isMediator();
     }
 
     /**
@@ -22,7 +22,7 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment): bool
     {
-        return $user->isNurse() && $appointment->nurse_id === $user->id;
+        return $this->viewAny($user) && $appointment->user_id === $user->id;
     }
 
     /**
@@ -30,7 +30,7 @@ class AppointmentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse();
+        return $this->viewAny($user);
     }
 
     /**
@@ -38,7 +38,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment): bool
     {
-        return $user->isNurse() && $appointment->nurse_id === $user->id;
+        return $this->view($user, $appointment);
     }
 
     /**
@@ -46,7 +46,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment): bool
     {
-        return $user->isNurse() && $appointment->nurse_id === $user->id;
+        return $this->view($user, $appointment);
     }
 
     /**

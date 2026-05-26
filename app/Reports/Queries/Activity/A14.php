@@ -27,7 +27,7 @@ class A14 extends ActivityQuery
     public static function tapQuery(Builder $query): Builder
     {
         return $query->addSelect([
-            'appointments.nurse_id',
+            'appointments.user_id',
             'beneficiaries.county_id',
         ]);
     }

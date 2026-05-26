@@ -11,6 +11,7 @@ use App\Concerns\MustSetInitialPassword;
 use App\Concerns\Users\GetsOnboarded;
 use App\Concerns\Users\HasRole;
 use App\Concerns\Users\HasStatus;
+use App\Contracts\UserScopable;
 use App\Enums\Gender;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
@@ -35,7 +36,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Onboard\Concerns\Onboardable;
 
-class User extends Authenticatable implements FilamentUser, HasName, HasMedia, Onboardable
+class User extends Authenticatable implements FilamentUser, HasName, HasMedia, Onboardable, UserScopable
 {
     use CausesActivity;
     use GetsOnboarded;
@@ -128,7 +129,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
 
     public function appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'nurse_id');
+        return $this->hasMany(Appointment::class);
     }
 
     public function beneficiaries(): HasMany
@@ -143,7 +144,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
 
     public function vacations(): HasMany
     {
-        return $this->hasMany(Vacation::class, 'nurse_id');
+        return $this->hasMany(Vacation::class);
     }
 
     public function interventions(): HasManyThrough
