@@ -34,7 +34,9 @@ trait BelongsToNurse
     public function scopeForUser(Builder $query, User $user): Builder
     {
         if ($user->isNurse()) {
-            return $query->where('nurse_id', $user->id);
+            $table = $query->getModel()->getTable();
+
+            return $query->where("{$table}.nurse_id", $user->id);
         }
 
         if ($user->isCoordinator()) {
