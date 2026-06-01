@@ -195,10 +195,10 @@ abstract class ReportQuery
     {
         return match (static::aggregateFunction()) {
             AggregateFunction::COUNT => new Count($column),
-            AggregateFunction::SUM => new Sum($column),
-            AggregateFunction::AVG => new Avg($column),
-            AggregateFunction::MIN => new Min($column),
-            AggregateFunction::MAX => new Max($column),
+            AggregateFunction::SUM => new Sum(static::aggregateByColumn()),
+            AggregateFunction::AVG => new Avg(static::aggregateByColumn()),
+            AggregateFunction::MIN => new Min(static::aggregateByColumn()),
+            AggregateFunction::MAX => new Max(static::aggregateByColumn()),
         };
     }
 
