@@ -43,6 +43,29 @@ abstract class ReportQuery
         return true;
     }
 
+    public static function rankedLatestBeforeRange(): bool
+    {
+        return false;
+    }
+
+    public static function rankedPartition(): ?Expression
+    {
+        return null;
+    }
+
+    public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
+    {
+        return $query
+            ->whereDate(static::dateColumn('start'), '<', $report->date_from)
+            ->latest(static::dateColumn('start'))
+            ->distinct(false)
+            ->when(
+                static::rankedLatestBeforeRange(),
+                fn (Builder $query): Builder => $query->where('rn', 1),
+                fn (Builder $query) => $query->limit(1),
+            );
+    }
+
     public static function distinct(): bool
     {
         return match (static::aggregateFunction()) {
@@ -155,11 +178,7 @@ abstract class ReportQuery
         }
 
         if (static::includeLatestBeforeRange()) {
-            $union = $query->clone()
-                ->whereDate(static::dateColumn('start'), '<', $report->date_from)
-                ->latest(static::dateColumn('start'))
-                ->distinct(false)
-                ->limit(1);
+            $union = static::latestBeforeRangeQuery($query->clone(), $report);
         }
 
         static::where($query, $report);
