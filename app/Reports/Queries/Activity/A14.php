@@ -29,6 +29,7 @@ class A14 extends ActivityQuery
         return $query->addSelect([
             'appointments.nurse_id',
             'beneficiaries.county_id',
+            'appointments.interventions_count',
         ]);
     }
 

@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Users;
 
-use App\Enums\User\Status;
 use App\Models\User;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Tpetry\QueryExpressions\Language\Alias;
-use Tpetry\QueryExpressions\Language\CaseGroup;
-use Tpetry\QueryExpressions\Language\CaseRule;
-use Tpetry\QueryExpressions\Operator\Comparison\Equal;
-use Tpetry\QueryExpressions\Operator\Comparison\NotEqual;
-use Tpetry\QueryExpressions\Operator\Logical\CondOr;
-use Tpetry\QueryExpressions\Value\Value;
 
 abstract class UserStatusQuery extends UsersQuery
 {
@@ -22,26 +17,24 @@ abstract class UserStatusQuery extends UsersQuery
         return User::query()
             ->fromSub(
                 User::query()
-                    ->onlyNurses()
-                    ->select([
-                        'users.id',
-                        'activity_log.created_at',
-                        'activity_county_id',
-                        'county_id',
-                        static::userStatus(),
-                    ])
-                    ->whereHasActivity(function (Builder $query) {
-                        $query
-                            ->where('log_name', 'default')
-                            ->where(function (Builder $query): void {
+                    ->fromSub(
+                        User::query()
+                            ->onlyNurses()
+                            ->select([
+                                'users.id',
+                                'activity_log.created_at',
+                                'activity_county_id',
+                                'county_id',
+                                new Alias('properties->attributes->status', 'status'),
+                                static::rankedPartition(),
+                            ])
+                            ->whereHasActivity(function (Builder $query) {
                                 $query
-                                    ->whereJsonContainsKey('properties->attributes->deactivated_at')
-                                    ->orWhere(function (Builder $query): void {
-                                        $query->whereJsonContainsKey('properties->old->password')
-                                            ->whereNull('properties->old->password');
-                                    });
-                            });
-                    }),
+                                    ->where('log_name', 'default')
+                                    ->whereJsonContainsKey('properties->attributes->status');
+                            }),
+                        'ranked'
+                    ),
                 'users'
             );
     }
@@ -56,6 +49,16 @@ abstract class UserStatusQuery extends UsersQuery
         return true;
     }
 
+    public static function rankedLatestBeforeRange(): bool
+    {
+        return true;
+    }
+
+    public static function rankedPartition(): Expression
+    {
+        return DB::raw('ROW_NUMBER() OVER (PARTITION BY users.id ORDER BY activity_log.created_at DESC) as rn');
+    }
+
     public static function selectColumns(): array
     {
         return [
@@ -63,43 +66,5 @@ abstract class UserStatusQuery extends UsersQuery
             'activity_county_id',
             new Alias('activity_county_id', 'county_id'),
         ];
-    }
-
-    private static function userStatus(): Alias
-    {
-        return new Alias(
-            new CaseGroup([
-                new CaseRule(
-                    new Value(Status::INVITED->value),
-                    new Equal(
-                        'event',
-                        new Value('created')
-                    )
-                ),
-
-                new CaseRule(
-                    new Value(Status::ACTIVE->value),
-                    new CondOr(
-                        new Equal(
-                            'properties->old->password',
-                            new Value('null')
-                        ),
-                        new Equal(
-                            'properties->attributes->deactivated_at',
-                            new Value('null')
-                        )
-                    )
-                ),
-
-                new CaseRule(
-                    new Value(Status::INACTIVE->value),
-                    new NotEqual(
-                        'properties->attributes->deactivated_at',
-                        new Value('null')
-                    )
-                ),
-            ]),
-            'status'
-        );
     }
 }
