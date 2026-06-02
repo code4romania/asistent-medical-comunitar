@@ -15,7 +15,7 @@ class CH13 extends CasesHealthQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_HEP');
+            ->whereSecondaryVulnerability('VSG_HEP');
     }
 
     public static function where(Builder $query, Report $report): Builder
