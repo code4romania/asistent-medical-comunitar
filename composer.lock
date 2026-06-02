@@ -7800,16 +7800,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.25.0",
+            "version": "3.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "f7ea0977be9d481b6f03a58956313f516971b5b4"
+                "reference": "f33be05072dc028586632041eaab69c6bf33dd21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/f7ea0977be9d481b6f03a58956313f516971b5b4",
-                "reference": "f7ea0977be9d481b6f03a58956313f516971b5b4",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/f33be05072dc028586632041eaab69c6bf33dd21",
+                "reference": "f33be05072dc028586632041eaab69c6bf33dd21",
                 "shasum": ""
             },
             "require": {
@@ -7874,7 +7874,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.25.0"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.25.1"
             },
             "funding": [
                 {
@@ -7882,7 +7882,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-05-11T08:02:16+00:00"
+            "time": "2026-06-02T08:00:44+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
