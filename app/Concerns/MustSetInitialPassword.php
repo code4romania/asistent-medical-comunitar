@@ -11,6 +11,12 @@ use Illuminate\Support\Str;
 
 trait MustSetInitialPassword
 {
+    public function initializeMustSetInitialPassword(): void
+    {
+        $this->casts['password_set_at'] = 'datetime';
+        $this->fillable[] = 'password_set_at';
+    }
+
     protected static function bootMustSetInitialPassword(): void
     {
         static::creating(function (self $user) {

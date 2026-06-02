@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CommunityActivity;
 
+use App\Enums\AggregateFunction;
 use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,7 +46,12 @@ abstract class CommunityActivityQuery extends ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        return $query
-            ->addSelect('users.id as nurse_id');
+        $query->addSelect('users.id as nurse_id');
+
+        if (static::aggregateFunction()->is(AggregateFunction::SUM)) {
+            $query->addSelect('community_activities.' . static::aggregateByColumn());
+        }
+
+        return $query;
     }
 }
