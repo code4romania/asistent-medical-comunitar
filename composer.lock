@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4810819cd8b7fedcb2e5b085999a5af8",
+    "content-hash": "519b0e2d9a458a4453005ab996bcd533",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -7794,16 +7794,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.23.1",
+            "version": "3.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "098d44398246f2a317b312cb9a31dd0b1572b19e"
+                "reference": "f7ea0977be9d481b6f03a58956313f516971b5b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/098d44398246f2a317b312cb9a31dd0b1572b19e",
-                "reference": "098d44398246f2a317b312cb9a31dd0b1572b19e",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/f7ea0977be9d481b6f03a58956313f516971b5b4",
+                "reference": "f7ea0977be9d481b6f03a58956313f516971b5b4",
                 "shasum": ""
             },
             "require": {
@@ -7867,7 +7867,8 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-csp/tree/3.23.1"
+                "issues": "https://github.com/spatie/laravel-csp/issues",
+                "source": "https://github.com/spatie/laravel-csp/tree/3.25.0"
             },
             "funding": [
                 {
@@ -7875,7 +7876,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-30T17:08:24+00:00"
+            "time": "2026-05-11T08:02:16+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
@@ -8059,16 +8060,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.93.0",
+            "version": "1.93.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "0d097bce95b2bf6802fb1d83e1e753b0f5a948e7"
+                "reference": "d5552849801f2642aea710557463234b59ef65eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/0d097bce95b2bf6802fb1d83e1e753b0f5a948e7",
-                "reference": "0d097bce95b2bf6802fb1d83e1e753b0f5a948e7",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/d5552849801f2642aea710557463234b59ef65eb",
+                "reference": "d5552849801f2642aea710557463234b59ef65eb",
                 "shasum": ""
             },
             "require": {
@@ -8108,7 +8109,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.93.0"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.93.1"
             },
             "funding": [
                 {
@@ -8116,7 +8117,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-21T12:49:54+00:00"
+            "time": "2026-05-19T14:06:37+00:00"
         },
         {
             "name": "spatie/shiki-php",
