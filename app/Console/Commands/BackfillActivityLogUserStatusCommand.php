@@ -46,10 +46,6 @@ class BackfillActivityLogUserStatusCommand extends Command
                     ->withoutGlobalScope('latest'),
             ])
             ->each(function (User $user): void {
-                logger()->info("=========================== User: {$user->id} ===========================");
-                if ($user->deactivated_at) {
-                    logger()->info("=========================== Deactivated_at: {$user->deactivated_at} ===========================");
-                }
                 $this->backfillForUser($user);
                 $this->progressBar->advance();
             }, 100);
@@ -90,20 +86,8 @@ class BackfillActivityLogUserStatusCommand extends Command
 
                 data_set($properties, 'attributes.status', $newStatus->value);
 
-                // logger()->info('Backfilling activity log entry', [
-                //     'activity_id' => $activity->id,
-                //     'user_id' => $user->id,
-                //     'old_status' => $oldStatus->value,
-                //     'new_status' => $newStatus->value,
-                // ]);
-
                 $activity->properties = $properties;
                 $activity->saveQuietly();
-            } else {
-                // logger()->info('No status change', [
-                //     'activity_id' => $activity->id,
-                //     'status' => $oldStatus->value,
-                // ]);
             }
 
             $currentDeactivatedAt = $newDeactivatedAt;
