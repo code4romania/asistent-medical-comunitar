@@ -14,7 +14,7 @@ class CH47 extends CasesHealthQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_AD');
+            ->whereSecondaryVulnerability('VSG_AD');
     }
 
     public static function dateColumn(string $type): string
