@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum General: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum General: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -78,6 +79,40 @@ enum General: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::G26 => __('report.standard.indicator.general.G26'),
             self::G27 => __('report.standard.indicator.general.G27'),
             self::G28 => __('report.standard.indicator.general.G28'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::G01 => __('report.standard.sheet.general.G01'),
+            self::G02 => __('report.standard.sheet.general.G02'),
+            self::G03 => __('report.standard.sheet.general.G03'),
+            self::G04 => __('report.standard.sheet.general.G04'),
+            self::G05 => __('report.standard.sheet.general.G05'),
+            self::G06 => __('report.standard.sheet.general.G06'),
+            self::G07 => __('report.standard.sheet.general.G07'),
+            self::G08 => __('report.standard.sheet.general.G08'),
+            self::G09 => __('report.standard.sheet.general.G09'),
+            self::G10 => __('report.standard.sheet.general.G10'),
+            self::G11 => __('report.standard.sheet.general.G11'),
+            self::G12 => __('report.standard.sheet.general.G12'),
+            self::G13 => __('report.standard.sheet.general.G13'),
+            self::G14 => __('report.standard.sheet.general.G14'),
+            self::G15 => __('report.standard.sheet.general.G15'),
+            self::G16 => __('report.standard.sheet.general.G16'),
+            self::G17 => __('report.standard.sheet.general.G17'),
+            self::G18 => __('report.standard.sheet.general.G18'),
+            self::G19 => __('report.standard.sheet.general.G19'),
+            self::G20 => __('report.standard.sheet.general.G20'),
+            self::G21 => __('report.standard.sheet.general.G21'),
+            self::G22 => __('report.standard.sheet.general.G22'),
+            self::G23 => __('report.standard.sheet.general.G23'),
+            self::G24 => __('report.standard.sheet.general.G24'),
+            self::G25 => __('report.standard.sheet.general.G25'),
+            self::G26 => __('report.standard.sheet.general.G26'),
+            self::G27 => __('report.standard.sheet.general.G27'),
+            self::G28 => __('report.standard.sheet.general.G28'),
         };
     }
 

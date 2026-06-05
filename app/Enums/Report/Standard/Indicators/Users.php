@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Users: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum Users: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -33,7 +34,6 @@ enum Users: string implements HasQuery, HasLabel, HasTypes, HasColumns
     case U13 = 'U13';
     case U14 = 'U14';
     case U15 = 'U15';
-    case U16 = 'U16';
 
     public function getLabel(): ?string
     {
@@ -53,7 +53,27 @@ enum Users: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::U13 => __('report.standard.indicator.users.U13'),
             self::U14 => __('report.standard.indicator.users.U14'),
             self::U15 => __('report.standard.indicator.users.U15'),
-            self::U16 => __('report.standard.indicator.users.U16'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::U01 => __('report.standard.sheet.users.U01'),
+            self::U02 => __('report.standard.sheet.users.U02'),
+            self::U03 => __('report.standard.sheet.users.U03'),
+            self::U04 => __('report.standard.sheet.users.U04'),
+            self::U05 => __('report.standard.sheet.users.U05'),
+            self::U06 => __('report.standard.sheet.users.U06'),
+            self::U07 => __('report.standard.sheet.users.U07'),
+            self::U08 => __('report.standard.sheet.users.U08'),
+            self::U09 => __('report.standard.sheet.users.U09'),
+            self::U10 => __('report.standard.sheet.users.U10'),
+            self::U11 => __('report.standard.sheet.users.U11'),
+            self::U12 => __('report.standard.sheet.users.U12'),
+            self::U13 => __('report.standard.sheet.users.U13'),
+            self::U14 => __('report.standard.sheet.users.U14'),
+            self::U15 => __('report.standard.sheet.users.U15'),
         };
     }
 

@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum ServicesHealth: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum ServicesHealth: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -190,6 +191,96 @@ enum ServicesHealth: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::SH82 => __('report.standard.indicator.services_health.SH82'),
             self::SH83 => __('report.standard.indicator.services_health.SH83'),
             self::SH84 => __('report.standard.indicator.services_health.SH84'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::SH01 => __('report.standard.sheet.services_health.SH01'),
+            self::SH02 => __('report.standard.sheet.services_health.SH02'),
+            self::SH03 => __('report.standard.sheet.services_health.SH03'),
+            self::SH04 => __('report.standard.sheet.services_health.SH04'),
+            self::SH05 => __('report.standard.sheet.services_health.SH05'),
+            self::SH06 => __('report.standard.sheet.services_health.SH06'),
+            self::SH07 => __('report.standard.sheet.services_health.SH07'),
+            self::SH08 => __('report.standard.sheet.services_health.SH08'),
+            self::SH09 => __('report.standard.sheet.services_health.SH09'),
+            self::SH10 => __('report.standard.sheet.services_health.SH10'),
+            self::SH11 => __('report.standard.sheet.services_health.SH11'),
+            self::SH12 => __('report.standard.sheet.services_health.SH12'),
+            self::SH13 => __('report.standard.sheet.services_health.SH13'),
+            self::SH14 => __('report.standard.sheet.services_health.SH14'),
+            self::SH15 => __('report.standard.sheet.services_health.SH15'),
+            self::SH16 => __('report.standard.sheet.services_health.SH16'),
+            self::SH17 => __('report.standard.sheet.services_health.SH17'),
+            self::SH18 => __('report.standard.sheet.services_health.SH18'),
+            self::SH19 => __('report.standard.sheet.services_health.SH19'),
+            self::SH20 => __('report.standard.sheet.services_health.SH20'),
+            self::SH21 => __('report.standard.sheet.services_health.SH21'),
+            self::SH22 => __('report.standard.sheet.services_health.SH22'),
+            self::SH23 => __('report.standard.sheet.services_health.SH23'),
+            self::SH24 => __('report.standard.sheet.services_health.SH24'),
+            self::SH25 => __('report.standard.sheet.services_health.SH25'),
+            self::SH26 => __('report.standard.sheet.services_health.SH26'),
+            self::SH27 => __('report.standard.sheet.services_health.SH27'),
+            self::SH28 => __('report.standard.sheet.services_health.SH28'),
+            self::SH29 => __('report.standard.sheet.services_health.SH29'),
+            self::SH30 => __('report.standard.sheet.services_health.SH30'),
+            self::SH31 => __('report.standard.sheet.services_health.SH31'),
+            self::SH32 => __('report.standard.sheet.services_health.SH32'),
+            self::SH33 => __('report.standard.sheet.services_health.SH33'),
+            self::SH34 => __('report.standard.sheet.services_health.SH34'),
+            self::SH35 => __('report.standard.sheet.services_health.SH35'),
+            self::SH36 => __('report.standard.sheet.services_health.SH36'),
+            self::SH37 => __('report.standard.sheet.services_health.SH37'),
+            self::SH38 => __('report.standard.sheet.services_health.SH38'),
+            self::SH39 => __('report.standard.sheet.services_health.SH39'),
+            self::SH40 => __('report.standard.sheet.services_health.SH40'),
+            self::SH41 => __('report.standard.sheet.services_health.SH41'),
+            self::SH42 => __('report.standard.sheet.services_health.SH42'),
+            self::SH43 => __('report.standard.sheet.services_health.SH43'),
+            self::SH44 => __('report.standard.sheet.services_health.SH44'),
+            self::SH45 => __('report.standard.sheet.services_health.SH45'),
+            self::SH46 => __('report.standard.sheet.services_health.SH46'),
+            self::SH47 => __('report.standard.sheet.services_health.SH47'),
+            self::SH48 => __('report.standard.sheet.services_health.SH48'),
+            self::SH49 => __('report.standard.sheet.services_health.SH49'),
+            self::SH50 => __('report.standard.sheet.services_health.SH50'),
+            self::SH51 => __('report.standard.sheet.services_health.SH51'),
+            self::SH52 => __('report.standard.sheet.services_health.SH52'),
+            self::SH53 => __('report.standard.sheet.services_health.SH53'),
+            self::SH54 => __('report.standard.sheet.services_health.SH54'),
+            self::SH55 => __('report.standard.sheet.services_health.SH55'),
+            self::SH56 => __('report.standard.sheet.services_health.SH56'),
+            self::SH57 => __('report.standard.sheet.services_health.SH57'),
+            self::SH58 => __('report.standard.sheet.services_health.SH58'),
+            self::SH59 => __('report.standard.sheet.services_health.SH59'),
+            self::SH60 => __('report.standard.sheet.services_health.SH60'),
+            self::SH61 => __('report.standard.sheet.services_health.SH61'),
+            self::SH62 => __('report.standard.sheet.services_health.SH62'),
+            self::SH63 => __('report.standard.sheet.services_health.SH63'),
+            self::SH64 => __('report.standard.sheet.services_health.SH64'),
+            self::SH65 => __('report.standard.sheet.services_health.SH65'),
+            self::SH66 => __('report.standard.sheet.services_health.SH66'),
+            self::SH67 => __('report.standard.sheet.services_health.SH67'),
+            self::SH68 => __('report.standard.sheet.services_health.SH68'),
+            self::SH69 => __('report.standard.sheet.services_health.SH69'),
+            self::SH70 => __('report.standard.sheet.services_health.SH70'),
+            self::SH71 => __('report.standard.sheet.services_health.SH71'),
+            self::SH72 => __('report.standard.sheet.services_health.SH72'),
+            self::SH73 => __('report.standard.sheet.services_health.SH73'),
+            self::SH74 => __('report.standard.sheet.services_health.SH74'),
+            self::SH75 => __('report.standard.sheet.services_health.SH75'),
+            self::SH76 => __('report.standard.sheet.services_health.SH76'),
+            self::SH77 => __('report.standard.sheet.services_health.SH77'),
+            self::SH78 => __('report.standard.sheet.services_health.SH78'),
+            self::SH79 => __('report.standard.sheet.services_health.SH79'),
+            self::SH80 => __('report.standard.sheet.services_health.SH80'),
+            self::SH81 => __('report.standard.sheet.services_health.SH81'),
+            self::SH82 => __('report.standard.sheet.services_health.SH82'),
+            self::SH83 => __('report.standard.sheet.services_health.SH83'),
+            self::SH84 => __('report.standard.sheet.services_health.SH84'),
         };
     }
 
