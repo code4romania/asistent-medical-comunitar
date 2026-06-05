@@ -84,6 +84,11 @@ abstract class ReportQuery
         return false;
     }
 
+    public static function omitStartDate(): bool
+    {
+        return false;
+    }
+
     public static function selectColumns(): array
     {
         return [
@@ -182,7 +187,10 @@ abstract class ReportQuery
         }
 
         static::where($query, $report);
-        static::whereDate($query, 'start', $report->date_from);
+
+        if (! static::omitStartDate()) {
+            static::whereDate($query, 'start', $report->date_from);
+        }
         static::whereDate($query, 'end', $report->date_until);
 
         if (isset($union)) {
