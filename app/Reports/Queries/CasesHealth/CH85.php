@@ -8,14 +8,14 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Copil 0-1 ani.
+ * Total management de caz active pentru Femeie însărcinată care nu este în evidența medicului de familie.
  */
-class CH94 extends CasesHealthQuery
+class CH85 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VCV_01');
+            ->whereVulnerability('VGR_05');
     }
 
     public static function where(Builder $query, Report $report): Builder
@@ -39,11 +39,6 @@ class CH94 extends CasesHealthQuery
     }
 
     public static function endDateNullable(): bool
-    {
-        return true;
-    }
-}
-DateNullable(): bool
     {
         return true;
     }

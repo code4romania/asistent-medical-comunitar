@@ -8,14 +8,14 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Boală infecțioasă.
+ * Total management de caz active pentru Alergii.
  */
-class CH58 extends CasesHealthQuery
+class CH52 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereSecondaryVulnerability('VSG_BI');
+            ->whereSecondaryVulnerability('VSG_AL');
     }
 
     public static function where(Builder $query, Report $report): Builder

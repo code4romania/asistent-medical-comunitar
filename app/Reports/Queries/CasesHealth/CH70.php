@@ -8,14 +8,14 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Hepatite cronice virale.
+ * Total management de caz active pentru Mamă (sau lăuză) minoră.
  */
-class CH13 extends CasesHealthQuery
+class CH70 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereSecondaryVulnerability('VSG_HEP');
+            ->whereVulnerability(['VGR_02', 'VGR_03']);
     }
 
     public static function where(Builder $query, Report $report): Builder
@@ -42,6 +42,4 @@ class CH13 extends CasesHealthQuery
     {
         return true;
     }
-}
-  }
 }

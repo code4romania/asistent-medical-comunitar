@@ -43,8 +43,3 @@ class CH112 extends CasesHealthQuery
         return true;
     }
 }
-lable(): bool
-    {
-        return true;
-    }
-}

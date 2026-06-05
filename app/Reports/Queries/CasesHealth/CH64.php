@@ -8,14 +8,14 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Gravidă adultă.
+ * Total management de caz active pentru Alt tip de afecțiune.
  */
-class CH73 extends CasesHealthQuery
+class CH64 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VGR_04');
+            ->whereSecondaryVulnerability('VSG_ALT');
     }
 
     public static function where(Builder $query, Report $report): Builder
@@ -41,8 +41,5 @@ class CH73 extends CasesHealthQuery
     public static function endDateNullable(): bool
     {
         return true;
-    }
-}
- true;
     }
 }

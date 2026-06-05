@@ -8,14 +8,14 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru HIV.
+ * Total management de caz active pentru Atac vascular cerebral.
  */
-class CH07 extends CasesHealthQuery
+class CH28 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereSecondaryVulnerability('VSG_HIV');
+            ->whereSecondaryVulnerability('VSG_AVC');
     }
 
     public static function where(Builder $query, Report $report): Builder
@@ -41,8 +41,5 @@ class CH07 extends CasesHealthQuery
     public static function endDateNullable(): bool
     {
         return true;
-    }
-}
-turn true;
     }
 }
