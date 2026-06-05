@@ -123,7 +123,7 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
-            'beneficiaries.county_id',
+            'beneficiaries.county_id', // TODO: replace with user activity_county
         ]);
     }
 
