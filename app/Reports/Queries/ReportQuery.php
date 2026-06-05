@@ -56,7 +56,7 @@ abstract class ReportQuery
     public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
     {
         return $query
-            ->whereDate(static::dateColumn('start'), '<', $report->date_from)
+            ->where(static::dateColumn('start'), '<', $report->datetime_from)
             ->latest(static::dateColumn('start'))
             ->distinct(false)
             ->when(
@@ -80,6 +80,11 @@ abstract class ReportQuery
     }
 
     public static function endDateNullable(): bool
+    {
+        return false;
+    }
+
+    public static function omitStartDate(): bool
     {
         return false;
     }
@@ -118,7 +123,7 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
-            'beneficiaries.county_id',
+            'beneficiaries.county_id', // TODO: replace with user activity_county
         ]);
     }
 
@@ -182,8 +187,12 @@ abstract class ReportQuery
         }
 
         static::where($query, $report);
-        static::whereDate($query, 'start', $report->date_from);
-        static::whereDate($query, 'end', $report->date_until);
+
+        if (! static::omitStartDate()) {
+            static::whereDate($query, 'start', $report->datetime_from);
+        }
+
+        static::whereDate($query, 'end', $report->datetime_until);
 
         if (isset($union)) {
             $query->union($union);
@@ -239,7 +248,7 @@ abstract class ReportQuery
         return $columns;
     }
 
-    public static function whereDate(Builder $query, string $column, ?Carbon $date): Builder
+    public static function whereDate(Builder $query, string $column, Carbon $date): Builder
     {
         $condition = match ($column) {
             'start' => static::startDateNullable(),
@@ -252,12 +261,12 @@ abstract class ReportQuery
         };
 
         if (! $condition) {
-            return $query->whereDate(static::dateColumn($column), $operator, $date);
+            return $query->where(static::dateColumn($column), $operator, $date);
         }
 
         return $query->where(
             fn (Builder $query): Builder => $query
-                ->whereDate(static::dateColumn($column), $operator, $date)
+                ->where(static::dateColumn($column), $operator, $date)
                 ->orWhereNull(static::dateColumn($column))
         );
     }

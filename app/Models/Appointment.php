@@ -53,18 +53,18 @@ class Appointment extends Model
     {
         return $query
             ->when($from, function (Builder $query, string $date) {
-                $query->whereDate('date', '>=', $date);
+                $query->where('date', '>=', Carbon::parse($date)->startOfDay());
             })
             ->when($until, function (Builder $query, string $date) {
-                $query->whereDate('date', '<=', $date);
+                $query->where('date', '<=', Carbon::parse($date)->endOfDay());
             });
     }
 
     public function scopeLastMonth(Builder $query): Builder
     {
         return $query
-            ->whereDate('date', '>=', today()->subMonth())
-            ->whereDate('date', '<=', today());
+            ->where('date', '>=', today()->subMonth()->startOfDay())
+            ->where('date', '<=', today()->endOfDay());
     }
 
     public function scopeUpcoming(Builder $query): Builder

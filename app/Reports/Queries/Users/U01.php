@@ -22,4 +22,9 @@ class U01 extends UsersQuery
     {
         return 'created_at';
     }
+
+    public static function omitStartDate(): bool
+    {
+        return true;
+    }
 }

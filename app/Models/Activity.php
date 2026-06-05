@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\Models\Activity as BaseActivity;
@@ -41,11 +42,11 @@ class Activity extends BaseActivity
     public function scopeBetweenDates(Builder $query, ?string $from = null, ?string $until = null): Builder
     {
         return $query
-            ->when($from, function (Builder $query, string $date) {
-                $query->whereDate('created_at', '>=', $date);
+            ->when($from, function (Builder $query, string $date): void {
+                $query->where('created_at', '>=', Carbon::parse($date)->startOfDay());
             })
-            ->when($until, function (Builder $query, string $date) {
-                $query->whereDate('created_at', '<=', $date);
+            ->when($until, function (Builder $query, string $date): void {
+                $query->where('created_at', '<=', Carbon::parse($date)->endOfDay());
             });
     }
 
