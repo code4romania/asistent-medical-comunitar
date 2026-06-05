@@ -83,7 +83,7 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
         if ($this->report->category->is(Category::SERVICES_HEALTH)) {
             $this->report->data = $this->report->getIndicators()
-                ->map(function (HasQuery $indicator) use ($segments, $segmentColumns, $includeTotals, $groupedAggregateColumn, $groupedAggregateQuery): array {
+                ->mapWithKeys(function (HasQuery $indicator) use ($segments, $segmentColumns, $includeTotals, $groupedAggregateColumn, $groupedAggregateQuery): array {
                     /** @var ReportQuery $reportQuery */
                     $reportQuery = $indicator->class();
 
@@ -118,13 +118,14 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
                     }
 
                     return [
-                        'title' => $indicator->getLabel(),
-                        'sheetName' => $indicator->getSheetName(),
-                        'columns' => $columns,
-                        'data' => $data->toArray(),
+                        $indicator->value => [
+                            'title' => $indicator->getLabel(),
+                            'sheetName' => $indicator->getSheetName(),
+                            'columns' => $columns,
+                            'data' => $data->toArray(),
+                        ],
                     ];
-                })
-                ->values();
+                });
 
             return;
         }

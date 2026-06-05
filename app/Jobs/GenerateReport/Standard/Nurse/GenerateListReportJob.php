@@ -16,31 +16,33 @@ class GenerateListReportJob extends GenerateStandardReportJob
     public function generate(): void
     {
         $this->report->data = $this->report->getIndicators()
-            ->map(function (HasQuery $indicator) {
+            ->mapWithKeys(function (HasQuery $indicator): array {
                 /** @var ReportQuery $reportQuery */
                 $reportQuery = $indicator->class();
 
                 $columns = collect($reportQuery::columns());
 
                 return [
-                    'title' => $indicator->getLabel(),
+                    $indicator->value => [
+                        'title' => $indicator->getLabel(),
 
-                    'sheetName' => $indicator->getSheetName(),
+                        'sheetName' => $indicator->getSheetName(),
 
-                    'columns' => $columns
-                        ->map(fn (string $label, string $name) => [
-                            'name' => $name,
-                            'label' => $label,
-                        ])
-                        ->values(),
+                        'columns' => $columns
+                            ->map(fn (string $label, string $name) => [
+                                'name' => $name,
+                                'label' => $label,
+                            ])
+                            ->values(),
 
-                    'data' => $reportQuery::build($this->report)
-                        ->get()
-                        ->map(
-                            fn (Model $record) => $columns
-                                ->map(fn (string $label, string $name) => $this->normalizeValue($name, $record))
-                                ->put('actions', $reportQuery::getRecordActions($record))
-                        ),
+                        'data' => $reportQuery::build($this->report)
+                            ->get()
+                            ->map(
+                                fn (Model $record) => $columns
+                                    ->map(fn (string $label, string $name) => $this->normalizeValue($name, $record))
+                                    ->put('actions', $reportQuery::getRecordActions($record))
+                            ),
+                    ],
                 ];
             })
             ->values();
