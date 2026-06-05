@@ -25,6 +25,8 @@ class GenerateListReportJob extends GenerateStandardReportJob
                 return [
                     'title' => $indicator->getLabel(),
 
+                    'sheetName' => $indicator->getSheetName(),
+
                     'columns' => $columns
                         ->map(fn (string $label, string $name) => [
                             'name' => $name,

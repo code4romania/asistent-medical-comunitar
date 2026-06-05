@@ -21,6 +21,8 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
 {
     public string $title;
 
+    public ?string $sheetName;
+
     public Collection $columns;
 
     public Collection $data;
@@ -29,6 +31,8 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
     {
         $this->title = data_get($table, 'title');
 
+        $this->sheetName = data_get($table, 'sheetName');
+
         $this->columns = collect(data_get($table, 'columns'));
 
         $this->data = collect(data_get($table, 'data'));
@@ -36,7 +40,7 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
 
     public function title(): string
     {
-        return $this->title;
+        return $this->sheetName ?? $this->title;
     }
 
     public function headings(): array
@@ -98,7 +102,7 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
                     default => null,
                 },
             ])
-            ->reject(fn (?string $format) => blank($format))
+            ->filter()
             ->all();
     }
 }

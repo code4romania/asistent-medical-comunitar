@@ -119,6 +119,7 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
                     return [
                         'title' => $indicator->getLabel(),
+                        'sheetName' => $indicator->getSheetName(),
                         'columns' => $columns,
                         'data' => $data->toArray(),
                     ];

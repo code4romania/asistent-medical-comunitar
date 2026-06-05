@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Pregnant: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum Pregnant: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -46,6 +47,24 @@ enum Pregnant: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::P10 => __('report.standard.indicator.pregnant.P10'),
             self::P11 => __('report.standard.indicator.pregnant.P11'),
             self::P12 => __('report.standard.indicator.pregnant.P12'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::P01 => __('report.standard.sheet.pregnant.P01'),
+            self::P02 => __('report.standard.sheet.pregnant.P02'),
+            self::P03 => __('report.standard.sheet.pregnant.P03'),
+            self::P04 => __('report.standard.sheet.pregnant.P04'),
+            self::P05 => __('report.standard.sheet.pregnant.P05'),
+            self::P06 => __('report.standard.sheet.pregnant.P06'),
+            self::P07 => __('report.standard.sheet.pregnant.P07'),
+            self::P08 => __('report.standard.sheet.pregnant.P08'),
+            self::P09 => __('report.standard.sheet.pregnant.P09'),
+            self::P10 => __('report.standard.sheet.pregnant.P10'),
+            self::P11 => __('report.standard.sheet.pregnant.P11'),
+            self::P12 => __('report.standard.sheet.pregnant.P12'),
         };
     }
 

@@ -19,6 +19,8 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
 {
     public string $title;
 
+    public ?string $sheetName;
+
     public Collection $columns;
 
     public Collection $data;
@@ -27,6 +29,8 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
     {
         $this->title = data_get($table, 'title');
 
+        $this->sheetName = data_get($table, 'sheetName');
+
         $this->columns = collect(data_get($table, 'columns'));
 
         $this->data = collect(data_get($table, 'data'));
@@ -34,7 +38,7 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
 
     public function title(): string
     {
-        return $this->title;
+        return $this->sheetName ?? $this->title;
     }
 
     public function headings(): array

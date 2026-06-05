@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Child: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum Child: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -84,6 +85,43 @@ enum Child: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::C29 => __('report.standard.indicator.child.C29'),
             self::C30 => __('report.standard.indicator.child.C30'),
             self::C31 => __('report.standard.indicator.child.C31'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::C01 => __('report.standard.sheet.child.C01'),
+            self::C02 => __('report.standard.sheet.child.C02'),
+            // self::C03 => __('report.standard.sheet.child.C03'),
+            self::C04 => __('report.standard.sheet.child.C04'),
+            self::C05 => __('report.standard.sheet.child.C05'),
+            self::C06 => __('report.standard.sheet.child.C06'),
+            self::C07 => __('report.standard.sheet.child.C07'),
+            self::C08 => __('report.standard.sheet.child.C08'),
+            self::C09 => __('report.standard.sheet.child.C09'),
+            self::C10 => __('report.standard.sheet.child.C10'),
+            self::C11 => __('report.standard.sheet.child.C11'),
+            self::C12 => __('report.standard.sheet.child.C12'),
+            self::C13 => __('report.standard.sheet.child.C13'),
+            self::C14 => __('report.standard.sheet.child.C14'),
+            self::C15 => __('report.standard.sheet.child.C15'),
+            self::C16 => __('report.standard.sheet.child.C16'),
+            self::C17 => __('report.standard.sheet.child.C17'),
+            self::C18 => __('report.standard.sheet.child.C18'),
+            self::C19 => __('report.standard.sheet.child.C19'),
+            self::C20 => __('report.standard.sheet.child.C20'),
+            self::C21 => __('report.standard.sheet.child.C21'),
+            self::C22 => __('report.standard.sheet.child.C22'),
+            self::C23 => __('report.standard.sheet.child.C23'),
+            self::C24 => __('report.standard.sheet.child.C24'),
+            self::C25 => __('report.standard.sheet.child.C25'),
+            self::C26 => __('report.standard.sheet.child.C26'),
+            self::C27 => __('report.standard.sheet.child.C27'),
+            self::C28 => __('report.standard.sheet.child.C28'),
+            self::C29 => __('report.standard.sheet.child.C29'),
+            self::C30 => __('report.standard.sheet.child.C30'),
+            self::C31 => __('report.standard.sheet.child.C31'),
         };
     }
 

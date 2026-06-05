@@ -6,6 +6,7 @@ namespace App\Enums\Report\Standard\Indicators;
 
 use App\Contracts\Enums\HasColumns;
 use App\Contracts\Enums\HasQuery;
+use App\Contracts\Enums\HasSheetName;
 use App\Contracts\Enums\HasTypes;
 use App\Enums\Report\Type;
 use App\Enums\User\Role;
@@ -13,7 +14,7 @@ use CommitGlobal\Enums\Concerns\Arrayable;
 use CommitGlobal\Enums\Concerns\Comparable;
 use Filament\Support\Contracts\HasLabel;
 
-enum Activity: string implements HasQuery, HasLabel, HasTypes, HasColumns
+enum Activity: string implements HasQuery, HasLabel, HasSheetName, HasTypes, HasColumns
 {
     use Arrayable;
     use Comparable;
@@ -52,6 +53,27 @@ enum Activity: string implements HasQuery, HasLabel, HasTypes, HasColumns
             self::A13 => __('report.standard.indicator.activity.A13'),
             self::A14 => __('report.standard.indicator.activity.A14'),
             self::A15 => __('report.standard.indicator.activity.A15'),
+        };
+    }
+
+    public function getSheetName(): string
+    {
+        return match ($this) {
+            self::A01 => __('report.standard.sheet.activity.A01'),
+            self::A02 => __('report.standard.sheet.activity.A02'),
+            self::A03 => __('report.standard.sheet.activity.A03'),
+            self::A04 => __('report.standard.sheet.activity.A04'),
+            self::A05 => __('report.standard.sheet.activity.A05'),
+            self::A06 => __('report.standard.sheet.activity.A06'),
+            self::A07 => __('report.standard.sheet.activity.A07'),
+            self::A08 => __('report.standard.sheet.activity.A08'),
+            self::A09 => __('report.standard.sheet.activity.A09'),
+            self::A10 => __('report.standard.sheet.activity.A10'),
+            self::A11 => __('report.standard.sheet.activity.A11'),
+            self::A12 => __('report.standard.sheet.activity.A12'),
+            self::A13 => __('report.standard.sheet.activity.A13'),
+            self::A14 => __('report.standard.sheet.activity.A14'),
+            self::A15 => __('report.standard.sheet.activity.A15'),
         };
     }
 
