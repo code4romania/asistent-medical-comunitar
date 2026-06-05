@@ -20,7 +20,7 @@ class CH112 extends CasesHealthQuery
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string
@@ -39,6 +39,11 @@ class CH112 extends CasesHealthQuery
     }
 
     public static function endDateNullable(): bool
+    {
+        return true;
+    }
+}
+lable(): bool
     {
         return true;
     }

@@ -8,19 +8,19 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Femeie de vârstă fertilă.
+ * Total management de caz active pentru Femeie însărcinată care nu a făcut controale prenatale.
  */
-class CH82 extends CasesHealthQuery
+class CH88 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VGR_10');
+            ->whereVulnerability('VGR_06');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string

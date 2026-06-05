@@ -8,19 +8,19 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Mamă (sau lăuză) minoră.
+ * Total management de caz active pentru Hepatite cronice virale.
  */
-class CH70 extends CasesHealthQuery
+class CH13 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability(['VGR_02', 'VGR_03']);
+            ->whereSecondaryVulnerability('VSG_HEP');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string
@@ -42,4 +42,6 @@ class CH70 extends CasesHealthQuery
     {
         return true;
     }
+}
+  }
 }

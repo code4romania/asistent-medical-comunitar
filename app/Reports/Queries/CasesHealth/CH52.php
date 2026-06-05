@@ -8,19 +8,19 @@ use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Alergii.
+ * Total management de caz active pentru Boală infecțioasă.
  */
-class CH52 extends CasesHealthQuery
+class CH58 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereSecondaryVulnerability('VSG_AL');
+            ->whereSecondaryVulnerability('VSG_BI');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string
