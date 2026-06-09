@@ -102,7 +102,6 @@ class FilamentServiceProvider extends ServiceProvider
 
         DateRangePicker::configureUsing(function (DateRangePicker $component) {
             $component
-                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
                 ->autoApply();
         });
@@ -112,7 +111,6 @@ class FilamentServiceProvider extends ServiceProvider
     {
         DateRangeFilter::configureUsing(function (DateRangeFilter $filter) {
             return $filter
-                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
                 ->autoApply();
         });
