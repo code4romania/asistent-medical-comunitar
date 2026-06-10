@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz închise pentru Gravidă adultă.
+ * Total management de caz active pentru Gravidă adultă.
  */
 class CH74 extends CasesHealthQuery
 {
@@ -15,6 +16,11 @@ class CH74 extends CasesHealthQuery
     {
         return parent::query()
             ->whereVulnerability('VGR_04');
+    }
+
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string
@@ -25,5 +31,15 @@ class CH74 extends CasesHealthQuery
     public static function includeLatestBeforeRange(): bool
     {
         return false;
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return true;
+    }
+
+    public static function endDateNullable(): bool
+    {
+        return true;
     }
 }
