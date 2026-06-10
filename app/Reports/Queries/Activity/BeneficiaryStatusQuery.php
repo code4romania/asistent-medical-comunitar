@@ -18,7 +18,6 @@ abstract class BeneficiaryStatusQuery extends ActivityQuery
                     ->select([
                         'beneficiaries.id',
                         'beneficiaries.nurse_id',
-                        'beneficiaries.county_id',
                         'activity_log.created_at',
                         new Alias('properties->attributes->status', 'status'),
                     ])
