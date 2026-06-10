@@ -42,9 +42,6 @@ enum CommunityActivities: string implements HasQuery, HasLabel, HasSheetName, Ha
     case CA21 = 'CA21';
     case CA22 = 'CA22';
     case CA23 = 'CA23';
-    case CA24 = 'CA24';
-    case CA25 = 'CA25';
-    case CA26 = 'CA26';
 
     public function getLabel(): ?string
     {
