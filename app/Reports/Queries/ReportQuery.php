@@ -7,6 +7,7 @@ namespace App\Reports\Queries;
 use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
@@ -123,7 +124,10 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
-            'beneficiaries.county_id', // TODO: replace with user activity_county
+            'county_id' => User::query()
+                ->select('activity_county_id')
+                ->whereColumn('users.id', 'beneficiaries.nurse_id')
+                ->take(1),
         ]);
     }
 

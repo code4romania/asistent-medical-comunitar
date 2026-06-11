@@ -6,6 +6,7 @@ namespace App\Reports\Queries\Activity;
 
 use App\Models\Catagraphy;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total catagrafii nou-create în perioada de referință.
@@ -16,6 +17,7 @@ class A06 extends ActivityQuery
     {
         return Catagraphy::query()
             ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'catagraphies.beneficiary_id')
+            ->leftJoin('users', 'users.id', '=', 'catagraphies.nurse_id')
             ->whereHasActivity(function (Builder $query) {
                 $query
                     ->where('subject_type', 'catagraphy')
@@ -27,7 +29,7 @@ class A06 extends ActivityQuery
     {
         return $query->addSelect([
             'catagraphies.nurse_id',
-            'beneficiaries.county_id',
+            new Alias('users.activity_county_id', 'county_id'),
         ]);
     }
 

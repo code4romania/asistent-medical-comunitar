@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Reports\Queries\CasesHealth;
 
 /**
- * Total management de caz deschise.
+ * Total management de caz închise.
  */
 class CH03 extends CasesHealthQuery
 {
