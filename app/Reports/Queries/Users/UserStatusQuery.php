@@ -17,24 +17,20 @@ abstract class UserStatusQuery extends UsersQuery
         return User::query()
             ->fromSub(
                 User::query()
-                    ->fromSub(
-                        User::query()
-                            ->onlyNurses()
-                            ->select([
-                                'users.id',
-                                'activity_log.created_at',
-                                'activity_county_id',
-                                'county_id',
-                                new Alias('properties->attributes->status', 'status'),
-                                static::rankedPartition(),
-                            ])
-                            ->whereHasActivity(function (Builder $query) {
-                                $query
-                                    ->where('log_name', 'default')
-                                    ->whereJsonContainsKey('properties->attributes->status');
-                            }),
-                        'ranked'
-                    ),
+                    ->onlyNurses()
+                    ->select([
+                        'users.id',
+                        'activity_log.created_at',
+                        'activity_county_id',
+                        'county_id',
+                        new Alias('properties->attributes->status', 'status'),
+                        static::rankedPartition(),
+                    ])
+                    ->whereHasActivity(function (Builder $query) {
+                        $query
+                            ->where('log_name', 'default')
+                            ->whereJsonContainsKey('properties->attributes->status');
+                    }),
                 'users'
             );
     }
