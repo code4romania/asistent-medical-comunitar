@@ -142,10 +142,6 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         Table::configureUsing(function (Table $table) {
-            if (! $table->getModel()) {
-                return;
-            }
-
             $format = function (string $class): string {
                 return Str::of($class)
                     ->classBasename()
@@ -156,17 +152,17 @@ class FilamentServiceProvider extends ServiceProvider
 
             $table
                 ->emptyStateIcon(function (Table $table) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return Heroicon::OutlinedClipboardDocument;
                     }
                 })
                 ->emptyStateHeading(function (Table $table) use ($format) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return __($format($table->getModel()) . '.empty.title');
                     }
                 })
                 ->emptyStateDescription(function (Table $table) use ($format) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return __($format($table->getModel()) . '.empty.description');
                     }
                 });
