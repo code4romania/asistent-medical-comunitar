@@ -22,7 +22,8 @@ class A07 extends ActivityQuery
                 $query
                     ->where('subject_type', 'catagraphy')
                     ->where('event', 'updated');
-            });
+            })
+            ->distinct();
     }
 
     public static function tapQuery(Builder $query): Builder

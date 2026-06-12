@@ -958,7 +958,7 @@ return [
 
         'column' => [
             'services_health' => [
-                'total' => 'Total servicii',
+                'total' => 'Total',
                 'educatie-pentru-sanatate' => 'Educație pentru sănătate',
                 'trimitere-referire' => 'Trimitere/ Referire',
                 'notificare-apelare-programare' => 'Notificare/ Apelare/ Programare',
