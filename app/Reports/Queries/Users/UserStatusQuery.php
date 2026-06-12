@@ -35,11 +35,6 @@ abstract class UserStatusQuery extends UsersQuery
             );
     }
 
-    public static function dateColumn(string $type): string
-    {
-        return 'created_at';
-    }
-
     public static function includeLatestBeforeRange(): bool
     {
         return true;
@@ -52,15 +47,6 @@ abstract class UserStatusQuery extends UsersQuery
 
     public static function rankedPartition(): Expression
     {
-        return DB::raw('ROW_NUMBER() OVER (PARTITION BY users.id ORDER BY activity_log.created_at DESC) as rn');
-    }
-
-    public static function selectColumns(): array
-    {
-        return [
-            'id',
-            'activity_county_id',
-            new Alias('activity_county_id', 'county_id'),
-        ];
+        return DB::raw('LEAD(activity_log.created_at) OVER (PARTITION BY users.id ORDER BY activity_log.created_at ASC) as next_created_at');
     }
 }
