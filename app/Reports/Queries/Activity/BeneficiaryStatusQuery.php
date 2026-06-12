@@ -46,6 +46,6 @@ abstract class BeneficiaryStatusQuery extends ActivityQuery
 
     public static function rankedPartition(): Expression
     {
-        return DB::raw('ROW_NUMBER() OVER (PARTITION BY beneficiaries.id ORDER BY activity_log.created_at DESC) as rn');
+        return DB::raw('LEAD(activity_log.created_at) OVER (PARTITION BY beneficiaries.id ORDER BY activity_log.created_at ASC) as next_created_at');
     }
 }

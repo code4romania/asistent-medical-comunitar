@@ -62,7 +62,11 @@ abstract class ReportQuery
             ->distinct(false)
             ->when(
                 static::rankedLatestBeforeRange(),
-                fn (Builder $query): Builder => $query->where('rn', 1),
+                fn (Builder $query): Builder => $query->where(
+                    fn (Builder $query): Builder => $query
+                        ->whereNull('next_created_at')
+                        ->orWhere('next_created_at', '>=', $report->datetime_from)
+                ),
                 fn (Builder $query) => $query->limit(1),
             );
     }
