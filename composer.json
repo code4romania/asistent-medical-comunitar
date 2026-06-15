@@ -22,7 +22,7 @@
         "maatwebsite/excel": "^3.1",
         "malzariey/filament-daterangepicker-filter": "^5.0",
         "saade/filament-fullcalendar": "^4.0",
-        "sentry/sentry-laravel": "^4.25",
+        "sentry/sentry-laravel": "^4.26",
         "spatie/laravel-activitylog": "^4.12",
         "spatie/laravel-csp": "^3.25",
         "spatie/laravel-onboard": "^2.6",
