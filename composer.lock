@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bb0a934dc4f03937e0609764d4eca08",
+    "content-hash": "0a3c784e78053cbe50a5772e707b3650",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -2894,16 +2894,16 @@
         },
         {
             "name": "guzzlehttp/uri-template",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/uri-template.git",
-                "reference": "eef7f87bab6f204eba3c39224d8075c70c637946"
+                "reference": "7fe811c23a9e3cd712b4389eaeb50b5456d8c529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/eef7f87bab6f204eba3c39224d8075c70c637946",
-                "reference": "eef7f87bab6f204eba3c39224d8075c70c637946",
+                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/7fe811c23a9e3cd712b4389eaeb50b5456d8c529",
+                "reference": "7fe811c23a9e3cd712b4389eaeb50b5456d8c529",
                 "shasum": ""
             },
             "require": {
@@ -2960,7 +2960,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/uri-template/issues",
-                "source": "https://github.com/guzzle/uri-template/tree/v1.0.6"
+                "source": "https://github.com/guzzle/uri-template/tree/v1.0.7"
             },
             "funding": [
                 {
@@ -2976,7 +2976,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-23T22:00:21+00:00"
+            "time": "2026-06-12T21:33:43+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -5170,16 +5170,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.11.4",
+            "version": "3.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "e890471a3494740f7d9326d72ce6a8c559ffee60"
+                "reference": "6e7853a668c3107294aff38d42bf760ec02126b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/e890471a3494740f7d9326d72ce6a8c559ffee60",
-                "reference": "e890471a3494740f7d9326d72ce6a8c559ffee60",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/6e7853a668c3107294aff38d42bf760ec02126b6",
+                "reference": "6e7853a668c3107294aff38d42bf760ec02126b6",
                 "shasum": ""
             },
             "require": {
@@ -5271,7 +5271,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-07T09:57:54+00:00"
+            "time": "2026-06-14T20:41:42+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -13175,16 +13175,16 @@
         },
         {
             "name": "fruitcake/laravel-debugbar",
-            "version": "v4.2.8",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/laravel-debugbar.git",
-                "reference": "799d70c1101d3f8840dd76ff68ff6a78f9352905"
+                "reference": "3d76ea8d78b82225b92789de65fc630c1cd8e80c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/799d70c1101d3f8840dd76ff68ff6a78f9352905",
-                "reference": "799d70c1101d3f8840dd76ff68ff6a78f9352905",
+                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/3d76ea8d78b82225b92789de65fc630c1cd8e80c",
+                "reference": "3d76ea8d78b82225b92789de65fc630c1cd8e80c",
                 "shasum": ""
             },
             "require": {
@@ -13261,7 +13261,7 @@
             ],
             "support": {
                 "issues": "https://github.com/fruitcake/laravel-debugbar/issues",
-                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.2.8"
+                "source": "https://github.com/fruitcake/laravel-debugbar/tree/v4.3.0"
             },
             "funding": [
                 {
@@ -13273,7 +13273,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-20T13:31:29+00:00"
+            "time": "2026-06-04T07:54:01+00:00"
         },
         {
             "name": "iamcal/sql-parser",
@@ -14677,16 +14677,16 @@
         },
         {
             "name": "php-debugbar/php-debugbar",
-            "version": "v3.7.5",
+            "version": "v3.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-debugbar/php-debugbar.git",
-                "reference": "dbf77f48fa6e6b57ed57ae67aa047b2535697788"
+                "reference": "1690ee1728827f9deb4b60457fa387cf44672c56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/dbf77f48fa6e6b57ed57ae67aa047b2535697788",
-                "reference": "dbf77f48fa6e6b57ed57ae67aa047b2535697788",
+                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/1690ee1728827f9deb4b60457fa387cf44672c56",
+                "reference": "1690ee1728827f9deb4b60457fa387cf44672c56",
                 "shasum": ""
             },
             "require": {
@@ -14763,7 +14763,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-debugbar/php-debugbar/issues",
-                "source": "https://github.com/php-debugbar/php-debugbar/tree/v3.7.5"
+                "source": "https://github.com/php-debugbar/php-debugbar/tree/v3.7.6"
             },
             "funding": [
                 {
@@ -14775,7 +14775,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-15T11:58:43+00:00"
+            "time": "2026-04-30T07:31:44+00:00"
         },
         {
             "name": "php-debugbar/symfony-bridge",
