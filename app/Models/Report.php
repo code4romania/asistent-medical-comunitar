@@ -144,4 +144,18 @@ class Report extends Model
             ),
         );
     }
+
+    public function datetimeFrom(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): Carbon => $this->date_from->startOfDay()
+        );
+    }
+
+    public function datetimeUntil(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): Carbon => $this->date_until->endOfDay()
+        );
+    }
 }

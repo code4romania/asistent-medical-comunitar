@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz închise pentru Insuficiență cardiacă.
+ * Total management de caz active pentru Insuficiență cardiacă.
  */
 class CH23 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_IC');
+            ->whereSecondaryVulnerability('VSG_IC');
+    }
+
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string
@@ -25,5 +31,15 @@ class CH23 extends CasesHealthQuery
     public static function includeLatestBeforeRange(): bool
     {
         return false;
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return true;
+    }
+
+    public static function endDateNullable(): bool
+    {
+        return true;
     }
 }

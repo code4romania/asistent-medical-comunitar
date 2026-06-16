@@ -15,12 +15,12 @@ class CH05 extends CasesHealthQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_TB');
+            ->whereSecondaryVulnerability('VSG_TB');
     }
 
     public static function where(Builder $query, Report $report): Builder
     {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
     }
 
     public static function dateColumn(string $type): string

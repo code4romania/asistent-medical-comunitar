@@ -21,6 +21,8 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
 {
     public string $title;
 
+    public ?string $sheetName;
+
     public Collection $columns;
 
     public Collection $data;
@@ -29,6 +31,8 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
     {
         $this->title = data_get($table, 'title');
 
+        $this->sheetName = data_get($table, 'sheetName');
+
         $this->columns = collect(data_get($table, 'columns'));
 
         $this->data = collect(data_get($table, 'data'));
@@ -36,12 +40,16 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
 
     public function title(): string
     {
-        return $this->title;
+        return $this->sheetName ?? $this->title;
     }
 
     public function headings(): array
     {
-        return $this->columns->pluck('label')->all();
+        return [
+            [$this->title],
+            [], // empty row
+            $this->columns->pluck('label')->all(),
+        ];
     }
 
     public function collection(): Collection
@@ -54,8 +62,17 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
 
     public function styles(Worksheet $sheet)
     {
+        $lastCol = Coordinate::stringFromColumnIndex($this->columns->count());
+        $sheet->mergeCells("A1:{$lastCol}1");
+
         return [
             1 => [
+                'font' => [
+                    'bold' => true,
+                    'size' => 14,
+                ],
+            ],
+            3 => [
                 'font' => [
                     'bold' => true,
                 ],
@@ -79,13 +96,13 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
     public function columnFormats(): array
     {
         return $this->columns
-            ->mapWithKeys(fn (array $column, int $index) => [
+            ->mapWithKeys(fn (array $column, int $index): array => [
                 Coordinate::stringFromColumnIndex($index + 1) => match ($column['name']) {
                     'cnp' => NumberFormat::FORMAT_NUMBER,
                     default => null,
                 },
             ])
-            ->reject(fn ($format) => \is_null($format))
+            ->filter()
             ->all();
     }
 }

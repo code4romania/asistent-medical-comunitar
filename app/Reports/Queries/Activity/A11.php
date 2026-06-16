@@ -20,7 +20,8 @@ class A11 extends ActivityQuery
             ->where('gender', Gender::FEMALE)
             ->rightJoin('interventions', 'beneficiaries.id', '=', 'interventions.beneficiary_id')
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
-            ->where('interventionable_individual_services.status', '=', Status::REALIZED);
+            ->where('interventionable_individual_services.status', '=', Status::REALIZED)
+            ->distinct();
     }
 
     public static function dateColumn(string $type): string

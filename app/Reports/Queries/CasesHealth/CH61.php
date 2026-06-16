@@ -4,42 +4,26 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Tulburări mintale și de comportament.
+ * Total management de caz create (nou inițiate) pentru Tulburări mintale și de comportament.
  */
 class CH61 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_TMC');
-    }
-
-    public static function where(Builder $query, Report $report): Builder
-    {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+            ->whereSecondaryVulnerability('VSG_TMC');
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'closed_at';
+        return 'interventions.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
     {
         return false;
-    }
-
-    public static function startDateNullable(): bool
-    {
-        return true;
-    }
-
-    public static function endDateNullable(): bool
-    {
-        return true;
     }
 }

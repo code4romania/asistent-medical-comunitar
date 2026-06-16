@@ -4,42 +4,26 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Atac vascular cerebral.
+ * Total management de caz create (nou inițiate) pentru Atac vascular cerebral.
  */
 class CH28 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_AVC');
-    }
-
-    public static function where(Builder $query, Report $report): Builder
-    {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
+            ->whereSecondaryVulnerability('VSG_AVC');
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'closed_at';
+        return 'interventions.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
     {
         return false;
-    }
-
-    public static function startDateNullable(): bool
-    {
-        return true;
-    }
-
-    public static function endDateNullable(): bool
-    {
-        return true;
     }
 }

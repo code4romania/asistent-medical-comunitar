@@ -7,19 +7,19 @@ namespace App\Reports\Queries\CasesHealth;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz create (nou inițiate) pentru Atac vascular cerebral.
+ * Total management de caz închise pentru Atac vascular cerebral.
  */
 class CH30 extends CasesHealthQuery
 {
     public static function query(): Builder
     {
         return parent::query()
-            ->whereVulnerability('VSG_AVC');
+            ->whereSecondaryVulnerability('VSG_AVC');
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'interventions.created_at';
+        return 'closed_at';
     }
 
     public static function includeLatestBeforeRange(): bool

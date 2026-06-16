@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz active pentru Copil în plasament sau asistență maternală în condiții de risc.
+ * Total management de caz create (nou inițiate) pentru Copil în plasament sau asistență maternală în condiții de risc.
  */
 class CH115 extends CasesHealthQuery
 {
@@ -18,28 +17,13 @@ class CH115 extends CasesHealthQuery
             ->whereVulnerability('VFC_05');
     }
 
-    public static function where(Builder $query, Report $report): Builder
-    {
-        return $query->whereDate('interventions.created_at', '<=', $report->date_until);
-    }
-
     public static function dateColumn(string $type): string
     {
-        return 'closed_at';
+        return 'interventions.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
     {
         return false;
-    }
-
-    public static function startDateNullable(): bool
-    {
-        return true;
-    }
-
-    public static function endDateNullable(): bool
-    {
-        return true;
     }
 }

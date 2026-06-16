@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Users;
 
-use App\Enums\User\Status;
 use App\Models\User;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Tpetry\QueryExpressions\Language\Alias;
-use Tpetry\QueryExpressions\Language\CaseGroup;
-use Tpetry\QueryExpressions\Language\CaseRule;
-use Tpetry\QueryExpressions\Operator\Comparison\Equal;
-use Tpetry\QueryExpressions\Operator\Comparison\NotEqual;
-use Tpetry\QueryExpressions\Operator\Logical\CondOr;
-use Tpetry\QueryExpressions\Value\Value;
 
 abstract class UserStatusQuery extends UsersQuery
 {
@@ -28,27 +23,16 @@ abstract class UserStatusQuery extends UsersQuery
                         'activity_log.created_at',
                         'activity_county_id',
                         'county_id',
-                        static::userStatus(),
+                        new Alias('properties->attributes->status', 'status'),
+                        static::rankedPartition(),
                     ])
                     ->whereHasActivity(function (Builder $query) {
                         $query
                             ->where('log_name', 'default')
-                            ->where(function (Builder $query): void {
-                                $query
-                                    ->whereJsonContainsKey('properties->attributes->deactivated_at')
-                                    ->orWhere(function (Builder $query): void {
-                                        $query->whereJsonContainsKey('properties->old->password')
-                                            ->whereNull('properties->old->password');
-                                    });
-                            });
+                            ->whereJsonContainsKey('properties->attributes->status');
                     }),
                 'users'
             );
-    }
-
-    public static function dateColumn(string $type): string
-    {
-        return 'created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
@@ -56,50 +40,13 @@ abstract class UserStatusQuery extends UsersQuery
         return true;
     }
 
-    public static function selectColumns(): array
+    public static function rankedLatestBeforeRange(): bool
     {
-        return [
-            'id',
-            'activity_county_id',
-            new Alias('activity_county_id', 'county_id'),
-        ];
+        return true;
     }
 
-    private static function userStatus(): Alias
+    public static function rankedPartition(): Expression
     {
-        return new Alias(
-            new CaseGroup([
-                new CaseRule(
-                    new Value(Status::INVITED->value),
-                    new Equal(
-                        'event',
-                        new Value('created')
-                    )
-                ),
-
-                new CaseRule(
-                    new Value(Status::ACTIVE->value),
-                    new CondOr(
-                        new Equal(
-                            'properties->old->password',
-                            new Value('null')
-                        ),
-                        new Equal(
-                            'properties->attributes->deactivated_at',
-                            new Value('null')
-                        )
-                    )
-                ),
-
-                new CaseRule(
-                    new Value(Status::INACTIVE->value),
-                    new NotEqual(
-                        'properties->attributes->deactivated_at',
-                        new Value('null')
-                    )
-                ),
-            ]),
-            'status'
-        );
+        return DB::raw('LEAD(activity_log.created_at) OVER (PARTITION BY users.id ORDER BY activity_log.created_at ASC) as next_created_at');
     }
 }

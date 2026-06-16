@@ -102,7 +102,6 @@ class FilamentServiceProvider extends ServiceProvider
 
         DateRangePicker::configureUsing(function (DateRangePicker $component) {
             $component
-                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
                 ->autoApply();
         });
@@ -112,7 +111,6 @@ class FilamentServiceProvider extends ServiceProvider
     {
         DateRangeFilter::configureUsing(function (DateRangeFilter $filter) {
             return $filter
-                ->firstDayOfWeek(0) // Override weird default of Tuesday as the first day of the week
                 ->format(static::$defaultDateDisplayFormat)
                 ->autoApply();
         });
@@ -144,10 +142,6 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         Table::configureUsing(function (Table $table) {
-            if (! $table->getModel()) {
-                return;
-            }
-
             $format = function (string $class): string {
                 return Str::of($class)
                     ->classBasename()
@@ -158,17 +152,17 @@ class FilamentServiceProvider extends ServiceProvider
 
             $table
                 ->emptyStateIcon(function (Table $table) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return Heroicon::OutlinedClipboardDocument;
                     }
                 })
                 ->emptyStateHeading(function (Table $table) use ($format) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return __($format($table->getModel()) . '.empty.title');
                     }
                 })
                 ->emptyStateDescription(function (Table $table) use ($format) {
-                    if (! $table->hasAlteredQuery()) {
+                    if (filled($table->getModel()) && ! $table->hasAlteredQuery()) {
                         return __($format($table->getModel()) . '.empty.description');
                     }
                 });

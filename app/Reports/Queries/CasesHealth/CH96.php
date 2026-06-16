@@ -7,7 +7,7 @@ namespace App\Reports\Queries\CasesHealth;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total management de caz create (nou inițiate) pentru Copil 0-1 ani.
+ * Total management de caz închise pentru Copil 0-1 ani.
  */
 class CH96 extends CasesHealthQuery
 {
@@ -19,7 +19,7 @@ class CH96 extends CasesHealthQuery
 
     public static function dateColumn(string $type): string
     {
-        return 'interventions.created_at';
+        return 'closed_at';
     }
 
     public static function includeLatestBeforeRange(): bool
