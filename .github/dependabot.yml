@@ -13,10 +13,10 @@ updates:
       interval: "weekly"
     versioning-strategy: increase
     open-pull-requests-limit: 20
-    groups:
-      filament:
-        patterns:
-          - "filament/*"
+    # groups:
+    #   filament:
+    #     patterns:
+    #       - "filament/*"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
