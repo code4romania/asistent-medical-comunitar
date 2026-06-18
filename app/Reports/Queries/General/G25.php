@@ -23,6 +23,11 @@ class G25 extends ReportQuery
             ->leftJoin('users', 'community_activities.nurse_id', '=', 'users.id');
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'community_activities.id';
+    }
+
     public static function dateColumn(string $type): string
     {
         return 'community_activities.created_at';
