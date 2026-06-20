@@ -46,6 +46,7 @@ class Catagraphy extends Model
         'cat_pov',
         'cat_preg',
         'cat_rep',
+        'cat_rep_notes',
         'has_health_issues',
         'cat_ssa',
         'cat_vif',
@@ -222,7 +223,7 @@ class Catagraphy extends Model
     {
         return Attribute::make(
             get: fn () => $this->all_vulnerabilities
-                ->map(fn (HasVulnerabilityData $vulnerability) => $vulnerability->vulnerabilityListItem())
+                ->map(fn (HasVulnerabilityData $vulnerability) => $vulnerability->vulnerabilityListItem($this))
         )->shouldCache();
     }
 

@@ -33,7 +33,7 @@ class Suspicion extends Model implements HasVulnerabilityData
         'notes' => 'string',
     ];
 
-    public function vulnerabilityData(): VulnerabilityData
+    public function vulnerabilityData(?Model $record = null): VulnerabilityData
     {
         $categories = VulnerabilityCategory::cachedList();
         $vulnerabilities = Vulnerability::cachedList();
@@ -69,7 +69,7 @@ class Suspicion extends Model implements HasVulnerabilityData
         );
     }
 
-    public function vulnerabilityListItem(): VulnerabilityListItem
+    public function vulnerabilityListItem(?Model $record = null): VulnerabilityListItem
     {
         $vulnerabilities = Vulnerability::cachedList();
         $category = $vulnerabilities->get($this->category);

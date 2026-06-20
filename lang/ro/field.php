@@ -31,6 +31,7 @@ return [
     'cat_diz_dx' => 'Diagnostic ICD-10',
     'cat_diz_iph' => 'Beneficiază de indemnizație/ pensie handicap',
     'cat_diz_cert' => 'Deține certificat pentru dizabilitate',
+    'cat_rep_notes' => 'Observații vulnerabilitate reproductivă',
     'cat_ss_yes' => 'Prezintă boli sau probleme de sănătate',
     'cat_ss_no' => 'Fără boli sau probleme de sănătate',
     'cat_ss_orph' => 'Diagnostic ORPHA',

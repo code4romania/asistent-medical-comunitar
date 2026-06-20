@@ -49,7 +49,7 @@ class Disease extends Model implements HasVulnerabilityData
         return $this->belongsTo(OrphaDiagnostic::class);
     }
 
-    public function vulnerabilityData(): VulnerabilityData
+    public function vulnerabilityData(?Model $record = null): VulnerabilityData
     {
         $categories = VulnerabilityCategory::cachedList();
         $vulnerabilities = Vulnerability::cachedList();
@@ -100,7 +100,7 @@ class Disease extends Model implements HasVulnerabilityData
         );
     }
 
-    public function vulnerabilityListItem(): VulnerabilityListItem
+    public function vulnerabilityListItem(?Model $record = null): VulnerabilityListItem
     {
         $vulnerabilities = Vulnerability::cachedList();
 
