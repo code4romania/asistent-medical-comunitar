@@ -30,7 +30,7 @@ class VacationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse() || $user->isMediator();
+        return $user->isNurseOrMediator();
     }
 
     /**

@@ -65,13 +65,13 @@ class AdminPanelProvider extends PanelProvider
                     ->label(__('vacation.label.plural'))
                     ->url(fn () => VacationResource::getUrl('index'))
                     ->icon(Heroicon::CalendarDateRange)
-                    ->visible(fn (): bool => auth()->user()->isNurse() || auth()->user()->isMediator()),
+                    ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
 
                 Action::make('nurse_profile')
                     ->label(__('auth.profile'))
                     ->url(fn () => ProfileResource::getUrl('index'))
                     ->icon(Heroicon::User)
-                    ->visible(fn (): bool => auth()->user()->isNurse() || auth()->user()->isMediator()),
+                    ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
 
                 Action::make('settings')
                     ->label(__('auth.settings'))
@@ -112,8 +112,14 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->bootUsing(function (Panel $panel) {
-                $this->setupNurseOnboarding();
+            ->bootUsing(function (Panel $panel): void {
+                if (auth()->user()?->isNurse()) {
+                    $this->setUpNurseOnboarding();
+                }
+
+                if (auth()->user()?->isMediator()) {
+                    $this->setUpMediatorOnboarding();
+                }
             })
             ->authMiddleware([
                 Authenticate::class,
@@ -123,31 +129,45 @@ class AdminPanelProvider extends PanelProvider
             ]);
     }
 
-    protected function setupNurseOnboarding(): void
+    protected function setUpNurseOnboarding(): void
     {
-        $isNotANurse = fn (User $model) => ! $model->isNurse();
-
         Onboard::addStep(__('onboarding.step.profile'))
             ->link(ProfileResource::getUrl('onboard'))
-            ->completeIf(fn (User $model) => $model->hasCompletedProfile())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->hasCompletedProfile());
 
         Onboard::addStep(__('onboarding.step.first_beneficiary'))
             ->link(BeneficiaryResource::getUrl('create'))
-            ->completeIf(fn (User $model) => $model->beneficiaries()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->ownBeneficiaries()->exists());
 
         Onboard::addStep(__('onboarding.step.first_service'))
-            ->completeIf(fn (User $model) => $model->interventions()->onlyIndividualServices()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyIndividualServices()->exists());
 
         Onboard::addStep(__('onboarding.step.first_case'))
-            ->completeIf(fn (User $model) => $model->interventions()->onlyCases()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyCases()->exists());
 
         Onboard::addStep(__('onboarding.step.first_appointment'))
             ->link(AppointmentResource::getUrl('create'))
-            ->completeIf(fn (User $model) => $model->appointments()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->appointments()->exists());
+    }
+
+    protected function setUpMediatorOnboarding(): void
+    {
+        Onboard::addStep(__('onboarding.step.profile'))
+            ->link(ProfileResource::getUrl('onboard'))
+            ->completeIf(fn (User $model): bool => $model->hasCompletedProfile());
+
+        Onboard::addStep(__('onboarding.step.first_beneficiary'))
+            ->link(BeneficiaryResource::getUrl('create'))
+            ->completeIf(fn (User $model): bool => $model->ownBeneficiaries()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_service'))
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyIndividualServices()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_case'))
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyCases()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_appointment'))
+            ->link(AppointmentResource::getUrl('create'))
+            ->completeIf(fn (User $model): bool => $model->appointments()->exists());
     }
 }

@@ -24,6 +24,12 @@ trait BelongsToNurse
 
             $builder->forUser(auth()->user());
         });
+
+        static::creating(function (self $model): void {
+            if (auth()->user()?->isNurse()) {
+                $model->nurse_id = auth()->id();
+            }
+        });
     }
 
     public function nurse(): BelongsTo

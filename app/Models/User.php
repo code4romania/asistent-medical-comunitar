@@ -137,9 +137,33 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         return $this->hasMany(Beneficiary::class, 'nurse_id');
     }
 
-    public function communityActivity(): HasMany
+    public function mediatedBeneficiaries(): HasMany
+    {
+        return $this->hasMany(Beneficiary::class, 'mediator_id');
+    }
+
+    public function ownBeneficiaries(): HasMany
+    {
+        return $this->isMediator()
+            ? $this->mediatedBeneficiaries()
+            : $this->beneficiaries();
+    }
+
+    public function communityActivities(): HasMany
     {
         return $this->hasMany(CommunityActivity::class, 'nurse_id');
+    }
+
+    public function mediatedCommunityActivities(): HasMany
+    {
+        return $this->hasMany(CommunityActivity::class, 'mediator_id');
+    }
+
+    public function ownCommunityActivities(): HasMany
+    {
+        return $this->isMediator()
+            ? $this->mediatedCommunityActivities()
+            : $this->communityActivities();
     }
 
     public function vacations(): HasMany
@@ -150,6 +174,18 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     public function interventions(): HasManyThrough
     {
         return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'nurse_id', 'beneficiary_id');
+    }
+
+    public function mediatedInterventions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'mediator_id', 'beneficiary_id');
+    }
+
+    public function ownInterventions(): HasManyThrough
+    {
+        return $this->isMediator()
+            ? $this->mediatedInterventions()
+            : $this->interventions();
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -163,7 +199,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     public function scopeForUser(Builder $query, self $user): Builder
     {
         if ($user->isCoordinator()) {
-            return $query->where('activity_county_id', $user->county_id);
+            return $query->activatesInCounty($user->county_id);
         }
 
         return $query;

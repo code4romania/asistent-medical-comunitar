@@ -70,7 +70,7 @@ class Appointment extends Model implements UserScopable
 
     public function scopeUpcoming(Builder $query): Builder
     {
-        return $query->where('date', '>=', today())
+        return $query->where('date', '>=', today()->toDateString())
             ->orderBy('date', 'asc')
             ->orderBy('start_time', 'asc');
     }

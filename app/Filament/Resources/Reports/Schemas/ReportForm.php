@@ -46,7 +46,7 @@ class ReportForm
                         Select::make('type')
                             ->label(__('report.column.type'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->visible(fn () => auth()->user()->isNurse())
+                            ->visible(fn () => auth()->user()->isNurseOrMediator())
                             ->options(Type::class)
                             ->live()
                             ->required(),

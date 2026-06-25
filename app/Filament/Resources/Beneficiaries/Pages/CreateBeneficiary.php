@@ -16,7 +16,6 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
-use Illuminate\Support\Facades\Auth;
 
 class CreateBeneficiary extends CreateRecord
 {
@@ -56,12 +55,5 @@ class CreateBeneficiary extends CreateRecord
 
                     ]),
             ]);
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['nurse_id'] = Auth::id();
-
-        return $data;
     }
 }

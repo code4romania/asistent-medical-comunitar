@@ -6,7 +6,6 @@ namespace App\Filament\Resources\Users\Tables;
 
 use App\Filament\Tables\Filters\UserStatusFilter;
 use Filament\Actions\ViewAction;
-use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,9 +18,11 @@ class NursesTable
             ->modifyQueryUsing(function (Builder $query): Builder {
                 return $query
                     ->onlyNurses()
-                    ->when(Filament::auth()->user()->isCoordinator(), function (Builder $query): Builder {
-                        return $query->activatesInCounty(auth()->user()->county_id);
-                    });
+                    ->when(
+                        auth()->user()->isCoordinator(),
+                        fn (Builder $query): Builder => $query
+                            ->activatesInCounty(auth()->user()->county_id)
+                    );
             })
             ->columns([
                 TextColumn::make('id')

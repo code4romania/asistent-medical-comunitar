@@ -14,7 +14,7 @@ class AppointmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isNurse() || $user->isMediator();
+        return $user->isNurseOrMediator();
     }
 
     /**
