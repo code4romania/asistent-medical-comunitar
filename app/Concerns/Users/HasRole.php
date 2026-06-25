@@ -31,6 +31,16 @@ trait HasRole
         return $this->role->is(Role::NURSE);
     }
 
+    public function isMediator(): bool
+    {
+        return $this->role->is(Role::MEDIATOR);
+    }
+
+    public function isNurseOrMediator(): bool
+    {
+        return $this->isNurse() || $this->isMediator();
+    }
+
     public function scopeOnlyAdmins(Builder $query): Builder
     {
         return $query->where('role', Role::ADMIN);
@@ -44,5 +54,15 @@ trait HasRole
     public function scopeOnlyNurses(Builder $query): Builder
     {
         return $query->where('role', Role::NURSE);
+    }
+
+    public function scopeOnlyMediators(Builder $query): Builder
+    {
+        return $query->where('role', Role::MEDIATOR);
+    }
+
+    public function scopeOnlyNursesAndMediators(Builder $query): Builder
+    {
+        return $query->whereIn('role', [Role::NURSE, Role::MEDIATOR]);
     }
 }

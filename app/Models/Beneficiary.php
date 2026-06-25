@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\BelongsToMediator;
 use App\Concerns\BelongsToNurse;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
@@ -30,6 +31,7 @@ use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 class Beneficiary extends Model
 {
+    use BelongsToMediator;
     use BelongsToNurse;
     use BelongsToThroughTrait;
     use HasBeneficiaryStatus;

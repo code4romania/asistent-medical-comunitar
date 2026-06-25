@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CommunityActivities\Schemas;
 
 use App\Enums\CommunityActivity\Campaign;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 class CampaignForm
 {
@@ -29,6 +31,30 @@ class CampaignForm
                             ->label(__('field.type'))
                             ->options(Campaign::class)
                             ->required(),
+
+                        Select::make('nurse_id')
+                            ->label(__('field.nurse'))
+                            ->placeholder(__('placeholder.choose'))
+                            ->relationship(
+                                'nurse',
+                                'full_name',
+                                fn (Builder $query) => $query->activatesInCounty(auth()->user()->activity_county_id)
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn (): bool => Filament::auth()->user()->isMediator()),
+
+                        Select::make('mediator_id')
+                            ->label(__('field.mediator'))
+                            ->placeholder(__('placeholder.choose'))
+                            ->relationship(
+                                'mediator',
+                                'full_name',
+                                fn (Builder $query) => $query->activatesInCounty(auth()->user()->activity_county_id)
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn (): bool => Filament::auth()->user()->isNurse()),
                     ]),
 
                 TextInput::make('name')

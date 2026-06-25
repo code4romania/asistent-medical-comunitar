@@ -10,14 +10,14 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
-class NursesTable
+class MediatorsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->modifyQueryUsing(function (Builder $query): Builder {
                 return $query
-                    ->onlyNurses()
+                    ->onlyMediators()
                     ->when(
                         auth()->user()->isCoordinator(),
                         fn (Builder $query): Builder => $query
@@ -60,22 +60,11 @@ class NursesTable
                     ->wrap()
                     ->toggleable(),
 
-                TextColumn::make('beneficiaries_count')
+                TextColumn::make('mediated_beneficiaries_count')
                     ->label(__('field.beneficiaries_count'))
-                    ->counts('beneficiaries')
+                    ->counts('mediatedBeneficiaries')
                     ->alignRight()
                     ->sortable()
-                    ->toggleable(),
-
-                TextColumn::make('interventions_count')
-                    ->label(__('field.performed_interventions_count'))
-                    ->counts('interventions')
-                    ->alignRight()
-                    ->sortable()
-                    ->toggleable(),
-
-                TextColumn::make('latestEmployer.name')
-                    ->label(__('field.employer'))
                     ->toggleable(),
 
                 TextColumn::make('status')

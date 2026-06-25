@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\BelongsToUser;
 use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Status;
 use App\Enums\Report\Type;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Report extends Model
 {
+    use BelongsToUser;
     use HasUuids;
     use HasFactory;
 
@@ -34,7 +34,6 @@ class Report extends Model
         'columns',
         'indicators',
         'data',
-        'user_id',
     ];
 
     protected $casts = [
@@ -50,14 +49,6 @@ class Report extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
-            if (! auth()->check()) {
-                return;
-            }
-
-            $builder->whereBelongsTo(auth()->user());
-        });
-
         static::creating(function (self $report) {
             if (blank($report->type)) {
                 $report->type = Type::STATISTIC;
@@ -69,9 +60,9 @@ class Report extends Model
         });
     }
 
-    public function user(): BelongsTo
+    public function restrictScopeToCurrentUser(): bool
     {
-        return $this->belongsTo(User::class);
+        return true;
     }
 
     public function getPeriodAttribute(): string

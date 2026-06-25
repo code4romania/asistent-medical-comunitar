@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToUser;
 use App\Enums\VacationType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Vacation extends Model
 {
-    use BelongsToNurse;
+    use BelongsToUser;
     use HasFactory;
     use LogsActivity;
 

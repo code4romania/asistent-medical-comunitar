@@ -18,7 +18,7 @@ class A14 extends ActivityQuery
     {
         return Appointment::query()
             ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'appointments.beneficiary_id')
-            ->leftJoin('users', 'users.id', '=', 'appointments.nurse_id')
+            ->leftJoin('users', 'users.id', '=', 'appointments.user_id')
             ->fromSub(
                 Appointment::query()
                     ->withCount('interventions'),
@@ -29,7 +29,7 @@ class A14 extends ActivityQuery
     public static function tapQuery(Builder $query): Builder
     {
         return $query->addSelect([
-            'appointments.nurse_id',
+            'appointments.user_id',
             new Alias('users.activity_county_id', 'county_id'),
             'appointments.interventions_count',
         ]);

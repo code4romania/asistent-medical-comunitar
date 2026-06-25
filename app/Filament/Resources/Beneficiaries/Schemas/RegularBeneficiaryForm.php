@@ -27,6 +27,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
+use Illuminate\Database\Eloquent\Builder;
 
 class RegularBeneficiaryForm
 {
@@ -51,6 +52,14 @@ class RegularBeneficiaryForm
 
                                 TextEntry::make('nurse.full_name')
                                     ->label(__('field.allocated_nurse')),
+
+                                Select::make('mediator_id')
+                                    ->label(__('field.allocated_mediator'))
+                                    ->placeholder(__('placeholder.choose'))
+                                    ->relationship('mediator', 'full_name', fn (Builder $query) => $query->onlyMediators())
+                                    ->searchable()
+                                    ->preload()
+                                    ->visible(fn () => auth()->user()?->isNurse()),
 
                                 Select::make('integrated')
                                     ->label(__('field.integrated'))
