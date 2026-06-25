@@ -49,6 +49,8 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
     public function __construct(Report $report, array $data)
     {
         $this->report = $report;
+
+        $this->onQueue(config('queue.reports_queue_name'));
     }
 
     abstract public function generate(): void;
