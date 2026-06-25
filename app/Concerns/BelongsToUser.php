@@ -31,9 +31,17 @@ trait BelongsToUser
         return $this->belongsTo(User::class);
     }
 
+    public function restrictScopeToCurrentUser(): bool
+    {
+        return false;
+    }
+
     public function scopeForUser(Builder $query, User $user): Builder
     {
-        if ($user->isNurse() || $user->isMediator()) {
+        if (
+            $this->restrictScopeToCurrentUser() ||
+            $user->isNurseOrMediator()
+        ) {
             return $query->where('user_id', $user->id);
         }
 
