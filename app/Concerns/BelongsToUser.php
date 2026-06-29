@@ -24,6 +24,12 @@ trait BelongsToUser
 
             $builder->forUser(auth()->user());
         });
+
+        static::creating(function (self $model): void {
+            if (blank($model->user_id)) {
+                $model->user_id = auth()?->id();
+            }
+        });
     }
 
     public function user(): BelongsTo

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\Intervention;
+use App\Models\Document;
 use App\Models\User;
 
-class InterventionPolicy
+class DocumentPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,10 +20,10 @@ class InterventionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Intervention $intervention): bool
+    public function view(User $user, Document $document): bool
     {
         if ($user->isMediator()) {
-            return $intervention->mediator_has_access;
+            return $document->user_id === $user->id;
         }
 
         return true;
@@ -40,27 +40,23 @@ class InterventionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Intervention $intervention): bool
+    public function update(User $user, Document $document): bool
     {
-        if (! $intervention->isOpen()) {
-            return false;
-        }
-
-        return $this->view($user, $intervention);
+        return $this->view($user, $document);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Intervention $intervention): bool
+    public function delete(User $user, Document $document): bool
     {
-        return $this->update($user, $intervention);
+        return $this->view($user, $document);
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Intervention $intervention): bool
+    public function restore(User $user, Document $document): bool
     {
         return false;
     }
@@ -68,7 +64,7 @@ class InterventionPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Intervention $intervention): bool
+    public function forceDelete(User $user, Document $document): bool
     {
         return false;
     }

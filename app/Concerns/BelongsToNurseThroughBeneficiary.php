@@ -26,7 +26,37 @@ trait BelongsToNurseThroughBeneficiary
 
     public function scopeForUser(Builder $query, User $user): Builder
     {
-        // This uses the existing beneficiaries scopes
-        return $query->whereHas('beneficiary');
+        return match (true) {
+            $user->isNurse() => $query->forNurse($user),
+            $user->isMediator() => $query->forMediator($user),
+            $user->isCoordinator() => $query->forCoordinator($user),
+            $user->isAdmin() => $query,
+        };
+    }
+
+    public function scopeForNurse(Builder $query, User $user): Builder
+    {
+        return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
+    }
+
+    public function scopeForMediator(Builder $query, User $user): Builder
+    {
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereRelation('beneficiary', 'mediator_id', $user->id)
+                ->when(
+                    $this->isFillable('mediator_has_access'),
+                    fn (Builder $query): Builder => $query->where('mediator_has_access', true)
+                )
+        );
+    }
+
+    public function scopeForCoordinator(Builder $query, User $user): Builder
+    {
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id)
+                ->orWhereRelation('beneficiary.mediator', 'activity_county_id', $user->county_id)
+        );
     }
 }
