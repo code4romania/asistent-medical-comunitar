@@ -52,7 +52,6 @@ class CreateBeneficiary extends CreateRecord
                         Group::make()
                             ->visible(fn (Get $get) => Type::OCASIONAL->is($get('type')))
                             ->components(fn (Schema $schema) => OcasionalBeneficiaryForm::configure($schema)),
-
                     ]),
             ]);
     }

@@ -62,7 +62,7 @@ class ReportForm
                             ->options(
                                 fn () => User::query()
                                     ->onlyNurses()
-                                    ->activatesInCounty(auth()->user()->county_id)
+                                    ->activatesInCurrentUserCounty()
                                     ->withActivityAreas()
                                     ->get()
                                     ->mapWithKeys(fn (User $nurse) => [

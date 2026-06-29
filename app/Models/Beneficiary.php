@@ -64,7 +64,6 @@ class Beneficiary extends Model
         'reason_removed',
         'reason_removed_notes',
 
-        'nurse_id',
         'family_id',
 
         'does_not_have_cnp',

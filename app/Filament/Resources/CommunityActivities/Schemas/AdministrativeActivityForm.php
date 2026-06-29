@@ -36,7 +36,7 @@ class AdministrativeActivityForm
                             ->relationship(
                                 'nurse',
                                 'full_name',
-                                fn (Builder $query) => $query->activatesInCounty(auth()->user()->activity_county_id)
+                                fn (Builder $query) => $query->activatesInCurrentUserCounty()
                             )
                             ->searchable()
                             ->preload()
@@ -48,7 +48,7 @@ class AdministrativeActivityForm
                             ->relationship(
                                 'mediator',
                                 'full_name',
-                                fn (Builder $query) => $query->activatesInCounty(auth()->user()->activity_county_id)
+                                fn (Builder $query) => $query->activatesInCurrentUserCounty()
                             )
                             ->searchable()
                             ->preload()

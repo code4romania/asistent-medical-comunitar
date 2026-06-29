@@ -13,6 +13,7 @@ use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\Beneficiary;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -50,16 +51,41 @@ class RegularBeneficiaryForm
                                 TextEntry::make('type')
                                     ->label(__('field.beneficiary_type')),
 
-                                TextEntry::make('nurse.full_name')
-                                    ->label(__('field.allocated_nurse')),
+                                Select::make('nurse_id')
+                                    ->label(__('field.allocated_nurse'))
+                                    ->placeholder(__('placeholder.choose'))
+                                    ->relationship(
+                                        'nurse',
+                                        'full_name',
+                                        fn (Builder $query): Builder => $query
+                                            ->onlyNurses()
+                                            ->activatesInCurrentUserCounty()
+                                            ->select([
+                                                'id', 'full_name',
+                                            ])
+                                    )
+                                    ->searchable()
+                                    ->preload()
+                                    ->visible(fn () => auth()->user()?->isMediator())
+                                    ->disabled(fn (Beneficiary $record): bool => filled($record->nurse_id)),
 
                                 Select::make('mediator_id')
                                     ->label(__('field.allocated_mediator'))
                                     ->placeholder(__('placeholder.choose'))
-                                    ->relationship('mediator', 'full_name', fn (Builder $query) => $query->onlyMediators())
+                                    ->relationship(
+                                        'mediator',
+                                        'full_name',
+                                        fn (Builder $query): Builder => $query
+                                            ->onlyMediators()
+                                            ->activatesInCurrentUserCounty()
+                                            ->select([
+                                                'id', 'full_name',
+                                            ])
+                                    )
                                     ->searchable()
                                     ->preload()
-                                    ->visible(fn () => auth()->user()?->isNurse()),
+                                    ->visible(fn () => auth()->user()?->isNurse())
+                                    ->disabled(fn (Beneficiary $record): bool => filled($record->mediator_id)),
 
                                 Select::make('integrated')
                                     ->label(__('field.integrated'))

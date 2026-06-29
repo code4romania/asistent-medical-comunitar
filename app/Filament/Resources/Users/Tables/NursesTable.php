@@ -21,7 +21,7 @@ class NursesTable
                     ->when(
                         auth()->user()->isCoordinator(),
                         fn (Builder $query): Builder => $query
-                            ->activatesInCounty(auth()->user()->county_id)
+                            ->activatesInCurrentUserCounty()
                     );
             })
             ->columns([
