@@ -17,14 +17,6 @@ trait BelongsToNurse
 
     public static function bootBelongsToNurse(): void
     {
-        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
-            if (! auth()->check()) {
-                return;
-            }
-
-            $builder->forUser(auth()->user());
-        });
-
         static::creating(function (self $model): void {
             if (auth()->user()?->isNurse()) {
                 $model->nurse_id = auth()->id();
@@ -37,18 +29,8 @@ trait BelongsToNurse
         return $this->belongsTo(User::class)->onlyNurses();
     }
 
-    public function scopeForUser(Builder $query, User $user): Builder
+    public function scopeForNurse(Builder $query, User $user): Builder
     {
-        if ($user->isNurse()) {
-            $table = $query->getModel()->getTable();
-
-            return $query->where("{$table}.nurse_id", $user->id);
-        }
-
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('nurse', 'activity_county_id', $user->county_id);
-        }
-
-        return $query;
+        return $query->where("{$query->getModel()->getTable()}.nurse_id", $user->id);
     }
 }

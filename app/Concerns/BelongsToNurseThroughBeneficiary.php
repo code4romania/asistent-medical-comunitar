@@ -26,14 +26,7 @@ trait BelongsToNurseThroughBeneficiary
 
     public function scopeForUser(Builder $query, User $user): Builder
     {
-        if ($user->isNurse()) {
-            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
-        }
-
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
-        }
-
-        return $query;
+        // This uses the existing beneficiaries scopes
+        return $query->whereHas('beneficiary');
     }
 }

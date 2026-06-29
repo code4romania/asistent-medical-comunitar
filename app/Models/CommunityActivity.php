@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Concerns\BelongsToMediator;
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToNurseOrMediator;
 use App\Enums\CommunityActivity\Administrative;
 use App\Enums\CommunityActivity\Campaign;
 use App\Enums\CommunityActivity\OutsideWorkingHours;
@@ -20,8 +19,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class CommunityActivity extends Model implements HasMedia
 {
-    use BelongsToMediator;
-    use BelongsToNurse;
+    use BelongsToNurseOrMediator;
     use HasFactory;
     use InteractsWithMedia;
     use LogsActivity;
