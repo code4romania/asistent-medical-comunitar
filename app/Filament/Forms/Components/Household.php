@@ -73,8 +73,8 @@ class Household extends Component
                             'name',
                             fn (Builder $query, Get $get) => $query
                                 ->where('household_id', $get('household_id'))
-                                ->limit(100)
                         )
+                        ->optionsLimit(100)
                         ->preload()
                         ->createOptionModalHeading(__('family.action.create'))
                         ->createOptionForm(function (Get $get) {
@@ -103,7 +103,6 @@ class Household extends Component
 
                             return $family->getKey();
                         }),
-
                 ]),
         ]);
     }
@@ -111,6 +110,10 @@ class Household extends Component
     protected function getHouseholds(): Collection
     {
         return Cache::driver('array')
-            ->remember('households', MINUTE_IN_SECONDS, fn () => HouseholdModel::pluck('name', 'id'));
+            ->remember(
+                'households-' . auth()->id(),
+                MINUTE_IN_SECONDS,
+                fn (): Collection => HouseholdModel::pluck('name', 'id')
+            );
     }
 }
