@@ -61,13 +61,16 @@ class RegularBeneficiaryForm
                                             ->onlyNurses()
                                             ->activatesInCurrentUserCounty()
                                             ->select([
-                                                'id', 'full_name',
+                                                'id', 'first_name', 'last_name', 'full_name',
                                             ])
                                     )
                                     ->searchable()
                                     ->preload()
-                                    ->visible(fn () => auth()->user()?->isMediator())
-                                    ->disabled(fn (Beneficiary $record): bool => filled($record->nurse_id)),
+                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && blank($record->nurse_id)),
+
+                                TextEntry::make('nurse.full_name')
+                                    ->label(__('field.allocated_nurse'))
+                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && filled($record->nurse_id)),
 
                                 Select::make('mediator_id')
                                     ->label(__('field.allocated_mediator'))
@@ -84,8 +87,11 @@ class RegularBeneficiaryForm
                                     )
                                     ->searchable()
                                     ->preload()
-                                    ->visible(fn () => auth()->user()?->isNurse())
-                                    ->disabled(fn (Beneficiary $record): bool => filled($record->mediator_id)),
+                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && blank($record->mediator_id)),
+
+                                TextEntry::make('mediator.full_name')
+                                    ->label(__('field.allocated_mediator'))
+                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && filled($record->mediator_id)),
 
                                 Select::make('integrated')
                                     ->label(__('field.integrated'))
