@@ -20,12 +20,12 @@ class ServicesImport implements ToCollection, WithHeadingRow
         $this->importCategories($rows);
 
         Service::upsert(
-            $rows->map(fn (Collection $row) => [
+            $rows->map(fn (Collection $row): array => [
                 'code' => $row['code'],
                 'name' => $this->normalize($row['name']),
                 'category_id' => $this->categories->get($this->normalize($row['category'])),
             ])->toArray(),
-            'id'
+            'code'
         );
     }
 
