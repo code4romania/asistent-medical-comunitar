@@ -7,7 +7,6 @@ namespace App\Http\Middleware;
 use App\Filament\Resources\Profiles\ProfileResource;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserHasCompletedProfile
@@ -19,11 +18,12 @@ class EnsureUserHasCompletedProfile
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $user = auth()->user();
         $onboardUrl = ProfileResource::getUrl('onboard');
 
         if (
-            ! Auth::user()->isNurse() ||
-            Auth::user()->hasCompletedProfile() ||
+            ! $user->isNurseOrMediator() ||
+            $user->hasCompletedProfile() ||
             $onboardUrl === $request->getUri()
         ) {
             return $next($request);

@@ -22,9 +22,9 @@ class HouseholdForm
                     ->maxLength(200)
                     ->required(),
 
+                // TODO: refactor
                 Hidden::make('nurse_id')
-                    ->default(fn () => auth()->id())
-                    ->required(),
+                    ->default(fn () => auth()->user()?->isNurse() ? auth()->id() : null),
 
                 Repeater::make('families')
                     ->label(__('family.label.plural'))

@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Reports\Pages;
 
 use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Type;
+use App\Enums\User\Role;
 use App\Filament\Resources\Reports\ReportResource;
 use App\Filament\Resources\Reports\Widgets\ReportsTableWidget;
 use App\Jobs\GenerateReport\Standard;
@@ -85,20 +86,18 @@ class GenerateStandardReport extends CreateRecord
 
     protected function dispatchJob(Report $record, array $data): void
     {
-        if (auth()->user()->isNurse()) {
-            $job = match ($record->type) {
+        $job = match (auth()->user()->role) {
+            Role::NURSE => match ($record->type) {
                 Type::LIST => Standard\Nurse\GenerateListReportJob::class,
                 Type::STATISTIC => Standard\Nurse\GenerateStatisticReportJob::class,
-            };
-        }
-
-        if (auth()->user()->isCoordinator()) {
-            $job = Standard\Coordinator\GenerateStatisticReportJob::class;
-        }
-
-        if (auth()->user()->isAdmin()) {
-            $job = Standard\Admin\GenerateStatisticReportJob::class;
-        }
+            },
+            Role::MEDIATOR => match ($record->type) {
+                Type::LIST => Standard\Mediator\GenerateListReportJob::class,
+                Type::STATISTIC => Standard\Mediator\GenerateStatisticReportJob::class,
+            },
+            Role::COORDINATOR => Standard\Coordinator\GenerateStatisticReportJob::class,
+            Role::ADMIN => Standard\Admin\GenerateStatisticReportJob::class,
+        };
 
         $job::dispatch($record, $data);
     }

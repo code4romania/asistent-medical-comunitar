@@ -25,7 +25,7 @@ class CampaignsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->whereCampaign())
+            ->modifyQueryUsing(fn (Builder $query) => $query->whereCampaign()->with(['nurse', 'mediator']))
             ->columns([
                 TextColumn::make('id')
                     ->label(__('field.id'))
@@ -37,6 +37,12 @@ class CampaignsTable
                 TextColumn::make('nurse.full_name')
                     ->label(__('field.nurse'))
                     ->hidden(fn () => auth()->user()->isNurse())
+                    ->toggleable()
+                    ->sortable(),
+
+                TextColumn::make('mediator.full_name')
+                    ->label(__('field.mediator'))
+                    ->hidden(fn () => auth()->user()->isMediator())
                     ->toggleable()
                     ->sortable(),
 
@@ -109,6 +115,14 @@ class CampaignsTable
                     ->multiple()
                     ->preload()
                     ->hidden(fn () => auth()->user()->isNurse()),
+
+                SelectFilter::make('mediator')
+                    ->label(__('field.mediator'))
+                    ->relationship('mediator', 'full_name', fn (Builder $query) => $query->forUser(auth()->user()))
+                    ->searchable()
+                    ->multiple()
+                    ->preload()
+                    ->hidden(fn () => auth()->user()->isMediator()),
 
                 SelectFilter::make('county')
                     ->label(__('field.county'))

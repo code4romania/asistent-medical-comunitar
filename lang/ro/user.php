@@ -23,6 +23,7 @@ return [
 
     'section' => [
         'nurses' => 'Asistenți medicali comunitari',
+        'mediators' => 'Mediatori sanitari',
         'coordinators' => 'Coordonatori județeni',
         'admins' => 'Admin MS',
     ],
@@ -31,6 +32,7 @@ return [
         'admin' => 'Admin MS',
         'coordinator' => 'Coordonator județean',
         'nurse' => 'Asistent medical comunitar',
+        'mediator' => 'Mediator sanitar',
     ],
 
     'status' => [
@@ -73,4 +75,8 @@ return [
         'failure_body' => 'Acestui utilizator i-a fost retrimisă invitația recent. Te rugăm să mai încerci peste o oră.',
     ],
 
+    'empty' => [
+        'title' => 'Nu există utilizatori cu acest rol',
+        'description' => 'Odată înregistrați utilizatori în baza de date, aceștia vor fi afișați în acest tabel.',
+    ],
 ];

@@ -6,7 +6,8 @@ namespace App\Models;
 
 use App\Casts\TimeCast;
 use App\Concerns\BelongsToBeneficiary;
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToUser;
+use App\Contracts\UserScopable;
 use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Models\Intervention\InterventionableIndividualService;
 use Carbon\Carbon;
@@ -20,10 +21,10 @@ use Saade\FilamentFullCalendar\Data\EventData;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Appointment extends Model
+class Appointment extends Model implements UserScopable
 {
     use BelongsToBeneficiary;
-    use BelongsToNurse;
+    use BelongsToUser;
     use HasFactory;
     use LogsActivity;
 
@@ -69,7 +70,7 @@ class Appointment extends Model
 
     public function scopeUpcoming(Builder $query): Builder
     {
-        return $query->where('date', '>=', today())
+        return $query->where('date', '>=', today()->toDateString())
             ->orderBy('date', 'asc')
             ->orderBy('start_time', 'asc');
     }

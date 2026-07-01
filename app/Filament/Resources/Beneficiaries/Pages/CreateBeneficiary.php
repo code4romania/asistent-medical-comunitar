@@ -9,6 +9,7 @@ use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Schemas\OcasionalBeneficiaryForm;
 use App\Filament\Resources\Beneficiaries\Schemas\RegularBeneficiaryForm;
+use App\Models\Beneficiary;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Group;
@@ -16,7 +17,6 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
-use Illuminate\Support\Facades\Auth;
 
 class CreateBeneficiary extends CreateRecord
 {
@@ -53,15 +53,24 @@ class CreateBeneficiary extends CreateRecord
                         Group::make()
                             ->visible(fn (Get $get) => Type::OCASIONAL->is($get('type')))
                             ->components(fn (Schema $schema) => OcasionalBeneficiaryForm::configure($schema)),
-
                     ]),
             ]);
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['nurse_id'] = Auth::id();
+        return Beneficiary::assignOwnerFromAuth($data);
+    }
 
-        return $data;
+    protected function getRedirectUrl(): string
+    {
+        /** @var Beneficiary $record */
+        $record = $this->getRecord();
+
+        return BeneficiaryResource::getUrl(match (true) {
+            $record->isRegular() => 'regular',
+            $record->isOcasional() => 'ocasional',
+            default => 'index',
+        });
     }
 }

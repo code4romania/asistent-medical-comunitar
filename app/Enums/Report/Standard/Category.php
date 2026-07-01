@@ -79,8 +79,10 @@ enum Category: string implements HasLabel, CanBeFiltered
             ->toArray();
     }
 
-    public function isVisible(?Type $type = null): bool
+    public function isVisible(): bool
     {
+        $type = func_get_arg(0);
+
         if (
             filled($type) &&
             ! \in_array($type, $this->indicator()::types(), true)
@@ -88,10 +90,8 @@ enum Category: string implements HasLabel, CanBeFiltered
             return false;
         }
 
-        // TODO: check for mediator
         return match ($this) {
             self::USERS => auth()->user()->isAdmin() || auth()->user()->isCoordinator(),
-            // self::SERVICES_HEALTH => auth()->user()->isNurse(), // TODO: remove when the report will be available for all roles
             default => true,
         };
     }

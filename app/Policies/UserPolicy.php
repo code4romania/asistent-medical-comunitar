@@ -45,15 +45,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        if ($user->isAdmin()) {
-            return true;
-        }
-
-        if ($user->isCoordinator()) {
-            return $model->activity_county_id === $user->county_id;
-        }
-
-        return $user->is($model);
+        return $this->view($user, $model);
     }
 
     /**

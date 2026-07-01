@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToNurseOrMediator;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
@@ -30,7 +31,7 @@ use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 class Beneficiary extends Model
 {
-    use BelongsToNurse;
+    use BelongsToNurseOrMediator;
     use BelongsToThroughTrait;
     use HasBeneficiaryStatus;
     use HasFactory;
@@ -63,7 +64,6 @@ class Beneficiary extends Model
         'reason_removed',
         'reason_removed_notes',
 
-        'nurse_id',
         'family_id',
 
         'does_not_have_cnp',
@@ -231,5 +231,15 @@ class Beneficiary extends Model
             })
             ->leftJoinLocation()
             ->tap($callback);
+    }
+
+    /**
+     * For report scoping, a mediator "worked on" a beneficiary if they caused any
+     * activity tagged with this beneficiary — including activity on its children
+     * (interventions, catagraphy, documents) via the denormalized beneficiary_id.
+     */
+    protected function applyReportActivityConstraint(QueryBuilder $sub, string $table): void
+    {
+        $sub->whereColumn('activity_log.beneficiary_id', "{$table}.id");
     }
 }

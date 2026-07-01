@@ -42,11 +42,13 @@ class Intervention extends Model
         'parent_id',
         'vulnerability_label',
         'closed_at',
+        'mediator_has_access',
     ];
 
     protected $casts = [
         'integrated' => 'boolean',
         'closed_at' => 'datetime',
+        'mediator_has_access' => 'boolean',
     ];
 
     protected $with = [
@@ -56,6 +58,13 @@ class Intervention extends Model
 
     public static function booted(): void
     {
+        // Make sure mediators have access to their own interventions
+        static::creating(function (self $intervention): void {
+            if (auth()->user()?->isMediator()) {
+                $intervention->mediator_has_access = true;
+            }
+        });
+
         static::creating(function (self $intervention) {
             if (! $intervention->isIndividualService()) {
                 return;

@@ -2,24 +2,24 @@
     $title ??= $this->getTitle();
     $heading ??= $this->getHeading();
     $subheading ??= $this->getSubHeading();
+    $hasSetPassword = $this->user->hasSetPassword();
 @endphp
 
 <div class="px-4 fi-simple-page md:px-6 lg:px-8">
     <div class="max-w-md fi-simple-page-content">
-        <x-filament::section :contained="false">
-            <div class="flex flex-col gap-4 mb-6">
+        @if (filled($heading) || filled($subheading))
+            <x-filament::section :contained="false">
+                <div class="flex flex-col gap-4 mb-6">
+                    <h1 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                        {{ $heading }}
+                    </h1>
 
-                <h1 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                    {{ __('welcome.set_password.greeting', [
-                        'name' => $user->first_name,
-                    ]) }}
-                </h1>
-
-                <p class="text-gray-800">
-                    {{ __('welcome.set_password.intro') }}
-                </p>
-            </div>
-        </x-filament::section>
+                    <p class="text-gray-800">
+                        {{ $subheading }}
+                    </p>
+                </div>
+            </x-filament::section>
+        @endif
 
         <x-filament::section>
             <x-icon-heart class="h-12 mx-auto my-6 md:h-16 fill-primary-700" />
@@ -28,14 +28,14 @@
                 {{ $title }}
             </h1>
 
-            @if ($user->hasSetPassword())
+            @if ($hasSetPassword)
                 <div class="space-y-8">
                     <div class="prose">
-                        <p>{{ __('welcome.onboarding.intro') }}</p>
+                        <p>{{ $this->getOnboardingIntro() }}</p>
 
                         <ul>
-                            @foreach (__('welcome.onboarding.documents') as $document)
-                                <li>{{ $document }}</li>
+                            @foreach ($this->getOnboardingList() as $item)
+                                <li>{{ $item }}</li>
                             @endforeach
                         </ul>
                     </div>
