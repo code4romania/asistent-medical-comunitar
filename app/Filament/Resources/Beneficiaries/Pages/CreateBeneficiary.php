@@ -9,6 +9,7 @@ use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Resources\Beneficiaries\Concerns\HasBreadcrumbs;
 use App\Filament\Resources\Beneficiaries\Schemas\OcasionalBeneficiaryForm;
 use App\Filament\Resources\Beneficiaries\Schemas\RegularBeneficiaryForm;
+use App\Models\Beneficiary;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Group;
@@ -54,5 +55,22 @@ class CreateBeneficiary extends CreateRecord
                             ->components(fn (Schema $schema) => OcasionalBeneficiaryForm::configure($schema)),
                     ]),
             ]);
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        return Beneficiary::assignOwnerFromAuth($data);
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        /** @var Beneficiary $record */
+        $record = $this->getRecord();
+
+        return BeneficiaryResource::getUrl(match (true) {
+            $record->isRegular() => 'regular',
+            $record->isOcasional() => 'ocasional',
+            default => 'index',
+        });
     }
 }
