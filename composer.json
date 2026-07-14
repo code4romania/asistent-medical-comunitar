@@ -38,7 +38,7 @@
         "fruitcake/laravel-debugbar": "^4.3",
         "itsgoingd/clockwork": "^5.3",
         "larastan/larastan": "^3.10",
-        "laravel/boost": "*",
+        "laravel/boost": "^2.4",
         "laravel/sail": "^1.62",
         "laravel/telescope": "^5.20",
         "mockery/mockery": "^1.6",

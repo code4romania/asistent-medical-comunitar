@@ -37,3 +37,6 @@ GEMINI.md
 AGENTS.md
 boost.json
 /.github/copilot-instructions.md
+/.claude
+/.cursor
+/.junie
