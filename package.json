@@ -12,7 +12,7 @@
         "axios": "^1.18.1",
         "laravel-vite-plugin": "^3.1.0",
         "lodash": "^4.18.1",
-        "postcss": "^8.5.16",
+        "postcss": "^8.5.19",
         "tailwindcss": "^4.3.2",
         "tippy.js": "^6.3.7",
         "vite": "^8.1.4"
