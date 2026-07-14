@@ -24,7 +24,7 @@
         "saade/filament-fullcalendar": "^4.0",
         "sentry/sentry-laravel": "^4.26",
         "spatie/laravel-activitylog": "^4.12",
-        "spatie/laravel-csp": "^3.25",
+        "spatie/laravel-csp": "^3.26",
         "spatie/laravel-onboard": "^2.6",
         "staudenmeir/belongs-to-through": "^2.18",
         "staudenmeir/laravel-merged-relations": "^1.11",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef665037fa40956439448647d3e4c535",
+    "content-hash": "ecac18b1adbf0cb515732bad000670a5",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -7794,16 +7794,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.25.1",
+            "version": "3.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "f33be05072dc028586632041eaab69c6bf33dd21"
+                "reference": "4e0e0298276adb866818804981674dc27027ed79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/f33be05072dc028586632041eaab69c6bf33dd21",
-                "reference": "f33be05072dc028586632041eaab69c6bf33dd21",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/4e0e0298276adb866818804981674dc27027ed79",
+                "reference": "4e0e0298276adb866818804981674dc27027ed79",
                 "shasum": ""
             },
             "require": {
@@ -7815,8 +7815,7 @@
             "require-dev": {
                 "mockery/mockery": "^1.6",
                 "orchestra/testbench": "^9.9|^10.0|^11.0",
-                "pestphp/pest": "^3.0|^4.0",
-                "roave/security-advisories": "dev-master"
+                "pestphp/pest": "^3.0|^4.0"
             },
             "type": "library",
             "extra": {
@@ -7868,7 +7867,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.25.1"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.26.0"
             },
             "funding": [
                 {
@@ -7876,7 +7875,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-06-02T08:00:44+00:00"
+            "time": "2026-06-26T19:20:01+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
