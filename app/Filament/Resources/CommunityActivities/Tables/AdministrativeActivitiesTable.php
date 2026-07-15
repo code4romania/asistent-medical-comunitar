@@ -25,7 +25,7 @@ class AdministrativeActivitiesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->whereAdministrativeActivity()->with(['nurse', 'mediator']))
+            ->modifyQueryUsing(fn (Builder $query) => $query->whereAdministrativeActivity())
             ->columns([
                 TextColumn::make('id')
                     ->label(__('field.id'))

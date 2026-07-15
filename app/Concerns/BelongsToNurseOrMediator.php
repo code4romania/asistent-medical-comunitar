@@ -41,23 +41,4 @@ trait BelongsToNurseOrMediator
                 ->orWhereRelation('mediator', 'activity_county_id', $user->county_id)
         );
     }
-
-    /**
-     * @param  array<string, mixed>  $data
-     * @return array<string, mixed>
-     */
-    public static function assignOwnerFromAuth(array $data): array
-    {
-        $user = auth()->user();
-
-        if ($user?->isNurse()) {
-            $data['nurse_id'] = $user->id;
-        }
-
-        if ($user?->isMediator()) {
-            $data['mediator_id'] = $user->id;
-        }
-
-        return $data;
-    }
 }

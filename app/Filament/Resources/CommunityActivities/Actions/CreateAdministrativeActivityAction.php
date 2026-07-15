@@ -29,7 +29,6 @@ class CreateAdministrativeActivityAction extends CreateAction
 
         $this->using(function (array $data) {
             $data['type'] = Type::ADMINISTRATIVE;
-            $data = CommunityActivity::assignOwnerFromAuth($data);
 
             return CommunityActivity::create($data);
         });

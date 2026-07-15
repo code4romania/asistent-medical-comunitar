@@ -29,7 +29,6 @@ class CreateCampaignAction extends CreateAction
 
         $this->using(function (array $data) {
             $data['type'] = Type::CAMPAIGN;
-            $data = CommunityActivity::assignOwnerFromAuth($data);
 
             return CommunityActivity::create($data);
         });
