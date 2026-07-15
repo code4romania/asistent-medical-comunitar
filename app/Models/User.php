@@ -202,6 +202,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
             return $query->activatesInCounty($user->county_id);
         }
 
+        if ($user->isNurseOrMediator()) {
+            return $query->activatesInCounty($user->activity_county_id);
+        }
+
         return $query;
     }
 
