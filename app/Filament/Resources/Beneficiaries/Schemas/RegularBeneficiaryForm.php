@@ -51,47 +51,50 @@ class RegularBeneficiaryForm
                                 TextEntry::make('type')
                                     ->label(__('field.beneficiary_type')),
 
-                                Select::make('nurse_id')
-                                    ->label(__('field.allocated_nurse'))
-                                    ->placeholder(__('placeholder.choose'))
-                                    ->relationship(
-                                        'nurse',
-                                        'full_name',
-                                        fn (Builder $query): Builder => $query
-                                            ->onlyNurses()
-                                            ->activatesInCurrentUserCounty()
-                                            ->select([
-                                                'id', 'first_name', 'last_name', 'full_name',
-                                            ])
-                                    )
-                                    ->searchable()
-                                    ->preload()
-                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && blank($record->nurse_id)),
+                                Grid::make()
+                                    ->columnSpanFull()
+                                    ->components([
+                                        Select::make('nurse_id')
+                                            ->label(__('field.allocated_nurse'))
+                                            ->placeholder(__('placeholder.choose'))
+                                            ->relationship(
+                                                'nurse',
+                                                'full_name',
+                                                fn (Builder $query): Builder => $query
+                                                    ->onlyNurses()
+                                                    ->activatesInCurrentUserCounty()
+                                                    ->select([
+                                                        'id', 'first_name', 'last_name', 'full_name',
+                                                    ])
+                                            )
+                                            ->searchable()
+                                            ->preload()
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && blank($record->nurse_id)),
 
-                                TextEntry::make('nurse.full_name')
-                                    ->label(__('field.allocated_nurse'))
-                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && filled($record->nurse_id)),
+                                        TextEntry::make('nurse.full_name')
+                                            ->label(__('field.allocated_nurse'))
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && filled($record->nurse_id)),
 
-                                Select::make('mediator_id')
-                                    ->label(__('field.allocated_mediator'))
-                                    ->placeholder(__('placeholder.choose'))
-                                    ->relationship(
-                                        'mediator',
-                                        'full_name',
-                                        fn (Builder $query): Builder => $query
-                                            ->onlyMediators()
-                                            ->activatesInCurrentUserCounty()
-                                            ->select([
-                                                'id', 'full_name',
-                                            ])
-                                    )
-                                    ->searchable()
-                                    ->preload()
-                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && blank($record->mediator_id)),
+                                        Select::make('mediator.full_name')
+                                            ->label(__('field.allocated_mediator'))
+                                            ->placeholder(__('placeholder.choose'))
+                                            ->relationship(
+                                                'mediator',
+                                                'full_name',
+                                                fn (Builder $query): Builder => $query
+                                                    ->activatesInCurrentUserCounty()
+                                                    ->select([
+                                                        'id', 'full_name',
+                                                    ])
+                                            )
+                                            ->searchable()
+                                            ->preload()
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && blank($record->mediator_id)),
 
-                                TextEntry::make('mediator.full_name')
-                                    ->label(__('field.allocated_mediator'))
-                                    ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && filled($record->mediator_id)),
+                                        TextEntry::make('mediator.full_name')
+                                            ->label(__('field.allocated_mediator'))
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && filled($record->mediator_id)),
+                                    ]),
 
                                 Select::make('integrated')
                                     ->label(__('field.integrated'))

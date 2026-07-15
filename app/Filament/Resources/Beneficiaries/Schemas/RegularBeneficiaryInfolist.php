@@ -42,6 +42,15 @@ class RegularBeneficiaryInfolist
                                 TextEntry::make('type')
                                     ->label(__('field.beneficiary_type')),
 
+                                TextEntry::make('nurse.full_name')
+                                    ->label(__('field.allocated_nurse')),
+
+                                TextEntry::make('mediator.full_name')
+                                    ->label(__('field.allocated_mediator')),
+
+                                BooleanEntry::make('integrated')
+                                    ->label(__('field.integrated')),
+
                                 TextEntry::make('status')
                                     ->label(__('field.current_status')),
 
@@ -62,11 +71,6 @@ class RegularBeneficiaryInfolist
                                         return implode(' ', $parts);
                                     }),
 
-                                TextEntry::make('nurse.full_name')
-                                    ->label(__('field.allocated_nurse')),
-
-                                BooleanEntry::make('integrated')
-                                    ->label(__('field.integrated')),
                             ]),
                     ]),
 
