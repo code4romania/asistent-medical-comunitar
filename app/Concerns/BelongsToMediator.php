@@ -15,7 +15,7 @@ trait BelongsToMediator
         $this->fillable[] = 'mediator_id';
     }
 
-    public function bootBelongsToMediator(): void
+    public static function bootBelongsToMediator(): void
     {
         static::creating(function (self $model): void {
             if (auth()->user()?->isMediator()) {
