@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Profiles\Schemas;
 use App\Filament\Infolists\Components\BooleanEntry;
 use App\Filament\Infolists\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\User;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
@@ -55,7 +56,8 @@ class StudiesInfolist
                 Subsection::make()
                     ->heading(__('study.specialization_section'))
                     ->icon(Heroicon::OutlinedDocumentText)
-                    ->columns(2)
+                    ->columns()
+                    ->hidden(fn (User $record): bool => $record->isMediator())
                     ->schema([
                         BooleanEntry::make('has_participated_specialization')
                             ->label(__('field.has_participated_specialization')),
