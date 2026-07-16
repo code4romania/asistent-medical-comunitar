@@ -41,6 +41,10 @@ class CaseInfolist
 
                                 BooleanEntry::make('integrated')
                                     ->label(__('field.integrated')),
+
+                                BooleanEntry::make('mediator_has_access')
+                                    ->label(__('field.mediator_has_access'))
+                                    ->columnSpanFull(),
                             ]),
 
                         Subsection::make()

@@ -28,7 +28,7 @@ abstract class VacationsQuery extends UsersQuery
     public static function tapQuery(Builder $query): Builder
     {
         return $query
-            ->leftJoin('users', 'users.id', 'vacations.nurse_id')
-            ->addSelect('vacations.nurse_id');
+            ->leftJoin('users', 'users.id', 'vacations.user_id')
+            ->addSelect('vacations.user_id');
     }
 }

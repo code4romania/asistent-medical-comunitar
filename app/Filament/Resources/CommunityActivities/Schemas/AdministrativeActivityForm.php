@@ -13,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 class AdministrativeActivityForm
 {
@@ -28,6 +29,30 @@ class AdministrativeActivityForm
                             ->label(__('field.type'))
                             ->options(Administrative::class)
                             ->required(),
+
+                        Select::make('nurse_id')
+                            ->label(__('field.nurse'))
+                            ->placeholder(__('placeholder.choose'))
+                            ->relationship(
+                                'nurse',
+                                'full_name',
+                                fn (Builder $query) => $query->activatesInCurrentUserCounty()
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn (): bool => auth()->user()->isMediator()),
+
+                        Select::make('mediator_id')
+                            ->label(__('field.mediator'))
+                            ->placeholder(__('placeholder.choose'))
+                            ->relationship(
+                                'mediator',
+                                'full_name',
+                                fn (Builder $query) => $query->activatesInCurrentUserCounty()
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn (): bool => auth()->user()->isNurse()),
                     ]),
 
                 TextInput::make('name')

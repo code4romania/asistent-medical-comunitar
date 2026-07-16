@@ -52,6 +52,11 @@ class CreateCaseAction extends CreateAction
                 'beneficiary_id' => $beneficiary->id,
                 'integrated' => $data['integrated'],
                 'notes' => $data['notes'],
+                'mediator_has_access' => data_get(
+                    $data,
+                    'mediator_has_access',
+                    auth()->user()->isMediator()
+                ),
             ]);
 
             $intervention

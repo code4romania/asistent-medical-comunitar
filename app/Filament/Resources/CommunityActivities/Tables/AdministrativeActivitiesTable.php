@@ -40,6 +40,12 @@ class AdministrativeActivitiesTable
                     ->toggleable()
                     ->sortable(),
 
+                TextColumn::make('mediator.full_name')
+                    ->label(__('field.mediator'))
+                    ->hidden(fn () => auth()->user()->isMediator())
+                    ->toggleable()
+                    ->sortable(),
+
                 TextColumn::make('nurse.activityCounty.name')
                     ->label(__('field.county'))
                     ->visible(fn () => auth()->user()->isAdmin())
@@ -87,6 +93,14 @@ class AdministrativeActivitiesTable
                     ->multiple()
                     ->preload()
                     ->hidden(fn () => auth()->user()->isNurse()),
+
+                SelectFilter::make('mediator')
+                    ->label(__('field.mediator'))
+                    ->relationship('mediator', 'full_name', fn (Builder $query) => $query->forUser(auth()->user()))
+                    ->searchable()
+                    ->multiple()
+                    ->preload()
+                    ->hidden(fn () => auth()->user()->isMediator()),
 
                 SelectFilter::make('county')
                     ->label(__('field.county'))

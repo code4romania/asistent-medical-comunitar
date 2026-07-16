@@ -35,6 +35,11 @@ class DatabaseSeeder extends Seeder
             ->coordinator()
             ->create();
 
+        // Create a mediator
+        $mediator = User::factory(['email' => 'mediator@example.com'])
+            ->mediator()
+            ->create();
+
         // Create a community nurse
         $nurse = User::factory(['email' => 'nurse@example.com'])
             ->nurse()

@@ -42,6 +42,10 @@ class IndividualServiceInfolist
                                 BooleanEntry::make('interventionable.outside_working_hours')
                                     ->label(__('field.outside_working_hours')),
 
+                                BooleanEntry::make('mediator_has_access')
+                                    ->label(__('field.mediator_has_access'))
+                                    ->columnSpanFull(),
+
                                 TextEntry::make('status')
                                     ->label(__('field.status')),
 

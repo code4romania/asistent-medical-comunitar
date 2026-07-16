@@ -32,6 +32,11 @@ trait HasActivityAreas
         return $query->where('activity_county_id', $county_id);
     }
 
+    public function scopeActivatesInCurrentUserCounty(Builder $query): Builder
+    {
+        return $query->where('activity_county_id', auth()->user()->activity_county_id ?? auth()->user()->county_id);
+    }
+
     public function scopeWithActivityAreas(Builder $query): Builder
     {
         return $query->with('activityCounty', 'activityCities');

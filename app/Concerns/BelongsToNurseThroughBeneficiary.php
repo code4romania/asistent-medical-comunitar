@@ -26,14 +26,37 @@ trait BelongsToNurseThroughBeneficiary
 
     public function scopeForUser(Builder $query, User $user): Builder
     {
-        if ($user->isNurse()) {
-            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
-        }
+        return match (true) {
+            $user->isNurse() => $query->forNurse($user),
+            $user->isMediator() => $query->forMediator($user),
+            $user->isCoordinator() => $query->forCoordinator($user),
+            $user->isAdmin() => $query,
+        };
+    }
 
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
-        }
+    public function scopeForNurse(Builder $query, User $user): Builder
+    {
+        return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
+    }
 
-        return $query;
+    public function scopeForMediator(Builder $query, User $user): Builder
+    {
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereRelation('beneficiary', 'mediator_id', $user->id)
+                ->when(
+                    $this->isFillable('mediator_has_access'),
+                    fn (Builder $query): Builder => $query->where('mediator_has_access', true)
+                )
+        );
+    }
+
+    public function scopeForCoordinator(Builder $query, User $user): Builder
+    {
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id)
+                ->orWhereRelation('beneficiary.mediator', 'activity_county_id', $user->county_id)
+        );
     }
 }

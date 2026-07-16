@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Appointments\Widgets;
 
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
 
@@ -43,9 +44,12 @@ class CalendarWidget extends FullCalendarWidget
 
     public function fetchEvents(array $fetchInfo): array
     {
+        $from = Carbon::parse($fetchInfo['start'])->startOfDay()->toDateString();
+        $until = Carbon::parse($fetchInfo['end'])->endOfDay()->toDateString();
+
         return Appointment::query()
             ->with('beneficiary:id,full_name')
-            ->betweenDates($fetchInfo['start'], $fetchInfo['end'])
+            ->betweenDates($from, $until)
             ->get()
             ->map->toEventData()
             ->toArray();

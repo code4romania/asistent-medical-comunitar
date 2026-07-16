@@ -27,10 +27,10 @@ class Onboard extends EditRecord
 
     protected function authorizeAccess(): void
     {
-        if (! $this->getRecord()?->isNurse()) {
-            redirect()->to(Dashboard::getUrl());
+        $record = $this->getRecord();
 
-            return;
+        if (! $record?->isNurseOrMediator()) {
+            redirect()->to(Dashboard::getUrl());
         }
     }
 
