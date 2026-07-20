@@ -28,6 +28,11 @@ class C31 extends ReportQuery
         return 'community_activities.created_at';
     }
 
+    public static function aggregateByColumn(): string
+    {
+        return 'community_activities.id';
+    }
+
     public static function includeLatestBeforeRange(): bool
     {
         return false;
