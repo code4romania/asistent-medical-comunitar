@@ -8,3 +8,6 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::command(FlushFailedCommand::class)
     ->onOneServer()
     ->daily();
+
+Schedule::command('horizon:snapshot')
+    ->everyFiveMinutes();

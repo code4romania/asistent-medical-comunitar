@@ -6,6 +6,7 @@ USER root
 # Install additional PHP extensions
 RUN set -ex; \
     install-php-extensions \
+    redis \
     sockets
 
 # Drop back to our unprivileged user
@@ -49,6 +50,5 @@ RUN echo "$VERSION (${REVISION:0:7})" > /var/www/html/.version
 
 COPY --from=assets --chown=www-data:www-data /build/public/build /var/www/html/public/build
 
-ENV QUEUE_ENABLED=true
 
 ENV PHP_PM_MAX_CHILDREN=64
