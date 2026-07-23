@@ -14,6 +14,9 @@ use App\Models\Disability;
 use App\Models\Disease;
 use App\Models\Document;
 use App\Models\Family;
+use App\Models\Feedback;
+use App\Models\FeedbackCategory;
+use App\Models\FeedbackSubcategory;
 use App\Models\Household;
 use App\Models\Intervention;
 use App\Models\Intervention\InterventionableCase;
@@ -109,6 +112,9 @@ class AppServiceProvider extends ServiceProvider
             'disease' => Disease::class,
             'document' => Document::class,
             'family' => Family::class,
+            'feedback' => Feedback::class,
+            'feedback_category' => FeedbackCategory::class,
+            'feedback_subcategory' => FeedbackSubcategory::class,
             'household' => Household::class,
             'individual_service' => InterventionableIndividualService::class,
             'intervention' => Intervention::class,
