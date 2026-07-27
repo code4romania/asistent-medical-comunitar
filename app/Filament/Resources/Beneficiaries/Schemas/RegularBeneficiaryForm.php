@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
+use alcea\cnp\Cnp;
 use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\ReasonRemoved;
@@ -167,6 +168,14 @@ class RegularBeneficiaryForm
                                                 return ! $get('has_unknown_identity')
                                                     && ! $get('does_not_have_cnp')
                                                     && ! $get('does_not_provide_cnp');
+                                            })
+                                            ->lazy()
+                                            ->afterStateUpdated(function (?string $state, Set $set): void {
+                                                $cnp = new Cnp($state);
+
+                                                if ($cnp->isValid()) {
+                                                    $set('date_of_birth', $cnp->getBirthDateFromCNP());
+                                                }
                                             }),
 
                                         Checkbox::make('does_not_have_cnp')
