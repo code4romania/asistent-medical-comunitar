@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
+use alcea\cnp\Cnp;
 use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
@@ -89,6 +90,14 @@ class OcasionalBeneficiaryForm
                                                         return ! $get('has_unknown_identity')
                                                             && ! $get('does_not_have_cnp')
                                                             && ! $get('does_not_provide_cnp');
+                                                    })
+                                                    ->lazy()
+                                                    ->afterStateUpdated(function (?string $state, Set $set): void {
+                                                        $cnp = new Cnp($state);
+
+                                                        if ($cnp->isValid()) {
+                                                            $set('date_of_birth', $cnp->getBirthDateFromCNP());
+                                                        }
                                                     }),
 
                                                 Checkbox::make('does_not_have_cnp')
