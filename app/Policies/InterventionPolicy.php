@@ -46,7 +46,15 @@ class InterventionPolicy
             return false;
         }
 
-        return $this->view($user, $intervention);
+        if (! $this->view($user, $intervention)) {
+            return false;
+        }
+
+        return $intervention->beneficiary
+            ->catagraphy
+            ->all_vulnerabilities_items
+            ->pluck('value')
+            ->contains($intervention->vulnerability_id);
     }
 
     /**
@@ -54,7 +62,11 @@ class InterventionPolicy
      */
     public function delete(User $user, Intervention $intervention): bool
     {
-        return $this->update($user, $intervention);
+        if (! $intervention->isOpen()) {
+            return false;
+        }
+
+        return $this->view($user, $intervention);
     }
 
     /**
