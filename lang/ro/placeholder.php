@@ -40,6 +40,7 @@ return [
     'no_segmentation_city' => 'Fără segmentare pe localitate',
     'no_segmentation_county' => 'Fără segmentare pe județ',
     'no_segmentation_gender' => 'Fără segmentare pe sex',
+    'non_standard_cnp' => 'Introdu CNP-ul non-standard',
     'organizer' => 'Introdu organizatorul',
     'participants' => 'Introdu număr beneficiari',
     'phone' => 'Număr de telefon',
