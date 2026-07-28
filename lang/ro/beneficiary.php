@@ -78,7 +78,7 @@ return [
         'active_interventions' => 'Intervenții active',
         'documents' => 'Arhivă documente',
         'catagraphy' => 'Catagrafie',
-        'program' => 'Program AMC',
+        'program' => 'Detalii gestionare beneficiar',
     ],
 
     'action_convert' => [
