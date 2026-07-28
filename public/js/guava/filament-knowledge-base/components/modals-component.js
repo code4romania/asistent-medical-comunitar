@@ -1,0 +1,1 @@
+function a(){return{init:async function(){this.hashChanged(),window.addEventListener("hashchange",()=>this.hashChanged())},hashChanged:function(){let n=location.hash.substring(1),t="modal-";if(n.startsWith(t)){let s=n.substring(n.indexOf(t)+t.length);this.$wire.showDocumentation(s),history.replaceState(null,null," ")}}}}export{a as default};
