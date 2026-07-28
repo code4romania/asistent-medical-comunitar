@@ -55,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn () => view('components.brand'))
             ->brandLogoHeight('3rem')
             ->topNavigation()
+            ->unsavedChangesAlerts()
             ->globalSearch(false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
