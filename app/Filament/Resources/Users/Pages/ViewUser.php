@@ -29,4 +29,9 @@ class ViewUser extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }

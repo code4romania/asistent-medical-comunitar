@@ -71,4 +71,9 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
     {
         return $this->getRecord()->full_name;
     }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }
