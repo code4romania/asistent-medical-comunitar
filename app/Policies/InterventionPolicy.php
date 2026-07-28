@@ -42,6 +42,10 @@ class InterventionPolicy
      */
     public function update(User $user, Intervention $intervention): bool
     {
+        if (filled($intervention->parent_id)) {
+            return $this->update($user, $intervention->parent);
+        }
+
         if (! $intervention->isOpen()) {
             return false;
         }
@@ -62,6 +66,10 @@ class InterventionPolicy
      */
     public function delete(User $user, Intervention $intervention): bool
     {
+        if (filled($intervention->parent_id)) {
+            return $this->update($user, $intervention->parent);
+        }
+
         if (! $intervention->isOpen()) {
             return false;
         }
