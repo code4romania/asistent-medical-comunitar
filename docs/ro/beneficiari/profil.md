@@ -1,35 +1,61 @@
 ---
 title: Profilul unui beneficiar
 icon: heroicon-o-identification
-order: 63
+order: 54
 ---
 
-Informația despre un beneficiar și toată activitatea ta în raport cu un beneficiar se gestionează din profilul acestuia. În pagina “Overview” din meniu se află sumarul informațiilor despre beneficiar. Un beneficiar nou înregistrat nu va avea nimic afișat în partea dreaptă a ecranului în secțiunea “Intervenții active” până nu va fi deschisă o intervenție pentru acesta.
+Informația despre un beneficiar și toată activitatea ta în raport cu un beneficiar se gestionează din profilul acestuia.
 
-![Pagina Overview din profilul unui beneficiar](resources/images/help/image5.png){.w-full}
+## Overview
 
-## Secțiunea “Date personale”
+Aici se află sumarul informațiilor despre beneficiar. Un beneficiar nou înregistrat nu va avea nimic afișat în partea dreaptă a ecranului în secțiunea „Intervenții active” până nu va fi catagrafiat, apoi deschisă o intervenție pentru acesta.
 
-**Secțiunea “Date personale”** conține informațiile de identificare ale beneficiarului precum și date de tipul din ce gospodărie face parte, dacă este cazul, din ce familie face parte dacă este cazul și date de contact. Pentru a edita această secțiune apasă butonul “Editează” din dreapta sus.
+![Pagina Overview din profilul unui beneficiar](resources/images/help/beneficiar-overview.png){.w-full}
 
-## Secțiunea “Catagrafie”
+## Date personale
 
-**Secțiunea “Catagrafie”** conține catagrafia beneficiarului. Dacă este un beneficiar nou, această secțiune nu va afișa informații. Dacă beneficiarul a fost catagrafiat cel puțin o dată aici vor fi afișate vulnerabilitățile identificate prin catagrafie.
+Conține informațiile de identificare ale beneficiarului, precum și date privind gospodăria și familia din care face parte, dacă este cazul, împreună cu datele de contact. De asemenea, din această secțiune se gestionează acordarea accesului la dosarul beneficiarului pentru un Mediator Sanitar sau un Asistent Medical Comunitar, după caz.
 
-Această secțiune este detaliată în pagina [Catagrafie](/manual/beneficiari/catagrafie).
+Pentru a edita această secțiune apasă **butonul „Editează”**.
 
-## Secțiunea “Intervenții”
+![Secțiunea Date personale din profilul unui beneficiar](resources/images/help/beneficiar-date-personale.png){.w-full}
 
-**Secțiunea “Intervenții”** conține lista tuturor intervențiilor asupra unui beneficiar. Intervențiile se referă atât la servicii individuale oferite unui beneficiar cât și la un grup de servicii grupate în interiorul unui caz.
+## Gestionarea accesului la dosarul beneficiarului
 
-Această secțiune este detaliată în pagina [Intervenții](/manual/beneficiari/interventii).
+Accesul la dosarul unui beneficiar poate fi acordat unui utilizator din cealaltă categorie profesională (Mediator Sanitar sau Asistent Medical Comunitar), atunci când cei doi colaborează în gestionarea aceluiași beneficiar.
 
-## Secțiunea “Arhiva de documente”
+### Pentru utilizatorii de tip Asistent Medical Comunitar (AMC)
 
-**Secțiunea “Arhiva de documente”** conține lista documentelor încărcate în sistem în relație cu un beneficiar. Documentele sunt listate tabelar, în ordine invers cronologică și pot fi vizualizate sau descărcate din sistem, dacă este cazul. Pentru a vizualiza un document apăsați iconița cu simbolul “ochi” din dreptul documentului.
+Un Asistent Medical Comunitar poate acorda acces la dosarul beneficiarului unui Mediator Sanitar, dacă lucrează împreună pentru același beneficiar.
 
-![Arhiva de documente a unui beneficiar](resources/images/help/image10.png){.w-full}
+Pentru acordarea accesului:
 
-## Secțiunea “Istoric modificări”
+1. Faceți click pe butonul Editează.
+2. În câmpul Mediator sanitar alocat, selectați mediatorul sanitar căruia doriți să îi acordați acces.
+3. Puteți selecta doar mediatori sanitari din județul aferent ariei dumneavoastră de acoperire.
+4. Pentru identificarea rapidă a utilizatorului, utilizați funcția de căutare.
 
-**Secțiunea “Istoric modificări”** conține lista tuturor modificărilor aduse profilului beneficiarului de către orice user care are acces la acesta, precum și modificările automate pe care le aduce sistemul asupra unui beneficiar.
+Important:
+
+- După salvare, utilizatorul adăugat nu mai poate fi modificat sau eliminat.
+- Mediatorul sanitar va avea acces la întregul dosar al beneficiarului, cu excepția intervențiilor la care nu a fost adăugat de către Asistentul Medical Comunitar.
+
+![Alocarea unui mediator sanitar de către un asistent medical comunitar](resources/images/help/acces-dosar-amc.png){.w-full}
+
+### Pentru utilizatorii de tip Mediator Sanitar
+
+Un Mediator Sanitar poate acorda acces la dosarul beneficiarului unui Asistent Medical Comunitar, dacă lucrează împreună pentru același beneficiar.
+
+Pentru acordarea accesului:
+
+1. Faceți clic pe butonul Editează.
+2. În câmpul AMC alocat, selectați asistentul medical comunitar căruia doriți să îi acordați acces.
+3. Puteți selecta doar asistenți medicali comunitari din județul aferent ariei dumneavoastră de acoperire.
+4. Pentru identificarea rapidă a utilizatorului, utilizați funcția de căutare.
+
+Important:
+
+- După salvare, utilizatorul adăugat nu mai poate fi modificat sau eliminat.
+- Asistentul Medical Comunitar va avea acces la întregul dosar al beneficiarului, inclusiv la toate intervențiile asociate beneficiarului, indiferent dacă a fost sau nu adăugat la acestea.
+
+![Alocarea unui asistent medical comunitar de către un mediator sanitar](resources/images/help/acces-dosar-msr.png){.w-full}

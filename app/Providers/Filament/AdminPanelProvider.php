@@ -67,7 +67,10 @@ class AdminPanelProvider extends PanelProvider
             ->navigationItems([
                 NavigationItem::make('Manual')
                     ->url('/manual')
-                    ->sort(9999),
+                    ->sort(9999)
+                    ->extraAttributes([
+                        'class' => 'hidden lg:flex',
+                    ]),
             ])
             ->userMenuItems([
                 Action::make('nurse_profile')
@@ -92,6 +95,7 @@ class AdminPanelProvider extends PanelProvider
                     ->url(fn () => FeedbackResource::getUrl('index'))
                     ->icon(Heroicon::Flag)
                     ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->plugins([

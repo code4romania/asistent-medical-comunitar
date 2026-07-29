@@ -1,7 +1,9 @@
 ---
 title: Arhitectura informațională
 icon: heroicon-o-squares-2x2
-order: 3
+order: 2
 ---
 
-Arhitectura informațională a aplicației este divizată în câteva module umbrelă: Beneficiari, Activități Comunitare, Rapoarte, Setări de profil.
+Platforma cuprinde 6 module umbrelă, principale: Acasă, Beneficiari, Activități Comunitare, Programări, Rapoarte, Setări de profil.
+
+Aplicația AMC-MSR are multiple niveluri de navigație, detaliate în paginile următoare.

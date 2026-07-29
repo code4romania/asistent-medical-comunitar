@@ -44,7 +44,9 @@ class ManualPanelProvider extends PanelProvider
                 //
             ])
             ->plugins([
-                KnowledgeBasePlugin::make(base_path('docs')),
+                KnowledgeBasePlugin::make(base_path('docs'))
+                    ->articleClass('max-w-3xl')
+                    ->anchorSymbol('¶'),
             ])
             ->middleware([
                 EncryptCookies::class,
