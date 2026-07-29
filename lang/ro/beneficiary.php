@@ -87,6 +87,7 @@ return [
         'text_line_2' => 'Doriți să modificați tipul beneficiarului în beneficiar propriu?',
         'action' => 'Modifică tipul beneficiarului',
         'success' => 'Beneficiarul a fost modificat în beneficiar propriu',
+        'disabled_tooltip' => 'Beneficiarii ocazionali cu identitate necunoscută nu pot fi transformați în beneficiari proprii.',
     ],
 
     'action_convert_confirm' => [
