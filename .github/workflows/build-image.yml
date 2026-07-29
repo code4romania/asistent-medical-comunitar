@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 212-manual # TODO: remove when done
     tags:
       - v*
 
