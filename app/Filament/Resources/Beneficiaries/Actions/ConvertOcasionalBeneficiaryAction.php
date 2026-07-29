@@ -27,7 +27,15 @@ class ConvertOcasionalBeneficiaryAction extends Action
     {
         parent::setUp();
 
-        $this->visible(fn (Beneficiary $record) => $record->isOcasional());
+        $this->visible(fn (Beneficiary $record): bool => $record->isOcasional());
+
+        $this->disabled(fn (Beneficiary $record): bool => blank($record->full_name));
+
+        $this->tooltip(
+            fn (Beneficiary $record): ?string => blank($record->full_name)
+                ? __('beneficiary.action_convert.disabled_tooltip')
+                : null
+        );
 
         $this->label(__('beneficiary.action_convert.action'));
 
