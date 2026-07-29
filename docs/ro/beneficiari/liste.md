@@ -58,7 +58,7 @@ Aceasta este lista tuturor gospodăriilor din care fac parte beneficiarii înreg
 
 **Gospodăriile**, respectiv **Familiile** sunt create de către asistentul medical comunitar/mediatorul sanitar în aplicație pe baza propriilor evaluări. Pentru a vizualiza toți beneficiarii și toate familiile dintr-o gospodărie, faceți clic pe pictograma **vizualizare** (ochi) din dreptul gospodăriei, în tabel.
 
-![Detaliile unei gospodării](resources/images/help/gospodarie-detalii.png){.w-full}
+![Detaliile unei gospodării](resources/images/help/gospodarie-detalii.png)
 
 ### Crearea unei Gospodării/Familii
 
@@ -69,7 +69,7 @@ Aceasta este lista tuturor gospodăriilor din care fac parte beneficiarii înreg
 - Repetați procesul dacă în acea gospodărie există mai multe familii.
 - Dați click pe butonul **„Adaugă”** pentru a salva.
 
-![Formularul de adăugare a unei gospodării](resources/images/help/gospodarie-adaugare.png){.w-full}
+![Formularul de adăugare a unei gospodării](resources/images/help/gospodarie-adaugare.png)
 
 ### Adăugarea unui beneficiar într-o Gospodărie/Familie deja existentă
 

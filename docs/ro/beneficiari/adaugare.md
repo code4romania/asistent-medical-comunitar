@@ -6,7 +6,7 @@ order: 53
 
 Pentru a adăuga un beneficiar în sistem, mergeți în **secțiunea „Beneficiari”** din meniul principal și apăsați pe butonul din dreapta sus **„Adaugă beneficiar”**.
 
-![Butonul Adaugă beneficiar](resources/images/help/beneficiar-adaugare-buton.png){.w-full}
+![Butonul Adaugă beneficiar](resources/images/help/beneficiar-adaugare-buton.png)
 
 Primul pas din adăugarea unui beneficiar în sistem este completarea unor informații de bază despre acesta:
 
@@ -15,6 +15,6 @@ Primul pas din adăugarea unui beneficiar în sistem este completarea unor infor
 3. Pentru a finaliza procesul apasă pe „Creare”. Dacă vrei să anulezi procesul, apasă pe „Anulare”
 4. Odată ce a fost creat, beneficiarul primește statusul de „Beneficiar înregistrat” și i se generează automat un profil.
 
-![Formularul de adăugare a unui beneficiar - date personale](resources/images/help/beneficiar-formular-adaugare.png){.w-full}
+![Formularul de adăugare a unui beneficiar - date personale](resources/images/help/beneficiar-formular-adaugare.png)
 
-![Formularul de adăugare a unui beneficiar - gospodărie, adresă și observații](resources/images/help/beneficiar-formular-adaugare-2.png){.w-full}
+![Formularul de adăugare a unui beneficiar - gospodărie, adresă și observații](resources/images/help/beneficiar-formular-adaugare-2.png)

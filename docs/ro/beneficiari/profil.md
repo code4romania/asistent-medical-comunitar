@@ -10,7 +10,7 @@ Informația despre un beneficiar și toată activitatea ta în raport cu un bene
 
 Aici se află sumarul informațiilor despre beneficiar. Un beneficiar nou înregistrat nu va avea nimic afișat în partea dreaptă a ecranului în secțiunea „Intervenții active” până nu va fi catagrafiat, apoi deschisă o intervenție pentru acesta.
 
-![Pagina Overview din profilul unui beneficiar](resources/images/help/beneficiar-overview.png){.w-full}
+![Pagina Overview din profilul unui beneficiar](resources/images/help/beneficiar-overview.png)
 
 ## Date personale
 
@@ -18,7 +18,7 @@ Conține informațiile de identificare ale beneficiarului, precum și date privi
 
 Pentru a edita această secțiune apasă **butonul „Editează”**.
 
-![Secțiunea Date personale din profilul unui beneficiar](resources/images/help/beneficiar-date-personale.png){.w-full}
+![Secțiunea Date personale din profilul unui beneficiar](resources/images/help/beneficiar-date-personale.png)
 
 ## Gestionarea accesului la dosarul beneficiarului
 
@@ -40,7 +40,7 @@ Important:
 - După salvare, utilizatorul adăugat nu mai poate fi modificat sau eliminat.
 - Mediatorul sanitar va avea acces la întregul dosar al beneficiarului, cu excepția intervențiilor la care nu a fost adăugat de către Asistentul Medical Comunitar.
 
-![Alocarea unui mediator sanitar de către un asistent medical comunitar](resources/images/help/acces-dosar-amc.png){.w-full}
+![Alocarea unui mediator sanitar de către un asistent medical comunitar](resources/images/help/acces-dosar-amc.png)
 
 ### Pentru utilizatorii de tip Mediator Sanitar
 
@@ -58,4 +58,4 @@ Important:
 - După salvare, utilizatorul adăugat nu mai poate fi modificat sau eliminat.
 - Asistentul Medical Comunitar va avea acces la întregul dosar al beneficiarului, inclusiv la toate intervențiile asociate beneficiarului, indiferent dacă a fost sau nu adăugat la acestea.
 
-![Alocarea unui asistent medical comunitar de către un mediator sanitar](resources/images/help/acces-dosar-msr.png){.w-full}
+![Alocarea unui asistent medical comunitar de către un mediator sanitar](resources/images/help/acces-dosar-msr.png)

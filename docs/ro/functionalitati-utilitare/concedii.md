@@ -6,7 +6,7 @@ order: 43
 
 Secțiunea **Concedii** se regăsește în meniul utilitar aflat în colțul din dreapta, sus, al ecranului, în dreapta meniului principal. În această secțiune vă veți putea înregistra concediile, pentru a fi disponibile coordonatorului județean.
 
-![Lista concediilor înregistrate](resources/images/help/concedii-lista.png){.w-full}
+![Lista concediilor înregistrate](resources/images/help/concedii-lista.png)
 
 ## Adăugare concediu
 

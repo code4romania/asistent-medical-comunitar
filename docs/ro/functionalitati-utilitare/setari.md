@@ -14,7 +14,7 @@ Pentru a schimba emailul pe care este realizat contul de utilizator:
 - Modificați valoarea din câmp cu emailul dorit
 - Pentru a salva modificarea făcută, dați click pe **butonul „Salvare”** din colțul din dreapta, jos, al secțiunii
 
-![Secțiunea Informații personale din Setări](resources/images/help/setari-schimbare-email.png){.w-full}
+![Secțiunea Informații personale din Setări](resources/images/help/setari-schimbare-email.png)
 
 ## Schimbarea parolei
 
@@ -26,7 +26,7 @@ Pentru a seta o nouă parolă:
 - Introduceți noua parolă dorită în **câmpul „Parola nouă”** și reintroduceți aceeași parolă în **câmpul „Confirmare parola nouă”**
 - Pentru a salva noua parolă, dați click pe **butonul „Salvare”** din colțul din dreapta, jos, al secțiunii
 
-![Secțiunea Parola din Setări](resources/images/help/setari-schimbare-parola.png){.w-full}
+![Secțiunea Parola din Setări](resources/images/help/setari-schimbare-parola.png)
 
 ## Activarea autentificării în 2 pași
 

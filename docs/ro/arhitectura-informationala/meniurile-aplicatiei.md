@@ -4,13 +4,15 @@ icon: heroicon-o-bars-3
 order: 21
 ---
 
+Aplicația AMC are multiple niveluri de navigație:
+
 ## Meniul principal
 
 Acest meniu ajută la navigarea printre modulele principale ale aplicației. Oriunde te-ai afla în interiorul aplicației, acest meniu te ajută să revii la pagina principală a fiecărui modul.
 
 În extrema dreaptă a meniului principal se află un meniu utilitar, care te ajută să ajungi la setările contului tău din aplicație precum și la opțiunea de Delogare din sistem.
 
-![Meniul principal al aplicației](resources/images/help/meniu-principal.png){.w-full}
+![Meniul principal al aplicației](resources/images/help/meniu-principal.png)
 
 ## Meniul secundar
 
@@ -24,7 +26,7 @@ Odată ce ai ajuns pe profilul unui beneficiar vei putea să utilizezi meniul se
 5. **Arhiva de documente** - unde se află toate documentele încărcate în dosarul beneficiarului.
 6. **Istoric modificări** - unde sunt stocate toate modificările aduse profilului acestui beneficiar de oricare dintre utilizatorii care au acces la acest profil.
 
-![Meniul secundar din profilul unui beneficiar](resources/images/help/meniu-secundar.png){.max-w-xs}
+![Meniul secundar din profilul unui beneficiar](resources/images/help/meniu-secundar.png){.max-w-[256px].float-right}
 
 ## Meniurile terțiare
 
@@ -37,18 +39,18 @@ Cel mai des utilizat meniu terțiar pe care îl vei folosi este **meniul terția
 3. **Beneficiari ocazionali:** unde se află lista tuturor beneficiarilor ocazionali care nu sunt monitorizați constant.
 4. **Gospodării:** unde se află lista tuturor gospodăriilor din care fac parte beneficiarii înregistrați în aplicație. Această listă poate fi filtrată după Gospodărie sau după Familie.
 
-![Meniul terțiar din secțiunea Beneficiari](resources/images/help/meniu-tertiar-beneficiari.png){.w-full}
+![Meniul terțiar din secțiunea Beneficiari](resources/images/help/meniu-tertiar-beneficiari.png)
 
 Un alt **meniu terțiar se află în secțiunea dedicată Activităților Comunitare** unde cele 2 tab-uri te ajută să navighezi între diferite categorii de activități:
 
 1. **Campanii sănătate:** unde vei vedea campaniile de sănătate trecute, în derulare sau viitoare la care poți înscrie listele de beneficiari care au participat.
 2. **Activități administrative:** unde poți marca în sistem activități derulate în timpul programului sau în afara lui, care nu țin de beneficiari, dar sunt direct conectate cu activitatea ta ca asistent medical comunitar/mediator sanitar (operarea platformei AMC-MSR, participarea la cursuri, înregistrarea concediilor etc.).
 
-![Meniul terțiar din secțiunea Activități comunitare](resources/images/help/meniu-tertiar-activitati-comunitare.png){.w-full}
+![Meniul terțiar din secțiunea Activități comunitare](resources/images/help/meniu-tertiar-activitati-comunitare.png)
 
 Un alt **meniu terțiar se află în secțiunea Programări** unde cele 2 tab-uri te ajută să navighezi între cele două modalități de vizualizare a programărilor:
 
 1. **Calendar:** unde poți vizualiza pe un calendar lunar sau săptămânal programările create.
 2. **Listă:** unde poți vizualiza sub formă tabelară programările create.
 
-![Meniul terțiar din secțiunea Programări](resources/images/help/meniu-tertiar-programari.png){.w-full}
+![Meniul terțiar din secțiunea Programări](resources/images/help/meniu-tertiar-programari.png)

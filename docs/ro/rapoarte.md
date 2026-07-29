@@ -6,7 +6,7 @@ order: 8
 
 Secțiunea **Rapoarte** poate fi accesată din meniul principal și este organizată în două secțiuni. În partea superioară a ecranului se configurează raportul dorit, iar în partea inferioară se regăsește lista rapoartelor generate.
 
-![Secțiunea Rapoarte](resources/images/help/rapoarte-generator.png){.w-full}
+![Un raport generat](resources/images/help/raport-generat.png)
 
 ## Generator rapoarte
 
@@ -69,4 +69,4 @@ După configurarea tuturor criteriilor, apăsați butonul **„Generează raport
 
 În partea inferioară a paginii este afișat tabelul **Toate rapoartele**, care conține istoricul rapoartelor generate. Din această secțiune puteți vizualiza rapoartele generate anterior și le puteți descărca în format .xlsx.
 
-![Un raport generat](resources/images/help/raport-generat.png){.w-full}
+![Secțiunea Rapoarte](resources/images/help/rapoarte-generator.png)

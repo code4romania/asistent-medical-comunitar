@@ -13,4 +13,4 @@ Profilul tău conține 4 secțiuni principale:
 3. **Angajatori** - unde vei avea lista tuturor structurilor angajatoare în cadrul cărora ai lucrat ca asistent medical comunitar.
 4. **Arie acoperită** - aria în care se află beneficiarii pe care îi deservești.
 
-![Secțiunile profilului de utilizator](resources/images/help/profil-sectiuni.png){.w-full}
+![Secțiunile profilului de utilizator](resources/images/help/profil-sectiuni.png)

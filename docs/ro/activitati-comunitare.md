@@ -13,4 +13,4 @@ Activitățile comunitare sunt acțiuni de sănătate publică sau activități 
 - Pentru a salva activitatea apasă **butonul „Adaugă”**, pentru a renunța apasă butonul „Anulează”.
 - Pentru fiecare activitate comunitară **veți putea adăuga Mediatorul sanitar/Asistentul medical comunitar** (după caz) împreună cu care a fost realizată activitatea. Odată asociată, aceasta va apărea și în evidența celui adăugat, fără a fi nevoie de înregistrarea separată a activității de ambii utilizatori.
 
-![Formularul de adăugare a unei activități comunitare](resources/images/help/activitate-comunitara-adaugare.png){.w-full}
+![Formularul de adăugare a unei activități comunitare](resources/images/help/activitate-comunitara-adaugare.png)
