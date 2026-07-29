@@ -9,9 +9,12 @@
 @source '../../vendor/saade/filament-fullcalendar/resources/views';
 @source '../../vendor/jeffgreco13/filament-breezy/resources';
 @source '../../vendor/malzariey/filament-daterangepicker-filter/resources';
+@source '../../vendor/guava/filament-knowledge-base/src';
+@source '../../vendor/guava/filament-knowledge-base/resources/views';
 @source '../../resources/views';
 @source '../../app/Filament';
 @source '../../app';
+@source '../../docs';
 
 
 @layer components {
