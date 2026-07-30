@@ -45,9 +45,13 @@ class BeneficiaryResource extends Resource
         return $record?->getAttribute(static::getRecordTitleAttribute()) ?? __('field.has_unknown_identity');
     }
 
-    public static function getRecordTitleWithId(?Model $record): string
+    public static function getRecordTitleWithId(Model $record): string
     {
-        return "#{$record?->getKey()} " . static::getRecordTitle($record);
+        return \sprintf(
+            '#%d - %s',
+            $record->id,
+            static::getRecordTitle($record)
+        );
     }
 
     public static function table(Table $table): Table
