@@ -92,7 +92,9 @@ class RegularBeneficiaryInfolist
                                     ->label(__('field.last_name')),
 
                                 TextEntry::make('cnp_with_fallback')
-                                    ->label(__('field.cnp')),
+                                    ->label(fn (Beneficiary $record) => $record->has_non_standard_cnp
+                                        ? __('field.non_standard_cnp')
+                                        : __('field.cnp')),
 
                                 TextEntry::make('id_type')
                                     ->label(__('field.id_type')),
