@@ -17,7 +17,9 @@ class EditBeneficiary extends EditRecord
 
     public function getHeading(): string
     {
-        return __('beneficiary.header.edit') . ' ' . BeneficiaryResource::getRecordTitleWithId($this->getRecord());
+        return __('filament-panels::resources/pages/edit-record.title', [
+            'label' => BeneficiaryResource::getRecordTitleWithId($this->getRecord()),
+        ]);
     }
 
     public function form(Schema $schema): Schema

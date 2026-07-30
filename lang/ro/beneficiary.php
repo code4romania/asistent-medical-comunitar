@@ -13,7 +13,6 @@ return [
         'id' => 'Date identificare',
         'list' => 'Listă beneficiari',
         'create' => 'Adăugare beneficiar',
-        'edit' => 'Editare',
     ],
 
     'status' => [
