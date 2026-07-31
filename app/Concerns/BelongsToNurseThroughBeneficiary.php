@@ -36,14 +36,26 @@ trait BelongsToNurseThroughBeneficiary
 
     public function scopeForNurse(Builder $query, User $user): Builder
     {
-        return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
+        return $query->whereHas(
+            'beneficiary',
+            fn (Builder $query): Builder => $query
+                // The parent row is already nurse-scoped
+                ->withoutGlobalScope('forCurrentUser')
+                ->where('nurse_id', $user->id)
+        );
     }
 
     public function scopeForMediator(Builder $query, User $user): Builder
     {
         return $query->where(
             fn (Builder $query): Builder => $query
-                ->whereRelation('beneficiary', 'mediator_id', $user->id)
+                ->whereHas(
+                    'beneficiary',
+                    fn (Builder $query): Builder => $query
+                        // The parent row is already nurse-scoped
+                        ->withoutGlobalScope('forCurrentUser')
+                        ->where('mediator_id', $user->id)
+                )
                 ->when(
                     $this->isFillable('mediator_has_access'),
                     fn (Builder $query): Builder => $query->where('mediator_has_access', true)
@@ -53,10 +65,15 @@ trait BelongsToNurseThroughBeneficiary
 
     public function scopeForCoordinator(Builder $query, User $user): Builder
     {
-        return $query->where(
+        return $query->whereHas(
+            'beneficiary',
             fn (Builder $query): Builder => $query
-                ->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id)
-                ->orWhereRelation('beneficiary.mediator', 'activity_county_id', $user->county_id)
+                ->withoutGlobalScope('forCurrentUser')
+                ->where(
+                    fn (Builder $query): Builder => $query
+                        ->whereRelation('nurse', 'activity_county_id', $user->county_id)
+                        ->orWhereRelation('mediator', 'activity_county_id', $user->county_id)
+                )
         );
     }
 }
