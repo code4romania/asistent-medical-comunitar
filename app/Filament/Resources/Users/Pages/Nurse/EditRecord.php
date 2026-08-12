@@ -21,7 +21,7 @@ abstract class EditRecord extends BaseEditRecord implements WithTabs
     {
         parent::authorizeAccess();
 
-        abort_unless($this->getRecord()->isNurse(), 403);
+        abort_unless($this->getRecord()->isNurseOrMediator(), 403);
     }
 
     public function getTitle(): string

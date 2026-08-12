@@ -28,7 +28,7 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
     {
         parent::authorizeAccess();
 
-        abort_unless($this->getRecord()->isNurse(), 403);
+        abort_unless($this->getRecord()->isNurseOrMediator(), 403);
     }
 
     public function mount(int | string $record): void
