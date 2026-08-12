@@ -14300,16 +14300,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.22.0",
+            "version": "v5.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "571b08633d86086da3899474378050b16c4c6680"
+                "reference": "67edf6caba0f6f9421a92c38bf97e369af268a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/571b08633d86086da3899474378050b16c4c6680",
-                "reference": "571b08633d86086da3899474378050b16c4c6680",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/67edf6caba0f6f9421a92c38bf97e369af268a56",
+                "reference": "67edf6caba0f6f9421a92c38bf97e369af268a56",
                 "shasum": ""
             },
             "require": {
@@ -14363,9 +14363,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v5.22.0"
+                "source": "https://github.com/laravel/telescope/tree/v5.22.1"
             },
-            "time": "2026-07-29T14:10:20+00:00"
+            "time": "2026-08-05T13:51:24+00:00"
         },
         {
             "name": "myclabs/deep-copy",
