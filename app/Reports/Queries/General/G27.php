@@ -74,6 +74,7 @@ class G27 extends ReportQuery
                 'interventions.beneficiary_id',
                 'interventionable_id',
                 'interventionable_type',
+                'interventions.vulnerability_id',
                 'vulnerability_label',
             ])
             ->withCasts([
