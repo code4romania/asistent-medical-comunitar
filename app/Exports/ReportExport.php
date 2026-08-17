@@ -9,10 +9,11 @@ use App\Exports\Sheets\ReportCoverSheet;
 use App\Exports\Sheets\ReportListSheet;
 use App\Exports\Sheets\ReportStatisticSheet;
 use App\Models\Report;
+use Maatwebsite\Excel\Concerns\Export;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class ReportExport implements WithMultipleSheets
+class ReportExport implements WithMultipleSheets, Export
 {
     use Exportable;
 
@@ -31,7 +32,7 @@ class ReportExport implements WithMultipleSheets
         };
 
         return $this->report->data
-            ->map(fn (array $table) => new $sheet($table))
+            ->map(fn (array $table): Export => new $sheet($table))
             ->prepend(new ReportCoverSheet($this->report))
             ->all();
     }

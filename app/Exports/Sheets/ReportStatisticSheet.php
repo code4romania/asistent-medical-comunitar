@@ -80,7 +80,7 @@ class ReportStatisticSheet implements FromCollection, ShouldAutoSize, WithHeadin
         );
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): array
     {
         $lastCol = Coordinate::stringFromColumnIndex($this->columns->count() + 1);
         $sheet->mergeCells("A1:{$lastCol}1");
