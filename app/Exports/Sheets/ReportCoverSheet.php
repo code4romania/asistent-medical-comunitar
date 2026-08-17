@@ -48,7 +48,7 @@ class ReportCoverSheet implements FromCollection, ShouldAutoSize, WithTitle, Wit
         ]);
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): array
     {
         return [
             'A' => [
