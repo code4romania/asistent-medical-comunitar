@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\Intervention\EditRestriction;
 use App\Models\Intervention;
 use App\Models\User;
 
@@ -39,14 +40,13 @@ class InterventionPolicy
 
     /**
      * Determine whether the user can update the model.
+     *
+     * The reasons an intervention stops being editable have on `EditRestriction`,
+     * so the intervention view page can explain the denial to the user.
      */
     public function update(User $user, Intervention $intervention): bool
     {
-        if (! $intervention->isOpen()) {
-            return false;
-        }
-
-        return $this->view($user, $intervention);
+        return blank(EditRestriction::resolve($intervention, $user));
     }
 
     /**
@@ -54,7 +54,15 @@ class InterventionPolicy
      */
     public function delete(User $user, Intervention $intervention): bool
     {
-        return $this->update($user, $intervention);
+        if (filled($intervention->parent_id)) {
+            return $this->update($user, $intervention->parent);
+        }
+
+        if (! $intervention->isOpen()) {
+            return false;
+        }
+
+        return $this->view($user, $intervention);
     }
 
     /**

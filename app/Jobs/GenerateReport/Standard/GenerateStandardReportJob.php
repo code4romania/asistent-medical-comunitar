@@ -57,15 +57,16 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        rescue(function () {
-            $this->generate();
+        $this->generate();
 
-            $this->report->status = Status::FINISHED;
-        }, function (Throwable $e) {
-            $this->report->status = Status::FAILED;
+        $this->report->status = Status::FINISHED;
 
-            $this->fail($e);
-        });
+        $this->report->save();
+    }
+
+    public function failed(?Throwable $exception): void
+    {
+        $this->report->status = Status::FAILED;
 
         $this->report->save();
     }

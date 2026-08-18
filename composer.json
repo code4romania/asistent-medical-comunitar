@@ -6,21 +6,22 @@
     "license": "MPL-2.0",
     "require": {
         "php": "^8.4.23",
-        "aedart/athenaeum-antivirus": "^10.15",
+        "aedart/athenaeum-antivirus": "^10.16",
         "alcea/cnp": "^3.0",
         "blade-ui-kit/blade-heroicons": "^2.7",
         "commitglobal/app-version": "^v1.1",
         "commitglobal/enum-utils": "^v1.1",
         "filament/filament": "^5.7",
         "filament/spatie-laravel-media-library-plugin": "^5.7",
+        "guava/filament-knowledge-base": "^3.3",
         "guzzlehttp/guzzle": "^7.12",
         "jeffgreco13/filament-breezy": "^3.2",
         "kalnoy/nestedset": "^7.0",
-        "laravel/framework": "^13.16",
+        "laravel/framework": "^13.23",
         "laravel/horizon": "^5.48",
         "laravel/sanctum": "^4.3",
         "laravel/tinker": "^3.0",
-        "maatwebsite/excel": "^3.1",
+        "maatwebsite/excel": "^4.0",
         "malzariey/filament-daterangepicker-filter": "^5.0",
         "saade/filament-fullcalendar": "^4.0",
         "sentry/sentry-laravel": "^4.27",
@@ -39,9 +40,9 @@
         "fruitcake/laravel-debugbar": "^4.4",
         "itsgoingd/clockwork": "^5.3",
         "larastan/larastan": "^3.10",
-        "laravel/boost": "^2.4",
-        "laravel/sail": "^1.64",
-        "laravel/telescope": "^5.21",
+        "laravel/boost": "^2.5",
+        "laravel/sail": "^1.66",
+        "laravel/telescope": "^5.22",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9",
         "pestphp/pest": "^4.7",
@@ -65,6 +66,9 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
+        ],
+        "post-install-cmd": [
+            "@php artisan filament:assets"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",

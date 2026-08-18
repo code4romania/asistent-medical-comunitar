@@ -7,5 +7,6 @@ return [
     App\Providers\HorizonServiceProvider::class,
     App\Providers\FilamentServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\Filament\ManualPanelProvider::class,
     Aedart\Antivirus\Providers\AntivirusServiceProvider::class,
 ];

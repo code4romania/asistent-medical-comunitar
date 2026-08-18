@@ -24,6 +24,11 @@ class ViewAppointment extends ViewRecord
         ]);
     }
 
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -33,7 +33,11 @@ class OpenCasesWidget extends TableWidget
                     ->onlyOpen()
                     ->withCount([
                         'appointments' => fn (Builder $query) => $query->countUnique(),
-                        'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
+                        'interventions as realized_interventions_count' => fn (Builder $query): Builder => $query
+                            // The parent row is already nurse-scoped, so the child count
+                            // doesn't need to re-derive the beneficiary→nurse `exists`.
+                            ->withoutGlobalScope('forCurrentUser')
+                            ->onlyRealized(),
                     ]);
             })
             ->heading(__('intervention.title.open_cases_widget'))

@@ -60,7 +60,7 @@ class ReportListSheet implements FromCollection, ShouldAutoSize, WithColumnForma
         );
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): array
     {
         $lastCol = Coordinate::stringFromColumnIndex($this->columns->count());
         $sheet->mergeCells("A1:{$lastCol}1");

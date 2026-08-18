@@ -68,6 +68,7 @@ class Beneficiary extends Model
 
         'does_not_have_cnp',
         'does_not_provide_cnp',
+        'has_non_standard_cnp',
     ];
 
     protected $casts = [
@@ -81,6 +82,7 @@ class Beneficiary extends Model
         'date_of_birth' => 'date',
         'does_not_have_cnp' => 'boolean',
         'does_not_provide_cnp' => 'boolean',
+        'has_non_standard_cnp' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions

@@ -45,6 +45,11 @@ class ViewBeneficiary extends ViewRecord
         return 'Overview';
     }
 
+    public function getHeading(): string
+    {
+        return BeneficiaryResource::getRecordTitleWithId($this->getRecord());
+    }
+
     protected function getHeaderActions(): array
     {
         if ($this->getRecord()->isRegular()) {

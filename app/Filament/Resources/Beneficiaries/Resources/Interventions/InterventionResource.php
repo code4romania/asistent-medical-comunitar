@@ -26,6 +26,8 @@ class InterventionResource extends Resource
 
     protected static ?string $parentResource = BeneficiaryResource::class;
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     public static function getModelLabel(): string
     {
         return __('intervention.label.singular');

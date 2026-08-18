@@ -59,7 +59,11 @@ class InterventionsTable
             ->filters([
                 SelectFilter::make('type')
                     ->label(__('field.type'))
-                    ->multiple(),
+                    ->attribute('interventionable_type')
+                    ->options([
+                        'case' => __('intervention.type.case'),
+                        'individual_service' => __('intervention.type.individual'),
+                    ]),
 
                 SelectFilter::make('status')
                     ->label(__('field.status'))
