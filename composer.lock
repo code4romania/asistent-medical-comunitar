@@ -8,23 +8,23 @@
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
-            "version": "10.16.0",
+            "version": "10.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-antivirus.git",
-                "reference": "7b0eb50dd00459a6db4b0069937140e6c108e7fc"
+                "reference": "8418787ca17e9fc66e3cebac00c59658b909645a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/7b0eb50dd00459a6db4b0069937140e6c108e7fc",
-                "reference": "7b0eb50dd00459a6db4b0069937140e6c108e7fc",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/8418787ca17e9fc66e3cebac00c59658b909645a",
+                "reference": "8418787ca17e9fc66e3cebac00c59658b909645a",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.16",
-                "aedart/athenaeum-streams": "^10.16",
-                "aedart/athenaeum-support": "^10.16",
-                "aedart/athenaeum-validation": "^10.16",
+                "aedart/athenaeum-contracts": "^10.16.1",
+                "aedart/athenaeum-streams": "^10.16.1",
+                "aedart/athenaeum-support": "^10.16.1",
+                "aedart/athenaeum-validation": "^10.16.1",
                 "ext-sockets": "*",
                 "illuminate/events": "^v13.25.0",
                 "php": "^8.4",
@@ -59,9 +59,9 @@
                 "clamav"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.16.0"
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.16.1"
             },
-            "time": "2026-08-14T09:43:40+00:00"
+            "time": "2026-08-17T07:16:50+00:00"
         },
         {
             "name": "aedart/athenaeum-contracts",
