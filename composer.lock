@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f1374b47c13793e7ce8493a75e13a56",
+    "content-hash": "4e3f0fc5ae36d3a2e19a9da2f2ac3483",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -5140,16 +5140,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.13",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "9cb54414cdcd2ec5ca292e7ba19dba3a3444885d"
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/9cb54414cdcd2ec5ca292e7ba19dba3a3444885d",
-                "reference": "9cb54414cdcd2ec5ca292e7ba19dba3a3444885d",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/967a801bd188989a5669bd280f252d51c0fdc9ee",
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee",
                 "shasum": ""
             },
             "require": {
@@ -5218,7 +5218,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2026-08-15T03:07:32+00:00"
+            "time": "2026-08-19T19:37:52+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8075,16 +8075,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.26.0",
+            "version": "3.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "4e0e0298276adb866818804981674dc27027ed79"
+                "reference": "ab5d537e813aa782ce59430107cfbef14427cb98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/4e0e0298276adb866818804981674dc27027ed79",
-                "reference": "4e0e0298276adb866818804981674dc27027ed79",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/ab5d537e813aa782ce59430107cfbef14427cb98",
+                "reference": "ab5d537e813aa782ce59430107cfbef14427cb98",
                 "shasum": ""
             },
             "require": {
@@ -8096,7 +8096,7 @@
             "require-dev": {
                 "mockery/mockery": "^1.6",
                 "orchestra/testbench": "^9.9|^10.0|^11.0",
-                "pestphp/pest": "^3.0|^4.0"
+                "pestphp/pest": "^4.0|^5.0"
             },
             "type": "library",
             "extra": {
@@ -8148,7 +8148,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.26.0"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.27.0"
             },
             "funding": [
                 {
@@ -8156,7 +8156,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-06-26T19:20:01+00:00"
+            "time": "2026-08-17T07:19:36+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
