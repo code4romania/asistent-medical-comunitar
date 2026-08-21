@@ -40,7 +40,7 @@
         "itsgoingd/clockwork": "^5.3",
         "larastan/larastan": "^3.10",
         "laravel/boost": "^2.5",
-        "laravel/sail": "^1.66",
+        "laravel/sail": "^1.67",
         "laravel/telescope": "^5.22",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9",
