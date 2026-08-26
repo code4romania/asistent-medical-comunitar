@@ -18,6 +18,7 @@ use Tpetry\QueryExpressions\Function\Aggregate\Count;
 use Tpetry\QueryExpressions\Function\Aggregate\Max;
 use Tpetry\QueryExpressions\Function\Aggregate\Min;
 use Tpetry\QueryExpressions\Function\Aggregate\Sum;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class ReportQuery
@@ -128,9 +129,10 @@ abstract class ReportQuery
     {
         return $query->addSelect([
             'beneficiaries.nurse_id',
+            'beneficiaries.mediator_id',
             'county_id' => User::query()
                 ->select('activity_county_id')
-                ->whereColumn('users.id', 'beneficiaries.nurse_id')
+                ->whereColumn('users.id', new Coalesce(['beneficiaries.nurse_id', 'beneficiaries.mediator_id']))
                 ->take(1),
         ]);
     }
