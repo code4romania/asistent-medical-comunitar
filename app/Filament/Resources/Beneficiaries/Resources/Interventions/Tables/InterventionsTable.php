@@ -25,6 +25,7 @@ class InterventionsTable
         return $table
             ->modifyQueryUsing(function (Builder $query): Builder {
                 return $query
+                    ->whereRoot()
                     ->withCount([
                         'interventions',
                         'interventions as realized_interventions_count' => fn (Builder $query) => $query->onlyRealized(),
