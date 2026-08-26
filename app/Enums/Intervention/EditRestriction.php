@@ -36,6 +36,10 @@ enum EditRestriction: string
                 if (filled($intervention->parent_id)) {
                     $reason = self::resolve($intervention->parent, $user);
 
+                    if (\is_null($reason)) {
+                        return null;
+                    }
+
                     return $reason->is(self::CASE_CLOSED)
                         ? self::PARENT_CASE_CLOSED
                         : $reason;
