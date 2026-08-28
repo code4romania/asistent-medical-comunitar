@@ -13527,16 +13527,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.95.19",
+            "version": "v3.95.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "8a06c4ad6bd580b7920bd5ff81b271ca1158507e"
+                "reference": "482722e0783c16325a07a998a0d9eda560f9be99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/8a06c4ad6bd580b7920bd5ff81b271ca1158507e",
-                "reference": "8a06c4ad6bd580b7920bd5ff81b271ca1158507e",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/482722e0783c16325a07a998a0d9eda560f9be99",
+                "reference": "482722e0783c16325a07a998a0d9eda560f9be99",
                 "shasum": ""
             },
             "require": {
@@ -13572,7 +13572,6 @@
                 "infection/infection": "^0.32.7",
                 "justinrainbow/json-schema": "^6.10.0",
                 "keradus/cli-executor": "^2.3",
-                "mikey179/vfsstream": "^1.6.12",
                 "php-coveralls/php-coveralls": "^2.9.1",
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.8",
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.8",
@@ -13620,7 +13619,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.19"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.22"
             },
             "funding": [
                 {
@@ -13628,7 +13627,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-17T16:24:07+00:00"
+            "time": "2026-08-24T10:37:43+00:00"
         },
         {
             "name": "fruitcake/laravel-debugbar",
@@ -17688,16 +17687,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v8.1.2",
+            "version": "v8.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "17856b7a222664a26a5ea1cb06ee0721c2438217"
+                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/17856b7a222664a26a5ea1cb06ee0721c2438217",
-                "reference": "17856b7a222664a26a5ea1cb06ee0721c2438217",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/6b2f4a0eeb28b5d74f90862592923a654bc629b3",
+                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3",
                 "shasum": ""
             },
             "require": {
@@ -17735,7 +17734,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v8.1.2"
+                "source": "https://github.com/symfony/filesystem/tree/v8.1.5"
             },
             "funding": [
                 {
@@ -17755,7 +17754,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-22T15:42:13+00:00"
+            "time": "2026-08-21T12:16:08+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
