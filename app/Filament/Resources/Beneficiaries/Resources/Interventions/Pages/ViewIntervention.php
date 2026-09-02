@@ -25,6 +25,20 @@ class ViewIntervention extends ViewRecord
 
     protected static string $resource = InterventionResource::class;
 
+    public function mount(int | string $record): void
+    {
+        parent::mount($record);
+
+        $record = $this->getRecord();
+
+        if (filled($record->parent_id)) {
+            redirect()->to(InterventionResource::getUrl('view', [
+                'beneficiary' => $record->beneficiary_id,
+                'record' => $record->parent_id,
+            ]));
+        }
+    }
+
     public function getTitle(): string
     {
         return $this->getRecordTitle();
