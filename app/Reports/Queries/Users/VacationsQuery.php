@@ -22,6 +22,7 @@ abstract class VacationsQuery extends UsersQuery
         return [
             'vacations.id',
             new Alias('activity_county_id', 'county_id'),
+            new Alias('vacations.user_id', 'nurse_id'),
         ];
     }
 

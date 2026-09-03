@@ -6,6 +6,7 @@ namespace App\Reports\Queries\Activity;
 
 use App\Models\CommunityActivity;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
 
 /**
@@ -16,7 +17,10 @@ class A15 extends ActivityQuery
     public static function query(): Builder
     {
         return CommunityActivity::query()
-            ->leftJoin('users', 'users.id', '=', 'community_activities.nurse_id');
+            ->leftJoin('users', 'users.id', '=', new Coalesce([
+                'community_activities.nurse_id',
+                'community_activities.mediator_id',
+            ]));
     }
 
     public static function tapQuery(Builder $query): Builder

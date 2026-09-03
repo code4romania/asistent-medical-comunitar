@@ -8,6 +8,7 @@ use App\Enums\AggregateFunction;
 use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 use Tpetry\QueryExpressions\Language\Alias;
 
 /**
@@ -18,7 +19,10 @@ abstract class CommunityActivityQuery extends ReportQuery
     public static function query(): Builder
     {
         return CommunityActivity::query()
-            ->leftJoin('users', 'community_activities.nurse_id', '=', 'users.id');
+            ->leftJoin('users', 'users.id', '=', new Coalesce([
+                'community_activities.nurse_id',
+                'community_activities.mediator_id',
+            ]));
     }
 
     public static function selectColumns(): array

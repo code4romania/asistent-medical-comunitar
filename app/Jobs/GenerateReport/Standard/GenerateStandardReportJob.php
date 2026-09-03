@@ -8,6 +8,7 @@ use App\Contracts\Enums\HasQuery;
 use App\Enums\Report\Standard\Category;
 use App\Enums\Report\Status;
 use App\Enums\Report\Type;
+use App\Enums\User\Role;
 use App\Models\Report;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Bus\Queueable;
@@ -16,6 +17,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
@@ -37,6 +39,24 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
     public bool $deleteWhenMissingModels = true;
 
     public Report $report;
+
+    public static function dispatchFor(Role $role, Report $report, array $data): PendingDispatch
+    {
+        $job = match ($role) {
+            Role::NURSE => match ($report->type) {
+                Type::LIST => Nurse\GenerateListReportJob::class,
+                Type::STATISTIC => Nurse\GenerateStatisticReportJob::class,
+            },
+            Role::MEDIATOR => match ($report->type) {
+                Type::LIST => Mediator\GenerateListReportJob::class,
+                Type::STATISTIC => Mediator\GenerateStatisticReportJob::class,
+            },
+            Role::COORDINATOR => Coordinator\GenerateStatisticReportJob::class,
+            Role::ADMIN => Admin\GenerateStatisticReportJob::class,
+        };
+
+        return $job::dispatch($report, $data);
+    }
 
     public function uniqueId(): string
     {
