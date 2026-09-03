@@ -63,7 +63,7 @@ class InterventionsTable
                     ->attribute('interventionable_type')
                     ->options([
                         'case' => __('intervention.type.case'),
-                        'individual_service' => __('intervention.type.individual'),
+                        'individual_service' => __('intervention.type.individual_service'),
                     ]),
 
                 SelectFilter::make('status')

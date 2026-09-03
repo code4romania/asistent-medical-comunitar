@@ -44,7 +44,7 @@ return [
     ],
 
     'type' => [
-        'individual' => 'Serviciu individual',
+        'individual_service' => 'Serviciu individual',
         'case' => 'Management de caz',
         'ocasional' => 'Intervenție beneficiar ocazional',
     ],
