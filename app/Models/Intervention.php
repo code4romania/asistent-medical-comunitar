@@ -251,7 +251,7 @@ class Intervention extends Model
                 : __('intervention.type.case');
         }
 
-        return __('intervention.type.individual');
+        return __('intervention.type.individual_service');
     }
 
     public function getStatusAttribute(): string|Status|null
