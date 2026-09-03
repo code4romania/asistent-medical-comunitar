@@ -30,6 +30,7 @@ class A14 extends ActivityQuery
     {
         return $query->addSelect([
             'appointments.user_id',
+            new Alias('appointments.user_id', 'nurse_id'),
             new Alias('users.activity_county_id', 'county_id'),
             'appointments.interventions_count',
         ]);
