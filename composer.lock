@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76e229fb4a343bb0b151d2e90113ead0",
+    "content-hash": "3cb8dba19c5cf709e137bcc56d2444d5",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -8050,16 +8050,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.28.3",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "4b5b9f37a7c11aa8194515aec71092a0f708a1d8"
+                "reference": "5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/4b5b9f37a7c11aa8194515aec71092a0f708a1d8",
-                "reference": "4b5b9f37a7c11aa8194515aec71092a0f708a1d8",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64",
+                "reference": "5c1ebe6ab96aa9c3065a9126ce03c1bdcacf2f64",
                 "shasum": ""
             },
             "require": {
@@ -8124,7 +8124,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.28.3"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.29.0"
             },
             "funding": [
                 {
@@ -8132,7 +8132,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-09-03T13:39:06+00:00"
+            "time": "2026-09-09T14:48:28+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
