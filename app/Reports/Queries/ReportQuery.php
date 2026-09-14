@@ -12,7 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Tpetry\QueryExpressions\Function\Aggregate\Avg;
 use Tpetry\QueryExpressions\Function\Aggregate\Count;
 use Tpetry\QueryExpressions\Function\Aggregate\Max;
@@ -55,11 +57,37 @@ abstract class ReportQuery
         return null;
     }
 
+    /**
+     * The table holding the state snapshots that `latestBeforeRangeQuery()` carries
+     * forward into the reporting period. Must be the table qualifying `dateColumn()`.
+     */
+    public static function latestBeforeRangeTable(): string
+    {
+        return 'vulnerability_entries';
+    }
+
+    /**
+     * The column splitting those snapshots into one timeline per subject. Only the
+     * newest pre-range snapshot of each timeline is carried into the report.
+     */
+    public static function latestBeforeRangePartition(): string
+    {
+        return 'beneficiary_id';
+    }
+
+    /**
+     * The monotonically increasing key used to break ties between snapshots sharing
+     * the same `dateColumn()` value, which only has second precision.
+     */
+    public static function latestBeforeRangeKey(): string
+    {
+        return 'id';
+    }
+
     public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
     {
         return $query
             ->where(static::dateColumn('start'), '<', $report->datetime_from)
-            ->latest(static::dateColumn('start'))
             ->distinct(false)
             ->when(
                 static::rankedLatestBeforeRange(),
@@ -68,8 +96,34 @@ abstract class ReportQuery
                         ->whereNull('next_created_at')
                         ->orWhere('next_created_at', '>=', $report->datetime_from)
                 ),
-                fn (Builder $query) => $query->limit(1),
+                fn (Builder $query): Builder => static::whereLatestBeforeRange($query, $report),
             );
+    }
+
+    /**
+     * Keep only the newest pre-range snapshot of each subject, so the carry-forward
+     * branch reports the state each subject was actually in when the period opened —
+     * not merely their newest snapshot that still satisfies the report's own filters.
+     */
+    protected static function whereLatestBeforeRange(Builder $query, Report $report): Builder
+    {
+        $table = static::latestBeforeRangeTable();
+        $partition = static::latestBeforeRangePartition();
+        $key = Str::afterLast(static::latestBeforeRangeKey(), '.');
+        $date = Str::afterLast(static::dateColumn('start'), '.');
+        $alias = "{$table}_latest";
+
+        return $query->where(
+            "{$table}.{$key}",
+            fn (QueryBuilder $query): QueryBuilder => $query
+                ->select("{$alias}.{$key}")
+                ->from($table, $alias)
+                ->whereColumn("{$alias}.{$partition}", "{$table}.{$partition}")
+                ->where("{$alias}.{$date}", '<', $report->datetime_from)
+                ->orderByDesc("{$alias}.{$date}")
+                ->orderByDesc("{$alias}.{$key}")
+                ->limit(1)
+        );
     }
 
     public static function distinct(): bool
