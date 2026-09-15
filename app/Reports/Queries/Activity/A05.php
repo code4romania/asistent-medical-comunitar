@@ -15,6 +15,6 @@ class A05 extends BeneficiaryStatusQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->where('status', Status::REMOVED);
+            ->where(static::statusColumn(), Status::REMOVED);
     }
 }

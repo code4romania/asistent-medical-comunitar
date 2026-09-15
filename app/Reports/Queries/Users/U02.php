@@ -15,6 +15,6 @@ class U02 extends UserStatusQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->where('status', Status::ACTIVE);
+            ->where(static::statusColumn(), Status::ACTIVE);
     }
 }

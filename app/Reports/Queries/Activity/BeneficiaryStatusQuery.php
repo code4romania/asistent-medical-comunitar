@@ -5,48 +5,48 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\Beneficiary;
-use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
-use Tpetry\QueryExpressions\Language\Alias;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 abstract class BeneficiaryStatusQuery extends ActivityQuery
 {
     public static function query(): Builder
     {
         return Beneficiary::query()
-            ->fromSub(
-                Beneficiary::query()
-                    ->select([
-                        'beneficiaries.id',
-                        'beneficiaries.nurse_id',
-                        'beneficiaries.mediator_id',
-                        'activity_log.created_at',
-                        new Alias('properties->attributes->status', 'status'),
-                        static::rankedPartition(),
-                    ])
-                    ->whereHasActivity(function (Builder $query) {
-                        $query
-                            ->where('log_name', 'default')
-                            ->where('event', 'updated')
-                            ->whereJsonContainsKey('properties->attributes->status');
-                    }),
-                'beneficiaries'
-            );
+            ->whereHasActivity(fn (Builder $query) => static::latestBeforeRangeTimeline($query, 'activity_log'));
+    }
+
+    public static function statusColumn(): string
+    {
+        return 'activity_log.properties->attributes->status';
     }
 
     public static function dateColumn(string $type): string
     {
-        return 'created_at';
+        return 'activity_log.created_at';
     }
 
-    public static function rankedLatestBeforeRange(): bool
+    public static function aggregateByColumn(): string
     {
-        return true;
+        return 'beneficiary_id';
     }
 
-    public static function rankedPartition(): Expression
+    public static function latestBeforeRangeTable(): string
     {
-        return DB::raw('LEAD(activity_log.created_at) OVER (PARTITION BY beneficiaries.id ORDER BY activity_log.created_at ASC) as next_created_at');
+        return 'activity_log';
+    }
+
+    public static function latestBeforeRangePartition(): string
+    {
+        return 'beneficiary_id';
+    }
+
+    public static function latestBeforeRangeTimeline(Builder|QueryBuilder $query, string $table): void
+    {
+        $query
+            ->where("{$table}.subject_type", 'beneficiary')
+            ->where("{$table}.log_name", 'default')
+            ->where("{$table}.event", 'updated')
+            ->whereJsonContainsKey("{$table}.properties->attributes->status");
     }
 }

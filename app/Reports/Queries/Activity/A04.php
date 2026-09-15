@@ -15,6 +15,6 @@ class A04 extends BeneficiaryStatusQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->where('status', Status::INACTIVE);
+            ->where(static::statusColumn(), Status::INACTIVE);
     }
 }

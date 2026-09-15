@@ -15,6 +15,6 @@ class U04 extends UserStatusQuery
     public static function query(): Builder
     {
         return parent::query()
-            ->where('status', Status::INVITED);
+            ->where(static::statusColumn(), Status::INVITED);
     }
 }
