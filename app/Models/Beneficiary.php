@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
@@ -233,15 +232,5 @@ class Beneficiary extends Model
             })
             ->leftJoinLocation()
             ->tap($callback);
-    }
-
-    /**
-     * For report scoping, a mediator "worked on" a beneficiary if they caused any
-     * activity tagged with this beneficiary — including activity on its children
-     * (interventions, catagraphy, documents) via the denormalized beneficiary_id.
-     */
-    protected function applyReportActivityConstraint(QueryBuilder $sub, string $table): void
-    {
-        $sub->whereColumn('activity_log.beneficiary_id', "{$table}.id");
     }
 }
