@@ -5,34 +5,31 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use App\Models\User;
-use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
-use Tpetry\QueryExpressions\Language\Alias;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 abstract class UserStatusQuery extends UsersQuery
 {
     public static function query(): Builder
     {
         return User::query()
-            ->fromSub(
-                User::query()
-                    ->onlyNurses()
-                    ->select([
-                        'users.id',
-                        'activity_log.created_at',
-                        'activity_county_id',
-                        'county_id',
-                        new Alias('properties->attributes->status', 'status'),
-                        static::rankedPartition(),
-                    ])
-                    ->whereHasActivity(function (Builder $query) {
-                        $query
-                            ->where('log_name', 'default')
-                            ->whereJsonContainsKey('properties->attributes->status');
-                    }),
-                'users'
-            );
+            ->onlyNurses()
+            ->whereHasActivity(fn (Builder $query) => static::latestBeforeRangeTimeline($query, 'activity_log'));
+    }
+
+    public static function statusColumn(): string
+    {
+        return 'activity_log.properties->attributes->status';
+    }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'activity_log.created_at';
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'subject_id';
     }
 
     public static function includeLatestBeforeRange(): bool
@@ -40,13 +37,21 @@ abstract class UserStatusQuery extends UsersQuery
         return true;
     }
 
-    public static function rankedLatestBeforeRange(): bool
+    public static function latestBeforeRangeTable(): string
     {
-        return true;
+        return 'activity_log';
     }
 
-    public static function rankedPartition(): Expression
+    public static function latestBeforeRangePartition(): string
     {
-        return DB::raw('LEAD(activity_log.created_at) OVER (PARTITION BY users.id ORDER BY activity_log.created_at ASC) as next_created_at');
+        return 'subject_id';
+    }
+
+    public static function latestBeforeRangeTimeline(Builder|QueryBuilder $query, string $table): void
+    {
+        $query
+            ->where("{$table}.subject_type", 'user')
+            ->where("{$table}.log_name", 'default')
+            ->whereJsonContainsKey("{$table}.properties->attributes->status");
     }
 }

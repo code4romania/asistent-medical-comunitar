@@ -47,16 +47,6 @@ abstract class ReportQuery
         return true;
     }
 
-    public static function rankedLatestBeforeRange(): bool
-    {
-        return false;
-    }
-
-    public static function rankedPartition(): ?Expression
-    {
-        return null;
-    }
-
     /**
      * The table holding the state snapshots that `latestBeforeRangeQuery()` carries
      * forward into the reporting period. Must be the table qualifying `dateColumn()`.
@@ -84,28 +74,16 @@ abstract class ReportQuery
         return 'id';
     }
 
-    public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
+    /**
+     * Narrow the rows of `latestBeforeRangeTable()` that count as snapshots of
+     * a subject's state.
+     */
+    public static function latestBeforeRangeTimeline(Builder|QueryBuilder $query, string $table): void
     {
-        return $query
-            ->where(static::dateColumn('start'), '<', $report->datetime_from)
-            ->distinct(false)
-            ->when(
-                static::rankedLatestBeforeRange(),
-                fn (Builder $query): Builder => $query->where(
-                    fn (Builder $query): Builder => $query
-                        ->whereNull('next_created_at')
-                        ->orWhere('next_created_at', '>=', $report->datetime_from)
-                ),
-                fn (Builder $query): Builder => static::whereLatestBeforeRange($query, $report),
-            );
+        //
     }
 
-    /**
-     * Keep only the newest pre-range snapshot of each subject, so the carry-forward
-     * branch reports the state each subject was actually in when the period opened —
-     * not merely their newest snapshot that still satisfies the report's own filters.
-     */
-    protected static function whereLatestBeforeRange(Builder $query, Report $report): Builder
+    public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
     {
         $table = static::latestBeforeRangeTable();
         $partition = static::latestBeforeRangePartition();
@@ -113,17 +91,21 @@ abstract class ReportQuery
         $date = Str::afterLast(static::dateColumn('start'), '.');
         $alias = "{$table}_latest";
 
-        return $query->where(
-            "{$table}.{$key}",
-            fn (QueryBuilder $query): QueryBuilder => $query
-                ->select("{$alias}.{$key}")
-                ->from($table, $alias)
-                ->whereColumn("{$alias}.{$partition}", "{$table}.{$partition}")
-                ->where("{$alias}.{$date}", '<', $report->datetime_from)
-                ->orderByDesc("{$alias}.{$date}")
-                ->orderByDesc("{$alias}.{$key}")
-                ->limit(1)
-        );
+        return $query
+            ->where(static::dateColumn('start'), '<', $report->datetime_from)
+            ->distinct(false)
+            ->where(
+                "{$table}.{$key}",
+                fn (QueryBuilder $query): QueryBuilder => $query
+                    ->select("{$alias}.{$key}")
+                    ->from($table, $alias)
+                    ->whereColumn("{$alias}.{$partition}", "{$table}.{$partition}")
+                    ->where("{$alias}.{$date}", '<', $report->datetime_from)
+                    ->tap(fn (QueryBuilder $query) => static::latestBeforeRangeTimeline($query, $alias))
+                    ->orderByDesc("{$alias}.{$date}")
+                    ->orderByDesc("{$alias}.{$key}")
+                    ->limit(1)
+            );
     }
 
     public static function distinct(): bool
