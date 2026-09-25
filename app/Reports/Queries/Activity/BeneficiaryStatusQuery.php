@@ -38,7 +38,7 @@ abstract class BeneficiaryStatusQuery extends ActivityQuery
 
     public static function latestBeforeRangePartition(): string
     {
-        return 'beneficiary_id';
+        return 'subject_id';
     }
 
     public static function latestBeforeRangeTimeline(Builder|QueryBuilder $query, string $table): void
@@ -46,7 +46,6 @@ abstract class BeneficiaryStatusQuery extends ActivityQuery
         $query
             ->where("{$table}.subject_type", 'beneficiary')
             ->where("{$table}.log_name", 'default')
-            ->where("{$table}.event", 'updated')
             ->whereJsonContainsKey("{$table}.properties->attributes->status");
     }
 }
