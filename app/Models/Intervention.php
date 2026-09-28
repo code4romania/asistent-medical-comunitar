@@ -58,6 +58,11 @@ class Intervention extends Model
 
     public static function booted(): void
     {
+        // Set intervention author
+        static::creating(function (self $intervention): void {
+            $intervention->user_id ??= auth()->id();
+        });
+
         // Make sure mediators have access to their own interventions
         static::creating(function (self $intervention): void {
             if (auth()->user()?->isMediator()) {
@@ -105,6 +110,11 @@ class Intervention extends Model
     public function interventionable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function appointment(): BelongsTo
