@@ -101,4 +101,12 @@ return [
         'dph' => 'DSP',
         'other' => 'Alta entitate sau organizație',
     ],
+
+    'filter' => [
+        'author' => [
+            'own' => 'Intervențiile mele',
+            'others' => 'Intervențiile celorlați',
+            'all' => 'Toți',
+        ],
+    ],
 ];

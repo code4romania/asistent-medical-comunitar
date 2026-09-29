@@ -46,6 +46,10 @@ class InterventionsTable
                     ->toggleable()
                     ->wrap(),
 
+                TextColumn::make('author.full_name')
+                    ->label(__('field.author'))
+                    ->toggleable(),
+
                 TextColumn::make('type')
                     ->label(__('field.type')),
 
@@ -77,6 +81,20 @@ class InterventionsTable
                     ->searchable()
                     ->multiple()
                     ->preload(),
+
+                SelectFilter::make('author')
+                    ->label(__('field.author'))
+                    ->placeholder(__('intervention.filter.author.all'))
+                    ->options([
+                        'own' => __('intervention.filter.author.own'),
+                        'others' => __('intervention.filter.author.others'),
+                    ])
+                    ->query(fn (Builder $query, array $data): Builder => match (data_get($data, 'value')) {
+                        'own' => $query->where('interventions.user_id', auth()->id()),
+                        'others' => $query->whereNot('interventions.user_id', auth()->id()),
+                        default => $query,
+                    }),
+
             ])
             ->recordActions([
                 ViewAction::make()
