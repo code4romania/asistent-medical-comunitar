@@ -48,7 +48,7 @@ trait BelongsToUser
             $this->restrictScopeToCurrentUser() ||
             $user->isNurseOrMediator()
         ) {
-            return $query->where('user_id', $user->id);
+            return $query->where("{$query->getModel()->getTable()}.user_id", $user->id);
         }
 
         if ($user->isCoordinator()) {
