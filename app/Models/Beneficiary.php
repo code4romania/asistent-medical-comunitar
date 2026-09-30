@@ -100,7 +100,6 @@ class Beneficiary extends Model
         $activity->beneficiary()->associate($beneficiary);
     }
 
-
     public function relatedActivities(): HasMany
     {
         return $this->hasMany(Activity::class, 'beneficiary_id');
