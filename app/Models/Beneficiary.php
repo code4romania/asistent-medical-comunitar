@@ -92,6 +92,14 @@ class Beneficiary extends Model
             ->logOnlyDirty();
     }
 
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        /** @var Beneficiary */
+        $beneficiary = $activity->subject;
+
+        $activity->beneficiary()->associate($beneficiary);
+    }
+
     public function relatedActivities(): HasMany
     {
         return $this->hasMany(Activity::class, 'beneficiary_id');

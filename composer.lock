@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e374533935aef3eaa53a93e24c982790",
+    "content-hash": "730c5fb37d34d8d3cb81c00b25a73dde",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-antivirus.git",
-                "reference": "e23fbcf6ae66bccde2d2af3bc5a62f6511a82e75"
+                "reference": "f141213947cf2b1a8f3fb61a41f9753a232b99bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/e23fbcf6ae66bccde2d2af3bc5a62f6511a82e75",
-                "reference": "e23fbcf6ae66bccde2d2af3bc5a62f6511a82e75",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/f141213947cf2b1a8f3fb61a41f9753a232b99bc",
+                "reference": "f141213947cf2b1a8f3fb61a41f9753a232b99bc",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
-                "aedart/athenaeum-streams": "^10.19",
-                "aedart/athenaeum-support": "^10.19",
-                "aedart/athenaeum-validation": "^10.19",
+                "aedart/athenaeum-contracts": "^10.20",
+                "aedart/athenaeum-streams": "^10.20",
+                "aedart/athenaeum-support": "^10.20",
+                "aedart/athenaeum-validation": "^10.20",
                 "ext-sockets": "*",
-                "illuminate/events": "^v13.31.0",
+                "illuminate/events": "^v13.32.0",
                 "php": "^8.4",
                 "xenolope/quahog": "^3.0"
             },
@@ -59,26 +59,26 @@
                 "clamav"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.20.0"
             },
-            "time": "2026-09-14T06:32:16+00:00"
+            "time": "2026-09-22T07:01:15+00:00"
         },
         {
             "name": "aedart/athenaeum-contracts",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-contracts.git",
-                "reference": "119ce360d30108c1d7023f496fe1dc31e03bf589"
+                "reference": "afba2810aba6b6d4131f63629fab4184c160de51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/119ce360d30108c1d7023f496fe1dc31e03bf589",
-                "reference": "119ce360d30108c1d7023f496fe1dc31e03bf589",
+                "url": "https://api.github.com/repos/aedart/athenaeum-contracts/zipball/afba2810aba6b6d4131f63629fab4184c160de51",
+                "reference": "afba2810aba6b6d4131f63629fab4184c160de51",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^v13.31.0",
+                "illuminate/contracts": "^v13.32.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -110,27 +110,27 @@
                 "interfaces"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-contracts/tree/10.20.0"
             },
-            "time": "2026-09-14T06:32:18+00:00"
+            "time": "2026-09-22T07:01:14+00:00"
         },
         {
             "name": "aedart/athenaeum-mime-types",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-mime-types.git",
-                "reference": "966314f1c71ba12efb09d5ba808f226334f5c5c4"
+                "reference": "5da82d4c1dc19c2543aa1def4d1c016e3103ea59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/966314f1c71ba12efb09d5ba808f226334f5c5c4",
-                "reference": "966314f1c71ba12efb09d5ba808f226334f5c5c4",
+                "url": "https://api.github.com/repos/aedart/athenaeum-mime-types/zipball/5da82d4c1dc19c2543aa1def4d1c016e3103ea59",
+                "reference": "5da82d4c1dc19c2543aa1def4d1c016e3103ea59",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
-                "aedart/athenaeum-support": "^10.19",
+                "aedart/athenaeum-contracts": "^10.20",
+                "aedart/athenaeum-support": "^10.20",
                 "ext-fileinfo": "*",
                 "php": "^8.4"
             },
@@ -163,28 +163,28 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-mime-types/tree/10.20.0"
             },
-            "time": "2026-09-03T06:36:20+00:00"
+            "time": "2026-09-14T06:33:49+00:00"
         },
         {
             "name": "aedart/athenaeum-streams",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-streams.git",
-                "reference": "f25dee96637d15f0daac315292a08f545d0f0924"
+                "reference": "17df6ec346d8a9180e2e7a3e9d1de261939d62b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/f25dee96637d15f0daac315292a08f545d0f0924",
-                "reference": "f25dee96637d15f0daac315292a08f545d0f0924",
+                "url": "https://api.github.com/repos/aedart/athenaeum-streams/zipball/17df6ec346d8a9180e2e7a3e9d1de261939d62b4",
+                "reference": "17df6ec346d8a9180e2e7a3e9d1de261939d62b4",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
-                "aedart/athenaeum-mime-types": "^10.19",
-                "aedart/athenaeum-support": "^10.19",
+                "aedart/athenaeum-contracts": "^10.20",
+                "aedart/athenaeum-mime-types": "^10.20",
+                "aedart/athenaeum-support": "^10.20",
                 "php": "^8.4",
                 "psr/http-message": "^2.0"
             },
@@ -218,34 +218,34 @@
                 "utilities"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-streams/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-streams/tree/10.20.0"
             },
-            "time": "2026-09-03T06:36:38+00:00"
+            "time": "2026-09-14T06:33:13+00:00"
         },
         {
             "name": "aedart/athenaeum-support",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-support.git",
-                "reference": "3ed64faa61df5fe7a4e92d60138cbb4484a098b5"
+                "reference": "fc7f825f6a7f9b6906d4973e84f3a63d77ffac0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/3ed64faa61df5fe7a4e92d60138cbb4484a098b5",
-                "reference": "3ed64faa61df5fe7a4e92d60138cbb4484a098b5",
+                "url": "https://api.github.com/repos/aedart/athenaeum-support/zipball/fc7f825f6a7f9b6906d4973e84f3a63d77ffac0c",
+                "reference": "fc7f825f6a7f9b6906d4973e84f3a63d77ffac0c",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
-                "aedart/athenaeum-utils": "^10.19",
-                "illuminate/config": "^v13.31.0",
-                "illuminate/support": "^v13.31.0",
+                "aedart/athenaeum-contracts": "^10.20",
+                "aedart/athenaeum-utils": "^10.20",
+                "illuminate/config": "^v13.32.0",
+                "illuminate/support": "^v13.32.0",
                 "php": "^8.4"
             },
             "require-dev": {
                 "predis/predis": "^2.4.1",
-                "symfony/console": "^v8.1.6",
+                "symfony/console": "^v8.1.7",
                 "twig/twig": "^3.28.0"
             },
             "suggest": {
@@ -288,28 +288,28 @@
                 "utils"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-support/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-support/tree/10.20.0"
             },
-            "time": "2026-09-14T06:33:02+00:00"
+            "time": "2026-09-22T07:01:20+00:00"
         },
         {
             "name": "aedart/athenaeum-utils",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-utils.git",
-                "reference": "c184ea131c542f4e6494d9bd97b44a2ba004418c"
+                "reference": "99219406211213a4409cd00c9f1064619bdddfb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/c184ea131c542f4e6494d9bd97b44a2ba004418c",
-                "reference": "c184ea131c542f4e6494d9bd97b44a2ba004418c",
+                "url": "https://api.github.com/repos/aedart/athenaeum-utils/zipball/99219406211213a4409cd00c9f1064619bdddfb9",
+                "reference": "99219406211213a4409cd00c9f1064619bdddfb9",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
+                "aedart/athenaeum-contracts": "^10.20",
                 "composer-runtime-api": "^2.2.2",
-                "illuminate/support": "^v13.31.0",
+                "illuminate/support": "^v13.32.0",
                 "mockery/mockery": "1.6.*",
                 "php": "^8.4"
             },
@@ -349,29 +349,29 @@
                 "version"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-utils/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-utils/tree/10.20.0"
             },
-            "time": "2026-09-14T06:32:14+00:00"
+            "time": "2026-09-22T07:01:32+00:00"
         },
         {
             "name": "aedart/athenaeum-validation",
-            "version": "10.19.0",
+            "version": "10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-validation.git",
-                "reference": "e1548cab30e8d26bc95cfa17f114471165e0a4d8"
+                "reference": "3c08abc3a34d12147d7092c293545b0a2244d53d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/e1548cab30e8d26bc95cfa17f114471165e0a4d8",
-                "reference": "e1548cab30e8d26bc95cfa17f114471165e0a4d8",
+                "url": "https://api.github.com/repos/aedart/athenaeum-validation/zipball/3c08abc3a34d12147d7092c293545b0a2244d53d",
+                "reference": "3c08abc3a34d12147d7092c293545b0a2244d53d",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.19",
-                "aedart/athenaeum-support": "^10.19",
-                "aedart/athenaeum-utils": "^10.19",
-                "illuminate/validation": "^v13.31.0",
+                "aedart/athenaeum-contracts": "^10.20",
+                "aedart/athenaeum-support": "^10.20",
+                "aedart/athenaeum-utils": "^10.20",
+                "illuminate/validation": "^v13.32.0",
                 "php": "^8.4"
             },
             "type": "library",
@@ -402,9 +402,9 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-validation/tree/10.19.0"
+                "source": "https://github.com/aedart/athenaeum-validation/tree/10.20.0"
             },
-            "time": "2026-09-14T06:32:17+00:00"
+            "time": "2026-09-22T07:01:36+00:00"
         },
         {
             "name": "alcea/cnp",
@@ -734,16 +734,16 @@
         },
         {
             "name": "brick/math",
-            "version": "0.19.1",
+            "version": "0.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce"
+                "reference": "44d7e16e2e940d9c7dde7076598e25855026dba2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce",
-                "reference": "a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce",
+                "url": "https://api.github.com/repos/brick/math/zipball/44d7e16e2e940d9c7dde7076598e25855026dba2",
+                "reference": "44d7e16e2e940d9c7dde7076598e25855026dba2",
                 "shasum": ""
             },
             "require": {
@@ -781,7 +781,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.19.1"
+                "source": "https://github.com/brick/math/tree/0.20.0"
             },
             "funding": [
                 {
@@ -789,7 +789,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-08T23:03:16+00:00"
+            "time": "2026-08-28T20:53:19+00:00"
         },
         {
             "name": "calebporzio/sushi",
@@ -1313,16 +1313,16 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.4.4",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+                "reference": "f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "url": "https://api.github.com/repos/composer/semver/zipball/f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5",
+                "reference": "f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5",
                 "shasum": ""
             },
             "require": {
@@ -1364,7 +1364,7 @@
                     "homepage": "http://robbast.nl"
                 }
             ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "description": "Version comparison library that offers utilities, version constraint parsing and validation.",
             "keywords": [
                 "semantic",
                 "semver",
@@ -1374,7 +1374,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.4"
+                "source": "https://github.com/composer/semver/tree/3.5.0"
             },
             "funding": [
                 {
@@ -1386,7 +1386,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-20T19:15:30+00:00"
+            "time": "2026-09-24T14:38:51+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
@@ -3443,20 +3443,20 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.32.0",
+            "version": "v13.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cdd8b33c246719acdd118c705ce8c7ab5ef48a96"
+                "reference": "91188a17ceaa3dbace6e8a5f7abd0d042e466359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cdd8b33c246719acdd118c705ce8c7ab5ef48a96",
-                "reference": "cdd8b33c246719acdd118c705ce8c7ab5ef48a96",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/91188a17ceaa3dbace6e8a5f7abd0d042e466359",
+                "reference": "91188a17ceaa3dbace6e8a5f7abd0d042e466359",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19",
+                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19 || ^0.20 || ^1.0",
                 "composer-runtime-api": "^2.2",
                 "doctrine/inflector": "^2.0.5",
                 "dragonmantank/cron-expression": "^3.4",
@@ -3670,7 +3670,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-09-15T14:55:30+00:00"
+            "time": "2026-09-22T14:12:33+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3796,16 +3796,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.16",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed"
+                "reference": "2d5869a838bbcf37e0d8b0568fc41914e81374b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed",
-                "reference": "7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/2d5869a838bbcf37e0d8b0568fc41914e81374b5",
+                "reference": "2d5869a838bbcf37e0d8b0568fc41914e81374b5",
                 "shasum": ""
             },
             "require": {
@@ -3853,7 +3853,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-08-18T20:28:54+00:00"
+            "time": "2026-09-22T14:32:34+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -13574,16 +13574,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.95.25",
+            "version": "v3.95.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "2cdfc1f3daf173d83a1ebb6177949b58c95de6ff"
+                "reference": "11839dfaf25718e1617c522c3dde01ebf96c875f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/2cdfc1f3daf173d83a1ebb6177949b58c95de6ff",
-                "reference": "2cdfc1f3daf173d83a1ebb6177949b58c95de6ff",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/11839dfaf25718e1617c522c3dde01ebf96c875f",
+                "reference": "11839dfaf25718e1617c522c3dde01ebf96c875f",
                 "shasum": ""
             },
             "require": {
@@ -13617,15 +13617,15 @@
             "require-dev": {
                 "facile-it/paraunit": "^1.3.1 || ^2.11.0",
                 "infection/infection": "^0.32.7",
-                "justinrainbow/json-schema": "^6.10.0",
+                "justinrainbow/json-schema": "^6.12.0",
                 "keradus/cli-executor": "^2.3",
                 "php-coveralls/php-coveralls": "^2.9.1",
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.8",
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.8",
-                "phpunit/phpunit": "^9.6.35 || ^10.5.64 || ^11.5.56 || ^12.5.31 || ^13.0.6",
-                "symfony/polyfill-php85": "^1.38",
-                "symfony/var-dumper": "^5.4.48 || ^6.4.36 || ^7.4.8 || ^8.1.1",
-                "symfony/yaml": "^5.4.53 || ^6.4.41 || ^7.4.13 || ^8.1.1"
+                "phpunit/phpunit": "^9.6.36 || ^10.5.64 || ^11.5.56 || ^12.5.35 || ^13.3.3",
+                "symfony/polyfill-php85": "^1.41",
+                "symfony/var-dumper": "^5.4.48 || ^6.4.45 || ^7.4.18 || ^8.1.7",
+                "symfony/yaml": "^5.4.53 || ^6.4.45 || ^7.4.18 || ^8.1.6"
             },
             "suggest": {
                 "ext-dom": "For handling output formats in XML",
@@ -13666,7 +13666,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.25"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.26"
             },
             "funding": [
                 {
@@ -13674,7 +13674,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-08T11:11:37+00:00"
+            "time": "2026-09-19T19:04:32+00:00"
         },
         {
             "name": "fruitcake/laravel-debugbar",
@@ -13898,16 +13898,16 @@
         },
         {
             "name": "larastan/larastan",
-            "version": "v3.12.1",
+            "version": "v3.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larastan/larastan.git",
-                "reference": "168fd3b955e723c51dbf81709849b0c3ac4ac5f6"
+                "reference": "c328727e6103c1147d1c64cc96b3aedfda26bc20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larastan/larastan/zipball/168fd3b955e723c51dbf81709849b0c3ac4ac5f6",
-                "reference": "168fd3b955e723c51dbf81709849b0c3ac4ac5f6",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/c328727e6103c1147d1c64cc96b3aedfda26bc20",
+                "reference": "c328727e6103c1147d1c64cc96b3aedfda26bc20",
                 "shasum": ""
             },
             "require": {
@@ -13975,7 +13975,7 @@
             ],
             "support": {
                 "issues": "https://github.com/larastan/larastan/issues",
-                "source": "https://github.com/larastan/larastan/tree/v3.12.1"
+                "source": "https://github.com/larastan/larastan/tree/v3.12.2"
             },
             "funding": [
                 {
@@ -13983,7 +13983,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-13T15:17:35+00:00"
+            "time": "2026-09-19T10:46:58+00:00"
         },
         {
             "name": "laravel/boost",
@@ -14189,16 +14189,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.67.0",
+            "version": "v1.68.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "639e03ac12cf23def171770bcab05758045b2642"
+                "reference": "2bc304083d515065b03944e425e62cb3c526c33e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/639e03ac12cf23def171770bcab05758045b2642",
-                "reference": "639e03ac12cf23def171770bcab05758045b2642",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/2bc304083d515065b03944e425e62cb3c526c33e",
+                "reference": "2bc304083d515065b03944e425e62cb3c526c33e",
                 "shasum": ""
             },
             "require": {
@@ -14248,7 +14248,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2026-08-12T13:55:56+00:00"
+            "time": "2026-09-18T14:34:46+00:00"
         },
         {
             "name": "laravel/sentinel",
@@ -14308,16 +14308,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.24.0",
+            "version": "v5.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "50cbcf4553ddfd8d4bd456b04f97dfed923007d9"
+                "reference": "65fe6724f8688de01dfa74b28a0edc191bc3caa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/50cbcf4553ddfd8d4bd456b04f97dfed923007d9",
-                "reference": "50cbcf4553ddfd8d4bd456b04f97dfed923007d9",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/65fe6724f8688de01dfa74b28a0edc191bc3caa8",
+                "reference": "65fe6724f8688de01dfa74b28a0edc191bc3caa8",
                 "shasum": ""
             },
             "require": {
@@ -14370,9 +14370,9 @@
                 "monitoring"
             ],
             "support": {
-                "source": "https://github.com/laravel/telescope/tree/v5.24.0"
+                "source": "https://github.com/laravel/telescope/tree/v5.25.0"
             },
-            "time": "2026-09-08T16:15:16+00:00"
+            "time": "2026-09-09T14:16:19+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -15366,11 +15366,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.14",
+            "version": "2.2.15",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9c672e7a8e791dfc3d30e55f683e73fc0b63a3ac",
-                "reference": "9c672e7a8e791dfc3d30e55f683e73fc0b63a3ac",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b158556ffd26825cf615a1c1f72fb5157a2301b7",
+                "reference": "b158556ffd26825cf615a1c1f72fb5157a2301b7",
                 "shasum": ""
             },
             "require": {
@@ -15426,7 +15426,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-12T21:39:33+00:00"
+            "time": "2026-09-23T12:23:07+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
