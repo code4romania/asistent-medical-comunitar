@@ -71,27 +71,27 @@ class BackfillActivityLogBeneficiaryIdCommand extends Command
 
         $result = Activity::query()
             ->whereNull('activity_log.beneficiary_id')
-            ->whereIn('activity_log.subject_type', ['document', 'intervention'])
+            ->whereIn('activity_log.subject_type', ['appointment', 'document', 'intervention'])
             ->where('activity_log.event', 'created')
             ->update([
                 'activity_log.beneficiary_id' => DB::raw("JSON_UNQUOTE(JSON_EXTRACT(properties, '$.attributes.beneficiary_id'))"),
             ]);
 
-        $this->info("Updated {$result} `created` activity_log entires for deleted documents and interventions intervention.");
+        $this->info("Updated {$result} `created` activity_log entires for deleted appointments, documents, and interventions.");
 
         $result = Activity::query()
             ->whereNull('activity_log.beneficiary_id')
-            ->whereIn('activity_log.subject_type', ['document', 'intervention'])
+            ->whereIn('activity_log.subject_type', ['appointment', 'document', 'intervention'])
             ->where('activity_log.event', 'deleted')
             ->update([
                 'activity_log.beneficiary_id' => DB::raw("JSON_UNQUOTE(JSON_EXTRACT(properties, '$.old.beneficiary_id'))"),
             ]);
 
-        $this->info("Updated {$result} `deleted` activity_log entires for deleted documents and interventions intervention.");
+        $this->info("Updated {$result} `deleted` activity_log entires for deleted appointments, documents, and interventions.");
 
         $result = Activity::query()
             ->whereNull('activity_log.beneficiary_id')
-            ->whereIn('activity_log.subject_type', ['document', 'intervention'])
+            ->whereIn('activity_log.subject_type', ['appointment', 'document', 'intervention'])
             ->where('activity_log.event', 'updated')
             ->join('activity_log as deleted_log', function (JoinClause $join): void {
                 $join->on('deleted_log.subject_type', '=', 'activity_log.subject_type')
@@ -102,7 +102,7 @@ class BackfillActivityLogBeneficiaryIdCommand extends Command
                 'activity_log.beneficiary_id' => DB::raw('deleted_log.beneficiary_id'),
             ]);
 
-        $this->info("Updated {$result} `updated` activity_log entires for deleted documents and interventions intervention.");
+        $this->info("Updated {$result} `updated` activity_log entires for deleted appointments, documents, and interventions.");
 
         return self::SUCCESS;
     }
