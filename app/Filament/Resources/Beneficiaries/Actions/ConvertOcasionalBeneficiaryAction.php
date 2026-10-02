@@ -8,11 +8,13 @@ use App\Enums\Beneficiary\Type;
 use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Models\Activity;
 use App\Models\Beneficiary;
 use App\Models\Intervention\InterventionableCase;
 use App\Models\Intervention\InterventionableIndividualService;
 use App\Models\Intervention\OcasionalIntervention;
 use App\Models\Service\Service;
+use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Support\Enums\Width;
 
@@ -46,16 +48,18 @@ class ConvertOcasionalBeneficiaryAction extends Action
 
         $this->color('gray');
 
-        $this->action(function (Beneficiary $record) {
+        $this->action(function (Beneficiary $record): void {
             $record->update([
                 'type' => Type::REGULAR,
             ]);
+
+            $authorId = $this->resolveAuthorId($record);
 
             $record
                 ->ocasionalInterventions()
                 ->with('services')
                 ->get()
-                ->map(function (OcasionalIntervention $ocasionalIntervention) use ($record) {
+                ->map(function (OcasionalIntervention $ocasionalIntervention) use ($record, $authorId): void {
                     $interventionable = InterventionableCase::create([
                         'name' => $ocasionalIntervention->reason,
                         'initiator' => CaseInitiator::NURSE,
@@ -65,11 +69,12 @@ class ConvertOcasionalBeneficiaryAction extends Action
                     $case = $interventionable->intervention()->create([
                         'closed_at' => now(),
                         'beneficiary_id' => $record->id,
+                        'user_id' => $authorId,
                         'vulnerability_id' => 'NONE',
                     ]);
 
                     $ocasionalIntervention->services
-                        ->each(function (Service $service) use ($ocasionalIntervention, $case) {
+                        ->each(function (Service $service) use ($ocasionalIntervention, $case): void {
                             $interventionable = InterventionableIndividualService::create([
                                 'service_id' => $service->id,
                                 'date' => $ocasionalIntervention->date,
@@ -79,6 +84,7 @@ class ConvertOcasionalBeneficiaryAction extends Action
                             $interventionable->intervention()->create([
                                 'parent_id' => $case->id,
                                 'beneficiary_id' => $case->beneficiary_id,
+                                'user_id' => $case->user_id,
                             ]);
                         });
 
@@ -92,5 +98,19 @@ class ConvertOcasionalBeneficiaryAction extends Action
         $this->successRedirectUrl(fn (Beneficiary $record) => BeneficiaryResource::getUrl('view', [
             'record' => $record,
         ]));
+    }
+
+    protected function resolveAuthorId(Beneficiary $beneficiary): int
+    {
+        $originalAuthorId = Activity::query()
+            ->withoutEagerLoads()
+            ->forSubject($beneficiary)
+            ->forEvent('created')
+            ->whereHasMorph('causer', User::class)
+            ->value('causer_id');
+
+        return $originalAuthorId
+            ?? $beneficiary->mediator_id
+            ?? $beneficiary->nurse_id;
     }
 }

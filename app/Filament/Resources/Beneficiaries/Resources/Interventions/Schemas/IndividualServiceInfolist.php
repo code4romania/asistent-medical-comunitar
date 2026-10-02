@@ -45,9 +45,18 @@ class IndividualServiceInfolist
                                 BooleanEntry::make('interventionable.outside_working_hours')
                                     ->label(__('field.outside_working_hours')),
 
+                                TextEntry::make('author.full_name')
+                                    ->label(__('field.author')),
+
                                 BooleanEntry::make('mediator_has_access')
                                     ->label(__('field.mediator_has_access'))
-                                    ->columnSpanFull(),
+                                    ->visible(function (): bool {
+                                        if (! auth()->user()?->isNurse()) {
+                                            return false;
+                                        }
+
+                                        return true;
+                                    }),
 
                                 TextEntry::make('status')
                                     ->label(__('field.status')),

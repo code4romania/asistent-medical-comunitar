@@ -18,6 +18,7 @@ return [
     'area' => 'Zonă deservită',
     'associated_appointments' => 'Programări asociate',
     'associated_case' => 'Caz asociat',
+    'author' => 'Autor',
     'associated_interventions' => 'Intervenții asociate',
     'attendant' => 'Nevoie de însoțitor',
     'beneficiaries_count' => 'Beneficiari',
