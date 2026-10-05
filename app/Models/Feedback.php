@@ -31,7 +31,7 @@ class Feedback extends Model
     public static function booted(): void
     {
         static::creating(function (self $feedback): void {
-            $feedback->county_id = auth()->user()->activity_county_id;
+            $feedback->county_id ??= auth()->user()->activity_county_id;
         });
     }
 
