@@ -9,7 +9,7 @@ namespace App\Reports\Queries\ServicesHealth;
  */
 class SH72 extends ServicesHealthQuery
 {
-    public static array|string $secondaryVulnerability = 'VSC_06';
+    public static array|string $vulnerability = 'VSC_06';
 
     public static bool $countBeneficiaries = true;
 }
