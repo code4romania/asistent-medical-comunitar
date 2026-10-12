@@ -123,7 +123,9 @@ class BeneficiaryFactory extends Factory
                     $interventions = Intervention::query()
                         ->where('interventionable_type', 'individual_service')
                         ->whereBeneficiary($beneficiary)
-                        ->get();
+                        ->get()
+                        // Eager loading error workaround
+                        ->map->setRelation('beneficiary', $beneficiary);
 
                     Appointment::factory()
                         ->recycle($beneficiary->nurse)
