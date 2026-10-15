@@ -21,9 +21,4 @@ class CH66 extends CasesHealthQuery
     {
         return 'closed_at';
     }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
-    }
 }

@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\CasesHealth;
 
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
-abstract class CasesHealthQuery extends ReportQuery
+abstract class CasesHealthQuery extends InterventionReportQuery
 {
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->withoutEagerLoads()
-            ->onlyCases()
-            ->leftJoin('beneficiaries', 'beneficiaries.id', 'interventions.beneficiary_id');
+        return parent::query()
+            ->onlyCases();
     }
 
     public static function selectColumns(): array
@@ -24,10 +21,5 @@ abstract class CasesHealthQuery extends ReportQuery
             'interventions.id',
             'interventions.created_at',
         ];
-    }
-
-    public static function aggregateByColumn(): string
-    {
-        return 'interventions.id';
     }
 }

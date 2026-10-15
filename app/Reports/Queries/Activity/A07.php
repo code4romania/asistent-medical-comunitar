@@ -6,7 +6,6 @@ namespace App\Reports\Queries\Activity;
 
 use App\Models\Catagraphy;
 use Illuminate\Database\Eloquent\Builder;
-use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total catagrafii actualizate în perioada de referință.
@@ -26,12 +25,12 @@ class A07 extends ActivityQuery
             ->distinct();
     }
 
-    public static function tapQuery(Builder $query): Builder
+    public static function segmentColumns(): array
     {
-        return $query->addSelect([
-            'catagraphies.nurse_id',
-            new Alias('users.activity_county_id', 'county_id'),
-        ]);
+        return [
+            'nurse_id' => 'catagraphies.nurse_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 
     public static function dateColumn(string $type): string

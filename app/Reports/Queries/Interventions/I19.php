@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Interventions;
 
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total servicii realizate pentru vulnerabilități legate de Comportamente la risc.
  */
-class I19 extends InterventionsQuery
+class I19 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

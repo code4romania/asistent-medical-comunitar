@@ -7,7 +7,7 @@ namespace App\Reports\Queries\ServicesHealth;
 use App\Models\Intervention;
 use App\Models\Report;
 use App\Models\Service\ServiceCategory;
-use App\Reports\Queries\ReportQuery;
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -19,7 +19,7 @@ use Tpetry\QueryExpressions\Language\Alias;
 use Tpetry\QueryExpressions\Operator\Comparison\Equal;
 use Tpetry\QueryExpressions\Value\Value;
 
-abstract class ServicesHealthQuery extends ReportQuery
+abstract class ServicesHealthQuery extends InterventionReportQuery
 {
     public static array|string $vulnerability;
 
@@ -31,15 +31,13 @@ abstract class ServicesHealthQuery extends ReportQuery
 
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->withoutEagerLoads()
+        return parent::query()
             ->when(isset(static::$vulnerability), fn (Builder $query) => $query->whereVulnerability(static::$vulnerability))
             ->when(isset(static::$secondaryVulnerability), fn (Builder $query) => $query->whereSecondaryVulnerability(static::$secondaryVulnerability))
             ->onlyRealized()
             ->leftJoin('interventionable_individual_services', 'interventionable_individual_services.id', 'interventions.interventionable_id')
             ->leftJoin('services', 'interventionable_individual_services.service_id', 'services.id')
-            ->leftJoin('service_categories', 'services.category_id', 'service_categories.id')
-            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', 'beneficiaries.id');
+            ->leftJoin('service_categories', 'services.category_id', 'service_categories.id');
     }
 
     public static function selectColumns(): array

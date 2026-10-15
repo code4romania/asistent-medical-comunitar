@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Interventions;
 
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total servicii realizate pentru vulnerabilități legate de Condiții de locuire.
  */
-class I12 extends InterventionsQuery
+class I12 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

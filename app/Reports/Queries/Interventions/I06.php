@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Interventions;
 
 use App\Enums\Intervention\CaseInitiator;
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total intervenții de tip Management de caz active deschise la inițiativa altei entități.
  */
-class I06 extends InterventionsQuery
+class I06 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

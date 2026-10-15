@@ -163,14 +163,32 @@ abstract class ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        return $query->addSelect([
-            'beneficiaries.nurse_id',
-            'beneficiaries.mediator_id',
-            'county_id' => User::query()
-                ->select('activity_county_id')
-                ->whereColumn('users.id', new Coalesce(['beneficiaries.nurse_id', 'beneficiaries.mediator_id']))
-                ->take(1),
-        ]);
+        return $query;
+    }
+
+    /**
+     * The columns statistic reports are segmented by (nurse, county), keyed by alias.
+     */
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'beneficiaries.nurse_id',
+            'mediator_id' => 'beneficiaries.mediator_id',
+            'county_id' => static::toExpression(
+                User::query()
+                    ->select('activity_county_id')
+                    ->whereColumn('users.id', new Coalesce([
+                        'beneficiaries.nurse_id',
+                        'beneficiaries.mediator_id',
+                    ]))
+                    ->take(1)
+            ),
+        ];
+    }
+
+    protected static function toExpression(Builder|QueryBuilder $query): Expression
+    {
+        return DB::raw("({$query->toRawSql()})");
     }
 
     public static function where(Builder $query, Report $report): Builder
@@ -221,7 +239,13 @@ abstract class ReportQuery
         } else {
             $query
                 ->select(static::selectColumns())
-                ->tap([static::class, 'tapQuery']);
+                ->tap([static::class, 'tapQuery'])
+                ->addSelect(
+                    collect(static::segmentColumns())
+                        ->map(fn (Expression|string $column, string $alias): Alias => new Alias($column, $alias))
+                        ->values()
+                        ->all()
+                );
         }
 
         if (! $report->date_until) {
@@ -256,11 +280,11 @@ abstract class ReportQuery
             ->$method(static::aggregateByColumn()) ?? 0;
     }
 
-    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    public static function groupedAggregate(Report $report, string $column): mixed
     {
         return DB::query()
             ->from(static::build($report), 'base')
-            ->select(static::groupedAggregateColumns($column, $query))
+            ->select(static::groupedAggregateColumns($column))
             ->groupBy($column)
             ->pluck('aggregate', $column);
     }
@@ -276,22 +300,15 @@ abstract class ReportQuery
         };
     }
 
-    public static function groupedAggregateColumns(string $column, ?Builder $query = null): array
+    public static function groupedAggregateColumns(string $column): array
     {
-        $columns = [
+        return [
             new Alias(
                 static::groupedAggregateColumnExpression($column),
                 'aggregate'
             ),
+            $column,
         ];
-
-        if (\is_null($query)) {
-            $columns[] = $column;
-        } else {
-            $columns[$column] = $query;
-        }
-
-        return $columns;
     }
 
     public static function whereDate(Builder $query, string $column, Carbon $date): Builder

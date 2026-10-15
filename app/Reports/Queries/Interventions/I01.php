@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Interventions;
 
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total intervenții de tip serviciu individual realizate.
  */
-class I01 extends InterventionsQuery
+class I01 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

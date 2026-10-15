@@ -14,7 +14,6 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -100,20 +99,19 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
         $total += $value;
     }
 
-    protected function generateDataset(Collection $segments, callable $segmentColumns, string $segmentName, string $groupedAggregateColumn, ?Builder $groupedAggregateQuery = null): void
+    protected function generateDataset(Collection $segments, callable $segmentColumns, string $segmentName, string $groupedAggregateColumn): void
     {
         $includeTotals = $segments->count() > 1;
 
         if ($this->report->category->is(Category::SERVICES_HEALTH)) {
             $this->report->data = $this->report->getIndicators()
-                ->mapWithKeys(function (HasQuery $indicator) use ($segments, $segmentColumns, $includeTotals, $groupedAggregateColumn, $groupedAggregateQuery): array {
+                ->mapWithKeys(function (HasQuery $indicator) use ($segments, $segmentColumns, $includeTotals, $groupedAggregateColumn): array {
                     /** @var ReportQuery $reportQuery */
                     $reportQuery = $indicator->class();
 
                     $results = $reportQuery::groupedAggregate(
                         $this->report,
                         $groupedAggregateColumn,
-                        $groupedAggregateQuery
                     );
 
                     $columns = $this->report->category->getColumns(Type::STATISTIC, $this->report->user->role);
@@ -166,14 +164,13 @@ abstract class GenerateStandardReportJob implements ShouldQueue, ShouldBeUnique
                     ->values(),
 
                 'data' => $this->report->getIndicators()
-                    ->mapWithKeys(function (HasQuery $indicator) use ($segments, $includeTotals, $segmentName, $groupedAggregateColumn, $groupedAggregateQuery): array {
+                    ->mapWithKeys(function (HasQuery $indicator) use ($segments, $includeTotals, $segmentName, $groupedAggregateColumn): array {
                         /** @var ReportQuery $reportQuery */
                         $reportQuery = $indicator->class();
 
                         $results = $reportQuery::groupedAggregate(
                             $this->report,
                             $groupedAggregateColumn,
-                            $groupedAggregateQuery
                         );
 
                         $total = 0;
