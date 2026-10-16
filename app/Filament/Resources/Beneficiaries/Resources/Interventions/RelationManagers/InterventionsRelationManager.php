@@ -133,8 +133,13 @@ class InterventionsRelationManager extends RelationManager
                 TextColumn::make('interventionable.service.name')
                     ->label(__('field.service_name')),
 
+                TextColumn::make('author.full_name')
+                    ->label(__('field.author'))
+                    ->toggleable(),
+
                 TextColumn::make('interventionable.status')
-                    ->label(__('field.status')),
+                    ->label(__('field.status'))
+                    ->badge(),
 
                 BooleanColumn::make('integrated')
                     ->label(__('field.integrated')),

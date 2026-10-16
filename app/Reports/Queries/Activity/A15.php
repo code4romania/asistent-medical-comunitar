@@ -7,7 +7,6 @@ namespace App\Reports\Queries\Activity;
 use App\Models\CommunityActivity;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
-use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total activități comunitare realizate în perioada de referință.
@@ -23,12 +22,12 @@ class A15 extends ActivityQuery
             ]));
     }
 
-    public static function tapQuery(Builder $query): Builder
+    public static function segmentColumns(): array
     {
-        return $query->addSelect([
-            'community_activities.nurse_id',
-            new Alias('users.activity_county_id', 'county_id'),
-        ]);
+        return [
+            'nurse_id' => 'community_activities.nurse_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 
     public static function dateColumn(string $type): string

@@ -12,6 +12,7 @@ use App\Jobs\GenerateReport\Standard\GenerateStandardReportJob;
 use App\Models\County;
 use App\Models\Report;
 use App\Models\User;
+use BackedEnum;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -184,7 +185,7 @@ class GenerateAllReportsCommand extends Command
             return $allowed->values();
         }
 
-        $unknown = $values->reject(fn (string $value): bool => $allowed->has($value));
+        $unknown = $values->reject(fn (string $value): bool => ! \is_null($enum::tryFrom($value)));
 
         if ($unknown->isNotEmpty()) {
             $this->error(\sprintf(
@@ -197,7 +198,9 @@ class GenerateAllReportsCommand extends Command
             return null;
         }
 
-        return $allowed->only($values->all())->values();
+        return $allowed
+            ->filter(fn (BackedEnum $item): bool => $values->contains($item->value))
+            ->values();
     }
 
     protected function resolvePinnedUser(): bool

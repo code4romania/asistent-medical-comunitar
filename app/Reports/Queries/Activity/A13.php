@@ -6,7 +6,6 @@ namespace App\Reports\Queries\Activity;
 
 use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Builder;
-use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total programări în perioada de referință.
@@ -24,9 +23,15 @@ class A13 extends ActivityQuery
     {
         return $query->addSelect([
             'appointments.user_id',
-            new Alias('appointments.user_id', 'nurse_id'),
-            new Alias('users.activity_county_id', 'county_id'),
         ]);
+    }
+
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'appointments.user_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 
     public static function dateColumn(string $type): string

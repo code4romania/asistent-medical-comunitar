@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Interventions;
 
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total servicii realizate pentru vulnerabilități legate de Act de identitate.
  */
-class I10 extends InterventionsQuery
+class I10 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

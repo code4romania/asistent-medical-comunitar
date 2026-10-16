@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use App\Reports\Queries\ReportQuery;
-use Illuminate\Database\Eloquent\Builder;
-use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class UsersQuery extends ReportQuery
 {
@@ -30,13 +28,14 @@ abstract class UsersQuery extends ReportQuery
         return [
             'users.id',
             'activity_county_id',
-            new Alias('activity_county_id', 'county_id'),
         ];
     }
 
-    public static function tapQuery(Builder $query): Builder
+    public static function segmentColumns(): array
     {
-        return $query
-            ->addSelect('users.id as nurse_id');
+        return [
+            'nurse_id' => 'users.id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 }

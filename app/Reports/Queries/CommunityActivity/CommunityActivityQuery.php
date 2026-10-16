@@ -9,7 +9,6 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
-use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Total activități de tip Campanie națională.
@@ -29,7 +28,6 @@ abstract class CommunityActivityQuery extends ReportQuery
     {
         return [
             'community_activities.id',
-            new Alias('users.activity_county_id', 'county_id'),
         ];
     }
 
@@ -50,12 +48,18 @@ abstract class CommunityActivityQuery extends ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        $query->addSelect('users.id as nurse_id');
-
         if (static::aggregateFunction()->is(AggregateFunction::SUM)) {
             $query->addSelect('community_activities.' . static::aggregateByColumn());
         }
 
         return $query;
+    }
+
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'users.id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 }

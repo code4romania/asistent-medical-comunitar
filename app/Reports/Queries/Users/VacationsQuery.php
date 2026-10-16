@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Users;
 
 use Illuminate\Database\Eloquent\Builder;
-use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class VacationsQuery extends UsersQuery
 {
@@ -21,8 +20,6 @@ abstract class VacationsQuery extends UsersQuery
     {
         return [
             'vacations.id',
-            new Alias('activity_county_id', 'county_id'),
-            new Alias('vacations.user_id', 'nurse_id'),
         ];
     }
 
@@ -31,5 +28,13 @@ abstract class VacationsQuery extends UsersQuery
         return $query
             ->leftJoin('users', 'users.id', 'vacations.user_id')
             ->addSelect('vacations.user_id');
+    }
+
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'vacations.user_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 }

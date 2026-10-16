@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries\Interventions;
 
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total intervenții de tip Management de caz active.
  */
-class I02 extends InterventionsQuery
+class I02 extends InterventionReportQuery
 {
     public static function query(): Builder
     {

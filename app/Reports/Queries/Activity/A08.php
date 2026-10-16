@@ -90,9 +90,9 @@ class A08 extends ActivityQuery
         return static::numberPrecision($aggregate);
     }
 
-    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    public static function groupedAggregate(Report $report, string $column): mixed
     {
-        return parent::groupedAggregate($report, $column, $query)
+        return parent::groupedAggregate($report, $column)
             ->map(fn (mixed $aggregate): float => static::numberPrecision($aggregate));
     }
 

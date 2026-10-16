@@ -6,36 +6,24 @@ namespace App\Reports\Queries\Activity;
 
 use App\Enums\Gender;
 use App\Enums\Intervention\Status;
-use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Total femei cărora li s-au oferit servicii în perioada de referință.
  */
-class A11 extends ActivityQuery
+class A11 extends ActivityInterventionQuery
 {
     public static function query(): Builder
     {
-        return Beneficiary::query()
-            ->where('gender', Gender::FEMALE)
-            ->rightJoin('interventions', 'beneficiaries.id', '=', 'interventions.beneficiary_id')
+        return parent::query()
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
+            ->where('beneficiaries.gender', '=', Gender::FEMALE)
             ->where('interventionable_individual_services.status', '=', Status::REALIZED)
             ->distinct();
-    }
-
-    public static function dateColumn(string $type): string
-    {
-        return 'interventionable_individual_services.date';
     }
 
     public static function aggregateByColumn(): string
     {
         return 'beneficiaries.id';
-    }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
     }
 }

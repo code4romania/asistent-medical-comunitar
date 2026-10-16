@@ -2,19 +2,35 @@
 
 declare(strict_types=1);
 
-namespace App\Reports\Queries\Interventions;
+namespace App\Reports\Queries;
 
 use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
-abstract class InterventionsQuery extends ReportQuery
+/**
+ * Credits interventions to their author rather than to the beneficiary's current nurse.
+ */
+abstract class InterventionReportQuery extends ReportQuery
 {
     public static function query(): Builder
     {
         return Intervention::query()
             ->withoutEagerLoads()
             ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id');
+    }
+
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'interventions.user_id',
+            'county_id' => static::toExpression(
+                DB::table('users')
+                    ->select('users.activity_county_id')
+                    ->whereColumn('users.id', 'interventions.user_id')
+                    ->limit(1)
+            ),
+        ];
     }
 
     public static function selectColumns(): array

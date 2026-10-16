@@ -21,9 +21,4 @@ class CH103 extends CasesHealthQuery
     {
         return 'interventions.created_at';
     }
-
-    public static function includeLatestBeforeRange(): bool
-    {
-        return false;
-    }
 }

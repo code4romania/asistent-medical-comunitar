@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Pregnant;
 
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
-use App\Models\Intervention;
-use App\Reports\Queries\ReportQuery;
+use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
-class P12 extends ReportQuery
+/**
+ * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
+ */
+class P12 extends InterventionReportQuery
 {
-    /*
-     * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
-     */
     public static function query(): Builder
     {
-        return Intervention::query()
-            ->withoutEagerLoads()
+        return parent::query()
             ->whereRealizedIndividualServiceWithCode('STI_08');
     }
 
@@ -40,7 +38,19 @@ class P12 extends ReportQuery
 
     public static function selectColumns(): array
     {
-        return array_keys(static::columns());
+        return [
+            new Alias('interventions.id', 'id'),
+            new Alias('interventionable_individual_services.status', 'status'),
+            new Alias('interventions.integrated', 'integrated'),
+            new Alias('beneficiaries.full_name', 'beneficiary'),
+            new Alias('interventionable_individual_services.outside_working_hours', 'outside_working_hours'),
+            new Alias('interventionable_individual_services.date', 'date'),
+            'interventions.beneficiary_id',
+            'interventionable_id',
+            'interventionable_type',
+            'interventions.vulnerability_id',
+            'vulnerability_label',
+        ];
     }
 
     public static function columns(): array
@@ -59,23 +69,6 @@ class P12 extends ReportQuery
     public static function tapQuery(Builder $query): Builder
     {
         return $query
-            ->leftJoin('beneficiaries', 'interventions.beneficiary_id', '=', 'beneficiaries.id')
-            ->leftJoin('users', 'beneficiaries.nurse_id', '=', 'users.id')
-            ->select([
-                new Alias('interventions.id', 'id'),
-                new Alias('interventionable_individual_services.status', 'status'),
-                new Alias('interventions.integrated', 'integrated'),
-                new Alias('beneficiaries.full_name', 'beneficiary'),
-                new Alias('beneficiaries.nurse_id', 'nurse_id'),
-                new Alias('users.activity_county_id', 'county_id'),
-                new Alias('interventionable_individual_services.outside_working_hours', 'outside_working_hours'),
-                new Alias('interventionable_individual_services.date', 'date'),
-                'interventions.beneficiary_id',
-                'interventionable_id',
-                'interventionable_type',
-                'interventions.vulnerability_id',
-                'vulnerability_label',
-            ])
             ->withCasts([
                 'outside_working_hours' => 'boolean',
                 'date' => 'date',

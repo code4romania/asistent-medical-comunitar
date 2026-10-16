@@ -9,7 +9,6 @@ use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Tpetry\QueryExpressions\Language\Alias;
 
 /**
  * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
@@ -64,13 +63,12 @@ class G25 extends ReportQuery
         ];
     }
 
-    public static function tapQuery(Builder $query): Builder
+    public static function segmentColumns(): array
     {
-        return $query->addSelect([
-            'nurse_id',
-            'type',
-            new Alias('activity_county_id', 'county_id'),
-        ]);
+        return [
+            'nurse_id' => 'community_activities.nurse_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 
     /**
