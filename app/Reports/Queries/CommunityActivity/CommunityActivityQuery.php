@@ -7,7 +7,6 @@ namespace App\Reports\Queries\CommunityActivity;
 use App\Enums\AggregateFunction;
 use App\Models\CommunityActivity;
 use App\Reports\Queries\ReportQuery;
-use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 
@@ -56,9 +55,6 @@ abstract class CommunityActivityQuery extends ReportQuery
         return $query;
     }
 
-    /**
-     * @return array<string, Expression|string>
-     */
     public static function segmentColumns(): array
     {
         return [

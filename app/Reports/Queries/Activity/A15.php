@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Reports\Queries\Activity;
 
 use App\Models\CommunityActivity;
-use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
 
@@ -23,9 +22,6 @@ class A15 extends ActivityQuery
             ]));
     }
 
-    /**
-     * @return array<string, Expression|string>
-     */
     public static function segmentColumns(): array
     {
         return [
