@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
+/**
+ * Sum Servicii=Tratament medicamentos (STI_01); Status=realizat.
+ */
 class G11 extends InterventionReportQuery
 {
-    /*
-     * Sum Servicii=Tratament medicamentos (STI_01); Status=realizat.
-     */
     public static function query(): Builder
     {
         return parent::query()

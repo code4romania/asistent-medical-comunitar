@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
+/**
+ * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
+ */
 class P12 extends InterventionReportQuery
 {
-    /*
-     * Sum servicii=Îngrijiri prescrise de medic (STI_08); Status=realizat.
-     */
     public static function query(): Builder
     {
         return parent::query()
@@ -51,6 +51,7 @@ class P12 extends InterventionReportQuery
             'interventions.vulnerability_id',
             'vulnerability_label',
         ];
+    }
 
     public static function columns(): array
     {

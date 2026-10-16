@@ -8,15 +8,15 @@ use App\Reports\Queries\InterventionReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Total servicii realizate pentru vulnerabilități legate de Situația familială.
+ * Total servicii realizate pentru vulnerabilități legate de Act de identitate.
  */
-class I13 extends InterventionReportQuery
+class I10 extends InterventionReportQuery
 {
     public static function query(): Builder
     {
         return parent::query()
             ->leftJoin('interventionable_individual_services', 'interventions.interventionable_id', '=', 'interventionable_individual_services.id')
-            ->whereVulnerabilityCategory('FAM')
+            ->whereVulnerabilityCategory('ID')
             ->onlyRealized();
     }
 }

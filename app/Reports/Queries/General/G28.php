@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Tpetry\QueryExpressions\Language\Alias;
 
+/**
+ * Sum servicii=Educație - planificare familială (SES_12); Status=realizat.
+ */
 class G28 extends InterventionReportQuery
 {
-    /*
-     * Sum servicii=Educație - planificare familială (SES_12); Status=realizat.
-     */
     public static function query(): Builder
     {
         return parent::query()

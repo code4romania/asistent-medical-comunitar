@@ -117,70 +117,51 @@ abstract class ServicesHealthQuery extends InterventionReportQuery
      *
      * @return Collection<int|string, array<string, int>>
      */
-    public static function groupedAggregate(Report $report, string $column, ?Builder $query = null): mixed
+    public static function groupedAggregate(Report $report, string $column): mixed
     {
         static::loadServiceCategories();
 
         if (static::$countBeneficiaries) {
-            return static::groupedAggregateBeneficiaries($report, $column, $query);
+            return static::groupedAggregateBeneficiaries($report, $column);
         }
 
-        return static::groupedAggregateServices($report, $column, $query);
+        return static::groupedAggregateServices($report, $column);
     }
 
-    private static function groupedAggregateServices(Report $report, string $column, ?Builder $query): Collection
+    private static function groupedAggregateServices(Report $report, string $column): Collection
     {
-        $select = [
-            new Alias(new Count('*'), 'total'),
-            ...static::categoryCountFilters(),
-        ];
-
-        if (\is_null($query)) {
-            $select[] = $column;
-        } else {
-            $select[$column] = $query;
-        }
-
         return static::build($report, true)
-            ->select($select)
-            ->groupBy($column)
+            ->select([
+                new Alias(new Count('*'), 'total'),
+                ...static::categoryCountFilters(),
+                static::segmentSelect($column),
+            ])
+            ->groupBy('segment')
             ->get()
             ->mapWithKeys(fn (Intervention $row): array => [
-                $row->$column => collect($row->toArray())->except($column)->toArray(),
+                $row->getAttribute('segment') => collect($row->toArray())->except('segment')->toArray(),
             ]);
     }
 
-    private static function groupedAggregateBeneficiaries(Report $report, string $column, ?Builder $query): Collection
+    private static function groupedAggregateBeneficiaries(Report $report, string $column): Collection
     {
-        $totalSelect = [new Alias(new Count('beneficiary_id', true), 'total')];
-
-        if (\is_null($query)) {
-            $totalSelect[] = $column;
-        } else {
-            $totalSelect[$column] = $query;
-        }
-
         $totals = static::build($report, true)
-            ->select($totalSelect)
-            ->groupBy($column)
-            ->pluck('total', $column);
-
-        $catSelect = [
-            new Alias(new Count('beneficiary_id', true), 'total'),
-            'category_id',
-        ];
-
-        if (\is_null($query)) {
-            $catSelect[] = $column;
-        } else {
-            $catSelect[$column] = $query;
-        }
+            ->select([
+                new Alias(new Count('beneficiary_id', true), 'total'),
+                static::segmentSelect($column),
+            ])
+            ->groupBy('segment')
+            ->pluck('total', 'segment');
 
         $categoryRows = static::build($report, true)
-            ->select($catSelect)
-            ->groupBy('category_id', $column)
+            ->select([
+                new Alias(new Count('beneficiary_id', true), 'total'),
+                'category_id',
+                static::segmentSelect($column),
+            ])
+            ->groupBy('category_id', 'segment')
             ->get()
-            ->groupBy($column);
+            ->groupBy('segment');
 
         $defaults = static::$serviceCategories->keys()
             ->mapWithKeys(fn (string $name): array => [$name => 0])
@@ -206,6 +187,16 @@ abstract class ServicesHealthQuery extends InterventionReportQuery
                 ];
             }
         );
+    }
+
+    /**
+     * Selects the segment column under a neutral alias to group by. MySQL resolves GROUP BY
+     * names against table columns first (`beneficiaries.nurse_id`, `beneficiaries.county_id`),
+     * and ONLY_FULL_GROUP_BY rejects grouping by the correlated county subquery itself.
+     */
+    protected static function segmentSelect(string $column): Alias
+    {
+        return new Alias(static::segmentColumns()[$column], 'segment');
     }
 
     private static function loadServiceCategories(): void
