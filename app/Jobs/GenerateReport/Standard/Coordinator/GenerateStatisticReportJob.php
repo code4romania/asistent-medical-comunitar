@@ -23,7 +23,7 @@ class GenerateStatisticReportJob extends GenerateStandardReportJob
     public function generate(): void
     {
         $nurses = User::query()
-            ->onlyNurses()
+            ->onlyNursesAndMediators()
             ->activatesInCounty($this->report->user->county_id)
             ->withActivityAreas()
             ->whereIn('id', $this->nurses)

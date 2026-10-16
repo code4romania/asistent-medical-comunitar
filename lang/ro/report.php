@@ -58,7 +58,7 @@ return [
         'category' => 'Fișă raportare',
         'period' => 'Perioada de raportare',
         'status' => 'Status',
-        'nurses' => 'Asistenți medicali comunitari',
+        'users' => 'Asistenți medicali comunitari și mediatori sanitari',
         'counties' => 'Județe',
         'total' => 'Total',
     ],

@@ -61,7 +61,7 @@ class ReportForm
                             ->selectAll()
                             ->options(
                                 fn () => User::query()
-                                    ->onlyNurses()
+                                    ->onlyNursesAndMediators()
                                     ->activatesInCurrentUserCounty()
                                     ->withActivityAreas()
                                     ->get()
