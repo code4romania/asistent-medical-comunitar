@@ -227,8 +227,7 @@ abstract class ReportQuery
     public static function build(Report $report, bool $aggregate = false): Builder
     {
         /** @var Builder */
-        $query = static::query()
-            ->forUser($report->user);
+        $query = static::forUser(static::query(), $report->user);
 
         if ($aggregate) {
             $query->select(static::aggregateByColumn());
@@ -269,6 +268,14 @@ abstract class ReportQuery
         }
 
         return $query;
+    }
+
+    /**
+     * This only exists here so it can be overriden for Intervention queries.
+     */
+    public static function forUser(Builder $query, User $user): Builder
+    {
+        return $query->forUser($user);
     }
 
     public static function aggregate(Report $report): mixed
