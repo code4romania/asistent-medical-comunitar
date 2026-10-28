@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Household;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +21,6 @@ class HouseholdFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'nurse_id' => User::factory(),
         ];
     }
 }

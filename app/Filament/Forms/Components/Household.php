@@ -61,7 +61,7 @@ class Household extends Component
                                         ->required(),
                                 ]),
                         ])
-                        ->createOptionUsing(fn (array $data) => HouseholdModel::createForCurrentNurse($data)->getKey()),
+                        ->createOptionUsing(fn (array $data) => HouseholdModel::create($data)->getKey()),
 
                     Select::make('family_id')
                         ->label(__('field.family'))
