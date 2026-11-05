@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Reports\Schemas;
 
-use App\Livewire\ReportTable;
+use App\Livewire\ReportTables;
 use App\Models\Report;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\EmptyState;
@@ -47,22 +47,9 @@ class ReportInfolist
                 Group::make()
                     ->poll(fn (Report $record) => $record->isPending() ? '5s' : null)
                     ->components([
-                        Group::make()
-                            ->visible(fn (Report $record) => $record->isFinished() && $record->data->isNotEmpty())
-                            ->components(function (Report $record): array {
-                                return collect($record->data)
-                                    ->map(
-                                        fn (array $table, int $index) => Livewire::make(ReportTable::class)
-                                            ->key("table.{$index}")
-                                            ->data([
-                                                'type' => $record->type,
-                                                'title' => data_get($table, 'title'),
-                                                'columns' => data_get($table, 'columns'),
-                                                'data' => data_get($table, 'data'),
-                                            ])
-                                    )
-                                    ->all();
-                            }),
+
+                        Livewire::make(ReportTables::class)
+                            ->visible(fn (Report $record) => $record->isFinished() && $record->data->isNotEmpty()),
 
                         EmptyState::make(__('report.processing.title'))
                             ->description(__('report.processing.description'))

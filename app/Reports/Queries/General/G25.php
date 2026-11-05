@@ -10,20 +10,26 @@ use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
+ */
 class G25 extends ReportQuery
 {
-    /**
-     * Sum activități comunitare Campanii sănătate and tip=Anunțare pentru screening populațional.
-     */
     public static function query(): Builder
     {
         return CommunityActivity::query()
-            ->whereCampaign(Campaign::SCREENING);
+            ->whereCampaign(Campaign::SCREENING)
+            ->leftJoin('users', 'community_activities.nurse_id', '=', 'users.id');
     }
 
-    public static function dateColumn(): string
+    public static function aggregateByColumn(): string
     {
-        return 'created_at';
+        return 'community_activities.id';
+    }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'community_activities.created_at';
     }
 
     public static function includeLatestBeforeRange(): bool
@@ -33,7 +39,13 @@ class G25 extends ReportQuery
 
     public static function selectColumns(): array
     {
-        return array_keys(static::columns());
+        return collect(static::columns())
+            ->keys()
+            ->map(fn (string $key) => match ($key) {
+                'id' => 'community_activities.id',
+                default => $key,
+            })
+            ->all();
     }
 
     public static function columns(): array
@@ -51,12 +63,12 @@ class G25 extends ReportQuery
         ];
     }
 
-    public static function tapQuery(Builder $query): Builder
+    public static function segmentColumns(): array
     {
-        return $query->addSelect([
-            'nurse_id',
-            'type',
-        ]);
+        return [
+            'nurse_id' => 'community_activities.nurse_id',
+            'county_id' => 'users.activity_county_id',
+        ];
     }
 
     /**

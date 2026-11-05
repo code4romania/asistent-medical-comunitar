@@ -9,6 +9,7 @@ use App\Filament\Pages\Settings;
 use App\Filament\Pages\Settings\PersonalInfo;
 use App\Filament\Resources\Appointments\AppointmentResource;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
+use App\Filament\Resources\Feedback\FeedbackResource;
 use App\Filament\Resources\Profiles\ProfileResource;
 use App\Filament\Resources\Vacations\VacationResource;
 use App\Http\Middleware\EnsureUserHasCompletedProfile;
@@ -20,11 +21,13 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
+use Guava\FilamentKnowledgeBase\Plugins\KnowledgeBaseCompanionPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -54,29 +57,45 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn () => view('components.brand'))
             ->brandLogoHeight('3rem')
             ->topNavigation()
+            ->unsavedChangesAlerts()
             ->globalSearch(false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->resourceEditPageRedirect('view')
             ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->passwordReset()
+            ->navigationItems([
+                NavigationItem::make('Manual')
+                    ->url('/manual')
+                    ->sort(9999)
+                    ->extraAttributes([
+                        'class' => 'hidden lg:flex',
+                    ]),
+            ])
             ->userMenuItems([
-                Action::make('vacations')
-                    ->label(__('vacation.label.plural'))
-                    ->url(fn () => VacationResource::getUrl('index'))
-                    ->icon(Heroicon::CalendarDateRange)
-                    ->visible(fn () => auth()->user()->isNurse()),
-
                 Action::make('nurse_profile')
                     ->label(__('auth.profile'))
                     ->url(fn () => ProfileResource::getUrl('index'))
                     ->icon(Heroicon::User)
-                    ->visible(fn () => auth()->user()->isNurse()),
+                    ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
 
                 Action::make('settings')
                     ->label(__('auth.settings'))
                     ->url(fn () => Settings::getUrl())
                     ->icon(Heroicon::Cog),
+
+                Action::make('vacations')
+                    ->label(__('vacation.label.plural'))
+                    ->url(fn () => VacationResource::getUrl('index'))
+                    ->icon(Heroicon::CalendarDateRange)
+                    ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
+
+                Action::make('feedback')
+                    ->label(__('feedback.label.plural'))
+                    ->url(fn () => FeedbackResource::getUrl('index'))
+                    ->icon(Heroicon::Flag)
+                    ->visible(fn (): bool => auth()->user()->isNurseOrMediator()),
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->plugins([
@@ -91,6 +110,10 @@ class AdminPanelProvider extends PanelProvider
 
                 FilamentFullCalendarPlugin::make()
                     ->editable(),
+
+                KnowledgeBaseCompanionPlugin::make()
+                    ->knowledgeBasePanelId('manual'),
+
             ])
             ->widgets([
                 //
@@ -112,8 +135,14 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->bootUsing(function (Panel $panel) {
-                $this->setupNurseOnboarding();
+            ->bootUsing(function (Panel $panel): void {
+                if (auth()->user()?->isNurse()) {
+                    $this->setUpNurseOnboarding();
+                }
+
+                if (auth()->user()?->isMediator()) {
+                    $this->setUpMediatorOnboarding();
+                }
             })
             ->authMiddleware([
                 Authenticate::class,
@@ -123,31 +152,45 @@ class AdminPanelProvider extends PanelProvider
             ]);
     }
 
-    protected function setupNurseOnboarding(): void
+    protected function setUpNurseOnboarding(): void
     {
-        $isNotANurse = fn (User $model) => ! $model->isNurse();
-
         Onboard::addStep(__('onboarding.step.profile'))
             ->link(ProfileResource::getUrl('onboard'))
-            ->completeIf(fn (User $model) => $model->hasCompletedProfile())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->hasCompletedProfile());
 
         Onboard::addStep(__('onboarding.step.first_beneficiary'))
             ->link(BeneficiaryResource::getUrl('create'))
-            ->completeIf(fn (User $model) => $model->beneficiaries()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->ownBeneficiaries()->exists());
 
         Onboard::addStep(__('onboarding.step.first_service'))
-            ->completeIf(fn (User $model) => $model->interventions()->onlyIndividualServices()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyIndividualServices()->exists());
 
         Onboard::addStep(__('onboarding.step.first_case'))
-            ->completeIf(fn (User $model) => $model->interventions()->onlyCases()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyCases()->exists());
 
         Onboard::addStep(__('onboarding.step.first_appointment'))
             ->link(AppointmentResource::getUrl('create'))
-            ->completeIf(fn (User $model) => $model->appointments()->exists())
-            ->excludeIf($isNotANurse);
+            ->completeIf(fn (User $model): bool => $model->appointments()->exists());
+    }
+
+    protected function setUpMediatorOnboarding(): void
+    {
+        Onboard::addStep(__('onboarding.step.profile'))
+            ->link(ProfileResource::getUrl('onboard'))
+            ->completeIf(fn (User $model): bool => $model->hasCompletedProfile());
+
+        Onboard::addStep(__('onboarding.step.first_beneficiary'))
+            ->link(BeneficiaryResource::getUrl('create'))
+            ->completeIf(fn (User $model): bool => $model->ownBeneficiaries()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_service'))
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyIndividualServices()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_case'))
+            ->completeIf(fn (User $model): mixed => $model->ownInterventions()->onlyCases()->exists());
+
+        Onboard::addStep(__('onboarding.step.first_appointment'))
+            ->link(AppointmentResource::getUrl('create'))
+            ->completeIf(fn (User $model): bool => $model->appointments()->exists());
     }
 }

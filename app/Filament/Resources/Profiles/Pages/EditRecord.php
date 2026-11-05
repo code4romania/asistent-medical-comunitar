@@ -31,9 +31,7 @@ abstract class EditRecord extends BaseEditRecord implements WithTabs
 
     public function getBreadcrumbs(): array
     {
-        return [
-            auth()->user()->getFilamentName(),
-        ];
+        return [];
     }
 
     protected function getRedirectUrl(): string

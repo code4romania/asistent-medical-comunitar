@@ -53,11 +53,11 @@ class Employer extends Model
 
     protected function getIsProjectBasedAttribute(): bool
     {
-        return ! empty($this->project);
+        return filled($this->project);
     }
 
     protected function getIsOngoingAttribute(): bool
     {
-        return ! empty($this->end_date);
+        return filled($this->end_date);
     }
 }

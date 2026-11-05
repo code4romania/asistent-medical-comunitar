@@ -4,16 +4,15 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     versioning-strategy: increase
     open-pull-requests-limit: 20
-    rebase-strategy: "disabled"
     groups:
       filament:
         patterns:
@@ -23,7 +22,6 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     versioning-strategy: increase
     open-pull-requests-limit: 20
-    rebase-strategy: "disabled"

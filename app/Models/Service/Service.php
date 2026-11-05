@@ -18,7 +18,17 @@ class Service extends Model implements Stringable
 
     protected $casts = [
         'is_enabled' => 'boolean',
+        'is_mediator_only' => 'boolean',
     ];
+
+    public static function booted()
+    {
+        static::addGlobalScope('forCurrentUser', function (Builder $builder): void {
+            if (auth()->user()?->isNurse()) {
+                $builder->where('is_mediator_only', false);
+            }
+        });
+    }
 
     public function category(): BelongsTo
     {

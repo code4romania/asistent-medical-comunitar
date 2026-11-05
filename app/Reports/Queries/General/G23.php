@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Lăuză adultă (VGR_08) + Minoră lăuză (VGR_02).
+ */
 class G23 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Lăuză adultă (VGR_08) + Minoră lăuză (VGR_02).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
@@ -20,5 +20,10 @@ class G23 extends ReportQuery
                 $query->whereJsonContains('properties', 'VGR_08')
                     ->orWhereJsonContains('properties', 'VGR_02');
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Femeie însărcinată care a efectuat consultaţii prenatale (VGR_96).
+ */
 class P03 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Gravidă adultă (VGR_04) OR Minoră gravidă (VGR_01); Femeie însărcinată care a efectuat consultaţii prenatale (VGR_96).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
@@ -21,5 +21,10 @@ class P03 extends ReportQuery
                     ->whereJsonContains('properties', 'VGR_96')
                     ->whereJsonOverlaps('properties', ['VGR_04', 'VGR_01']);
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

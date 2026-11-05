@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToNurseOrMediator;
 use App\Enums\CommunityActivity\Administrative;
 use App\Enums\CommunityActivity\Campaign;
 use App\Enums\CommunityActivity\OutsideWorkingHours;
@@ -19,7 +19,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class CommunityActivity extends Model implements HasMedia
 {
-    use BelongsToNurse;
+    use BelongsToNurseOrMediator;
     use HasFactory;
     use InteractsWithMedia;
     use LogsActivity;
@@ -45,21 +45,6 @@ class CommunityActivity extends Model implements HasMedia
         'date' => 'date',
     ];
 
-    public static function booted(): void
-    {
-        static::creating(function (self $communityActivity) {
-            if (! auth()->check()) {
-                return;
-            }
-
-            if (! auth()->user()->isNurse()) {
-                return;
-            }
-
-            $communityActivity->nurse_id = auth()->id();
-        });
-    }
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('participants_list')
@@ -76,14 +61,18 @@ class CommunityActivity extends Model implements HasMedia
 
     public function scopeWhereCampaign(Builder $query, ?Campaign $subtype = null): Builder
     {
-        return $query->where('type', Type::CAMPAIGN)
-            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
+        $table = $this->getTable();
+
+        return $query->where("$table.type", Type::CAMPAIGN)
+            ->when($subtype, fn (Builder $query) => $query->where("$table.subtype", $subtype));
     }
 
     public function scopeWhereAdministrativeActivity(Builder $query, ?Administrative $subtype = null): Builder
     {
-        return $query->where('type', Type::ADMINISTRATIVE)
-            ->when($subtype, fn (Builder $query) => $query->where('subtype', $subtype));
+        $table = $this->getTable();
+
+        return $query->where("$table.type", Type::ADMINISTRATIVE)
+            ->when($subtype, fn (Builder $query) => $query->where("$table.subtype", $subtype));
     }
 
     public function getTitleAttribute(): string
@@ -91,7 +80,7 @@ class CommunityActivity extends Model implements HasMedia
         return $this->name . ' ' . $this->date->toFormattedDate();
     }
 
-    public function getSubtypeAttribute(?string $value): Campaign | Administrative | null
+    public function getSubtypeAttribute(mixed $value): Campaign | Administrative | null
     {
         $enum = match ($this->type) {
             Type::CAMPAIGN => Campaign::class,
@@ -101,6 +90,10 @@ class CommunityActivity extends Model implements HasMedia
 
         if (! $enum || ! $value) {
             return null;
+        }
+
+        if ($value instanceof $enum) {
+            return $value;
         }
 
         return $enum::tryFrom($value);

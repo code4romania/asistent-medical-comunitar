@@ -44,7 +44,7 @@ return [
     ],
 
     'type' => [
-        'individual' => 'Serviciu individual',
+        'individual_service' => 'Serviciu individual',
         'case' => 'Management de caz',
         'ocasional' => 'Intervenție beneficiar ocazional',
     ],
@@ -55,6 +55,23 @@ return [
         'realized' => 'Realizat',
         'unrealized' => 'Nerealizat',
         'planned' => 'Planificat',
+    ],
+
+    'edit_restriction' => [
+        'case_closed' => [
+            'title' => 'Acest management de caz nu mai poate fi editat',
+            'description' => 'Cazul este închis. Redeschide-l pentru a putea face modificări.',
+        ],
+
+        'parent_case_closed' => [
+            'title' => 'Acest serviciu individual nu mai poate fi editat',
+            'description' => 'Face parte dintr-un management de caz închis. Redeschide-l pentru a putea face modificări.',
+        ],
+
+        'vulnerability_not_catagraphed' => [
+            'title' => 'Acest :type nu mai poate fi editat',
+            'description' => 'Vulnerabilitatea adresată ":vulnerability" nu mai este înregistrată în catagrafia beneficiarului.',
+        ],
     ],
 
     'table' => [
@@ -83,5 +100,13 @@ return [
         'team' => 'Echipa comunitară',
         'dph' => 'DSP',
         'other' => 'Alta entitate sau organizație',
+    ],
+
+    'filter' => [
+        'author' => [
+            'own' => 'Intervențiile mele',
+            'others' => 'Intervențiile celorlați',
+            'all' => 'Toți',
+        ],
     ],
 ];

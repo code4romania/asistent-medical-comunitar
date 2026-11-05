@@ -8,6 +8,7 @@ use App\Enums\StudyType;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Forms\Components\YearPicker;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\User;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -77,6 +78,7 @@ class StudiesForm
                     ->heading(__('study.specialization_section'))
                     ->icon(Heroicon::OutlinedDocumentText)
                     ->columns()
+                    ->hidden(fn (User $record): bool => $record->isMediator())
                     ->schema([
                         Checkbox::make('has_participated_specialization')
                             ->label(__('field.has_participated_specialization')),

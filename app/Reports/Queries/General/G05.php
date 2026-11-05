@@ -8,16 +8,21 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Violență în familie (VFV_03).
+ */
 class G05 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Violență în familie (VFV_03).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonContains('properties', 'VFV_03');
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

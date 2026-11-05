@@ -28,7 +28,7 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
     {
         parent::authorizeAccess();
 
-        abort_unless($this->getRecord()->isNurse(), 403);
+        abort_unless($this->getRecord()->isNurseOrMediator(), 403);
     }
 
     public function mount(int | string $record): void
@@ -70,5 +70,10 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
     public function getTitle(): string
     {
         return $this->getRecord()->full_name;
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
     }
 }

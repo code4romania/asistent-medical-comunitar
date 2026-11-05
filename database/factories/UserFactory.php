@@ -56,6 +56,15 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function mediator(): static
+    {
+        return $this
+            ->state(fn (array $attributes) => [
+                'role' => Role::MEDIATOR,
+                'activity_county_id' => County::query()->inRandomOrder()->first()->id,
+            ]);
+    }
+
     public function nurse(): static
     {
         return $this

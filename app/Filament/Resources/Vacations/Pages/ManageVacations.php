@@ -18,7 +18,7 @@ class ManageVacations extends ManageRecords
         return [
             CreateAction::make()
                 ->using(function (array $data) {
-                    $data['nurse_id'] = auth()->id();
+                    $data['user_id'] = auth()->id();
 
                     return Vacation::create($data);
                 }),

@@ -7,6 +7,8 @@ namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas;
 use App\Enums\Intervention\CaseInitiator;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\Beneficiary;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
@@ -64,6 +66,23 @@ class CaseForm
                             ->inline()
                             ->boolean()
                             ->default(0),
+
+                        Checkbox::make('mediator_has_access')
+                            ->label(__('field.mediator_has_access'))
+                            ->columnSpanFull()
+                            ->visible(function (Component $livewire): bool {
+                                if (! auth()->user()?->isNurse()) {
+                                    return false;
+                                }
+
+                                /** @var Beneficiary */
+                                $record = $livewire->getRecord();
+                                $beneficiary = $record instanceof Beneficiary
+                                    ? $record
+                                    : $record?->beneficiary;
+
+                                return filled($beneficiary?->mediator_id);
+                            }),
                     ]),
 
                 Subsection::make()

@@ -17,9 +17,14 @@ class CreateAppointment extends CreateRecord
 
     protected static bool $canCreateAnother = false;
 
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['nurse_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
 
         return $data;
     }

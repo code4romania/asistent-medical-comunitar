@@ -16,7 +16,7 @@ class ViewUser extends ViewRecord
     {
         parent::authorizeAccess();
 
-        if ($this->getRecord()->isNurse()) {
+        if ($this->getRecord()->isNurseOrMediator()) {
             redirect()->to(UserResource::getUrl('general.view', [
                 'record' => $this->getRecord(),
             ]));
@@ -28,5 +28,10 @@ class ViewUser extends ViewRecord
         return [
             EditAction::make(),
         ];
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
     }
 }

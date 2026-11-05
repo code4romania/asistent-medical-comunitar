@@ -18,7 +18,10 @@ class CreateUser extends CreateRecord
 
         if (
             auth()->user()->isCoordinator() &&
-            Role::NURSE->is($data['role'])
+            (
+                Role::NURSE->is($data['role']) ||
+                Role::MEDIATOR->is($data['role'])
+            )
         ) {
             $data['activity_county_id'] = auth()->user()->county_id;
         }

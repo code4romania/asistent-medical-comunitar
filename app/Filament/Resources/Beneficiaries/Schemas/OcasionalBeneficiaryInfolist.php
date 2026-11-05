@@ -44,7 +44,9 @@ class OcasionalBeneficiaryInfolist
                                             ->label(__('field.gender')),
 
                                         TextEntry::make('cnp_with_fallback')
-                                            ->label(__('field.cnp')),
+                                            ->label(fn (Beneficiary $record) => $record->has_non_standard_cnp
+                                                ? __('field.non_standard_cnp')
+                                                : __('field.cnp')),
                                     ]),
                             ]),
 

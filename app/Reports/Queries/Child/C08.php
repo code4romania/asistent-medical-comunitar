@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with HIV (VSG_HIV); Copil 0-1 ani (VCV_01) OR Copil 1-5 ani (VCV_02) OR Copil 5-14 ani (VCV_03).
+ */
 class C08 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with HIV (VSG_HIV); Copil 0-1 ani (VCV_01) OR Copil 1-5 ani (VCV_02) OR Copil 5-14 ani (VCV_03).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
@@ -21,5 +21,10 @@ class C08 extends ReportQuery
                     ->whereJsonContains('properties', 'VSG_HIV')
                     ->whereJsonOverlaps('properties', ['VCV_01', 'VCV_02', 'VCV_03']);
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

@@ -37,13 +37,27 @@ return [
 
     'onboarding' => [
         'heading' => 'Parolă salvată cu succes!',
-        'intro' => 'La prima intrare în cont, îți vom solicia să îți configurezi contul tău AMC. Ar fi util să ai la îndemână următoarele informații și documente:',
-        'documents' => [
-            'Diploma/ Atestatul/ Certificatul AMC (în format digital, poză sau scan)',
-            'Informații despre studiile sau cursurile absolvite (inclusiv furnizori, date de început sau absolvire)',
-            'Informații despre angajatorul curent',
-            'Informații despre angajatorii anteriori',
+
+        'nurse' => [
+            'intro' => 'La prima intrare în cont, îți vom solicia să îți configurezi contul tău de AMC. Ar fi util să ai la îndemână următoarele informații și documente:',
+            'list' => [
+                'Diploma/ Atestatul/ Certificatul AMC (în format digital, poză sau scan)',
+                'Informații despre studiile sau cursurile absolvite (inclusiv furnizori, date de început sau absolvire)',
+                'Informații despre angajatorul curent',
+                'Informații despre angajatorii anteriori',
+            ],
         ],
+
+        'mediator' => [
+            'intro' => 'La prima intrare în cont, îți vom solicia să îți configurezi contul tău de MSR. Ar fi util să ai la îndemână următoarele informații și documente:',
+            'list' => [
+                'Certificatul ANC (în format digital, poză sau scan)',
+                'Informații despre studiile sau cursurile absolvite (inclusiv furnizori, date de început sau absolvire)',
+                'Informații despre angajatorul curent',
+                'Informații despre angajatorii anteriori',
+            ],
+        ],
+
         'login' => 'Intră în cont',
     ],
 

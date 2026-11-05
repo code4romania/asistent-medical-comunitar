@@ -8,11 +8,11 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Dizabilitate cu certificat (VDH_01) + Dizabilitate fără certificat (VDH_02); Adult 18-65 ani (VCV_05).
+ */
 class G10 extends ReportQuery
 {
-    /*
-     * Sum beneficiari with Dizabilitate cu certificat (VDH_01) + Dizabilitate fără certificat (VDH_02); Adult 18-65 ani (VCV_05).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
@@ -21,5 +21,10 @@ class G10 extends ReportQuery
                     ->whereJsonOverlaps('properties', ['VDH_01', 'VDH_02'])
                     ->whereJsonContains('properties', 'VCV_05');
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

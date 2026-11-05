@@ -8,16 +8,21 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Tulburări mintale şi de comportament (VSG_TMC); Adult 18-65 ani (VCV_05).
+ */
 class G20 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Tulburări mintale şi de comportament (VSG_TMC); Adult 18-65 ani (VCV_05).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonContains('properties', ['VCV_05', 'VSG_TMC']);
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

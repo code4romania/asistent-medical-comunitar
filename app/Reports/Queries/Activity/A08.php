@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Reports\Queries\Activity;
+
+use App\Enums\AggregateFunction;
+use App\Models\Report;
+use App\Models\Vulnerability\Vulnerability;
+use App\Models\Vulnerability\VulnerabilityEntry;
+use Illuminate\Contracts\Database\Query\Expression;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Tpetry\QueryExpressions\Function\Aggregate\Avg;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
+use Tpetry\QueryExpressions\Language\Alias;
+use Tpetry\QueryExpressions\Language\Cast;
+use Tpetry\QueryExpressions\Operator\Arithmetic\Add;
+use Tpetry\QueryExpressions\Value\Value;
+
+/**
+ * Număr mediu vulnerabilități per beneficiar în perioada de referință.
+ */
+class A08 extends ActivityQuery
+{
+    public static function query(): Builder
+    {
+        $sumExpression = new Alias(
+            new Add(
+                ...Vulnerability::cachedList()
+                    ->filter(fn (Vulnerability $vulnerability): bool => $vulnerability->is_valid)
+                    ->keys()
+                    ->map(
+                        fn (string $id): Expression => new Coalesce([
+                            "map->{$id}",
+                            new Value(0),
+                        ])
+                    )
+            ),
+            'vulnerabilities_count'
+        );
+
+        return VulnerabilityEntry::query()
+            ->fromSub(
+                VulnerabilityEntry::query()
+                    ->select([
+                        'id',
+                        'created_at',
+                        'beneficiary_id',
+                        $sumExpression,
+                    ]),
+                'vulnerability_entries'
+            )
+            ->leftJoin('beneficiaries', 'beneficiaries.id', '=', 'beneficiary_id')
+            ->groupBy('beneficiary_id');
+    }
+
+    public static function selectColumns(): array
+    {
+        return [
+            'beneficiary_id',
+            new Alias(
+                new Cast(new Avg('vulnerabilities_count'), 'float'),
+                'avg_vulnerabilities'
+            ),
+        ];
+    }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'vulnerability_entries.created_at';
+    }
+
+    public static function aggregateFunction(): AggregateFunction
+    {
+        return AggregateFunction::AVG;
+    }
+
+    public static function includeLatestBeforeRange(): bool
+    {
+        return false;
+    }
+
+    public static function aggregate(Report $report): mixed
+    {
+        $aggregate = DB::query()
+            ->from(static::build($report), 'base')
+            ->avg('avg_vulnerabilities');
+
+        return static::numberPrecision($aggregate);
+    }
+
+    public static function groupedAggregate(Report $report, string $column): mixed
+    {
+        return parent::groupedAggregate($report, $column)
+            ->map(fn (mixed $aggregate): float => static::numberPrecision($aggregate));
+    }
+
+    public static function groupedAggregateColumnExpression(string $column): Expression
+    {
+        return new Cast(new Avg('avg_vulnerabilities'), 'float');
+    }
+}

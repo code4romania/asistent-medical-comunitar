@@ -6,23 +6,20 @@ namespace App\Rules;
 
 use alcea\cnp\Cnp;
 use Closure;
-use Illuminate\Contracts\Validation\InvokableRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
 
-class ValidCNP implements InvokableRule
+class ValidCNP implements ValidationRule
 {
     /**
      * Run the validation rule.
      *
-     * @param  string                                      $attribute
-     * @param  mixed                                       $value
-     * @param  Closure(string):PotentiallyTranslatedString $fail
-     * @return void
+     * @param Closure(string):PotentiallyTranslatedString $fail
      */
-    public function __invoke($attribute, $value, $fail)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (! Cnp::validate($value)) {
-            return $fail(__('validation.cnp'));
+            $fail(__('validation.cnp'));
         }
     }
 }

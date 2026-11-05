@@ -128,4 +128,6 @@ return [
         'table' => 'failed_jobs',
     ],
 
+    'reports_queue_name' => env('REPORTS_QUEUE_NAME', 'default'),
+
 ];

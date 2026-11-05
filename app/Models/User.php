@@ -11,6 +11,7 @@ use App\Concerns\MustSetInitialPassword;
 use App\Concerns\Users\GetsOnboarded;
 use App\Concerns\Users\HasRole;
 use App\Concerns\Users\HasStatus;
+use App\Contracts\UserScopable;
 use App\Enums\Gender;
 use App\Models\Profile\Course;
 use App\Models\Profile\Employer;
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
@@ -34,7 +36,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Onboard\Concerns\Onboardable;
 
-class User extends Authenticatable implements FilamentUser, HasName, HasMedia, Onboardable
+class User extends Authenticatable implements FilamentUser, HasName, HasMedia, Onboardable, UserScopable
 {
     use CausesActivity;
     use GetsOnboarded;
@@ -127,7 +129,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
 
     public function appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'nurse_id');
+        return $this->hasMany(Appointment::class);
     }
 
     public function beneficiaries(): HasMany
@@ -135,19 +137,55 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
         return $this->hasMany(Beneficiary::class, 'nurse_id');
     }
 
-    public function communityActivity(): HasMany
+    public function mediatedBeneficiaries(): HasMany
+    {
+        return $this->hasMany(Beneficiary::class, 'mediator_id');
+    }
+
+    public function ownBeneficiaries(): HasMany
+    {
+        return $this->isMediator()
+            ? $this->mediatedBeneficiaries()
+            : $this->beneficiaries();
+    }
+
+    public function communityActivities(): HasMany
     {
         return $this->hasMany(CommunityActivity::class, 'nurse_id');
     }
 
+    public function mediatedCommunityActivities(): HasMany
+    {
+        return $this->hasMany(CommunityActivity::class, 'mediator_id');
+    }
+
+    public function ownCommunityActivities(): HasMany
+    {
+        return $this->isMediator()
+            ? $this->mediatedCommunityActivities()
+            : $this->communityActivities();
+    }
+
     public function vacations(): HasMany
     {
-        return $this->hasMany(Vacation::class, 'nurse_id');
+        return $this->hasMany(Vacation::class);
     }
 
     public function interventions(): HasManyThrough
     {
         return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'nurse_id', 'beneficiary_id');
+    }
+
+    public function mediatedInterventions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Intervention::class, Beneficiary::class, 'mediator_id', 'beneficiary_id');
+    }
+
+    public function ownInterventions(): HasManyThrough
+    {
+        return $this->isMediator()
+            ? $this->mediatedInterventions()
+            : $this->interventions();
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -161,9 +199,23 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia, O
     public function scopeForUser(Builder $query, self $user): Builder
     {
         if ($user->isCoordinator()) {
-            return $query->where('activity_county_id', $user->county_id);
+            return $query->activatesInCounty($user->county_id);
+        }
+
+        if ($user->isNurseOrMediator()) {
+            return $query->activatesInCounty($user->activity_county_id);
         }
 
         return $query;
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'users.id')
+                    ->where('activity_log.subject_type', '=', 'user');
+            })
+            ->tap($callback);
     }
 }

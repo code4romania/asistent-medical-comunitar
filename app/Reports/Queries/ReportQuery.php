@@ -4,18 +4,37 @@ declare(strict_types=1);
 
 namespace App\Reports\Queries;
 
+use App\Enums\AggregateFunction;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Report;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Tpetry\QueryExpressions\Function\Aggregate\Avg;
+use Tpetry\QueryExpressions\Function\Aggregate\Count;
+use Tpetry\QueryExpressions\Function\Aggregate\Max;
+use Tpetry\QueryExpressions\Function\Aggregate\Min;
+use Tpetry\QueryExpressions\Function\Aggregate\Sum;
+use Tpetry\QueryExpressions\Function\Conditional\Coalesce;
+use Tpetry\QueryExpressions\Language\Alias;
 
 abstract class ReportQuery
 {
     abstract public static function query(): Builder;
 
-    public static function dateColumn(): string
+    public static function dateColumn(string $type): string
     {
         return 'vulnerability_entries.created_at';
+    }
+
+    public static function aggregateFunction(): AggregateFunction
+    {
+        return AggregateFunction::COUNT;
     }
 
     public static function aggregateByColumn(): string
@@ -26,6 +45,90 @@ abstract class ReportQuery
     public static function includeLatestBeforeRange(): bool
     {
         return true;
+    }
+
+    /**
+     * The table holding the state snapshots that `latestBeforeRangeQuery()` carries
+     * forward into the reporting period. Must be the table qualifying `dateColumn()`.
+     */
+    public static function latestBeforeRangeTable(): string
+    {
+        return 'vulnerability_entries';
+    }
+
+    /**
+     * The column splitting those snapshots into one timeline per subject. Only the
+     * newest pre-range snapshot of each timeline is carried into the report.
+     */
+    public static function latestBeforeRangePartition(): string
+    {
+        return 'beneficiary_id';
+    }
+
+    /**
+     * The monotonically increasing key used to break ties between snapshots sharing
+     * the same `dateColumn()` value, which only has second precision.
+     */
+    public static function latestBeforeRangeKey(): string
+    {
+        return 'id';
+    }
+
+    /**
+     * Narrow the rows of `latestBeforeRangeTable()` that count as snapshots of
+     * a subject's state.
+     */
+    public static function latestBeforeRangeTimeline(Builder|QueryBuilder $query, string $table): void
+    {
+        //
+    }
+
+    public static function latestBeforeRangeQuery(Builder $query, Report $report): Builder
+    {
+        $table = static::latestBeforeRangeTable();
+        $partition = static::latestBeforeRangePartition();
+        $key = Str::afterLast(static::latestBeforeRangeKey(), '.');
+        $date = Str::afterLast(static::dateColumn('start'), '.');
+        $alias = "{$table}_latest";
+
+        return $query
+            ->where(static::dateColumn('start'), '<', $report->datetime_from)
+            ->distinct(false)
+            ->where(
+                "{$table}.{$key}",
+                fn (QueryBuilder $query): QueryBuilder => $query
+                    ->select("{$alias}.{$key}")
+                    ->from($table, $alias)
+                    ->whereColumn("{$alias}.{$partition}", "{$table}.{$partition}")
+                    ->where("{$alias}.{$date}", '<', $report->datetime_from)
+                    ->tap(fn (QueryBuilder $query) => static::latestBeforeRangeTimeline($query, $alias))
+                    ->orderByDesc("{$alias}.{$date}")
+                    ->orderByDesc("{$alias}.{$key}")
+                    ->limit(1)
+            );
+    }
+
+    public static function distinct(): bool
+    {
+        return match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => true,
+            default => false,
+        };
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return false;
+    }
+
+    public static function endDateNullable(): bool
+    {
+        return false;
+    }
+
+    public static function omitStartDate(): bool
+    {
+        return false;
     }
 
     public static function selectColumns(): array
@@ -60,9 +163,37 @@ abstract class ReportQuery
 
     public static function tapQuery(Builder $query): Builder
     {
-        return $query->addSelect([
-            'beneficiaries.nurse_id',
-        ]);
+        return $query;
+    }
+
+    /**
+     * The columns statistic reports are segmented by (nurse, county), keyed by alias.
+     */
+    public static function segmentColumns(): array
+    {
+        return [
+            'nurse_id' => 'beneficiaries.nurse_id',
+            'mediator_id' => 'beneficiaries.mediator_id',
+            'county_id' => static::toExpression(
+                User::query()
+                    ->select('activity_county_id')
+                    ->whereColumn('users.id', new Coalesce([
+                        'beneficiaries.nurse_id',
+                        'beneficiaries.mediator_id',
+                    ]))
+                    ->take(1)
+            ),
+        ];
+    }
+
+    protected static function toExpression(Builder|QueryBuilder $query): Expression
+    {
+        return DB::raw("({$query->toRawSql()})");
+    }
+
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query;
     }
 
     public static function recordActionUrl(Model $record): ?string
@@ -93,34 +224,139 @@ abstract class ReportQuery
         ];
     }
 
-    public static function build(Report $report): Builder
+    public static function build(Report $report, bool $aggregate = false): Builder
     {
-        $query = static::query()
-            ->forUser($report->user)
-            ->select(static::selectColumns())
-            ->tap([static::class, 'tapQuery']);
+        /** @var Builder */
+        $query = static::forUser(static::query(), $report->user);
+
+        if ($aggregate) {
+            $query->select(static::aggregateByColumn());
+
+            if (static::distinct()) {
+                $query->distinct();
+            }
+        } else {
+            $query
+                ->select(static::selectColumns())
+                ->tap([static::class, 'tapQuery'])
+                ->addSelect(
+                    collect(static::segmentColumns())
+                        ->map(fn (Expression|string $column, string $alias): Alias => new Alias($column, $alias))
+                        ->values()
+                        ->all()
+                );
+        }
 
         if (! $report->date_until) {
-            return $query->whereDate(static::dateColumn(), '=', $report->date_from);
+            return $query->whereDate(static::dateColumn('start'), '=', $report->date_from);
         }
 
         if (static::includeLatestBeforeRange()) {
-            $union = $query->clone()
-                ->whereDate(static::dateColumn(), '<', $report->date_from)
-                ->latest(static::dateColumn())
-                ->limit(1);
+            $union = static::latestBeforeRangeQuery($query->clone(), $report);
         }
 
-        return $query
-            ->whereDate(static::dateColumn(), '>=', $report->date_from)
-            ->whereDate(static::dateColumn(), '<=', $report->date_until)
-            ->when(isset($union), fn (Builder $q) => $q->union($union));
+        static::where($query, $report);
+
+        if (! static::omitStartDate()) {
+            static::whereDate($query, 'start', $report->datetime_from);
+        }
+
+        static::whereDate($query, 'end', $report->datetime_until);
+
+        if (isset($union)) {
+            $query->union($union);
+        }
+
+        return $query;
     }
 
-    public static function aggregate(Report $report): int
+    /**
+     * This only exists here so it can be overriden for Intervention queries.
+     */
+    public static function forUser(Builder $query, User $user): Builder
     {
-        return static::build($report)
-            ->distinct(static::aggregateByColumn())
-            ->count(static::aggregateByColumn());
+        return $query->forUser($user);
+    }
+
+    public static function aggregate(Report $report): mixed
+    {
+        $method = static::aggregateFunction()->value;
+
+        return static::build($report, true)
+            ->when(static::distinct(), fn (Builder $query) => $query->distinct())
+            ->$method(static::aggregateByColumn()) ?? 0;
+    }
+
+    public static function groupedAggregate(Report $report, string $column): mixed
+    {
+        return DB::query()
+            ->from(static::build($report), 'base')
+            ->select(static::groupedAggregateColumns($column))
+            ->groupBy($column)
+            ->pluck('aggregate', $column);
+    }
+
+    public static function groupedAggregateColumnExpression(string $column): Expression
+    {
+        return match (static::aggregateFunction()) {
+            AggregateFunction::COUNT => new Count($column),
+            AggregateFunction::SUM => new Sum(static::aggregateByColumn()),
+            AggregateFunction::AVG => new Avg(static::aggregateByColumn()),
+            AggregateFunction::MIN => new Min(static::aggregateByColumn()),
+            AggregateFunction::MAX => new Max(static::aggregateByColumn()),
+        };
+    }
+
+    public static function groupedAggregateColumns(string $column): array
+    {
+        return [
+            new Alias(
+                static::groupedAggregateColumnExpression($column),
+                'aggregate'
+            ),
+            $column,
+        ];
+    }
+
+    public static function whereDate(Builder $query, string $column, Carbon $date): Builder
+    {
+        $condition = match ($column) {
+            'start' => static::startDateNullable(),
+            'end' => static::endDateNullable(),
+        };
+
+        $operator = match ($column) {
+            'start' => '>=' ,
+            'end' => '<=' ,
+        };
+
+        if (! $condition) {
+            return $query->where(static::dateColumn($column), $operator, $date);
+        }
+
+        return $query->where(
+            fn (Builder $query): Builder => $query
+                ->where(static::dateColumn($column), $operator, $date)
+                ->orWhereNull(static::dateColumn($column))
+        );
+    }
+
+    public static function computeTotal(int|float $total, int $count): int|float
+    {
+        if (static::aggregateFunction()->is(AggregateFunction::AVG)) {
+            return static::numberPrecision($total / $count);
+        }
+
+        return $total;
+    }
+
+    /**
+     * Limit the number of decimals when storing in the database.
+     */
+    public static function numberPrecision(mixed $value, int $precision = 3): float
+    {
+        $coefficient = 10 ** $precision;
+
+        return floor($value * $coefficient) / $coefficient;
     }
 }

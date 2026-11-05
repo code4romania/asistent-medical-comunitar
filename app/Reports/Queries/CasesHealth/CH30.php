@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Reports\Queries\CasesHealth;
+
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * Total management de caz închise pentru Atac vascular cerebral.
+ */
+class CH30 extends CasesHealthQuery
+{
+    public static function query(): Builder
+    {
+        return parent::query()
+            ->whereSecondaryVulnerability('VSG_AVC');
+    }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'closed_at';
+    }
+}

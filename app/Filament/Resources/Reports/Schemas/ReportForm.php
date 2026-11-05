@@ -46,7 +46,7 @@ class ReportForm
                         Select::make('type')
                             ->label(__('report.column.type'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->visible(fn () => auth()->user()->isNurse())
+                            ->visible(fn () => auth()->user()->isNurseOrMediator())
                             ->options(Type::class)
                             ->live()
                             ->required(),
@@ -61,8 +61,8 @@ class ReportForm
                             ->selectAll()
                             ->options(
                                 fn () => User::query()
-                                    ->onlyNurses()
-                                    ->activatesInCounty(auth()->user()->county_id)
+                                    ->onlyNursesAndMediators()
+                                    ->activatesInCurrentUserCounty()
                                     ->withActivityAreas()
                                     ->get()
                                     ->mapWithKeys(fn (User $nurse) => [
@@ -86,7 +86,17 @@ class ReportForm
                         Select::make('category')
                             ->label(__('report.column.category'))
                             ->placeholder(__('placeholder.select_one'))
-                            ->options(Category::class)
+                            ->enum(Category::class)
+                            ->options(
+                                fn (Select $component, Get $get): array => collect(Category::cases())
+                                    ->filter(fn (Category $case): bool => $case->isVisible($get('type')))
+                                    ->reduce(function (array $carry, Category $case): array {
+                                        $carry[$case->value ?? $case->name] = $case->getLabel() ?? $case->name;
+
+                                        return $carry;
+                                    }, [])
+                            )
+
                             ->live()
                             ->required()
                             ->afterStateUpdated(function (Set $set) {

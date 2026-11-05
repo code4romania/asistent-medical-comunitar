@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\Resources\Interventions\InterventionResource;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\Beneficiary;
 use App\Models\Service\Service;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -80,6 +81,23 @@ class IndividualServiceForm
                         Checkbox::make('interventionable.outside_working_hours')
                             ->label(__('field.outside_working_hours'))
                             ->helperText(__('field.outside_working_hours_help')),
+
+                        Checkbox::make('mediator_has_access')
+                            ->label(__('field.mediator_has_access'))
+                            ->columnSpanFull()
+                            ->visible(function (Component $livewire): bool {
+                                if (! auth()->user()?->isNurse()) {
+                                    return false;
+                                }
+
+                                /** @var Beneficiary */
+                                $record = $livewire->getRecord();
+                                $beneficiary = $record instanceof Beneficiary
+                                    ? $record
+                                    : $record?->beneficiary;
+
+                                return filled($beneficiary?->mediator_id);
+                            }),
                     ]),
 
                 Subsection::make()

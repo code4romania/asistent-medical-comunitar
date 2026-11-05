@@ -14,7 +14,7 @@ class BeneficiaryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isNurse();
+        return $user->isNurseOrMediator();
     }
 
     /**
@@ -22,7 +22,15 @@ class BeneficiaryPolicy
      */
     public function view(User $user, Beneficiary $beneficiary): bool
     {
-        return $user->isNurse() && $beneficiary->nurse_id === $user->id;
+        if ($user->isNurse()) {
+            return $beneficiary->nurse_id === $user->id;
+        }
+
+        if ($user->isMediator()) {
+            return $beneficiary->mediator_id === $user->id;
+        }
+
+        return false;
     }
 
     /**
@@ -30,7 +38,7 @@ class BeneficiaryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse();
+        return $this->viewAny($user);
     }
 
     /**
@@ -38,7 +46,7 @@ class BeneficiaryPolicy
      */
     public function update(User $user, Beneficiary $beneficiary): bool
     {
-        return $user->isNurse() && $beneficiary->nurse_id === $user->id;
+        return $this->view($user, $beneficiary);
     }
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Concerns\BelongsToNurse;
+use App\Concerns\BelongsToNurseOrMediator;
 use App\Concerns\HasBeneficiaryStatus;
 use App\Concerns\HasInterventions;
 use App\Concerns\HasLocation;
@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -29,7 +30,7 @@ use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 class Beneficiary extends Model
 {
-    use BelongsToNurse;
+    use BelongsToNurseOrMediator;
     use BelongsToThroughTrait;
     use HasBeneficiaryStatus;
     use HasFactory;
@@ -62,11 +63,11 @@ class Beneficiary extends Model
         'reason_removed',
         'reason_removed_notes',
 
-        'nurse_id',
         'family_id',
 
         'does_not_have_cnp',
         'does_not_provide_cnp',
+        'has_non_standard_cnp',
     ];
 
     protected $casts = [
@@ -80,6 +81,7 @@ class Beneficiary extends Model
         'date_of_birth' => 'date',
         'does_not_have_cnp' => 'boolean',
         'does_not_provide_cnp' => 'boolean',
+        'has_non_standard_cnp' => 'boolean',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -88,6 +90,14 @@ class Beneficiary extends Model
             ->dontSubmitEmptyLogs()
             ->logFillable()
             ->logOnlyDirty();
+    }
+
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        /** @var Beneficiary */
+        $beneficiary = $activity->subject;
+
+        $activity->beneficiary()->associate($beneficiary);
     }
 
     public function relatedActivities(): HasMany
@@ -206,12 +216,29 @@ class Beneficiary extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function scopeLeftJoinLocation(Builder $query): Builder
+    {
+        return $query
+            ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
+            ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id');
+    }
+
     public function scopeWhereHasVulnerabilities(Builder $query, callable $callback): Builder
     {
         return $query
             ->rightJoin('vulnerability_entries', 'vulnerability_entries.beneficiary_id', '=', 'beneficiaries.id')
-            ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.id')
-            ->leftJoin('counties', 'beneficiaries.county_id', '=', 'counties.id')
+            ->leftJoinLocation()
+            ->tap($callback);
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'beneficiaries.id')
+                    ->where('activity_log.subject_type', '=', 'beneficiary');
+            })
+            ->leftJoinLocation()
             ->tap($callback);
     }
 }

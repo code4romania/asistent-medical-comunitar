@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
+use alcea\cnp\Cnp;
 use App\Enums\Beneficiary\Ethnicity;
 use App\Enums\Beneficiary\IDType;
 use App\Enums\Beneficiary\ReasonRemoved;
@@ -13,6 +14,7 @@ use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
 use App\Filament\Schemas\Components\Subsection;
+use App\Models\Beneficiary;
 use App\Rules\ValidCNP;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -27,6 +29,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
+use Illuminate\Database\Eloquent\Builder;
 
 class RegularBeneficiaryForm
 {
@@ -49,8 +52,50 @@ class RegularBeneficiaryForm
                                 TextEntry::make('type')
                                     ->label(__('field.beneficiary_type')),
 
-                                TextEntry::make('nurse.full_name')
-                                    ->label(__('field.allocated_nurse')),
+                                Grid::make()
+                                    ->columnSpanFull()
+                                    ->components([
+                                        Select::make('nurse_id')
+                                            ->label(__('field.allocated_nurse'))
+                                            ->placeholder(__('placeholder.choose'))
+                                            ->relationship(
+                                                'nurse',
+                                                'full_name',
+                                                fn (Builder $query): Builder => $query
+                                                    ->onlyNurses()
+                                                    ->activatesInCurrentUserCounty()
+                                                    ->select([
+                                                        'id', 'first_name', 'last_name', 'full_name',
+                                                    ])
+                                            )
+                                            ->searchable()
+                                            ->preload()
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && blank($record->nurse_id)),
+
+                                        TextEntry::make('nurse.full_name')
+                                            ->label(__('field.allocated_nurse'))
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isMediator() && filled($record->nurse_id)),
+
+                                        Select::make('mediator.full_name')
+                                            ->label(__('field.allocated_mediator'))
+                                            ->placeholder(__('placeholder.choose'))
+                                            ->relationship(
+                                                'mediator',
+                                                'full_name',
+                                                fn (Builder $query): Builder => $query
+                                                    ->activatesInCurrentUserCounty()
+                                                    ->select([
+                                                        'id', 'full_name',
+                                                    ])
+                                            )
+                                            ->searchable()
+                                            ->preload()
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && blank($record->mediator_id)),
+
+                                        TextEntry::make('mediator.full_name')
+                                            ->label(__('field.allocated_mediator'))
+                                            ->visible(fn (Beneficiary $record): bool => auth()->user()->isNurse() && filled($record->mediator_id)),
+                                    ]),
 
                                 Select::make('integrated')
                                     ->label(__('field.integrated'))
@@ -110,11 +155,16 @@ class RegularBeneficiaryForm
                                 Group::make()
                                     ->components([
                                         TextInput::make('cnp')
-                                            ->label(__('field.cnp'))
-                                            ->placeholder(__('placeholder.cnp'))
+                                            ->label(fn (Get $get) => $get('has_non_standard_cnp')
+                                                ? __('field.non_standard_cnp')
+                                                : __('field.cnp'))
+                                            ->placeholder(fn (Get $get) => $get('has_non_standard_cnp')
+                                                ? __('placeholder.non_standard_cnp')
+                                                : __('placeholder.cnp'))
                                             ->unique(ignoreRecord: true)
                                             ->nullable()
-                                            ->rule(new ValidCNP)
+                                            ->maxLength(13)
+                                            ->rule(new ValidCNP, fn (Get $get): bool => ! $get('has_non_standard_cnp'))
                                             ->disabled(function (Get $get) {
                                                 return (bool) $get('does_not_have_cnp')
                                                     || (bool) $get('does_not_provide_cnp');
@@ -123,6 +173,23 @@ class RegularBeneficiaryForm
                                                 return ! $get('has_unknown_identity')
                                                     && ! $get('does_not_have_cnp')
                                                     && ! $get('does_not_provide_cnp');
+                                            })
+                                            ->lazy()
+                                            ->afterStateUpdated(function (?string $state, Set $set): void {
+                                                $cnp = new Cnp($state);
+
+                                                if ($cnp->isValid()) {
+                                                    $set('date_of_birth', $cnp->getBirthDateFromCNP());
+                                                }
+                                            }),
+
+                                        Checkbox::make('has_non_standard_cnp')
+                                            ->label(__('field.has_non_standard_cnp'))
+                                            ->default(false)
+                                            ->live()
+                                            ->afterStateUpdated(function (Set $set) {
+                                                $set('does_not_have_cnp', false);
+                                                $set('does_not_provide_cnp', false);
                                             }),
 
                                         Checkbox::make('does_not_have_cnp')
@@ -132,6 +199,7 @@ class RegularBeneficiaryForm
                                             ->afterStateUpdated(function (Set $set) {
                                                 $set('cnp', null);
                                                 $set('does_not_provide_cnp', false);
+                                                $set('has_non_standard_cnp', false);
                                             }),
 
                                         Checkbox::make('does_not_provide_cnp')
@@ -141,6 +209,7 @@ class RegularBeneficiaryForm
                                             ->afterStateUpdated(function (Set $set) {
                                                 $set('cnp', null);
                                                 $set('does_not_have_cnp', false);
+                                                $set('has_non_standard_cnp', false);
                                             }),
                                     ]),
 

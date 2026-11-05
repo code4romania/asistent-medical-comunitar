@@ -5,7 +5,10 @@
 /coverage
 /node_modules
 /public/build
+/public/css
+/public/fonts
 /public/hot
+/public/js
 /public/storage
 /public/vendor
 /storage/*.key
@@ -37,3 +40,6 @@ GEMINI.md
 AGENTS.md
 boost.json
 /.github/copilot-instructions.md
+/.claude
+/.cursor
+/.junie

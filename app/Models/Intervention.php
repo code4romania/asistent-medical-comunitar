@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAppointment;
 use App\Concerns\BelongsToBeneficiary;
+use App\Concerns\BelongsToNurseThroughBeneficiary;
 use App\Concerns\BelongsToVulnerability;
+use App\Enums\Intervention\CaseInitiator;
 use App\Enums\Intervention\Status;
 use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Models\Intervention\InterventionableCase;
@@ -18,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Arr;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -26,6 +29,7 @@ class Intervention extends Model
 {
     use BelongsToAppointment;
     use BelongsToBeneficiary;
+    use BelongsToNurseThroughBeneficiary;
     use BelongsToVulnerability;
     use HasFactory;
     use LogsActivity;
@@ -36,14 +40,15 @@ class Intervention extends Model
         'appointment_id',
         'beneficiary_id',
         'parent_id',
-        'vulnerability_id',
         'vulnerability_label',
         'closed_at',
+        'mediator_has_access',
     ];
 
     protected $casts = [
         'integrated' => 'boolean',
         'closed_at' => 'datetime',
+        'mediator_has_access' => 'boolean',
     ];
 
     protected $with = [
@@ -53,16 +58,16 @@ class Intervention extends Model
 
     public static function booted(): void
     {
-        static::addGlobalScope('forCurrentUser', function (Builder $builder) {
-            if (! auth()->check()) {
-                return;
-            }
+        // Set intervention author
+        static::creating(function (self $intervention): void {
+            $intervention->user_id ??= auth()->id();
+        });
 
-            if (auth()->user()->isAdmin()) {
-                return;
+        // Make sure mediators have access to their own interventions
+        static::creating(function (self $intervention): void {
+            if (auth()->user()?->isMediator()) {
+                $intervention->mediator_has_access = true;
             }
-
-            $builder->forUser(auth()->user());
         });
 
         static::creating(function (self $intervention) {
@@ -82,6 +87,16 @@ class Intervention extends Model
                 $intervention->beneficiary->markAsActive();
             }
         });
+
+        static::updated(function (self $intervention) {
+            $attributes = ['vulnerability_id', 'secondary_vulnerability_id', 'vulnerability_label'];
+
+            if ($intervention->isCase() && $intervention->isDirty($attributes)) {
+                $intervention->interventions()->update(
+                    $intervention->only($attributes)
+                );
+            }
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -95,6 +110,11 @@ class Intervention extends Model
     public function interventionable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function appointment(): BelongsTo
@@ -156,17 +176,9 @@ class Intervention extends Model
         return $query->whereMorphRelation('interventionable', InterventionableIndividualService::class, 'status', Status::PLANNED);
     }
 
-    public function scopeForUser(Builder $query, User $user): Builder
+    public function scopeWhereInitiatedBy(Builder $query, CaseInitiator $initiator): Builder
     {
-        if ($user->isNurse()) {
-            return $query->whereRelation('beneficiary', 'nurse_id', $user->id);
-        }
-
-        if ($user->isCoordinator()) {
-            return $query->whereRelation('beneficiary.nurse', 'activity_county_id', $user->county_id);
-        }
-
-        return $query;
+        return $query->whereMorphRelation('interventionable', InterventionableCase::class, 'initiator', $initiator);
     }
 
     public function scopeWhereRealizedIndividualServiceWithCode(Builder $query, string|array $codes): Builder
@@ -180,6 +192,15 @@ class Intervention extends Model
                     ->whereHas('service', fn (Builder $query) => $query->whereIn('code', Arr::wrap($codes)))
                     ->where('status', Status::REALIZED)
             );
+    }
+
+    public function scopeWhereHasActivity(Builder $query, callable $callback): Builder
+    {
+        return $query
+            ->rightJoin('activity_log', function (JoinClause $join) {
+                $join->on('activity_log.subject_id', '=', 'interventions.id')
+                    ->where('activity_log.subject_type', '=', 'intervention');
+            });
     }
 
     public function isCase(): bool
@@ -240,7 +261,7 @@ class Intervention extends Model
                 : __('intervention.type.case');
         }
 
-        return __('intervention.type.individual');
+        return __('intervention.type.individual_service');
     }
 
     public function getStatusAttribute(): string|Status|null
@@ -290,7 +311,7 @@ class Intervention extends Model
         return $this->attributes['vulnerability_label'] ?? $this->vulnerability?->name;
     }
 
-    public function setVulnerability($index)
+    public function setVulnerability($index): self
     {
         $vulnerability = $this->beneficiary
             ->catagraphy
@@ -299,6 +320,7 @@ class Intervention extends Model
 
         return $this->fill([
             'vulnerability_id' => $vulnerability?->value,
+            'secondary_vulnerability_id' => $vulnerability?->category,
             'vulnerability_label' => $vulnerability?->label,
         ]);
     }

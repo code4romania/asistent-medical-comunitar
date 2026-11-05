@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Reports\Queries\CasesHealth;
+
+use App\Models\Report;
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * Total management de caz active pentru HIV.
+ */
+class CH08 extends CasesHealthQuery
+{
+    public static function query(): Builder
+    {
+        return parent::query()
+            ->whereSecondaryVulnerability('VSG_HIV');
+    }
+
+    public static function where(Builder $query, Report $report): Builder
+    {
+        return $query->where('interventions.created_at', '<=', $report->datetime_until);
+    }
+
+    public static function dateColumn(string $type): string
+    {
+        return 'closed_at';
+    }
+
+    public static function startDateNullable(): bool
+    {
+        return true;
+    }
+
+    public static function endDateNullable(): bool
+    {
+        return true;
+    }
+}

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Contracts\Enums;
 
-interface HasQuery
+use BackedEnum;
+
+interface HasQuery extends BackedEnum
 {
     public function class(): string;
 }

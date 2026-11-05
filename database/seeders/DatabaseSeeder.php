@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Beneficiary;
+use App\Models\Feedback;
 use App\Models\Recommendation;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -35,6 +36,11 @@ class DatabaseSeeder extends Seeder
             ->coordinator()
             ->create();
 
+        // Create a mediator
+        $mediator = User::factory(['email' => 'mediator@example.com'])
+            ->mediator()
+            ->create();
+
         // Create a community nurse
         $nurse = User::factory(['email' => 'nurse@example.com'])
             ->nurse()
@@ -42,6 +48,16 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $this->generateBeneficiaries($nurse);
+
+        Feedback::factory()
+            ->count(10)
+            ->recycle($nurse)
+            ->create();
+
+        Feedback::factory()
+            ->count(5)
+            ->recycle($mediator)
+            ->create();
 
         User::factory()
             ->count(5)

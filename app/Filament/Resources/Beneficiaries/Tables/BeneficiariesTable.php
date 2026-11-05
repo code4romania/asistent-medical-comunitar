@@ -73,12 +73,40 @@ class BeneficiariesTable
                     ->hidden(
                         fn (Page $livewire) => is_subclass_of($livewire, ListBeneficiaries::class)
                     ),
+
+                TextColumn::make('nurse.full_name')
+                    ->label(__('field.nurse'))
+                    ->hidden(fn () => auth()->user()->isNurse())
+                    ->toggleable()
+                    ->sortable(),
+
+                TextColumn::make('mediator.full_name')
+                    ->label(__('field.mediator'))
+                    ->hidden(fn () => auth()->user()->isMediator())
+                    ->toggleable()
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('status')
                     ->label(__('field.status'))
                     ->options(Status::options())
                     ->multiple(),
+
+                SelectFilter::make('nurse')
+                    ->label(__('field.nurse'))
+                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->activatesInCurrentUserCounty())
+                    ->searchable()
+                    ->multiple()
+                    ->preload()
+                    ->hidden(fn () => auth()->user()->isNurse()),
+
+                SelectFilter::make('mediator')
+                    ->label(__('field.mediator'))
+                    ->relationship('mediator', 'full_name', fn (Builder $query) => $query->activatesInCurrentUserCounty())
+                    ->searchable()
+                    ->multiple()
+                    ->preload()
+                    ->hidden(fn () => auth()->user()->isMediator()),
             ])
             ->recordActions([
                 ViewAction::make()

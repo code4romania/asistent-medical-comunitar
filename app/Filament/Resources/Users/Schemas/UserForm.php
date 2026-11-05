@@ -6,10 +6,10 @@ namespace App\Filament\Resources\Users\Schemas;
 
 use App\Enums\User\Role;
 use App\Filament\Forms\Components\Location;
+use App\Filament\Forms\Components\Select;
 use App\Filament\Resources\Profiles\Schemas\AreaForm;
 use App\Filament\Schemas\Components\Subsection;
 use App\Models\City;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -58,10 +58,9 @@ class UserForm
 
                                 Select::make('role')
                                     ->label(__('field.role'))
-                                    ->options(Role::class)
+                                    ->filteredEnum(Role::class)
                                     ->live()
                                     ->required()
-                                    ->visible(fn () => auth()->user()->isAdmin())
                                     ->default(Role::NURSE),
 
                                 Location::make()
@@ -73,11 +72,18 @@ class UserForm
                     ]),
 
                 Section::make()
-                    ->visible(fn (Get $get) => auth()->user()->isAdmin() && Role::NURSE->is($get('role')))
+                    ->visible(function (Get $get): bool {
+                        if (! auth()->user()->isAdmin()) {
+                            return false;
+                        }
+
+                        return Role::NURSE->is($get('role'))
+                            || Role::MEDIATOR->is($get('role'));
+                    })
                     ->components(fn (Schema $schema) => AreaForm::configure($schema, canEditCounty: true)),
 
                 Section::make()
-                    ->visible(fn () => auth()->user()->isCoordinator())
+                    ->visible(fn (): bool => auth()->user()->isCoordinator())
                     ->components([
                         Subsection::make()
                             ->icon(Heroicon::OutlinedMapPin)

@@ -7,6 +7,7 @@ namespace App\Imports;
 use App\Models\Service\Service;
 use App\Models\Service\ServiceCategory;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -19,26 +20,32 @@ class ServicesImport implements ToCollection, WithHeadingRow
         $this->importCategories($rows);
 
         Service::upsert(
-            $rows->map(fn (Collection $row) => [
+            $rows->map(fn (Collection $row): array => [
                 'code' => $row['code'],
-                'name' => $row['name'],
-                'category_id' => $this->categories->get($row['category']),
+                'name' => $this->normalize($row['name']),
+                'category_id' => $this->categories->get($this->normalize($row['category'])),
             ])->toArray(),
-            'id'
+            'code'
         );
     }
 
     private function importCategories(Collection $rows): void
     {
-        ServiceCategory::upsert(
+        ServiceCategory::insert(
             $rows->pluck('category')
                 ->unique()
+                ->map(fn (string $name) => $this->normalize($name))
+                ->diff(ServiceCategory::pluck('name'))
                 ->map(fn (string $name) => ['name' => $name])
                 ->values()
-                ->all(),
-            'id'
+                ->all()
         );
 
         $this->categories = ServiceCategory::pluck('id', 'name');
+    }
+
+    protected function normalize(string $name): string
+    {
+        return Str::trim($name);
     }
 }

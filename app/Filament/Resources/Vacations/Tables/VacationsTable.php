@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Vacations\Tables;
 
 use App\Models\County;
+use App\Models\Vacation;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -26,12 +27,13 @@ class VacationsTable
                     ->searchable()
                     ->toggleable(),
 
-                TextColumn::make('nurse.full_name')
-                    ->label(__('field.nurse'))
+                TextColumn::make('user.full_name')
+                    ->label(__('field.user'))
                     ->toggleable(fn (TextColumn $column) => ! $column->isHidden())
-                    ->hidden(fn () => auth()->user()->isNurse()),
+                    ->description(fn (Vacation $record): string => $record->user->role->getLabel())
+                    ->hidden(fn (): bool => auth()->user()->isNurseOrMediator()),
 
-                TextColumn::make('nurse.activityCounty.name')
+                TextColumn::make('user.activityCounty.name')
                     ->label(__('field.county'))
                     ->toggleable(fn (TextColumn $column) => ! $column->isHidden())
                     ->visible(fn () => auth()->user()->isAdmin()),
@@ -68,15 +70,15 @@ class VacationsTable
                             return $query;
                         }
 
-                        $query->whereRelation('nurse.activityCounty', 'counties.id', $data['value']);
+                        $query->whereRelation('user.activityCounty', 'counties.id', $data['value']);
                     })
                     ->visible(fn () => auth()->user()->isAdmin()),
 
-                SelectFilter::make('nurse')
-                    ->label(__('field.nurse'))
-                    ->relationship('nurse', 'full_name', fn (Builder $query) => $query->onlyNurses())
+                SelectFilter::make('user')
+                    ->label(__('field.user'))
+                    ->relationship('user', 'full_name', fn (Builder $query) => $query->onlyNursesAndMediators())
                     ->multiple()
-                    ->hidden(fn () => auth()->user()->isNurse()),
+                    ->hidden(fn (): bool => auth()->user()->isNurseOrMediator()),
             ])
             ->recordActions([
                 ViewAction::make()

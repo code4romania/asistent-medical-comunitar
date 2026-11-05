@@ -17,8 +17,18 @@ class CampaignInfolist
             ->columns()
             ->components([
                 TextEntry::make('subtype')
-                    ->label(__('field.type'))
-                    ->columnSpanFull(),
+                    ->label(__('field.type')),
+
+                Group::make()
+                    ->schema([
+                        TextEntry::make('nurse.full_name')
+                            ->label(__('field.allocated_nurse'))
+                            ->visible(fn (?string $state): bool => ! auth()->user()->isNurse() && filled($state)),
+
+                        TextEntry::make('mediator.full_name')
+                            ->label(__('field.allocated_mediator'))
+                            ->visible(fn (?string $state): bool => ! auth()->user()->isMediator() && filled($state)),
+                    ]),
 
                 TextEntry::make('name')
                     ->label(__('field.activity')),

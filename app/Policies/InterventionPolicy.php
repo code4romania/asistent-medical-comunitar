@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\Intervention\EditRestriction;
 use App\Models\Intervention;
 use App\Models\User;
 
@@ -14,7 +15,7 @@ class InterventionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isNurse();
+        return $user->isNurseOrMediator();
     }
 
     /**
@@ -22,8 +23,11 @@ class InterventionPolicy
      */
     public function view(User $user, Intervention $intervention): bool
     {
-        return $user->isNurse()
-            && $user->beneficiaries->contains('id', $intervention->beneficiary_id);
+        if ($user->isMediator()) {
+            return $intervention->mediator_has_access;
+        }
+
+        return true;
     }
 
     /**
@@ -31,17 +35,18 @@ class InterventionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse();
+        return $this->viewAny($user);
     }
 
     /**
      * Determine whether the user can update the model.
+     *
+     * The reasons an intervention stops being editable have on `EditRestriction`,
+     * so the intervention view page can explain the denial to the user.
      */
     public function update(User $user, Intervention $intervention): bool
     {
-        return $user->isNurse()
-            && $user->beneficiaries->contains('id', $intervention->beneficiary_id)
-            && $intervention->isOpen();
+        return blank(EditRestriction::resolve($intervention, $user));
     }
 
     /**
@@ -49,7 +54,15 @@ class InterventionPolicy
      */
     public function delete(User $user, Intervention $intervention): bool
     {
-        return $this->update($user, $intervention);
+        if (filled($intervention->parent_id)) {
+            return $this->update($user, $intervention->parent);
+        }
+
+        if (! $intervention->isOpen()) {
+            return false;
+        }
+
+        return $this->view($user, $intervention);
     }
 
     /**

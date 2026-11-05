@@ -30,7 +30,7 @@ class VacationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse();
+        return $user->isNurseOrMediator();
     }
 
     /**
@@ -38,7 +38,7 @@ class VacationPolicy
      */
     public function update(User $user, Vacation $vacation): bool
     {
-        return $user->isNurse() && $vacation->nurse_id === $user->id;
+        return $this->create($user) && $vacation->user_id === $user->id;
     }
 
     /**
@@ -46,7 +46,7 @@ class VacationPolicy
      */
     public function delete(User $user, Vacation $vacation): bool
     {
-        return $user->isNurse() && $vacation->nurse_id === $user->id;
+        return $this->update($user, $vacation);
     }
 
     /**
@@ -54,7 +54,7 @@ class VacationPolicy
      */
     public function restore(User $user, Vacation $vacation): bool
     {
-        return $user->isNurse() && $vacation->nurse_id === $user->id;
+        return false;
     }
 
     /**
@@ -62,6 +62,6 @@ class VacationPolicy
      */
     public function forceDelete(User $user, Vacation $vacation): bool
     {
-        return $user->isNurse() && $vacation->nurse_id === $user->id;
+        return false;
     }
 }

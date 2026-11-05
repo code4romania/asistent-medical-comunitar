@@ -50,6 +50,7 @@ class BeneficiaryFactory extends Factory
             'date_of_birth' => fake()->date(),
             'does_not_have_cnp' => ! $cnpMissingReason,
             'does_not_provide_cnp' => $cnpMissingReason,
+            'has_non_standard_cnp' => false,
             'ethnicity' => fake()->boolean(25) ? fake()->randomElement(Ethnicity::values()) : null,
             'work_status' => fake()->boolean(25) ? fake()->randomElement(WorkStatus::values()) : null,
         ];
@@ -122,7 +123,9 @@ class BeneficiaryFactory extends Factory
                     $interventions = Intervention::query()
                         ->where('interventionable_type', 'individual_service')
                         ->whereBeneficiary($beneficiary)
-                        ->get();
+                        ->get()
+                        // Eager loading error workaround
+                        ->map->setRelation('beneficiary', $beneficiary);
 
                     Appointment::factory()
                         ->recycle($beneficiary->nurse)
@@ -155,6 +158,17 @@ class BeneficiaryFactory extends Factory
             ),
             'does_not_have_cnp' => false,
             'does_not_provide_cnp' => false,
+            'has_non_standard_cnp' => false,
+        ]);
+    }
+
+    public function withNonStandardCNP(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'cnp' => fake()->numerify('#############'),
+            'does_not_have_cnp' => false,
+            'does_not_provide_cnp' => false,
+            'has_non_standard_cnp' => true,
         ]);
     }
 

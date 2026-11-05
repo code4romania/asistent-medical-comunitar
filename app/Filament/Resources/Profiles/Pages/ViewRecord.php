@@ -9,7 +9,6 @@ use App\Filament\Resources\Profiles\Concerns\HasTabs;
 use App\Filament\Resources\Profiles\Concerns\ResolvesRecord;
 use App\Filament\Resources\Profiles\ProfileResource;
 use Filament\Actions\EditAction;
-use Filament\Facades\Filament;
 use Filament\Resources\Pages\ViewRecord as BaseViewRecord;
 use Filament\Support\Icons\Heroicon;
 
@@ -38,8 +37,6 @@ abstract class ViewRecord extends BaseViewRecord implements WithTabs
 
     public function getBreadcrumbs(): array
     {
-        return [
-            Filament::auth()->user()->getFilamentName(),
-        ];
+        return [];
     }
 }

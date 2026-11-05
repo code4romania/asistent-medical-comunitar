@@ -8,16 +8,21 @@ use App\Models\Beneficiary;
 use App\Reports\Queries\ReportQuery;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Sum beneficiari with Tuberculoză (VSG_TB); Vârstnic peste 65 ani (VCV_06).
+ */
 class G16 extends ReportQuery
 {
-    /**
-     * Sum beneficiari with Tuberculoză (VSG_TB); Vârstnic peste 65 ani (VCV_06).
-     */
     public static function query(): Builder
     {
         return Beneficiary::query()
             ->whereHasVulnerabilities(function (Builder $query) {
                 $query->whereJsonContains('properties', ['VCV_06', 'VSG_TB']);
             });
+    }
+
+    public static function aggregateByColumn(): string
+    {
+        return 'beneficiary_id';
     }
 }

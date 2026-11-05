@@ -16,7 +16,6 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
-use Illuminate\Support\Facades\Auth;
 
 class CreateBeneficiary extends CreateRecord
 {
@@ -53,15 +52,7 @@ class CreateBeneficiary extends CreateRecord
                         Group::make()
                             ->visible(fn (Get $get) => Type::OCASIONAL->is($get('type')))
                             ->components(fn (Schema $schema) => OcasionalBeneficiaryForm::configure($schema)),
-
                     ]),
             ]);
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['nurse_id'] = Auth::id();
-
-        return $data;
     }
 }

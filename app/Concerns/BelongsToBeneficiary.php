@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Concerns;
 
+use App\Models\Activity;
 use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,5 +29,13 @@ trait BelongsToBeneficiary
                 ->implode('.'),
             $beneficiary->id
         );
+    }
+
+    public function tapActivity(Activity $activity, string $eventName): void
+    {
+        /** @var Beneficiary */
+        $beneficiary = $activity->subject->beneficiary;
+
+        $activity->beneficiary()->associate($beneficiary);
     }
 }

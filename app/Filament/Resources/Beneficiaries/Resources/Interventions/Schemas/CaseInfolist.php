@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Beneficiaries\Resources\Interventions\Schemas;
 
 use App\Filament\Infolists\Components\BooleanEntry;
+use App\Filament\Schemas\Components\InterventionCallout;
 use App\Filament\Schemas\Components\Subsection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -18,6 +19,8 @@ class CaseInfolist
         return $schema
             ->columns(1)
             ->components([
+                InterventionCallout::make(),
+
                 Section::make()
                     ->heading(__('intervention.summary'))
                     ->columns(3)
@@ -41,6 +44,19 @@ class CaseInfolist
 
                                 BooleanEntry::make('integrated')
                                     ->label(__('field.integrated')),
+
+                                TextEntry::make('author.full_name')
+                                    ->label(__('field.author')),
+
+                                BooleanEntry::make('mediator_has_access')
+                                    ->label(__('field.mediator_has_access'))
+                                    ->visible(function (): bool {
+                                        if (! auth()->user()?->isNurse()) {
+                                            return false;
+                                        }
+
+                                        return true;
+                                    }),
                             ]),
 
                         Subsection::make()

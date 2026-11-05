@@ -21,4 +21,9 @@ class EditUser extends EditRecord
             ]));
         }
     }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }

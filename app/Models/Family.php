@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +35,18 @@ class Family extends Model
     public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->where('name', 'like', "%{$search}%");
+    }
+
+    public function scopeForBeneficiariesManagedBy(Builder $query, User $user): Builder
+    {
+        $userColumn = match (true) {
+            $user->isNurse() => 'beneficiaries.nurse_id',
+            $user->isMediator() => 'beneficiaries.mediator_id',
+        };
+
+        return $query
+            ->join('beneficiaries', 'beneficiaries.family_id', 'families.id')
+            ->where($userColumn, $user->id);
     }
 
     public function getActivitylogOptions(): LogOptions

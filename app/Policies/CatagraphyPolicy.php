@@ -14,7 +14,7 @@ class CatagraphyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isNurse();
+        return $user->isNurseOrMediator();
     }
 
     /**
@@ -22,7 +22,7 @@ class CatagraphyPolicy
      */
     public function view(User $user, Catagraphy $catagraphy): bool
     {
-        return $user->isNurse() && $catagraphy->beneficiary->nurse_id === $user->id;
+        return $user->can('view', $catagraphy->beneficiary);
     }
 
     /**
@@ -30,7 +30,7 @@ class CatagraphyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isNurse();
+        return $this->viewAny($user);
     }
 
     /**
@@ -38,7 +38,7 @@ class CatagraphyPolicy
      */
     public function update(User $user, Catagraphy $catagraphy): bool
     {
-        return $user->isNurse() && $catagraphy->beneficiary->nurse_id === $user->id;
+        return $user->can('update', $catagraphy->beneficiary);
     }
 
     /**

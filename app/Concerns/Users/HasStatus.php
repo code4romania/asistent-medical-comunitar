@@ -11,8 +11,9 @@ trait HasStatus
 {
     public function initializeHasStatus()
     {
-        $this->casts['deactivated_at'] = 'timestamp';
+        $this->casts['deactivated_at'] = 'datetime';
         $this->fillable[] = 'deactivated_at';
+        $this->fillable[] = 'status';
     }
 
     public function activate(): bool

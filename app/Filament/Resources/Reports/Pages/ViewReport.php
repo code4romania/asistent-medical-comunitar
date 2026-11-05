@@ -26,4 +26,9 @@ class ViewReport extends ViewRecord
     {
         return $this->getRecord()->title;
     }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }

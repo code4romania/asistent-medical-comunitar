@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Beneficiaries\Schemas;
 
+use alcea\cnp\Cnp;
 use App\Enums\Gender;
 use App\Filament\Forms\Components\Household;
 use App\Filament\Forms\Components\Location;
@@ -76,11 +77,16 @@ class OcasionalBeneficiaryForm
                                         Group::make()
                                             ->schema([
                                                 TextInput::make('cnp')
-                                                    ->label(__('field.cnp'))
-                                                    ->placeholder(__('placeholder.cnp'))
+                                                    ->label(fn (Get $get) => $get('has_non_standard_cnp')
+                                                        ? __('field.non_standard_cnp')
+                                                        : __('field.cnp'))
+                                                    ->placeholder(fn (Get $get) => $get('has_non_standard_cnp')
+                                                        ? __('placeholder.non_standard_cnp')
+                                                        : __('placeholder.cnp'))
                                                     ->unique(ignoreRecord: true)
                                                     ->nullable()
-                                                    ->rule(new ValidCNP)
+                                                    ->maxLength(13)
+                                                    ->rule(new ValidCNP, fn (Get $get): bool => ! $get('has_non_standard_cnp'))
                                                     ->disabled(function (Get $get) {
                                                         return (bool) $get('does_not_have_cnp')
                                                             || (bool) $get('does_not_provide_cnp');
@@ -89,6 +95,23 @@ class OcasionalBeneficiaryForm
                                                         return ! $get('has_unknown_identity')
                                                             && ! $get('does_not_have_cnp')
                                                             && ! $get('does_not_provide_cnp');
+                                                    })
+                                                    ->lazy()
+                                                    ->afterStateUpdated(function (?string $state, Set $set): void {
+                                                        $cnp = new Cnp($state);
+
+                                                        if ($cnp->isValid()) {
+                                                            $set('date_of_birth', $cnp->getBirthDateFromCNP());
+                                                        }
+                                                    }),
+
+                                                Checkbox::make('has_non_standard_cnp')
+                                                    ->label(__('field.has_non_standard_cnp'))
+                                                    ->default(false)
+                                                    ->live()
+                                                    ->afterStateUpdated(function (Set $set) {
+                                                        $set('does_not_have_cnp', false);
+                                                        $set('does_not_provide_cnp', false);
                                                     }),
 
                                                 Checkbox::make('does_not_have_cnp')
@@ -98,6 +121,7 @@ class OcasionalBeneficiaryForm
                                                     ->afterStateUpdated(function (Set $set) {
                                                         $set('cnp', null);
                                                         $set('does_not_provide_cnp', false);
+                                                        $set('has_non_standard_cnp', false);
                                                     }),
 
                                                 Checkbox::make('does_not_provide_cnp')
@@ -107,6 +131,7 @@ class OcasionalBeneficiaryForm
                                                     ->afterStateUpdated(function (Set $set) {
                                                         $set('cnp', null);
                                                         $set('does_not_have_cnp', false);
+                                                        $set('has_non_standard_cnp', false);
                                                     }),
                                             ]),
                                     ]),

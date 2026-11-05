@@ -67,6 +67,24 @@ class Welcome extends SimplePage
         return __('welcome.set_password.intro');
     }
 
+    public function getOnboardingIntro(): string
+    {
+        if ($this->user->isNurse()) {
+            return __('welcome.onboarding.nurse.intro');
+        }
+
+        return __('welcome.onboarding.mediator.intro');
+    }
+
+    public function getOnboardingList(): array
+    {
+        if ($this->user->isNurse()) {
+            return __('welcome.onboarding.nurse.list');
+        }
+
+        return __('welcome.onboarding.mediator.list');
+    }
+
     public function handle(): void
     {
         $this->user->update([

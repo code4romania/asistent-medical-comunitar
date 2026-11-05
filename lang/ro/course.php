@@ -22,4 +22,8 @@ return [
         'delete' => 'Șterge curs',
     ],
 
+    'empty' => [
+        'title' => 'Niciun curs înregistrat',
+        'description' => 'Odată înregistrate cursuri în baza de date, acestea vor fi afișate în acest tabel.',
+    ],
 ];

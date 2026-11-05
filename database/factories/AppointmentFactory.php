@@ -37,7 +37,7 @@ class AppointmentFactory extends Factory
             'notes' => fake()->paragraphs(asText: true),
 
             'beneficiary_id' => Beneficiary::factory(),
-            'nurse_id' => User::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }
