@@ -300,21 +300,19 @@ class CatagraphyForm
                                     ->live()
                                     ->searchable(),
 
-                                Section::make()
-                                    ->heading(__('field.section_details', ['section' => $categories->get('PREG')]))
-                                    ->columns()
-                                    ->columnSpanFull()
-                                    // ->pointer()
-                                    ->visible(fn (Get $get) => Vulnerability::isPregnancy($get('cat_rep')))
-                                    ->components([
-                                        Select::make('cat_preg')
-                                            ->label($categories->get('PREG'))
-                                            ->placeholder(__('placeholder.select_many'))
-                                            ->options($vulnerabilities->get('PREG'))
-                                            ->rule(new MultipleIn($vulnerabilities->get('PREG')->keys()))
-                                            ->multiple()
-                                            ->searchable(),
-                                    ]),
+                                Select::make('cat_preg')
+                                    ->label(__('field.section_details', ['section' => $categories->get('PREG')]))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->options($vulnerabilities->get('PREG'))
+                                    ->rule(new MultipleIn($vulnerabilities->get('PREG')->keys()))
+                                    ->multiple()
+                                    ->searchable()
+                                    ->visible(fn (Get $get) => Vulnerability::isPregnancy($get('cat_rep'))),
+
+                                TextInput::make('cat_rep_notes')
+                                    ->label(__('field.cat_rep_notes'))
+                                    ->visible(fn (Get $get) => Vulnerability::isOtherRep($get('cat_rep')))
+                                    ->maxLength(100),
                             ]),
 
                         Subsection::make()

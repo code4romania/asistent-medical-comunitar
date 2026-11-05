@@ -48,7 +48,7 @@ class Disability extends Model implements HasVulnerabilityData
         return $this->has_certificate ? 'VDH_01' : 'VDH_02';
     }
 
-    public function vulnerabilityData(): VulnerabilityData
+    public function vulnerabilityData(?Model $record = null): VulnerabilityData
     {
         $categories = VulnerabilityCategory::cachedList();
         $vulnerabilities = Vulnerability::cachedList();
@@ -86,7 +86,7 @@ class Disability extends Model implements HasVulnerabilityData
         );
     }
 
-    public function vulnerabilityListItem(): VulnerabilityListItem
+    public function vulnerabilityListItem(?Model $record = null): VulnerabilityListItem
     {
         $vulnerabilities = Vulnerability::cachedList();
 
