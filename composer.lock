@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "983555c21c71972c36afd1ebffe4e88f",
+    "content-hash": "8832b4f04a90494612548bea2baa6cc6",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -14507,16 +14507,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.26.0",
+            "version": "v5.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "bedfc50a3561c93cd89064643139a51c56bfd8a6"
+                "reference": "60ce9759dc9b0b8e5cb0c9280a78fb283bfaaf8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/bedfc50a3561c93cd89064643139a51c56bfd8a6",
-                "reference": "bedfc50a3561c93cd89064643139a51c56bfd8a6",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/60ce9759dc9b0b8e5cb0c9280a78fb283bfaaf8e",
+                "reference": "60ce9759dc9b0b8e5cb0c9280a78fb283bfaaf8e",
                 "shasum": ""
             },
             "require": {
@@ -14569,9 +14569,9 @@
                 "monitoring"
             ],
             "support": {
-                "source": "https://github.com/laravel/telescope/tree/v5.26.0"
+                "source": "https://github.com/laravel/telescope/tree/v5.27.0"
             },
-            "time": "2026-09-22T21:38:44+00:00"
+            "time": "2026-10-31T06:24:09+00:00"
         },
         {
             "name": "myclabs/deep-copy",
