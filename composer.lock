@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cf04fd043a4aede0d77e0bf8c48764a",
+    "content-hash": "06a0bd08895be6fd6e34ebc5d77c5ed9",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
@@ -7518,34 +7518,42 @@
         },
         {
             "name": "saade/filament-fullcalendar",
-            "version": "v4.0.1",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/saade/filament-fullcalendar.git",
-                "reference": "c5fcded0cf45680d46add3b16ffdaaeffd87b3bb"
+                "reference": "6b0977f3420eabff35f0d4f72b3ebfcc6f261576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/c5fcded0cf45680d46add3b16ffdaaeffd87b3bb",
-                "reference": "c5fcded0cf45680d46add3b16ffdaaeffd87b3bb",
+                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/6b0977f3420eabff35f0d4f72b3ebfcc6f261576",
+                "reference": "6b0977f3420eabff35f0d4f72b3ebfcc6f261576",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^4.0|^5.0",
-                "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0",
                 "php": "^8.2",
                 "spatie/laravel-package-tools": "^1.92.7"
             },
             "require-dev": {
-                "nunomaduro/collision": "^7.0|^8.0",
-                "nunomaduro/larastan": "^3.12",
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
                 "pestphp/pest": "^3.0|^4.0",
+                "pestphp/pest-plugin-arch": "^3.0|^4.0",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
                 "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "rector/rector": "^2.5",
                 "spatie/laravel-ray": "^1.26"
             },
+            "suggest": {
+                "rector/rector": "Needed to run vendor/bin/filament-fullcalendar-v5, which applies the 5.x upgrade to your widgets."
+            },
+            "bin": [
+                "bin/filament-fullcalendar-v5"
+            ],
             "type": "library",
             "extra": {
                 "laravel": {
@@ -7587,7 +7595,7 @@
             ],
             "support": {
                 "issues": "https://github.com/saade/filament-fullcalendar/issues",
-                "source": "https://github.com/saade/filament-fullcalendar/tree/v4.0.1"
+                "source": "https://github.com/saade/filament-fullcalendar"
             },
             "funding": [
                 {
@@ -7595,7 +7603,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-06T17:34:06+00:00"
+            "time": "2026-10-27T01:04:32+00:00"
         },
         {
             "name": "scrivo/highlight.php",
