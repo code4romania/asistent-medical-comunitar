@@ -58,7 +58,7 @@ class InterventionsRelationManager extends RelationManager
                 Select::make('interventionable.status')
                     ->label(__('field.status'))
                     ->options(Status::class)
-                    ->default(Status::PLANNED)
+                    ->default(Status::REALIZED)
                     ->required(),
 
                 DatePicker::make('interventionable.date')
