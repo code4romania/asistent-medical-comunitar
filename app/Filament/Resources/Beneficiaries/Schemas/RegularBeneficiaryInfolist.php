@@ -10,8 +10,10 @@ use App\Enums\Beneficiary\Status;
 use App\Filament\Infolists\Components\BooleanEntry;
 use App\Filament\Infolists\Components\Household;
 use App\Filament\Infolists\Components\Location;
+use App\Filament\Resources\Beneficiaries\BeneficiaryResource;
 use App\Filament\Schemas\Components\Subsection;
 use App\Models\Beneficiary;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
@@ -31,6 +33,10 @@ class RegularBeneficiaryInfolist
             ->components([
                 Section::make()
                     ->heading(__('beneficiary.section.program'))
+                    ->headerActions([
+                        EditAction::make()
+                            ->icon(Heroicon::Pencil),
+                    ])
                     ->components([
                         Grid::make()
                             ->columns()
@@ -77,7 +83,11 @@ class RegularBeneficiaryInfolist
                 Section::make()
                     ->heading(__('beneficiary.header.id'))
                     ->headerActions([
-                        EditAction::make()
+                        Action::make()
+                            ->label(__('filament-actions::edit.single.label'))
+                            ->url(fn (Beneficiary $record) => BeneficiaryResource::getUrl('edit/personal', [
+                                'record' => $record,
+                            ]))
                             ->icon(Heroicon::Pencil),
                     ])
                     ->components([
