@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Beneficiaries;
 
 use App\Filament\Resources\Beneficiaries\Pages\CreateBeneficiary;
 use App\Filament\Resources\Beneficiaries\Pages\EditBeneficiary;
+use App\Filament\Resources\Beneficiaries\Pages\EditBeneficiaryPersonalInfo;
 use App\Filament\Resources\Beneficiaries\Pages\ListActivities;
 use App\Filament\Resources\Beneficiaries\Pages\ListBeneficiaries;
 use App\Filament\Resources\Beneficiaries\Pages\ListDocuments;
@@ -77,6 +78,7 @@ class BeneficiaryResource extends Resource
             'view' => ViewBeneficiary::route('/{record}'),
             'details' => ViewBeneficiaryDetails::route('/{record}/details'),
             'edit' => EditBeneficiary::route('/{record}/edit'),
+            'edit/personal' => EditBeneficiaryPersonalInfo::route('/{record}/edit/personal'),
 
             'interventions' => ListInterventions::route('/{record}/interventions'),
             'documents' => ListDocuments::route('/{record}/documents'),
