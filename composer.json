@@ -19,7 +19,7 @@
         "kalnoy/nestedset": "^7.0",
         "laravel/framework": "^13.37",
         "laravel/sanctum": "^4.4",
-        "laravel/tinker": "^3.0",
+        "laravel/tinker": "^3.1",
         "maatwebsite/excel": "^4.0",
         "malzariey/filament-daterangepicker-filter": "^5.0",
         "saade/filament-fullcalendar": "^4.0",
