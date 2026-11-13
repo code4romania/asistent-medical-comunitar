@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1365b05b6dea84b39a35e7c218dd8322",
+    "content-hash": "17a7d226cef0e2e7335b56759e058423",
     "packages": [
         {
             "name": "aedart/athenaeum-antivirus",
-            "version": "10.24.0",
+            "version": "10.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aedart/athenaeum-antivirus.git",
-                "reference": "bd131399395aff925936c4bae516b7f16569d000"
+                "reference": "741a6598250311ef6e25dc7971a33272f3594925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/bd131399395aff925936c4bae516b7f16569d000",
-                "reference": "bd131399395aff925936c4bae516b7f16569d000",
+                "url": "https://api.github.com/repos/aedart/athenaeum-antivirus/zipball/741a6598250311ef6e25dc7971a33272f3594925",
+                "reference": "741a6598250311ef6e25dc7971a33272f3594925",
                 "shasum": ""
             },
             "require": {
-                "aedart/athenaeum-contracts": "^10.24",
-                "aedart/athenaeum-streams": "^10.24",
-                "aedart/athenaeum-support": "^10.24",
-                "aedart/athenaeum-validation": "^10.24",
+                "aedart/athenaeum-contracts": "^10.25",
+                "aedart/athenaeum-streams": "^10.25",
+                "aedart/athenaeum-support": "^10.25",
+                "aedart/athenaeum-validation": "^10.25",
                 "ext-sockets": "*",
-                "illuminate/events": "^v13.39.0",
+                "illuminate/events": "^v13.40.0",
                 "php": "^8.4",
                 "xenolope/quahog": "^3.0"
             },
@@ -59,9 +59,9 @@
                 "clamav"
             ],
             "support": {
-                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.24.0"
+                "source": "https://github.com/aedart/athenaeum-antivirus/tree/10.25.0"
             },
-            "time": "2026-10-28T14:49:16+00:00"
+            "time": "2026-11-04T14:03:46+00:00"
         },
         {
             "name": "aedart/athenaeum-contracts",
