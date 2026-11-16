@@ -35,6 +35,9 @@ class RegularBeneficiaryInfolist
                     ->heading(__('beneficiary.section.program'))
                     ->headerActions([
                         EditAction::make()
+                            ->url(fn (Beneficiary $record) => BeneficiaryResource::getUrl('edit/program', [
+                                'record' => $record,
+                            ]))
                             ->icon(Heroicon::Pencil),
                     ])
                     ->components([
@@ -83,11 +86,7 @@ class RegularBeneficiaryInfolist
                 Section::make()
                     ->heading(__('beneficiary.header.id'))
                     ->headerActions([
-                        Action::make()
-                            ->label(__('filament-actions::edit.single.label'))
-                            ->url(fn (Beneficiary $record) => BeneficiaryResource::getUrl('edit/personal', [
-                                'record' => $record,
-                            ]))
+                        EditAction::make()
                             ->icon(Heroicon::Pencil),
                     ])
                     ->components([
