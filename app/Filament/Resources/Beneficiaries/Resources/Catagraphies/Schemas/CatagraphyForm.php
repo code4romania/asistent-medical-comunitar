@@ -276,6 +276,11 @@ class CatagraphyForm
                                                     ->visible(fn (Get $get) => $get('category') === 'VSG_BR')
                                                     ->columnSpanFull(),
 
+                                                TextInput::make('name')
+                                                    ->label(__('field.disease_name'))
+                                                    ->visible(fn (Get $get) => $get('category') === 'VSG_ALT')
+                                                    ->columnSpanFull(),
+
                                                 YearPicker::make('start_year')
                                                     ->label(__('field.cat_diz_deb')),
 

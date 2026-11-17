@@ -26,6 +26,7 @@ class Disease extends Model implements HasVulnerabilityData
     protected $fillable = [
         'type',
         'category',
+        'name',
         'rare_disease',
         'start_year',
         'notes',
@@ -106,9 +107,10 @@ class Disease extends Model implements HasVulnerabilityData
 
         $category = $vulnerabilities->get($this->category);
         $vulnerability = $vulnerabilities->get($this->type);
+        $name = $this->category == 'VSG_ALT' ? $this->name : '';
 
         return new VulnerabilityListItem(
-            label: "{$vulnerability->name}: {$category?->name}",
+            label: "{$vulnerability->name}: {$category?->name} {$name}",
             value: $vulnerability->id,
             category: $category?->id,
             type: $this->getMorphClass(),
