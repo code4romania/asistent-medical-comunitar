@@ -258,6 +258,11 @@ class CatagraphyForm
                                                     ->live()
                                                     ->searchable(),
 
+                                                TextInput::make('name')
+                                                    ->label(__('field.disease_name'))
+                                                    ->visible(fn (Get $get) => $get('category') === 'VSG_ALT')
+                                                    ->columnSpanFull(),
+
                                                 ICD10AMDiagnosticSelect::make('diagnostic')
                                                     ->label(__('field.cat_diz_dx'))
                                                     ->columnSpanFull(),
@@ -274,11 +279,6 @@ class CatagraphyForm
                                                 OrphaDiagnosticSelect::make('orphaDiagnostic')
                                                     ->label(__('field.cat_ss_orph'))
                                                     ->visible(fn (Get $get) => $get('category') === 'VSG_BR')
-                                                    ->columnSpanFull(),
-
-                                                TextInput::make('name')
-                                                    ->label(__('field.disease_name'))
-                                                    ->visible(fn (Get $get) => $get('category') === 'VSG_ALT')
                                                     ->columnSpanFull(),
 
                                                 YearPicker::make('start_year')

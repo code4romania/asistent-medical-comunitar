@@ -107,10 +107,10 @@ class Disease extends Model implements HasVulnerabilityData
 
         $category = $vulnerabilities->get($this->category);
         $vulnerability = $vulnerabilities->get($this->type);
-        $name = $this->category == 'VSG_ALT' ? $this->name : '';
+        $name = $this->category === 'VSG_ALT' ? $this->name : '';
 
         return new VulnerabilityListItem(
-            label: "{$vulnerability->name}: {$category?->name} {$name}",
+            label: trim("{$vulnerability->name}: {$category?->name} {$name}"),
             value: $vulnerability->id,
             category: $category?->id,
             type: $this->getMorphClass(),
