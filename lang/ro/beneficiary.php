@@ -9,6 +9,11 @@ return [
         'plural' => 'Beneficiari',
     ],
 
+    'form' => [
+        'edit' => 'Date personale: modificare',
+        'edit_program' => 'Detalii gestionare beneficiar: modificare',
+    ],
+
     'header' => [
         'id' => 'Date identificare',
         'list' => 'Listă beneficiari',

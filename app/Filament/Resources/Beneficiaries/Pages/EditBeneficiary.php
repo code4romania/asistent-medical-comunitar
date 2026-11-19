@@ -15,6 +15,11 @@ class EditBeneficiary extends EditRecord
 {
     protected static string $resource = BeneficiaryResource::class;
 
+    public function getBreadcrumb(): string
+    {
+        return __('beneficiary.form.edit');
+    }
+
     public function getHeading(): string
     {
         return __('filament-panels::resources/pages/edit-record.title', [
@@ -28,7 +33,7 @@ class EditBeneficiary extends EditRecord
         $beneficiary = $this->getRecord();
 
         if ($beneficiary->isRegular()) {
-            return RegularBeneficiaryForm::configure($schema, includeProgram:true);
+            return RegularBeneficiaryForm::configure($schema);
         }
 
         return OcasionalBeneficiaryForm::configure($schema);

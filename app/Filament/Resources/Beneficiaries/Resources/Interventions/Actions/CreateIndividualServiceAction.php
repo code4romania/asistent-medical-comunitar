@@ -33,8 +33,6 @@ class CreateIndividualServiceAction extends CreateAction
 
         $this->groupedIcon(null);
 
-        $this->createAnother(false);
-
         $this->using(function (array $data, Component $livewire): Intervention {
             /** @var Beneficiary|Intervention */
             $record = $livewire->getRecord();
