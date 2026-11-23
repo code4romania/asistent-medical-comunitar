@@ -17,7 +17,7 @@
         "guzzlehttp/guzzle": "^8.2",
         "jeffgreco13/filament-breezy": "^3.2",
         "kalnoy/nestedset": "^7.0",
-        "laravel/framework": "^13.0",
+        "laravel/framework": "^13.43",
         "laravel/sanctum": "^4.5",
         "laravel/tinker": "^3.2",
         "maatwebsite/excel": "^4.0",
