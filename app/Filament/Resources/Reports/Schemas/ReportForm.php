@@ -11,11 +11,13 @@ use App\Models\County;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\Size;
 use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 
 class ReportForm
@@ -51,29 +53,46 @@ class ReportForm
                             ->live()
                             ->required(),
 
-                        Select::make('nurses')
-                            ->label(__('report.column.nurses'))
-                            ->placeholder(__('placeholder.select_many'))
+                        Group::make()
                             ->visible(fn () => auth()->user()->isCoordinator())
-                            ->minItems(1)
-                            ->allowHtml()
-                            ->multiple()
-                            ->selectAll()
-                            ->options(
-                                fn () => User::query()
-                                    ->onlyNursesAndMediators()
-                                    ->activatesInCurrentUserCounty()
-                                    ->withActivityAreas()
-                                    ->get()
-                                    ->mapWithKeys(fn (User $nurse) => [
-                                        $nurse->getKey() => view('forms.components.option-label', [
-                                            'name' => $nurse->full_name,
-                                            'suffix' => $nurse->activityCities
-                                                ->pluck('name')
-                                                ->join(', '),
-                                        ])->render(),
-                                    ])
-                            ),
+                            ->dense()
+                            ->schema([
+                                Select::make('nurses')
+                                    ->label(__('report.column.users'))
+                                    ->placeholder(__('placeholder.select_many'))
+                                    ->minItems(1)
+                                    ->allowHtml()
+                                    ->multiple()
+                                    ->selectAll()
+                                    ->columnSpanFull()
+                                    ->options(
+                                        fn () => User::query()
+                                            ->onlyNursesAndMediators()
+                                            ->activatesInCurrentUserCounty()
+                                            ->withActivityAreas()
+                                            ->get()
+                                            ->mapWithKeys(fn (User $nurse) => [
+                                                $nurse->getKey() => view('forms.components.option-label', [
+                                                    'name' => $nurse->full_name,
+                                                    'suffix' => $nurse->activityCities
+                                                        ->pluck('name')
+                                                        ->join(', '),
+                                                ])->render(),
+                                            ])
+                                    ),
+
+                                Action::make('selectAllNurses')
+                                    ->label(__('app.action.select_all_nurses'))
+                                    ->size(Size::ExtraSmall)
+                                    //
+                                    ->link(),
+
+                                Action::make('selectAllMediators')
+                                    ->label(__('app.action.select_all_mediators'))
+                                    ->size(Size::ExtraSmall)
+                                    //
+                                    ->link(),
+                            ]),
 
                         Select::make('counties')
                             ->label(__('report.column.counties'))
