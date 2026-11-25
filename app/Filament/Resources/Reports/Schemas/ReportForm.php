@@ -84,13 +84,29 @@ class ReportForm
                                 Action::make('selectAllNurses')
                                     ->label(__('app.action.select_all_nurses'))
                                     ->size(Size::ExtraSmall)
-                                    //
+                                    ->action(function (Set $set): void {
+                                        $set(
+                                            'nurses',
+                                            User::query()
+                                                ->onlyNurses()
+                                                ->activatesInCurrentUserCounty()
+                                                ->pluck('id')
+                                        );
+                                    })
                                     ->link(),
 
                                 Action::make('selectAllMediators')
                                     ->label(__('app.action.select_all_mediators'))
                                     ->size(Size::ExtraSmall)
-                                    //
+                                    ->action(function (Set $set): void {
+                                        $set(
+                                            'nurses',
+                                            User::query()
+                                                ->onlyMediators()
+                                                ->activatesInCurrentUserCounty()
+                                                ->pluck('id')
+                                        );
+                                    })
                                     ->link(),
                             ]),
 
