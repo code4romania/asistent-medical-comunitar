@@ -258,6 +258,11 @@ class CatagraphyForm
                                                     ->live()
                                                     ->searchable(),
 
+                                                TextInput::make('name')
+                                                    ->label(__('field.disease_name'))
+                                                    ->visible(fn (Get $get) => $get('category') === 'VSG_ALT')
+                                                    ->columnSpanFull(),
+
                                                 ICD10AMDiagnosticSelect::make('diagnostic')
                                                     ->label(__('field.cat_diz_dx'))
                                                     ->columnSpanFull(),

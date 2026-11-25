@@ -51,6 +51,7 @@ return [
     'current_status' => 'Status curent',
     'date_of_birth' => 'Data nașterii',
     'date' => 'Data',
+    'disease_name' => 'Denumirea afecțiunii',
     'document_title' => 'Denumire',
     'document_type' => 'Tip document',
     'does_not_have_cnp' => 'Beneficiarul nu are CNP',
